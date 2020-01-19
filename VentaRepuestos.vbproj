@@ -162,16 +162,6 @@
     <None Include="Resources\guardar.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Funciones globales\bin\CRFUSION_LIBRERIAS_GENERALES\CRF_CONEXIONES\CRF_CONEXIONES.vbproj">
-      <Project>{bdddff94-3947-49d0-a098-f2e3fe3e909b}</Project>
-      <Name>CRF_CONEXIONES</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Funciones globales\bin\CRFUSION_LIBRERIAS_GENERALES\FUN_CRFUSION\FUN_CRFUSION.vbproj">
-      <Project>{8fde4698-2b47-4e08-9d9a-09c2d6d754d4}</Project>
-      <Name>FUN_CRFUSION</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\close.png" />
   </ItemGroup>
   <ItemGroup>
@@ -185,18 +175,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\cerrar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 y x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

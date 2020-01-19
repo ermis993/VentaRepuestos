@@ -24,31 +24,54 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TXT_Nombre = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(320, 59)
+        Me.Label1.Location = New System.Drawing.Point(240, 48)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(61, 17)
+        Me.Label1.Size = New System.Drawing.Size(46, 13)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Pruebas"
         '
         'TXT_Nombre
         '
-        Me.TXT_Nombre.Location = New System.Drawing.Point(298, 89)
+        Me.TXT_Nombre.Location = New System.Drawing.Point(224, 72)
+        Me.TXT_Nombre.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.TXT_Nombre.Name = "TXT_Nombre"
-        Me.TXT_Nombre.Size = New System.Drawing.Size(100, 22)
+        Me.TXT_Nombre.Size = New System.Drawing.Size(76, 20)
         Me.TXT_Nombre.TabIndex = 1
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(240, 139)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(39, 13)
+        Me.Label2.TabIndex = 2
+        Me.Label2.Text = "Label2"
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(224, 188)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(100, 20)
+        Me.TextBox1.TabIndex = 3
         '
         'Form1
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(600, 366)
+        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.TXT_Nombre)
         Me.Controls.Add(Me.Label1)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "Form1"
         Me.Text = "Form1"
         Me.ResumeLayout(False)
@@ -58,4 +81,6 @@ Partial Class Form1
 
     Friend WithEvents Label1 As Label
     Friend WithEvents TXT_Nombre As TextBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents TextBox1 As TextBox
 End Class

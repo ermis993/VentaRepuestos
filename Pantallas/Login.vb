@@ -60,7 +60,19 @@ Public Class Login
         End Try
     End Function
 
-    Private Sub btn_salir_Click(sender As Object, e As EventArgs) Handles btn_salir.Click
-        Application.Exit()
+    Private Sub LBL_REGISTRARSE_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LBL_REGISTRARSE.LinkClicked
+
+    End Sub
+
+    Private Sub TXT_CONTRASENA_TextChanged(sender As Object, e As EventArgs) Handles TXT_CONTRASENA.TextChanged
+
+    End Sub
+
+    Private Sub TXT_USUARIO_TextChanged(sender As Object, e As EventArgs) Handles TXT_USUARIO.TextChanged
+
+    End Sub
+
+    Private Sub LB_USUARIO_Click(sender As Object, e As EventArgs) Handles LB_USUARIO.Click
+
     End Sub
 End Class

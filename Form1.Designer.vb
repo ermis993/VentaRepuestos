@@ -23,6 +23,7 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.TXT_Nombre = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'Label1
@@ -34,11 +35,19 @@ Partial Class Form1
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Pruebas"
         '
+        'TXT_Nombre
+        '
+        Me.TXT_Nombre.Location = New System.Drawing.Point(298, 89)
+        Me.TXT_Nombre.Name = "TXT_Nombre"
+        Me.TXT_Nombre.Size = New System.Drawing.Size(100, 22)
+        Me.TXT_Nombre.TabIndex = 1
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.TXT_Nombre)
         Me.Controls.Add(Me.Label1)
         Me.Name = "Form1"
         Me.Text = "Form1"
@@ -48,4 +57,5 @@ Partial Class Form1
     End Sub
 
     Friend WithEvents Label1 As Label
+    Friend WithEvents TXT_Nombre As TextBox
 End Class

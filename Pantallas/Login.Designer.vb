@@ -35,7 +35,7 @@ Partial Class Login
         'TXT_USUARIO
         '
         Me.TXT_USUARIO.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_USUARIO.Location = New System.Drawing.Point(25, 164)
+        Me.TXT_USUARIO.Location = New System.Drawing.Point(28, 184)
         Me.TXT_USUARIO.Multiline = True
         Me.TXT_USUARIO.Name = "TXT_USUARIO"
         Me.TXT_USUARIO.Size = New System.Drawing.Size(310, 22)
@@ -44,7 +44,7 @@ Partial Class Login
         'TXT_CONTRASENA
         '
         Me.TXT_CONTRASENA.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.TXT_CONTRASENA.Location = New System.Drawing.Point(25, 252)
+        Me.TXT_CONTRASENA.Location = New System.Drawing.Point(28, 262)
         Me.TXT_CONTRASENA.Multiline = True
         Me.TXT_CONTRASENA.Name = "TXT_CONTRASENA"
         Me.TXT_CONTRASENA.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -56,7 +56,7 @@ Partial Class Login
         Me.LB_USUARIO.AutoSize = True
         Me.LB_USUARIO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
         Me.LB_USUARIO.ForeColor = System.Drawing.Color.Silver
-        Me.LB_USUARIO.Location = New System.Drawing.Point(22, 133)
+        Me.LB_USUARIO.Location = New System.Drawing.Point(25, 153)
         Me.LB_USUARIO.Name = "LB_USUARIO"
         Me.LB_USUARIO.Size = New System.Drawing.Size(77, 18)
         Me.LB_USUARIO.TabIndex = 6
@@ -67,7 +67,7 @@ Partial Class Login
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.Silver
-        Me.Label2.Location = New System.Drawing.Point(22, 221)
+        Me.Label2.Location = New System.Drawing.Point(25, 231)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(105, 18)
         Me.Label2.TabIndex = 7
@@ -80,7 +80,7 @@ Partial Class Login
         Me.BTN_INGRESAR.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BTN_INGRESAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_INGRESAR.ForeColor = System.Drawing.Color.Gainsboro
-        Me.BTN_INGRESAR.Location = New System.Drawing.Point(25, 296)
+        Me.BTN_INGRESAR.Location = New System.Drawing.Point(28, 324)
         Me.BTN_INGRESAR.Name = "BTN_INGRESAR"
         Me.BTN_INGRESAR.Size = New System.Drawing.Size(310, 37)
         Me.BTN_INGRESAR.TabIndex = 8
@@ -92,7 +92,7 @@ Partial Class Login
         Me.LBL_REGISTRARSE.AutoSize = True
         Me.LBL_REGISTRARSE.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_REGISTRARSE.LinkColor = System.Drawing.Color.Silver
-        Me.LBL_REGISTRARSE.Location = New System.Drawing.Point(22, 412)
+        Me.LBL_REGISTRARSE.Location = New System.Drawing.Point(25, 449)
         Me.LBL_REGISTRARSE.Name = "LBL_REGISTRARSE"
         Me.LBL_REGISTRARSE.Size = New System.Drawing.Size(125, 18)
         Me.LBL_REGISTRARSE.TabIndex = 9
@@ -104,7 +104,7 @@ Partial Class Login
         Me.LBL_OLVIDO.AutoSize = True
         Me.LBL_OLVIDO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
         Me.LBL_OLVIDO.ForeColor = System.Drawing.Color.Silver
-        Me.LBL_OLVIDO.Location = New System.Drawing.Point(87, 453)
+        Me.LBL_OLVIDO.Location = New System.Drawing.Point(90, 490)
         Me.LBL_OLVIDO.Name = "LBL_OLVIDO"
         Me.LBL_OLVIDO.Size = New System.Drawing.Size(186, 18)
         Me.LBL_OLVIDO.TabIndex = 12
@@ -117,7 +117,7 @@ Partial Class Login
         Me.BTN_SALIR.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_SALIR.ForeColor = System.Drawing.Color.Gainsboro
-        Me.BTN_SALIR.Location = New System.Drawing.Point(25, 355)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(28, 392)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(310, 37)
         Me.BTN_SALIR.TabIndex = 13
@@ -129,7 +129,7 @@ Partial Class Login
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(46, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(104, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(368, 484)
+        Me.ClientSize = New System.Drawing.Size(368, 516)
         Me.ControlBox = False
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.LBL_OLVIDO)

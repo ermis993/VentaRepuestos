@@ -35,6 +35,9 @@ Public Class Login
                     Next
                 End If
                 If COINCIDENCIA = True Then
+                    Me.Hide()
+                    Dim PANTALLA As New LBL_CANTON
+                    PANTALLA.ShowDialog()
                 Else
                     MessageBox.Show("¡Usuario no encontrado!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
@@ -46,11 +49,11 @@ Public Class Login
     Private Function VALIDAR() As Boolean
         Try
             Dim ENTRAR As Boolean = True
-            If TXT_USUARIO.Equals("") Then
+            If TXT_USUARIO.Text.ToString.Equals("") Then
                 MessageBox.Show("¡Usuario inválido,no se deben dejar espacios en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 ENTRAR = False
             End If
-            If TXT_CONTRASENA.Equals("") Then
+            If TXT_CONTRASENA.Text.ToString.Equals("") Then
                 MessageBox.Show("¡Contraseña inválida, no se deben dejar espacios en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 ENTRAR = False
             End If
@@ -59,20 +62,7 @@ Public Class Login
             Return False
         End Try
     End Function
-
-    Private Sub LBL_REGISTRARSE_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LBL_REGISTRARSE.LinkClicked
-
-    End Sub
-
-    Private Sub TXT_CONTRASENA_TextChanged(sender As Object, e As EventArgs) Handles TXT_CONTRASENA.TextChanged
-
-    End Sub
-
-    Private Sub TXT_USUARIO_TextChanged(sender As Object, e As EventArgs) Handles TXT_USUARIO.TextChanged
-
-    End Sub
-
-    Private Sub LB_USUARIO_Click(sender As Object, e As EventArgs) Handles LB_USUARIO.Click
-
+    Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
+        Application.Exit()
     End Sub
 End Class

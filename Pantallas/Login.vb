@@ -10,7 +10,7 @@ Public Class Login
     End Sub
     Private Sub CONFIGURACION()
         Try
-            CONX.ConexionSTR("TOMMY\SQLEXPRESS", "sa", "Luna01x", "VR")
+            CONX.ConexionSTR("ASUS", "sa", "ermis993", "VR")
         Catch ex As Exception
         End Try
     End Sub
@@ -19,7 +19,7 @@ Public Class Login
             If VALIDAR() = True Then
                 Dim SQL As String = " SELECT * "
                 SQL &= Chr(13) & " FROM USUARIO"
-                SQL &= Chr(13) & " WHERE COD_USUARIO = " & SCM(TXT_USUARIO.Text)
+                SQL &= Chr(13) & " WHERE (COD_USUARIO = " & SCM(TXT_USUARIO.Text) & " OR NOMBRE =" & SCM(TXT_USUARIO.Text) & ")"
                 SQL &= Chr(13) & " AND CONTRASENA = " & SCM(TXT_CONTRASENA.Text)
                 CONX.Coneccion_Abrir()
                 Dim DS = CONX.EJECUTE_DS(SQL)
@@ -28,10 +28,8 @@ Public Class Login
                 Dim COINCIDENCIA As Boolean = False
                 If DS.Tables(0).Rows.Count > 0 Then
                     For Each ITEM In DS.Tables(0).Rows
-                        If TXT_USUARIO.Text.ToString.Equals(ITEM("COD_USUARIO")) And TXT_CONTRASENA.Text.ToString.Equals(ITEM("CONTRASENA")) Then
-                            USUARIO = ITEM("COD_USUARIO")
-                            COINCIDENCIA = True
-                        End If
+                        USUARIO = ITEM("COD_USUARIO")
+                        COINCIDENCIA = True
                     Next
                 End If
                 If COINCIDENCIA = True Then
@@ -61,7 +59,12 @@ Public Class Login
     End Function
 
     Private Sub LBL_REGISTRARSE_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LBL_REGISTRARSE.LinkClicked
-
+        Try
+            Me.Visible = False
+            RegistreseAqui.Show()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 
     Private Sub TXT_CONTRASENA_TextChanged(sender As Object, e As EventArgs) Handles TXT_CONTRASENA.TextChanged

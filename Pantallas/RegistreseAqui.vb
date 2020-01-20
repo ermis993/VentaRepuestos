@@ -1,7 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports System.IO
 Imports System.Text
-Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Login
 
 Public Class RegistreseAqui

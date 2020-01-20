@@ -3,6 +3,7 @@
         Try
             If String.IsNullOrEmpty(TXT_NOMUSUARIO.Text) Then
                 MessageBox.Show("¡Debe de ingresar un nombre de usuario!")
+                TXT_NOMUSUARIO.Select()
             ElseIf String.IsNullOrEmpty(TXT_CONTRASENA.Text) Then
                 MessageBox.Show("¡Debe de ingresar la contraseña!")
             ElseIf String.IsNullOrEmpty(TXT_TELEFONO.Text) Then

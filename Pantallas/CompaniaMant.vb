@@ -113,4 +113,8 @@ Public Class LBL_CANTON
             TAB_FE.Parent = Nothing
         End If
     End Sub
+
+    Private Sub TXT_EMAIL_TextChanged(sender As Object, e As EventArgs) Handles TXT_EMAIL.TextChanged
+
+    End Sub
 End Class

@@ -10,7 +10,7 @@ Public Class Login
     End Sub
     Private Sub CONFIGURACION()
         Try
-            CONX.ConexionSTR("ASUS", "sa", "ermis993", "VR")
+            CONX.ConexionSTR("TOMMY\SQLEXPRESS", "sa", "Luna01x", "VR")
         Catch ex As Exception
         End Try
     End Sub

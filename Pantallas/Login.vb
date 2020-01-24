@@ -34,7 +34,7 @@ Public Class Login
                 End If
                 If COINCIDENCIA = True Then
                     Me.Hide()
-                    Dim PANTALLA As New LBL_CANTON
+                    Dim PANTALLA As New Compania()
                     PANTALLA.ShowDialog()
                 Else
                     MessageBox.Show("¡Usuario no encontrado!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)

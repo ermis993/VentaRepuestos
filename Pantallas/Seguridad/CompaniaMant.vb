@@ -4,15 +4,17 @@ Imports CRF_CONEXIONES.CONEXIONES
 Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Login
 Public Class LBL_CANTON
-    Dim Modo As New CRF_Modos
     Dim COD_CIA As String = ""
     Dim Respuesta As New DialogResult
     Dim RUTA As String = ""
     Dim CERTIFICADO As Byte() = Nothing
-    Public Sub New(Optional ByVal MODO As CRF_Modos = CRF_Modos.Insertar, Optional ByVal COD_CIA As String = "")
-        InitializeComponent()
-        Me.Modo = MODO
+    Dim MODO As New CRF_Modos
+    Dim PADRE As New Compania
+    Sub New(ByVal MODO As CRF_Modos, ByVal PADRE As Compania, Optional ByVal COD_CIA As String = "")
+        Me.MODO = MODO
+        Me.PADRE = PADRE
         Me.COD_CIA = COD_CIA
+        InitializeComponent()
     End Sub
     Private Sub CMB_TIPO_CEDULA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_TIPO_CEDULA.SelectedIndexChanged
         If CMB_TIPO_CEDULA.SelectedIndex = 0 Then 'Física
@@ -27,10 +29,11 @@ Public Class LBL_CANTON
     End Sub
     Private Sub CompaniaMant_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CARGAR_PROVINCIAS()
-        If Modo = CRF_Modos.Insertar Then
+        If MODO = CRF_Modos.Insertar Then
             CMB_TIPO_CEDULA.SelectedIndex = 0
             GENERAR_COD_CIA()
-        ElseIf Modo = CRF_Modos.Modificar Then
+        ElseIf MODO = CRF_Modos.Modificar Then
+            TXT_CODIGO.Text = COD_CIA
             LEER()
         End If
     End Sub
@@ -85,7 +88,6 @@ Public Class LBL_CANTON
                 CMB_CANTON.SelectedIndex = 0
             End If
         Catch ex As Exception
-
         End Try
     End Sub
     Private Sub CMB_CANTON_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_CANTON.SelectedIndexChanged
@@ -118,11 +120,6 @@ Public Class LBL_CANTON
 
         End Try
     End Sub
-
-    Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
-        Me.Close()
-    End Sub
-
     Private Sub CHK_FE_CheckedChanged(sender As Object, e As EventArgs) Handles CHK_FE.CheckedChanged
         If CHK_FE.Checked = True Then
             TAB_FE.Parent = TAB_COMPANIA
@@ -144,14 +141,6 @@ Public Class LBL_CANTON
         Catch ex As Exception
         End Try
     End Sub
-    Private Sub LEER()
-        Try
-
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
     Private Sub BTN_SELECCIONAR_Click(sender As Object, e As EventArgs) Handles BTN_SELECCIONAR.Click
         Respuesta = MessageBox.Show("¿Desea abrir el explorador de archivos?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If Respuesta = DialogResult.Yes Then
@@ -166,7 +155,6 @@ Public Class LBL_CANTON
             End If
         End If
     End Sub
-
     Private Sub OPD_Llave_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles OPD_Llave.FileOk
         If IsNothing(OPD_Llave.FileName) = False Then
             Dim extension = Path.GetExtension(OPD_Llave.FileName)
@@ -177,10 +165,8 @@ Public Class LBL_CANTON
             End If
         End If
     End Sub
-
     Private Function Bytes(ByVal PATH As String) As Byte()
         Try
-
             Dim FS As FileStream = File.Open(PATH, FileMode.Open, FileAccess.Read)
             Dim Archivo(FS.Length) As Byte
             If FS.Length > 0 Then
@@ -193,7 +179,6 @@ Public Class LBL_CANTON
             Return Nothing
         End Try
     End Function
-
     Private Sub GUARDAR_CERTIFICADO()
         If IsNothing(CERTIFICADO) = False And TXT_PIN.Text <> "" Then
 
@@ -218,22 +203,141 @@ Public Class LBL_CANTON
             CONX.Coneccion_Cerrar()
         End If
     End Sub
-
     Private Sub GUARDAR_CIA()
         Dim SQL As String = "INSERT INTO COMPANIA(COD_CIA,NOMBRE,CEDULA,TIPO_CEDULA,CORREO,ESTADO,FECHA_INC) VALUES "
         SQL &= Chr(13) & "(" & SCM(TXT_CODIGO.Text) & "," & SCM(TXT_NOMBRE.Text) & "," & SCM(TXT_CEDULA.Text) & "," & SCM("F") & "," & SCM(TXT_EMAIL.Text) & "," & SCM("A") & "," & "GETDATE() " & ")"
         CONX.Coneccion_Abrir()
         CONX.EJECUTE(SQL)
         CONX.Coneccion_Cerrar()
-
     End Sub
-
     Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
         Try
-            GUARDAR_CIA()
-            GUARDAR_CERTIFICADO()
+            If MODO = CRF_Modos.Insertar Or MODO = CRF_Modos.Modificar Then
+                If VALIDAR() = True Then
+                    EJECUTAR()
+                End If
+            End If
+            'GUARDAR_CIA()
+            'GUARDAR_CERTIFICADO()
         Catch ex As Exception
 
         End Try
+    End Sub
+    Private Function VALIDAR() As Boolean
+        Try
+            Dim ENTRAR As Boolean = False
+
+            If TXT_NOMBRE.Text.ToString.Equals("") Then
+                MessageBox.Show("¡Nombre de compañía incorrecto!")
+                TXT_NOMBRE.Select()
+            ElseIf TXT_CEDULA.Text.ToString.Equals("") Then
+                MessageBox.Show("¡Cédula incorrecta!")
+                TXT_CEDULA.Select()
+            ElseIf TXT_EMAIL.Text.ToString.Equals("") Then
+                MessageBox.Show("¡Correo electrónico incorrecto!")
+                TXT_EMAIL.Select()
+            ElseIf CMB_CANTON.Text.Equals("") Then
+                MessageBox.Show("¡Cantón incorrecto!")
+                CMB_CANTON.Select()
+            ElseIf CMB_DISTRITO.Text.Equals("") Then
+                MessageBox.Show("¡Distrito incorrecto!")
+                CMB_DISTRITO.Select()
+            Else
+                ENTRAR = True
+            End If
+            Return ENTRAR
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
+    Private Sub LEER()
+        Try
+            Dim SQL As String = "EXEC COMPANIA_MANT"
+            SQL &= Chr(13) & "@COD_CIA = " & SCM(TXT_CODIGO.Text)
+            SQL &= Chr(13) & ",@MODO = " & Val(CRF_Modos.Seleccionar)
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                For Each ITEM In DS.Tables(0).Rows
+                    TXT_NOMBRE.Text = ITEM("NOMBRE")
+                    Dim TIPO As String = ITEM("TIPO_CEDULA")
+
+                    If TIPO.ToUpper = "F " Then
+                        CMB_TIPO_CEDULA.SelectedIndex = 0
+                    ElseIf TIPO.ToUpper = "J" Then
+                        CMB_TIPO_CEDULA.SelectedIndex = 1
+                    ElseIf TIPO.ToUpper = "N" Then
+                        CMB_TIPO_CEDULA.SelectedIndex = 2
+                    ElseIf TIPO.ToUpper = "D" Then
+                        CMB_TIPO_CEDULA.SelectedIndex = 3
+                    End If
+
+                    TXT_CEDULA.Text = ITEM("CEDULA")
+                    TXT_EMAIL.Text = ITEM("CORREO")
+                    CMB_PROVINCIA.SelectedValue = ITEM("COD_PROVINCIA")
+                    CMB_CANTON.SelectedValue = ITEM("COD_CANTON")
+                    CMB_DISTRITO.SelectedValue = ITEM("COD_DISTRITO")
+
+
+                    If ITEM("ESTADO") = "A" Then
+                        RB_ACTIVA.Checked = True
+                    Else
+                        RB_INACTIVA.Checked = True
+                    End If
+                    IIf(ITEM("FE") = "S", CHK_FE.Checked = True, CHK_FE.Checked = True)
+                Next
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Private Sub EJECUTAR()
+        Dim SQL As String = "EXEC COMPANIA_MANT"
+        SQL &= Chr(13) & "@COD_CIA = " & SCM(TXT_CODIGO.Text)
+        SQL &= Chr(13) & ",@MODO = " & Val(MODO)
+        SQL &= Chr(13) & ",@NOMBRE = " & SCM(TXT_NOMBRE.Text)
+        SQL &= Chr(13) & ",@CEDULA = " & SCM(TXT_CEDULA.Text)
+        SQL &= Chr(13) & ",@TIPO_CEDULA = " & SCM(CMB_TIPO_CEDULA.Text.ToString.Substring(0, 1).ToUpper)
+        SQL &= Chr(13) & ",@CORREO = " & SCM(TXT_EMAIL.Text)
+        SQL &= Chr(13) & ",@COD_PROVINCIA = " & SCM(CMB_PROVINCIA.SelectedValue)
+        SQL &= Chr(13) & ",@PROVINCIA = " & SCM(CMB_DISTRITO.Text)
+        SQL &= Chr(13) & ",@COD_CANTON = " & SCM(CMB_CANTON.SelectedValue)
+        SQL &= Chr(13) & ",@CANTON = " & SCM(CMB_DISTRITO.Text)
+        SQL &= Chr(13) & ",@COD_DISTRITO = " & SCM(CMB_DISTRITO.SelectedValue)
+        SQL &= Chr(13) & ",@DISTRITO = " & SCM(CMB_DISTRITO.Text)
+        SQL &= Chr(13) & ",@ESTADO = " & SCM(IIf(RB_ACTIVA.Checked = True, "A", "I"))
+        SQL &= Chr(13) & ",@FE = " & SCM(IIf(CHK_FE.Checked = True, "S", "N"))
+        CONX.Coneccion_Abrir()
+        CONX.EJECUTE(SQL)
+        CONX.Coneccion_Cerrar()
+        If MODO = CRF_Modos.Insertar Then
+            LIMPIAR_TODO()
+            MessageBox.Show("¡Compañía ingresada correctamente!")
+        ElseIf MODO = CRF_Modos.Modificar Then
+            Cerrar()
+            MessageBox.Show("¡Compañía modificada correctamente!")
+        End If
+    End Sub
+
+    Private Sub Cerrar()
+        Me.Close()
+        PADRE.Refrescar()
+    End Sub
+    Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
+        Cerrar()
+    End Sub
+
+    Private Sub LIMPIAR_TODO()
+        GENERAR_COD_CIA()
+        TXT_NOMBRE.Text = ""
+        CMB_TIPO_CEDULA.SelectedIndex = 0
+        TXT_TELEFONO.Text = ""
+        TXT_EMAIL.Text = ""
+        CMB_PROVINCIA.SelectedIndex = 0
+        CHK_FE.Checked = True
+        RB_ACTIVA.Checked = True
     End Sub
 End Class

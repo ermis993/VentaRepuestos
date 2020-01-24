@@ -88,10 +88,16 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pantallas\CompaniaMant.Designer.vb">
+    <Compile Include="Pantallas\Seguridad\Compania.Designer.vb">
+      <DependentUpon>Compania.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Seguridad\Compania.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Seguridad\CompaniaMant.Designer.vb">
       <DependentUpon>CompaniaMant.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pantallas\CompaniaMant.vb">
+    <Compile Include="Pantallas\Seguridad\CompaniaMant.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\Login.vb">
@@ -106,11 +112,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
-    <Compile Include="My Project\Resources.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="My Project\Settings.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -124,7 +125,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Pantallas\CompaniaMant.resx">
+    <EmbeddedResource Include="Pantallas\Seguridad\Compania.resx">
+      <DependentUpon>Compania.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Seguridad\CompaniaMant.resx">
       <DependentUpon>CompaniaMant.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Login.resx">
@@ -132,7 +136,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -156,25 +159,10 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\salir.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\guardar.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\close.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\minimize.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\minimizar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\minimizar1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\cerrar.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Funciones globales\bin\CRFUSION_LIBRERIAS_GENERALES\CRF_CONEXIONES\CRF_CONEXIONES.vbproj">
@@ -185,6 +173,33 @@
       <Project>{8fde4698-2b47-4e08-9d9a-09c2d6d754d4}</Project>
       <Name>FUN_CRFUSION</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\aceptar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\filtrar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\imprimir.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\aceptar1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\salir1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\archivos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\agregar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ajustes.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

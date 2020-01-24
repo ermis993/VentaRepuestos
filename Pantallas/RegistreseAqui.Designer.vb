@@ -146,7 +146,6 @@ Partial Class RegistreseAqui
         '
         'BTN_GUARDAR
         '
-        Me.BTN_GUARDAR.BackgroundImage = Global.VentaRepuestos.My.Resources.Resources.guardar
         Me.BTN_GUARDAR.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.BTN_GUARDAR.Location = New System.Drawing.Point(535, 372)
         Me.BTN_GUARDAR.Name = "BTN_GUARDAR"
@@ -156,7 +155,6 @@ Partial Class RegistreseAqui
         '
         'Button2
         '
-        Me.Button2.BackgroundImage = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.Button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.Button2.Location = New System.Drawing.Point(626, 372)
         Me.Button2.Name = "Button2"

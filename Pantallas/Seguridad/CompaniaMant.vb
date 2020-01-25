@@ -341,7 +341,7 @@ Public Class LBL_CANTON
         RB_ACTIVA.Checked = True
     End Sub
     Private Sub BTN_ELIMINAR_Click(sender As Object, e As EventArgs) Handles BTN_ELIMINAR.Click
-
+        Dim x As Boolean = False
     End Sub
     Private Sub BTN_AGREGAR_Click(sender As Object, e As EventArgs) Handles BTN_AGREGAR.Click
 

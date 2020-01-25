@@ -44,11 +44,11 @@ Partial Class RegistreseAqui
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.Label1.ForeColor = System.Drawing.Color.Black
-        Me.Label1.Location = New System.Drawing.Point(36, 22)
+        Me.Label1.Location = New System.Drawing.Point(51, 22)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(91, 24)
+        Me.Label1.Size = New System.Drawing.Size(84, 24)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Nombre:"
         '
@@ -64,11 +64,11 @@ Partial Class RegistreseAqui
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(28, 120)
+        Me.Label2.Location = New System.Drawing.Point(45, 120)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(99, 24)
+        Me.Label2.Size = New System.Drawing.Size(90, 24)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "Teléfono:"
         '
@@ -84,11 +84,11 @@ Partial Class RegistreseAqui
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.Label3.ForeColor = System.Drawing.Color.Black
-        Me.Label3.Location = New System.Drawing.Point(22, 162)
+        Me.Label3.Location = New System.Drawing.Point(40, 162)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(105, 24)
+        Me.Label3.Size = New System.Drawing.Size(95, 24)
         Me.Label3.TabIndex = 6
         Me.Label3.Text = "Direccion:"
         '
@@ -105,11 +105,11 @@ Partial Class RegistreseAqui
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.Label4.ForeColor = System.Drawing.Color.Black
-        Me.Label4.Location = New System.Drawing.Point(47, 317)
+        Me.Label4.Location = New System.Drawing.Point(62, 317)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(80, 24)
+        Me.Label4.Size = New System.Drawing.Size(73, 24)
         Me.Label4.TabIndex = 8
         Me.Label4.Text = "Correo:"
         '
@@ -125,11 +125,11 @@ Partial Class RegistreseAqui
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(5, 73)
+        Me.Label5.Location = New System.Drawing.Point(24, 73)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(122, 24)
+        Me.Label5.Size = New System.Drawing.Size(111, 24)
         Me.Label5.TabIndex = 2
         Me.Label5.Text = "Contraseña:"
         '
@@ -193,7 +193,7 @@ Partial Class RegistreseAqui
         '
         Me.GroupBox1.Controls.Add(Me.PictureBox1)
         Me.GroupBox1.Controls.Add(Me.BTN_SELECCIONAR)
-        Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
+        Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
         Me.GroupBox1.Location = New System.Drawing.Point(432, 12)
         Me.GroupBox1.Name = "GroupBox1"

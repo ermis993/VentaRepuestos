@@ -103,5 +103,4 @@ Public Class RegistreseAqui
         TXT_TELEFONO.Text = ""
         PictureBox1.Image = Nothing
     End Sub
-
 End Class

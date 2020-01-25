@@ -45,7 +45,7 @@ Partial Class RegistreseAqui
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
-        Me.Label1.ForeColor = System.Drawing.Color.Silver
+        Me.Label1.ForeColor = System.Drawing.Color.Black
         Me.Label1.Location = New System.Drawing.Point(36, 22)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(91, 24)
@@ -65,7 +65,7 @@ Partial Class RegistreseAqui
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
-        Me.Label2.ForeColor = System.Drawing.Color.Silver
+        Me.Label2.ForeColor = System.Drawing.Color.Black
         Me.Label2.Location = New System.Drawing.Point(28, 120)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(99, 24)
@@ -85,7 +85,7 @@ Partial Class RegistreseAqui
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
-        Me.Label3.ForeColor = System.Drawing.Color.Silver
+        Me.Label3.ForeColor = System.Drawing.Color.Black
         Me.Label3.Location = New System.Drawing.Point(22, 162)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(105, 24)
@@ -106,7 +106,7 @@ Partial Class RegistreseAqui
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
-        Me.Label4.ForeColor = System.Drawing.Color.Silver
+        Me.Label4.ForeColor = System.Drawing.Color.Black
         Me.Label4.Location = New System.Drawing.Point(47, 317)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(80, 24)
@@ -126,7 +126,7 @@ Partial Class RegistreseAqui
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
-        Me.Label5.ForeColor = System.Drawing.Color.Silver
+        Me.Label5.ForeColor = System.Drawing.Color.Black
         Me.Label5.Location = New System.Drawing.Point(5, 73)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(122, 24)
@@ -147,19 +147,27 @@ Partial Class RegistreseAqui
         'BTN_GUARDAR
         '
         Me.BTN_GUARDAR.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.BTN_GUARDAR.Location = New System.Drawing.Point(535, 372)
+        Me.BTN_GUARDAR.Image = Global.VentaRepuestos.My.Resources.Resources.aceptar
+        Me.BTN_GUARDAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_GUARDAR.Location = New System.Drawing.Point(431, 372)
         Me.BTN_GUARDAR.Name = "BTN_GUARDAR"
-        Me.BTN_GUARDAR.Size = New System.Drawing.Size(75, 66)
+        Me.BTN_GUARDAR.Size = New System.Drawing.Size(132, 53)
         Me.BTN_GUARDAR.TabIndex = 10
+        Me.BTN_GUARDAR.Text = "Aceptar"
+        Me.BTN_GUARDAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_GUARDAR.UseVisualStyleBackColor = True
         '
         'Button2
         '
         Me.Button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.Button2.Location = New System.Drawing.Point(626, 372)
+        Me.Button2.Image = Global.VentaRepuestos.My.Resources.Resources.salir
+        Me.Button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button2.Location = New System.Drawing.Point(569, 372)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 66)
+        Me.Button2.Size = New System.Drawing.Size(132, 53)
         Me.Button2.TabIndex = 11
+        Me.Button2.Text = "Salir"
+        Me.Button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Button2.UseVisualStyleBackColor = True
         '
         'PictureBox1
@@ -186,7 +194,7 @@ Partial Class RegistreseAqui
         Me.GroupBox1.Controls.Add(Me.PictureBox1)
         Me.GroupBox1.Controls.Add(Me.BTN_SELECCIONAR)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
-        Me.GroupBox1.ForeColor = System.Drawing.Color.Silver
+        Me.GroupBox1.ForeColor = System.Drawing.Color.Black
         Me.GroupBox1.Location = New System.Drawing.Point(432, 12)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(269, 334)
@@ -198,8 +206,8 @@ Partial Class RegistreseAqui
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(46, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(104, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(713, 450)
+        Me.BackColor = System.Drawing.Color.White
+        Me.ClientSize = New System.Drawing.Size(713, 437)
         Me.ControlBox = False
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Button2)

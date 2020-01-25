@@ -265,13 +265,13 @@ Public Class LBL_CANTON
                     TXT_NOMBRE.Text = ITEM("NOMBRE")
                     Dim TIPO As String = ITEM("TIPO_CEDULA")
 
-                    If TIPO.ToUpper = "F " Then
+                    If Trim(TIPO.ToUpper.ToString).Equals("F") Then
                         CMB_TIPO_CEDULA.SelectedIndex = 0
-                    ElseIf TIPO.ToUpper = "J" Then
+                    ElseIf Trim(TIPO.ToUpper.ToString).Equals("J") Then
                         CMB_TIPO_CEDULA.SelectedIndex = 1
-                    ElseIf TIPO.ToUpper = "N" Then
+                    ElseIf Trim(TIPO.ToUpper.ToString).Equals("N") Then
                         CMB_TIPO_CEDULA.SelectedIndex = 2
-                    ElseIf TIPO.ToUpper = "D" Then
+                    ElseIf Trim(TIPO.ToUpper.ToString).Equals("D") Then
                         CMB_TIPO_CEDULA.SelectedIndex = 3
                     End If
 
@@ -303,9 +303,9 @@ Public Class LBL_CANTON
         SQL &= Chr(13) & ",@TIPO_CEDULA = " & SCM(CMB_TIPO_CEDULA.Text.ToString.Substring(0, 1).ToUpper)
         SQL &= Chr(13) & ",@CORREO = " & SCM(TXT_EMAIL.Text)
         SQL &= Chr(13) & ",@COD_PROVINCIA = " & SCM(CMB_PROVINCIA.SelectedValue)
-        SQL &= Chr(13) & ",@PROVINCIA = " & SCM(CMB_DISTRITO.Text)
+        SQL &= Chr(13) & ",@PROVINCIA = " & SCM(CMB_PROVINCIA.Text)
         SQL &= Chr(13) & ",@COD_CANTON = " & SCM(CMB_CANTON.SelectedValue)
-        SQL &= Chr(13) & ",@CANTON = " & SCM(CMB_DISTRITO.Text)
+        SQL &= Chr(13) & ",@CANTON = " & SCM(CMB_CANTON.Text)
         SQL &= Chr(13) & ",@COD_DISTRITO = " & SCM(CMB_DISTRITO.SelectedValue)
         SQL &= Chr(13) & ",@DISTRITO = " & SCM(CMB_DISTRITO.Text)
         SQL &= Chr(13) & ",@ESTADO = " & SCM(IIf(RB_ACTIVA.Checked = True, "A", "I"))
@@ -339,5 +339,11 @@ Public Class LBL_CANTON
         CMB_PROVINCIA.SelectedIndex = 0
         CHK_FE.Checked = True
         RB_ACTIVA.Checked = True
+    End Sub
+    Private Sub BTN_ELIMINAR_Click(sender As Object, e As EventArgs) Handles BTN_ELIMINAR.Click
+
+    End Sub
+    Private Sub BTN_AGREGAR_Click(sender As Object, e As EventArgs) Handles BTN_AGREGAR.Click
+
     End Sub
 End Class

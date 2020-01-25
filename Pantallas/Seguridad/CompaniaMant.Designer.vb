@@ -22,6 +22,7 @@ Partial Class LBL_CANTON
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(LBL_CANTON))
         Me.LBL_CODIGO = New System.Windows.Forms.Label()
         Me.LBL_TIPO_CEDULA = New System.Windows.Forms.Label()
         Me.CMB_TIPO_CEDULA = New System.Windows.Forms.ComboBox()
@@ -47,8 +48,9 @@ Partial Class LBL_CANTON
         Me.TXT_EMAIL = New System.Windows.Forms.TextBox()
         Me.LBL_EMAIL = New System.Windows.Forms.Label()
         Me.TAB_FE = New System.Windows.Forms.TabPage()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.GRID_ACTIVIDADES = New System.Windows.Forms.DataGridView()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.BTN_SELECCIONAR = New System.Windows.Forms.Button()
         Me.TXT_PIN = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -58,11 +60,17 @@ Partial Class LBL_CANTON
         Me.TXT_USUARIO_ATV = New System.Windows.Forms.TextBox()
         Me.OPD_Llave = New System.Windows.Forms.OpenFileDialog()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
+        Me.BTN_ELIMINAR = New System.Windows.Forms.Button()
+        Me.BTN_AGREGAR = New System.Windows.Forms.Button()
+        Me.BTN_SELECCIONAR = New System.Windows.Forms.Button()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
+        Me.BTN_MODIFICAR = New System.Windows.Forms.Button()
         Me.TAB_COMPANIA.SuspendLayout()
         Me.TAB_INFO.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.TAB_FE.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
+        CType(Me.GRID_ACTIVIDADES, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -219,7 +227,7 @@ Partial Class LBL_CANTON
         Me.TAB_COMPANIA.Location = New System.Drawing.Point(3, 3)
         Me.TAB_COMPANIA.Name = "TAB_COMPANIA"
         Me.TAB_COMPANIA.SelectedIndex = 0
-        Me.TAB_COMPANIA.Size = New System.Drawing.Size(561, 388)
+        Me.TAB_COMPANIA.Size = New System.Drawing.Size(561, 393)
         Me.TAB_COMPANIA.TabIndex = 15
         '
         'TAB_INFO
@@ -247,7 +255,7 @@ Partial Class LBL_CANTON
         Me.TAB_INFO.Location = New System.Drawing.Point(4, 22)
         Me.TAB_INFO.Name = "TAB_INFO"
         Me.TAB_INFO.Padding = New System.Windows.Forms.Padding(3)
-        Me.TAB_INFO.Size = New System.Drawing.Size(553, 362)
+        Me.TAB_INFO.Size = New System.Drawing.Size(553, 367)
         Me.TAB_INFO.TabIndex = 0
         Me.TAB_INFO.Text = "Información general"
         Me.TAB_INFO.UseVisualStyleBackColor = True
@@ -342,15 +350,40 @@ Partial Class LBL_CANTON
         '
         'TAB_FE
         '
+        Me.TAB_FE.Controls.Add(Me.GroupBox4)
         Me.TAB_FE.Controls.Add(Me.GroupBox3)
         Me.TAB_FE.Controls.Add(Me.GroupBox2)
         Me.TAB_FE.Location = New System.Drawing.Point(4, 22)
         Me.TAB_FE.Name = "TAB_FE"
         Me.TAB_FE.Padding = New System.Windows.Forms.Padding(3)
-        Me.TAB_FE.Size = New System.Drawing.Size(553, 362)
+        Me.TAB_FE.Size = New System.Drawing.Size(553, 367)
         Me.TAB_FE.TabIndex = 1
         Me.TAB_FE.Text = "Facturación Electrónica"
         Me.TAB_FE.UseVisualStyleBackColor = True
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.BTN_MODIFICAR)
+        Me.GroupBox4.Controls.Add(Me.BTN_ELIMINAR)
+        Me.GroupBox4.Controls.Add(Me.BTN_AGREGAR)
+        Me.GroupBox4.Controls.Add(Me.GRID_ACTIVIDADES)
+        Me.GroupBox4.Location = New System.Drawing.Point(6, 159)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(544, 202)
+        Me.GroupBox4.TabIndex = 6
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Activiades económicas"
+        '
+        'GRID_ACTIVIDADES
+        '
+        Me.GRID_ACTIVIDADES.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.GRID_ACTIVIDADES.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.GRID_ACTIVIDADES.Location = New System.Drawing.Point(3, 19)
+        Me.GRID_ACTIVIDADES.MultiSelect = False
+        Me.GRID_ACTIVIDADES.Name = "GRID_ACTIVIDADES"
+        Me.GRID_ACTIVIDADES.ReadOnly = True
+        Me.GRID_ACTIVIDADES.Size = New System.Drawing.Size(396, 177)
+        Me.GRID_ACTIVIDADES.TabIndex = 8
         '
         'GroupBox3
         '
@@ -360,29 +393,15 @@ Partial Class LBL_CANTON
         Me.GroupBox3.ForeColor = System.Drawing.Color.Green
         Me.GroupBox3.Location = New System.Drawing.Point(279, 6)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(277, 350)
+        Me.GroupBox3.Size = New System.Drawing.Size(271, 147)
         Me.GroupBox3.TabIndex = 1
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "[Llave criptográfica]"
         '
-        'BTN_SELECCIONAR
-        '
-        Me.BTN_SELECCIONAR.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_SELECCIONAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_SELECCIONAR.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.BTN_SELECCIONAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SELECCIONAR.Location = New System.Drawing.Point(6, 46)
-        Me.BTN_SELECCIONAR.Name = "BTN_SELECCIONAR"
-        Me.BTN_SELECCIONAR.Size = New System.Drawing.Size(91, 43)
-        Me.BTN_SELECCIONAR.TabIndex = 23
-        Me.BTN_SELECCIONAR.Text = "Agregar"
-        Me.BTN_SELECCIONAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_SELECCIONAR.UseVisualStyleBackColor = False
-        '
         'TXT_PIN
         '
         Me.TXT_PIN.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
-        Me.TXT_PIN.Location = New System.Drawing.Point(6, 156)
+        Me.TXT_PIN.Location = New System.Drawing.Point(6, 99)
         Me.TXT_PIN.Name = "TXT_PIN"
         Me.TXT_PIN.Size = New System.Drawing.Size(255, 22)
         Me.TXT_PIN.TabIndex = 5
@@ -392,7 +411,7 @@ Partial Class LBL_CANTON
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(16, 125)
+        Me.Label5.Location = New System.Drawing.Point(6, 73)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(40, 18)
         Me.Label5.TabIndex = 5
@@ -407,7 +426,7 @@ Partial Class LBL_CANTON
         Me.GroupBox2.ForeColor = System.Drawing.Color.Green
         Me.GroupBox2.Location = New System.Drawing.Point(6, 3)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(267, 353)
+        Me.GroupBox2.Size = New System.Drawing.Size(267, 150)
         Me.GroupBox2.TabIndex = 0
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "[ATV]"
@@ -417,7 +436,7 @@ Partial Class LBL_CANTON
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.Black
-        Me.Label4.Location = New System.Drawing.Point(7, 128)
+        Me.Label4.Location = New System.Drawing.Point(0, 76)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(53, 18)
         Me.Label4.TabIndex = 4
@@ -426,7 +445,7 @@ Partial Class LBL_CANTON
         'TXT_CLAVE_ATV
         '
         Me.TXT_CLAVE_ATV.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
-        Me.TXT_CLAVE_ATV.Location = New System.Drawing.Point(6, 159)
+        Me.TXT_CLAVE_ATV.Location = New System.Drawing.Point(3, 102)
         Me.TXT_CLAVE_ATV.Name = "TXT_CLAVE_ATV"
         Me.TXT_CLAVE_ATV.Size = New System.Drawing.Size(255, 22)
         Me.TXT_CLAVE_ATV.TabIndex = 2
@@ -436,7 +455,7 @@ Partial Class LBL_CANTON
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(7, 39)
+        Me.Label2.Location = New System.Drawing.Point(1, 20)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(68, 18)
         Me.Label2.TabIndex = 1
@@ -445,7 +464,7 @@ Partial Class LBL_CANTON
         'TXT_USUARIO_ATV
         '
         Me.TXT_USUARIO_ATV.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
-        Me.TXT_USUARIO_ATV.Location = New System.Drawing.Point(6, 70)
+        Me.TXT_USUARIO_ATV.Location = New System.Drawing.Point(3, 42)
         Me.TXT_USUARIO_ATV.Name = "TXT_USUARIO_ATV"
         Me.TXT_USUARIO_ATV.Size = New System.Drawing.Size(255, 22)
         Me.TXT_USUARIO_ATV.TabIndex = 0
@@ -457,27 +476,89 @@ Partial Class LBL_CANTON
         '
         Me.BTN_SALIR.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(469, 402)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(463, 402)
         Me.BTN_SALIR.Name = "BTN_SALIR"
-        Me.BTN_SALIR.Size = New System.Drawing.Size(91, 43)
+        Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 22
         Me.BTN_SALIR.Text = "Salir"
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
         '
+        'BTN_ELIMINAR
+        '
+        Me.BTN_ELIMINAR.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_ELIMINAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_ELIMINAR.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.BTN_ELIMINAR.Image = Global.VentaRepuestos.My.Resources.Resources.delete
+        Me.BTN_ELIMINAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_ELIMINAR.Location = New System.Drawing.Point(405, 153)
+        Me.BTN_ELIMINAR.Name = "BTN_ELIMINAR"
+        Me.BTN_ELIMINAR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_ELIMINAR.TabIndex = 24
+        Me.BTN_ELIMINAR.Text = "Eliminar"
+        Me.BTN_ELIMINAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_ELIMINAR.UseVisualStyleBackColor = False
+        '
+        'BTN_AGREGAR
+        '
+        Me.BTN_AGREGAR.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_AGREGAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_AGREGAR.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.BTN_AGREGAR.Image = Global.VentaRepuestos.My.Resources.Resources.agregar
+        Me.BTN_AGREGAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_AGREGAR.Location = New System.Drawing.Point(405, 19)
+        Me.BTN_AGREGAR.Name = "BTN_AGREGAR"
+        Me.BTN_AGREGAR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_AGREGAR.TabIndex = 24
+        Me.BTN_AGREGAR.Text = "Agregar"
+        Me.BTN_AGREGAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_AGREGAR.UseVisualStyleBackColor = False
+        '
+        'BTN_SELECCIONAR
+        '
+        Me.BTN_SELECCIONAR.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_SELECCIONAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_SELECCIONAR.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.BTN_SELECCIONAR.Image = Global.VentaRepuestos.My.Resources.Resources.archivos
+        Me.BTN_SELECCIONAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_SELECCIONAR.Location = New System.Drawing.Point(6, 18)
+        Me.BTN_SELECCIONAR.Name = "BTN_SELECCIONAR"
+        Me.BTN_SELECCIONAR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_SELECCIONAR.TabIndex = 23
+        Me.BTN_SELECCIONAR.Text = "Importar"
+        Me.BTN_SELECCIONAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_SELECCIONAR.UseVisualStyleBackColor = False
+        '
         'BTN_ACEPTAR
         '
         Me.BTN_ACEPTAR.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.BTN_ACEPTAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_ACEPTAR.Image = CType(resources.GetObject("BTN_ACEPTAR.Image"), System.Drawing.Image)
         Me.BTN_ACEPTAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(375, 402)
+        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(364, 402)
         Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
-        Me.BTN_ACEPTAR.Size = New System.Drawing.Size(91, 43)
+        Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_ACEPTAR.TabIndex = 21
         Me.BTN_ACEPTAR.Text = "Aceptar"
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
+        '
+        'BTN_MODIFICAR
+        '
+        Me.BTN_MODIFICAR.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_MODIFICAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_MODIFICAR.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.BTN_MODIFICAR.Image = Global.VentaRepuestos.My.Resources.Resources.controles
+        Me.BTN_MODIFICAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_MODIFICAR.Location = New System.Drawing.Point(405, 84)
+        Me.BTN_MODIFICAR.Name = "BTN_MODIFICAR"
+        Me.BTN_MODIFICAR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_MODIFICAR.TabIndex = 25
+        Me.BTN_MODIFICAR.Text = "Modificar"
+        Me.BTN_MODIFICAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_MODIFICAR.UseVisualStyleBackColor = False
         '
         'LBL_CANTON
         '
@@ -492,12 +573,15 @@ Partial Class LBL_CANTON
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Name = "LBL_CANTON"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "Compania"
         Me.TAB_COMPANIA.ResumeLayout(False)
         Me.TAB_INFO.ResumeLayout(False)
         Me.TAB_INFO.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.TAB_FE.ResumeLayout(False)
+        Me.GroupBox4.ResumeLayout(False)
+        CType(Me.GRID_ACTIVIDADES, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
@@ -543,4 +627,9 @@ Partial Class LBL_CANTON
     Friend WithEvents BTN_ACEPTAR As Button
     Friend WithEvents BTN_SALIR As Button
     Friend WithEvents BTN_SELECCIONAR As Button
+    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents GRID_ACTIVIDADES As DataGridView
+    Friend WithEvents BTN_AGREGAR As Button
+    Friend WithEvents BTN_ELIMINAR As Button
+    Friend WithEvents BTN_MODIFICAR As Button
 End Class

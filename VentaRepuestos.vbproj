@@ -88,6 +88,11 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Pantallas\Seguridad\Compania.Designer.vb">
       <DependentUpon>Compania.vb</DependentUpon>
     </Compile>
@@ -138,6 +143,7 @@
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\RegistreseAqui.resx">
       <DependentUpon>RegistreseAqui.vb</DependentUpon>
@@ -162,9 +168,6 @@
     <None Include="Resources\guardar.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\minimize.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Funciones globales\bin\CRFUSION_LIBRERIAS_GENERALES\CRF_CONEXIONES\CRF_CONEXIONES.vbproj">
       <Project>{bdddff94-3947-49d0-a098-f2e3fe3e909b}</Project>
       <Name>CRF_CONEXIONES</Name>
@@ -175,22 +178,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\aceptar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\filtrar.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\imprimir.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\aceptar1.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Controles\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\salir1.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\archivos.png" />
@@ -200,6 +191,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ajustes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refrescar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\contrasena.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\controles.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\aceptar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\borrar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

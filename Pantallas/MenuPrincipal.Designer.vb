@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class MenuPrincipal
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,28 +20,13 @@ Partial Class MenuPrincipal
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_USUARIO = New System.Windows.Forms.Button()
         Me.BTN_SUCURSAL = New System.Windows.Forms.Button()
         Me.BTN_COMPANIA = New System.Windows.Forms.Button()
+        Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.SuspendLayout()
-        '
-        'BTN_SALIR
-        '
-        Me.BTN_SALIR.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
-        Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(1042, 517)
-        Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(4)
-        Me.BTN_SALIR.Name = "BTN_SALIR"
-        Me.BTN_SALIR.Size = New System.Drawing.Size(132, 53)
-        Me.BTN_SALIR.TabIndex = 23
-        Me.BTN_SALIR.Text = "Salir"
-        Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_SALIR.UseVisualStyleBackColor = False
         '
         'BTN_USUARIO
         '
@@ -79,16 +64,30 @@ Partial Class MenuPrincipal
         Me.BTN_COMPANIA.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.BTN_COMPANIA.UseVisualStyleBackColor = True
         '
+        'BTN_SALIR
+        '
+        Me.BTN_SALIR.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
+        Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_SALIR.Location = New System.Drawing.Point(1041, 2)
+        Me.BTN_SALIR.Name = "BTN_SALIR"
+        Me.BTN_SALIR.Size = New System.Drawing.Size(132, 53)
+        Me.BTN_SALIR.TabIndex = 3
+        Me.BTN_SALIR.Text = "Salir"
+        Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_SALIR.UseVisualStyleBackColor = True
+        '
         'MenuPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1187, 583)
+        Me.ClientSize = New System.Drawing.Size(1187, 619)
         Me.ControlBox = False
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.BTN_USUARIO)
         Me.Controls.Add(Me.BTN_SUCURSAL)
         Me.Controls.Add(Me.BTN_COMPANIA)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "MenuPrincipal"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Menú Principal"

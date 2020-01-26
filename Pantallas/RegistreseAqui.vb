@@ -1,7 +1,7 @@
 ﻿Imports System.Data.SqlClient
 Imports System.IO
 Imports System.Text
-Imports VentaRepuestos.Login
+Imports VentaRepuestos.Globales
 
 Public Class RegistreseAqui
     Private Sub BTN_GUARDAR_Click(sender As Object, e As EventArgs) Handles BTN_GUARDAR.Click

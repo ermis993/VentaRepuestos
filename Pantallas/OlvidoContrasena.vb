@@ -1,6 +1,6 @@
 ﻿Imports System.Net.Mail
 Imports System.Text
-Imports VentaRepuestos.Login
+Imports VentaRepuestos.Globales
 Imports FUN_CRFUSION.FUNCIONES_GENERALES
 
 Public Class OlvidoContrasena

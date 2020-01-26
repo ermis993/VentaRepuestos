@@ -1,8 +1,7 @@
 ﻿Imports System.Data.SqlClient
 Imports System.IO
-Imports CRF_CONEXIONES.CONEXIONES
 Imports FUN_CRFUSION.FUNCIONES_GENERALES
-Imports VentaRepuestos.Login
+Imports VentaRepuestos.Globales
 Public Class LBL_CANTON
     Dim COD_CIA As String = ""
     Dim Respuesta As New DialogResult

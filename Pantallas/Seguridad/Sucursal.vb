@@ -1,5 +1,5 @@
 ﻿Imports FUN_CRFUSION.FUNCIONES_GENERALES
-Imports VentaRepuestos.Login
+Imports VentaRepuestos.Globales
 Public Class Sucursal
     Private Sub Sucursal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         RellenaSucursales()
@@ -61,5 +61,13 @@ Public Class Sucursal
 
     Private Sub BTN_REFRESCAR_Click(sender As Object, e As EventArgs) Handles BTN_REFRESCAR.Click
         RellenaSucursales()
+    End Sub
+
+    Private Sub BTN_AGREGAR_Click(sender As Object, e As EventArgs) Handles BTN_AGREGAR.Click
+        Try
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 End Class

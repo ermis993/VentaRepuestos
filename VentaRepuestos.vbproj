@@ -88,6 +88,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Globales\Globales.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -152,6 +153,12 @@
     <Compile Include="Pantallas\Seguridad\Sucursal.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pantallas\Seguridad\SucursalMant.Designer.vb">
+      <DependentUpon>SucursalMant.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Seguridad\SucursalMant.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pantallas\CambioContrasena.resx">
@@ -183,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Seguridad\Sucursal.resx">
       <DependentUpon>Sucursal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Seguridad\SucursalMant.resx">
+      <DependentUpon>SucursalMant.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

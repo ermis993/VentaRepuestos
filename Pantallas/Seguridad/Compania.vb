@@ -1,8 +1,5 @@
-﻿Imports System.Data.SqlClient
-Imports System.IO
-Imports CRF_CONEXIONES.CONEXIONES
-Imports FUN_CRFUSION.FUNCIONES_GENERALES
-Imports VentaRepuestos.Login
+﻿Imports FUN_CRFUSION.FUNCIONES_GENERALES
+Imports VentaRepuestos.Globales
 Public Class Compania
     Dim COD_CIA As String = ""
     Private Sub Compania_Load(sender As Object, e As EventArgs) Handles MyBase.Load

@@ -150,7 +150,7 @@ Partial Class RegistreseAqui
         Me.BTN_SELECCIONAR.Location = New System.Drawing.Point(6, 287)
         Me.BTN_SELECCIONAR.Name = "BTN_SELECCIONAR"
         Me.BTN_SELECCIONAR.Size = New System.Drawing.Size(257, 41)
-        Me.BTN_SELECCIONAR.TabIndex = 13
+        Me.BTN_SELECCIONAR.TabIndex = 0
         Me.BTN_SELECCIONAR.Text = "Seleccionar"
         Me.BTN_SELECCIONAR.UseVisualStyleBackColor = True
         '
@@ -163,7 +163,7 @@ Partial Class RegistreseAqui
         Me.GroupBox1.Location = New System.Drawing.Point(432, 12)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(269, 334)
-        Me.GroupBox1.TabIndex = 14
+        Me.GroupBox1.TabIndex = 10
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Foto ]"
         '
@@ -184,7 +184,7 @@ Partial Class RegistreseAqui
         Me.BtnSalir.Location = New System.Drawing.Point(569, 372)
         Me.BtnSalir.Name = "BtnSalir"
         Me.BtnSalir.Size = New System.Drawing.Size(132, 53)
-        Me.BtnSalir.TabIndex = 11
+        Me.BtnSalir.TabIndex = 12
         Me.BtnSalir.Text = "Salir"
         Me.BtnSalir.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BtnSalir.UseVisualStyleBackColor = True
@@ -197,7 +197,7 @@ Partial Class RegistreseAqui
         Me.BTN_GUARDAR.Location = New System.Drawing.Point(431, 372)
         Me.BTN_GUARDAR.Name = "BTN_GUARDAR"
         Me.BTN_GUARDAR.Size = New System.Drawing.Size(132, 53)
-        Me.BTN_GUARDAR.TabIndex = 10
+        Me.BTN_GUARDAR.TabIndex = 11
         Me.BTN_GUARDAR.Text = "Aceptar"
         Me.BTN_GUARDAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_GUARDAR.UseVisualStyleBackColor = True

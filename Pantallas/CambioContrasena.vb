@@ -1,5 +1,6 @@
 ﻿Imports FUN_CRFUSION.FUNCIONES_GENERALES
-Imports VentaRepuestos.Login
+Imports VentaRepuestos.Globales
+
 Public Class CambioContrasena
     Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
         Try

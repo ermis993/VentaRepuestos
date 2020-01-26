@@ -1,8 +1,8 @@
-﻿Imports CRF_CONEXIONES.CONEXIONES
+﻿Imports VentaRepuestos.Globales
 Imports FUN_CRFUSION.FUNCIONES_GENERALES
 
 Public Class Login
-    Public Shared CONX As New SQLCON
+
     Public Shared USUARIO As String = ""
 
     Private Sub LOGIN_LOAD(sender As Object, e As EventArgs) Handles MyBase.Load

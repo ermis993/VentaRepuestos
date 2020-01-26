@@ -146,6 +146,12 @@
     <Compile Include="Pantallas\RegistreseAqui.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pantallas\Seguridad\Sucursal.Designer.vb">
+      <DependentUpon>Sucursal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Seguridad\Sucursal.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pantallas\CambioContrasena.resx">
@@ -174,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\RegistreseAqui.resx">
       <DependentUpon>RegistreseAqui.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Seguridad\Sucursal.resx">
+      <DependentUpon>Sucursal.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

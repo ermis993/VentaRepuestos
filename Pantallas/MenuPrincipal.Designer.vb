@@ -91,7 +91,7 @@ Partial Class MenuPrincipal
         Me.Controls.Add(Me.BTN_COMPANIA)
         Me.Name = "MenuPrincipal"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Menu Principal"
+        Me.Text = "Menú Principal"
         Me.ResumeLayout(False)
 
     End Sub

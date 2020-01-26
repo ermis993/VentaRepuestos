@@ -49,8 +49,12 @@ Partial Class LBL_CANTON
         Me.LBL_EMAIL = New System.Windows.Forms.Label()
         Me.TAB_FE = New System.Windows.Forms.TabPage()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.BTN_MODIFICAR = New System.Windows.Forms.Button()
+        Me.BTN_ELIMINAR = New System.Windows.Forms.Button()
+        Me.BTN_AGREGAR = New System.Windows.Forms.Button()
         Me.GRID_ACTIVIDADES = New System.Windows.Forms.DataGridView()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.BTN_SELECCIONAR = New System.Windows.Forms.Button()
         Me.TXT_PIN = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -60,11 +64,7 @@ Partial Class LBL_CANTON
         Me.TXT_USUARIO_ATV = New System.Windows.Forms.TextBox()
         Me.OPD_Llave = New System.Windows.Forms.OpenFileDialog()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
-        Me.BTN_ELIMINAR = New System.Windows.Forms.Button()
-        Me.BTN_AGREGAR = New System.Windows.Forms.Button()
-        Me.BTN_SELECCIONAR = New System.Windows.Forms.Button()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
-        Me.BTN_MODIFICAR = New System.Windows.Forms.Button()
         Me.TAB_COMPANIA.SuspendLayout()
         Me.TAB_INFO.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -79,9 +79,10 @@ Partial Class LBL_CANTON
         '
         Me.LBL_CODIGO.AutoSize = True
         Me.LBL_CODIGO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LBL_CODIGO.Location = New System.Drawing.Point(38, 9)
+        Me.LBL_CODIGO.Location = New System.Drawing.Point(51, 11)
+        Me.LBL_CODIGO.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LBL_CODIGO.Name = "LBL_CODIGO"
-        Me.LBL_CODIGO.Size = New System.Drawing.Size(64, 18)
+        Me.LBL_CODIGO.Size = New System.Drawing.Size(81, 24)
         Me.LBL_CODIGO.TabIndex = 1
         Me.LBL_CODIGO.Text = "Código :"
         '
@@ -90,9 +91,10 @@ Partial Class LBL_CANTON
         Me.LBL_TIPO_CEDULA.AutoSize = True
         Me.LBL_TIPO_CEDULA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_TIPO_CEDULA.ForeColor = System.Drawing.Color.Black
-        Me.LBL_TIPO_CEDULA.Location = New System.Drawing.Point(9, 73)
+        Me.LBL_TIPO_CEDULA.Location = New System.Drawing.Point(12, 90)
+        Me.LBL_TIPO_CEDULA.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LBL_TIPO_CEDULA.Name = "LBL_TIPO_CEDULA"
-        Me.LBL_TIPO_CEDULA.Size = New System.Drawing.Size(92, 18)
+        Me.LBL_TIPO_CEDULA.Size = New System.Drawing.Size(120, 24)
         Me.LBL_TIPO_CEDULA.TabIndex = 5
         Me.LBL_TIPO_CEDULA.Text = "Tipo cédula :"
         '
@@ -102,9 +104,10 @@ Partial Class LBL_CANTON
         Me.CMB_TIPO_CEDULA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CMB_TIPO_CEDULA.FormattingEnabled = True
         Me.CMB_TIPO_CEDULA.Items.AddRange(New Object() {"Física", "Jurídica", "Nite", "Dimex"})
-        Me.CMB_TIPO_CEDULA.Location = New System.Drawing.Point(124, 67)
+        Me.CMB_TIPO_CEDULA.Location = New System.Drawing.Point(165, 82)
+        Me.CMB_TIPO_CEDULA.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CMB_TIPO_CEDULA.Name = "CMB_TIPO_CEDULA"
-        Me.CMB_TIPO_CEDULA.Size = New System.Drawing.Size(158, 24)
+        Me.CMB_TIPO_CEDULA.Size = New System.Drawing.Size(209, 28)
         Me.CMB_TIPO_CEDULA.TabIndex = 6
         '
         'LBL_CEDULA
@@ -112,19 +115,21 @@ Partial Class LBL_CANTON
         Me.LBL_CEDULA.AutoSize = True
         Me.LBL_CEDULA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_CEDULA.ForeColor = System.Drawing.Color.Black
-        Me.LBL_CEDULA.Location = New System.Drawing.Point(40, 99)
+        Me.LBL_CEDULA.Location = New System.Drawing.Point(53, 122)
+        Me.LBL_CEDULA.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LBL_CEDULA.Name = "LBL_CEDULA"
-        Me.LBL_CEDULA.Size = New System.Drawing.Size(62, 18)
+        Me.LBL_CEDULA.Size = New System.Drawing.Size(80, 24)
         Me.LBL_CEDULA.TabIndex = 7
         Me.LBL_CEDULA.Text = "Cédula :"
         '
         'TXT_CEDULA
         '
         Me.TXT_CEDULA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_CEDULA.Location = New System.Drawing.Point(124, 97)
+        Me.TXT_CEDULA.Location = New System.Drawing.Point(165, 119)
+        Me.TXT_CEDULA.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TXT_CEDULA.Name = "TXT_CEDULA"
         Me.TXT_CEDULA.PromptChar = Global.Microsoft.VisualBasic.ChrW(35)
-        Me.TXT_CEDULA.Size = New System.Drawing.Size(158, 22)
+        Me.TXT_CEDULA.Size = New System.Drawing.Size(209, 26)
         Me.TXT_CEDULA.TabIndex = 8
         '
         'LBL_NOMBRE
@@ -132,29 +137,32 @@ Partial Class LBL_CANTON
         Me.LBL_NOMBRE.AutoSize = True
         Me.LBL_NOMBRE.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_NOMBRE.ForeColor = System.Drawing.Color.Black
-        Me.LBL_NOMBRE.Location = New System.Drawing.Point(31, 43)
+        Me.LBL_NOMBRE.Location = New System.Drawing.Point(41, 53)
+        Me.LBL_NOMBRE.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LBL_NOMBRE.Name = "LBL_NOMBRE"
-        Me.LBL_NOMBRE.Size = New System.Drawing.Size(70, 18)
+        Me.LBL_NOMBRE.Size = New System.Drawing.Size(89, 24)
         Me.LBL_NOMBRE.TabIndex = 3
         Me.LBL_NOMBRE.Text = "Nombre :"
         '
         'TXT_NOMBRE
         '
         Me.TXT_NOMBRE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_NOMBRE.Location = New System.Drawing.Point(124, 37)
+        Me.TXT_NOMBRE.Location = New System.Drawing.Point(165, 46)
+        Me.TXT_NOMBRE.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TXT_NOMBRE.Multiline = True
         Me.TXT_NOMBRE.Name = "TXT_NOMBRE"
-        Me.TXT_NOMBRE.Size = New System.Drawing.Size(342, 24)
+        Me.TXT_NOMBRE.Size = New System.Drawing.Size(455, 29)
         Me.TXT_NOMBRE.TabIndex = 4
         '
         'TXT_CODIGO
         '
         Me.TXT_CODIGO.Enabled = False
         Me.TXT_CODIGO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.TXT_CODIGO.Location = New System.Drawing.Point(124, 8)
+        Me.TXT_CODIGO.Location = New System.Drawing.Point(165, 10)
+        Me.TXT_CODIGO.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TXT_CODIGO.Multiline = True
         Me.TXT_CODIGO.Name = "TXT_CODIGO"
-        Me.TXT_CODIGO.Size = New System.Drawing.Size(143, 24)
+        Me.TXT_CODIGO.Size = New System.Drawing.Size(189, 29)
         Me.TXT_CODIGO.TabIndex = 2
         '
         'LBL_PROVINCIA
@@ -162,9 +170,10 @@ Partial Class LBL_CANTON
         Me.LBL_PROVINCIA.AutoSize = True
         Me.LBL_PROVINCIA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_PROVINCIA.ForeColor = System.Drawing.Color.Black
-        Me.LBL_PROVINCIA.Location = New System.Drawing.Point(25, 188)
+        Me.LBL_PROVINCIA.Location = New System.Drawing.Point(33, 231)
+        Me.LBL_PROVINCIA.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LBL_PROVINCIA.Name = "LBL_PROVINCIA"
-        Me.LBL_PROVINCIA.Size = New System.Drawing.Size(77, 18)
+        Me.LBL_PROVINCIA.Size = New System.Drawing.Size(97, 24)
         Me.LBL_PROVINCIA.TabIndex = 11
         Me.LBL_PROVINCIA.Text = "Provincia :"
         '
@@ -173,9 +182,10 @@ Partial Class LBL_CANTON
         Me.CMB_PROVINCIA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CMB_PROVINCIA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CMB_PROVINCIA.FormattingEnabled = True
-        Me.CMB_PROVINCIA.Location = New System.Drawing.Point(124, 182)
+        Me.CMB_PROVINCIA.Location = New System.Drawing.Point(165, 224)
+        Me.CMB_PROVINCIA.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CMB_PROVINCIA.Name = "CMB_PROVINCIA"
-        Me.CMB_PROVINCIA.Size = New System.Drawing.Size(158, 24)
+        Me.CMB_PROVINCIA.Size = New System.Drawing.Size(209, 28)
         Me.CMB_PROVINCIA.TabIndex = 12
         '
         'LBL_CANTO
@@ -183,9 +193,10 @@ Partial Class LBL_CANTON
         Me.LBL_CANTO.AutoSize = True
         Me.LBL_CANTO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_CANTO.ForeColor = System.Drawing.Color.Black
-        Me.LBL_CANTO.Location = New System.Drawing.Point(38, 218)
+        Me.LBL_CANTO.Location = New System.Drawing.Point(51, 268)
+        Me.LBL_CANTO.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LBL_CANTO.Name = "LBL_CANTO"
-        Me.LBL_CANTO.Size = New System.Drawing.Size(64, 18)
+        Me.LBL_CANTO.Size = New System.Drawing.Size(80, 24)
         Me.LBL_CANTO.TabIndex = 13
         Me.LBL_CANTO.Text = "Cantón :"
         '
@@ -194,9 +205,10 @@ Partial Class LBL_CANTON
         Me.CMB_CANTON.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CMB_CANTON.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CMB_CANTON.FormattingEnabled = True
-        Me.CMB_CANTON.Location = New System.Drawing.Point(124, 212)
+        Me.CMB_CANTON.Location = New System.Drawing.Point(165, 261)
+        Me.CMB_CANTON.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CMB_CANTON.Name = "CMB_CANTON"
-        Me.CMB_CANTON.Size = New System.Drawing.Size(158, 24)
+        Me.CMB_CANTON.Size = New System.Drawing.Size(209, 28)
         Me.CMB_CANTON.TabIndex = 14
         '
         'LBL_DISTRITO
@@ -204,9 +216,10 @@ Partial Class LBL_CANTON
         Me.LBL_DISTRITO.AutoSize = True
         Me.LBL_DISTRITO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_DISTRITO.ForeColor = System.Drawing.Color.Black
-        Me.LBL_DISTRITO.Location = New System.Drawing.Point(38, 248)
+        Me.LBL_DISTRITO.Location = New System.Drawing.Point(51, 305)
+        Me.LBL_DISTRITO.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LBL_DISTRITO.Name = "LBL_DISTRITO"
-        Me.LBL_DISTRITO.Size = New System.Drawing.Size(63, 18)
+        Me.LBL_DISTRITO.Size = New System.Drawing.Size(75, 24)
         Me.LBL_DISTRITO.TabIndex = 15
         Me.LBL_DISTRITO.Text = "Distrito :"
         '
@@ -215,19 +228,22 @@ Partial Class LBL_CANTON
         Me.CMB_DISTRITO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CMB_DISTRITO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CMB_DISTRITO.FormattingEnabled = True
-        Me.CMB_DISTRITO.Location = New System.Drawing.Point(124, 242)
+        Me.CMB_DISTRITO.Location = New System.Drawing.Point(165, 298)
+        Me.CMB_DISTRITO.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CMB_DISTRITO.Name = "CMB_DISTRITO"
-        Me.CMB_DISTRITO.Size = New System.Drawing.Size(158, 24)
+        Me.CMB_DISTRITO.Size = New System.Drawing.Size(209, 28)
         Me.CMB_DISTRITO.TabIndex = 16
         '
         'TAB_COMPANIA
         '
         Me.TAB_COMPANIA.Controls.Add(Me.TAB_INFO)
         Me.TAB_COMPANIA.Controls.Add(Me.TAB_FE)
-        Me.TAB_COMPANIA.Location = New System.Drawing.Point(3, 3)
+        Me.TAB_COMPANIA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TAB_COMPANIA.Location = New System.Drawing.Point(4, 4)
+        Me.TAB_COMPANIA.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TAB_COMPANIA.Name = "TAB_COMPANIA"
         Me.TAB_COMPANIA.SelectedIndex = 0
-        Me.TAB_COMPANIA.Size = New System.Drawing.Size(561, 393)
+        Me.TAB_COMPANIA.Size = New System.Drawing.Size(748, 484)
         Me.TAB_COMPANIA.TabIndex = 15
         '
         'TAB_INFO
@@ -252,10 +268,11 @@ Partial Class LBL_CANTON
         Me.TAB_INFO.Controls.Add(Me.TXT_NOMBRE)
         Me.TAB_INFO.Controls.Add(Me.LBL_PROVINCIA)
         Me.TAB_INFO.Controls.Add(Me.TXT_CODIGO)
-        Me.TAB_INFO.Location = New System.Drawing.Point(4, 22)
+        Me.TAB_INFO.Location = New System.Drawing.Point(4, 33)
+        Me.TAB_INFO.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TAB_INFO.Name = "TAB_INFO"
-        Me.TAB_INFO.Padding = New System.Windows.Forms.Padding(3)
-        Me.TAB_INFO.Size = New System.Drawing.Size(553, 367)
+        Me.TAB_INFO.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TAB_INFO.Size = New System.Drawing.Size(740, 447)
         Me.TAB_INFO.TabIndex = 0
         Me.TAB_INFO.Text = "Información general"
         Me.TAB_INFO.UseVisualStyleBackColor = True
@@ -263,10 +280,11 @@ Partial Class LBL_CANTON
         'TXT_TELEFONO
         '
         Me.TXT_TELEFONO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_TELEFONO.Location = New System.Drawing.Point(124, 124)
+        Me.TXT_TELEFONO.Location = New System.Drawing.Point(165, 153)
+        Me.TXT_TELEFONO.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TXT_TELEFONO.Multiline = True
         Me.TXT_TELEFONO.Name = "TXT_TELEFONO"
-        Me.TXT_TELEFONO.Size = New System.Drawing.Size(158, 24)
+        Me.TXT_TELEFONO.Size = New System.Drawing.Size(209, 29)
         Me.TXT_TELEFONO.TabIndex = 20
         '
         'Label1
@@ -274,9 +292,10 @@ Partial Class LBL_CANTON
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.Black
-        Me.Label1.Location = New System.Drawing.Point(27, 129)
+        Me.Label1.Location = New System.Drawing.Point(36, 159)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(74, 18)
+        Me.Label1.Size = New System.Drawing.Size(95, 24)
         Me.Label1.TabIndex = 19
         Me.Label1.Text = "Teléfono :"
         '
@@ -286,9 +305,10 @@ Partial Class LBL_CANTON
         Me.CHK_FE.Checked = True
         Me.CHK_FE.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CHK_FE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CHK_FE.Location = New System.Drawing.Point(124, 275)
+        Me.CHK_FE.Location = New System.Drawing.Point(165, 338)
+        Me.CHK_FE.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CHK_FE.Name = "CHK_FE"
-        Me.CHK_FE.Size = New System.Drawing.Size(194, 20)
+        Me.CHK_FE.Size = New System.Drawing.Size(245, 24)
         Me.CHK_FE.TabIndex = 17
         Me.CHK_FE.Text = "¿Es facturación electrónica?"
         Me.CHK_FE.UseVisualStyleBackColor = True
@@ -298,9 +318,11 @@ Partial Class LBL_CANTON
         Me.GroupBox1.Controls.Add(Me.RB_INACTIVA)
         Me.GroupBox1.Controls.Add(Me.RB_ACTIVA)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
-        Me.GroupBox1.Location = New System.Drawing.Point(124, 306)
+        Me.GroupBox1.Location = New System.Drawing.Point(165, 377)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(342, 48)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Size = New System.Drawing.Size(456, 59)
         Me.GroupBox1.TabIndex = 18
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Estado"
@@ -308,9 +330,10 @@ Partial Class LBL_CANTON
         'RB_INACTIVA
         '
         Me.RB_INACTIVA.AutoSize = True
-        Me.RB_INACTIVA.Location = New System.Drawing.Point(263, 19)
+        Me.RB_INACTIVA.Location = New System.Drawing.Point(351, 23)
+        Me.RB_INACTIVA.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RB_INACTIVA.Name = "RB_INACTIVA"
-        Me.RB_INACTIVA.Size = New System.Drawing.Size(72, 20)
+        Me.RB_INACTIVA.Size = New System.Drawing.Size(87, 24)
         Me.RB_INACTIVA.TabIndex = 19
         Me.RB_INACTIVA.TabStop = True
         Me.RB_INACTIVA.Text = "Inactiva"
@@ -320,9 +343,10 @@ Partial Class LBL_CANTON
         '
         Me.RB_ACTIVA.AutoSize = True
         Me.RB_ACTIVA.Checked = True
-        Me.RB_ACTIVA.Location = New System.Drawing.Point(15, 19)
+        Me.RB_ACTIVA.Location = New System.Drawing.Point(20, 23)
+        Me.RB_ACTIVA.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RB_ACTIVA.Name = "RB_ACTIVA"
-        Me.RB_ACTIVA.Size = New System.Drawing.Size(63, 20)
+        Me.RB_ACTIVA.Size = New System.Drawing.Size(76, 24)
         Me.RB_ACTIVA.TabIndex = 18
         Me.RB_ACTIVA.TabStop = True
         Me.RB_ACTIVA.Text = "Activa"
@@ -331,10 +355,11 @@ Partial Class LBL_CANTON
         'TXT_EMAIL
         '
         Me.TXT_EMAIL.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_EMAIL.Location = New System.Drawing.Point(124, 152)
+        Me.TXT_EMAIL.Location = New System.Drawing.Point(165, 187)
+        Me.TXT_EMAIL.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TXT_EMAIL.Multiline = True
         Me.TXT_EMAIL.Name = "TXT_EMAIL"
-        Me.TXT_EMAIL.Size = New System.Drawing.Size(342, 24)
+        Me.TXT_EMAIL.Size = New System.Drawing.Size(455, 29)
         Me.TXT_EMAIL.TabIndex = 10
         '
         'LBL_EMAIL
@@ -342,9 +367,10 @@ Partial Class LBL_CANTON
         Me.LBL_EMAIL.AutoSize = True
         Me.LBL_EMAIL.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_EMAIL.ForeColor = System.Drawing.Color.Black
-        Me.LBL_EMAIL.Location = New System.Drawing.Point(49, 157)
+        Me.LBL_EMAIL.Location = New System.Drawing.Point(65, 193)
+        Me.LBL_EMAIL.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LBL_EMAIL.Name = "LBL_EMAIL"
-        Me.LBL_EMAIL.Size = New System.Drawing.Size(53, 18)
+        Me.LBL_EMAIL.Size = New System.Drawing.Size(67, 24)
         Me.LBL_EMAIL.TabIndex = 9
         Me.LBL_EMAIL.Text = "Email :"
         '
@@ -353,10 +379,11 @@ Partial Class LBL_CANTON
         Me.TAB_FE.Controls.Add(Me.GroupBox4)
         Me.TAB_FE.Controls.Add(Me.GroupBox3)
         Me.TAB_FE.Controls.Add(Me.GroupBox2)
-        Me.TAB_FE.Location = New System.Drawing.Point(4, 22)
+        Me.TAB_FE.Location = New System.Drawing.Point(4, 25)
+        Me.TAB_FE.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TAB_FE.Name = "TAB_FE"
-        Me.TAB_FE.Padding = New System.Windows.Forms.Padding(3)
-        Me.TAB_FE.Size = New System.Drawing.Size(553, 367)
+        Me.TAB_FE.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TAB_FE.Size = New System.Drawing.Size(740, 455)
         Me.TAB_FE.TabIndex = 1
         Me.TAB_FE.Text = "Facturación Electrónica"
         Me.TAB_FE.UseVisualStyleBackColor = True
@@ -367,124 +394,30 @@ Partial Class LBL_CANTON
         Me.GroupBox4.Controls.Add(Me.BTN_ELIMINAR)
         Me.GroupBox4.Controls.Add(Me.BTN_AGREGAR)
         Me.GroupBox4.Controls.Add(Me.GRID_ACTIVIDADES)
-        Me.GroupBox4.Location = New System.Drawing.Point(6, 159)
+        Me.GroupBox4.Location = New System.Drawing.Point(8, 196)
+        Me.GroupBox4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(544, 202)
+        Me.GroupBox4.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox4.Size = New System.Drawing.Size(725, 249)
         Me.GroupBox4.TabIndex = 6
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Activiades económicas"
         '
-        'GRID_ACTIVIDADES
+        'BTN_MODIFICAR
         '
-        Me.GRID_ACTIVIDADES.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
-        Me.GRID_ACTIVIDADES.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.GRID_ACTIVIDADES.Location = New System.Drawing.Point(3, 19)
-        Me.GRID_ACTIVIDADES.MultiSelect = False
-        Me.GRID_ACTIVIDADES.Name = "GRID_ACTIVIDADES"
-        Me.GRID_ACTIVIDADES.ReadOnly = True
-        Me.GRID_ACTIVIDADES.Size = New System.Drawing.Size(396, 177)
-        Me.GRID_ACTIVIDADES.TabIndex = 8
-        '
-        'GroupBox3
-        '
-        Me.GroupBox3.Controls.Add(Me.BTN_SELECCIONAR)
-        Me.GroupBox3.Controls.Add(Me.TXT_PIN)
-        Me.GroupBox3.Controls.Add(Me.Label5)
-        Me.GroupBox3.ForeColor = System.Drawing.Color.Green
-        Me.GroupBox3.Location = New System.Drawing.Point(279, 6)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(271, 147)
-        Me.GroupBox3.TabIndex = 1
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "[Llave criptográfica]"
-        '
-        'TXT_PIN
-        '
-        Me.TXT_PIN.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
-        Me.TXT_PIN.Location = New System.Drawing.Point(6, 99)
-        Me.TXT_PIN.Name = "TXT_PIN"
-        Me.TXT_PIN.Size = New System.Drawing.Size(255, 22)
-        Me.TXT_PIN.TabIndex = 5
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(6, 73)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(40, 18)
-        Me.Label5.TabIndex = 5
-        Me.Label5.Text = "PIN :"
-        '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.Label4)
-        Me.GroupBox2.Controls.Add(Me.TXT_CLAVE_ATV)
-        Me.GroupBox2.Controls.Add(Me.Label2)
-        Me.GroupBox2.Controls.Add(Me.TXT_USUARIO_ATV)
-        Me.GroupBox2.ForeColor = System.Drawing.Color.Green
-        Me.GroupBox2.Location = New System.Drawing.Point(6, 3)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(267, 150)
-        Me.GroupBox2.TabIndex = 0
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "[ATV]"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.ForeColor = System.Drawing.Color.Black
-        Me.Label4.Location = New System.Drawing.Point(0, 76)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(53, 18)
-        Me.Label4.TabIndex = 4
-        Me.Label4.Text = "Clave :"
-        '
-        'TXT_CLAVE_ATV
-        '
-        Me.TXT_CLAVE_ATV.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
-        Me.TXT_CLAVE_ATV.Location = New System.Drawing.Point(3, 102)
-        Me.TXT_CLAVE_ATV.Name = "TXT_CLAVE_ATV"
-        Me.TXT_CLAVE_ATV.Size = New System.Drawing.Size(255, 22)
-        Me.TXT_CLAVE_ATV.TabIndex = 2
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(1, 20)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(68, 18)
-        Me.Label2.TabIndex = 1
-        Me.Label2.Text = "Usuario :"
-        '
-        'TXT_USUARIO_ATV
-        '
-        Me.TXT_USUARIO_ATV.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
-        Me.TXT_USUARIO_ATV.Location = New System.Drawing.Point(3, 42)
-        Me.TXT_USUARIO_ATV.Name = "TXT_USUARIO_ATV"
-        Me.TXT_USUARIO_ATV.Size = New System.Drawing.Size(255, 22)
-        Me.TXT_USUARIO_ATV.TabIndex = 0
-        '
-        'OPD_Llave
-        '
-        '
-        'BTN_SALIR
-        '
-        Me.BTN_SALIR.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
-        Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(463, 402)
-        Me.BTN_SALIR.Name = "BTN_SALIR"
-        Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_SALIR.TabIndex = 22
-        Me.BTN_SALIR.Text = "Salir"
-        Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_SALIR.UseVisualStyleBackColor = False
+        Me.BTN_MODIFICAR.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_MODIFICAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_MODIFICAR.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.BTN_MODIFICAR.Image = Global.VentaRepuestos.My.Resources.Resources.controles
+        Me.BTN_MODIFICAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_MODIFICAR.Location = New System.Drawing.Point(540, 103)
+        Me.BTN_MODIFICAR.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.BTN_MODIFICAR.Name = "BTN_MODIFICAR"
+        Me.BTN_MODIFICAR.Size = New System.Drawing.Size(132, 53)
+        Me.BTN_MODIFICAR.TabIndex = 25
+        Me.BTN_MODIFICAR.Text = "Modificar"
+        Me.BTN_MODIFICAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_MODIFICAR.UseVisualStyleBackColor = False
         '
         'BTN_ELIMINAR
         '
@@ -493,9 +426,10 @@ Partial Class LBL_CANTON
         Me.BTN_ELIMINAR.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.BTN_ELIMINAR.Image = Global.VentaRepuestos.My.Resources.Resources.delete
         Me.BTN_ELIMINAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_ELIMINAR.Location = New System.Drawing.Point(405, 153)
+        Me.BTN_ELIMINAR.Location = New System.Drawing.Point(540, 188)
+        Me.BTN_ELIMINAR.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.BTN_ELIMINAR.Name = "BTN_ELIMINAR"
-        Me.BTN_ELIMINAR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_ELIMINAR.Size = New System.Drawing.Size(132, 53)
         Me.BTN_ELIMINAR.TabIndex = 24
         Me.BTN_ELIMINAR.Text = "Eliminar"
         Me.BTN_ELIMINAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -508,13 +442,42 @@ Partial Class LBL_CANTON
         Me.BTN_AGREGAR.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.BTN_AGREGAR.Image = Global.VentaRepuestos.My.Resources.Resources.agregar
         Me.BTN_AGREGAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_AGREGAR.Location = New System.Drawing.Point(405, 19)
+        Me.BTN_AGREGAR.Location = New System.Drawing.Point(540, 23)
+        Me.BTN_AGREGAR.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.BTN_AGREGAR.Name = "BTN_AGREGAR"
-        Me.BTN_AGREGAR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_AGREGAR.Size = New System.Drawing.Size(132, 53)
         Me.BTN_AGREGAR.TabIndex = 24
         Me.BTN_AGREGAR.Text = "Agregar"
         Me.BTN_AGREGAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_AGREGAR.UseVisualStyleBackColor = False
+        '
+        'GRID_ACTIVIDADES
+        '
+        Me.GRID_ACTIVIDADES.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.GRID_ACTIVIDADES.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.GRID_ACTIVIDADES.Location = New System.Drawing.Point(4, 23)
+        Me.GRID_ACTIVIDADES.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GRID_ACTIVIDADES.MultiSelect = False
+        Me.GRID_ACTIVIDADES.Name = "GRID_ACTIVIDADES"
+        Me.GRID_ACTIVIDADES.ReadOnly = True
+        Me.GRID_ACTIVIDADES.RowHeadersWidth = 51
+        Me.GRID_ACTIVIDADES.Size = New System.Drawing.Size(528, 218)
+        Me.GRID_ACTIVIDADES.TabIndex = 8
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.BTN_SELECCIONAR)
+        Me.GroupBox3.Controls.Add(Me.TXT_PIN)
+        Me.GroupBox3.Controls.Add(Me.Label5)
+        Me.GroupBox3.ForeColor = System.Drawing.Color.Green
+        Me.GroupBox3.Location = New System.Drawing.Point(372, 7)
+        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox3.Size = New System.Drawing.Size(361, 181)
+        Me.GroupBox3.TabIndex = 1
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "[Llave criptográfica]"
         '
         'BTN_SELECCIONAR
         '
@@ -523,13 +486,111 @@ Partial Class LBL_CANTON
         Me.BTN_SELECCIONAR.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.BTN_SELECCIONAR.Image = Global.VentaRepuestos.My.Resources.Resources.archivos
         Me.BTN_SELECCIONAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SELECCIONAR.Location = New System.Drawing.Point(6, 18)
+        Me.BTN_SELECCIONAR.Location = New System.Drawing.Point(8, 22)
+        Me.BTN_SELECCIONAR.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.BTN_SELECCIONAR.Name = "BTN_SELECCIONAR"
-        Me.BTN_SELECCIONAR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_SELECCIONAR.Size = New System.Drawing.Size(132, 53)
         Me.BTN_SELECCIONAR.TabIndex = 23
         Me.BTN_SELECCIONAR.Text = "Importar"
         Me.BTN_SELECCIONAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SELECCIONAR.UseVisualStyleBackColor = False
+        '
+        'TXT_PIN
+        '
+        Me.TXT_PIN.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
+        Me.TXT_PIN.Location = New System.Drawing.Point(8, 122)
+        Me.TXT_PIN.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TXT_PIN.Name = "TXT_PIN"
+        Me.TXT_PIN.Size = New System.Drawing.Size(339, 26)
+        Me.TXT_PIN.TabIndex = 5
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.ForeColor = System.Drawing.Color.Black
+        Me.Label5.Location = New System.Drawing.Point(8, 90)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(50, 24)
+        Me.Label5.TabIndex = 5
+        Me.Label5.Text = "PIN :"
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.Label4)
+        Me.GroupBox2.Controls.Add(Me.TXT_CLAVE_ATV)
+        Me.GroupBox2.Controls.Add(Me.Label2)
+        Me.GroupBox2.Controls.Add(Me.TXT_USUARIO_ATV)
+        Me.GroupBox2.ForeColor = System.Drawing.Color.Green
+        Me.GroupBox2.Location = New System.Drawing.Point(8, 4)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox2.Size = New System.Drawing.Size(356, 185)
+        Me.GroupBox2.TabIndex = 0
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "[ATV]"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.ForeColor = System.Drawing.Color.Black
+        Me.Label4.Location = New System.Drawing.Point(0, 94)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(67, 24)
+        Me.Label4.TabIndex = 4
+        Me.Label4.Text = "Clave :"
+        '
+        'TXT_CLAVE_ATV
+        '
+        Me.TXT_CLAVE_ATV.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
+        Me.TXT_CLAVE_ATV.Location = New System.Drawing.Point(4, 126)
+        Me.TXT_CLAVE_ATV.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TXT_CLAVE_ATV.Name = "TXT_CLAVE_ATV"
+        Me.TXT_CLAVE_ATV.Size = New System.Drawing.Size(339, 26)
+        Me.TXT_CLAVE_ATV.TabIndex = 2
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.Color.Black
+        Me.Label2.Location = New System.Drawing.Point(1, 25)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(84, 24)
+        Me.Label2.TabIndex = 1
+        Me.Label2.Text = "Usuario :"
+        '
+        'TXT_USUARIO_ATV
+        '
+        Me.TXT_USUARIO_ATV.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
+        Me.TXT_USUARIO_ATV.Location = New System.Drawing.Point(4, 52)
+        Me.TXT_USUARIO_ATV.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TXT_USUARIO_ATV.Name = "TXT_USUARIO_ATV"
+        Me.TXT_USUARIO_ATV.Size = New System.Drawing.Size(339, 26)
+        Me.TXT_USUARIO_ATV.TabIndex = 0
+        '
+        'OPD_Llave
+        '
+        '
+        'BTN_SALIR
+        '
+        Me.BTN_SALIR.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
+        Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_SALIR.Location = New System.Drawing.Point(617, 495)
+        Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.BTN_SALIR.Name = "BTN_SALIR"
+        Me.BTN_SALIR.Size = New System.Drawing.Size(132, 53)
+        Me.BTN_SALIR.TabIndex = 22
+        Me.BTN_SALIR.Text = "Salir"
+        Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_SALIR.UseVisualStyleBackColor = False
         '
         'BTN_ACEPTAR
         '
@@ -537,40 +598,27 @@ Partial Class LBL_CANTON
         Me.BTN_ACEPTAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_ACEPTAR.Image = CType(resources.GetObject("BTN_ACEPTAR.Image"), System.Drawing.Image)
         Me.BTN_ACEPTAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(364, 402)
+        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(485, 495)
+        Me.BTN_ACEPTAR.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
-        Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_ACEPTAR.Size = New System.Drawing.Size(132, 53)
         Me.BTN_ACEPTAR.TabIndex = 21
         Me.BTN_ACEPTAR.Text = "Aceptar"
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
         '
-        'BTN_MODIFICAR
-        '
-        Me.BTN_MODIFICAR.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_MODIFICAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_MODIFICAR.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.BTN_MODIFICAR.Image = Global.VentaRepuestos.My.Resources.Resources.controles
-        Me.BTN_MODIFICAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_MODIFICAR.Location = New System.Drawing.Point(405, 84)
-        Me.BTN_MODIFICAR.Name = "BTN_MODIFICAR"
-        Me.BTN_MODIFICAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_MODIFICAR.TabIndex = 25
-        Me.BTN_MODIFICAR.Text = "Modificar"
-        Me.BTN_MODIFICAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_MODIFICAR.UseVisualStyleBackColor = False
-        '
         'LBL_CANTON
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(565, 453)
+        Me.ClientSize = New System.Drawing.Size(753, 558)
         Me.ControlBox = False
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.TAB_COMPANIA)
         Me.Controls.Add(Me.BTN_ACEPTAR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "LBL_CANTON"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Compania"

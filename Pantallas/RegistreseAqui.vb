@@ -7,7 +7,10 @@ Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Public Class RegistreseAqui
     Private Sub BTN_GUARDAR_Click(sender As Object, e As EventArgs) Handles BTN_GUARDAR.Click
         Try
-            If String.IsNullOrEmpty(TXT_NOMUSUARIO.Text) Then
+            If String.IsNullOrEmpty(TXT_CODIGO.Text) Then
+                MessageBox.Show("¡Debe de ingresar el código de usuario!", "Error")
+                TXT_CODIGO.Select()
+            ElseIf String.IsNullOrEmpty(TXT_NOMUSUARIO.Text) Then
                 MessageBox.Show("¡Debe de ingresar un nombre de usuario!", "Error")
                 TXT_NOMUSUARIO.Select()
             ElseIf String.IsNullOrEmpty(TXT_CONTRASENA.Text) Then
@@ -25,15 +28,13 @@ Public Class RegistreseAqui
             ElseIf PictureBox1.Image Is Nothing Then
                 MessageBox.Show("¡Debe seleccionar una imagen para el usuario!", "Error")
             Else
-
-                Dim CodigoUsuario = GenerarCodigoUsuario()
                 Dim MS As New MemoryStream
                 PictureBox1.Image.Save(MS, PictureBox1.Image.RawFormat)
 
                 Dim COMANDO As New SqlCommand()
                 COMANDO.CommandType = CommandType.StoredProcedure
                 Dim COD_USUARIO As New SqlParameter("@COD_USUARIO", SqlDbType.VarChar)
-                COD_USUARIO.Value = CodigoUsuario
+                COD_USUARIO.Value = TXT_CODIGO.Text
                 Dim NOMBRE As New SqlParameter("@NOMBRE", SqlDbType.VarChar)
                 NOMBRE.Value = TXT_NOMUSUARIO.Text
                 Dim TELEFONO As New SqlParameter("@TELEFONO", SqlDbType.VarChar)
@@ -94,18 +95,6 @@ Public Class RegistreseAqui
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-
-    Public Function GenerarCodigoUsuario() As String
-        Dim s As String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        Static r As New Random
-        Dim sb As New StringBuilder
-        For i As Integer = 1 To 8
-            Dim idx As Integer = r.Next(0, s.Length)
-            sb.Append(s.Substring(idx, 1))
-        Next
-        Return sb.ToString()
-    End Function
-
 
     Public Sub LimpiarTodo()
         TXT_CONTRASENA.Text = ""

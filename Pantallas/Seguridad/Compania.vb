@@ -59,6 +59,7 @@ Public Class Compania
     Private Sub Modificar()
         If Me.GRID.Rows.Count > 0 Then
             Leer_indice()
+
             Dim PANTALLA As New LBL_CANTON(CRF_Modos.Modificar, Me, COD_CIA)
             PANTALLA.ShowDialog()
         End If

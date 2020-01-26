@@ -11,6 +11,7 @@ Public Class ActEconomicaMant
     Sub New(ByVal PADRE As LBL_CANTON, ByVal MODO As CRF_Modos, ByVal COD_CIA As String, Optional ByVal COD_ACT As String = "")
         InitializeComponent()
         Me.MODO = MODO
+
         Me.COD_CIA = COD_CIA
         Me.COD_ACT = COD_ACT
         Me.PADRE = PADRE

@@ -221,7 +221,6 @@ Public Class LBL_CANTON
                 End If
             End If
             'GUARDAR_CIA()
-            Dim x As Pruebas
             'GUARDAR_CERTIFICADO()
         Catch ex As Exception
 

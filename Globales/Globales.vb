@@ -12,8 +12,6 @@ Public Class Globales
             CONX = value
         End Set
     End Property
-
-
     Public Shared Function GeneraCodigoSucursal()
         Try
 
@@ -39,5 +37,4 @@ Public Class Globales
             Return ""
         End Try
     End Function
-
 End Class

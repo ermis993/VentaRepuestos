@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports System.IO
+Imports CRF_CONEXIONES.CONEXIONES
 Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Globales
 Public Class LBL_CANTON
@@ -9,6 +10,7 @@ Public Class LBL_CANTON
     Dim CERTIFICADO As Byte() = Nothing
     Dim MODO As New CRF_Modos
     Dim PADRE As New Compania
+    Dim COD_ACT As String = ""
     Sub New(ByVal MODO As CRF_Modos, ByVal PADRE As Compania, Optional ByVal COD_CIA As String = "")
         Me.MODO = MODO
         Me.PADRE = PADRE
@@ -31,10 +33,12 @@ Public Class LBL_CANTON
         If MODO = CRF_Modos.Insertar Then
             CMB_TIPO_CEDULA.SelectedIndex = 0
             GENERAR_COD_CIA()
+            CHK_FE.Visible = True
         ElseIf MODO = CRF_Modos.Modificar Then
             TXT_CODIGO.Text = COD_CIA
             LEER()
         End If
+        REFRESCAR_ACTIVIDADES()
     End Sub
     Private Sub CARGAR_PROVINCIAS()
         Try
@@ -286,7 +290,15 @@ Public Class LBL_CANTON
                     Else
                         RB_INACTIVA.Checked = True
                     End If
-                    IIf(ITEM("FE") = "S", CHK_FE.Checked = True, CHK_FE.Checked = True)
+
+                    Dim FE As String = ITEM("FE")
+                    If Trim(FE).Equals("S") Then
+                        CHK_FE.Checked = True
+                    Else
+                        CHK_FE.Checked = False
+                        TAB_FE.Parent = Nothing
+                    End If
+
                 Next
             End If
         Catch ex As Exception
@@ -322,8 +334,10 @@ Public Class LBL_CANTON
     End Sub
 
     Private Sub Cerrar()
+        Dim PANTALLA As New Compania
         Me.Close()
-        PADRE.Refrescar()
+        PANTALLA.ShowDialog()
+        PANTALLA.Refrescar()
     End Sub
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         Cerrar()
@@ -332,6 +346,7 @@ Public Class LBL_CANTON
     Private Sub LIMPIAR_TODO()
         GENERAR_COD_CIA()
         TXT_NOMBRE.Text = ""
+        TXT_CEDULA.Text = ""
         CMB_TIPO_CEDULA.SelectedIndex = 0
         TXT_TELEFONO.Text = ""
         TXT_EMAIL.Text = ""
@@ -340,9 +355,60 @@ Public Class LBL_CANTON
         RB_ACTIVA.Checked = True
     End Sub
     Private Sub BTN_ELIMINAR_Click(sender As Object, e As EventArgs) Handles BTN_ELIMINAR.Click
-        Dim x As Boolean = False
+        Leer_indice()
+        If COD_ACT <> "" Then
+            Dim PANTALLA As New ActEconomicaMant(Me, CRF_Modos.Eliminar, TXT_CODIGO.Text, COD_ACT)
+            PANTALLA.ShowDialog()
+        End If
     End Sub
     Private Sub BTN_AGREGAR_Click(sender As Object, e As EventArgs) Handles BTN_AGREGAR.Click
+        Dim PANTALLA As New ActEconomicaMant(Me, CRF_Modos.Insertar, TXT_CODIGO.Text)
+        PANTALLA.ShowDialog()
+    End Sub
 
+    Public Sub REFRESCAR_ACTIVIDADES()
+        GRID_ACTIVIDADES.DataSource = Nothing
+        Dim SQL = "	SELECT COD_ACT,DES_ACT,PRINCIPAL,FECHA_INC"
+        SQL &= Chr(13) & "	FROM ACTIVIDAD_ECONOMICA"
+
+        CONX.Coneccion_Abrir()
+        Dim DS = CONX.EJECUTE_DS(SQL)
+        CONX.Coneccion_Cerrar()
+
+        If DS.Tables(0).Rows.Count > 0 Then
+            GRID_ACTIVIDADES.DataSource = DS.Tables(0)
+        End If
+    End Sub
+
+    Private Sub BTN_MODIFICAR_Click(sender As Object, e As EventArgs) Handles BTN_MODIFICAR.Click
+        MODIFICAR_ACTIVIDAD()
+    End Sub
+
+    Private Sub Leer_indice()
+        Try
+            If Me.GRID_ACTIVIDADES.Rows.Count > 0 Then
+                Dim INDICE As DataGridViewCellCollection
+                INDICE = GRID_ACTIVIDADES.SelectedRows.Item(0).Cells
+                If IsNothing(INDICE) = False Then
+                    COD_ACT = INDICE.Item("COD_ACT").Value
+                End If
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Private Sub MODIFICAR_ACTIVIDAD()
+        Try
+            Leer_indice()
+            If COD_ACT <> "" Then
+                Dim PANTALLA As New ActEconomicaMant(Me, CRF_Modos.Modificar, TXT_CODIGO.Text, COD_ACT)
+                PANTALLA.ShowDialog()
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Private Sub GRID_ACTIVIDADES_DoubleClick(sender As Object, e As EventArgs) Handles GRID_ACTIVIDADES.DoubleClick
+        MODIFICAR_ACTIVIDAD()
     End Sub
 End Class

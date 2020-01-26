@@ -4,13 +4,12 @@ Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Public Class Login
 
     Public Shared USUARIO As String = ""
-
     Private Sub LOGIN_LOAD(sender As Object, e As EventArgs) Handles MyBase.Load
         CONFIGURACION()
     End Sub
     Private Sub CONFIGURACION()
         Try
-            CONX.ConexionSTR("ASUS", "sa", "1234", "VR")
+            CONX.ConexionSTR("TOMMY\SQLEXPRESS", "sa", "Luna01x", "VR")
         Catch ex As Exception
         End Try
     End Sub
@@ -44,7 +43,6 @@ Public Class Login
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-
     Private Sub INGRESAR(sender As Object, e As EventArgs) Handles BTN_INGRESAR.Click
         Ingreso()
     End Sub
@@ -81,7 +79,6 @@ Public Class Login
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         Me.Close()
     End Sub
-
     Private Sub LBL_OLVIDO_Click(sender As Object, e As EventArgs) Handles LBL_OLVIDO.Click
         Try
             Me.Visible = False
@@ -90,7 +87,6 @@ Public Class Login
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-
     Private Sub TXT_CONTRASENA_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TXT_CONTRASENA.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             Ingreso()

@@ -44,7 +44,6 @@ Public Class Compania
                 End If
             End If
         Catch ex As Exception
-
         End Try
     End Sub
     Public Sub Refrescar()

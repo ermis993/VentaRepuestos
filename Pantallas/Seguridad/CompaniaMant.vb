@@ -183,28 +183,37 @@ Public Class LBL_CANTON
         End Try
     End Function
     Private Sub GUARDAR_CERTIFICADO()
-        If IsNothing(CERTIFICADO) = False And TXT_PIN.Text <> "" Then
+        Try
+            If IsNothing(CERTIFICADO) = False And TXT_PIN.Text <> "" Then
+                Dim COMANDO As New SqlCommand()
+                COMANDO.CommandType = CommandType.StoredProcedure
+                Dim PIN As New SqlParameter("@PIN", SqlDbType.VarChar)
+                PIN.Value = TXT_PIN.Text
+                Dim CERT As New SqlParameter("@CERTIFICADO", SqlDbType.VarBinary)
+                CERT.Value = CERTIFICADO
+                Dim COD_CIA As New SqlParameter("@COD_CIA", SqlDbType.VarChar)
+                COD_CIA.Value = TXT_CODIGO.Text
 
-            Dim COMANDO As New SqlCommand()
-            COMANDO.CommandType = CommandType.StoredProcedure
-            Dim PIN As New SqlParameter("@PIN", SqlDbType.VarChar)
-            PIN.Value = TXT_PIN.Text
-            Dim CERT As New SqlParameter("@CERTIFICADO", SqlDbType.VarBinary)
-            CERT.Value = CERTIFICADO
-            Dim COD_CIA As New SqlParameter("@COD_CIA", SqlDbType.VarChar)
-            COD_CIA.Value = TXT_CODIGO.Text
+                COMANDO.CommandText = "GUARDAR_CERTIFICADO"
+                COMANDO.Parameters.Add(CERT)
+                COMANDO.Parameters.Add(PIN)
+                COMANDO.Parameters.Add(COD_CIA)
 
-            COMANDO.CommandText = "GUARDAR_CERTIFICADO"
-            COMANDO.Parameters.Add(CERT)
-            COMANDO.Parameters.Add(PIN)
-            COMANDO.Parameters.Add(COD_CIA)
+                CONX.Coneccion_Abrir()
+                COMANDO.Connection = CONX.Connection
+                Dim AR = COMANDO.ExecuteReader()
+                AR.Close()
+                CONX.Coneccion_Cerrar()
 
-            CONX.Coneccion_Abrir()
-            COMANDO.Connection = CONX.Connection
-            Dim AR = COMANDO.ExecuteReader()
-            AR.Close()
-            CONX.Coneccion_Cerrar()
-        End If
+                Dim SQL = "	UPDATE COMPANIA SET SUBJECT_CERT = NULL ,HUELLA = NULL"
+                SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(TXT_CODIGO.Text)
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+
+        End Try
     End Sub
     Private Sub GUARDAR_CIA()
         Dim SQL As String = "INSERT INTO COMPANIA(COD_CIA,NOMBRE,CEDULA,TIPO_CEDULA,CORREO,ESTADO,FECHA_INC) VALUES "
@@ -218,10 +227,11 @@ Public Class LBL_CANTON
             If MODO = CRF_Modos.Insertar Or MODO = CRF_Modos.Modificar Then
                 If VALIDAR() = True Then
                     EJECUTAR()
+                    If IsNothing(CERTIFICADO) = False And TXT_PIN.Text <> "" Then
+                        GUARDAR_CERTIFICADO()
+                    End If
                 End If
             End If
-            'GUARDAR_CIA()
-            'GUARDAR_CERTIFICADO()
         Catch ex As Exception
 
         End Try
@@ -229,7 +239,6 @@ Public Class LBL_CANTON
     Private Function VALIDAR() As Boolean
         Try
             Dim ENTRAR As Boolean = False
-
             If TXT_NOMBRE.Text.ToString.Equals("") Then
                 MessageBox.Show("¡Nombre de compañía incorrecto!")
                 TXT_NOMBRE.Select()
@@ -245,6 +254,8 @@ Public Class LBL_CANTON
             ElseIf CMB_DISTRITO.Text.Equals("") Then
                 MessageBox.Show("¡Distrito incorrecto!")
                 CMB_DISTRITO.Select()
+            ElseIf IsNothing(CERTIFICADO) = False And TXT_PIN.Text.Equals("") Then
+                MessageBox.Show("¡Debe ingresar un PIN válido para el certificado importado!")
             Else
                 ENTRAR = True
             End If
@@ -284,6 +295,12 @@ Public Class LBL_CANTON
                     CMB_CANTON.SelectedValue = ITEM("COD_CANTON")
                     CMB_DISTRITO.SelectedValue = ITEM("COD_DISTRITO")
 
+                    TXT_USUARIO_ATV.Text = ITEM("USUARIO_ATV")
+                    TXT_CLAVE_ATV.Text = ITEM("CLAVE_ATV")
+
+                    If ITEM("PIN") <> "0" Then
+                        TXT_PIN.Text = ITEM("PIN")
+                    End If
 
                     If ITEM("ESTADO") = "A" Then
                         RB_ACTIVA.Checked = True
@@ -292,13 +309,13 @@ Public Class LBL_CANTON
                     End If
 
                     Dim FE As String = ITEM("FE")
+
                     If Trim(FE).Equals("S") Then
                         CHK_FE.Checked = True
                     Else
                         CHK_FE.Checked = False
                         TAB_FE.Parent = Nothing
                     End If
-
                 Next
             End If
         Catch ex As Exception
@@ -321,9 +338,12 @@ Public Class LBL_CANTON
         SQL &= Chr(13) & ",@DISTRITO = " & SCM(CMB_DISTRITO.Text)
         SQL &= Chr(13) & ",@ESTADO = " & SCM(IIf(RB_ACTIVA.Checked = True, "A", "I"))
         SQL &= Chr(13) & ",@FE = " & SCM(IIf(CHK_FE.Checked = True, "S", "N"))
+        SQL &= Chr(13) & ",@USUARIO_ATV = " & SCM(TXT_USUARIO_ATV.Text)
+        SQL &= Chr(13) & ",@CLAVE_ATV = " & SCM(TXT_CLAVE_ATV.Text)
         CONX.Coneccion_Abrir()
         CONX.EJECUTE(SQL)
         CONX.Coneccion_Cerrar()
+
         If MODO = CRF_Modos.Insertar Then
             LIMPIAR_TODO()
             MessageBox.Show("¡Compañía ingresada correctamente!")
@@ -346,7 +366,6 @@ Public Class LBL_CANTON
         TXT_NOMBRE.Text = ""
         TXT_CEDULA.Text = ""
         CMB_TIPO_CEDULA.SelectedIndex = 0
-        TXT_TELEFONO.Text = ""
         TXT_EMAIL.Text = ""
         CMB_PROVINCIA.SelectedIndex = 0
         CHK_FE.Checked = True

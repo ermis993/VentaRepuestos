@@ -39,8 +39,6 @@ Partial Class LBL_CANTON
         Me.CMB_DISTRITO = New System.Windows.Forms.ComboBox()
         Me.TAB_COMPANIA = New System.Windows.Forms.TabControl()
         Me.TAB_INFO = New System.Windows.Forms.TabPage()
-        Me.TXT_TELEFONO = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.CHK_FE = New System.Windows.Forms.CheckBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.RB_INACTIVA = New System.Windows.Forms.RadioButton()
@@ -90,7 +88,7 @@ Partial Class LBL_CANTON
         Me.LBL_TIPO_CEDULA.AutoSize = True
         Me.LBL_TIPO_CEDULA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_TIPO_CEDULA.ForeColor = System.Drawing.Color.Black
-        Me.LBL_TIPO_CEDULA.Location = New System.Drawing.Point(9, 73)
+        Me.LBL_TIPO_CEDULA.Location = New System.Drawing.Point(9, 79)
         Me.LBL_TIPO_CEDULA.Name = "LBL_TIPO_CEDULA"
         Me.LBL_TIPO_CEDULA.Size = New System.Drawing.Size(92, 18)
         Me.LBL_TIPO_CEDULA.TabIndex = 4
@@ -102,7 +100,7 @@ Partial Class LBL_CANTON
         Me.CMB_TIPO_CEDULA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CMB_TIPO_CEDULA.FormattingEnabled = True
         Me.CMB_TIPO_CEDULA.Items.AddRange(New Object() {"Física", "Jurídica", "Nite", "Dimex"})
-        Me.CMB_TIPO_CEDULA.Location = New System.Drawing.Point(124, 67)
+        Me.CMB_TIPO_CEDULA.Location = New System.Drawing.Point(124, 73)
         Me.CMB_TIPO_CEDULA.Name = "CMB_TIPO_CEDULA"
         Me.CMB_TIPO_CEDULA.Size = New System.Drawing.Size(158, 24)
         Me.CMB_TIPO_CEDULA.TabIndex = 5
@@ -112,7 +110,7 @@ Partial Class LBL_CANTON
         Me.LBL_CEDULA.AutoSize = True
         Me.LBL_CEDULA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_CEDULA.ForeColor = System.Drawing.Color.Black
-        Me.LBL_CEDULA.Location = New System.Drawing.Point(40, 99)
+        Me.LBL_CEDULA.Location = New System.Drawing.Point(40, 108)
         Me.LBL_CEDULA.Name = "LBL_CEDULA"
         Me.LBL_CEDULA.Size = New System.Drawing.Size(62, 18)
         Me.LBL_CEDULA.TabIndex = 6
@@ -121,7 +119,7 @@ Partial Class LBL_CANTON
         'TXT_CEDULA
         '
         Me.TXT_CEDULA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_CEDULA.Location = New System.Drawing.Point(124, 97)
+        Me.TXT_CEDULA.Location = New System.Drawing.Point(124, 106)
         Me.TXT_CEDULA.Name = "TXT_CEDULA"
         Me.TXT_CEDULA.PromptChar = Global.Microsoft.VisualBasic.ChrW(35)
         Me.TXT_CEDULA.Size = New System.Drawing.Size(158, 22)
@@ -132,7 +130,7 @@ Partial Class LBL_CANTON
         Me.LBL_NOMBRE.AutoSize = True
         Me.LBL_NOMBRE.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_NOMBRE.ForeColor = System.Drawing.Color.Black
-        Me.LBL_NOMBRE.Location = New System.Drawing.Point(31, 43)
+        Me.LBL_NOMBRE.Location = New System.Drawing.Point(31, 46)
         Me.LBL_NOMBRE.Name = "LBL_NOMBRE"
         Me.LBL_NOMBRE.Size = New System.Drawing.Size(70, 18)
         Me.LBL_NOMBRE.TabIndex = 2
@@ -141,7 +139,7 @@ Partial Class LBL_CANTON
         'TXT_NOMBRE
         '
         Me.TXT_NOMBRE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_NOMBRE.Location = New System.Drawing.Point(124, 37)
+        Me.TXT_NOMBRE.Location = New System.Drawing.Point(124, 40)
         Me.TXT_NOMBRE.Multiline = True
         Me.TXT_NOMBRE.Name = "TXT_NOMBRE"
         Me.TXT_NOMBRE.Size = New System.Drawing.Size(342, 24)
@@ -162,7 +160,7 @@ Partial Class LBL_CANTON
         Me.LBL_PROVINCIA.AutoSize = True
         Me.LBL_PROVINCIA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_PROVINCIA.ForeColor = System.Drawing.Color.Black
-        Me.LBL_PROVINCIA.Location = New System.Drawing.Point(25, 188)
+        Me.LBL_PROVINCIA.Location = New System.Drawing.Point(25, 176)
         Me.LBL_PROVINCIA.Name = "LBL_PROVINCIA"
         Me.LBL_PROVINCIA.Size = New System.Drawing.Size(77, 18)
         Me.LBL_PROVINCIA.TabIndex = 12
@@ -173,7 +171,7 @@ Partial Class LBL_CANTON
         Me.CMB_PROVINCIA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CMB_PROVINCIA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CMB_PROVINCIA.FormattingEnabled = True
-        Me.CMB_PROVINCIA.Location = New System.Drawing.Point(124, 182)
+        Me.CMB_PROVINCIA.Location = New System.Drawing.Point(124, 170)
         Me.CMB_PROVINCIA.Name = "CMB_PROVINCIA"
         Me.CMB_PROVINCIA.Size = New System.Drawing.Size(158, 24)
         Me.CMB_PROVINCIA.TabIndex = 13
@@ -183,7 +181,7 @@ Partial Class LBL_CANTON
         Me.LBL_CANTO.AutoSize = True
         Me.LBL_CANTO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_CANTO.ForeColor = System.Drawing.Color.Black
-        Me.LBL_CANTO.Location = New System.Drawing.Point(38, 218)
+        Me.LBL_CANTO.Location = New System.Drawing.Point(38, 209)
         Me.LBL_CANTO.Name = "LBL_CANTO"
         Me.LBL_CANTO.Size = New System.Drawing.Size(64, 18)
         Me.LBL_CANTO.TabIndex = 14
@@ -194,7 +192,7 @@ Partial Class LBL_CANTON
         Me.CMB_CANTON.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CMB_CANTON.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CMB_CANTON.FormattingEnabled = True
-        Me.CMB_CANTON.Location = New System.Drawing.Point(124, 212)
+        Me.CMB_CANTON.Location = New System.Drawing.Point(124, 203)
         Me.CMB_CANTON.Name = "CMB_CANTON"
         Me.CMB_CANTON.Size = New System.Drawing.Size(158, 24)
         Me.CMB_CANTON.TabIndex = 15
@@ -204,7 +202,7 @@ Partial Class LBL_CANTON
         Me.LBL_DISTRITO.AutoSize = True
         Me.LBL_DISTRITO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_DISTRITO.ForeColor = System.Drawing.Color.Black
-        Me.LBL_DISTRITO.Location = New System.Drawing.Point(38, 248)
+        Me.LBL_DISTRITO.Location = New System.Drawing.Point(38, 242)
         Me.LBL_DISTRITO.Name = "LBL_DISTRITO"
         Me.LBL_DISTRITO.Size = New System.Drawing.Size(63, 18)
         Me.LBL_DISTRITO.TabIndex = 16
@@ -215,7 +213,7 @@ Partial Class LBL_CANTON
         Me.CMB_DISTRITO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CMB_DISTRITO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CMB_DISTRITO.FormattingEnabled = True
-        Me.CMB_DISTRITO.Location = New System.Drawing.Point(124, 242)
+        Me.CMB_DISTRITO.Location = New System.Drawing.Point(124, 236)
         Me.CMB_DISTRITO.Name = "CMB_DISTRITO"
         Me.CMB_DISTRITO.Size = New System.Drawing.Size(158, 24)
         Me.CMB_DISTRITO.TabIndex = 17
@@ -232,8 +230,6 @@ Partial Class LBL_CANTON
         '
         'TAB_INFO
         '
-        Me.TAB_INFO.Controls.Add(Me.TXT_TELEFONO)
-        Me.TAB_INFO.Controls.Add(Me.Label1)
         Me.TAB_INFO.Controls.Add(Me.CHK_FE)
         Me.TAB_INFO.Controls.Add(Me.GroupBox1)
         Me.TAB_INFO.Controls.Add(Me.TXT_EMAIL)
@@ -260,33 +256,13 @@ Partial Class LBL_CANTON
         Me.TAB_INFO.Text = "Información general"
         Me.TAB_INFO.UseVisualStyleBackColor = True
         '
-        'TXT_TELEFONO
-        '
-        Me.TXT_TELEFONO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_TELEFONO.Location = New System.Drawing.Point(124, 124)
-        Me.TXT_TELEFONO.Multiline = True
-        Me.TXT_TELEFONO.Name = "TXT_TELEFONO"
-        Me.TXT_TELEFONO.Size = New System.Drawing.Size(158, 24)
-        Me.TXT_TELEFONO.TabIndex = 9
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.Black
-        Me.Label1.Location = New System.Drawing.Point(27, 129)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(74, 18)
-        Me.Label1.TabIndex = 8
-        Me.Label1.Text = "Teléfono :"
-        '
         'CHK_FE
         '
         Me.CHK_FE.AutoSize = True
         Me.CHK_FE.Checked = True
         Me.CHK_FE.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CHK_FE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CHK_FE.Location = New System.Drawing.Point(124, 275)
+        Me.CHK_FE.Location = New System.Drawing.Point(124, 272)
         Me.CHK_FE.Name = "CHK_FE"
         Me.CHK_FE.Size = New System.Drawing.Size(194, 20)
         Me.CHK_FE.TabIndex = 18
@@ -332,7 +308,7 @@ Partial Class LBL_CANTON
         'TXT_EMAIL
         '
         Me.TXT_EMAIL.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_EMAIL.Location = New System.Drawing.Point(124, 152)
+        Me.TXT_EMAIL.Location = New System.Drawing.Point(124, 137)
         Me.TXT_EMAIL.Multiline = True
         Me.TXT_EMAIL.Name = "TXT_EMAIL"
         Me.TXT_EMAIL.Size = New System.Drawing.Size(342, 24)
@@ -343,7 +319,7 @@ Partial Class LBL_CANTON
         Me.LBL_EMAIL.AutoSize = True
         Me.LBL_EMAIL.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_EMAIL.ForeColor = System.Drawing.Color.Black
-        Me.LBL_EMAIL.Location = New System.Drawing.Point(49, 157)
+        Me.LBL_EMAIL.Location = New System.Drawing.Point(49, 142)
         Me.LBL_EMAIL.Name = "LBL_EMAIL"
         Me.LBL_EMAIL.Size = New System.Drawing.Size(53, 18)
         Me.LBL_EMAIL.TabIndex = 10
@@ -622,8 +598,6 @@ Partial Class LBL_CANTON
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents TXT_USUARIO_ATV As TextBox
-    Friend WithEvents Label1 As Label
-    Friend WithEvents TXT_TELEFONO As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents TXT_CLAVE_ATV As TextBox

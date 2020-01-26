@@ -29,7 +29,7 @@ Partial Class SucursalMant
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TXT_NOMBRE = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TXT_DIRECCION = New System.Windows.Forms.TextBox()
         Me.TXT_TELEFONO = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.TXT_CORREO = New System.Windows.Forms.TextBox()
@@ -93,7 +93,6 @@ Partial Class SucursalMant
         '
         'TXT_NOMBRE
         '
-        Me.TXT_NOMBRE.Enabled = False
         Me.TXT_NOMBRE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold)
         Me.TXT_NOMBRE.Location = New System.Drawing.Point(120, 70)
         Me.TXT_NOMBRE.Margin = New System.Windows.Forms.Padding(4)
@@ -114,17 +113,16 @@ Partial Class SucursalMant
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "Dirección :"
         '
-        'TextBox1
+        'TXT_DIRECCION
         '
-        Me.TextBox1.Enabled = False
-        Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.TextBox1.Location = New System.Drawing.Point(120, 107)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(4)
-        Me.TextBox1.MaxLength = 250
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(483, 96)
-        Me.TextBox1.TabIndex = 5
+        Me.TXT_DIRECCION.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.TXT_DIRECCION.Location = New System.Drawing.Point(120, 107)
+        Me.TXT_DIRECCION.Margin = New System.Windows.Forms.Padding(4)
+        Me.TXT_DIRECCION.MaxLength = 250
+        Me.TXT_DIRECCION.Multiline = True
+        Me.TXT_DIRECCION.Name = "TXT_DIRECCION"
+        Me.TXT_DIRECCION.Size = New System.Drawing.Size(483, 96)
+        Me.TXT_DIRECCION.TabIndex = 5
         '
         'TXT_TELEFONO
         '
@@ -177,7 +175,7 @@ Partial Class SucursalMant
         Me.GroupBox1.Controls.Add(Me.TXT_TELEFONO)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Controls.Add(Me.TextBox1)
+        Me.GroupBox1.Controls.Add(Me.TXT_DIRECCION)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.GroupBox1.Location = New System.Drawing.Point(11, 12)
@@ -268,7 +266,7 @@ Partial Class SucursalMant
     Friend WithEvents Label1 As Label
     Friend WithEvents TXT_NOMBRE As TextBox
     Friend WithEvents Label2 As Label
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents TXT_DIRECCION As TextBox
     Friend WithEvents TXT_TELEFONO As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents TXT_CORREO As TextBox

@@ -5,6 +5,9 @@ Public Class Sucursal
         RellenaSucursales()
     End Sub
 
+    Public Sub Refrescar()
+        RellenaSucursales()
+    End Sub
     Private Sub RellenaSucursales()
         Try
             Dim Estado As String
@@ -33,11 +36,9 @@ Public Class Sucursal
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         Try
             Me.Close()
-            MenuPrincipal.Show()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -65,7 +66,17 @@ Public Class Sucursal
 
     Private Sub BTN_AGREGAR_Click(sender As Object, e As EventArgs) Handles BTN_AGREGAR.Click
         Try
+            Dim PANTALLA As New SucursalMant(CRF_Modos.Insertar, Me)
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 
+    Private Sub BTN_MODIFICAR_Click(sender As Object, e As EventArgs) Handles BTN_MODIFICAR.Click
+        Try
+            Dim PANTALLA As New SucursalMant(CRF_Modos.Modificar, Me)
+            PANTALLA.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

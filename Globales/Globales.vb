@@ -3,6 +3,7 @@
 Public Class Globales
 
     Public Shared CONX As New SQLCON
+    Public Shared COD_CIA As String
 
     Public Property CONEXION() As SQLCON
         Get
@@ -13,6 +14,14 @@ Public Class Globales
         End Set
     End Property
 
+    Public Property COMPANIA() As String
+        Get
+            Return COD_CIA
+        End Get
+        Set(ByVal value As String)
+            COD_CIA = value
+        End Set
+    End Property
 
     Public Shared Function GeneraCodigoSucursal()
         Try

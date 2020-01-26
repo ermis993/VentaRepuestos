@@ -75,8 +75,21 @@ Public Class Sucursal
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-
     Private Sub BTN_MODIFICAR_Click(sender As Object, e As EventArgs) Handles BTN_MODIFICAR.Click
+        MODIFICAR()
+    End Sub
+    Private Sub ItemSeleccionado()
+        Try
+            Dim seleccionado = GRID.Rows(GRID.SelectedRows(0).Index)
+            COD_SUCUR = seleccionado.Cells(0).Value.ToString
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+    Private Sub GRID_DoubleClick(sender As Object, e As EventArgs) Handles GRID.DoubleClick
+        MODIFICAR()
+    End Sub
+    Private Sub MODIFICAR()
         Try
             ItemSeleccionado()
             If COD_SUCUR = "" Then
@@ -85,20 +98,8 @@ Public Class Sucursal
                 Dim PANTALLA As New SucursalMant(CRF_Modos.Modificar, Me, COD_SUCUR)
                 PANTALLA.ShowDialog()
             End If
-
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-
-    Private Sub ItemSeleccionado()
-        Try
-            Dim seleccionado = GRID.Rows(GRID.SelectedRows(0).Index)
-
-            COD_SUCUR = seleccionado.Cells(0).Value.ToString
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-        End Try
-    End Sub
-
 End Class

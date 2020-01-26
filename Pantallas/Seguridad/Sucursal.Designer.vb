@@ -22,7 +22,7 @@ Partial Class Sucursal
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Estado = New System.Windows.Forms.GroupBox()
         Me.RB_TODAS = New System.Windows.Forms.RadioButton()
         Me.RB_INACTIVAS = New System.Windows.Forms.RadioButton()
@@ -41,11 +41,9 @@ Partial Class Sucursal
         Me.Estado.Controls.Add(Me.RB_TODAS)
         Me.Estado.Controls.Add(Me.RB_INACTIVAS)
         Me.Estado.Controls.Add(Me.RB_ACTIVAS)
-        Me.Estado.Location = New System.Drawing.Point(555, 3)
-        Me.Estado.Margin = New System.Windows.Forms.Padding(4)
+        Me.Estado.Location = New System.Drawing.Point(416, 2)
         Me.Estado.Name = "Estado"
-        Me.Estado.Padding = New System.Windows.Forms.Padding(4)
-        Me.Estado.Size = New System.Drawing.Size(195, 63)
+        Me.Estado.Size = New System.Drawing.Size(146, 51)
         Me.Estado.TabIndex = 34
         Me.Estado.TabStop = False
         Me.Estado.Text = "Estado"
@@ -53,10 +51,9 @@ Partial Class Sucursal
         'RB_TODAS
         '
         Me.RB_TODAS.AutoSize = True
-        Me.RB_TODAS.Location = New System.Drawing.Point(113, 14)
-        Me.RB_TODAS.Margin = New System.Windows.Forms.Padding(4)
+        Me.RB_TODAS.Location = New System.Drawing.Point(85, 11)
         Me.RB_TODAS.Name = "RB_TODAS"
-        Me.RB_TODAS.Size = New System.Drawing.Size(69, 21)
+        Me.RB_TODAS.Size = New System.Drawing.Size(55, 17)
         Me.RB_TODAS.TabIndex = 2
         Me.RB_TODAS.Text = "Todas"
         Me.RB_TODAS.UseVisualStyleBackColor = True
@@ -64,10 +61,9 @@ Partial Class Sucursal
         'RB_INACTIVAS
         '
         Me.RB_INACTIVAS.AutoSize = True
-        Me.RB_INACTIVAS.Location = New System.Drawing.Point(9, 41)
-        Me.RB_INACTIVAS.Margin = New System.Windows.Forms.Padding(4)
+        Me.RB_INACTIVAS.Location = New System.Drawing.Point(7, 33)
         Me.RB_INACTIVAS.Name = "RB_INACTIVAS"
-        Me.RB_INACTIVAS.Size = New System.Drawing.Size(84, 21)
+        Me.RB_INACTIVAS.Size = New System.Drawing.Size(68, 17)
         Me.RB_INACTIVAS.TabIndex = 1
         Me.RB_INACTIVAS.TabStop = True
         Me.RB_INACTIVAS.Text = "Inactivas"
@@ -77,10 +73,9 @@ Partial Class Sucursal
         '
         Me.RB_ACTIVAS.AutoSize = True
         Me.RB_ACTIVAS.Checked = True
-        Me.RB_ACTIVAS.Location = New System.Drawing.Point(9, 16)
-        Me.RB_ACTIVAS.Margin = New System.Windows.Forms.Padding(4)
+        Me.RB_ACTIVAS.Location = New System.Drawing.Point(7, 13)
         Me.RB_ACTIVAS.Name = "RB_ACTIVAS"
-        Me.RB_ACTIVAS.Size = New System.Drawing.Size(74, 21)
+        Me.RB_ACTIVAS.Size = New System.Drawing.Size(60, 17)
         Me.RB_ACTIVAS.TabIndex = 0
         Me.RB_ACTIVAS.TabStop = True
         Me.RB_ACTIVAS.Text = "Activas"
@@ -92,10 +87,9 @@ Partial Class Sucursal
         Me.BTN_AGREGAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_AGREGAR.Image = Global.VentaRepuestos.My.Resources.Resources.agregar
         Me.BTN_AGREGAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_AGREGAR.Location = New System.Drawing.Point(13, 13)
-        Me.BTN_AGREGAR.Margin = New System.Windows.Forms.Padding(4)
+        Me.BTN_AGREGAR.Location = New System.Drawing.Point(10, 11)
         Me.BTN_AGREGAR.Name = "BTN_AGREGAR"
-        Me.BTN_AGREGAR.Size = New System.Drawing.Size(132, 53)
+        Me.BTN_AGREGAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_AGREGAR.TabIndex = 33
         Me.BTN_AGREGAR.Text = "Agregar"
         Me.BTN_AGREGAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -107,10 +101,9 @@ Partial Class Sucursal
         Me.BTN_MODIFICAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_MODIFICAR.Image = Global.VentaRepuestos.My.Resources.Resources.controles
         Me.BTN_MODIFICAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_MODIFICAR.Location = New System.Drawing.Point(147, 13)
-        Me.BTN_MODIFICAR.Margin = New System.Windows.Forms.Padding(4)
+        Me.BTN_MODIFICAR.Location = New System.Drawing.Point(110, 11)
         Me.BTN_MODIFICAR.Name = "BTN_MODIFICAR"
-        Me.BTN_MODIFICAR.Size = New System.Drawing.Size(132, 53)
+        Me.BTN_MODIFICAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_MODIFICAR.TabIndex = 32
         Me.BTN_MODIFICAR.Text = "Modificar"
         Me.BTN_MODIFICAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -122,10 +115,9 @@ Partial Class Sucursal
         Me.BTN_REFRESCAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_REFRESCAR.Image = Global.VentaRepuestos.My.Resources.Resources.refrescar
         Me.BTN_REFRESCAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_REFRESCAR.Location = New System.Drawing.Point(281, 13)
-        Me.BTN_REFRESCAR.Margin = New System.Windows.Forms.Padding(4)
+        Me.BTN_REFRESCAR.Location = New System.Drawing.Point(211, 11)
         Me.BTN_REFRESCAR.Name = "BTN_REFRESCAR"
-        Me.BTN_REFRESCAR.Size = New System.Drawing.Size(132, 53)
+        Me.BTN_REFRESCAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_REFRESCAR.TabIndex = 31
         Me.BTN_REFRESCAR.Text = "Refrescar"
         Me.BTN_REFRESCAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -137,10 +129,9 @@ Partial Class Sucursal
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(415, 13)
-        Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(4)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(311, 11)
         Me.BTN_SALIR.Name = "BTN_SALIR"
-        Me.BTN_SALIR.Size = New System.Drawing.Size(132, 53)
+        Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 29
         Me.BTN_SALIR.Text = "Salir"
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -153,29 +144,28 @@ Partial Class Sucursal
         Me.GRID.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.GRID.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
         Me.GRID.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ControlDark
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GRID.DefaultCellStyle = DataGridViewCellStyle2
-        Me.GRID.Location = New System.Drawing.Point(13, 73)
-        Me.GRID.Margin = New System.Windows.Forms.Padding(4)
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GRID.DefaultCellStyle = DataGridViewCellStyle1
+        Me.GRID.Location = New System.Drawing.Point(10, 59)
         Me.GRID.MultiSelect = False
         Me.GRID.Name = "GRID"
         Me.GRID.ReadOnly = True
         Me.GRID.RowHeadersWidth = 51
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRID.Size = New System.Drawing.Size(737, 375)
+        Me.GRID.Size = New System.Drawing.Size(553, 305)
         Me.GRID.TabIndex = 35
         '
         'Sucursal
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(757, 450)
+        Me.ClientSize = New System.Drawing.Size(568, 366)
         Me.ControlBox = False
         Me.Controls.Add(Me.GRID)
         Me.Controls.Add(Me.Estado)
@@ -183,6 +173,7 @@ Partial Class Sucursal
         Me.Controls.Add(Me.BTN_MODIFICAR)
         Me.Controls.Add(Me.BTN_REFRESCAR)
         Me.Controls.Add(Me.BTN_SALIR)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "Sucursal"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Sucursal"

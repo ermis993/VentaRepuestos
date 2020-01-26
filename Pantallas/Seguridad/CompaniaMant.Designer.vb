@@ -82,7 +82,7 @@ Partial Class LBL_CANTON
         Me.LBL_CODIGO.Location = New System.Drawing.Point(38, 9)
         Me.LBL_CODIGO.Name = "LBL_CODIGO"
         Me.LBL_CODIGO.Size = New System.Drawing.Size(64, 18)
-        Me.LBL_CODIGO.TabIndex = 1
+        Me.LBL_CODIGO.TabIndex = 0
         Me.LBL_CODIGO.Text = "Código :"
         '
         'LBL_TIPO_CEDULA
@@ -93,7 +93,7 @@ Partial Class LBL_CANTON
         Me.LBL_TIPO_CEDULA.Location = New System.Drawing.Point(9, 73)
         Me.LBL_TIPO_CEDULA.Name = "LBL_TIPO_CEDULA"
         Me.LBL_TIPO_CEDULA.Size = New System.Drawing.Size(92, 18)
-        Me.LBL_TIPO_CEDULA.TabIndex = 5
+        Me.LBL_TIPO_CEDULA.TabIndex = 4
         Me.LBL_TIPO_CEDULA.Text = "Tipo cédula :"
         '
         'CMB_TIPO_CEDULA
@@ -105,7 +105,7 @@ Partial Class LBL_CANTON
         Me.CMB_TIPO_CEDULA.Location = New System.Drawing.Point(124, 67)
         Me.CMB_TIPO_CEDULA.Name = "CMB_TIPO_CEDULA"
         Me.CMB_TIPO_CEDULA.Size = New System.Drawing.Size(158, 24)
-        Me.CMB_TIPO_CEDULA.TabIndex = 6
+        Me.CMB_TIPO_CEDULA.TabIndex = 5
         '
         'LBL_CEDULA
         '
@@ -115,7 +115,7 @@ Partial Class LBL_CANTON
         Me.LBL_CEDULA.Location = New System.Drawing.Point(40, 99)
         Me.LBL_CEDULA.Name = "LBL_CEDULA"
         Me.LBL_CEDULA.Size = New System.Drawing.Size(62, 18)
-        Me.LBL_CEDULA.TabIndex = 7
+        Me.LBL_CEDULA.TabIndex = 6
         Me.LBL_CEDULA.Text = "Cédula :"
         '
         'TXT_CEDULA
@@ -125,7 +125,7 @@ Partial Class LBL_CANTON
         Me.TXT_CEDULA.Name = "TXT_CEDULA"
         Me.TXT_CEDULA.PromptChar = Global.Microsoft.VisualBasic.ChrW(35)
         Me.TXT_CEDULA.Size = New System.Drawing.Size(158, 22)
-        Me.TXT_CEDULA.TabIndex = 8
+        Me.TXT_CEDULA.TabIndex = 7
         '
         'LBL_NOMBRE
         '
@@ -135,7 +135,7 @@ Partial Class LBL_CANTON
         Me.LBL_NOMBRE.Location = New System.Drawing.Point(31, 43)
         Me.LBL_NOMBRE.Name = "LBL_NOMBRE"
         Me.LBL_NOMBRE.Size = New System.Drawing.Size(70, 18)
-        Me.LBL_NOMBRE.TabIndex = 3
+        Me.LBL_NOMBRE.TabIndex = 2
         Me.LBL_NOMBRE.Text = "Nombre :"
         '
         'TXT_NOMBRE
@@ -145,7 +145,7 @@ Partial Class LBL_CANTON
         Me.TXT_NOMBRE.Multiline = True
         Me.TXT_NOMBRE.Name = "TXT_NOMBRE"
         Me.TXT_NOMBRE.Size = New System.Drawing.Size(342, 24)
-        Me.TXT_NOMBRE.TabIndex = 4
+        Me.TXT_NOMBRE.TabIndex = 3
         '
         'TXT_CODIGO
         '
@@ -155,7 +155,7 @@ Partial Class LBL_CANTON
         Me.TXT_CODIGO.Multiline = True
         Me.TXT_CODIGO.Name = "TXT_CODIGO"
         Me.TXT_CODIGO.Size = New System.Drawing.Size(143, 24)
-        Me.TXT_CODIGO.TabIndex = 2
+        Me.TXT_CODIGO.TabIndex = 1
         '
         'LBL_PROVINCIA
         '
@@ -165,7 +165,7 @@ Partial Class LBL_CANTON
         Me.LBL_PROVINCIA.Location = New System.Drawing.Point(25, 188)
         Me.LBL_PROVINCIA.Name = "LBL_PROVINCIA"
         Me.LBL_PROVINCIA.Size = New System.Drawing.Size(77, 18)
-        Me.LBL_PROVINCIA.TabIndex = 11
+        Me.LBL_PROVINCIA.TabIndex = 12
         Me.LBL_PROVINCIA.Text = "Provincia :"
         '
         'CMB_PROVINCIA
@@ -176,7 +176,7 @@ Partial Class LBL_CANTON
         Me.CMB_PROVINCIA.Location = New System.Drawing.Point(124, 182)
         Me.CMB_PROVINCIA.Name = "CMB_PROVINCIA"
         Me.CMB_PROVINCIA.Size = New System.Drawing.Size(158, 24)
-        Me.CMB_PROVINCIA.TabIndex = 12
+        Me.CMB_PROVINCIA.TabIndex = 13
         '
         'LBL_CANTO
         '
@@ -186,7 +186,7 @@ Partial Class LBL_CANTON
         Me.LBL_CANTO.Location = New System.Drawing.Point(38, 218)
         Me.LBL_CANTO.Name = "LBL_CANTO"
         Me.LBL_CANTO.Size = New System.Drawing.Size(64, 18)
-        Me.LBL_CANTO.TabIndex = 13
+        Me.LBL_CANTO.TabIndex = 14
         Me.LBL_CANTO.Text = "Cantón :"
         '
         'CMB_CANTON
@@ -197,7 +197,7 @@ Partial Class LBL_CANTON
         Me.CMB_CANTON.Location = New System.Drawing.Point(124, 212)
         Me.CMB_CANTON.Name = "CMB_CANTON"
         Me.CMB_CANTON.Size = New System.Drawing.Size(158, 24)
-        Me.CMB_CANTON.TabIndex = 14
+        Me.CMB_CANTON.TabIndex = 15
         '
         'LBL_DISTRITO
         '
@@ -207,7 +207,7 @@ Partial Class LBL_CANTON
         Me.LBL_DISTRITO.Location = New System.Drawing.Point(38, 248)
         Me.LBL_DISTRITO.Name = "LBL_DISTRITO"
         Me.LBL_DISTRITO.Size = New System.Drawing.Size(63, 18)
-        Me.LBL_DISTRITO.TabIndex = 15
+        Me.LBL_DISTRITO.TabIndex = 16
         Me.LBL_DISTRITO.Text = "Distrito :"
         '
         'CMB_DISTRITO
@@ -218,7 +218,7 @@ Partial Class LBL_CANTON
         Me.CMB_DISTRITO.Location = New System.Drawing.Point(124, 242)
         Me.CMB_DISTRITO.Name = "CMB_DISTRITO"
         Me.CMB_DISTRITO.Size = New System.Drawing.Size(158, 24)
-        Me.CMB_DISTRITO.TabIndex = 16
+        Me.CMB_DISTRITO.TabIndex = 17
         '
         'TAB_COMPANIA
         '
@@ -228,7 +228,7 @@ Partial Class LBL_CANTON
         Me.TAB_COMPANIA.Name = "TAB_COMPANIA"
         Me.TAB_COMPANIA.SelectedIndex = 0
         Me.TAB_COMPANIA.Size = New System.Drawing.Size(561, 393)
-        Me.TAB_COMPANIA.TabIndex = 15
+        Me.TAB_COMPANIA.TabIndex = 0
         '
         'TAB_INFO
         '
@@ -267,7 +267,7 @@ Partial Class LBL_CANTON
         Me.TXT_TELEFONO.Multiline = True
         Me.TXT_TELEFONO.Name = "TXT_TELEFONO"
         Me.TXT_TELEFONO.Size = New System.Drawing.Size(158, 24)
-        Me.TXT_TELEFONO.TabIndex = 20
+        Me.TXT_TELEFONO.TabIndex = 9
         '
         'Label1
         '
@@ -277,7 +277,7 @@ Partial Class LBL_CANTON
         Me.Label1.Location = New System.Drawing.Point(27, 129)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(74, 18)
-        Me.Label1.TabIndex = 19
+        Me.Label1.TabIndex = 8
         Me.Label1.Text = "Teléfono :"
         '
         'CHK_FE
@@ -289,7 +289,7 @@ Partial Class LBL_CANTON
         Me.CHK_FE.Location = New System.Drawing.Point(124, 275)
         Me.CHK_FE.Name = "CHK_FE"
         Me.CHK_FE.Size = New System.Drawing.Size(194, 20)
-        Me.CHK_FE.TabIndex = 17
+        Me.CHK_FE.TabIndex = 18
         Me.CHK_FE.Text = "¿Es facturación electrónica?"
         Me.CHK_FE.UseVisualStyleBackColor = True
         Me.CHK_FE.Visible = False
@@ -302,7 +302,7 @@ Partial Class LBL_CANTON
         Me.GroupBox1.Location = New System.Drawing.Point(124, 306)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(342, 48)
-        Me.GroupBox1.TabIndex = 18
+        Me.GroupBox1.TabIndex = 19
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Estado"
         '
@@ -312,7 +312,7 @@ Partial Class LBL_CANTON
         Me.RB_INACTIVA.Location = New System.Drawing.Point(263, 19)
         Me.RB_INACTIVA.Name = "RB_INACTIVA"
         Me.RB_INACTIVA.Size = New System.Drawing.Size(72, 20)
-        Me.RB_INACTIVA.TabIndex = 19
+        Me.RB_INACTIVA.TabIndex = 1
         Me.RB_INACTIVA.TabStop = True
         Me.RB_INACTIVA.Text = "Inactiva"
         Me.RB_INACTIVA.UseVisualStyleBackColor = True
@@ -324,7 +324,7 @@ Partial Class LBL_CANTON
         Me.RB_ACTIVA.Location = New System.Drawing.Point(15, 19)
         Me.RB_ACTIVA.Name = "RB_ACTIVA"
         Me.RB_ACTIVA.Size = New System.Drawing.Size(63, 20)
-        Me.RB_ACTIVA.TabIndex = 18
+        Me.RB_ACTIVA.TabIndex = 0
         Me.RB_ACTIVA.TabStop = True
         Me.RB_ACTIVA.Text = "Activa"
         Me.RB_ACTIVA.UseVisualStyleBackColor = True
@@ -336,7 +336,7 @@ Partial Class LBL_CANTON
         Me.TXT_EMAIL.Multiline = True
         Me.TXT_EMAIL.Name = "TXT_EMAIL"
         Me.TXT_EMAIL.Size = New System.Drawing.Size(342, 24)
-        Me.TXT_EMAIL.TabIndex = 10
+        Me.TXT_EMAIL.TabIndex = 11
         '
         'LBL_EMAIL
         '
@@ -346,7 +346,7 @@ Partial Class LBL_CANTON
         Me.LBL_EMAIL.Location = New System.Drawing.Point(49, 157)
         Me.LBL_EMAIL.Name = "LBL_EMAIL"
         Me.LBL_EMAIL.Size = New System.Drawing.Size(53, 18)
-        Me.LBL_EMAIL.TabIndex = 9
+        Me.LBL_EMAIL.TabIndex = 10
         Me.LBL_EMAIL.Text = "Email :"
         '
         'TAB_FE
@@ -547,7 +547,7 @@ Partial Class LBL_CANTON
         Me.BTN_SALIR.Location = New System.Drawing.Point(463, 402)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_SALIR.TabIndex = 22
+        Me.BTN_SALIR.TabIndex = 2
         Me.BTN_SALIR.Text = "Salir"
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
@@ -561,7 +561,7 @@ Partial Class LBL_CANTON
         Me.BTN_ACEPTAR.Location = New System.Drawing.Point(364, 402)
         Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
         Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_ACEPTAR.TabIndex = 21
+        Me.BTN_ACEPTAR.TabIndex = 1
         Me.BTN_ACEPTAR.Text = "Aceptar"
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
@@ -574,8 +574,8 @@ Partial Class LBL_CANTON
         Me.ClientSize = New System.Drawing.Size(565, 453)
         Me.ControlBox = False
         Me.Controls.Add(Me.BTN_SALIR)
-        Me.Controls.Add(Me.TAB_COMPANIA)
         Me.Controls.Add(Me.BTN_ACEPTAR)
+        Me.Controls.Add(Me.TAB_COMPANIA)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Name = "LBL_CANTON"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

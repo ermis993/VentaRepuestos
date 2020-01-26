@@ -9,7 +9,7 @@ Public Class Login
     End Sub
     Private Sub CONFIGURACION()
         Try
-            CONX.ConexionSTR("ASUS", "sa", "1234", "VR")
+            CONX.ConexionSTR("TOMMY\SQLEXPRESS", "sa", "Luna01x", "VR")
         Catch ex As Exception
         End Try
     End Sub
@@ -33,7 +33,7 @@ Public Class Login
                 End If
                 If COINCIDENCIA = True Then
                     Me.Visible = False
-                    Dim PANTALLA As New MenuPrincipal()
+                    Dim PANTALLA As New SeleccionCompania()
                     PANTALLA.ShowDialog()
                 Else
                     MessageBox.Show("¡Usuario no encontrado!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)

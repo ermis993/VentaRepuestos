@@ -165,6 +165,12 @@
     <Compile Include="Pantallas\Seguridad\SucursalMant.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pantallas\SeleccionCompania.Designer.vb">
+      <DependentUpon>SeleccionCompania.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\SeleccionCompania.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pantallas\CambioContrasena.resx">
@@ -202,6 +208,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Seguridad\SucursalMant.resx">
       <DependentUpon>SucursalMant.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\SeleccionCompania.resx">
+      <DependentUpon>SeleccionCompania.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -268,11 +277,11 @@
     <None Include="Resources\usuario.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\bin\FASE_MDOCUM2\GEN\CRFUSION_LIBRERIAS_GENERALES\CRF_CONEXIONES\CRF_CONEXIONES.vbproj">
+    <ProjectReference Include="..\Funciones globales\bin\CRFUSION_LIBRERIAS_GENERALES\CRF_CONEXIONES\CRF_CONEXIONES.vbproj">
       <Project>{bdddff94-3947-49d0-a098-f2e3fe3e909b}</Project>
       <Name>CRF_CONEXIONES</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\bin\FASE_MDOCUM2\GEN\CRFUSION_LIBRERIAS_GENERALES\FUN_CRFUSION\FUN_CRFUSION.vbproj">
+    <ProjectReference Include="..\Funciones globales\bin\CRFUSION_LIBRERIAS_GENERALES\FUN_CRFUSION\FUN_CRFUSION.vbproj">
       <Project>{8fde4698-2b47-4e08-9d9a-09c2d6d754d4}</Project>
       <Name>FUN_CRFUSION</Name>
     </ProjectReference>

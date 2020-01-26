@@ -26,7 +26,7 @@ Public Class OlvidoContrasena
             Else
                 Dim CodigoVerificador As String = GeneraCodigoVerificador()
 
-                Dim addressFrom As MailAddress = New MailAddress("ermis993@gmail.com", "Ermis Luna")
+                Dim addressFrom As MailAddress = New MailAddress("vrenvios@gmail.com", "Recuperación contraseña")
                 Dim addressTo As MailAddress = New MailAddress(Destinatario)
                 Dim message As MailMessage = New MailMessage(addressFrom, addressTo)
 
@@ -53,12 +53,12 @@ Public Class OlvidoContrasena
                 Dim client As SmtpClient = New SmtpClient With {
                     .Host = "smtp.gmail.com",
                     .Port = 587,
-                    .Credentials = New System.Net.NetworkCredential("ermis993@gmail.com", "mitsukahome"),
+                    .Credentials = New System.Net.NetworkCredential("vrenvios@gmail.com", "lenekpevzibiqysp"),
                     .EnableSsl = True
                 }
 
                 client.Send(message)
-
+                Me.Close()
                 CambioContrasena.Show()
             End If
         Catch ex As Exception

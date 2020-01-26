@@ -29,7 +29,6 @@ Public Class CambioContrasena
 
                 MessageBox.Show("Se cambió la contraseña con exito")
                 Me.Close()
-
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -57,4 +56,8 @@ Public Class CambioContrasena
             Return False
         End Try
     End Function
+
+    Private Sub CambioContrasena_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        Login.Visible = True
+    End Sub
 End Class

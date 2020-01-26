@@ -2,8 +2,6 @@
 Imports FUN_CRFUSION.FUNCIONES_GENERALES
 
 Public Class Login
-
-    Public Shared USUARIO As String = ""
     Private Sub LOGIN_LOAD(sender As Object, e As EventArgs) Handles MyBase.Load
         TIPO_CAMBIO_INDICADORES_ECONOMICOS()
         CONFIGURACION()
@@ -28,7 +26,7 @@ Public Class Login
                 Dim COINCIDENCIA As Boolean = False
                 If DS.Tables(0).Rows.Count > 0 Then
                     For Each ITEM In DS.Tables(0).Rows
-                        USUARIO = ITEM("COD_USUARIO")
+                        COD_USUARIO = ITEM("COD_USUARIO")
                         COINCIDENCIA = True
                     Next
                 End If

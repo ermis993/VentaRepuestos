@@ -75,6 +75,7 @@ Public Class SucursalMant
                 LimpiarTodo()
                 If MODO = CRF_Modos.Insertar Then
                     MessageBox.Show("Sucursal ingresada correctamente")
+                    Me.Close()
                 ElseIf MODO = CRF_Modos.Modificar Then
                     MessageBox.Show("Sucursal modificada correctamente")
                     Me.Close()

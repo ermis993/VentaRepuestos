@@ -9,9 +9,12 @@ Public Class SeleccionCompania
             CMB_COMPANIA.DataSource = Nothing
             Dim LISTA_REF As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
 
-            Dim SQL As String = "SELECT COD_CIA AS CODIGO , NOMBRE"
-            SQL &= Chr(13) & " FROM COMPANIA"
-            SQL &= Chr(13) & " WHERE ESTADO ='A'"
+            Dim SQL As String = "SELECT C.COD_CIA AS CODIGO , C.NOMBRE"
+            SQL &= Chr(13) & " FROM COMPANIA AS C"
+            SQL &= Chr(13) & " INNER JOIN COMPANIA_USUARIO AS CU"
+            SQL &= Chr(13) & "  ON CU.COD_CIA = C.COD_CIA"
+            SQL &= Chr(13) & "  AND CU.COD_USUARIO = " & SCM(COD_USUARIO)
+            SQL &= Chr(13) & " WHERE C.ESTADO ='A'"
 
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)

@@ -5,7 +5,9 @@ Public Class Globales
 
     Public Shared CONX As New SQLCON
     Public Shared COD_CIA As String
-    Public Property CONEXION() As SQLCON
+    Public Shared COD_USUARIO As String
+
+    Public Shared Property CONEXION() As SQLCON
         Get
             Return CONX
         End Get
@@ -13,7 +15,7 @@ Public Class Globales
             CONX = value
         End Set
     End Property
-    Public Property COMPANIA() As String
+    Public Shared Property COMPANIA() As String
         Get
             Return COD_CIA
         End Get
@@ -21,10 +23,19 @@ Public Class Globales
             COD_CIA = value
         End Set
     End Property
+    Public Shared Property USUARIO() As String
+        Get
+            Return COD_USUARIO
+        End Get
+        Set(ByVal value As String)
+            COD_USUARIO = value
+        End Set
+    End Property
     Public Shared Function GeneraCodigoSucursal()
         Try
             Dim SQL = "	SELECT ISNULL(MAX(COD_SUCUR),0) + 1 AS COD_SUCUR "
             SQL &= Chr(13) & "	FROM SUCURSAL "
+            SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
 
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)

@@ -26,6 +26,9 @@ Partial Class MenuPrincipal
         Me.BTN_SUCURSAL = New System.Windows.Forms.Button()
         Me.BTN_COMPANIA = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.CMB_SUCURSAL = New System.Windows.Forms.ComboBox()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'BTN_USUARIO
@@ -77,12 +80,32 @@ Partial Class MenuPrincipal
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = True
         '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.CMB_SUCURSAL)
+        Me.GroupBox1.Location = New System.Drawing.Point(1, 81)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(267, 76)
+        Me.GroupBox1.TabIndex = 4
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "[ Sucursal ]"
+        '
+        'CMB_SUCURSAL
+        '
+        Me.CMB_SUCURSAL.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CMB_SUCURSAL.FormattingEnabled = True
+        Me.CMB_SUCURSAL.Location = New System.Drawing.Point(6, 33)
+        Me.CMB_SUCURSAL.Name = "CMB_SUCURSAL"
+        Me.CMB_SUCURSAL.Size = New System.Drawing.Size(255, 24)
+        Me.CMB_SUCURSAL.TabIndex = 0
+        '
         'MenuPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1187, 619)
+        Me.ClientSize = New System.Drawing.Size(1203, 664)
         Me.ControlBox = False
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.BTN_USUARIO)
         Me.Controls.Add(Me.BTN_SUCURSAL)
@@ -92,6 +115,7 @@ Partial Class MenuPrincipal
         Me.Name = "MenuPrincipal"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Menú Principal"
+        Me.GroupBox1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -100,4 +124,6 @@ Partial Class MenuPrincipal
     Friend WithEvents BTN_SUCURSAL As Button
     Friend WithEvents BTN_USUARIO As Button
     Friend WithEvents BTN_SALIR As Button
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents CMB_SUCURSAL As ComboBox
 End Class

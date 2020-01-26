@@ -28,15 +28,21 @@ Public Class SeleccionCompania
             CMB_COMPANIA.DisplayMember = "Value"
             CMB_COMPANIA.SelectedIndex = 0
         Catch ex As Exception
+            MessageBox.Show(ex.Message)
         End Try
     End Sub
     Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
-        COD_CIA = CMB_COMPANIA.SelectedValue
-        If COD_CIA <> "" And IsNothing(COD_CIA) = False Then
-            Me.Close()
-            Dim PANTALLA As New MenuPrincipal()
-            PANTALLA.ShowDialog()
-        End If
+        Try
+            COD_CIA = CMB_COMPANIA.SelectedValue
+            If COD_CIA <> "" And IsNothing(COD_CIA) = False Then
+                Me.Hide()
+                Me.Close()
+                Dim PANTALLA As New MenuPrincipal()
+                PANTALLA.ShowDialog()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         Me.Close()

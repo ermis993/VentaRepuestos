@@ -31,8 +31,12 @@ Public Class Compania
         End Try
     End Sub
     Private Sub BTN_AGREGAR_Click(sender As Object, e As EventArgs) Handles BTN_AGREGAR.Click
-        Dim PANTALLA As New LBL_CANTON(CRF_Modos.Insertar, Me)
-        PANTALLA.ShowDialog()
+        Try
+            Dim PANTALLA As New LBL_CANTON(CRF_Modos.Insertar, Me)
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 
     Private Sub BTN_MODIFICAR_Click(sender As Object, e As EventArgs) Handles BTN_MODIFICAR.Click
@@ -71,7 +75,6 @@ Public Class Compania
     Private Sub GRID_DoubleClick(sender As Object, e As EventArgs) Handles GRID.DoubleClick
         Modificar()
     End Sub
-
     Private Sub RB_ACTIVAS_CheckedChanged(sender As Object, e As EventArgs) Handles RB_ACTIVAS.CheckedChanged, RB_INACTIVAS.CheckedChanged, RB_TODAS.CheckedChanged
         Refrescar()
     End Sub

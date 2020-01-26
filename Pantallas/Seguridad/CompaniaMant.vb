@@ -18,15 +18,19 @@ Public Class LBL_CANTON
         InitializeComponent()
     End Sub
     Private Sub CMB_TIPO_CEDULA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_TIPO_CEDULA.SelectedIndexChanged
-        If CMB_TIPO_CEDULA.SelectedIndex = 0 Then 'Física
-            TXT_CEDULA.Mask = "000000000"
-        ElseIf CMB_TIPO_CEDULA.SelectedIndex = 1 Then 'Jurídica
-            TXT_CEDULA.Mask = "0000000000"
-        ElseIf CMB_TIPO_CEDULA.SelectedIndex = 2 Then 'Nite
-            TXT_CEDULA.Mask = "000000000000"
-        ElseIf CMB_TIPO_CEDULA.SelectedIndex = 3 Then 'Dimex
-            TXT_CEDULA.Mask = "0000000000"
-        End If
+        Try
+            If CMB_TIPO_CEDULA.SelectedIndex = 0 Then 'Física
+                TXT_CEDULA.Mask = "000000000"
+            ElseIf CMB_TIPO_CEDULA.SelectedIndex = 1 Then 'Jurídica
+                TXT_CEDULA.Mask = "0000000000"
+            ElseIf CMB_TIPO_CEDULA.SelectedIndex = 2 Then 'Nite
+                TXT_CEDULA.Mask = "000000000000"
+            ElseIf CMB_TIPO_CEDULA.SelectedIndex = 3 Then 'Dimex
+                TXT_CEDULA.Mask = "0000000000"
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
     Private Sub CompaniaMant_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CARGAR_PROVINCIAS()
@@ -61,6 +65,7 @@ Public Class LBL_CANTON
             CMB_PROVINCIA.DisplayMember = "Value"
             CMB_PROVINCIA.SelectedIndex = 0
         Catch ex As Exception
+            MessageBox.Show(ex.Message)
         End Try
     End Sub
     Private Sub CMB_PROVINCIA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_PROVINCIA.SelectedIndexChanged
@@ -91,6 +96,7 @@ Public Class LBL_CANTON
                 CMB_CANTON.SelectedIndex = 0
             End If
         Catch ex As Exception
+            MessageBox.Show(ex.Message)
         End Try
     End Sub
     Private Sub CMB_CANTON_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_CANTON.SelectedIndexChanged
@@ -120,53 +126,81 @@ Public Class LBL_CANTON
                 CMB_DISTRITO.SelectedIndex = 0
             End If
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message)
         End Try
     End Sub
     Private Sub CHK_FE_CheckedChanged(sender As Object, e As EventArgs) Handles CHK_FE.CheckedChanged
-        If CHK_FE.Checked = True Then
-            TAB_FE.Parent = TAB_COMPANIA
-        Else
-            TAB_FE.Parent = Nothing
-        End If
+        Try
+            If CHK_FE.Checked = True Then
+                TAB_FE.Parent = TAB_COMPANIA
+            Else
+                TAB_FE.Parent = Nothing
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
     Private Sub GENERAR_COD_CIA()
         Try
             Dim CARACTERES As String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
             Dim RND As New Random
             Dim COD_CIA As String = ""
-
             For i As Integer = 1 To 3
                 COD_CIA += CARACTERES.ToCharArray(RND.Next(0, CARACTERES.Length), 1)
             Next
-
             TXT_CODIGO.Text = COD_CIA
         Catch ex As Exception
+            MessageBox.Show(ex.Message)
         End Try
     End Sub
     Private Sub BTN_SELECCIONAR_Click(sender As Object, e As EventArgs) Handles BTN_SELECCIONAR.Click
-        Respuesta = MessageBox.Show("¿Desea abrir el explorador de archivos?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-        If Respuesta = DialogResult.Yes Then
-            OPD_Llave.Title = "Seleccione un archivo"
-            OPD_Llave.InitialDirectory = "C:\"
-            OPD_Llave.ShowDialog()
-            If File.Exists(RUTA) Then
-                CERTIFICADO = Bytes(RUTA)
-                If IsNothing(CERTIFICADO) = False Then
+        Try
+            Dim CERT As Byte()
+            Dim SQL = "	SELECT ISNULL(CERTIFICADO,0) AS CERTIFICADO "
+            SQL &= Chr(13) & "	FROM COMPANIA"
+            SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(TXT_CODIGO.Text)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
 
+            If DS.Tables(0).Rows.Count > 0 Then
+                For Each ITEM In DS.Tables(0).Rows
+                    CERT = ITEM("CERTIFICADO")
+                Next
+            End If
+            If CERT.Length <> 4 Then
+                Respuesta = MessageBox.Show("¡Actualmente existe un certificado importado!" & vbNewLine & "¿Desea importar uno nuevo y eliminar el actual?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            Else
+                Respuesta = MessageBox.Show("¿Desea abrir el explorador de archivos?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            End If
+            If Respuesta = DialogResult.Yes Then
+                OPD_Llave.Title = "Seleccione un archivo"
+                OPD_Llave.InitialDirectory = "C:\"
+                OPD_Llave.ShowDialog()
+                If File.Exists(RUTA) Then
+                    CERTIFICADO = Bytes(RUTA)
+                    If IsNothing(CERTIFICADO) = False Then
+
+                    End If
                 End If
             End If
-        End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
     Private Sub OPD_Llave_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles OPD_Llave.FileOk
-        If IsNothing(OPD_Llave.FileName) = False Then
-            Dim extension = Path.GetExtension(OPD_Llave.FileName)
-            If extension <> ".p12" Then
-                MessageBox.Show("El archivo seleccionado no corresponde a un archivo .p12", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Else
-                RUTA = OPD_Llave.FileName
+        Try
+            If IsNothing(OPD_Llave.FileName) = False Then
+                Dim extension = Path.GetExtension(OPD_Llave.FileName)
+                If extension <> ".p12" Then
+                    MessageBox.Show("El archivo seleccionado no corresponde a un archivo .p12", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Else
+                    RUTA = OPD_Llave.FileName
+                End If
             End If
-        End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
     Private Function Bytes(ByVal PATH As String) As Byte()
         Try
@@ -180,6 +214,7 @@ Public Class LBL_CANTON
 
         Catch ex As Exception
             Return Nothing
+            MessageBox.Show(ex.Message)
         End Try
     End Function
     Private Sub GUARDAR_CERTIFICADO()
@@ -212,15 +247,8 @@ Public Class LBL_CANTON
                 CONX.Coneccion_Cerrar()
             End If
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message)
         End Try
-    End Sub
-    Private Sub GUARDAR_CIA()
-        Dim SQL As String = "INSERT INTO COMPANIA(COD_CIA,NOMBRE,CEDULA,TIPO_CEDULA,CORREO,ESTADO,FECHA_INC) VALUES "
-        SQL &= Chr(13) & "(" & SCM(TXT_CODIGO.Text) & "," & SCM(TXT_NOMBRE.Text) & "," & SCM(TXT_CEDULA.Text) & "," & SCM("F") & "," & SCM(TXT_EMAIL.Text) & "," & SCM("A") & "," & "GETDATE() " & ")"
-        CONX.Coneccion_Abrir()
-        CONX.EJECUTE(SQL)
-        CONX.Coneccion_Cerrar()
     End Sub
     Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
         Try
@@ -233,7 +261,7 @@ Public Class LBL_CANTON
                 End If
             End If
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message)
         End Try
     End Sub
     Private Function VALIDAR() As Boolean
@@ -262,6 +290,7 @@ Public Class LBL_CANTON
             Return ENTRAR
         Catch ex As Exception
             Return False
+            MessageBox.Show(ex.Message)
         End Try
     End Function
     Private Sub LEER()
@@ -319,40 +348,43 @@ Public Class LBL_CANTON
                 Next
             End If
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message)
         End Try
     End Sub
     Private Sub EJECUTAR()
-        Dim SQL As String = "EXEC COMPANIA_MANT"
-        SQL &= Chr(13) & "@COD_CIA = " & SCM(TXT_CODIGO.Text)
-        SQL &= Chr(13) & ",@MODO = " & Val(MODO)
-        SQL &= Chr(13) & ",@NOMBRE = " & SCM(TXT_NOMBRE.Text)
-        SQL &= Chr(13) & ",@CEDULA = " & SCM(TXT_CEDULA.Text)
-        SQL &= Chr(13) & ",@TIPO_CEDULA = " & SCM(CMB_TIPO_CEDULA.Text.ToString.Substring(0, 1).ToUpper)
-        SQL &= Chr(13) & ",@CORREO = " & SCM(TXT_EMAIL.Text)
-        SQL &= Chr(13) & ",@COD_PROVINCIA = " & SCM(CMB_PROVINCIA.SelectedValue)
-        SQL &= Chr(13) & ",@PROVINCIA = " & SCM(CMB_PROVINCIA.Text)
-        SQL &= Chr(13) & ",@COD_CANTON = " & SCM(CMB_CANTON.SelectedValue)
-        SQL &= Chr(13) & ",@CANTON = " & SCM(CMB_CANTON.Text)
-        SQL &= Chr(13) & ",@COD_DISTRITO = " & SCM(CMB_DISTRITO.SelectedValue)
-        SQL &= Chr(13) & ",@DISTRITO = " & SCM(CMB_DISTRITO.Text)
-        SQL &= Chr(13) & ",@ESTADO = " & SCM(IIf(RB_ACTIVA.Checked = True, "A", "I"))
-        SQL &= Chr(13) & ",@FE = " & SCM(IIf(CHK_FE.Checked = True, "S", "N"))
-        SQL &= Chr(13) & ",@USUARIO_ATV = " & SCM(TXT_USUARIO_ATV.Text)
-        SQL &= Chr(13) & ",@CLAVE_ATV = " & SCM(TXT_CLAVE_ATV.Text)
-        CONX.Coneccion_Abrir()
-        CONX.EJECUTE(SQL)
-        CONX.Coneccion_Cerrar()
+        Try
+            Dim SQL As String = "EXEC COMPANIA_MANT"
+            SQL &= Chr(13) & "@COD_CIA = " & SCM(TXT_CODIGO.Text)
+            SQL &= Chr(13) & ",@MODO = " & Val(MODO)
+            SQL &= Chr(13) & ",@NOMBRE = " & SCM(TXT_NOMBRE.Text)
+            SQL &= Chr(13) & ",@CEDULA = " & SCM(TXT_CEDULA.Text)
+            SQL &= Chr(13) & ",@TIPO_CEDULA = " & SCM(CMB_TIPO_CEDULA.Text.ToString.Substring(0, 1).ToUpper)
+            SQL &= Chr(13) & ",@CORREO = " & SCM(TXT_EMAIL.Text)
+            SQL &= Chr(13) & ",@COD_PROVINCIA = " & SCM(CMB_PROVINCIA.SelectedValue)
+            SQL &= Chr(13) & ",@PROVINCIA = " & SCM(CMB_PROVINCIA.Text)
+            SQL &= Chr(13) & ",@COD_CANTON = " & SCM(CMB_CANTON.SelectedValue)
+            SQL &= Chr(13) & ",@CANTON = " & SCM(CMB_CANTON.Text)
+            SQL &= Chr(13) & ",@COD_DISTRITO = " & SCM(CMB_DISTRITO.SelectedValue)
+            SQL &= Chr(13) & ",@DISTRITO = " & SCM(CMB_DISTRITO.Text)
+            SQL &= Chr(13) & ",@ESTADO = " & SCM(IIf(RB_ACTIVA.Checked = True, "A", "I"))
+            SQL &= Chr(13) & ",@FE = " & SCM(IIf(CHK_FE.Checked = True, "S", "N"))
+            SQL &= Chr(13) & ",@USUARIO_ATV = " & SCM(TXT_USUARIO_ATV.Text)
+            SQL &= Chr(13) & ",@CLAVE_ATV = " & SCM(TXT_CLAVE_ATV.Text)
+            CONX.Coneccion_Abrir()
+            CONX.EJECUTE(SQL)
+            CONX.Coneccion_Cerrar()
 
-        If MODO = CRF_Modos.Insertar Then
-            LIMPIAR_TODO()
-            MessageBox.Show("¡Compañía ingresada correctamente!")
-        ElseIf MODO = CRF_Modos.Modificar Then
-            Cerrar()
-            MessageBox.Show("¡Compañía modificada correctamente!")
-        End If
+            If MODO = CRF_Modos.Insertar Then
+                LIMPIAR_TODO()
+                MessageBox.Show("¡Compañía ingresada correctamente!")
+            ElseIf MODO = CRF_Modos.Modificar Then
+                Cerrar()
+                MessageBox.Show("¡Compañía modificada correctamente!")
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
-
     Private Sub Cerrar()
         Me.Close()
         PADRE.Refrescar()
@@ -360,7 +392,6 @@ Public Class LBL_CANTON
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         Cerrar()
     End Sub
-
     Private Sub LIMPIAR_TODO()
         GENERAR_COD_CIA()
         TXT_NOMBRE.Text = ""
@@ -384,34 +415,33 @@ Public Class LBL_CANTON
     End Sub
 
     Public Sub REFRESCAR_ACTIVIDADES()
-        GRID_ACTIVIDADES.DataSource = Nothing
-        Dim SQL = "	SELECT COD_ACT,DES_ACT,PRINCIPAL,FECHA_INC"
-        SQL &= Chr(13) & "	FROM ACTIVIDAD_ECONOMICA"
+        Try
+            GRID_ACTIVIDADES.DataSource = Nothing
+            Dim SQL = "	SELECT COD_ACT as Código,DES_ACT as Descripción,PRINCIPAL as Principal,FECHA_INC as 'Fecha creación'"
+            SQL &= Chr(13) & "	FROM ACTIVIDAD_ECONOMICA"
 
-        CONX.Coneccion_Abrir()
-        Dim DS = CONX.EJECUTE_DS(SQL)
-        CONX.Coneccion_Cerrar()
-
-        If DS.Tables(0).Rows.Count > 0 Then
-            GRID_ACTIVIDADES.DataSource = DS.Tables(0)
-        End If
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+            If DS.Tables(0).Rows.Count > 0 Then
+                GRID_ACTIVIDADES.DataSource = DS.Tables(0)
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 
     Private Sub BTN_MODIFICAR_Click(sender As Object, e As EventArgs) Handles BTN_MODIFICAR.Click
         MODIFICAR_ACTIVIDAD()
     End Sub
-
     Private Sub Leer_indice()
         Try
             If Me.GRID_ACTIVIDADES.Rows.Count > 0 Then
-                Dim INDICE As DataGridViewCellCollection
-                INDICE = GRID_ACTIVIDADES.SelectedRows.Item(0).Cells
-                If IsNothing(INDICE) = False Then
-                    COD_ACT = INDICE.Item("COD_ACT").Value
-                End If
+                Dim seleccionado = GRID_ACTIVIDADES.Rows(GRID_ACTIVIDADES.SelectedRows(0).Index)
+                COD_ACT = seleccionado.Cells(0).Value.ToString
             End If
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message)
         End Try
     End Sub
     Private Sub MODIFICAR_ACTIVIDAD()
@@ -422,7 +452,7 @@ Public Class LBL_CANTON
                 PANTALLA.ShowDialog()
             End If
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message)
         End Try
     End Sub
     Private Sub GRID_ACTIVIDADES_DoubleClick(sender As Object, e As EventArgs) Handles GRID_ACTIVIDADES.DoubleClick

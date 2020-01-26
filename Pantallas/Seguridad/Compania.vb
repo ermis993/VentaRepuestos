@@ -78,4 +78,18 @@ Public Class Compania
     Private Sub RB_ACTIVAS_CheckedChanged(sender As Object, e As EventArgs) Handles RB_ACTIVAS.CheckedChanged, RB_INACTIVAS.CheckedChanged, RB_TODAS.CheckedChanged
         Refrescar()
     End Sub
+
+    Private Sub BTN_DERECHO_Click(sender As Object, e As EventArgs) Handles BTN_DERECHO.Click
+        Try
+            Leer_indice()
+            If String.IsNullOrEmpty(COD_CIA) = False Then
+                Dim Derechos As New DerechosCompania(COD_CIA)
+                Derechos.ShowDialog()
+            Else
+                MessageBox.Show("Debe seleccionar la compañía")
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 End Class

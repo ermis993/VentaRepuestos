@@ -69,7 +69,7 @@ Partial Class MenuPrincipal
         Me.BTN_SALIR.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(1041, 2)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(1052, 2)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(132, 53)
         Me.BTN_SALIR.TabIndex = 3
@@ -88,6 +88,7 @@ Partial Class MenuPrincipal
         Me.Controls.Add(Me.BTN_SUCURSAL)
         Me.Controls.Add(Me.BTN_COMPANIA)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.MinimumSize = New System.Drawing.Size(1205, 666)
         Me.Name = "MenuPrincipal"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Menú Principal"

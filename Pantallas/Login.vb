@@ -10,7 +10,7 @@ Public Class Login
     End Sub
     Private Sub CONFIGURACION()
         Try
-            CONX.ConexionSTR("TOMMY\SQLEXPRESS", "sa", "Luna01x", "VR")
+            CONX.ConexionSTR("ASUS", "sa", "1234", "VR")
         Catch ex As Exception
         End Try
     End Sub
@@ -19,7 +19,7 @@ Public Class Login
             If VALIDAR() = True Then
                 Dim SQL As String = " SELECT * "
                 SQL &= Chr(13) & " FROM USUARIO"
-                SQL &= Chr(13) & " WHERE (COD_USUARIO = " & SCM(TXT_USUARIO.Text) & " OR NOMBRE =" & SCM(TXT_USUARIO.Text) & ")"
+                SQL &= Chr(13) & " WHERE (COD_USUARIO = " & SCM(TXT_USUARIO.Text) & " OR CORREO =" & SCM(TXT_USUARIO.Text) & ")"
                 SQL &= Chr(13) & " AND CONTRASENA = " & SCM(TXT_CONTRASENA.Text)
                 CONX.Coneccion_Abrir()
                 Dim DS = CONX.EJECUTE_DS(SQL)
@@ -62,18 +62,28 @@ Public Class Login
     End Function
 
     Private Sub LBL_REGISTRARSE_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LBL_REGISTRARSE.LinkClicked
+        Try
+            Me.Visible = False
+            RegistreseAqui.Show()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub LBL_OLVIDO_MouseClick(sender As Object, e As MouseEventArgs) Handles LBL_OLVIDO.MouseClick
 
     End Sub
 
-    Private Sub TXT_CONTRASENA_TextChanged(sender As Object, e As EventArgs) Handles TXT_CONTRASENA.TextChanged
-
+    Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
+        Me.Close()
     End Sub
 
-    Private Sub TXT_USUARIO_TextChanged(sender As Object, e As EventArgs) Handles TXT_USUARIO.TextChanged
-
-    End Sub
-
-    Private Sub LB_USUARIO_Click(sender As Object, e As EventArgs) Handles LB_USUARIO.Click
-
+    Private Sub LBL_OLVIDO_Click(sender As Object, e As EventArgs) Handles LBL_OLVIDO.Click
+        Try
+            Me.Visible = False
+            OlvidoContrasena.Show()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 End Class

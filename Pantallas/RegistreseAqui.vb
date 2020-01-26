@@ -59,16 +59,16 @@ Public Class RegistreseAqui
         End Try
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub BtnSalir_Click(sender As Object, e As EventArgs) Handles BtnSalir.Click
         Try
-            Login.Show()
+            Login.Visible = True
             Me.Close()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles BTN_SELECCIONAR.Click
+    Private Sub BTN_SELECCIONAR_Click(sender As Object, e As EventArgs) Handles BTN_SELECCIONAR.Click
         Try
             Dim OPF As New OpenFileDialog With {
                 .Filter = "Seleccionar Imagen(*.JPG;*.PNG;*.GIF)|*.jpg;*.png;*gif"

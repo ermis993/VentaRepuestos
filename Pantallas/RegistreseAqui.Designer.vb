@@ -32,13 +32,13 @@ Partial Class RegistreseAqui
         Me.TXT_CORREO = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.TXT_CONTRASENA = New System.Windows.Forms.TextBox()
-        Me.BTN_GUARDAR = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.BTN_SELECCIONAR = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.BtnSalir = New System.Windows.Forms.Button()
+        Me.BTN_GUARDAR = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -144,41 +144,6 @@ Partial Class RegistreseAqui
         Me.TXT_CONTRASENA.TabIndex = 3
         Me.TXT_CONTRASENA.UseSystemPasswordChar = True
         '
-        'BTN_GUARDAR
-        '
-        Me.BTN_GUARDAR.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.BTN_GUARDAR.Image = Global.VentaRepuestos.My.Resources.Resources.aceptar
-        Me.BTN_GUARDAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_GUARDAR.Location = New System.Drawing.Point(431, 372)
-        Me.BTN_GUARDAR.Name = "BTN_GUARDAR"
-        Me.BTN_GUARDAR.Size = New System.Drawing.Size(132, 53)
-        Me.BTN_GUARDAR.TabIndex = 10
-        Me.BTN_GUARDAR.Text = "Aceptar"
-        Me.BTN_GUARDAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_GUARDAR.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.Button2.Image = Global.VentaRepuestos.My.Resources.Resources.salir
-        Me.Button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button2.Location = New System.Drawing.Point(569, 372)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(132, 53)
-        Me.Button2.TabIndex = 11
-        Me.Button2.Text = "Salir"
-        Me.Button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Button2.UseVisualStyleBackColor = True
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Location = New System.Drawing.Point(6, 28)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(257, 253)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 12
-        Me.PictureBox1.TabStop = False
-        '
         'BTN_SELECCIONAR
         '
         Me.BTN_SELECCIONAR.ForeColor = System.Drawing.Color.Black
@@ -202,15 +167,49 @@ Partial Class RegistreseAqui
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Foto ]"
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.Location = New System.Drawing.Point(6, 28)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(257, 253)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 12
+        Me.PictureBox1.TabStop = False
+        '
+        'BtnSalir
+        '
+        Me.BtnSalir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.BtnSalir.Image = Global.VentaRepuestos.My.Resources.Resources.salir
+        Me.BtnSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BtnSalir.Location = New System.Drawing.Point(569, 372)
+        Me.BtnSalir.Name = "BtnSalir"
+        Me.BtnSalir.Size = New System.Drawing.Size(132, 53)
+        Me.BtnSalir.TabIndex = 11
+        Me.BtnSalir.Text = "Salir"
+        Me.BtnSalir.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BtnSalir.UseVisualStyleBackColor = True
+        '
+        'BTN_GUARDAR
+        '
+        Me.BTN_GUARDAR.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.BTN_GUARDAR.Image = Global.VentaRepuestos.My.Resources.Resources.aceptar
+        Me.BTN_GUARDAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_GUARDAR.Location = New System.Drawing.Point(431, 372)
+        Me.BTN_GUARDAR.Name = "BTN_GUARDAR"
+        Me.BTN_GUARDAR.Size = New System.Drawing.Size(132, 53)
+        Me.BTN_GUARDAR.TabIndex = 10
+        Me.BTN_GUARDAR.Text = "Aceptar"
+        Me.BTN_GUARDAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_GUARDAR.UseVisualStyleBackColor = True
+        '
         'RegistreseAqui
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.White
+        Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(713, 437)
-        Me.ControlBox = False
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.BtnSalir)
         Me.Controls.Add(Me.BTN_GUARDAR)
         Me.Controls.Add(Me.TXT_CONTRASENA)
         Me.Controls.Add(Me.Label5)
@@ -227,8 +226,9 @@ Partial Class RegistreseAqui
         Me.MinimizeBox = False
         Me.Name = "RegistreseAqui"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Text = "Registrese aquí"
         Me.GroupBox1.ResumeLayout(False)
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -245,7 +245,7 @@ Partial Class RegistreseAqui
     Friend WithEvents Label5 As Label
     Friend WithEvents TXT_CONTRASENA As TextBox
     Friend WithEvents BTN_GUARDAR As Button
-    Friend WithEvents Button2 As Button
+    Friend WithEvents BtnSalir As Button
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents BTN_SELECCIONAR As Button
     Friend WithEvents GroupBox1 As GroupBox

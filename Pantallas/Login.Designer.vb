@@ -37,9 +37,8 @@ Partial Class Login
         Me.TXT_USUARIO.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_USUARIO.Location = New System.Drawing.Point(37, 226)
         Me.TXT_USUARIO.Margin = New System.Windows.Forms.Padding(4)
-        Me.TXT_USUARIO.Multiline = True
         Me.TXT_USUARIO.Name = "TXT_USUARIO"
-        Me.TXT_USUARIO.Size = New System.Drawing.Size(412, 26)
+        Me.TXT_USUARIO.Size = New System.Drawing.Size(412, 23)
         Me.TXT_USUARIO.TabIndex = 4
         '
         'TXT_CONTRASENA
@@ -47,10 +46,9 @@ Partial Class Login
         Me.TXT_CONTRASENA.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
         Me.TXT_CONTRASENA.Location = New System.Drawing.Point(37, 322)
         Me.TXT_CONTRASENA.Margin = New System.Windows.Forms.Padding(4)
-        Me.TXT_CONTRASENA.Multiline = True
         Me.TXT_CONTRASENA.Name = "TXT_CONTRASENA"
         Me.TXT_CONTRASENA.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.TXT_CONTRASENA.Size = New System.Drawing.Size(412, 26)
+        Me.TXT_CONTRASENA.Size = New System.Drawing.Size(412, 23)
         Me.TXT_CONTRASENA.TabIndex = 5
         '
         'LB_USUARIO

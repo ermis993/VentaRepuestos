@@ -14,7 +14,7 @@ Public Class Login
         Catch ex As Exception
         End Try
     End Sub
-    Private Sub INGRESAR(sender As Object, e As EventArgs) Handles BTN_INGRESAR.Click
+    Public Sub Ingreso()
         Try
             If VALIDAR() = True Then
                 Dim SQL As String = " SELECT * "
@@ -33,8 +33,8 @@ Public Class Login
                     Next
                 End If
                 If COINCIDENCIA = True Then
-                    Me.Hide()
-                    Dim PANTALLA As New Compania()
+                    Me.Visible = False
+                    Dim PANTALLA As New MenuPrincipal()
                     PANTALLA.ShowDialog()
                 Else
                     MessageBox.Show("¡Usuario no encontrado!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -43,6 +43,10 @@ Public Class Login
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
+    End Sub
+
+    Private Sub INGRESAR(sender As Object, e As EventArgs) Handles BTN_INGRESAR.Click
+        Ingreso()
     End Sub
     Private Function VALIDAR() As Boolean
         Try
@@ -85,5 +89,11 @@ Public Class Login
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
+    End Sub
+
+    Private Sub TXT_CONTRASENA_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TXT_CONTRASENA.KeyPress
+        If e.KeyChar = ChrW(Keys.Enter) Then
+            Ingreso()
+        End If
     End Sub
 End Class

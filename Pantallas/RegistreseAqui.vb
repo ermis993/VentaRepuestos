@@ -2,6 +2,7 @@
 Imports System.IO
 Imports System.Text
 Imports VentaRepuestos.Globales
+Imports FUN_CRFUSION.FUNCIONES_GENERALES
 
 Public Class RegistreseAqui
     Private Sub BTN_GUARDAR_Click(sender As Object, e As EventArgs) Handles BTN_GUARDAR.Click
@@ -21,34 +22,45 @@ Public Class RegistreseAqui
             ElseIf String.IsNullOrEmpty(TXT_CORREO.Text) Then
                 MessageBox.Show("¡Debe de ingresar el correo del usuario!", "Error")
                 TXT_CORREO.Select()
+            ElseIf PictureBox1.Image Is Nothing Then
+                MessageBox.Show("¡Debe seleccionar una imagen para el usuario!", "Error")
             Else
 
+                Dim CodigoUsuario = GenerarCodigoUsuario()
                 Dim MS As New MemoryStream
                 PictureBox1.Image.Save(MS, PictureBox1.Image.RawFormat)
 
-                Dim CodigoUsuario = GenerarCodigoUsuario()
+                Dim COMANDO As New SqlCommand()
+                COMANDO.CommandType = CommandType.StoredProcedure
+                Dim COD_USUARIO As New SqlParameter("@COD_USUARIO", SqlDbType.VarChar)
+                COD_USUARIO.Value = CodigoUsuario
+                Dim NOMBRE As New SqlParameter("@NOMBRE", SqlDbType.VarChar)
+                NOMBRE.Value = TXT_NOMUSUARIO.Text
+                Dim TELEFONO As New SqlParameter("@TELEFONO", SqlDbType.VarChar)
+                TELEFONO.Value = TXT_TELEFONO.Text
+                Dim DIRECCION As New SqlParameter("@DIRECCION", SqlDbType.VarChar)
+                DIRECCION.Value = TXT_DIRECCION.Text
+                Dim CORREO As New SqlParameter("@CORREO", SqlDbType.VarChar)
+                CORREO.Value = TXT_CORREO.Text
+                Dim FOTO As New SqlParameter("@FOTO", SqlDbType.Image)
+                FOTO.Value = MS.ToArray()
+                Dim CONTRASENA As New SqlParameter("@CONTRASENA", SqlDbType.VarChar)
+                CONTRASENA.Value = TXT_CONTRASENA.Text
 
-                Using (CONX.Connection)
 
-                    Dim sqlComm As New SqlCommand With {
-                        .Connection = CONX.Connection,
-                        .CommandText = "USP_INGRESA_USUARIO",
-                        .CommandType = CommandType.StoredProcedure
-                    }
+                COMANDO.CommandText = "USP_INGRESA_USUARIO"
+                COMANDO.Parameters.Add(COD_USUARIO)
+                COMANDO.Parameters.Add(NOMBRE)
+                COMANDO.Parameters.Add(TELEFONO)
+                COMANDO.Parameters.Add(DIRECCION)
+                COMANDO.Parameters.Add(CORREO)
+                COMANDO.Parameters.Add(CONTRASENA)
 
-                    sqlComm.Parameters.AddWithValue("@COD_USUARIO", CodigoUsuario)
-                    sqlComm.Parameters.AddWithValue("@NOMBRE", TXT_NOMUSUARIO.Text)
-                    sqlComm.Parameters.AddWithValue("@TELEFONO", TXT_TELEFONO.Text)
-                    sqlComm.Parameters.AddWithValue("@DIRECCION", TXT_DIRECCION.Text)
-                    sqlComm.Parameters.AddWithValue("@CORREO", TXT_CORREO.Text)
-                    sqlComm.Parameters.AddWithValue("@FOTO", MS.ToArray())
-                    sqlComm.Parameters.AddWithValue("@CONTRASENA", TXT_CONTRASENA.Text)
-
-                    CONX.Coneccion_Abrir()
-                    sqlComm.ExecuteNonQuery()
-                    CONX.Coneccion_Cerrar()
-
-                End Using
+                CONX.Coneccion_Abrir()
+                COMANDO.Connection = CONX.Connection
+                Dim AR = COMANDO.ExecuteReader()
+                AR.Close()
+                CONX.Coneccion_Cerrar()
 
                 LimpiarTodo()
                 MessageBox.Show("Usuario ingresado correctamente", "Aviso")

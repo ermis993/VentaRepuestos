@@ -14,6 +14,15 @@ Public Class Globales
         End Set
     End Property
 
+    Public Property COMPANIA() As String
+        Get
+            Return COD_CIA
+        End Get
+        Set(ByVal value As String)
+            COD_CIA = value
+        End Set
+    End Property
+
 
     Public Shared Function GeneraCodigoSucursal()
         Try

@@ -10,7 +10,7 @@
 
     Private Sub BTN_COMPANIA_Click(sender As Object, e As EventArgs) Handles BTN_COMPANIA.Click
         Try
-            Compania.Show()
+            Compania.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -18,8 +18,7 @@
 
     Private Sub BTN_SUCURSAL_Click(sender As Object, e As EventArgs) Handles BTN_SUCURSAL.Click
         Try
-            Me.Close()
-            Sucursal.Show()
+            Sucursal.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

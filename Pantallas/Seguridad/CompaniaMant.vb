@@ -221,6 +221,7 @@ Public Class LBL_CANTON
                 End If
             End If
             'GUARDAR_CIA()
+            Dim x As Pruebas
             'GUARDAR_CERTIFICADO()
         Catch ex As Exception
 
@@ -334,10 +335,8 @@ Public Class LBL_CANTON
     End Sub
 
     Private Sub Cerrar()
-        Dim PANTALLA As New Compania
         Me.Close()
-        PANTALLA.ShowDialog()
-        PANTALLA.Refrescar()
+        PADRE.Refrescar()
     End Sub
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         Cerrar()

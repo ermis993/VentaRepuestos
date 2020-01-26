@@ -28,7 +28,6 @@ Public Class Compania
     End Sub
     Private Sub BTN_AGREGAR_Click(sender As Object, e As EventArgs) Handles BTN_AGREGAR.Click
         Dim PANTALLA As New LBL_CANTON(CRF_Modos.Insertar, Me)
-        Me.Close()
         PANTALLA.ShowDialog()
     End Sub
 
@@ -61,7 +60,6 @@ Public Class Compania
         If Me.GRID.Rows.Count > 0 Then
             Leer_indice()
             Dim PANTALLA As New LBL_CANTON(CRF_Modos.Modificar, Me, COD_CIA)
-            Me.Close()
             PANTALLA.ShowDialog()
         End If
     End Sub

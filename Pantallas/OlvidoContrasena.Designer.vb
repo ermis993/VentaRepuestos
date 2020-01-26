@@ -23,11 +23,11 @@ Partial Class OlvidoContrasena
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.BTN_ENVIAR = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TXT_DESTINATARIO = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
-        Me.BTN_ENVIAR = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -44,6 +44,19 @@ Partial Class OlvidoContrasena
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Información usuario ]"
+        '
+        'BTN_ENVIAR
+        '
+        Me.BTN_ENVIAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!)
+        Me.BTN_ENVIAR.Image = Global.VentaRepuestos.My.Resources.Resources.enviar
+        Me.BTN_ENVIAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_ENVIAR.Location = New System.Drawing.Point(315, 96)
+        Me.BTN_ENVIAR.Name = "BTN_ENVIAR"
+        Me.BTN_ENVIAR.Size = New System.Drawing.Size(132, 53)
+        Me.BTN_ENVIAR.TabIndex = 2
+        Me.BTN_ENVIAR.Text = "Enviar"
+        Me.BTN_ENVIAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_ENVIAR.UseVisualStyleBackColor = True
         '
         'Label2
         '
@@ -84,25 +97,13 @@ Partial Class OlvidoContrasena
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = True
         '
-        'BTN_ENVIAR
-        '
-        Me.BTN_ENVIAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!)
-        Me.BTN_ENVIAR.Image = Global.VentaRepuestos.My.Resources.Resources.enviar
-        Me.BTN_ENVIAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_ENVIAR.Location = New System.Drawing.Point(315, 96)
-        Me.BTN_ENVIAR.Name = "BTN_ENVIAR"
-        Me.BTN_ENVIAR.Size = New System.Drawing.Size(132, 53)
-        Me.BTN_ENVIAR.TabIndex = 2
-        Me.BTN_ENVIAR.Text = "Enviar"
-        Me.BTN_ENVIAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_ENVIAR.UseVisualStyleBackColor = True
-        '
         'OlvidoContrasena
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ControlBox = False
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.GroupBox1)
         Me.MaximizeBox = False

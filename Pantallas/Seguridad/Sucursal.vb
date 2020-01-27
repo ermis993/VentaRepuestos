@@ -3,9 +3,15 @@ Imports VentaRepuestos.Globales
 Public Class Sucursal
 
     Dim COD_SUCUR As String
+    Dim PADRE As MenuPrincipal
 
     Private Sub Sucursal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         RellenaSucursales()
+    End Sub
+
+    Sub New(ByVal PADRE As MenuPrincipal)
+        InitializeComponent()
+        Me.PADRE = PADRE
     End Sub
 
     Public Sub Refrescar()
@@ -42,6 +48,7 @@ Public Class Sucursal
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         Try
             Me.Close()
+            PADRE.ActualizaSucursales()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

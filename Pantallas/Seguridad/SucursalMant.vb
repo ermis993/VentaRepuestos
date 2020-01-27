@@ -3,7 +3,7 @@ Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Globales
 Public Class SucursalMant
     Dim MODO As New CRF_Modos
-    Dim PADRE As New Sucursal
+    Dim PADRE As Sucursal
     Dim COD_SUCUR As String
 
     Private Sub SucursalMant_Load(sender As Object, e As EventArgs) Handles MyBase.Load

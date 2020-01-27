@@ -32,8 +32,26 @@ Public Class MenuPrincipal
 
     Private Sub MenuPrincipal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CARGAR_SUCURSALES()
+        CARGAR_TIPO_CAMBIO()
     End Sub
+    Private Sub CARGAR_TIPO_CAMBIO()
+        Dim SQL = "	SELECT * FROM TIPO_CAMBIO_CIA"
+        SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+        SQL &= Chr(13) & "	AND FECHA = " & SCM(YMD(FECHA_HOY()))
 
+        CONX.Coneccion_Abrir()
+        Dim DS = CONX.EJECUTE_DS(SQL)
+        CONX.Coneccion_Cerrar()
+        If DS.Tables(0).Rows.Count > 0 Then
+            For Each ITEM In DS.Tables(0).Rows
+                TXT_COMPRA.Text = FMCP(ITEM("COMPRA"), 2)
+                TXT_VENTA.Text = FMCP(ITEM("VENTA"), 2)
+                TC_COMPRA = FMCP(ITEM("COMPRA"), 2)
+                TC_VENTA = FMCP(ITEM("VENTA"), 2)
+                Exit For
+            Next
+        End If
+    End Sub
     Private Sub CARGAR_SUCURSALES()
         Try
             CMB_SUCURSAL.DataSource = Nothing

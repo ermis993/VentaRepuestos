@@ -8,6 +8,9 @@ Public Class Globales
     Public Shared COD_SUCUR As String
     Public Shared COD_USUARIO As String
 
+    Public Shared TC_COMPRA As Decimal
+    Public Shared TC_VENTA As Decimal
+
     Public Shared Property CONEXION() As SQLCON
         Get
             Return CONX
@@ -38,6 +41,22 @@ Public Class Globales
         End Get
         Set(ByVal value As String)
             COD_USUARIO = value
+        End Set
+    End Property
+    Public Shared Property COMPRA() As String
+        Get
+            Return TC_COMPRA
+        End Get
+        Set(ByVal value As String)
+            TC_COMPRA = value
+        End Set
+    End Property
+    Public Shared Property VENTA() As String
+        Get
+            Return TC_VENTA
+        End Get
+        Set(ByVal value As String)
+            TC_VENTA = value
         End Set
     End Property
     Public Shared Function GeneraCodigoSucursal()
@@ -135,7 +154,7 @@ Public Class Globales
             Return False
         End Try
     End Function
-    Private Function FECHA_HOY() As String
+    Public Shared Function FECHA_HOY() As String
         Try
             Dim FECHA As String = DateTime.Now.ToString
             Return FECHA

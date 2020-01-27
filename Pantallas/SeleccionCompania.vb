@@ -38,10 +38,17 @@ Public Class SeleccionCompania
         Try
             COD_CIA = CMB_COMPANIA.SelectedValue
             If COD_CIA <> "" And IsNothing(COD_CIA) = False Then
+                Dim FECHA = DateTime.Now.ToString
+                If EXISTE_TC_CIA(FECHA) = False Then
+                    If EXISTE_TC(FECHA) = False Then
+                        TIPO_CAMBIO_INDICADORES_ECONOMICOS(FECHA)
+                    End If
+                    GUARDAR_TIPO_CAMBIO(FECHA)
+                End If
                 Me.Close()
-                Dim PANTALLA As New MenuPrincipal()
-                PANTALLA.ShowDialog()
-            End If
+                    Dim PANTALLA As New MenuPrincipal()
+                    PANTALLA.ShowDialog()
+                End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

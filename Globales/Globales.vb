@@ -87,14 +87,14 @@ Public Class Globales
             End If
             Try
                 Dim TIPO_CAMBIO = New WS_CENTRAL.wsindicadoreseconomicos
-                Dim COMPRA = TIPO_CAMBIO.ObtenerIndicadoresEconomicos(CODIGO_COMPRA, FECHA, FECHA, "VR_TIPO_CAMBIO", "N", "tommy@crfusion.net", "2MMMN1Y0M1")
+                Dim COMPRA = TIPO_CAMBIO.ObtenerIndicadoresEconomicos(CODIGO_COMPRA, DMA(FECHA), DMA(FECHA), "VR_TIPO_CAMBIO", "N", EMAIL, TOKEN)
                 If COMPRA.Tables(0).Rows.Count > 0 Then
                     For Each ITEM In COMPRA.Tables(0).Rows
                         TC_COMPRA = FMCP(ITEM("NUM_VALOR"), 2)
                     Next
                 End If
 
-                Dim VENTA = TIPO_CAMBIO.ObtenerIndicadoresEconomicos(CODIGO_VENTA, FECHA, FECHA, "CRFUSION_CONSULTOR", "N", "tommy@crfusion.net", "2MMMN1Y0M1")
+                Dim VENTA = TIPO_CAMBIO.ObtenerIndicadoresEconomicos(CODIGO_VENTA, DMA(FECHA), DMA(FECHA), "VR_TIPO_CAMBIO", "N", EMAIL, TOKEN)
                 If VENTA.Tables(0).Rows.Count > 0 Then
                     For Each ITEM In VENTA.Tables(0).Rows
                         TC_VENTA = FMCP(ITEM("NUM_VALOR"), 2)
@@ -108,7 +108,7 @@ Public Class Globales
                 SQL = "DELETE FROM TIPO_CAMBIO_GENERAL"
                 SQL &= Chr(13) & ""
                 SQL &= Chr(13) & "INSERT INTO TIPO_CAMBIO_GENERAL(BANCO,COMPRA,VENTA,FECHA)"
-                SQL &= Chr(13) & "VALUES(" & SCM("Banco Central de Costa Rica") & "," & FMC(TC_COMPRA, 2) & "," & FMC(TC_VENTA, 2) & "," & SCM(FECHA) & ")"
+                SQL &= Chr(13) & "VALUES(" & SCM("Banco Central de Costa Rica") & "," & FMC(TC_COMPRA, 2) & "," & FMC(TC_VENTA, 2) & "," & SCM(YMD(FECHA)) & ")"
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
@@ -137,7 +137,7 @@ Public Class Globales
     End Function
     Private Function FECHA_HOY() As String
         Try
-            Dim FECHA As String = DateTime.Now.ToString("dd/MM/yyyy")
+            Dim FECHA As String = DateTime.Now.ToString
             Return FECHA
         Catch ex As Exception
             MessageBox.Show(ex.Message)

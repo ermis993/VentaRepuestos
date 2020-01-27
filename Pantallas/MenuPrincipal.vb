@@ -85,7 +85,6 @@ Public Class MenuPrincipal
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-
     Private Sub CMB_SUCURSAL_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_SUCURSAL.SelectedIndexChanged
         Try
             If Not CMB_SUCURSAL.DataSource Is Nothing Then

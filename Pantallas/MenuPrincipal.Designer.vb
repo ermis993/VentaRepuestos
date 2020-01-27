@@ -72,7 +72,7 @@ Partial Class MenuPrincipal
         Me.BTN_SALIR.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(1118, 2)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(1132, 2)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(132, 53)
         Me.BTN_SALIR.TabIndex = 3
@@ -83,7 +83,7 @@ Partial Class MenuPrincipal
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.CMB_SUCURSAL)
-        Me.GroupBox1.Location = New System.Drawing.Point(1, 528)
+        Me.GroupBox1.Location = New System.Drawing.Point(1, 516)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(267, 76)
         Me.GroupBox1.TabIndex = 4

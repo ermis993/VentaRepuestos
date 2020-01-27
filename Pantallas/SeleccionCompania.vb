@@ -38,7 +38,6 @@ Public Class SeleccionCompania
         Try
             COD_CIA = CMB_COMPANIA.SelectedValue
             If COD_CIA <> "" And IsNothing(COD_CIA) = False Then
-                Me.Hide()
                 Me.Close()
                 Dim PANTALLA As New MenuPrincipal()
                 PANTALLA.ShowDialog()

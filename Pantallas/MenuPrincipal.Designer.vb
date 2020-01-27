@@ -103,7 +103,7 @@ Partial Class MenuPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1251, 604)
+        Me.ClientSize = New System.Drawing.Size(1267, 604)
         Me.ControlBox = False
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.BTN_SALIR)
@@ -111,7 +111,7 @@ Partial Class MenuPrincipal
         Me.Controls.Add(Me.BTN_SUCURSAL)
         Me.Controls.Add(Me.BTN_COMPANIA)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.MinimumSize = New System.Drawing.Size(1269, 530)
+        Me.MinimumSize = New System.Drawing.Size(1285, 651)
         Me.Name = "MenuPrincipal"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Menú Principal"

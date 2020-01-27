@@ -69,10 +69,10 @@ Partial Class MenuPrincipal
         '
         'BTN_SALIR
         '
-        Me.BTN_SALIR.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BTN_SALIR.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(1132, 2)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(1053, 2)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(132, 53)
         Me.BTN_SALIR.TabIndex = 3
@@ -82,6 +82,7 @@ Partial Class MenuPrincipal
         '
         'GroupBox1
         '
+        Me.GroupBox1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GroupBox1.Controls.Add(Me.CMB_SUCURSAL)
         Me.GroupBox1.Location = New System.Drawing.Point(1, 516)
         Me.GroupBox1.Name = "GroupBox1"
@@ -103,7 +104,7 @@ Partial Class MenuPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1267, 604)
+        Me.ClientSize = New System.Drawing.Size(1188, 600)
         Me.ControlBox = False
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.BTN_SALIR)
@@ -111,7 +112,6 @@ Partial Class MenuPrincipal
         Me.Controls.Add(Me.BTN_SUCURSAL)
         Me.Controls.Add(Me.BTN_COMPANIA)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.MinimumSize = New System.Drawing.Size(1285, 651)
         Me.Name = "MenuPrincipal"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Menú Principal"

@@ -54,31 +54,28 @@ Public Class Globales
             Return ""
         End Try
     End Function
-
-    Public Shared Sub TIPO_CAMBIO_INDICADORES_ECONOMICOS()
+    Public Shared Sub TIPO_CAMBIO_INDICADORES_ECONOMICOS(ByVal FECHA As String)
         Try
-            Dim FECHA As String = "26/01/2019"
-            'Dim EMAIL As String = ""
-            'Dim TOKEN As String = ""
-            Dim CODIGO_VENTA As String = "318"
-            Dim CODIGO_COMPRA As String = "317"
+            Dim EMAIL As String = ""
+            Dim TOKEN As String = ""
+            Dim CODIGO_VENTA As String = ""
+            Dim CODIGO_COMPRA As String = ""
             Dim TC_COMPRA As Decimal = 0
             Dim TC_VENTA As Decimal = 0
 
-            'Dim SQL = " SELECT * FROM CRFUSION_OPCIONES_BD"
-            'CONX.Coneccion_Abrir()
-            'Dim DS = CONX.EJECUTE_DS(SQL)
-            'CONX.Coneccion_Cerrar()
+            Dim SQL = " SELECT * FROM INFORMACION_GENERAL "
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
 
-            'If DS.Tables(0).Rows.Count > 0 Then
-            '    For Each ITEM In DS.Tables(0).Rows
-            '        EMAIL = ITEM("EMAIL")
-            '        TOKEN = ITEM("TOKEN")
-            '        CODIGO_COMPRA = ITEM("COD_TIPO_CAMBIO_COMPRA")
-            '        CODIGO_VENTA = ITEM("COD_TIPO_CAMBIO_VENTA")
-            '    Next
-            'End If
-
+            If DS.Tables(0).Rows.Count > 0 Then
+                For Each ITEM In DS.Tables(0).Rows
+                    EMAIL = ITEM("EMAIL")
+                    TOKEN = ITEM("TOKEN")
+                    CODIGO_COMPRA = ITEM("CODIGO_COMPRA")
+                    CODIGO_VENTA = ITEM("CODIGO_VENTA")
+                Next
+            End If
             Try
                 Dim TIPO_CAMBIO = New WS_CENTRAL.wsindicadoreseconomicos
                 Dim COMPRA = TIPO_CAMBIO.ObtenerIndicadoresEconomicos(CODIGO_COMPRA, FECHA, FECHA, "VR_TIPO_CAMBIO", "N", "tommy@crfusion.net", "2MMMN1Y0M1")
@@ -95,23 +92,92 @@ Public Class Globales
                     Next
                 End If
             Catch ex As Exception
+                MessageBox.Show(ex.Message)
             End Try
 
-            'If TC_VENTA > 0 And TC_COMPRA > 0 Then
-            '    SQL = "DELETE FROM MBANCOSTIC_DET"
-            '    SQL &= Chr(13) & "/*INSERTA REGISTROS*/"
-            '    SQL &= Chr(13) & ""
-            '    SQL &= Chr(13) & "INSERT INTO MBANCOSTIC_DET(NOMBRE,MONTO_VENTA,MONTO_COMPRA)"
-            '    SQL &= Chr(13) & "VALUES(" & SCM("Banco Central de Costa Rica") & "," & TC_VENTA & "," & TC_COMPRA & ")"
-            '    CONX.Coneccion_Abrir()
-            '    CONX.EJECUTE(SQL)
-            '    CONX.Coneccion_Cerrar()
-            'Else
-            '    MessageBox.Show("¡No fue posible establecer conexión con la página del Banco Central, vuelva a intentar más tarde o ingrese el tipo de cambio manualmente!")
-            'End If
-
+            If TC_VENTA > 0 And TC_COMPRA > 0 Then
+                SQL = "DELETE FROM TIPO_CAMBIO_GENERAL"
+                SQL &= Chr(13) & ""
+                SQL &= Chr(13) & "INSERT INTO TIPO_CAMBIO_GENERAL(BANCO,COMPRA,VENTA,FECHA)"
+                SQL &= Chr(13) & "VALUES(" & SCM("Banco Central de Costa Rica") & "," & FMC(TC_COMPRA, 2) & "," & FMC(TC_VENTA, 2) & "," & SCM(FECHA) & ")"
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            Else
+                MessageBox.Show("¡No es posible ingresar el tipo de cambio!")
+            End If
         Catch ex As Exception
-            MessageBox.Show("¡No fue posible establecer conexión con la página del Banco Central, vuelva a intentar más tarde o ingrese el tipo de cambio manualmente!")
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+    Public Shared Function EXISTE_TC(ByVal FECHA As String) As Boolean
+        Try
+            Dim EXISTE As Boolean = False
+            Dim SQL = "	SELECT * FROM TIPO_CAMBIO_GENERAL WHERE FECHA = " & SCM(YMD(FECHA))
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+            If DS.Tables(0).Rows.Count > 0 Then
+                EXISTE = True
+            End If
+            Return EXISTE
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            Return False
+        End Try
+    End Function
+    Private Function FECHA_HOY() As String
+        Try
+            Dim FECHA As String = DateTime.Now.ToString("dd/MM/yyyy")
+            Return FECHA
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            Return Nothing
+        End Try
+    End Function
+    Public Shared Function EXISTE_TC_CIA(ByVal FECHA As String) As Boolean
+        Try
+            Dim EXISTE As Boolean = False
+            Dim SQL = "	SELECT * FROM TIPO_CAMBIO_CIA "
+            SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & " AND FECHA = " & SCM(YMD(FECHA))
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                EXISTE = True
+            End If
+            Return EXISTE
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            Return False
+        End Try
+    End Function
+    Public Shared Sub GUARDAR_TIPO_CAMBIO(ByVal FECHA As String)
+        Try
+            Dim COMPRA As Decimal = 0
+            Dim VENTA As Decimal = 0
+            Dim SQL = "	SELECT * FROM TIPO_CAMBIO_GENERAL WHERE FECHA = " & SCM(YMD(FECHA))
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                For Each ITEM In DS.Tables(0).Rows
+                    COMPRA = FMCP(ITEM("COMPRA"), 2)
+                    VENTA = FMCP(ITEM("VENTA"), 2)
+                    Exit For
+                Next
+            End If
+            If COMPRA > 0 And VENTA > 0 Then
+                SQL = "	INSERT TIPO_CAMBIO_CIA(COD_CIA,FECHA,COMPRA,VENTA)"
+                SQL &= Chr(13) & "	VALUES (" & SCM(COD_CIA) & "," & SCM(YMD(FECHA)) & "," & FMC(COMPRA, 2) & "," & FMC(VENTA, 2) & ")"
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
     End Sub

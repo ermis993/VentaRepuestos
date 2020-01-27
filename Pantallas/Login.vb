@@ -3,7 +3,6 @@ Imports FUN_CRFUSION.FUNCIONES_GENERALES
 
 Public Class Login
     Private Sub LOGIN_LOAD(sender As Object, e As EventArgs) Handles MyBase.Load
-        TIPO_CAMBIO_INDICADORES_ECONOMICOS()
         CONFIGURACION()
     End Sub
     Private Sub CONFIGURACION()

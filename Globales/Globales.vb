@@ -5,6 +5,7 @@ Public Class Globales
 
     Public Shared CONX As New SQLCON
     Public Shared COD_CIA As String
+    Public Shared COD_SUCUR As String
     Public Shared COD_USUARIO As String
 
     Public Shared Property CONEXION() As SQLCON
@@ -21,6 +22,14 @@ Public Class Globales
         End Get
         Set(ByVal value As String)
             COD_CIA = value
+        End Set
+    End Property
+    Public Shared Property SUCURSAL() As String
+        Get
+            Return COD_SUCUR
+        End Get
+        Set(ByVal value As String)
+            COD_SUCUR = value
         End Set
     End Property
     Public Shared Property USUARIO() As String

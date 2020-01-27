@@ -1,6 +1,9 @@
 ﻿Imports VentaRepuestos.Globales
 Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Public Class MenuPrincipal
+
+    Dim Bandera_Sucursal As Boolean = True
+
     Private Sub BTN_COMPANIA_Click(sender As Object, e As EventArgs) Handles BTN_COMPANIA.Click
         Try
             Compania.ShowDialog()
@@ -11,7 +14,8 @@ Public Class MenuPrincipal
 
     Private Sub BTN_SUCURSAL_Click(sender As Object, e As EventArgs) Handles BTN_SUCURSAL.Click
         Try
-            Sucursal.ShowDialog()
+            Dim PANTALLA As New Sucursal(Me)
+            PANTALLA.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -38,6 +42,7 @@ Public Class MenuPrincipal
             Dim SQL As String = "SELECT COD_SUCUR AS CODIGO, NOMBRE"
             SQL &= Chr(13) & " FROM SUCURSAL"
             SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & " AND ESTADO = 'A'"
 
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)
@@ -51,7 +56,19 @@ Public Class MenuPrincipal
                 CMB_SUCURSAL.DataSource = LISTA_REF
                 CMB_SUCURSAL.ValueMember = "Key"
                 CMB_SUCURSAL.DisplayMember = "Value"
-                CMB_SUCURSAL.SelectedIndex = 0
+
+                If String.IsNullOrEmpty(COD_SUCUR) Then
+                    CMB_SUCURSAL.SelectedIndex = 0
+                    COD_SUCUR = CMB_SUCURSAL.SelectedItem().ToString.Substring(1, 3)
+                Else
+
+                    CMB_SUCURSAL.SelectedValue = COD_SUCUR
+
+                    If CMB_SUCURSAL.SelectedIndex = -1 Then
+                        CMB_SUCURSAL.SelectedIndex = 0
+                        COD_SUCUR = CMB_SUCURSAL.SelectedItem().ToString.Substring(1, 3)
+                    End If
+                End If
             End If
 
         Catch ex As Exception
@@ -59,4 +76,25 @@ Public Class MenuPrincipal
         End Try
     End Sub
 
+    Public Sub ActualizaSucursales()
+        Try
+            Bandera_Sucursal = False
+            CARGAR_SUCURSALES()
+            Bandera_Sucursal = True
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub CMB_SUCURSAL_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_SUCURSAL.SelectedIndexChanged
+        Try
+            If Not CMB_SUCURSAL.DataSource Is Nothing Then
+                If Bandera_Sucursal = True Then
+                    COD_SUCUR = CMB_SUCURSAL.SelectedItem().ToString.Substring(1, 3)
+                End If
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 End Class

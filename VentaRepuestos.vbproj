@@ -90,6 +90,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controles\ClienteBuscador.Designer.vb">
+      <DependentUpon>ClienteBuscador.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\ClienteBuscador.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Globales\Globales.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -192,6 +198,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controles\ClienteBuscador.resx">
+      <DependentUpon>ClienteBuscador.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\CambioContrasena.resx">
       <DependentUpon>CambioContrasena.vb</DependentUpon>
     </EmbeddedResource>
@@ -264,9 +273,7 @@
   <ItemGroup>
     <None Include="Resources\imprimir.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controles\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\archivos.png" />
   </ItemGroup>
@@ -307,20 +314,20 @@
     <None Include="Resources\usuario.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Funciones globales\bin\CRFUSION_LIBRERIAS_GENERALES\CRF_CONEXIONES\CRF_CONEXIONES.vbproj">
-      <Project>{bdddff94-3947-49d0-a098-f2e3fe3e909b}</Project>
-      <Name>CRF_CONEXIONES</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Funciones globales\bin\CRFUSION_LIBRERIAS_GENERALES\FUN_CRFUSION\FUN_CRFUSION.vbproj">
-      <Project>{8fde4698-2b47-4e08-9d9a-09c2d6d754d4}</Project>
-      <Name>FUN_CRFUSION</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\cliente.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\client.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\bin\FASE_MDOCUM2\GEN\CRFUSION_LIBRERIAS_GENERALES\CRF_CONEXIONES\CRF_CONEXIONES.vbproj">
+      <Project>{bdddff94-3947-49d0-a098-f2e3fe3e909b}</Project>
+      <Name>CRF_CONEXIONES</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\bin\FASE_MDOCUM2\GEN\CRFUSION_LIBRERIAS_GENERALES\FUN_CRFUSION\FUN_CRFUSION.vbproj">
+      <Project>{8fde4698-2b47-4e08-9d9a-09c2d6d754d4}</Project>
+      <Name>FUN_CRFUSION</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

@@ -11,7 +11,6 @@ Public Class MenuPrincipal
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-
     Private Sub BTN_SUCURSAL_Click(sender As Object, e As EventArgs) Handles BTN_SUCURSAL.Click
         Try
             Dim PANTALLA As New Sucursal(Me)

@@ -114,6 +114,18 @@
     <Compile Include="Pantallas\MenuPrincipal.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pantallas\Movimientos\Factura.Designer.vb">
+      <DependentUpon>Factura.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Factura.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Facturacion.Designer.vb">
+      <DependentUpon>Facturacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Facturacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pantallas\OlvidoContrasena.Designer.vb">
       <DependentUpon>OlvidoContrasena.vb</DependentUpon>
     </Compile>
@@ -213,6 +225,12 @@
     <EmbeddedResource Include="Pantallas\MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Factura.resx">
+      <DependentUpon>Factura.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Facturacion.resx">
+      <DependentUpon>Facturacion.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\OlvidoContrasena.resx">
       <DependentUpon>OlvidoContrasena.vb</DependentUpon>
     </EmbeddedResource>
@@ -283,16 +301,6 @@
     <None Include="Resources\imprimir.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Funciones globales\bin\CRFUSION_LIBRERIAS_GENERALES\CRF_CONEXIONES\CRF_CONEXIONES.vbproj">
-      <Project>{bdddff94-3947-49d0-a098-f2e3fe3e909b}</Project>
-      <Name>CRF_CONEXIONES</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Funciones globales\bin\CRFUSION_LIBRERIAS_GENERALES\FUN_CRFUSION\FUN_CRFUSION.vbproj">
-      <Project>{8fde4698-2b47-4e08-9d9a-09c2d6d754d4}</Project>
-      <Name>FUN_CRFUSION</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\archivos.png" />
   </ItemGroup>
   <ItemGroup>
@@ -336,6 +344,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\client.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\bin\FASE_MDOCUM2\GEN\CRFUSION_LIBRERIAS_GENERALES\CRF_CONEXIONES\CRF_CONEXIONES.vbproj">
+      <Project>{bdddff94-3947-49d0-a098-f2e3fe3e909b}</Project>
+      <Name>CRF_CONEXIONES</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\bin\FASE_MDOCUM2\GEN\CRFUSION_LIBRERIAS_GENERALES\FUN_CRFUSION\FUN_CRFUSION.vbproj">
+      <Project>{8fde4698-2b47-4e08-9d9a-09c2d6d754d4}</Project>
+      <Name>FUN_CRFUSION</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\factura.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\facturar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

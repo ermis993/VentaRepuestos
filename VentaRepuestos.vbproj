@@ -132,6 +132,12 @@
     <Compile Include="Pantallas\Seguridad\Cliente\Cliente.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pantallas\Seguridad\Cliente\ClienteMant.Designer.vb">
+      <DependentUpon>ClienteMant.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Seguridad\Cliente\ClienteMant.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pantallas\Seguridad\Compania.Designer.vb">
       <DependentUpon>Compania.vb</DependentUpon>
     </Compile>
@@ -215,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Seguridad\Cliente\Cliente.resx">
       <DependentUpon>Cliente.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Seguridad\Cliente\ClienteMant.resx">
+      <DependentUpon>ClienteMant.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Seguridad\Compania.resx">
       <DependentUpon>Compania.vb</DependentUpon>

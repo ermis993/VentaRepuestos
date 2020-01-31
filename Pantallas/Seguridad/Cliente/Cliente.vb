@@ -30,15 +30,18 @@ Public Class Cliente
         End Try
     End Sub
     Private Sub BTN_REFRESCAR_Click(sender As Object, e As EventArgs) Handles BTN_REFRESCAR.Click
-        RELLENAR_GRID()
+        REFRESCAR()
     End Sub
     Private Sub RB_ACTIVOS_CheckedChanged(sender As Object, e As EventArgs) Handles RB_ACTIVOS.CheckedChanged, RB_INACTIVOS.CheckedChanged, RB_TODOS.CheckedChanged
-        RELLENAR_GRID()
+        REFRESCAR()
     End Sub
     Private Sub BTN_AGREGAR_Click(sender As Object, e As EventArgs) Handles BTN_AGREGAR.Click
 
     End Sub
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         Me.Close()
+    End Sub
+    Public Sub REFRESCAR()
+        RELLENAR_GRID()
     End Sub
 End Class

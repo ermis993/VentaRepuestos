@@ -4,9 +4,10 @@ Imports VentaRepuestos.Globales
 Public Class ClienteMant
     Dim MODO As CRF_Modos
     Dim PADRE As Cliente
-    Sub New(ByVal MODO As CRF_Modos, ByVal PADRE As Cliente)
+    Dim CEDULA As String
+    Sub New(ByVal MODO As CRF_Modos, Optional CEDULA As String = "")
         Me.MODO = MODO
-        Me.PADRE = PADRE
+        Me.CEDULA = CEDULA
         InitializeComponent()
     End Sub
     Private Sub CMB_TIPO_CEDULA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_TIPO_CEDULA.SelectedIndexChanged
@@ -55,7 +56,6 @@ Public Class ClienteMant
             ElseIf TXT_SALDO.Text.Equals("") Or FMC(TXT_SALDO.Text) <= 0 Then
                 MessageBox.Show("¡Saldo incorrecto!")
                 TXT_SALDO.Select()
-
             ElseIf MODO = CRF_Modos.Insertar And EXISTE_CEDULA() = True Then
                 MessageBox.Show("¡Ya existe un cliente con la cédula : " & TXT_CEDULA.Text & "!")
                 TXT_SALDO.Select()
@@ -69,19 +69,8 @@ Public Class ClienteMant
         End Try
     End Function
 
-    Private Sub ClienteMant_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If MODO = CRF_Modos.Insertar Or MODO = CRF_Modos.Modificar Then
-            If VALIDAR() = True Then
-                EJECUTAR()
-            End If
-        ElseIf MODO = CRF_Modos.Eliminar Then
-
-        End If
-    End Sub
-
     Private Sub EJECUTAR()
         Try
-
             Dim SQL As String = "EXEC CLIENTE_MANT"
             SQL &= Chr(13) & " @COD_CIA = " & SCM(COD_CIA)
             SQL &= Chr(13) & ",@MODO = " & Val(MODO)
@@ -93,10 +82,9 @@ Public Class ClienteMant
             SQL &= Chr(13) & ",@TELEFONO = " & SCM(TXT_TELEFONO.Text)
             SQL &= Chr(13) & ",@DIRECCION = " & SCM(TXT_DIRECCION.Text)
             SQL &= Chr(13) & ",@CORREO = " & SCM(TXT_EMAIL.Text)
-            SQL &= Chr(13) & ",@SALDO = " & FMCP(TXT_SALDO.Text, 2)
+            SQL &= Chr(13) & ",@SALDO = " & FMC(TXT_SALDO.Text, 2)
             SQL &= Chr(13) & ",@ESTADO = " & SCM(IIf(RB_ACTIVO.Checked = True, "A", "I"))
             SQL &= Chr(13) & ",@FE = " & SCM(IIf(CK_TIQUETE.Checked = True, "N", "S"))
-
 
             CONX.Coneccion_Abrir()
             CONX.EJECUTE(SQL)
@@ -125,7 +113,7 @@ Public Class ClienteMant
         CK_TIQUETE.Checked = False
         RB_ACTIVO.Checked = True
     End Sub
-    Private Sub CERRAR()
+    Private Sub Cerrar()
         PADRE.REFRESCAR()
         Me.Close()
     End Sub
@@ -149,4 +137,24 @@ Public Class ClienteMant
             MessageBox.Show(ex.Message)
         End Try
     End Function
+
+    Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
+        If MODO = CRF_Modos.Insertar Or MODO = CRF_Modos.Modificar Then
+            If VALIDAR() = True Then
+                EJECUTAR()
+            End If
+        ElseIf MODO = CRF_Modos.Eliminar Then
+        End If
+    End Sub
+
+    Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
+        CERRAR()
+    End Sub
+
+    Private Sub ClienteMant_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        If MODO = CRF_Modos.Insertar Then
+            CMB_TIPO_CEDULA.SelectedIndex = 0
+            TXT_CEDULA.Select()
+        End If
+    End Sub
 End Class

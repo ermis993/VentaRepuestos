@@ -73,7 +73,7 @@ Partial Class ClienteMant
         Me.LBL_TIPO_CEDULA.Location = New System.Drawing.Point(42, 17)
         Me.LBL_TIPO_CEDULA.Name = "LBL_TIPO_CEDULA"
         Me.LBL_TIPO_CEDULA.Size = New System.Drawing.Size(92, 18)
-        Me.LBL_TIPO_CEDULA.TabIndex = 6
+        Me.LBL_TIPO_CEDULA.TabIndex = 0
         Me.LBL_TIPO_CEDULA.Text = "Tipo cédula :"
         '
         'CMB_TIPO_CEDULA
@@ -85,7 +85,7 @@ Partial Class ClienteMant
         Me.CMB_TIPO_CEDULA.Location = New System.Drawing.Point(137, 14)
         Me.CMB_TIPO_CEDULA.Name = "CMB_TIPO_CEDULA"
         Me.CMB_TIPO_CEDULA.Size = New System.Drawing.Size(201, 24)
-        Me.CMB_TIPO_CEDULA.TabIndex = 7
+        Me.CMB_TIPO_CEDULA.TabIndex = 1
         '
         'Label1
         '
@@ -94,7 +94,7 @@ Partial Class ClienteMant
         Me.Label1.Location = New System.Drawing.Point(65, 85)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(70, 18)
-        Me.Label1.TabIndex = 8
+        Me.Label1.TabIndex = 5
         Me.Label1.Text = "Nombre :"
         '
         'Label2
@@ -114,28 +114,26 @@ Partial Class ClienteMant
         Me.Label3.Location = New System.Drawing.Point(21, 119)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(118, 18)
-        Me.Label3.TabIndex = 10
+        Me.Label3.TabIndex = 7
         Me.Label3.Text = "Primer apellido : "
         '
         'TXT_NOMBRE
         '
-        Me.TXT_NOMBRE.Enabled = False
-        Me.TXT_NOMBRE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.TXT_NOMBRE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_NOMBRE.Location = New System.Drawing.Point(137, 82)
         Me.TXT_NOMBRE.Multiline = True
         Me.TXT_NOMBRE.Name = "TXT_NOMBRE"
         Me.TXT_NOMBRE.Size = New System.Drawing.Size(201, 24)
-        Me.TXT_NOMBRE.TabIndex = 11
+        Me.TXT_NOMBRE.TabIndex = 6
         '
         'TXT_PRIMER_APELLIDO
         '
-        Me.TXT_PRIMER_APELLIDO.Enabled = False
-        Me.TXT_PRIMER_APELLIDO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.TXT_PRIMER_APELLIDO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_PRIMER_APELLIDO.Location = New System.Drawing.Point(137, 116)
         Me.TXT_PRIMER_APELLIDO.Multiline = True
         Me.TXT_PRIMER_APELLIDO.Name = "TXT_PRIMER_APELLIDO"
         Me.TXT_PRIMER_APELLIDO.Size = New System.Drawing.Size(201, 24)
-        Me.TXT_PRIMER_APELLIDO.TabIndex = 12
+        Me.TXT_PRIMER_APELLIDO.TabIndex = 8
         '
         'GroupBox1
         '
@@ -160,7 +158,7 @@ Partial Class ClienteMant
         Me.GroupBox1.Location = New System.Drawing.Point(12, 2)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(440, 408)
-        Me.GroupBox1.TabIndex = 13
+        Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[Información general]"
         '
@@ -169,7 +167,7 @@ Partial Class ClienteMant
         Me.BTN_BUSCAR.Location = New System.Drawing.Point(341, 49)
         Me.BTN_BUSCAR.Name = "BTN_BUSCAR"
         Me.BTN_BUSCAR.Size = New System.Drawing.Size(55, 25)
-        Me.BTN_BUSCAR.TabIndex = 22
+        Me.BTN_BUSCAR.TabIndex = 4
         Me.BTN_BUSCAR.Text = "Buscar"
         Me.BTN_BUSCAR.UseVisualStyleBackColor = True
         '
@@ -180,7 +178,7 @@ Partial Class ClienteMant
         Me.TXT_CEDULA.Name = "TXT_CEDULA"
         Me.TXT_CEDULA.PromptChar = Global.Microsoft.VisualBasic.ChrW(35)
         Me.TXT_CEDULA.Size = New System.Drawing.Size(201, 24)
-        Me.TXT_CEDULA.TabIndex = 14
+        Me.TXT_CEDULA.TabIndex = 3
         Me.TXT_CEDULA.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt
         '
         'GroupBox2
@@ -192,7 +190,7 @@ Partial Class ClienteMant
         Me.GroupBox2.Location = New System.Drawing.Point(9, 282)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(425, 100)
-        Me.GroupBox2.TabIndex = 21
+        Me.GroupBox2.TabIndex = 17
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "[Extra]"
         '
@@ -203,7 +201,7 @@ Partial Class ClienteMant
         Me.GroupBox3.Location = New System.Drawing.Point(291, 11)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(99, 83)
-        Me.GroupBox3.TabIndex = 24
+        Me.GroupBox3.TabIndex = 3
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Estado"
         '
@@ -237,19 +235,18 @@ Partial Class ClienteMant
         Me.CK_TIQUETE.Location = New System.Drawing.Point(18, 65)
         Me.CK_TIQUETE.Name = "CK_TIQUETE"
         Me.CK_TIQUETE.Size = New System.Drawing.Size(189, 20)
-        Me.CK_TIQUETE.TabIndex = 23
+        Me.CK_TIQUETE.TabIndex = 2
         Me.CK_TIQUETE.Text = "¿Utiliza tiquete electrónico?"
         Me.CK_TIQUETE.UseVisualStyleBackColor = True
         '
         'TXT_SALDO
         '
-        Me.TXT_SALDO.Enabled = False
-        Me.TXT_SALDO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.TXT_SALDO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_SALDO.Location = New System.Drawing.Point(72, 21)
         Me.TXT_SALDO.Multiline = True
         Me.TXT_SALDO.Name = "TXT_SALDO"
         Me.TXT_SALDO.Size = New System.Drawing.Size(135, 24)
-        Me.TXT_SALDO.TabIndex = 22
+        Me.TXT_SALDO.TabIndex = 1
         '
         'Label5
         '
@@ -258,29 +255,27 @@ Partial Class ClienteMant
         Me.Label5.Location = New System.Drawing.Point(12, 24)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(54, 18)
-        Me.Label5.TabIndex = 22
+        Me.Label5.TabIndex = 0
         Me.Label5.Text = "Saldo :"
         '
         'TXT_EMAIL
         '
-        Me.TXT_EMAIL.Enabled = False
-        Me.TXT_EMAIL.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.TXT_EMAIL.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_EMAIL.Location = New System.Drawing.Point(137, 239)
         Me.TXT_EMAIL.Multiline = True
         Me.TXT_EMAIL.Name = "TXT_EMAIL"
         Me.TXT_EMAIL.Size = New System.Drawing.Size(262, 24)
-        Me.TXT_EMAIL.TabIndex = 18
+        Me.TXT_EMAIL.TabIndex = 16
         '
         'TXT_TELEFONO
         '
-        Me.TXT_TELEFONO.Enabled = False
-        Me.TXT_TELEFONO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.TXT_TELEFONO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_TELEFONO.Location = New System.Drawing.Point(137, 178)
         Me.TXT_TELEFONO.MaxLength = 8
         Me.TXT_TELEFONO.Multiline = True
         Me.TXT_TELEFONO.Name = "TXT_TELEFONO"
         Me.TXT_TELEFONO.Size = New System.Drawing.Size(201, 24)
-        Me.TXT_TELEFONO.TabIndex = 19
+        Me.TXT_TELEFONO.TabIndex = 12
         '
         'Label7
         '
@@ -289,13 +284,12 @@ Partial Class ClienteMant
         Me.Label7.Location = New System.Drawing.Point(82, 242)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(53, 18)
-        Me.Label7.TabIndex = 17
+        Me.Label7.TabIndex = 15
         Me.Label7.Text = "Email :"
         '
         'TXT_DIRECCION
         '
-        Me.TXT_DIRECCION.Enabled = False
-        Me.TXT_DIRECCION.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.TXT_DIRECCION.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_DIRECCION.Location = New System.Drawing.Point(137, 208)
         Me.TXT_DIRECCION.Multiline = True
         Me.TXT_DIRECCION.Name = "TXT_DIRECCION"
@@ -309,18 +303,17 @@ Partial Class ClienteMant
         Me.Label6.Location = New System.Drawing.Point(61, 179)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(74, 18)
-        Me.Label6.TabIndex = 20
+        Me.Label6.TabIndex = 11
         Me.Label6.Text = "Teléfono :"
         '
         'TXT_SEGUNDO_APELLIDO
         '
-        Me.TXT_SEGUNDO_APELLIDO.Enabled = False
-        Me.TXT_SEGUNDO_APELLIDO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.TXT_SEGUNDO_APELLIDO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_SEGUNDO_APELLIDO.Location = New System.Drawing.Point(137, 148)
         Me.TXT_SEGUNDO_APELLIDO.Multiline = True
         Me.TXT_SEGUNDO_APELLIDO.Name = "TXT_SEGUNDO_APELLIDO"
         Me.TXT_SEGUNDO_APELLIDO.Size = New System.Drawing.Size(201, 24)
-        Me.TXT_SEGUNDO_APELLIDO.TabIndex = 13
+        Me.TXT_SEGUNDO_APELLIDO.TabIndex = 10
         '
         'Label4
         '
@@ -329,7 +322,7 @@ Partial Class ClienteMant
         Me.Label4.Location = New System.Drawing.Point(56, 210)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(79, 18)
-        Me.Label4.TabIndex = 14
+        Me.Label4.TabIndex = 13
         Me.Label4.Text = "Dirección :"
         '
         'BTN_SALIR
@@ -341,7 +334,7 @@ Partial Class ClienteMant
         Me.BTN_SALIR.Location = New System.Drawing.Point(353, 416)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_SALIR.TabIndex = 15
+        Me.BTN_SALIR.TabIndex = 0
         Me.BTN_SALIR.Text = "Salir"
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
@@ -355,7 +348,7 @@ Partial Class ClienteMant
         Me.BTN_ACEPTAR.Location = New System.Drawing.Point(254, 416)
         Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
         Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_ACEPTAR.TabIndex = 14
+        Me.BTN_ACEPTAR.TabIndex = 2
         Me.BTN_ACEPTAR.Text = "Aceptar"
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False

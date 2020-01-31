@@ -1,6 +1,8 @@
 ﻿Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Globales
 Public Class Cliente
+
+    Dim CEDULA_CLIENTE As String = ""
     Private Sub Cliente_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         RELLENAR_GRID()
     End Sub
@@ -36,12 +38,40 @@ Public Class Cliente
         REFRESCAR()
     End Sub
     Private Sub BTN_AGREGAR_Click(sender As Object, e As EventArgs) Handles BTN_AGREGAR.Click
-
+        Dim PANTALLA As New ClienteMant(CRF_Modos.Insertar)
+        PANTALLA.ShowDialog()
     End Sub
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         Me.Close()
     End Sub
     Public Sub REFRESCAR()
         RELLENAR_GRID()
+    End Sub
+
+    Private Sub GRID_DoubleClick(sender As Object, e As EventArgs) Handles GRID.DoubleClick
+
+    End Sub
+
+    Private Sub Modificar()
+        Try
+            If Me.GRID.Rows.Count > 0 Then
+                Leer_indice()
+                Dim PANTALLA As New ClienteMant(CRF_Modos.Modificar, CEDULA_CLIENTE)
+                PANTALLA.ShowDialog()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub Leer_indice()
+        Try
+            If Me.GRID.Rows.Count > 0 Then
+                Dim seleccionado = GRID.Rows(GRID.SelectedRows(0).Index)
+                CEDULA_CLIENTE = seleccionado.Cells(1).Value.ToString
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 End Class

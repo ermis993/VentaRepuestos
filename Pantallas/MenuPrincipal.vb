@@ -122,4 +122,13 @@ Public Class MenuPrincipal
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
+    Private Sub BTN_FE_Click(sender As Object, e As EventArgs) Handles BTN_FE.Click
+        Try
+            Dim PANTALLA As New Facturacion()
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 End Class

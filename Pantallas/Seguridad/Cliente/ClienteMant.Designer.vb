@@ -35,6 +35,8 @@ Partial Class ClienteMant
         Me.BTN_BUSCAR = New System.Windows.Forms.Button()
         Me.TXT_CEDULA = New System.Windows.Forms.MaskedTextBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.CMB_MONEDA = New System.Windows.Forms.ComboBox()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.RB_INACTIVO = New System.Windows.Forms.RadioButton()
         Me.RB_ACTIVO = New System.Windows.Forms.RadioButton()
@@ -183,6 +185,8 @@ Partial Class ClienteMant
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.CMB_MONEDA)
+        Me.GroupBox2.Controls.Add(Me.Label8)
         Me.GroupBox2.Controls.Add(Me.GroupBox3)
         Me.GroupBox2.Controls.Add(Me.CK_TIQUETE)
         Me.GroupBox2.Controls.Add(Me.TXT_SALDO)
@@ -193,6 +197,26 @@ Partial Class ClienteMant
         Me.GroupBox2.TabIndex = 17
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "[Extra]"
+        '
+        'CMB_MONEDA
+        '
+        Me.CMB_MONEDA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CMB_MONEDA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CMB_MONEDA.FormattingEnabled = True
+        Me.CMB_MONEDA.Location = New System.Drawing.Point(82, 49)
+        Me.CMB_MONEDA.Name = "CMB_MONEDA"
+        Me.CMB_MONEDA.Size = New System.Drawing.Size(135, 24)
+        Me.CMB_MONEDA.TabIndex = 18
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(6, 53)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(70, 18)
+        Me.Label8.TabIndex = 4
+        Me.Label8.Text = "Moneda :"
         '
         'GroupBox3
         '
@@ -232,7 +256,7 @@ Partial Class ClienteMant
         '
         Me.CK_TIQUETE.AutoSize = True
         Me.CK_TIQUETE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CK_TIQUETE.Location = New System.Drawing.Point(18, 65)
+        Me.CK_TIQUETE.Location = New System.Drawing.Point(18, 77)
         Me.CK_TIQUETE.Name = "CK_TIQUETE"
         Me.CK_TIQUETE.Size = New System.Drawing.Size(189, 20)
         Me.CK_TIQUETE.TabIndex = 2
@@ -242,7 +266,7 @@ Partial Class ClienteMant
         'TXT_SALDO
         '
         Me.TXT_SALDO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_SALDO.Location = New System.Drawing.Point(72, 21)
+        Me.TXT_SALDO.Location = New System.Drawing.Point(82, 19)
         Me.TXT_SALDO.Multiline = True
         Me.TXT_SALDO.Name = "TXT_SALDO"
         Me.TXT_SALDO.Size = New System.Drawing.Size(135, 24)
@@ -252,7 +276,7 @@ Partial Class ClienteMant
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(12, 24)
+        Me.Label5.Location = New System.Drawing.Point(22, 25)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(54, 18)
         Me.Label5.TabIndex = 0
@@ -364,7 +388,8 @@ Partial Class ClienteMant
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Name = "ClienteMant"
-        Me.Text = "ClienteMant"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "Clientes"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
@@ -402,4 +427,6 @@ Partial Class ClienteMant
     Friend WithEvents BTN_BUSCAR As Button
     Friend WithEvents BTN_SALIR As Button
     Friend WithEvents BTN_ACEPTAR As Button
+    Friend WithEvents Label8 As Label
+    Friend WithEvents CMB_MONEDA As ComboBox
 End Class

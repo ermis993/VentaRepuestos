@@ -38,7 +38,7 @@ Public Class Cliente
         REFRESCAR()
     End Sub
     Private Sub BTN_AGREGAR_Click(sender As Object, e As EventArgs) Handles BTN_AGREGAR.Click
-        Dim PANTALLA As New ClienteMant(CRF_Modos.Insertar)
+        Dim PANTALLA As New ClienteMant(CRF_Modos.Insertar, Me)
         PANTALLA.ShowDialog()
     End Sub
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
@@ -47,23 +47,20 @@ Public Class Cliente
     Public Sub REFRESCAR()
         RELLENAR_GRID()
     End Sub
-
     Private Sub GRID_DoubleClick(sender As Object, e As EventArgs) Handles GRID.DoubleClick
-
+        Modificar()
     End Sub
-
     Private Sub Modificar()
         Try
             If Me.GRID.Rows.Count > 0 Then
                 Leer_indice()
-                Dim PANTALLA As New ClienteMant(CRF_Modos.Modificar, CEDULA_CLIENTE)
+                Dim PANTALLA As New ClienteMant(CRF_Modos.Modificar, Me, CEDULA_CLIENTE)
                 PANTALLA.ShowDialog()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-
     Private Sub Leer_indice()
         Try
             If Me.GRID.Rows.Count > 0 Then
@@ -73,5 +70,8 @@ Public Class Cliente
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
+    End Sub
+    Private Sub BTN_MODIFICAR_Click(sender As Object, e As EventArgs) Handles BTN_MODIFICAR.Click
+        Modificar()
     End Sub
 End Class

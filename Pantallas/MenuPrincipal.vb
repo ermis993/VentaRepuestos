@@ -131,4 +131,13 @@ Public Class MenuPrincipal
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
+    Private Sub BTN_PRODUCTO_Click(sender As Object, e As EventArgs) Handles BTN_PRODUCTO.Click
+        Try
+            Dim PANTALLA As New Producto()
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 End Class

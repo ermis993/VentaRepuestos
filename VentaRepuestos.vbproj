@@ -191,6 +191,12 @@
     <Compile Include="Pantallas\Seguridad\DerechosCompania.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pantallas\Seguridad\Producto\Producto.Designer.vb">
+      <DependentUpon>Producto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Seguridad\Producto\Producto.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pantallas\Seguridad\Sucursal.Designer.vb">
       <DependentUpon>Sucursal.vb</DependentUpon>
     </Compile>
@@ -263,6 +269,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Seguridad\DerechosCompania.resx">
       <DependentUpon>DerechosCompania.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Seguridad\Producto\Producto.resx">
+      <DependentUpon>Producto.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Seguridad\Sucursal.resx">
       <DependentUpon>Sucursal.vb</DependentUpon>
@@ -352,14 +361,18 @@
     <None Include="Resources\facturar.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Funciones globales\bin\CRFUSION_LIBRERIAS_GENERALES\CRF_CONEXIONES\CRF_CONEXIONES.vbproj">
+    <ProjectReference Include="..\..\bin\FASE_MDOCUM2\GEN\CRFUSION_LIBRERIAS_GENERALES\CRF_CONEXIONES\CRF_CONEXIONES.vbproj">
       <Project>{bdddff94-3947-49d0-a098-f2e3fe3e909b}</Project>
       <Name>CRF_CONEXIONES</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Funciones globales\bin\CRFUSION_LIBRERIAS_GENERALES\FUN_CRFUSION\FUN_CRFUSION.vbproj">
+    <ProjectReference Include="..\..\bin\FASE_MDOCUM2\GEN\CRFUSION_LIBRERIAS_GENERALES\FUN_CRFUSION\FUN_CRFUSION.vbproj">
       <Project>{8fde4698-2b47-4e08-9d9a-09c2d6d754d4}</Project>
       <Name>FUN_CRFUSION</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\productos.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

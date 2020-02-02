@@ -64,6 +64,8 @@ Partial Class ProductoMant
         '
         'GroupBox1
         '
+        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.TXT_MINIMO)
         Me.GroupBox1.Controls.Add(Me.Label15)
         Me.GroupBox1.Controls.Add(Me.GroupBox3)
@@ -97,7 +99,7 @@ Partial Class ProductoMant
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!)
         Me.GroupBox1.Location = New System.Drawing.Point(4, 3)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(750, 441)
+        Me.GroupBox1.Size = New System.Drawing.Size(766, 441)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Información general ]"
@@ -115,11 +117,11 @@ Partial Class ProductoMant
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label15.Location = New System.Drawing.Point(20, 406)
+        Me.Label15.Location = New System.Drawing.Point(21, 406)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(130, 24)
+        Me.Label15.Size = New System.Drawing.Size(125, 24)
         Me.Label15.TabIndex = 26
-        Me.Label15.Text = "Minimo stock :"
+        Me.Label15.Text = "Minimo stock:"
         '
         'GroupBox3
         '
@@ -163,7 +165,7 @@ Partial Class ProductoMant
         'TXT_FILA
         '
         Me.TXT_FILA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_FILA.Location = New System.Drawing.Point(363, 355)
+        Me.TXT_FILA.Location = New System.Drawing.Point(374, 355)
         Me.TXT_FILA.MaxLength = 3
         Me.TXT_FILA.Name = "TXT_FILA"
         Me.TXT_FILA.Size = New System.Drawing.Size(100, 29)
@@ -192,7 +194,7 @@ Partial Class ProductoMant
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label13.Location = New System.Drawing.Point(309, 358)
+        Me.Label13.Location = New System.Drawing.Point(320, 358)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(50, 24)
         Me.Label13.TabIndex = 22
@@ -211,11 +213,11 @@ Partial Class ProductoMant
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label12.Location = New System.Drawing.Point(68, 360)
+        Me.Label12.Location = New System.Drawing.Point(69, 360)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(82, 24)
+        Me.Label12.Size = New System.Drawing.Size(77, 24)
         Me.Label12.TabIndex = 20
-        Me.Label12.Text = "Estante :"
+        Me.Label12.Text = "Estante:"
         '
         'TXT_PRECIO
         '
@@ -241,11 +243,11 @@ Partial Class ProductoMant
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label11.Location = New System.Drawing.Point(26, 318)
+        Me.Label11.Location = New System.Drawing.Point(27, 318)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(124, 24)
+        Me.Label11.Size = New System.Drawing.Size(119, 24)
         Me.Label11.TabIndex = 18
-        Me.Label11.Text = "Precio venta :"
+        Me.Label11.Text = "Precio venta:"
         '
         'Label10
         '
@@ -253,9 +255,9 @@ Partial Class ProductoMant
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.Label10.Location = New System.Drawing.Point(27, 282)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(124, 24)
+        Me.Label10.Size = New System.Drawing.Size(119, 24)
         Me.Label10.TabIndex = 16
-        Me.Label10.Text = "Precio costo :"
+        Me.Label10.Text = "Precio costo:"
         '
         'Label9
         '
@@ -323,9 +325,9 @@ Partial Class ProductoMant
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.Label6.Location = New System.Drawing.Point(13, 239)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(138, 24)
+        Me.Label6.Size = New System.Drawing.Size(133, 24)
         Me.Label6.TabIndex = 10
-        Me.Label6.Text = "Código DGTD :"
+        Me.Label6.Text = "Código DGTD:"
         '
         'CMB_UNIDADES
         '
@@ -343,9 +345,9 @@ Partial Class ProductoMant
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.Label5.Location = New System.Drawing.Point(3, 200)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(148, 24)
+        Me.Label5.Size = New System.Drawing.Size(143, 24)
         Me.Label5.TabIndex = 8
-        Me.Label5.Text = "Unidad Medida :"
+        Me.Label5.Text = "Unidad Medida:"
         '
         'Label4
         '
@@ -353,9 +355,9 @@ Partial Class ProductoMant
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.Label4.Location = New System.Drawing.Point(43, 115)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(108, 24)
+        Me.Label4.Size = New System.Drawing.Size(103, 24)
         Me.Label4.TabIndex = 4
-        Me.Label4.Text = "Proveedor :"
+        Me.Label4.Text = "Proveedor:"
         '
         'TXT_DESC
         '
@@ -372,9 +374,9 @@ Partial Class ProductoMant
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.Label3.Location = New System.Drawing.Point(31, 157)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(120, 24)
+        Me.Label3.Size = New System.Drawing.Size(115, 24)
         Me.Label3.TabIndex = 6
-        Me.Label3.Text = "Descripción :"
+        Me.Label3.Text = "Descripción:"
         '
         'TXT_COD_BARRA
         '
@@ -391,9 +393,9 @@ Partial Class ProductoMant
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.Label2.Location = New System.Drawing.Point(13, 73)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(138, 24)
+        Me.Label2.Size = New System.Drawing.Size(133, 24)
         Me.Label2.TabIndex = 2
-        Me.Label2.Text = "Código barras :"
+        Me.Label2.Text = "Código barras:"
         '
         'TXT_CODIGO
         '
@@ -410,9 +412,9 @@ Partial Class ProductoMant
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.Label1.Location = New System.Drawing.Point(70, 31)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(81, 24)
+        Me.Label1.Size = New System.Drawing.Size(76, 24)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Código :"
+        Me.Label1.Text = "Código:"
         '
         'BTN_ACEPTAR
         '
@@ -420,7 +422,7 @@ Partial Class ProductoMant
         Me.BTN_ACEPTAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_ACEPTAR.Image = CType(resources.GetObject("BTN_ACEPTAR.Image"), System.Drawing.Image)
         Me.BTN_ACEPTAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(489, 451)
+        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(505, 451)
         Me.BTN_ACEPTAR.Margin = New System.Windows.Forms.Padding(4)
         Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
         Me.BTN_ACEPTAR.Size = New System.Drawing.Size(132, 53)
@@ -435,7 +437,7 @@ Partial Class ProductoMant
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(622, 451)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(638, 451)
         Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(4)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(132, 53)
@@ -464,13 +466,13 @@ Partial Class ProductoMant
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ClientSize = New System.Drawing.Size(770, 548)
+        Me.ClientSize = New System.Drawing.Size(782, 547)
         Me.ControlBox = False
         Me.Controls.Add(Me.BTN_ACEPTAR)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.MinimumSize = New System.Drawing.Size(776, 554)
+        Me.MinimumSize = New System.Drawing.Size(788, 553)
         Me.Name = "ProductoMant"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Producto"

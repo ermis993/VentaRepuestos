@@ -203,16 +203,16 @@
     <Compile Include="Pantallas\Seguridad\DerechosCompania.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pantallas\Seguridad\Producto\Producto.Designer.vb">
+    <Compile Include="Pantallas\Producto\Producto.Designer.vb">
       <DependentUpon>Producto.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pantallas\Seguridad\Producto\Producto.vb">
+    <Compile Include="Pantallas\Producto\Producto.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pantallas\Seguridad\Producto\ProductoMant.Designer.vb">
+    <Compile Include="Pantallas\Producto\ProductoMant.Designer.vb">
       <DependentUpon>ProductoMant.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pantallas\Seguridad\Producto\ProductoMant.vb">
+    <Compile Include="Pantallas\Producto\ProductoMant.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\Seguridad\Sucursal.Designer.vb">
@@ -294,10 +294,10 @@
     <EmbeddedResource Include="Pantallas\Seguridad\DerechosCompania.resx">
       <DependentUpon>DerechosCompania.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pantallas\Seguridad\Producto\Producto.resx">
+    <EmbeddedResource Include="Pantallas\Producto\Producto.resx">
       <DependentUpon>Producto.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pantallas\Seguridad\Producto\ProductoMant.resx">
+    <EmbeddedResource Include="Pantallas\Producto\ProductoMant.resx">
       <DependentUpon>ProductoMant.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Seguridad\Sucursal.resx">

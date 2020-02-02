@@ -1,6 +1,7 @@
 ﻿Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Globales
-Public Class ClienteBuscador
+Public Class Buscador
+    Public Property PANTALLA As Form
     Public Property TABLA_BUSCAR As String
     Public Property CODIGO As String
     Public Property DESCRIPCION As String
@@ -22,9 +23,7 @@ Public Class ClienteBuscador
             Me.CMB.SelectedItem = value
         End Set
     End Property
-    Private Sub BTN_BUSCAR_Click(sender As Object, e As EventArgs) Handles BTN_BUSCAR.Click
-    End Sub
-    Private Sub refrescar()
+    Public Sub refrescar()
         Dim SQL As String = "SELECT " & CODIGO & "," & DESCRIPCION
         SQL &= Chr(13) & " FROM " & TABLA_BUSCAR
         CONX.Coneccion_Abrir()
@@ -44,7 +43,7 @@ Public Class ClienteBuscador
             TXT_BUSCADOR.Text = ""
         End If
     End Sub
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs)
         refrescar()
     End Sub
     Private Sub ClienteBuscador_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -91,7 +90,7 @@ Public Class ClienteBuscador
                     End If
                 Next
             Else
-                CMB.SelectedIndex = 0
+                CMB.SelectedIndex = -1
             End If
             If ENCONTRADO = False Then
                 If TXT_BUSCADOR.Text <> "" Then
@@ -108,5 +107,9 @@ Public Class ClienteBuscador
         If e.KeyChar = ChrW(Keys.Enter) Then
             BUSCAR_EN_COMBOBOX()
         End If
+    End Sub
+
+    Private Sub BTN_BUSCAR_Click(sender As Object, e As EventArgs) Handles BTN_BUSCAR.Click
+        Me.PANTALLA.ShowDialog()
     End Sub
 End Class

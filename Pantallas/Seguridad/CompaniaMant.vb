@@ -379,10 +379,10 @@ Public Class LBL_CANTON
 
             If MODO = CRF_Modos.Insertar Then
                 LIMPIAR_TODO()
-                MessageBox.Show("¡Compañía ingresada correctamente!")
+                MessageBox.Show("¡Compañía ingresada correctamente!", Me.Name, MessageBoxButtons.OK, MessageBoxIcon.Information)
             ElseIf MODO = CRF_Modos.Modificar Then
                 Cerrar()
-                MessageBox.Show("¡Compañía modificada correctamente!")
+                MessageBox.Show("¡Compañía modificada correctamente!", Me.Name, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

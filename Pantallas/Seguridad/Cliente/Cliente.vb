@@ -1,8 +1,14 @@
 ﻿Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Globales
 Public Class Cliente
-
     Dim CEDULA_CLIENTE As String = ""
+    Dim BS As New Buscador
+    Dim MODO As CRF_Modos
+    Sub New(Optional ByVal MODO As CRF_Modos = CRF_Modos.Nada, Optional ByVal Bus As Buscador = Nothing)
+        Me.MODO = MODO
+        Me.BS = Bus
+        InitializeComponent()
+    End Sub
     Private Sub Cliente_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         RELLENAR_GRID()
     End Sub
@@ -54,8 +60,12 @@ Public Class Cliente
         Try
             If Me.GRID.Rows.Count > 0 Then
                 Leer_indice()
-                Dim PANTALLA As New ClienteMant(CRF_Modos.Modificar, Me, CEDULA_CLIENTE)
-                PANTALLA.ShowDialog()
+                If MODO = CRF_Modos.Seleccionar Then
+                    SETEO_CONTROL(BS, Me, CEDULA_CLIENTE)
+                Else
+                    Dim PANTALLA As New ClienteMant(CRF_Modos.Modificar, Me, CEDULA_CLIENTE)
+                    PANTALLA.ShowDialog()
+                End If
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

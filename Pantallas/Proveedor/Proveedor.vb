@@ -64,10 +64,11 @@ Public Class Proveedor
             If Me.GRID.Rows.Count > 0 Then
                 Leer_indice()
                 If MODO = CRF_Modos.Seleccionar Then
-                    BS.VALOR = CEDULA_PROVEEDOR
+                    SETEO_CONTROL(BS, Me, CEDULA_PROVEEDOR)
+                Else
+                    Dim PANTALLA As New ProveedorMant(CRF_Modos.Modificar, Me, CEDULA_PROVEEDOR)
+                    PANTALLA.ShowDialog()
                 End If
-                Dim PANTALLA As New ProveedorMant(CRF_Modos.Modificar, Me, CEDULA_PROVEEDOR)
-                PANTALLA.ShowDialog()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

@@ -227,4 +227,14 @@ Public Class Globales
             Return False
         End Try
     End Function
+
+    Public Shared Function SETEO_CONTROL(ByVal Buscador As Buscador, ByVal Pantalla As Form, ByVal Valor As String)
+        Try
+            Buscador.VALOR = Valor
+            Buscador.ACTUALIZAR_COMBO()
+            Pantalla.Close()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Function
 End Class

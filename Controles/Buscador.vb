@@ -23,6 +23,11 @@ Public Class Buscador
             Me.CMB.SelectedItem = value
         End Set
     End Property
+
+    Public Sub ACTUALIZAR_COMBO()
+        BUSCAR_EN_COMBOBOX()
+    End Sub
+
     Public Sub refrescar()
         Dim SQL As String = "SELECT " & CODIGO & "," & DESCRIPCION
         SQL &= Chr(13) & " FROM " & TABLA_BUSCAR
@@ -112,4 +117,5 @@ Public Class Buscador
     Private Sub BTN_BUSCAR_Click(sender As Object, e As EventArgs) Handles BTN_BUSCAR.Click
         Me.PANTALLA.ShowDialog()
     End Sub
+
 End Class

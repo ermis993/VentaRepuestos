@@ -90,10 +90,10 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controles\ClienteBuscador.Designer.vb">
-      <DependentUpon>ClienteBuscador.vb</DependentUpon>
+    <Compile Include="Controles\Buscador.Designer.vb">
+      <DependentUpon>Buscador.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controles\ClienteBuscador.vb">
+    <Compile Include="Controles\Buscador.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Globales\Globales.vb" />
@@ -197,6 +197,12 @@
     <Compile Include="Pantallas\Seguridad\Producto\Producto.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pantallas\Seguridad\Producto\ProductoMant.Designer.vb">
+      <DependentUpon>ProductoMant.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Seguridad\Producto\ProductoMant.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pantallas\Seguridad\Sucursal.Designer.vb">
       <DependentUpon>Sucursal.vb</DependentUpon>
     </Compile>
@@ -222,8 +228,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controles\ClienteBuscador.resx">
-      <DependentUpon>ClienteBuscador.vb</DependentUpon>
+    <EmbeddedResource Include="Controles\Buscador.resx">
+      <DependentUpon>Buscador.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\CambioContrasena.resx">
       <DependentUpon>CambioContrasena.vb</DependentUpon>
@@ -272,6 +278,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Seguridad\Producto\Producto.resx">
       <DependentUpon>Producto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Seguridad\Producto\ProductoMant.resx">
+      <DependentUpon>ProductoMant.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Seguridad\Sucursal.resx">
       <DependentUpon>Sucursal.vb</DependentUpon>
@@ -364,11 +373,11 @@
     <None Include="Resources\productos.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Funciones globales\bin\CRFUSION_LIBRERIAS_GENERALES\CRF_CONEXIONES\CRF_CONEXIONES.vbproj">
+    <ProjectReference Include="..\..\bin\FASE_MDOCUM2\GEN\CRFUSION_LIBRERIAS_GENERALES\CRF_CONEXIONES\CRF_CONEXIONES.vbproj">
       <Project>{bdddff94-3947-49d0-a098-f2e3fe3e909b}</Project>
       <Name>CRF_CONEXIONES</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Funciones globales\bin\CRFUSION_LIBRERIAS_GENERALES\FUN_CRFUSION\FUN_CRFUSION.vbproj">
+    <ProjectReference Include="..\..\bin\FASE_MDOCUM2\GEN\CRFUSION_LIBRERIAS_GENERALES\FUN_CRFUSION\FUN_CRFUSION.vbproj">
       <Project>{8fde4698-2b47-4e08-9d9a-09c2d6d754d4}</Project>
       <Name>FUN_CRFUSION</Name>
     </ProjectReference>

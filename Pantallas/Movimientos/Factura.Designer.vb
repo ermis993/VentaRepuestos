@@ -47,7 +47,7 @@ Partial Class Factura
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.TXT_DESCRIPCION = New System.Windows.Forms.TextBox()
-        Me.ClienteBuscador1 = New VentaRepuestos.ClienteBuscador()
+        Me.ClienteBuscador1 = New VentaRepuestos.Buscador()
         Me.TabControl1.SuspendLayout()
         Me.TAB_ENC.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -366,5 +366,5 @@ Partial Class Factura
     Friend WithEvents Label9 As Label
     Friend WithEvents TXT_DESCRIPCION As TextBox
     Friend WithEvents Label10 As Label
-    Friend WithEvents ClienteBuscador1 As ClienteBuscador
+    Friend WithEvents ClienteBuscador1 As Buscador
 End Class

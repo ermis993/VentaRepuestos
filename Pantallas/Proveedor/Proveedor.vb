@@ -5,9 +5,9 @@ Public Class Proveedor
     Dim MODO As CRF_Modos
     Dim BS As New Buscador
     Sub New(Optional ByVal MODO As CRF_Modos = CRF_Modos.Nada, Optional ByVal Bus As Buscador = Nothing)
+        InitializeComponent()
         Me.MODO = MODO
         Me.BS = Bus
-        InitializeComponent()
     End Sub
     Private Sub Proveedor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Rellenar_GRID()
@@ -22,9 +22,10 @@ Public Class Proveedor
             SQL &= Chr(13) & "	CASE WHEN ESTADO ='A' THEN 'Activo' ELSE 'Inactivo' END AS Estado,FECHA_INC AS 'Fecha ingreso' "
             SQL &= Chr(13) & "	FROM PROVEEDOR"
             SQL &= Chr(13) & "	WHERE COD_SUCUR = " & SCM(COD_SUCUR)
+            SQL &= Chr(13) & "  AND COD_CIA = " & SCM(COD_CIA)
 
             If RB_ACTIVOS.Checked = True Then
-                SQL &= Chr(13) & "	AND ESTADO ='A'"
+                SQL &= Chr(13) & " And Estado ='A'"
             ElseIf RB_INACTIVOS.Checked = True Then
                 SQL &= Chr(13) & "	AND ESTADO ='I'"
             End If

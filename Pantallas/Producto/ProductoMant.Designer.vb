@@ -29,6 +29,7 @@ Partial Class ProductoMant
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.RB_INACTIVO = New System.Windows.Forms.RadioButton()
         Me.RB_ACTIVO = New System.Windows.Forms.RadioButton()
+        Me.Buscador = New VentaRepuestos.Buscador()
         Me.TXT_FILA = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.TXT_ESTANTE = New System.Windows.Forms.TextBox()
@@ -57,7 +58,6 @@ Partial Class ProductoMant
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
-        Me.Buscador = New VentaRepuestos.Buscador()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.SuspendLayout()
@@ -161,6 +161,21 @@ Partial Class ProductoMant
         Me.RB_ACTIVO.TabStop = True
         Me.RB_ACTIVO.Text = "Activo"
         Me.RB_ACTIVO.UseVisualStyleBackColor = True
+        '
+        'Buscador
+        '
+        Me.Buscador.CODIGO = Nothing
+        Me.Buscador.DESCRIPCION = Nothing
+        Me.Buscador.Location = New System.Drawing.Point(152, 115)
+        Me.Buscador.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.Buscador.Name = "Buscador"
+        Me.Buscador.OTROS_CAMP0S = Nothing
+        Me.Buscador.PANTALLA = Nothing
+        Me.Buscador.Size = New System.Drawing.Size(589, 32)
+        Me.Buscador.TabIndex = 5
+        Me.Buscador.TABLA_BUSCAR = Nothing
+        Me.Buscador.VALOR = ""
+        Me.Buscador.VALOR_DESCRIPCION = Nothing
         '
         'TXT_FILA
         '
@@ -271,10 +286,10 @@ Partial Class ProductoMant
         '
         'TXT_EXENTO
         '
-        Me.TXT_EXENTO.Enabled = False
         Me.TXT_EXENTO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.TXT_EXENTO.Location = New System.Drawing.Point(680, 197)
         Me.TXT_EXENTO.Name = "TXT_EXENTO"
+        Me.TXT_EXENTO.ReadOnly = True
         Me.TXT_EXENTO.Size = New System.Drawing.Size(54, 29)
         Me.TXT_EXENTO.TabIndex = 15
         Me.TXT_EXENTO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -291,10 +306,10 @@ Partial Class ProductoMant
         '
         'TXT_IMPUESTO
         '
-        Me.TXT_IMPUESTO.Enabled = False
         Me.TXT_IMPUESTO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.TXT_IMPUESTO.Location = New System.Drawing.Point(459, 197)
         Me.TXT_IMPUESTO.Name = "TXT_IMPUESTO"
+        Me.TXT_IMPUESTO.ReadOnly = True
         Me.TXT_IMPUESTO.Size = New System.Drawing.Size(100, 29)
         Me.TXT_IMPUESTO.TabIndex = 13
         Me.TXT_IMPUESTO.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -445,21 +460,6 @@ Partial Class ProductoMant
         Me.BTN_SALIR.Text = "Salir"
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
-        '
-        'Buscador
-        '
-        Me.Buscador.CODIGO = Nothing
-        Me.Buscador.DESCRIPCION = Nothing
-        Me.Buscador.Location = New System.Drawing.Point(152, 115)
-        Me.Buscador.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        Me.Buscador.Name = "Buscador"
-        Me.Buscador.OTROS_CAMP0S = Nothing
-        Me.Buscador.PANTALLA = Nothing
-        Me.Buscador.Size = New System.Drawing.Size(589, 32)
-        Me.Buscador.TabIndex = 5
-        Me.Buscador.TABLA_BUSCAR = Nothing
-        Me.Buscador.VALOR = ""
-        Me.Buscador.VALOR_DESCRIPCION = Nothing
         '
         'ProductoMant
         '

@@ -29,39 +29,42 @@ Public Class Buscador
     End Sub
 
     Public Sub refrescar()
-        Dim SQL As String = "SELECT " & CODIGO & "," & DESCRIPCION
-        SQL &= Chr(13) & " FROM " & TABLA_BUSCAR
-        CONX.Coneccion_Abrir()
-        Dim DS = CONX.EJECUTE_DS(SQL)
-        CONX.Coneccion_Cerrar()
-        If DS.Tables(0).Rows.Count > 0 Then
-            Dim LISTA_REF As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
-            CMB.DataSource = Nothing
-            LISTA_REF.Add(New KeyValuePair(Of String, String)("", ""))
-            For Each ITEM In DS.Tables(0).Rows
-                LISTA_REF.Add(New KeyValuePair(Of String, String)(ITEM(CODIGO).ToString, ITEM(DESCRIPCION).ToString.ToUpper))
-            Next
-            CMB.DataSource = LISTA_REF
-            CMB.ValueMember = "Key"
-            CMB.DisplayMember = "Value"
-            CMB.SelectedIndex = 0
-            TXT_BUSCADOR.Text = ""
+
+        If VALIDAR() Then
+            Dim SQL As String = "SELECT " & CODIGO & "," & DESCRIPCION
+            SQL &= Chr(13) & " FROM " & TABLA_BUSCAR
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+            If DS.Tables(0).Rows.Count > 0 Then
+                Dim LISTA_REF As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
+                CMB.DataSource = Nothing
+                LISTA_REF.Add(New KeyValuePair(Of String, String)("", ""))
+                For Each ITEM In DS.Tables(0).Rows
+                    LISTA_REF.Add(New KeyValuePair(Of String, String)(ITEM(CODIGO).ToString, ITEM(DESCRIPCION).ToString.ToUpper))
+                Next
+                CMB.DataSource = LISTA_REF
+                CMB.ValueMember = "Key"
+                CMB.DisplayMember = "Value"
+                CMB.SelectedIndex = 0
+                TXT_BUSCADOR.Text = ""
+            End If
         End If
+
     End Sub
     Private Sub Button1_Click(sender As Object, e As EventArgs)
         refrescar()
     End Sub
-    Private Sub ClienteBuscador_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If VALIDAR() Then
-            refrescar()
-        End If
-    End Sub
+
     Private Function VALIDAR() As Boolean
         Try
-            Dim ENTRAR As Boolean = False
+            Dim ENTRAR As Boolean
             If TABLA_BUSCAR.Equals("") Then
+                ENTRAR = False
             ElseIf CODIGO.Equals("") Then
+                ENTRAR = False
             ElseIf DESCRIPCION.Equals("") Then
+                ENTRAR = False
             Else
                 ENTRAR = True
             End If

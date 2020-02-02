@@ -23,13 +23,65 @@ Public Class ProductoMant
         CARGAR_UNIDAD_MEDIDA()
         CARGAR_IMPUESTO()
 
+        If Me.MODO = CRF_Modos.Modificar Then
+            TXT_CODIGO.ReadOnly = True
+            LEER()
+            TXT_COD_BARRA.Select()
+        Else
+            TXT_CODIGO.Select()
+        End If
+
     End Sub
+
+
+    Private Sub LEER()
+        Try
+            Dim SQL As String = "EXEC USP_MANT_PRODUCTO"
+            SQL &= Chr(13) & " @COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & ",@COD_SUCUR = " & SCM(COD_SUCUR)
+            SQL &= Chr(13) & ",@COD_PROD = " & SCM(COD_PROD)
+            SQL &= Chr(13) & ",@MODO = " & Val(CRF_Modos.Seleccionar)
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                For Each ITEM In DS.Tables(0).Rows
+
+                    TXT_CODIGO.Text = COD_PROD
+                    TXT_COD_BARRA.Text = ITEM("COD_BARRA")
+                    Buscador.VALOR = ITEM("CEDULA")
+                    Buscador.ACTUALIZAR_COMBO()
+                    TXT_DESC.Text = ITEM("DESCRIPCION")
+                    CMB_UNIDADES.SelectedValue = ITEM("COD_UNIDAD")
+                    CMB_IMPUESTO_DGTD.SelectedValue = ITEM("COD_IMPUESTO_DGTD")
+                    TXT_PRECIO.Text = ITEM("PRECIO")
+                    TXT_COSTO.Text = ITEM("COSTO")
+                    TXT_ESTANTE.Text = ITEM("ESTANTE")
+                    TXT_FILA.Text = ITEM("FILA")
+                    TXT_COLUMNA.Text = ITEM("COLUMNA")
+                    TXT_MINIMO.Text = ITEM("MINIMO")
+
+                    If Trim(ITEM("ESTADO")).Equals("A") Then
+                        RB_ACTIVO.Checked = True
+                    Else
+                        RB_INACTIVO.Checked = True
+                    End If
+                Next
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
 
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         Cerrar()
     End Sub
 
     Private Sub Cerrar()
+        Me.PADRE.RELLENAR_GRID()
         Me.Close()
     End Sub
 
@@ -90,10 +142,10 @@ Public Class ProductoMant
 
                 If Me.MODO = CRF_Modos.Insertar Then
                     LIMPIAR_TODO()
-                    MessageBox.Show("¡Cliente agregado correctamente!")
+                    MessageBox.Show("¡Producto agregado correctamente!")
                 Else
                     Me.Close()
-                    MessageBox.Show("¡Cliente modificado correctamente!")
+                    MessageBox.Show("¡Producto modificado correctamente!")
                 End If
 
             End If

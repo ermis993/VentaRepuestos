@@ -228,7 +228,7 @@ Public Class Globales
         End Try
     End Function
 
-    Public Shared Function SETEO_CONTROL(ByVal Buscador As Buscador, ByVal Pantalla As Form, ByVal Valor As String)
+    Public Shared Sub SETEO_CONTROL(ByVal Buscador As Buscador, ByVal Pantalla As Form, ByVal Valor As String)
         Try
             Buscador.VALOR = Valor
             Buscador.ACTUALIZAR_COMBO()
@@ -236,5 +236,5 @@ Public Class Globales
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
-    End Function
+    End Sub
 End Class

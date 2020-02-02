@@ -209,4 +209,13 @@ Public Class Globales
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+    Public Shared Sub VALIDAR_SOLO_NUMEROS(ByVal e As KeyPressEventArgs)
+        If e.KeyChar = ChrW(Keys.Enter) Or e.KeyChar = vbBack Then
+            e.Handled = False
+        Else
+            If Not IsNumeric(e.KeyChar) Then
+                e.Handled = True
+            End If
+        End If
+    End Sub
 End Class

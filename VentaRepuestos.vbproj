@@ -14,6 +14,7 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -130,6 +130,18 @@
       <DependentUpon>OlvidoContrasena.vb</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\OlvidoContrasena.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Proveedor\Proveedor.Designer.vb">
+      <DependentUpon>Proveedor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Proveedor\Proveedor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Proveedor\ProveedorMant.Designer.vb">
+      <DependentUpon>ProveedorMant.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Proveedor\ProveedorMant.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\Seguridad\ActEconomicaMant.Designer.vb">
@@ -246,6 +258,12 @@
     <EmbeddedResource Include="Pantallas\OlvidoContrasena.resx">
       <DependentUpon>OlvidoContrasena.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Proveedor\Proveedor.resx">
+      <DependentUpon>Proveedor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Proveedor\ProveedorMant.resx">
+      <DependentUpon>ProveedorMant.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Seguridad\ActEconomicaMant.resx">
       <DependentUpon>ActEconomicaMant.vb</DependentUpon>
     </EmbeddedResource>
@@ -358,9 +376,6 @@
     <None Include="Resources\usuario.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\cliente.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\client.png" />
   </ItemGroup>
   <ItemGroup>
@@ -373,14 +388,31 @@
     <None Include="Resources\productos.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\bin\FASE_MDOCUM2\GEN\CRFUSION_LIBRERIAS_GENERALES\CRF_CONEXIONES\CRF_CONEXIONES.vbproj">
+    <ProjectReference Include="..\Funciones globales\bin\CRFUSION_LIBRERIAS_GENERALES\CRF_CONEXIONES\CRF_CONEXIONES.vbproj">
       <Project>{bdddff94-3947-49d0-a098-f2e3fe3e909b}</Project>
       <Name>CRF_CONEXIONES</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\bin\FASE_MDOCUM2\GEN\CRFUSION_LIBRERIAS_GENERALES\FUN_CRFUSION\FUN_CRFUSION.vbproj">
+    <ProjectReference Include="..\Funciones globales\bin\CRFUSION_LIBRERIAS_GENERALES\FUN_CRFUSION\FUN_CRFUSION.vbproj">
       <Project>{8fde4698-2b47-4e08-9d9a-09c2d6d754d4}</Project>
       <Name>FUN_CRFUSION</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\proveedor1.png" />
+    <Content Include="Resources\quitar.png" />
+    <Content Include="Resources\salir.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

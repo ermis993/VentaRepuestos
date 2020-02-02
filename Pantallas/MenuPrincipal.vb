@@ -70,9 +70,9 @@ Public Class MenuPrincipal
                     LISTA_REF.Add(New KeyValuePair(Of String, String)(Row("CODIGO").ToString, Row("CODIGO").ToString & " - " & Row("NOMBRE").ToString.ToUpper))
                 Next
 
-                CMB_SUCURSAL.DataSource = LISTA_REF
                 CMB_SUCURSAL.ValueMember = "Key"
                 CMB_SUCURSAL.DisplayMember = "Value"
+                CMB_SUCURSAL.DataSource = LISTA_REF
 
                 If String.IsNullOrEmpty(COD_SUCUR) Then
                     CMB_SUCURSAL.SelectedIndex = 0
@@ -135,6 +135,14 @@ Public Class MenuPrincipal
     Private Sub BTN_PRODUCTO_Click(sender As Object, e As EventArgs) Handles BTN_PRODUCTO.Click
         Try
             Dim PANTALLA As New Producto()
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+    Private Sub BTN_PROVEEDOR_Click(sender As Object, e As EventArgs) Handles BTN_PROVEEDOR.Click
+        Try
+            Dim PANTALLA As New Proveedor()
             PANTALLA.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)

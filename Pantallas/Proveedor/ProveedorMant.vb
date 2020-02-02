@@ -92,9 +92,24 @@ Public Class ProveedorMant
         End Try
     End Sub
     Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
-
+        Try
+            If MODO = CRF_Modos.Insertar Or MODO = CRF_Modos.Modificar Then
+                If VALIDAR() = True Then
+                    If EMAIL_VALIDO(TXT_EMAIL.Text) = False Then
+                        Respuesta = MessageBox.Show("¡El email ingresado parece ser un email no válido!", Me.Name, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                        If Respuesta = DialogResult.Yes Then
+                            EJECUTAR()
+                        End If
+                    Else
+                        EJECUTAR()
+                    End If
+                End If
+            ElseIf MODO = CRF_Modos.Eliminar Then
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
-
     Private Function VALIDAR() As Boolean
         Try
             VALIDAR = False
@@ -102,7 +117,7 @@ Public Class ProveedorMant
                 MessageBox.Show("¡Cédula incorrecta, debe ingresar todos los dígitos!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_CEDULA.Select()
             ElseIf MODO = CRF_Modos.Insertar And EXISTE_CEDULA() = True Then
-                MessageBox.Show("¡Ya existe un cliente con la cédula : " & TXT_CEDULA.Text & "!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Ya existe un proveedor con la cédula : " & TXT_CEDULA.Text & "!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_CEDULA.Select()
             ElseIf TXT_NOMBRE.Text.ToString.Equals("") Then
                 MessageBox.Show("¡Nombre incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -119,6 +134,8 @@ Public Class ProveedorMant
             ElseIf TXT_EMAIL.Text.ToString.Equals("") Then
                 MessageBox.Show("¡Correo electrónico incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_EMAIL.Select()
+            Else
+                VALIDAR = True
             End If
             Return VALIDAR
         Catch ex As Exception
@@ -127,21 +144,62 @@ Public Class ProveedorMant
     End Function
     Private Function EXISTE_CEDULA() As Boolean
         Try
-            Dim EXISTE As Boolean = False
-            Dim SQL = "SELECT * FROM CLIENTE WHERE CEDULA = " & SCM(TXT_CEDULA.Text)
+            EXISTE_CEDULA = False
+            Dim SQL = "SELECT * FROM PROVEEDOR WHERE CEDULA = " & SCM(TXT_CEDULA.Text)
             SQL &= Chr(13) & " AND COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & " AND COD_SUCUR = " & SCM(COD_SUCUR)
 
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)
             CONX.Coneccion_Cerrar()
 
             If DS.Tables(0).Rows.Count > 0 Then
-                EXISTE = True
+                EXISTE_CEDULA = True
             End If
-            Return EXISTE
+            Return EXISTE_CEDULA
+
         Catch ex As Exception
             Return True
             MessageBox.Show(ex.Message)
         End Try
     End Function
+    Private Sub EJECUTAR()
+        Try
+            Dim SQL As String = "EXEC PROVEEDOR_MANT"
+            SQL &= Chr(13) & " @COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & ",@COD_SUCUR = " & SCM(COD_SUCUR)
+            SQL &= Chr(13) & ",@MODO = " & Val(MODO)
+            SQL &= Chr(13) & ",@TIPO_CEDULA = " & SCM(CMB_TIPO_CEDULA.Text.ToString.Substring(0, 1).ToUpper)
+            SQL &= Chr(13) & ",@CEDULA = " & SCM(TXT_CEDULA.Text)
+            SQL &= Chr(13) & ",@NOMBRE = " & SCM(TXT_NOMBRE.Text)
+            SQL &= Chr(13) & ",@DIRECCION = " & SCM(TXT_DIRECCION.Text)
+            SQL &= Chr(13) & ",@TELEFONO = " & SCM(TXT_TELEFONO.Text)
+            SQL &= Chr(13) & ",@CORREO = " & SCM(TXT_EMAIL.Text)
+            SQL &= Chr(13) & ",@ESTADO = " & SCM(IIf(RB_ACTIVO.Checked = True, "A", "I"))
+
+            CONX.Coneccion_Abrir()
+            CONX.EJECUTE(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If MODO = CRF_Modos.Insertar Then
+                LIMPIAR_TODO()
+                MessageBox.Show("¡Proveedor agregado correctamente!", Me.Name, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            ElseIf MODO = CRF_Modos.Modificar Then
+                CERRAR()
+                MessageBox.Show("¡Proveedor modificado correctamente!", Me.Name, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+    Private Sub LIMPIAR_TODO()
+        CMB_TIPO_CEDULA.SelectedIndex = 0
+        TXT_CEDULA.Text = ""
+        TXT_NOMBRE.Text = ""
+        TXT_DIRECCION.Text = ""
+        TXT_TELEFONO.Text = ""
+        TXT_EMAIL.Text = ""
+        RB_ACTIVO.Checked = True
+    End Sub
 End Class

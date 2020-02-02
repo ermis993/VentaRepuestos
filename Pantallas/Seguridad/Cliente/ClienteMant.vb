@@ -1,10 +1,10 @@
 ﻿Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Globales
-
 Public Class ClienteMant
     Dim MODO As CRF_Modos
     Dim PADRE As Cliente
     Dim CEDULA As String
+    Dim Respuesta As DialogResult
     Sub New(ByVal MODO As CRF_Modos, ByVal PADRE As Cliente, Optional CEDULA As String = "")
         Me.MODO = MODO
         Me.CEDULA = CEDULA
@@ -31,37 +31,37 @@ Public Class ClienteMant
         Try
             Dim ENTRAR As Boolean = False
             If TXT_CEDULA.Text.Contains("#") Then
-                MessageBox.Show("¡Cédula incorrecta, debe ingresar todos los dígitos!")
+                MessageBox.Show("¡Cédula incorrecta, debe ingresar todos los dígitos!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_CEDULA.Select()
             ElseIf MODO = CRF_Modos.Insertar And EXISTE_CEDULA() = True Then
-                MessageBox.Show("¡Ya existe un cliente con la cédula : " & TXT_CEDULA.Text & "!")
+                MessageBox.Show("¡Ya existe un cliente con la cédula : " & TXT_CEDULA.Text & "!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_CEDULA.Select()
             ElseIf TXT_NOMBRE.Text.ToString.Equals("") Then
-                MessageBox.Show("¡Nombre incorrecto, no debe dejarse en blanco!")
+                MessageBox.Show("¡Nombre incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_NOMBRE.Select()
             ElseIf TXT_PRIMER_APELLIDO.Text.Equals("") Then
-                MessageBox.Show("¡Primer apellido incorrecto, no debe dejarse en blanco!")
+                MessageBox.Show("¡Primer apellido incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_PRIMER_APELLIDO.Select()
             ElseIf TXT_SEGUNDO_APELLIDO.Text.Equals("") Then
-                MessageBox.Show("¡Segundo apellido incorrecto, no debe dejarse en blanco!")
+                MessageBox.Show("¡Segundo apellido incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_SEGUNDO_APELLIDO.Select()
             ElseIf TXT_TELEFONO.Text.Equals("") Then
-                MessageBox.Show("¡Teléfono incorrecto, no debe dejarse en blanco!")
+                MessageBox.Show("¡Teléfono incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_TELEFONO.Select()
             ElseIf TXT_TELEFONO.Text.Length < 8 Then
-                MessageBox.Show("¡Teléfono incorrecto, debe contener 8 dígitos!")
+                MessageBox.Show("¡Teléfono incorrecto, debe contener 8 dígitos!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_TELEFONO.Select()
             ElseIf TXT_DIRECCION.Text.Equals("") Then
-                MessageBox.Show("¡Dirección incorrecta, no debe dejarse en blanco!")
+                MessageBox.Show("¡Dirección incorrecta, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_DIRECCION.Select()
             ElseIf TXT_EMAIL.Text.ToString.Equals("") Then
-                MessageBox.Show("¡Correo electrónico incorrecto, no debe dejarse en blanco!")
+                MessageBox.Show("¡Correo electrónico incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_EMAIL.Select()
             ElseIf TXT_SALDO.Text.Equals("") Then
-                MessageBox.Show("¡Saldo incorrecto, no debe dejarse en blanco!")
+                MessageBox.Show("¡Saldo incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_SALDO.Select()
             ElseIf FMC(TXT_SALDO.Text) <= 0 Then
-                MessageBox.Show("¡El saldo debe ser mayor a 0!")
+                MessageBox.Show("¡El saldo debe ser mayor a 0!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_SALDO.Select()
             Else
                 ENTRAR = True
@@ -146,7 +146,14 @@ Public Class ClienteMant
         Try
             If MODO = CRF_Modos.Insertar Or MODO = CRF_Modos.Modificar Then
                 If VALIDAR() = True Then
-                    EJECUTAR()
+                    If EMAIL_VALIDO(TXT_EMAIL.Text) = False Then
+                        Respuesta = MessageBox.Show("¡El email ingresado parece ser un email no válido!", Me.Name, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                        If Respuesta = DialogResult.Yes Then
+                            EJECUTAR()
+                        End If
+                    Else
+                        EJECUTAR()
+                    End If
                 End If
             ElseIf MODO = CRF_Modos.Eliminar Then
             End If
@@ -245,13 +252,6 @@ Public Class ClienteMant
         SOLO_NUMEROS(e)
     End Sub
     Private Sub SOLO_NUMEROS(ByVal e As KeyPressEventArgs)
-        If e.KeyChar = ChrW(Keys.Enter) Or e.KeyChar = vbBack Then
-            e.Handled = False
-        Else
-            If Not IsNumeric(e.KeyChar) Then
-                e.Handled = True
-            End If
-        End If
+        VALIDAR_SOLO_NUMEROS(e)
     End Sub
-
 End Class

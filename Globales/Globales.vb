@@ -1,4 +1,6 @@
-﻿Imports CRF_CONEXIONES.CONEXIONES
+﻿Imports System.Net.Mail
+Imports System.Text.RegularExpressions
+Imports CRF_CONEXIONES.CONEXIONES
 Imports FUN_CRFUSION.FUNCIONES_GENERALES
 
 Public Class Globales
@@ -218,4 +220,11 @@ Public Class Globales
             End If
         End If
     End Sub
+    Public Shared Function EMAIL_VALIDO(ByVal s As String) As Boolean
+        Try
+            Return Regex.IsMatch(s, "^([0-9a-zA-Z]([-\.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$")
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
 End Class

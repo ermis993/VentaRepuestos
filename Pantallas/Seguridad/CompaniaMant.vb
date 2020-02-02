@@ -20,14 +20,15 @@ Public Class LBL_CANTON
     Private Sub CMB_TIPO_CEDULA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_TIPO_CEDULA.SelectedIndexChanged
         Try
             If CMB_TIPO_CEDULA.SelectedIndex = 0 Then 'Física
-                TXT_CEDULA.Mask = "000000000"
+                TXT_CEDULA.Mask = "#-####-####"
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 1 Then 'Jurídica
-                TXT_CEDULA.Mask = "0000000000"
+                TXT_CEDULA.Mask = "#-###-######"
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 2 Then 'Nite
-                TXT_CEDULA.Mask = "000000000000"
+                TXT_CEDULA.Mask = "############"
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 3 Then 'Dimex
-                TXT_CEDULA.Mask = "0000000000"
+                TXT_CEDULA.Mask = "##########"
             End If
+            TXT_CEDULA.PromptChar = "#"
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -268,22 +269,24 @@ Public Class LBL_CANTON
         Try
             Dim ENTRAR As Boolean = False
             If TXT_NOMBRE.Text.ToString.Equals("") Then
-                MessageBox.Show("¡Nombre de compañía incorrecto!")
+                MessageBox.Show("¡Nombre de compañía incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_NOMBRE.Select()
-            ElseIf TXT_CEDULA.Text.ToString.Equals("") Then
-                MessageBox.Show("¡Cédula incorrecta!")
+            ElseIf TXT_CEDULA.Text.Contains("#") Then
+                MessageBox.Show("¡Cédula incorrecta!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_CEDULA.Select()
+            ElseIf MODO = CRF_Modos.Insertar And EXISTE_CEDULA() = True Then
+                MessageBox.Show("¡Ya existe una compañía con la cédula: " & TXT_CEDULA.Text & "!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
             ElseIf TXT_EMAIL.Text.ToString.Equals("") Then
-                MessageBox.Show("¡Correo electrónico incorrecto!")
+                MessageBox.Show("¡Correo electrónico incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_EMAIL.Select()
             ElseIf CMB_CANTON.Text.Equals("") Then
-                MessageBox.Show("¡Cantón incorrecto!")
+                MessageBox.Show("¡Cantón incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 CMB_CANTON.Select()
             ElseIf CMB_DISTRITO.Text.Equals("") Then
-                MessageBox.Show("¡Distrito incorrecto!")
+                MessageBox.Show("¡Distrito incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 CMB_DISTRITO.Select()
             ElseIf IsNothing(CERTIFICADO) = False And TXT_PIN.Text.Equals("") Then
-                MessageBox.Show("¡Debe ingresar un PIN válido para el certificado importado!")
+                MessageBox.Show("¡Debe ingresar un PIN válido para el certificado importado!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Else
                 ENTRAR = True
             End If
@@ -413,7 +416,6 @@ Public Class LBL_CANTON
         Dim PANTALLA As New ActEconomicaMant(Me, CRF_Modos.Insertar, TXT_CODIGO.Text)
         PANTALLA.ShowDialog()
     End Sub
-
     Public Sub REFRESCAR_ACTIVIDADES()
         Try
             GRID_ACTIVIDADES.DataSource = Nothing
@@ -430,7 +432,6 @@ Public Class LBL_CANTON
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-
     Private Sub BTN_MODIFICAR_Click(sender As Object, e As EventArgs) Handles BTN_MODIFICAR.Click
         MODIFICAR_ACTIVIDAD()
     End Sub
@@ -458,4 +459,21 @@ Public Class LBL_CANTON
     Private Sub GRID_ACTIVIDADES_DoubleClick(sender As Object, e As EventArgs) Handles GRID_ACTIVIDADES.DoubleClick
         MODIFICAR_ACTIVIDAD()
     End Sub
+    Private Function EXISTE_CEDULA() As Boolean
+        Try
+            EXISTE_CEDULA = False
+            Dim SQL = "	SELECT * FROM COMPANIA WHERE CEDULA = " & SCM(TXT_CEDULA.Text)
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                EXISTE_CEDULA = True
+            End If
+            Return EXISTE_CEDULA
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
 End Class

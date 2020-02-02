@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class ClienteMant
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class ClienteMant
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ClienteMant))
         Me.LBL_CODIGO = New System.Windows.Forms.Label()
@@ -61,7 +61,7 @@ Partial Class ClienteMant
         '
         Me.LBL_CODIGO.AutoSize = True
         Me.LBL_CODIGO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LBL_CODIGO.Location = New System.Drawing.Point(73, 53)
+        Me.LBL_CODIGO.Location = New System.Drawing.Point(73, 63)
         Me.LBL_CODIGO.Name = "LBL_CODIGO"
         Me.LBL_CODIGO.Size = New System.Drawing.Size(62, 18)
         Me.LBL_CODIGO.TabIndex = 2
@@ -72,7 +72,7 @@ Partial Class ClienteMant
         Me.LBL_TIPO_CEDULA.AutoSize = True
         Me.LBL_TIPO_CEDULA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_TIPO_CEDULA.ForeColor = System.Drawing.Color.Black
-        Me.LBL_TIPO_CEDULA.Location = New System.Drawing.Point(42, 17)
+        Me.LBL_TIPO_CEDULA.Location = New System.Drawing.Point(42, 27)
         Me.LBL_TIPO_CEDULA.Name = "LBL_TIPO_CEDULA"
         Me.LBL_TIPO_CEDULA.Size = New System.Drawing.Size(92, 18)
         Me.LBL_TIPO_CEDULA.TabIndex = 0
@@ -84,7 +84,7 @@ Partial Class ClienteMant
         Me.CMB_TIPO_CEDULA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CMB_TIPO_CEDULA.FormattingEnabled = True
         Me.CMB_TIPO_CEDULA.Items.AddRange(New Object() {"Física", "Jurídica", "Nite", "Dimex"})
-        Me.CMB_TIPO_CEDULA.Location = New System.Drawing.Point(137, 14)
+        Me.CMB_TIPO_CEDULA.Location = New System.Drawing.Point(137, 24)
         Me.CMB_TIPO_CEDULA.Name = "CMB_TIPO_CEDULA"
         Me.CMB_TIPO_CEDULA.Size = New System.Drawing.Size(201, 24)
         Me.CMB_TIPO_CEDULA.TabIndex = 1
@@ -93,7 +93,7 @@ Partial Class ClienteMant
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(65, 85)
+        Me.Label1.Location = New System.Drawing.Point(65, 95)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(70, 18)
         Me.Label1.TabIndex = 5
@@ -103,7 +103,7 @@ Partial Class ClienteMant
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(6, 151)
+        Me.Label2.Location = New System.Drawing.Point(6, 161)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(129, 18)
         Me.Label2.TabIndex = 9
@@ -113,7 +113,7 @@ Partial Class ClienteMant
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(21, 119)
+        Me.Label3.Location = New System.Drawing.Point(21, 129)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(118, 18)
         Me.Label3.TabIndex = 7
@@ -122,7 +122,7 @@ Partial Class ClienteMant
         'TXT_NOMBRE
         '
         Me.TXT_NOMBRE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_NOMBRE.Location = New System.Drawing.Point(137, 82)
+        Me.TXT_NOMBRE.Location = New System.Drawing.Point(137, 92)
         Me.TXT_NOMBRE.Multiline = True
         Me.TXT_NOMBRE.Name = "TXT_NOMBRE"
         Me.TXT_NOMBRE.Size = New System.Drawing.Size(201, 24)
@@ -131,7 +131,7 @@ Partial Class ClienteMant
         'TXT_PRIMER_APELLIDO
         '
         Me.TXT_PRIMER_APELLIDO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_PRIMER_APELLIDO.Location = New System.Drawing.Point(137, 116)
+        Me.TXT_PRIMER_APELLIDO.Location = New System.Drawing.Point(137, 126)
         Me.TXT_PRIMER_APELLIDO.Multiline = True
         Me.TXT_PRIMER_APELLIDO.Name = "TXT_PRIMER_APELLIDO"
         Me.TXT_PRIMER_APELLIDO.Size = New System.Drawing.Size(201, 24)
@@ -157,26 +157,28 @@ Partial Class ClienteMant
         Me.GroupBox1.Controls.Add(Me.CMB_TIPO_CEDULA)
         Me.GroupBox1.Controls.Add(Me.LBL_TIPO_CEDULA)
         Me.GroupBox1.Controls.Add(Me.LBL_CODIGO)
+        Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(440, 408)
+        Me.GroupBox1.Size = New System.Drawing.Size(449, 403)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "[Información general]"
+        Me.GroupBox1.Text = "[ Información General ]"
         '
         'BTN_BUSCAR
         '
-        Me.BTN_BUSCAR.Location = New System.Drawing.Point(341, 49)
+        Me.BTN_BUSCAR.Location = New System.Drawing.Point(341, 59)
         Me.BTN_BUSCAR.Name = "BTN_BUSCAR"
-        Me.BTN_BUSCAR.Size = New System.Drawing.Size(55, 25)
+        Me.BTN_BUSCAR.Size = New System.Drawing.Size(71, 25)
         Me.BTN_BUSCAR.TabIndex = 4
         Me.BTN_BUSCAR.Text = "Buscar"
         Me.BTN_BUSCAR.UseVisualStyleBackColor = True
+        Me.BTN_BUSCAR.Visible = False
         '
         'TXT_CEDULA
         '
         Me.TXT_CEDULA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_CEDULA.Location = New System.Drawing.Point(137, 50)
+        Me.TXT_CEDULA.Location = New System.Drawing.Point(137, 60)
         Me.TXT_CEDULA.Name = "TXT_CEDULA"
         Me.TXT_CEDULA.PromptChar = Global.Microsoft.VisualBasic.ChrW(35)
         Me.TXT_CEDULA.Size = New System.Drawing.Size(201, 24)
@@ -191,7 +193,7 @@ Partial Class ClienteMant
         Me.GroupBox2.Controls.Add(Me.CK_TIQUETE)
         Me.GroupBox2.Controls.Add(Me.TXT_SALDO)
         Me.GroupBox2.Controls.Add(Me.Label5)
-        Me.GroupBox2.Location = New System.Drawing.Point(9, 282)
+        Me.GroupBox2.Location = New System.Drawing.Point(9, 289)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(425, 100)
         Me.GroupBox2.TabIndex = 17
@@ -222,6 +224,7 @@ Partial Class ClienteMant
         '
         Me.GroupBox3.Controls.Add(Me.RB_INACTIVO)
         Me.GroupBox3.Controls.Add(Me.RB_ACTIVO)
+        Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox3.Location = New System.Drawing.Point(291, 11)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(99, 83)
@@ -234,7 +237,7 @@ Partial Class ClienteMant
         Me.RB_INACTIVO.AutoSize = True
         Me.RB_INACTIVO.Location = New System.Drawing.Point(7, 54)
         Me.RB_INACTIVO.Name = "RB_INACTIVO"
-        Me.RB_INACTIVO.Size = New System.Drawing.Size(63, 17)
+        Me.RB_INACTIVO.Size = New System.Drawing.Size(72, 20)
         Me.RB_INACTIVO.TabIndex = 1
         Me.RB_INACTIVO.TabStop = True
         Me.RB_INACTIVO.Text = "Inactivo"
@@ -246,7 +249,7 @@ Partial Class ClienteMant
         Me.RB_ACTIVO.Checked = True
         Me.RB_ACTIVO.Location = New System.Drawing.Point(7, 20)
         Me.RB_ACTIVO.Name = "RB_ACTIVO"
-        Me.RB_ACTIVO.Size = New System.Drawing.Size(55, 17)
+        Me.RB_ACTIVO.Size = New System.Drawing.Size(63, 20)
         Me.RB_ACTIVO.TabIndex = 0
         Me.RB_ACTIVO.TabStop = True
         Me.RB_ACTIVO.Text = "Activo"
@@ -256,7 +259,7 @@ Partial Class ClienteMant
         '
         Me.CK_TIQUETE.AutoSize = True
         Me.CK_TIQUETE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CK_TIQUETE.Location = New System.Drawing.Point(18, 77)
+        Me.CK_TIQUETE.Location = New System.Drawing.Point(9, 79)
         Me.CK_TIQUETE.Name = "CK_TIQUETE"
         Me.CK_TIQUETE.Size = New System.Drawing.Size(189, 20)
         Me.CK_TIQUETE.TabIndex = 2
@@ -284,8 +287,9 @@ Partial Class ClienteMant
         '
         'TXT_EMAIL
         '
+        Me.TXT_EMAIL.BackColor = System.Drawing.SystemColors.Window
         Me.TXT_EMAIL.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_EMAIL.Location = New System.Drawing.Point(137, 239)
+        Me.TXT_EMAIL.Location = New System.Drawing.Point(137, 249)
         Me.TXT_EMAIL.Multiline = True
         Me.TXT_EMAIL.Name = "TXT_EMAIL"
         Me.TXT_EMAIL.Size = New System.Drawing.Size(262, 24)
@@ -294,7 +298,7 @@ Partial Class ClienteMant
         'TXT_TELEFONO
         '
         Me.TXT_TELEFONO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_TELEFONO.Location = New System.Drawing.Point(137, 178)
+        Me.TXT_TELEFONO.Location = New System.Drawing.Point(137, 188)
         Me.TXT_TELEFONO.MaxLength = 8
         Me.TXT_TELEFONO.Multiline = True
         Me.TXT_TELEFONO.Name = "TXT_TELEFONO"
@@ -305,7 +309,7 @@ Partial Class ClienteMant
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(82, 242)
+        Me.Label7.Location = New System.Drawing.Point(82, 252)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(53, 18)
         Me.Label7.TabIndex = 15
@@ -314,7 +318,7 @@ Partial Class ClienteMant
         'TXT_DIRECCION
         '
         Me.TXT_DIRECCION.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_DIRECCION.Location = New System.Drawing.Point(137, 208)
+        Me.TXT_DIRECCION.Location = New System.Drawing.Point(137, 218)
         Me.TXT_DIRECCION.Multiline = True
         Me.TXT_DIRECCION.Name = "TXT_DIRECCION"
         Me.TXT_DIRECCION.Size = New System.Drawing.Size(262, 24)
@@ -324,7 +328,7 @@ Partial Class ClienteMant
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(61, 179)
+        Me.Label6.Location = New System.Drawing.Point(61, 189)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(74, 18)
         Me.Label6.TabIndex = 11
@@ -333,7 +337,7 @@ Partial Class ClienteMant
         'TXT_SEGUNDO_APELLIDO
         '
         Me.TXT_SEGUNDO_APELLIDO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_SEGUNDO_APELLIDO.Location = New System.Drawing.Point(137, 148)
+        Me.TXT_SEGUNDO_APELLIDO.Location = New System.Drawing.Point(137, 158)
         Me.TXT_SEGUNDO_APELLIDO.Multiline = True
         Me.TXT_SEGUNDO_APELLIDO.Name = "TXT_SEGUNDO_APELLIDO"
         Me.TXT_SEGUNDO_APELLIDO.Size = New System.Drawing.Size(201, 24)
@@ -343,7 +347,7 @@ Partial Class ClienteMant
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(56, 210)
+        Me.Label4.Location = New System.Drawing.Point(56, 220)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(79, 18)
         Me.Label4.TabIndex = 13
@@ -355,7 +359,7 @@ Partial Class ClienteMant
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(353, 416)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(362, 411)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 0
@@ -369,7 +373,7 @@ Partial Class ClienteMant
         Me.BTN_ACEPTAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_ACEPTAR.Image = CType(resources.GetObject("BTN_ACEPTAR.Image"), System.Drawing.Image)
         Me.BTN_ACEPTAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(254, 416)
+        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(263, 411)
         Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
         Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_ACEPTAR.TabIndex = 2
@@ -381,7 +385,7 @@ Partial Class ClienteMant
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(468, 465)
+        Me.ClientSize = New System.Drawing.Size(478, 458)
         Me.ControlBox = False
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.BTN_ACEPTAR)

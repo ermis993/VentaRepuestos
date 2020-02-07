@@ -155,7 +155,7 @@ Public Class Factura
         RellenaProducto()
     End Sub
 
-    Private Sub BTN_INGRESAR_Click(sender As Object, e As EventArgs) Handles BTN_INGRESAR.Click
+    Private Sub IngresarDetalle()
         Try
             If FMC(TXT_TOTAL.Text) > 0 Then
 
@@ -196,6 +196,10 @@ Public Class Factura
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
+    End Sub
+
+    Private Sub BTN_INGRESAR_Click(sender As Object, e As EventArgs) Handles BTN_INGRESAR.Click
+        IngresarDetalle()
     End Sub
 
     Private Sub LimpiarControles()
@@ -258,7 +262,7 @@ Public Class Factura
     End Sub
 
     Private Sub GRID_CellMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles GRID.CellMouseDoubleClick
-
+        Modificar()
     End Sub
 
     Private Sub Producto_KeyDown(sender As Object, e As KeyEventArgs) Handles Producto.KeyDown
@@ -283,6 +287,12 @@ Public Class Factura
         If e.KeyCode = Keys.Enter Then
             CalculoTotales()
             BTN_INGRESAR.Focus()
+        End If
+    End Sub
+
+    Private Sub BTN_INGRESAR_KeyDown(sender As Object, e As KeyEventArgs) Handles BTN_INGRESAR.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            IngresarDetalle()
         End If
     End Sub
 End Class

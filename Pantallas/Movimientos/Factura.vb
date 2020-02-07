@@ -47,4 +47,62 @@ Public Class Factura
             TXT_PLAZO.Enabled = True
         End If
     End Sub
+
+    Private Sub Factura_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        Cliente.TABLA_BUSCAR = "CLIENTE"
+        Cliente.CODIGO = "CEDULA"
+        Cliente.DESCRIPCION = "NOMBRE"
+
+        Producto.TABLA_BUSCAR = "CLIENTE"
+        Producto.CODIGO = "COD_PROD"
+        Producto.DESCRIPCION = "DESCRIPCION"
+    End Sub
+
+    Private Sub CalculoTotales()
+        Try
+            If String.IsNullOrEmpty(Producto.VALOR) Then
+                MessageBox.Show("¡Debe seleccionar el proveedor!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Producto.Select()
+            Else
+                Dim Cantidad As Double
+                Dim Precio_Unitario As Double
+                Dim Descuento As Double
+                Dim Descuento_Total As Double
+                Dim Impuesto As Double
+                Dim Impuesto_Total As Double
+                Dim Subtotal As Double
+                Dim Total As Double
+
+                Cantidad = FMC(TXT_CANTIDAD.Text)
+                Precio_Unitario = FMC(TXT_PRECIO.Text)
+                Descuento = FMC(TXT_DESCUENTO.Text)
+                Impuesto = FMC(TXT_IMPUESTO.Text)
+
+                Descuento_Total = ((Precio_Unitario * Cantidad) * Descuento) / 100
+                Impuesto_Total = (((Precio_Unitario * Cantidad) - Descuento_Total) * Impuesto) / 100
+                Subtotal = ((Precio_Unitario * Cantidad) - Descuento_Total)
+                Total = Subtotal + Impuesto_Total
+
+                TXT_DESCUENTOTOTAL.Text = FMCP(Descuento_Total)
+                TXT_IMPUESTOTOTAL.Text = FMCP(Impuesto_Total)
+                TXT_SUBTOTAL.Text = FMCP(Subtotal)
+                TXT_TOTAL.Text = FMCP(Total)
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_CALCULAR_Click(sender As Object, e As EventArgs) Handles BTN_CALCULAR.Click
+        CalculoTotales()
+    End Sub
+
+    Private Sub TXT_CANTIDAD_Leave(sender As Object, e As EventArgs) Handles TXT_CANTIDAD.Leave
+        CalculoTotales()
+    End Sub
+
+    Private Sub TXT_DESCUENTO_Leave(sender As Object, e As EventArgs) Handles TXT_DESCUENTO.Leave
+        CalculoTotales()
+    End Sub
 End Class

@@ -401,6 +401,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\proveedor1.png" />
+    <None Include="Resources\calculadora.png" />
     <Content Include="Resources\quitar.png" />
     <Content Include="Resources\salir.png" />
   </ItemGroup>

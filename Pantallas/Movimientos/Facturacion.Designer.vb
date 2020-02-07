@@ -43,7 +43,7 @@ Partial Class Facturacion
         Me.BTN_SALIR.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(667, 1)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(661, -19)
         Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(132, 53)

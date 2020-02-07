@@ -45,7 +45,7 @@ Partial Class MenuPrincipal
         '
         Me.GroupBox1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GroupBox1.Controls.Add(Me.CMB_SUCURSAL)
-        Me.GroupBox1.Location = New System.Drawing.Point(1, 412)
+        Me.GroupBox1.Location = New System.Drawing.Point(1, 458)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
@@ -70,7 +70,7 @@ Partial Class MenuPrincipal
         Me.GroupBox2.Controls.Add(Me.TXT_COMPRA)
         Me.GroupBox2.Controls.Add(Me.Label2)
         Me.GroupBox2.Controls.Add(Me.Label1)
-        Me.GroupBox2.Location = New System.Drawing.Point(205, 412)
+        Me.GroupBox2.Location = New System.Drawing.Point(205, 458)
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2)
@@ -174,7 +174,7 @@ Partial Class MenuPrincipal
         Me.BTN_SALIR.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(782, 2)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(806, 2)
         Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
@@ -226,7 +226,7 @@ Partial Class MenuPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(892, 491)
+        Me.ClientSize = New System.Drawing.Size(906, 528)
         Me.ControlBox = False
         Me.Controls.Add(Me.BTN_PROVEEDOR)
         Me.Controls.Add(Me.BTN_PRODUCTO)

@@ -31,8 +31,9 @@ Partial Class Facturacion
         Me.BTN_FACTURAR.Image = Global.VentaRepuestos.My.Resources.Resources.facturar
         Me.BTN_FACTURAR.ImageAlign = System.Drawing.ContentAlignment.TopCenter
         Me.BTN_FACTURAR.Location = New System.Drawing.Point(2, 1)
+        Me.BTN_FACTURAR.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.BTN_FACTURAR.Name = "BTN_FACTURAR"
-        Me.BTN_FACTURAR.Size = New System.Drawing.Size(85, 68)
+        Me.BTN_FACTURAR.Size = New System.Drawing.Size(64, 55)
         Me.BTN_FACTURAR.TabIndex = 0
         Me.BTN_FACTURAR.Text = "Factura"
         Me.BTN_FACTURAR.TextAlign = System.Drawing.ContentAlignment.BottomCenter
@@ -43,10 +44,10 @@ Partial Class Facturacion
         Me.BTN_SALIR.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(661, -19)
-        Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(501, 1)
+        Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.BTN_SALIR.Name = "BTN_SALIR"
-        Me.BTN_SALIR.Size = New System.Drawing.Size(132, 53)
+        Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 4
         Me.BTN_SALIR.Text = "Salir"
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -54,16 +55,15 @@ Partial Class Facturacion
         '
         'Facturacion
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(602, 372)
         Me.ControlBox = False
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.BTN_FACTURAR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.MaximumSize = New System.Drawing.Size(818, 497)
-        Me.MinimumSize = New System.Drawing.Size(818, 497)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "Facturacion"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Facturación"

@@ -26,7 +26,6 @@ Partial Class Cliente
         Me.BTN_AGREGAR = New System.Windows.Forms.Button()
         Me.BTN_MODIFICAR = New System.Windows.Forms.Button()
         Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
-        Me.BTN_DERECHO = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.Estado = New System.Windows.Forms.GroupBox()
         Me.RB_TODOS = New System.Windows.Forms.RadioButton()
@@ -95,27 +94,13 @@ Partial Class Cliente
         Me.BTN_REFRESCAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_REFRESCAR.UseVisualStyleBackColor = False
         '
-        'BTN_DERECHO
-        '
-        Me.BTN_DERECHO.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_DERECHO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_DERECHO.Image = Global.VentaRepuestos.My.Resources.Resources.contrasena
-        Me.BTN_DERECHO.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_DERECHO.Location = New System.Drawing.Point(296, 4)
-        Me.BTN_DERECHO.Name = "BTN_DERECHO"
-        Me.BTN_DERECHO.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_DERECHO.TabIndex = 29
-        Me.BTN_DERECHO.Text = "Derechos"
-        Me.BTN_DERECHO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_DERECHO.UseVisualStyleBackColor = False
-        '
         'BTN_SALIR
         '
         Me.BTN_SALIR.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(394, 4)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(296, 4)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 28
@@ -179,7 +164,6 @@ Partial Class Cliente
         Me.Controls.Add(Me.BTN_AGREGAR)
         Me.Controls.Add(Me.BTN_MODIFICAR)
         Me.Controls.Add(Me.BTN_REFRESCAR)
-        Me.Controls.Add(Me.BTN_DERECHO)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Name = "Cliente"
@@ -196,7 +180,6 @@ Partial Class Cliente
     Friend WithEvents BTN_AGREGAR As Button
     Friend WithEvents BTN_MODIFICAR As Button
     Friend WithEvents BTN_REFRESCAR As Button
-    Friend WithEvents BTN_DERECHO As Button
     Friend WithEvents BTN_SALIR As Button
     Friend WithEvents Estado As GroupBox
     Friend WithEvents RB_TODOS As RadioButton

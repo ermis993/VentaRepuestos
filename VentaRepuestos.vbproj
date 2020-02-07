@@ -132,46 +132,46 @@
     <Compile Include="Pantallas\OlvidoContrasena.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pantallas\Proveedor\Proveedor.Designer.vb">
+    <Compile Include="Pantallas\Mantenimientos\Proveedores\Proveedor.Designer.vb">
       <DependentUpon>Proveedor.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pantallas\Proveedor\Proveedor.vb">
+    <Compile Include="Pantallas\Mantenimientos\Proveedores\Proveedor.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pantallas\Proveedor\ProveedorMant.Designer.vb">
+    <Compile Include="Pantallas\Mantenimientos\Proveedores\ProveedorMant.Designer.vb">
       <DependentUpon>ProveedorMant.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pantallas\Proveedor\ProveedorMant.vb">
+    <Compile Include="Pantallas\Mantenimientos\Proveedores\ProveedorMant.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pantallas\Seguridad\ActEconomicaMant.Designer.vb">
+    <Compile Include="Pantallas\Mantenimientos\Companias\ActEconomicaMant.Designer.vb">
       <DependentUpon>ActEconomicaMant.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pantallas\Seguridad\ActEconomicaMant.vb">
+    <Compile Include="Pantallas\Mantenimientos\Companias\ActEconomicaMant.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pantallas\Seguridad\Cliente\Cliente.Designer.vb">
+    <Compile Include="Pantallas\Mantenimientos\Clientes\Cliente.Designer.vb">
       <DependentUpon>Cliente.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pantallas\Seguridad\Cliente\Cliente.vb">
+    <Compile Include="Pantallas\Mantenimientos\Clientes\Cliente.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pantallas\Seguridad\Cliente\ClienteMant.Designer.vb">
+    <Compile Include="Pantallas\Mantenimientos\Clientes\ClienteMant.Designer.vb">
       <DependentUpon>ClienteMant.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pantallas\Seguridad\Cliente\ClienteMant.vb">
+    <Compile Include="Pantallas\Mantenimientos\Clientes\ClienteMant.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pantallas\Seguridad\Compania.Designer.vb">
+    <Compile Include="Pantallas\Mantenimientos\Companias\Compania.Designer.vb">
       <DependentUpon>Compania.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pantallas\Seguridad\Compania.vb">
+    <Compile Include="Pantallas\Mantenimientos\Companias\Compania.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pantallas\Seguridad\CompaniaMant.Designer.vb">
+    <Compile Include="Pantallas\Mantenimientos\Companias\CompaniaMant.Designer.vb">
       <DependentUpon>CompaniaMant.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pantallas\Seguridad\CompaniaMant.vb">
+    <Compile Include="Pantallas\Mantenimientos\Companias\CompaniaMant.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\Login.vb">
@@ -197,34 +197,46 @@
     <Compile Include="Pantallas\RegistreseAqui.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pantallas\Seguridad\DerechosCompania.Designer.vb">
+    <Compile Include="Pantallas\Mantenimientos\Companias\DerechosCompania.Designer.vb">
       <DependentUpon>DerechosCompania.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pantallas\Seguridad\DerechosCompania.vb">
+    <Compile Include="Pantallas\Mantenimientos\Companias\DerechosCompania.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pantallas\Producto\Producto.Designer.vb">
+    <Compile Include="Pantallas\Mantenimientos\Productos\Producto.Designer.vb">
       <DependentUpon>Producto.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pantallas\Producto\Producto.vb">
+    <Compile Include="Pantallas\Mantenimientos\Productos\Producto.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pantallas\Producto\ProductoMant.Designer.vb">
+    <Compile Include="Pantallas\Mantenimientos\Productos\ProductoMant.Designer.vb">
       <DependentUpon>ProductoMant.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pantallas\Producto\ProductoMant.vb">
+    <Compile Include="Pantallas\Mantenimientos\Productos\ProductoMant.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pantallas\Seguridad\Sucursal.Designer.vb">
+    <Compile Include="Pantallas\Mantenimientos\Sucursales\Sucursal.Designer.vb">
       <DependentUpon>Sucursal.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pantallas\Seguridad\Sucursal.vb">
+    <Compile Include="Pantallas\Mantenimientos\Sucursales\Sucursal.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pantallas\Seguridad\SucursalMant.Designer.vb">
+    <Compile Include="Pantallas\Mantenimientos\Sucursales\SucursalMant.Designer.vb">
       <DependentUpon>SucursalMant.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pantallas\Seguridad\SucursalMant.vb">
+    <Compile Include="Pantallas\Mantenimientos\Sucursales\SucursalMant.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Seguridad\Usuarios\DerechosUsuario.Designer.vb">
+      <DependentUpon>DerechosUsuario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Seguridad\Usuarios\DerechosUsuario.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Seguridad\Usuarios\Usuario.Designer.vb">
+      <DependentUpon>Usuario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Seguridad\Usuarios\Usuario.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\SeleccionCompania.Designer.vb">
@@ -258,25 +270,25 @@
     <EmbeddedResource Include="Pantallas\OlvidoContrasena.resx">
       <DependentUpon>OlvidoContrasena.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pantallas\Proveedor\Proveedor.resx">
+    <EmbeddedResource Include="Pantallas\Mantenimientos\Proveedores\Proveedor.resx">
       <DependentUpon>Proveedor.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pantallas\Proveedor\ProveedorMant.resx">
+    <EmbeddedResource Include="Pantallas\Mantenimientos\Proveedores\ProveedorMant.resx">
       <DependentUpon>ProveedorMant.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pantallas\Seguridad\ActEconomicaMant.resx">
+    <EmbeddedResource Include="Pantallas\Mantenimientos\Companias\ActEconomicaMant.resx">
       <DependentUpon>ActEconomicaMant.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pantallas\Seguridad\Cliente\Cliente.resx">
+    <EmbeddedResource Include="Pantallas\Mantenimientos\Clientes\Cliente.resx">
       <DependentUpon>Cliente.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pantallas\Seguridad\Cliente\ClienteMant.resx">
+    <EmbeddedResource Include="Pantallas\Mantenimientos\Clientes\ClienteMant.resx">
       <DependentUpon>ClienteMant.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pantallas\Seguridad\Compania.resx">
+    <EmbeddedResource Include="Pantallas\Mantenimientos\Companias\Compania.resx">
       <DependentUpon>Compania.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pantallas\Seguridad\CompaniaMant.resx">
+    <EmbeddedResource Include="Pantallas\Mantenimientos\Companias\CompaniaMant.resx">
       <DependentUpon>CompaniaMant.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Login.resx">
@@ -291,20 +303,26 @@
     <EmbeddedResource Include="Pantallas\RegistreseAqui.resx">
       <DependentUpon>RegistreseAqui.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pantallas\Seguridad\DerechosCompania.resx">
+    <EmbeddedResource Include="Pantallas\Mantenimientos\Companias\DerechosCompania.resx">
       <DependentUpon>DerechosCompania.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pantallas\Producto\Producto.resx">
+    <EmbeddedResource Include="Pantallas\Mantenimientos\Productos\Producto.resx">
       <DependentUpon>Producto.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pantallas\Producto\ProductoMant.resx">
+    <EmbeddedResource Include="Pantallas\Mantenimientos\Productos\ProductoMant.resx">
       <DependentUpon>ProductoMant.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pantallas\Seguridad\Sucursal.resx">
+    <EmbeddedResource Include="Pantallas\Mantenimientos\Sucursales\Sucursal.resx">
       <DependentUpon>Sucursal.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pantallas\Seguridad\SucursalMant.resx">
+    <EmbeddedResource Include="Pantallas\Mantenimientos\Sucursales\SucursalMant.resx">
       <DependentUpon>SucursalMant.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Seguridad\Usuarios\DerechosUsuario.resx">
+      <DependentUpon>DerechosUsuario.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Seguridad\Usuarios\Usuario.resx">
+      <DependentUpon>Usuario.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\SeleccionCompania.resx">
       <DependentUpon>SeleccionCompania.vb</DependentUpon>
@@ -402,6 +420,8 @@
   <ItemGroup>
     <None Include="Resources\proveedor1.png" />
     <None Include="Resources\calculadora.png" />
+    <None Include="Resources\derecha.png" />
+    <None Include="Resources\izquierda.png" />
     <Content Include="Resources\quitar.png" />
     <Content Include="Resources\salir.png" />
   </ItemGroup>

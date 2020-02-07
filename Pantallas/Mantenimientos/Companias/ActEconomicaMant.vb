@@ -43,7 +43,7 @@ Public Class ActEconomicaMant
     End Sub
     Private Sub Leer()
         Try
-            Dim SQL As String = "EXECUTE ACTIVIDAD_ECONOMICA_MANT "
+            Dim SQL As String = "EXECUTE USP_ACTIVIDAD_ECONOMICA_MANT "
             SQL &= Chr(13) & "@COD_CIA = " & SCM(COD_CIA)
             SQL &= Chr(13) & ",@MODO = " & Val(CRF_Modos.Seleccionar)
             SQL &= Chr(13) & ",@COD_ACT = " & SCM(COD_ACT)
@@ -116,7 +116,7 @@ Public Class ActEconomicaMant
     End Sub
     Private Sub EJECUTAR()
         Try
-            Dim Sql = "EXECUTE ACTIVIDAD_ECONOMICA_MANT "
+            Dim Sql = "EXECUTE USP_ACTIVIDAD_ECONOMICA_MANT "
             Sql &= Chr(13) & "@COD_CIA = " & SCM(COD_CIA)
             Sql &= Chr(13) & ",@MODO = " & SCM(MODO)
             Sql &= Chr(13) & ",@COD_ACT = " & SCM(TXT_COD_ACT.Text)

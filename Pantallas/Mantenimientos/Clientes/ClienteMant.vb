@@ -6,10 +6,10 @@ Public Class ClienteMant
     Dim CEDULA As String
     Dim Respuesta As DialogResult
     Sub New(ByVal MODO As CRF_Modos, ByVal PADRE As Cliente, Optional CEDULA As String = "")
+        InitializeComponent()
         Me.MODO = MODO
         Me.CEDULA = CEDULA
         Me.PADRE = PADRE
-        InitializeComponent()
     End Sub
     Private Sub CMB_TIPO_CEDULA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_TIPO_CEDULA.SelectedIndexChanged
         Try
@@ -74,7 +74,7 @@ Public Class ClienteMant
     End Function
     Private Sub EJECUTAR()
         Try
-            Dim SQL As String = "EXEC CLIENTE_MANT"
+            Dim SQL As String = "EXEC USP_CLIENTE_MANT"
             SQL &= Chr(13) & " @COD_CIA = " & SCM(COD_CIA)
             SQL &= Chr(13) & ",@MODO = " & Val(MODO)
             SQL &= Chr(13) & ",@TIPO_CEDULA = " & SCM(CMB_TIPO_CEDULA.Text.ToString.Substring(0, 1).ToUpper)
@@ -193,7 +193,7 @@ Public Class ClienteMant
     End Sub
     Private Sub LEER()
         Try
-            Dim SQL As String = "EXEC CLIENTE_MANT"
+            Dim SQL As String = "EXEC USP_CLIENTE_MANT"
             SQL &= Chr(13) & "@COD_CIA = " & SCM(COD_CIA)
             SQL &= Chr(13) & ",@MODO = " & Val(CRF_Modos.Seleccionar)
             SQL &= Chr(13) & ",@CEDULA = " & SCM(CEDULA)

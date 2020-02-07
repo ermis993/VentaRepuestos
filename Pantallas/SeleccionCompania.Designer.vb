@@ -35,10 +35,9 @@ Partial Class SeleccionCompania
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(255, 138)
-        Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(191, 112)
         Me.BTN_SALIR.Name = "BTN_SALIR"
-        Me.BTN_SALIR.Size = New System.Drawing.Size(132, 53)
+        Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 25
         Me.BTN_SALIR.Text = "Salir"
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -50,10 +49,9 @@ Partial Class SeleccionCompania
         Me.BTN_ACEPTAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_ACEPTAR.Image = CType(resources.GetObject("BTN_ACEPTAR.Image"), System.Drawing.Image)
         Me.BTN_ACEPTAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(123, 138)
-        Me.BTN_ACEPTAR.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(92, 112)
         Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
-        Me.BTN_ACEPTAR.Size = New System.Drawing.Size(132, 53)
+        Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_ACEPTAR.TabIndex = 24
         Me.BTN_ACEPTAR.Text = "Aceptar"
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -64,36 +62,33 @@ Partial Class SeleccionCompania
         Me.CMB_COMPANIA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CMB_COMPANIA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CMB_COMPANIA.FormattingEnabled = True
-        Me.CMB_COMPANIA.Location = New System.Drawing.Point(4, 60)
-        Me.CMB_COMPANIA.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CMB_COMPANIA.Location = New System.Drawing.Point(3, 49)
         Me.CMB_COMPANIA.Name = "CMB_COMPANIA"
-        Me.CMB_COMPANIA.Size = New System.Drawing.Size(381, 32)
+        Me.CMB_COMPANIA.Size = New System.Drawing.Size(287, 26)
         Me.CMB_COMPANIA.TabIndex = 26
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(121, 32)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Location = New System.Drawing.Point(91, 26)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(101, 24)
+        Me.Label1.Size = New System.Drawing.Size(80, 18)
         Me.Label1.TabIndex = 27
         Me.Label1.Text = "Compañía:"
         '
         'SeleccionCompania
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ClientSize = New System.Drawing.Size(389, 202)
+        Me.ClientSize = New System.Drawing.Size(293, 156)
         Me.ControlBox = False
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.CMB_COMPANIA)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.BTN_ACEPTAR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "SeleccionCompania"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Seleccione la compañía"

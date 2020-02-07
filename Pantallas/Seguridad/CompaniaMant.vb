@@ -12,10 +12,10 @@ Public Class LBL_CANTON
     Dim PADRE As New Compania
     Dim COD_ACT As String = ""
     Sub New(ByVal MODO As CRF_Modos, ByVal PADRE As Compania, Optional ByVal COD_CIA As String = "")
+        InitializeComponent()
         Me.MODO = MODO
         Me.PADRE = PADRE
         Me.COD_CIA = COD_CIA
-        InitializeComponent()
     End Sub
     Private Sub CMB_TIPO_CEDULA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_TIPO_CEDULA.SelectedIndexChanged
         Try
@@ -298,7 +298,7 @@ Public Class LBL_CANTON
     End Function
     Private Sub LEER()
         Try
-            Dim SQL As String = "EXEC COMPANIA_MANT"
+            Dim SQL As String = "EXEC USP_COMPANIA_MANT"
             SQL &= Chr(13) & "@COD_CIA = " & SCM(TXT_CODIGO.Text)
             SQL &= Chr(13) & ",@MODO = " & Val(CRF_Modos.Seleccionar)
 
@@ -356,7 +356,7 @@ Public Class LBL_CANTON
     End Sub
     Private Sub EJECUTAR()
         Try
-            Dim SQL As String = "EXEC COMPANIA_MANT"
+            Dim SQL As String = "EXEC USP_COMPANIA_MANT"
             SQL &= Chr(13) & "@COD_CIA = " & SCM(TXT_CODIGO.Text)
             SQL &= Chr(13) & ",@MODO = " & Val(MODO)
             SQL &= Chr(13) & ",@NOMBRE = " & SCM(TXT_NOMBRE.Text)

@@ -6,10 +6,10 @@ Public Class ProveedorMant
     Dim CEDULA As String
     Dim Respuesta As DialogResult
     Sub New(ByVal MODO As CRF_Modos, ByVal PADRE As Proveedor, Optional CEDULA As String = "")
+        InitializeComponent()
         Me.MODO = MODO
         Me.CEDULA = CEDULA
         Me.PADRE = PADRE
-        InitializeComponent()
     End Sub
     Private Sub ProveedorMant_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If MODO = CRF_Modos.Insertar Then
@@ -50,7 +50,7 @@ Public Class ProveedorMant
     End Sub
     Private Sub LEER()
         Try
-            Dim SQL As String = "EXEC PROVEEDOR_MANT"
+            Dim SQL As String = "EXEC USP_PROVEEDOR_MANT"
             SQL &= Chr(13) & " @COD_CIA = " & SCM(COD_CIA)
             SQL &= Chr(13) & ",@COD_SUCUR = " & SCM(COD_SUCUR)
             SQL &= Chr(13) & ",@MODO = " & Val(CRF_Modos.Seleccionar)
@@ -165,7 +165,7 @@ Public Class ProveedorMant
     End Function
     Private Sub EJECUTAR()
         Try
-            Dim SQL As String = "EXEC PROVEEDOR_MANT"
+            Dim SQL As String = "EXEC USP_PROVEEDOR_MANT"
             SQL &= Chr(13) & " @COD_CIA = " & SCM(COD_CIA)
             SQL &= Chr(13) & ",@COD_SUCUR = " & SCM(COD_SUCUR)
             SQL &= Chr(13) & ",@MODO = " & Val(MODO)

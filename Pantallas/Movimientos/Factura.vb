@@ -5,20 +5,36 @@ Public Class Factura
 
     Dim Modo As CRF_Modos
     Dim Codigo As String
+    Dim Padre As Facturacion
 
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
+        EliminaTodoTemporal()
         Cerrar()
     End Sub
 
     Public Sub Cerrar()
+        Padre.Refrescar()
         Me.Close()
     End Sub
 
-    Sub New(ByVal Modo As CRF_Modos)
+    Private Sub EliminaTodoTemporal()
+        Try
+            Dim Sql = "	DELETE FROM DOCUMENTO_ENC_TMP WHERE CODIGO =  " & SCM(Codigo)
+            Sql &= Chr(13) & "	DELETE FROM DOCUMENTO_DET_TMP WHERE CODIGO =  " & SCM(Codigo)
+            CONX.Coneccion_Abrir()
+            CONX.EJECUTE(Sql)
+            CONX.Coneccion_Cerrar()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Sub New(ByVal Modo As CRF_Modos, ByVal Padre As Facturacion)
 
         InitializeComponent()
         Me.Modo = Modo
         TXT_TIPO_CAMBIO.Text = FMCP(TC_VENTA)
+        Me.Padre = Padre
 
         If Me.Modo = CRF_Modos.Insertar Then
             Codigo = GenerarCodigo()
@@ -37,8 +53,8 @@ Public Class Factura
         Dim Codigo As String = ""
         For i As Integer = 1 To 20
             Codigo += CARACTERES.ToCharArray(RND.Next(0, CARACTERES.Length), 1)
-        Next    
-    return Codigo
+        Next
+            Return Codigo
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -78,10 +94,8 @@ Public Class Factura
 
     Private Sub CalculoTotales()
         Try
-            If String.IsNullOrEmpty(Producto.VALOR) Then
-                MessageBox.Show("¡Debe seleccionar el proveedor!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Producto.Select()
-            Else
+            If Not String.IsNullOrEmpty(Producto.VALOR) Then
+
                 Dim Cantidad As Double
                 Dim Precio_Unitario As Double
                 Dim Descuento As Double
@@ -191,7 +205,6 @@ Public Class Factura
                 LimpiarControles()
 
                 RELLENAR_GRID()
-
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -205,19 +218,21 @@ Public Class Factura
     Private Sub LimpiarControles()
         TXT_CANTIDAD.Text = ""
         TXT_DESCUENTO.Text = ""
-        Producto.VALOR = ""
-        Producto.VALOR_DESCRIPCION = ""
         TXT_DESCUENTOTOTAL.Text = ""
         TXT_IMPUESTOTOTAL.Text = ""
         TXT_SUBTOTAL.Text = ""
         TXT_TOTAL.Text = ""
+        TXT_PRECIO.Text = ""
+        TXT_UNIDAD.Text = ""
+        Producto.VALOR = ""
+        Producto.ACTUALIZAR_COMBO()
     End Sub
 
     Public Sub RELLENAR_GRID()
         Try
             GRID.DataSource = Nothing
             Dim SQL = "	SELECT TMP.LINEA AS 'Linea', PROD.COD_PROD AS 'Código', PROD.DESCRIPCION as 'Descripción', TMP.CANTIDAD AS 'Cantidad', TMP.PRECIO AS 'P/U'	"
-            SQL &= Chr(13) & "	, TMP.DESCUENTO AS 'Descuento', TMP.IMPUESTO AS 'Impuesto', TMP.SUBTOTAL AS 'Subtotal', TMP.TOTAL AS 'Total'	"
+            SQL &= Chr(13) & "	, TMP.POR_DESCUENTO AS '% Descuento', TMP.IMPUESTO AS 'Impuesto', TMP.TOTAL AS 'Total'	"
             SQL &= Chr(13) & "	FROM DOCUMENTO_DET_TMP AS TMP	"
             SQL &= Chr(13) & "	INNER JOIN PRODUCTO AS PROD		"
             SQL &= Chr(13) & "		ON PROD.COD_CIA = TMP.COD_CIA	"
@@ -254,7 +269,12 @@ Public Class Factura
         Try
             If Me.GRID.Rows.Count > 0 Then
                 Dim seleccionado = GRID.Rows(GRID.SelectedRows(0).Index)
+                TXT_CANTIDAD.Text = seleccionado.Cells(3).Value.ToString
+                TXT_DESCUENTO.Text = seleccionado.Cells(5).Value.ToString
                 Producto.VALOR = seleccionado.Cells(1).Value.ToString
+                Producto.ACTUALIZAR_COMBO()
+                Producto_Leave(Producto, EventArgs.Empty)
+                CalculoTotales()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -263,12 +283,6 @@ Public Class Factura
 
     Private Sub GRID_CellMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles GRID.CellMouseDoubleClick
         Modificar()
-    End Sub
-
-    Private Sub Producto_KeyDown(sender As Object, e As KeyEventArgs) Handles Producto.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            TXT_CANTIDAD.Focus()
-        End If
     End Sub
 
     Private Sub TXT_CANTIDAD_KeyDown(sender As Object, e As KeyEventArgs) Handles TXT_CANTIDAD.KeyDown
@@ -283,16 +297,7 @@ Public Class Factura
         End If
     End Sub
 
-    Private Sub BTN_CALCULAR_KeyDown(sender As Object, e As KeyEventArgs) Handles BTN_CALCULAR.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            CalculoTotales()
-            BTN_INGRESAR.Focus()
-        End If
-    End Sub
-
-    Private Sub BTN_INGRESAR_KeyDown(sender As Object, e As KeyEventArgs) Handles BTN_INGRESAR.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            IngresarDetalle()
-        End If
+    Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
+        Cerrar()
     End Sub
 End Class

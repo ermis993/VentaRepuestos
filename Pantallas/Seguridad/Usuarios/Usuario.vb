@@ -1,6 +1,7 @@
 ﻿Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Globales
 Public Class Usuario
+    Dim COD_USUARIO As String = ""
     Private Sub UsuariosDerechos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Cargar_usuarios()
     End Sub
@@ -20,6 +21,28 @@ Public Class Usuario
 
             If DS.Tables(0).Rows.Count > 0 Then
                 GRID.DataSource = DS.Tables(0)
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_DERECHO_Click(sender As Object, e As EventArgs) Handles BTN_DERECHO.Click
+        Try
+            Leer_indice()
+            If COD_USUARIO <> "" Then
+                Dim PANTALLA As New DerechosUsuario(COD_USUARIO)
+                PANTALLA.ShowDialog()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+    Private Sub Leer_indice()
+        Try
+            If Me.GRID.Rows.Count > 0 Then
+                Dim seleccionado = GRID.Rows(GRID.SelectedRows(0).Index)
+                COD_USUARIO = seleccionado.Cells(0).Value.ToString
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

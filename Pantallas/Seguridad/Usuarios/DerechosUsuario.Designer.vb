@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class DerechosUsuario
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class DerechosUsuario
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.LVCon = New System.Windows.Forms.ListView()
@@ -41,7 +41,7 @@ Partial Class DerechosUsuario
         Me.GroupBox3.Controls.Add(Me.LVCon)
         Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.GroupBox3.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.GroupBox3.Location = New System.Drawing.Point(383, 124)
+        Me.GroupBox3.Location = New System.Drawing.Point(383, 80)
         Me.GroupBox3.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Padding = New System.Windows.Forms.Padding(2)
@@ -54,7 +54,7 @@ Partial Class DerechosUsuario
         '
         Me.LVCon.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.LVCon.HideSelection = False
-        Me.LVCon.Location = New System.Drawing.Point(4, 23)
+        Me.LVCon.Location = New System.Drawing.Point(4, 22)
         Me.LVCon.Margin = New System.Windows.Forms.Padding(2)
         Me.LVCon.MultiSelect = False
         Me.LVCon.Name = "LVCon"
@@ -68,11 +68,11 @@ Partial Class DerechosUsuario
         Me.GroupBox2.Controls.Add(Me.LVSin)
         Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.GroupBox2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.GroupBox2.Location = New System.Drawing.Point(3, 120)
+        Me.GroupBox2.Location = New System.Drawing.Point(3, 76)
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox2.Size = New System.Drawing.Size(274, 348)
+        Me.GroupBox2.Size = New System.Drawing.Size(274, 352)
         Me.GroupBox2.TabIndex = 5
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "[ Sin derecho ]"
@@ -81,7 +81,7 @@ Partial Class DerechosUsuario
         '
         Me.LVSin.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.LVSin.HideSelection = False
-        Me.LVSin.Location = New System.Drawing.Point(4, 23)
+        Me.LVSin.Location = New System.Drawing.Point(4, 25)
         Me.LVSin.Margin = New System.Windows.Forms.Padding(2)
         Me.LVSin.MultiSelect = False
         Me.LVSin.Name = "LVSin"
@@ -94,7 +94,7 @@ Partial Class DerechosUsuario
         '
         Me.Button2.Image = Global.VentaRepuestos.My.Resources.Resources.izquierda
         Me.Button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button2.Location = New System.Drawing.Point(281, 280)
+        Me.Button2.Location = New System.Drawing.Point(281, 242)
         Me.Button2.Margin = New System.Windows.Forms.Padding(2)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(99, 43)
@@ -107,7 +107,7 @@ Partial Class DerechosUsuario
         '
         Me.Button1.Image = Global.VentaRepuestos.My.Resources.Resources.derecha
         Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button1.Location = New System.Drawing.Point(281, 233)
+        Me.Button1.Location = New System.Drawing.Point(281, 195)
         Me.Button1.Margin = New System.Windows.Forms.Padding(2)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(99, 43)
@@ -120,7 +120,7 @@ Partial Class DerechosUsuario
         '
         Me.BTN_QUITAR.Image = Global.VentaRepuestos.My.Resources.Resources.quitar
         Me.BTN_QUITAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_QUITAR.Location = New System.Drawing.Point(281, 327)
+        Me.BTN_QUITAR.Location = New System.Drawing.Point(281, 289)
         Me.BTN_QUITAR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_QUITAR.Name = "BTN_QUITAR"
         Me.BTN_QUITAR.Size = New System.Drawing.Size(99, 43)
@@ -133,7 +133,7 @@ Partial Class DerechosUsuario
         '
         Me.BTN_AGREGAR.Image = Global.VentaRepuestos.My.Resources.Resources.agregar
         Me.BTN_AGREGAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_AGREGAR.Location = New System.Drawing.Point(281, 186)
+        Me.BTN_AGREGAR.Location = New System.Drawing.Point(281, 148)
         Me.BTN_AGREGAR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_AGREGAR.Name = "BTN_AGREGAR"
         Me.BTN_AGREGAR.Size = New System.Drawing.Size(99, 43)
@@ -148,7 +148,7 @@ Partial Class DerechosUsuario
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(558, 477)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(558, 433)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 23
@@ -160,7 +160,7 @@ Partial Class DerechosUsuario
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(671, 523)
+        Me.ClientSize = New System.Drawing.Size(671, 479)
         Me.ControlBox = False
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.Button2)

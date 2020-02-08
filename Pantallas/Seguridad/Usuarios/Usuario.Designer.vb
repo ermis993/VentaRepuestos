@@ -88,7 +88,7 @@ Partial Class Usuario
         Me.GRID.Size = New System.Drawing.Size(520, 400)
         Me.GRID.TabIndex = 32
         '
-        'UsuariosDerechos
+        'Usuario
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -99,7 +99,7 @@ Partial Class Usuario
         Me.Controls.Add(Me.BTN_DERECHO)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Name = "UsuariosDerechos"
+        Me.Name = "Usuario"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Derechos"
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).EndInit()

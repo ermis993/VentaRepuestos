@@ -422,7 +422,9 @@
     <None Include="Resources\calculadora.png" />
     <None Include="Resources\derecha.png" />
     <None Include="Resources\izquierda.png" />
+    <None Include="Resources\Left.png" />
     <Content Include="Resources\quitar.png" />
+    <None Include="Resources\Right.png" />
     <Content Include="Resources\salir.png" />
   </ItemGroup>
   <ItemGroup>

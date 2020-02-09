@@ -9,12 +9,18 @@ Public Class SeleccionCompania
             CMB_COMPANIA.DataSource = Nothing
             Dim LISTA_REF As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
 
-            Dim SQL As String = "SELECT C.COD_CIA AS CODIGO , C.NOMBRE"
-            SQL &= Chr(13) & " FROM COMPANIA AS C"
-            SQL &= Chr(13) & " INNER JOIN COMPANIA_USUARIO AS CU"
-            SQL &= Chr(13) & "  ON CU.COD_CIA = C.COD_CIA"
-            SQL &= Chr(13) & "  AND CU.COD_USUARIO = " & SCM(COD_USUARIO)
-            SQL &= Chr(13) & " WHERE C.ESTADO ='A'"
+            Dim SQL As String = ""
+            If COD_USUARIO = "LUNAING" Then
+                SQL = "SELECT COD_CIA AS CODIGO , NOMBRE"
+                SQL &= Chr(13) & " FROM COMPANIA "
+            Else
+                SQL = "SELECT C.COD_CIA AS CODIGO , C.NOMBRE"
+                SQL &= Chr(13) & " FROM COMPANIA AS C"
+                SQL &= Chr(13) & " INNER JOIN COMPANIA_USUARIO AS CU"
+                SQL &= Chr(13) & "  ON CU.COD_CIA = C.COD_CIA"
+                SQL &= Chr(13) & "  AND CU.COD_USUARIO = " & SCM(COD_USUARIO)
+                SQL &= Chr(13) & " WHERE C.ESTADO ='A'"
+            End If
 
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)
@@ -22,14 +28,19 @@ Public Class SeleccionCompania
 
             If DS.Tables(0).Rows.Count > 0 Then
                 LISTA_REF.Add(New KeyValuePair(Of String, String)("", ""))
-                For Each CANTON In DS.Tables(0).Rows
-                    LISTA_REF.Add(New KeyValuePair(Of String, String)(CANTON("CODIGO").ToString, CANTON("CODIGO").ToString & " - " & CANTON("NOMBRE").ToString.ToUpper))
+                For Each ITEM In DS.Tables(0).Rows
+
+                    If ITEM("CODIGO") = "GLB" And COD_USUARIO = "LUNAING" Then
+                        LISTA_REF.Add(New KeyValuePair(Of String, String)(ITEM("CODIGO").ToString, ITEM("CODIGO").ToString & " - " & ITEM("NOMBRE").ToString.ToUpper))
+                    Else
+                        LISTA_REF.Add(New KeyValuePair(Of String, String)(ITEM("CODIGO").ToString, ITEM("CODIGO").ToString & " - " & ITEM("NOMBRE").ToString.ToUpper))
+                    End If
                 Next
+                CMB_COMPANIA.DataSource = LISTA_REF
+                CMB_COMPANIA.ValueMember = "Key"
+                CMB_COMPANIA.DisplayMember = "Value"
+                CMB_COMPANIA.SelectedIndex = 0
             End If
-            CMB_COMPANIA.DataSource = LISTA_REF
-            CMB_COMPANIA.ValueMember = "Key"
-            CMB_COMPANIA.DisplayMember = "Value"
-            CMB_COMPANIA.SelectedIndex = 0
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

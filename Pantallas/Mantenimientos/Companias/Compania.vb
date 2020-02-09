@@ -92,12 +92,4 @@ Public Class Compania
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Try
-            Dim PANTALLA As New Usuario()
-            PANTALLA.ShowDialog()
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-        End Try
-    End Sub
 End Class

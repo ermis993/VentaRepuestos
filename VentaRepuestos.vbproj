@@ -90,7 +90,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actualizaciones.vb" />
+    <Compile Include="Globales\Actualizaciones.vb" />
     <Compile Include="Controles\Buscador.Designer.vb">
       <DependentUpon>Buscador.vb</DependentUpon>
     </Compile>

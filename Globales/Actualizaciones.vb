@@ -9,6 +9,7 @@ Public Class Actualizaciones
     Public Shared Sub CREACION_TABLAS()
         CREACION_TABLA_COMPANIA_20200208()
     End Sub
+
 #Region "STORED PROCEDURES"
     Public Shared Sub CREACION_STORED_PROCEDURE()
         USP_SUCURSAL_MANTENIMIENTO_20200209()
@@ -601,6 +602,7 @@ Public Class Actualizaciones
         End Try
     End Function
 #End Region
+
 #Region "TRIGGERS"
     Public Shared Sub CREACION_TRIGGERS()
         INVENTARIO_MOV_TG_20200209()
@@ -737,29 +739,8 @@ Public Class Actualizaciones
         End Try
     End Sub
 #End Region
-    Public Shared Function EXISTE_TABLA(ByVal TABLA As String) As Boolean
-        Try
-            EXISTE_TABLA = False
 
-            Dim SQL = "	SELECT *  "
-            SQL &= Chr(13) & "	FROM INFORMATION_SCHEMA.TABLES "
-            SQL &= Chr(13) & "	WHERE TABLE_TYPE = 'BASE TABLE' "
-            SQL &= Chr(13) & " And TABLE_NAME = " & SCM(TABLA)
-
-            CONX.Coneccion_Abrir()
-            Dim DS = CONX.EJECUTE_DS(SQL)
-            CONX.Coneccion_Cerrar()
-
-            If DS.Tables(0).Rows.Count > 0 Then
-                EXISTE_TABLA = True
-            End If
-
-            Return EXISTE_TABLA
-        Catch ex As Exception
-            Return False
-            MessageBox.Show(ex.Message)
-        End Try
-    End Function
+#Region "TABLAS"
     Private Shared Sub CREACION_TABLA_COMPANIA_20200208()
         Try
             If EXISTE_TABLA("COMPANIA") = False Then
@@ -801,6 +782,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_TABLA_SUCURSAL_20200208()
         Try
             If EXISTE_TABLA("SUCURSAL") = False Then
@@ -834,6 +816,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_TABLA_CLIENTE_20200208()
         Try
             If EXISTE_TABLA("CLIENTE") = False Then
@@ -870,6 +853,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_TABLA_PROVEEDOR_20200208()
         Try
             If EXISTE_TABLA("PROVEEDOR") = False Then
@@ -906,6 +890,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_USUARIO_20200208()
         Try
             If EXISTE_TABLA("USUARIO") = False Then
@@ -935,6 +920,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_COMPANIA_USUARIO_20200208()
         Try
             If EXISTE_TABLA("COMPANIA_USUARIO") = False Then
@@ -960,6 +946,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_ACTIVIDAD_ECONOMICA_20200208()
         Try
             If EXISTE_TABLA("ACTIVIDAD_ECONOMICA") = False Then
@@ -985,6 +972,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_USUARIO_CONTRA_RECUPERACION_20200208()
         Try
             If EXISTE_TABLA("USUARIO_CONTRA_RECUPERACION") = False Then
@@ -1001,6 +989,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_UNIDAD_MEDIDA_20200208()
         Try
             If EXISTE_TABLA("UNIDAD_MEDIDA") = False Then
@@ -1026,6 +1015,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_TIPO_CAMBIO_GENERAL_20200208()
         Try
             If EXISTE_TABLA("TIPO_CAMBIO_GENERAL") = False Then
@@ -1044,6 +1034,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_TIPO_CAMBIO_CIA_20200208()
         Try
             If EXISTE_TABLA("TIPO_CAMBIO_CIA") = False Then
@@ -1068,6 +1059,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_SEGU_DERECHO_20200208()
         Try
             If EXISTE_TABLA("SEGU_DERECHO") = False Then
@@ -1089,6 +1081,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_USUARIO_DERECHO_20200208()
         Try
             If EXISTE_TABLA("USUARIO_DERECHO") = False Then
@@ -1119,6 +1112,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_PROVINCIA_20200208()
         Try
             If EXISTE_TABLA("PROVINCIA") = False Then
@@ -1153,6 +1147,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_PRODUCTO_20200208()
         Try
             If EXISTE_TABLA("PRODUCTO") = False Then
@@ -1199,6 +1194,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_CANTON_20200208()
         Try
             If EXISTE_TABLA("CANTON") = False Then
@@ -1391,6 +1387,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_DISTRITO_20200208()
         Try
             If EXISTE_TABLA("DISTRITO") = False Then
@@ -2458,6 +2455,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_INFORMACION_GENERAL_20200208()
         Try
             If EXISTE_TABLA("INFORMACION_GENERAL") = False Then
@@ -2477,6 +2475,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_DOCUMENTO_ENC_20200208()
         Try
             If EXISTE_TABLA("DOCUMENTO_ENC") = False Then
@@ -2525,6 +2524,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_DOCUMENTO_DET_20200208()
         Try
             If EXISTE_TABLA("DOCUMENTO_DET") = False Then
@@ -2572,6 +2572,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_DOCUMENTO_ENC_TMP_20200208()
         Try
             If EXISTE_TABLA("DOCUMENTO_ENC_TMP") = False Then
@@ -2604,6 +2605,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_DOCUMENTO_DET_TMP_20200208()
         Try
             If EXISTE_TABLA("DOCUMENTO_DET_TMP") = False Then
@@ -2639,6 +2641,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_IMPUESTO_20200208()
         Try
             If EXISTE_TABLA("IMPUESTO") = False Then
@@ -2664,6 +2667,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_INVENTARIO_COD_MOV_20200208()
         Try
             If EXISTE_TABLA("INVENTARIO_COD_MOV") = False Then
@@ -2682,6 +2686,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_INVENTARIO_MOV_20200208()
         Try
             If EXISTE_TABLA("INVENTARIO_MOV") = False Then
@@ -2721,6 +2726,7 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Shared Sub CREACION_INVENTARIO_MOV_DET_20200208()
         Try
             If EXISTE_TABLA("INVENTARIO_MOV_DET") = False Then
@@ -2763,4 +2769,31 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+#End Region
+
+    Public Shared Function EXISTE_TABLA(ByVal TABLA As String) As Boolean
+        Try
+            EXISTE_TABLA = False
+
+            Dim SQL = "	SELECT *  "
+            SQL &= Chr(13) & "	FROM INFORMATION_SCHEMA.TABLES "
+            SQL &= Chr(13) & "	WHERE TABLE_TYPE = 'BASE TABLE' "
+            SQL &= Chr(13) & " And TABLE_NAME = " & SCM(TABLA)
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                EXISTE_TABLA = True
+            End If
+
+            Return EXISTE_TABLA
+        Catch ex As Exception
+            Return False
+            MessageBox.Show(ex.Message)
+        End Try
+    End Function
+
+
 End Class

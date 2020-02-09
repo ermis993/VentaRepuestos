@@ -32,7 +32,7 @@ Public Class Login
                 If COINCIDENCIA = True Then
                     Me.Visible = False
                     Dim PANTALLA As New SeleccionCompania()
-                    PANTALLA.ShowDialog()
+                    PANTALLA.Show()
                 Else
                     MessageBox.Show("¡Usuario no encontrado!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If

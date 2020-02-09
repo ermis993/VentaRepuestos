@@ -25,7 +25,6 @@ Partial Class Factura
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Factura))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TAB_ENC = New System.Windows.Forms.TabPage()
-        Me.Cliente = New VentaRepuestos.Buscador()
         Me.TXT_DESCRIPCION = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -37,18 +36,22 @@ Partial Class Factura
         Me.CMB_FORMAPAGO = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.TAB_DET = New System.Windows.Forms.TabPage()
-        Me.BTN_INGRESAR = New System.Windows.Forms.Button()
-        Me.BTN_CALCULAR = New System.Windows.Forms.Button()
-        Me.TXT_TOTAL = New System.Windows.Forms.TextBox()
-        Me.Label21 = New System.Windows.Forms.Label()
-        Me.TXT_SUBTOTAL = New System.Windows.Forms.TextBox()
-        Me.Label20 = New System.Windows.Forms.Label()
-        Me.TXT_IMPUESTOTOTAL = New System.Windows.Forms.TextBox()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.TXT_IMPUESTO = New System.Windows.Forms.TextBox()
-        Me.Label17 = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.TXT_DESCUENTOTOTAL = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
+        Me.TXT_IMPUESTOTOTAL = New System.Windows.Forms.TextBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.TXT_SUBTOTAL = New System.Windows.Forms.TextBox()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.TXT_TOTAL = New System.Windows.Forms.TextBox()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.LVResultados = New System.Windows.Forms.ListView()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.TXT_CODIGO = New System.Windows.Forms.TextBox()
+        Me.BTN_INGRESAR = New System.Windows.Forms.Button()
+        Me.BTN_CALCULAR = New System.Windows.Forms.Button()
+        Me.TXT_IMPUESTO = New System.Windows.Forms.TextBox()
+        Me.Label17 = New System.Windows.Forms.Label()
         Me.TXT_DESCUENTO = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.TXT_PRECIO = New System.Windows.Forms.TextBox()
@@ -58,7 +61,6 @@ Partial Class Factura
         Me.TXT_UNIDAD = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.Producto = New VentaRepuestos.Buscador()
         Me.TAB_LINEAS = New System.Windows.Forms.TabPage()
         Me.GRID = New System.Windows.Forms.DataGridView()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -72,9 +74,11 @@ Partial Class Factura
         Me.DTPFECHA = New System.Windows.Forms.DateTimePicker()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
+        Me.Cliente = New VentaRepuestos.Buscador()
         Me.TabControl1.SuspendLayout()
         Me.TAB_ENC.SuspendLayout()
         Me.TAB_DET.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.TAB_LINEAS.SuspendLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -113,21 +117,6 @@ Partial Class Factura
         Me.TAB_ENC.TabIndex = 0
         Me.TAB_ENC.Text = "[ Encabezado ]"
         Me.TAB_ENC.UseVisualStyleBackColor = True
-        '
-        'Cliente
-        '
-        Me.Cliente.CODIGO = Nothing
-        Me.Cliente.DESCRIPCION = Nothing
-        Me.Cliente.Location = New System.Drawing.Point(111, 15)
-        Me.Cliente.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.Cliente.Name = "Cliente"
-        Me.Cliente.OTROS_CAMP0S = Nothing
-        Me.Cliente.PANTALLA = Nothing
-        Me.Cliente.Size = New System.Drawing.Size(451, 27)
-        Me.Cliente.TabIndex = 1
-        Me.Cliente.TABLA_BUSCAR = Nothing
-        Me.Cliente.VALOR = ""
-        Me.Cliente.VALOR_DESCRIPCION = Nothing
         '
         'TXT_DESCRIPCION
         '
@@ -243,18 +232,14 @@ Partial Class Factura
         '
         'TAB_DET
         '
+        Me.TAB_DET.Controls.Add(Me.GroupBox2)
+        Me.TAB_DET.Controls.Add(Me.LVResultados)
+        Me.TAB_DET.Controls.Add(Me.Label19)
+        Me.TAB_DET.Controls.Add(Me.TXT_CODIGO)
         Me.TAB_DET.Controls.Add(Me.BTN_INGRESAR)
         Me.TAB_DET.Controls.Add(Me.BTN_CALCULAR)
-        Me.TAB_DET.Controls.Add(Me.TXT_TOTAL)
-        Me.TAB_DET.Controls.Add(Me.Label21)
-        Me.TAB_DET.Controls.Add(Me.TXT_SUBTOTAL)
-        Me.TAB_DET.Controls.Add(Me.Label20)
-        Me.TAB_DET.Controls.Add(Me.TXT_IMPUESTOTOTAL)
-        Me.TAB_DET.Controls.Add(Me.Label18)
         Me.TAB_DET.Controls.Add(Me.TXT_IMPUESTO)
         Me.TAB_DET.Controls.Add(Me.Label17)
-        Me.TAB_DET.Controls.Add(Me.TXT_DESCUENTOTOTAL)
-        Me.TAB_DET.Controls.Add(Me.Label16)
         Me.TAB_DET.Controls.Add(Me.TXT_DESCUENTO)
         Me.TAB_DET.Controls.Add(Me.Label15)
         Me.TAB_DET.Controls.Add(Me.TXT_PRECIO)
@@ -264,7 +249,6 @@ Partial Class Factura
         Me.TAB_DET.Controls.Add(Me.TXT_UNIDAD)
         Me.TAB_DET.Controls.Add(Me.Label12)
         Me.TAB_DET.Controls.Add(Me.Label11)
-        Me.TAB_DET.Controls.Add(Me.Producto)
         Me.TAB_DET.Location = New System.Drawing.Point(4, 22)
         Me.TAB_DET.Margin = New System.Windows.Forms.Padding(2)
         Me.TAB_DET.Name = "TAB_DET"
@@ -273,6 +257,139 @@ Partial Class Factura
         Me.TAB_DET.TabIndex = 1
         Me.TAB_DET.Text = "[ Detalle ]"
         Me.TAB_DET.UseVisualStyleBackColor = True
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.TXT_DESCUENTOTOTAL)
+        Me.GroupBox2.Controls.Add(Me.Label16)
+        Me.GroupBox2.Controls.Add(Me.TXT_IMPUESTOTOTAL)
+        Me.GroupBox2.Controls.Add(Me.Label18)
+        Me.GroupBox2.Controls.Add(Me.TXT_SUBTOTAL)
+        Me.GroupBox2.Controls.Add(Me.Label20)
+        Me.GroupBox2.Controls.Add(Me.TXT_TOTAL)
+        Me.GroupBox2.Controls.Add(Me.Label21)
+        Me.GroupBox2.Location = New System.Drawing.Point(562, 5)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(306, 123)
+        Me.GroupBox2.TabIndex = 14
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "[ Totales ]"
+        '
+        'TXT_DESCUENTOTOTAL
+        '
+        Me.TXT_DESCUENTOTOTAL.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_DESCUENTOTOTAL.Location = New System.Drawing.Point(135, 11)
+        Me.TXT_DESCUENTOTOTAL.Margin = New System.Windows.Forms.Padding(2)
+        Me.TXT_DESCUENTOTOTAL.Name = "TXT_DESCUENTOTOTAL"
+        Me.TXT_DESCUENTOTOTAL.ReadOnly = True
+        Me.TXT_DESCUENTOTOTAL.Size = New System.Drawing.Size(160, 24)
+        Me.TXT_DESCUENTOTOTAL.TabIndex = 1
+        Me.TXT_DESCUENTOTOTAL.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label16.Location = New System.Drawing.Point(11, 14)
+        Me.Label16.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(120, 18)
+        Me.Label16.TabIndex = 0
+        Me.Label16.Text = "Descuento total :"
+        '
+        'TXT_IMPUESTOTOTAL
+        '
+        Me.TXT_IMPUESTOTOTAL.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_IMPUESTOTOTAL.Location = New System.Drawing.Point(135, 38)
+        Me.TXT_IMPUESTOTOTAL.Margin = New System.Windows.Forms.Padding(2)
+        Me.TXT_IMPUESTOTOTAL.Name = "TXT_IMPUESTOTOTAL"
+        Me.TXT_IMPUESTOTOTAL.ReadOnly = True
+        Me.TXT_IMPUESTOTOTAL.Size = New System.Drawing.Size(160, 24)
+        Me.TXT_IMPUESTOTOTAL.TabIndex = 3
+        Me.TXT_IMPUESTOTOTAL.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label18.Location = New System.Drawing.Point(22, 41)
+        Me.Label18.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(109, 18)
+        Me.Label18.TabIndex = 2
+        Me.Label18.Text = "Impuesto total :"
+        '
+        'TXT_SUBTOTAL
+        '
+        Me.TXT_SUBTOTAL.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_SUBTOTAL.Location = New System.Drawing.Point(135, 65)
+        Me.TXT_SUBTOTAL.Margin = New System.Windows.Forms.Padding(2)
+        Me.TXT_SUBTOTAL.Name = "TXT_SUBTOTAL"
+        Me.TXT_SUBTOTAL.ReadOnly = True
+        Me.TXT_SUBTOTAL.Size = New System.Drawing.Size(160, 24)
+        Me.TXT_SUBTOTAL.TabIndex = 5
+        Me.TXT_SUBTOTAL.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label20.Location = New System.Drawing.Point(61, 68)
+        Me.Label20.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(70, 18)
+        Me.Label20.TabIndex = 4
+        Me.Label20.Text = "Subtotal :"
+        '
+        'TXT_TOTAL
+        '
+        Me.TXT_TOTAL.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_TOTAL.Location = New System.Drawing.Point(135, 92)
+        Me.TXT_TOTAL.Margin = New System.Windows.Forms.Padding(2)
+        Me.TXT_TOTAL.Name = "TXT_TOTAL"
+        Me.TXT_TOTAL.ReadOnly = True
+        Me.TXT_TOTAL.Size = New System.Drawing.Size(160, 24)
+        Me.TXT_TOTAL.TabIndex = 7
+        Me.TXT_TOTAL.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label21.Location = New System.Drawing.Point(82, 95)
+        Me.Label21.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(49, 18)
+        Me.Label21.TabIndex = 6
+        Me.Label21.Text = "Total :"
+        '
+        'LVResultados
+        '
+        Me.LVResultados.HideSelection = False
+        Me.LVResultados.Location = New System.Drawing.Point(132, 44)
+        Me.LVResultados.Name = "LVResultados"
+        Me.LVResultados.Size = New System.Drawing.Size(318, 73)
+        Me.LVResultados.TabIndex = 3
+        Me.LVResultados.UseCompatibleStateImageBehavior = False
+        Me.LVResultados.View = System.Windows.Forms.View.List
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label19.Location = New System.Drawing.Point(42, 43)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(85, 18)
+        Me.Label19.TabIndex = 2
+        Me.Label19.Text = "Productos :"
+        '
+        'TXT_CODIGO
+        '
+        Me.TXT_CODIGO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_CODIGO.Location = New System.Drawing.Point(132, 13)
+        Me.TXT_CODIGO.Name = "TXT_CODIGO"
+        Me.TXT_CODIGO.Size = New System.Drawing.Size(318, 24)
+        Me.TXT_CODIGO.TabIndex = 1
         '
         'BTN_INGRESAR
         '
@@ -283,7 +400,7 @@ Partial Class Factura
         Me.BTN_INGRESAR.Location = New System.Drawing.Point(771, 162)
         Me.BTN_INGRESAR.Name = "BTN_INGRESAR"
         Me.BTN_INGRESAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_INGRESAR.TabIndex = 21
+        Me.BTN_INGRESAR.TabIndex = 16
         Me.BTN_INGRESAR.Text = "Ingresar"
         Me.BTN_INGRESAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_INGRESAR.UseVisualStyleBackColor = False
@@ -294,83 +411,18 @@ Partial Class Factura
         Me.BTN_CALCULAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_CALCULAR.Image = Global.VentaRepuestos.My.Resources.Resources.calculadora
         Me.BTN_CALCULAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_CALCULAR.Location = New System.Drawing.Point(652, 162)
+        Me.BTN_CALCULAR.Location = New System.Drawing.Point(666, 162)
         Me.BTN_CALCULAR.Name = "BTN_CALCULAR"
         Me.BTN_CALCULAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_CALCULAR.TabIndex = 20
+        Me.BTN_CALCULAR.TabIndex = 15
         Me.BTN_CALCULAR.Text = "Calcular"
         Me.BTN_CALCULAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_CALCULAR.UseVisualStyleBackColor = False
         '
-        'TXT_TOTAL
-        '
-        Me.TXT_TOTAL.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_TOTAL.Location = New System.Drawing.Point(349, 160)
-        Me.TXT_TOTAL.Margin = New System.Windows.Forms.Padding(2)
-        Me.TXT_TOTAL.Name = "TXT_TOTAL"
-        Me.TXT_TOTAL.ReadOnly = True
-        Me.TXT_TOTAL.Size = New System.Drawing.Size(170, 24)
-        Me.TXT_TOTAL.TabIndex = 19
-        '
-        'Label21
-        '
-        Me.Label21.AutoSize = True
-        Me.Label21.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label21.Location = New System.Drawing.Point(301, 163)
-        Me.Label21.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(49, 18)
-        Me.Label21.TabIndex = 18
-        Me.Label21.Text = "Total :"
-        '
-        'TXT_SUBTOTAL
-        '
-        Me.TXT_SUBTOTAL.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_SUBTOTAL.Location = New System.Drawing.Point(119, 160)
-        Me.TXT_SUBTOTAL.Margin = New System.Windows.Forms.Padding(2)
-        Me.TXT_SUBTOTAL.Name = "TXT_SUBTOTAL"
-        Me.TXT_SUBTOTAL.ReadOnly = True
-        Me.TXT_SUBTOTAL.Size = New System.Drawing.Size(160, 24)
-        Me.TXT_SUBTOTAL.TabIndex = 17
-        Me.TXT_SUBTOTAL.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label20
-        '
-        Me.Label20.AutoSize = True
-        Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label20.Location = New System.Drawing.Point(48, 163)
-        Me.Label20.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(70, 18)
-        Me.Label20.TabIndex = 16
-        Me.Label20.Text = "Subtotal :"
-        '
-        'TXT_IMPUESTOTOTAL
-        '
-        Me.TXT_IMPUESTOTOTAL.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_IMPUESTOTOTAL.Location = New System.Drawing.Point(349, 130)
-        Me.TXT_IMPUESTOTOTAL.Margin = New System.Windows.Forms.Padding(2)
-        Me.TXT_IMPUESTOTOTAL.Name = "TXT_IMPUESTOTOTAL"
-        Me.TXT_IMPUESTOTOTAL.ReadOnly = True
-        Me.TXT_IMPUESTOTOTAL.Size = New System.Drawing.Size(218, 24)
-        Me.TXT_IMPUESTOTOTAL.TabIndex = 15
-        Me.TXT_IMPUESTOTOTAL.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label18.Location = New System.Drawing.Point(240, 133)
-        Me.Label18.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(109, 18)
-        Me.Label18.TabIndex = 14
-        Me.Label18.Text = "Impuesto total :"
-        '
         'TXT_IMPUESTO
         '
         Me.TXT_IMPUESTO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_IMPUESTO.Location = New System.Drawing.Point(119, 130)
+        Me.TXT_IMPUESTO.Location = New System.Drawing.Point(421, 178)
         Me.TXT_IMPUESTO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_IMPUESTO.MaxLength = 3
         Me.TXT_IMPUESTO.Name = "TXT_IMPUESTO"
@@ -383,39 +435,17 @@ Partial Class Factura
         '
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label17.Location = New System.Drawing.Point(41, 133)
+        Me.Label17.Location = New System.Drawing.Point(342, 181)
         Me.Label17.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(77, 18)
         Me.Label17.TabIndex = 12
         Me.Label17.Text = "Impuesto :"
         '
-        'TXT_DESCUENTOTOTAL
-        '
-        Me.TXT_DESCUENTOTOTAL.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_DESCUENTOTOTAL.Location = New System.Drawing.Point(349, 103)
-        Me.TXT_DESCUENTOTOTAL.Margin = New System.Windows.Forms.Padding(2)
-        Me.TXT_DESCUENTOTOTAL.Name = "TXT_DESCUENTOTOTAL"
-        Me.TXT_DESCUENTOTOTAL.ReadOnly = True
-        Me.TXT_DESCUENTOTOTAL.Size = New System.Drawing.Size(218, 24)
-        Me.TXT_DESCUENTOTOTAL.TabIndex = 11
-        Me.TXT_DESCUENTOTOTAL.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label16.Location = New System.Drawing.Point(225, 106)
-        Me.Label16.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(120, 18)
-        Me.Label16.TabIndex = 10
-        Me.Label16.Text = "Descuento total :"
-        '
         'TXT_DESCUENTO
         '
         Me.TXT_DESCUENTO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_DESCUENTO.Location = New System.Drawing.Point(120, 103)
+        Me.TXT_DESCUENTO.Location = New System.Drawing.Point(132, 178)
         Me.TXT_DESCUENTO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_DESCUENTO.MaxLength = 3
         Me.TXT_DESCUENTO.Name = "TXT_DESCUENTO"
@@ -426,7 +456,7 @@ Partial Class Factura
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label15.Location = New System.Drawing.Point(30, 106)
+        Me.Label15.Location = New System.Drawing.Point(39, 181)
         Me.Label15.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(88, 18)
@@ -436,11 +466,11 @@ Partial Class Factura
         'TXT_PRECIO
         '
         Me.TXT_PRECIO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_PRECIO.Location = New System.Drawing.Point(120, 71)
+        Me.TXT_PRECIO.Location = New System.Drawing.Point(132, 150)
         Me.TXT_PRECIO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_PRECIO.Name = "TXT_PRECIO"
         Me.TXT_PRECIO.ReadOnly = True
-        Me.TXT_PRECIO.Size = New System.Drawing.Size(159, 24)
+        Me.TXT_PRECIO.Size = New System.Drawing.Size(160, 24)
         Me.TXT_PRECIO.TabIndex = 7
         Me.TXT_PRECIO.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -448,7 +478,7 @@ Partial Class Factura
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label14.Location = New System.Drawing.Point(7, 74)
+        Me.Label14.Location = New System.Drawing.Point(16, 153)
         Me.Label14.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(111, 18)
@@ -458,7 +488,7 @@ Partial Class Factura
         'TXT_CANTIDAD
         '
         Me.TXT_CANTIDAD.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_CANTIDAD.Location = New System.Drawing.Point(349, 42)
+        Me.TXT_CANTIDAD.Location = New System.Drawing.Point(132, 122)
         Me.TXT_CANTIDAD.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_CANTIDAD.MaxLength = 6
         Me.TXT_CANTIDAD.Name = "TXT_CANTIDAD"
@@ -469,7 +499,7 @@ Partial Class Factura
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label13.Location = New System.Drawing.Point(271, 45)
+        Me.Label13.Location = New System.Drawing.Point(53, 125)
         Me.Label13.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(74, 18)
@@ -479,49 +509,34 @@ Partial Class Factura
         'TXT_UNIDAD
         '
         Me.TXT_UNIDAD.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_UNIDAD.Location = New System.Drawing.Point(120, 42)
+        Me.TXT_UNIDAD.Location = New System.Drawing.Point(421, 150)
         Me.TXT_UNIDAD.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_UNIDAD.Name = "TXT_UNIDAD"
         Me.TXT_UNIDAD.ReadOnly = True
         Me.TXT_UNIDAD.Size = New System.Drawing.Size(89, 24)
-        Me.TXT_UNIDAD.TabIndex = 3
+        Me.TXT_UNIDAD.TabIndex = 11
         '
         'Label12
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label12.Location = New System.Drawing.Point(4, 45)
+        Me.Label12.Location = New System.Drawing.Point(305, 153)
         Me.Label12.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(114, 18)
-        Me.Label12.TabIndex = 2
+        Me.Label12.TabIndex = 10
         Me.Label12.Text = "Unidad Medida :"
         '
         'Label11
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label11.Location = New System.Drawing.Point(41, 16)
+        Me.Label11.Location = New System.Drawing.Point(5, 16)
         Me.Label11.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(77, 18)
+        Me.Label11.Size = New System.Drawing.Size(122, 18)
         Me.Label11.TabIndex = 0
-        Me.Label11.Text = "Producto :"
-        '
-        'Producto
-        '
-        Me.Producto.CODIGO = Nothing
-        Me.Producto.DESCRIPCION = Nothing
-        Me.Producto.Location = New System.Drawing.Point(120, 13)
-        Me.Producto.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.Producto.Name = "Producto"
-        Me.Producto.OTROS_CAMP0S = Nothing
-        Me.Producto.PANTALLA = Nothing
-        Me.Producto.Size = New System.Drawing.Size(451, 27)
-        Me.Producto.TabIndex = 1
-        Me.Producto.TABLA_BUSCAR = Nothing
-        Me.Producto.VALOR = ""
-        Me.Producto.VALOR_DESCRIPCION = Nothing
+        Me.Label11.Text = "Nombre/Código :"
         '
         'TAB_LINEAS
         '
@@ -685,6 +700,21 @@ Partial Class Factura
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
         '
+        'Cliente
+        '
+        Me.Cliente.CODIGO = Nothing
+        Me.Cliente.DESCRIPCION = Nothing
+        Me.Cliente.Location = New System.Drawing.Point(111, 15)
+        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
+        Me.Cliente.Name = "Cliente"
+        Me.Cliente.OTROS_CAMP0S = Nothing
+        Me.Cliente.PANTALLA = Nothing
+        Me.Cliente.Size = New System.Drawing.Size(451, 27)
+        Me.Cliente.TabIndex = 1
+        Me.Cliente.TABLA_BUSCAR = Nothing
+        Me.Cliente.VALOR = ""
+        Me.Cliente.VALOR_DESCRIPCION = Nothing
+        '
         'Factura
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -706,6 +736,8 @@ Partial Class Factura
         Me.TAB_ENC.PerformLayout()
         Me.TAB_DET.ResumeLayout(False)
         Me.TAB_DET.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.TAB_LINEAS.ResumeLayout(False)
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
@@ -739,7 +771,6 @@ Partial Class Factura
     Friend WithEvents TXT_DESCRIPCION As TextBox
     Friend WithEvents Label10 As Label
     Friend WithEvents Cliente As Buscador
-    Friend WithEvents Producto As Buscador
     Friend WithEvents Label11 As Label
     Friend WithEvents Label12 As Label
     Friend WithEvents TXT_UNIDAD As TextBox
@@ -763,4 +794,8 @@ Partial Class Factura
     Friend WithEvents BTN_CALCULAR As Button
     Friend WithEvents TAB_LINEAS As TabPage
     Friend WithEvents GRID As DataGridView
+    Friend WithEvents TXT_CODIGO As TextBox
+    Friend WithEvents Label19 As Label
+    Friend WithEvents LVResultados As ListView
+    Friend WithEvents GroupBox2 As GroupBox
 End Class

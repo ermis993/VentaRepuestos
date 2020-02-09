@@ -6,6 +6,7 @@ Public Class Factura
     Dim Modo As CRF_Modos
     Dim Codigo As String
     Dim Padre As Facturacion
+    Dim Numero_Doc As Integer
 
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         EliminaTodoTemporal()
@@ -29,21 +30,43 @@ Public Class Factura
         End Try
     End Sub
 
-    Sub New(ByVal Modo As CRF_Modos, ByVal Padre As Facturacion)
+    Sub New(ByVal Modo As CRF_Modos, ByVal Padre As Facturacion, Optional ByVal NUMERO_DOC As Integer = 0, Optional ByVal CODIGO As String = "")
 
         InitializeComponent()
         Me.Modo = Modo
-        TXT_TIPO_CAMBIO.Text = FMCP(TC_VENTA)
         Me.Padre = Padre
 
         If Me.Modo = CRF_Modos.Insertar Then
-            Codigo = GenerarCodigo()
+            TXT_TIPO_CAMBIO.Text = FMCP(TC_VENTA)
+            Me.Codigo = GenerarCodigo()
             BloqueaControles()
             CMB_DOCUMENTO.SelectedIndex = 0
             CMB_FORMAPAGO.SelectedIndex = 0
             CMB_MONEDA.SelectedIndex = 0
+        ElseIf Me.Modo = CRF_Modos.Modificar Then
+
+            Me.Codigo = NUMERO_DOC
+            Me.Numero_Doc = Val(NUMERO_DOC)
+            BloqueaControles()
+
+            If Me.Numero_Doc > 0 Then
+                TXT_NUMERO.Text = Me.Numero_Doc
+            End If
+
         End If
 
+    End Sub
+
+    Private Sub RellenaDatos()
+        Try
+            If String.IsNullOrEmpty(Codigo) Then
+
+            Else
+
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 
     Private Function GenerarCodigo() As String
@@ -57,6 +80,7 @@ Public Class Factura
             Return Codigo
         Catch ex As Exception
             MessageBox.Show(ex.Message)
+            Return ""
         End Try
     End Function
 
@@ -85,16 +109,11 @@ Public Class Factura
         Cliente.CODIGO = "CEDULA"
         Cliente.DESCRIPCION = "NOMBRE"
         Cliente.refrescar()
-
-        Producto.TABLA_BUSCAR = "PRODUCTO"
-        Producto.CODIGO = "COD_PROD"
-        Producto.DESCRIPCION = "DESCRIPCION"
-        Producto.refrescar()
     End Sub
 
     Private Sub CalculoTotales()
         Try
-            If Not String.IsNullOrEmpty(Producto.VALOR) Then
+            If Not String.IsNullOrEmpty(TXT_CODIGO.Text) Then
 
                 Dim Cantidad As Double
                 Dim Precio_Unitario As Double
@@ -139,34 +158,28 @@ Public Class Factura
 
     Private Sub RellenaProducto()
         Try
-            If Not Producto.VALOR Is Nothing Then
-                Dim Sql = "	SELECT COD_UNIDAD, PRECIO, POR_IMPUESTO	"
-                Sql &= Chr(13) & "	FROM PRODUCTO "
-                Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
-                Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
-                Sql &= Chr(13) & "	AND COD_PROD = " & SCM(Producto.VALOR)
-                CONX.Coneccion_Abrir()
-                Dim DS = CONX.EJECUTE_DS(Sql)
-                CONX.Coneccion_Cerrar()
+            Dim Sql = "	SELECT COD_UNIDAD, PRECIO, POR_IMPUESTO	"
+            Sql &= Chr(13) & "	FROM PRODUCTO "
+            Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+            Sql &= Chr(13) & "	AND COD_PROD = " & SCM(TXT_CODIGO.Text)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(Sql)
+            CONX.Coneccion_Cerrar()
 
-                If DS.Tables(0).Rows.Count > 0 Then
-                    TXT_UNIDAD.Text = DS.Tables(0).Rows(0).Item("COD_UNIDAD")
-                    TXT_PRECIO.Text = DS.Tables(0).Rows(0).Item("PRECIO")
-                    TXT_IMPUESTO.Text = DS.Tables(0).Rows(0).Item("POR_IMPUESTO")
-                Else
-                    TXT_UNIDAD.Text = ""
-                    TXT_PRECIO.Text = ""
-                    TXT_IMPUESTO.Text = ""
-                End If
-
+            If DS.Tables(0).Rows.Count > 0 Then
+                TXT_UNIDAD.Text = DS.Tables(0).Rows(0).Item("COD_UNIDAD")
+                TXT_PRECIO.Text = DS.Tables(0).Rows(0).Item("PRECIO")
+                TXT_IMPUESTO.Text = DS.Tables(0).Rows(0).Item("POR_IMPUESTO")
+            Else
+                TXT_UNIDAD.Text = ""
+                TXT_PRECIO.Text = ""
+                TXT_IMPUESTO.Text = ""
             End If
+
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
-    End Sub
-
-    Private Sub Producto_Leave(sender As Object, e As EventArgs) Handles Producto.Leave
-        RellenaProducto()
     End Sub
 
     Private Sub IngresarDetalle()
@@ -186,7 +199,7 @@ Public Class Factura
                 SQL &= Chr(13) & "	,@PLAZO = " & Val(TXT_PLAZO.Text)
                 SQL &= Chr(13) & "	,@FORMA_PAGO = " & SCM(CMB_FORMAPAGO.SelectedItem.ToString.Substring(0, 2))
                 SQL &= Chr(13) & "	,@DESCRIPCION = " & SCM(TXT_DESCRIPCION.Text)
-                SQL &= Chr(13) & "	,@COD_PROD = " & SCM(Producto.VALOR)
+                SQL &= Chr(13) & "	,@COD_PROD = " & SCM(TXT_CODIGO.Text)
                 SQL &= Chr(13) & "	,@COD_UNIDAD = " & SCM(TXT_UNIDAD.Text)
                 SQL &= Chr(13) & "	,@CANTIDAD = " & FMC(TXT_CANTIDAD.Text)
                 SQL &= Chr(13) & "	,@PRECIO = " & FMC(TXT_PRECIO.Text)
@@ -224,8 +237,8 @@ Public Class Factura
         TXT_TOTAL.Text = ""
         TXT_PRECIO.Text = ""
         TXT_UNIDAD.Text = ""
-        Producto.VALOR = ""
-        Producto.ACTUALIZAR_COMBO()
+        TXT_CODIGO.Text = ""
+        TXT_IMPUESTO.Text = ""
     End Sub
 
     Public Sub RELLENAR_GRID()
@@ -271,10 +284,11 @@ Public Class Factura
                 Dim seleccionado = GRID.Rows(GRID.SelectedRows(0).Index)
                 TXT_CANTIDAD.Text = seleccionado.Cells(3).Value.ToString
                 TXT_DESCUENTO.Text = seleccionado.Cells(5).Value.ToString
-                Producto.VALOR = seleccionado.Cells(1).Value.ToString
-                Producto.ACTUALIZAR_COMBO()
-                Producto_Leave(Producto, EventArgs.Empty)
+                TXT_CODIGO.Text = seleccionado.Cells(1).Value.ToString
+                RellenaProducto()
                 CalculoTotales()
+                TabControl1.SelectedIndex = 1
+                TXT_CANTIDAD.Focus()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -299,5 +313,51 @@ Public Class Factura
 
     Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
         Cerrar()
+    End Sub
+
+    Private Sub TXT_CODIGO_TextChanged(sender As Object, e As EventArgs) Handles TXT_CODIGO.TextChanged
+        Busca_Producto()
+    End Sub
+
+    Private Sub Busca_Producto()
+        Try
+            LVResultados.Clear()
+            LVResultados.Columns.Add("", 318)
+
+            If Not String.IsNullOrEmpty(TXT_CODIGO.Text) Then
+                Dim Sql = "	SELECT COD_PROD,  DESCRIPCION "
+                Sql &= Chr(13) & "	FROM PRODUCTO	"
+                Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+                Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+                Sql &= Chr(13) & "	AND (DESCRIPCION LIKE " & SCM("%" + TXT_CODIGO.Text + "%") & " Or COD_PROD = " & SCM(TXT_CODIGO.Text) & " Or COD_BARRA = " & SCM(TXT_CODIGO.Text) & ")"
+
+                CONX.Coneccion_Abrir()
+                Dim DS = CONX.EJECUTE_DS(Sql)
+                CONX.Coneccion_Cerrar()
+
+                If DS.Tables(0).Rows.Count > 0 Then
+                    For Each ITEM In DS.Tables(0).Rows
+                        Dim LVI As New ListViewItem With {
+                            .Text = ITEM("DESCRIPCION"),
+                            .Name = ITEM("COD_PROD")
+                        }
+                        LVResultados.Items.Add(LVI)
+                    Next
+                End If
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub LVResultados_DoubleClick(sender As Object, e As EventArgs) Handles LVResultados.DoubleClick
+        Dim a = LVResultados.SelectedItems(0).Name
+
+        If Not IsNothing(a) Then
+            TXT_CODIGO.Text = a
+            RellenaProducto()
+            TXT_CANTIDAD.Focus()
+        End If
+
     End Sub
 End Class

@@ -46,9 +46,9 @@ Public Class SeleccionCompania
                     GUARDAR_TIPO_CAMBIO(FECHA)
                 End If
                 Me.Close()
-                    Dim PANTALLA As New MenuPrincipal()
-                    PANTALLA.ShowDialog()
-                End If
+                Dim PANTALLA As New MenuPrincipal()
+                PANTALLA.ShowDialog()
+            End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

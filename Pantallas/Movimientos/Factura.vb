@@ -65,8 +65,6 @@ Public Class Factura
             Else
                 RELLENAR_GRID()
             End If
-
-
         End If
 
     End Sub
@@ -184,6 +182,7 @@ Public Class Factura
             TXT_NUMERO.Enabled = False
             TXT_TIPO_CAMBIO.Enabled = False
             DTPFECHA.Enabled = False
+            CMB_DOCUMENTO.Enabled = False
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -451,6 +450,23 @@ Public Class Factura
     End Sub
 
     Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
+
+        If Modo = CRF_Modos.Modificar Then
+            Dim Sql = "	UPDATE DOCUMENTO_ENC_TMP	"
+            Sql &= Chr(13) & "				SET CEDULA = " & SCM(Cliente.VALOR)
+            Sql &= Chr(13) & "				,COD_USUARIO = " & SCM(COD_USUARIO)
+            Sql &= Chr(13) & "				,COD_MONEDA = " & SCM(CMB_MONEDA.SelectedItem.ToString.Substring(0, 1))
+            Sql &= Chr(13) & "				,PLAZO = " & Val(TXT_PLAZO.Text)
+            Sql &= Chr(13) & "				,FORMA_PAGO = " & SCM(CMB_FORMAPAGO.SelectedItem.ToString.Substring(0, 2))
+            Sql &= Chr(13) & "				,DESCRIPCION = " & SCM(TXT_DESCRIPCION.Text)
+            Sql &= Chr(13) & "				WHERE COD_CIA = " & SCM(COD_CIA)
+            Sql &= Chr(13) & "				AND COD_SUCUR = " & SCM(COD_SUCUR)
+            Sql &= Chr(13) & "				AND CODIGO = " & SCM(Codigo)
+            CONX.Coneccion_Abrir()
+            CONX.EJECUTE(Sql)
+            CONX.Coneccion_Cerrar()
+        End If
+
         Cerrar()
     End Sub
 
@@ -501,36 +517,52 @@ Public Class Factura
     End Sub
 
     Private Sub GRID_CellClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles GRID.CellClick
-        If e.RowIndex >= 0 Then
-            If e.ColumnIndex = 8 Then
-                Dim seleccionado = GRID.Rows(GRID.SelectedRows(0).Index)
-                Dim valor = MessageBox.Show(Me, "¿Seguro que desea eliminar la linea :" + seleccionado.Cells(0).Value.ToString + "?", "Eliminar linea", vbYesNo)
+        Try
+            If e.RowIndex >= 0 Then
+                If e.ColumnIndex = 8 Then
+                    Dim seleccionado = GRID.Rows(GRID.SelectedRows(0).Index)
+                    Dim valor = MessageBox.Show(Me, "¿Seguro que desea eliminar la linea :" + seleccionado.Cells(0).Value.ToString + "?", "Eliminar linea", vbYesNo)
 
-                If valor = DialogResult.Yes Then
+                    If valor = DialogResult.Yes Then
 
-                    Dim SQL = "	DELETE FROM DOCUMENTO_DET_TMP	"
-                    SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
-                    SQL &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
-                    SQL &= Chr(13) & "	AND CODIGO = " & SCM(Codigo)
-                    SQL &= Chr(13) & "	AND LINEA = " & Val(seleccionado.Cells(0).Value)
+                        Dim SQL = "	DELETE FROM DOCUMENTO_DET_TMP	"
+                        SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+                        SQL &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+                        SQL &= Chr(13) & "	AND CODIGO = " & SCM(Codigo)
+                        SQL &= Chr(13) & "	AND LINEA = " & Val(seleccionado.Cells(0).Value)
 
-                    CONX.Coneccion_Abrir()
-                    CONX.EJECUTE(SQL)
-                    CONX.Coneccion_Cerrar()
+                        CONX.Coneccion_Abrir()
+                        CONX.EJECUTE(SQL)
+                        CONX.Coneccion_Cerrar()
 
-                    RELLENAR_GRID()
+                        RELLENAR_GRID()
 
-                    MessageBox.Show("Producto eliminado correctamente")
+                        MessageBox.Show("Producto eliminado correctamente")
+                    End If
                 End If
             End If
-        End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 
     Private Sub BTN_FACTURAR_Click(sender As Object, e As EventArgs) Handles BTN_FACTURAR.Click
         Try
+            Dim Sql = "	USP_FACTURACION_TMP_A_REAL	"
+            Sql &= Chr(13) & "	 @COD_CIA = " & SCM(COD_CIA)
+            Sql &= Chr(13) & "	,@COD_SUCUR = " & SCM(COD_SUCUR)
+            Sql &= Chr(13) & "	,@TIPO_MOV  = " & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
+            Sql &= Chr(13) & "	,@CODIGO = 	" & SCM(Codigo)
+            CONX.Coneccion_Abrir()
+            CONX.EJECUTE(Sql)
+            CONX.Coneccion_Cerrar()
+
+            MessageBox.Show("Factura ingresada correctamente")
+            Me.Close()
+            Padre.Refrescar()
 
         Catch ex As Exception
-
+            MessageBox.Show(ex.Message)
         End Try
     End Sub
 End Class

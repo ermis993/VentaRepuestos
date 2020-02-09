@@ -92,7 +92,6 @@ Public Class MenuPrincipal
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-
     Public Sub ActualizaSucursales()
         Try
             Bandera_Sucursal = False
@@ -113,7 +112,6 @@ Public Class MenuPrincipal
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-
     Private Sub BTN_CLIENTE_Click(sender As Object, e As EventArgs) Handles BTN_CLIENTE.Click
         Try
             Dim PANTALLA As New Cliente()
@@ -122,7 +120,6 @@ Public Class MenuPrincipal
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-
     Private Sub BTN_FE_Click(sender As Object, e As EventArgs) Handles BTN_FE.Click
         Try
             Dim PANTALLA As New Facturacion()
@@ -131,7 +128,6 @@ Public Class MenuPrincipal
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-
     Private Sub BTN_PRODUCTO_Click(sender As Object, e As EventArgs) Handles BTN_PRODUCTO.Click
         Try
             Dim PANTALLA As New Producto()
@@ -143,6 +139,14 @@ Public Class MenuPrincipal
     Private Sub BTN_PROVEEDOR_Click(sender As Object, e As EventArgs) Handles BTN_PROVEEDOR.Click
         Try
             Dim PANTALLA As New Proveedor()
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+    Private Sub BTN_USUARIO_Click(sender As Object, e As EventArgs) Handles BTN_USUARIO.Click
+        Try
+            Dim PANTALLA As New Usuario()
             PANTALLA.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)

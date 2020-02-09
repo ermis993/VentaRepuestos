@@ -5,7 +5,6 @@ Public Class Usuario
     Private Sub UsuariosDerechos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Cargar_usuarios()
     End Sub
-
     Private Sub Cargar_usuarios()
         Try
             GRID.DataSource = Nothing
@@ -26,17 +25,8 @@ Public Class Usuario
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-
     Private Sub BTN_DERECHO_Click(sender As Object, e As EventArgs) Handles BTN_DERECHO.Click
-        Try
-            Leer_indice()
-            If COD_USUARIO <> "" Then
-                Dim PANTALLA As New DerechosUsuario(COD_USUARIO)
-                PANTALLA.ShowDialog()
-            End If
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-        End Try
+        DERECHOS()
     End Sub
     Private Sub Leer_indice()
         Try
@@ -50,5 +40,19 @@ Public Class Usuario
     End Sub
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         Me.Close()
+    End Sub
+    Private Sub GRID_DoubleClick(sender As Object, e As EventArgs) Handles GRID.DoubleClick
+        DERECHOS()
+    End Sub
+    Private Sub DERECHOS()
+        Try
+            Leer_indice()
+            If COD_USUARIO <> "" Then
+                Dim PANTALLA As New DerechosUsuario(COD_USUARIO)
+                PANTALLA.ShowDialog()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 End Class

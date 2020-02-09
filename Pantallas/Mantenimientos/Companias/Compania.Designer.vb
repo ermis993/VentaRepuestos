@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Compania
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Compania
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.GRID = New System.Windows.Forms.DataGridView()
         Me.BTN_AGREGAR = New System.Windows.Forms.Button()
@@ -32,7 +32,6 @@ Partial Class Compania
         Me.RB_TODAS = New System.Windows.Forms.RadioButton()
         Me.RB_INACTIVAS = New System.Windows.Forms.RadioButton()
         Me.RB_ACTIVAS = New System.Windows.Forms.RadioButton()
-        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Estado.SuspendLayout()
         Me.SuspendLayout()
@@ -169,15 +168,6 @@ Partial Class Compania
         Me.RB_ACTIVAS.Text = "Activas"
         Me.RB_ACTIVAS.UseVisualStyleBackColor = True
         '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(495, 21)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 29
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'Compania
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -185,7 +175,6 @@ Partial Class Compania
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(727, 459)
         Me.ControlBox = False
-        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Estado)
         Me.Controls.Add(Me.GRID)
         Me.Controls.Add(Me.BTN_AGREGAR)
@@ -214,5 +203,4 @@ Partial Class Compania
     Friend WithEvents RB_TODAS As RadioButton
     Friend WithEvents RB_INACTIVAS As RadioButton
     Friend WithEvents RB_ACTIVAS As RadioButton
-    Friend WithEvents Button1 As Button
 End Class

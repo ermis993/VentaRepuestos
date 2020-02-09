@@ -4,9 +4,11 @@ Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Public Class Login
     Private Sub LOGIN_LOAD(sender As Object, e As EventArgs) Handles MyBase.Load
         CONFIGURACION()
+        Actualizaciones.CREACION_TABLAS()
     End Sub
     Private Sub CONFIGURACION()
         Try
+            CONX.ConexionSTR("TOMMY\SQLEXPRESS,1433", "sa", "1234", "VR_PRUEBAS")
             CONX.ConexionSTR("TOMMY\SQLEXPRESS,1433", "sa", "1234", "VR")
         Catch ex As Exception
         End Try

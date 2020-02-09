@@ -3,6 +3,8 @@ Imports VentaRepuestos.Globales
 Public Class Facturacion
     Dim Numero_Doc As Integer
     Dim Codigo As String
+    Dim CONSULTA_FILTRO As String = ""
+
     Private Sub BTN_FACTURAR_Click(sender As Object, e As EventArgs) Handles BTN_FACTURAR.Click
         Try
             Dim PANTALLA As New Factura(CRF_Modos.Insertar, Me)
@@ -11,6 +13,7 @@ Public Class Facturacion
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Sub Leer_indice()
         Try
             If Me.GRID.Rows.Count > 0 Then
@@ -45,9 +48,61 @@ Public Class Facturacion
         RELLENAR_GRID()
     End Sub
 
+    Private Sub FORMATO_GRID()
+        If CMB_TIPO_FACT.SelectedIndex = 0 Then
+            GRID.ColumnCount = 10
+            GRID.Columns(0).HeaderText = "Documento"
+            GRID.Columns(0).Name = "NUMERO_DOC"
+            GRID.Columns(1).HeaderText = "Tipo"
+            GRID.Columns(1).Name = "TIPO_MOV"
+            GRID.Columns(2).HeaderText = "Cédula"
+            GRID.Columns(2).Name = "C.CEDULA"
+            GRID.Columns(3).HeaderText = "Nombre"
+            GRID.Columns(3).Name = "C.NOMBRE"
+            GRID.Columns(4).HeaderText = "Descripción"
+            GRID.Columns(4).Name = "ENC.DESCRIPCION"
+            GRID.Columns(5).HeaderText = "Usuario"
+            GRID.Columns(5).Name = "COD_USUARIO"
+            GRID.Columns(6).HeaderText = "Moneda"
+            GRID.Columns(6).Name = "COD_MONEDA"
+            GRID.Columns(7).HeaderText = "Subtotal"
+            GRID.Columns(7).Name = "MONTO"
+            GRID.Columns(8).HeaderText = "Impuesto"
+            GRID.Columns(8).Name = "IMPUESTO"
+            GRID.Columns(9).HeaderText = "Total"
+            GRID.Columns(9).Name = "(MONTO + IMPUESTO)"
+            Filtro.FILTRO_CARGAR_COMBO(GRID)
+        Else
+            GRID.ColumnCount = 10
+            GRID.Columns(0).HeaderText = "Documento"
+            GRID.Columns(0).Name = "ENC.CODIGO"
+            GRID.Columns(1).HeaderText = "Tipo"
+            GRID.Columns(1).Name = "ENC.TIPO_MOV"
+            GRID.Columns(2).HeaderText = "Cédula"
+            GRID.Columns(2).Name = "C.CEDULA"
+            GRID.Columns(3).HeaderText = "Nombre"
+            GRID.Columns(3).Name = "C.NOMBRE"
+            GRID.Columns(4).HeaderText = "Descripción"
+            GRID.Columns(4).Name = "ENC.DESCRIPCION"
+            GRID.Columns(5).HeaderText = "Usuario"
+            GRID.Columns(5).Name = "COD_USUARIO"
+            GRID.Columns(6).HeaderText = "Moneda"
+            GRID.Columns(6).Name = "COD_MONEDA"
+            GRID.Columns(7).HeaderText = "Subtotal"
+            GRID.Columns(7).Name = "SUM(DET.SUBTOTAL)"
+            GRID.Columns(8).HeaderText = "Impuesto"
+            GRID.Columns(8).Name = "SUM(DET.IMPUESTO)"
+            GRID.Columns(9).HeaderText = "Total"
+            GRID.Columns(9).Name = " SUM(DET.TOTAL)"
+            Filtro.FILTRO_CARGAR_COMBO(GRID)
+        End If
+
+    End Sub
+
     Private Sub RELLENAR_GRID()
         Try
             GRID.DataSource = Nothing
+            GRID.Rows.Clear()
             Dim SQL As String = ""
 
             If CMB_TIPO_FACT.SelectedIndex = 0 Then
@@ -65,6 +120,7 @@ Public Class Facturacion
                     SQL &= Chr(13) & "	AND ENC.ESTADO ='I'"
                 End If
                 SQL &= Chr(13) & " AND ENC.FECHA BETWEEN " & SCM(YMD(DTPINICIO.Value)) & " AND " & SCM(YMD(DTPFINAL.Value))
+                SQL &= Chr(13) & CONSULTA_FILTRO
                 SQL &= Chr(13) & " ORDER BY ENC.FECHA_INC DESC"
             Else
                 SQL &= Chr(13) & "	SELECT ENC.CODIGO AS Documento, ENC.TIPO_MOV as Tipo, C.CEDULA AS Cédula, C.NOMBRE AS Nombre, ENC.DESCRIPCION AS Descripción, CONVERT(VARCHAR(10), ENC.FECHA, 105) AS Fecha	"
@@ -81,16 +137,21 @@ Public Class Facturacion
                 SQL &= Chr(13) & "	WHERE ENC.COD_CIA = " & SCM(COD_CIA)
                 SQL &= Chr(13) & "  AND ENC.COD_SUCUR = " & SCM(COD_SUCUR)
                 SQL &= Chr(13) & "  AND CONVERT(VARCHAR(10),ENC.FECHA, 111) BETWEEN " & SCM(YMD(DTPINICIO.Value)) & " AND " & SCM(YMD(DTPFINAL.Value))
+                SQL &= Chr(13) & CONSULTA_FILTRO
                 SQL &= Chr(13) & "	GROUP BY ENC.CODIGO, ENC.TIPO_MOV, C.CEDULA, C.NOMBRE, ENC.DESCRIPCION, CONVERT(VARCHAR(10), ENC.FECHA, 105),ENC.FECHA_INC,COD_USUARIO, COD_MONEDA	"
                 SQL &= Chr(13) & "  ORDER BY ENC.FECHA_INC DESC"
             End If
+
 
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)
             CONX.Coneccion_Cerrar()
 
             If DS.Tables(0).Rows.Count > 0 Then
-                GRID.DataSource = DS.Tables(0)
+                For Each ITEM In DS.Tables(0).Rows
+                    Dim row As String() = New String() {ITEM("Documento"), ITEM("Tipo"), ITEM("Cédula"), ITEM("Nombre"), ITEM("Descripción"), ITEM("Fecha"), ITEM("Usuario"), ITEM("Moneda"), ITEM("Subtotal"), ITEM("Impuesto"), ITEM("Total")}
+                    GRID.Rows.Add(row)
+                Next
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -98,6 +159,7 @@ Public Class Facturacion
     End Sub
 
     Private Sub CMB_TIPO_FACT_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_TIPO_FACT.SelectedIndexChanged
+        FORMATO_GRID()
         RELLENAR_GRID()
     End Sub
 
@@ -106,6 +168,7 @@ Public Class Facturacion
     End Sub
 
     Private Sub BTN_REFRESCAR_Click(sender As Object, e As EventArgs) Handles BTN_REFRESCAR.Click
+        CONSULTA_FILTRO = ""
         RELLENAR_GRID()
     End Sub
 
@@ -134,4 +197,17 @@ Public Class Facturacion
             RELLENAR_GRID()
         End If
     End Sub
+
+    Sub New()
+        InitializeComponent()
+        FORMATO_GRID()
+    End Sub
+
+    Private Sub FILTRAR(sender As Object, e As EventArgs) Handles Filtro.Filtrar_Click
+        If Filtro.VALOR <> "" Then
+            CONSULTA_FILTRO = Filtro.FILTRAR()
+            RELLENAR_GRID()
+        End If
+    End Sub
+
 End Class

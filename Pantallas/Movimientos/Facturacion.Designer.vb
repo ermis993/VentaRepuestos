@@ -37,6 +37,7 @@ Partial Class Facturacion
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
+        Me.Filtro = New VentaRepuestos.Filtro()
         Me.GroupBox1.SuspendLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Estado.SuspendLayout()
@@ -99,14 +100,14 @@ Partial Class Facturacion
         Me.GRID.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.GRID.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
         Me.GRID.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.GRID.Location = New System.Drawing.Point(2, 61)
+        Me.GRID.Location = New System.Drawing.Point(2, 93)
         Me.GRID.MultiSelect = False
         Me.GRID.Name = "GRID"
         Me.GRID.ReadOnly = True
         Me.GRID.RowHeadersVisible = False
         Me.GRID.RowHeadersWidth = 51
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRID.Size = New System.Drawing.Size(857, 406)
+        Me.GRID.Size = New System.Drawing.Size(857, 374)
         Me.GRID.TabIndex = 34
         '
         'Estado
@@ -215,6 +216,14 @@ Partial Class Facturacion
         Me.BTN_REFRESCAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_REFRESCAR.UseVisualStyleBackColor = False
         '
+        'Filtro
+        '
+        Me.Filtro.Location = New System.Drawing.Point(2, 58)
+        Me.Filtro.Name = "Filtro"
+        Me.Filtro.Size = New System.Drawing.Size(306, 29)
+        Me.Filtro.TabIndex = 38
+        Me.Filtro.VALOR = ""
+        '
         'Facturacion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -222,6 +231,7 @@ Partial Class Facturacion
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(862, 518)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Filtro)
         Me.Controls.Add(Me.BTN_REFRESCAR)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.Estado)
@@ -259,4 +269,5 @@ Partial Class Facturacion
     Friend WithEvents DTPINICIO As DateTimePicker
     Friend WithEvents DTPFINAL As DateTimePicker
     Friend WithEvents BTN_REFRESCAR As Button
+    Friend WithEvents Filtro As Filtro
 End Class

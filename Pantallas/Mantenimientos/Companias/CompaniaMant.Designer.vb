@@ -408,6 +408,7 @@ Partial Class LBL_CANTON
         Me.GRID_ACTIVIDADES.MultiSelect = False
         Me.GRID_ACTIVIDADES.Name = "GRID_ACTIVIDADES"
         Me.GRID_ACTIVIDADES.ReadOnly = True
+        Me.GRID_ACTIVIDADES.RowHeadersVisible = False
         Me.GRID_ACTIVIDADES.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.GRID_ACTIVIDADES.Size = New System.Drawing.Size(396, 177)
         Me.GRID_ACTIVIDADES.TabIndex = 8

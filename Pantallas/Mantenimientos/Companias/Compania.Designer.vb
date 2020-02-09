@@ -45,13 +45,14 @@ Partial Class Compania
         Me.GRID.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.GRID.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
         Me.GRID.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.GRID.Location = New System.Drawing.Point(4, 84)
+        Me.GRID.Location = New System.Drawing.Point(4, 89)
         Me.GRID.MultiSelect = False
         Me.GRID.Name = "GRID"
         Me.GRID.ReadOnly = True
+        Me.GRID.RowHeadersVisible = False
         Me.GRID.RowHeadersWidth = 51
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRID.Size = New System.Drawing.Size(711, 400)
+        Me.GRID.Size = New System.Drawing.Size(711, 395)
         Me.GRID.TabIndex = 27
         '
         'Estado
@@ -175,6 +176,7 @@ Partial Class Compania
         Me.FILTRO.Name = "FILTRO"
         Me.FILTRO.Size = New System.Drawing.Size(306, 29)
         Me.FILTRO.TabIndex = 29
+        Me.FILTRO.VALOR = ""
         '
         'Compania
         '

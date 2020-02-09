@@ -31,6 +31,7 @@ Partial Class Cliente
         Me.RB_TODOS = New System.Windows.Forms.RadioButton()
         Me.RB_INACTIVOS = New System.Windows.Forms.RadioButton()
         Me.RB_ACTIVOS = New System.Windows.Forms.RadioButton()
+        Me.Filtro = New VentaRepuestos.Filtro()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Estado.SuspendLayout()
         Me.SuspendLayout()
@@ -43,13 +44,14 @@ Partial Class Cliente
         Me.GRID.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.GRID.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
         Me.GRID.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.GRID.Location = New System.Drawing.Point(2, 54)
+        Me.GRID.Location = New System.Drawing.Point(2, 88)
         Me.GRID.MultiSelect = False
         Me.GRID.Name = "GRID"
         Me.GRID.ReadOnly = True
+        Me.GRID.RowHeadersVisible = False
         Me.GRID.RowHeadersWidth = 51
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRID.Size = New System.Drawing.Size(711, 406)
+        Me.GRID.Size = New System.Drawing.Size(711, 372)
         Me.GRID.TabIndex = 33
         '
         'BTN_AGREGAR
@@ -153,12 +155,21 @@ Partial Class Cliente
         Me.RB_ACTIVOS.Text = "Activos"
         Me.RB_ACTIVOS.UseVisualStyleBackColor = True
         '
+        'Filtro
+        '
+        Me.Filtro.Location = New System.Drawing.Point(2, 53)
+        Me.Filtro.Name = "Filtro"
+        Me.Filtro.Size = New System.Drawing.Size(306, 29)
+        Me.Filtro.TabIndex = 35
+        Me.Filtro.VALOR = ""
+        '
         'Cliente
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(715, 461)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Filtro)
         Me.Controls.Add(Me.Estado)
         Me.Controls.Add(Me.GRID)
         Me.Controls.Add(Me.BTN_AGREGAR)
@@ -185,4 +196,5 @@ Partial Class Cliente
     Friend WithEvents RB_TODOS As RadioButton
     Friend WithEvents RB_INACTIVOS As RadioButton
     Friend WithEvents RB_ACTIVOS As RadioButton
+    Friend WithEvents Filtro As Filtro
 End Class

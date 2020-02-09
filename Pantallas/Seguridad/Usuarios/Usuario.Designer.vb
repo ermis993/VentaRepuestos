@@ -83,6 +83,7 @@ Partial Class Usuario
         Me.GRID.MultiSelect = False
         Me.GRID.Name = "GRID"
         Me.GRID.ReadOnly = True
+        Me.GRID.RowHeadersVisible = False
         Me.GRID.RowHeadersWidth = 51
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.GRID.Size = New System.Drawing.Size(520, 400)

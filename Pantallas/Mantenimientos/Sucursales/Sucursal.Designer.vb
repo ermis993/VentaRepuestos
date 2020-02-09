@@ -32,6 +32,7 @@ Partial Class Sucursal
         Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.GRID = New System.Windows.Forms.DataGridView()
+        Me.Filtro = New VentaRepuestos.Filtro()
         Me.Estado.SuspendLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -41,7 +42,7 @@ Partial Class Sucursal
         Me.Estado.Controls.Add(Me.RB_TODAS)
         Me.Estado.Controls.Add(Me.RB_INACTIVAS)
         Me.Estado.Controls.Add(Me.RB_ACTIVAS)
-        Me.Estado.Location = New System.Drawing.Point(416, 2)
+        Me.Estado.Location = New System.Drawing.Point(417, 2)
         Me.Estado.Name = "Estado"
         Me.Estado.Size = New System.Drawing.Size(146, 51)
         Me.Estado.TabIndex = 34
@@ -87,7 +88,7 @@ Partial Class Sucursal
         Me.BTN_AGREGAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_AGREGAR.Image = Global.VentaRepuestos.My.Resources.Resources.agregar
         Me.BTN_AGREGAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_AGREGAR.Location = New System.Drawing.Point(10, 11)
+        Me.BTN_AGREGAR.Location = New System.Drawing.Point(2, 11)
         Me.BTN_AGREGAR.Name = "BTN_AGREGAR"
         Me.BTN_AGREGAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_AGREGAR.TabIndex = 33
@@ -101,7 +102,7 @@ Partial Class Sucursal
         Me.BTN_MODIFICAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_MODIFICAR.Image = Global.VentaRepuestos.My.Resources.Resources.controles
         Me.BTN_MODIFICAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_MODIFICAR.Location = New System.Drawing.Point(110, 11)
+        Me.BTN_MODIFICAR.Location = New System.Drawing.Point(105, 11)
         Me.BTN_MODIFICAR.Name = "BTN_MODIFICAR"
         Me.BTN_MODIFICAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_MODIFICAR.TabIndex = 32
@@ -115,7 +116,7 @@ Partial Class Sucursal
         Me.BTN_REFRESCAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_REFRESCAR.Image = Global.VentaRepuestos.My.Resources.Resources.refrescar
         Me.BTN_REFRESCAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_REFRESCAR.Location = New System.Drawing.Point(211, 11)
+        Me.BTN_REFRESCAR.Location = New System.Drawing.Point(208, 11)
         Me.BTN_REFRESCAR.Name = "BTN_REFRESCAR"
         Me.BTN_REFRESCAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_REFRESCAR.TabIndex = 31
@@ -152,14 +153,23 @@ Partial Class Sucursal
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.GRID.DefaultCellStyle = DataGridViewCellStyle1
-        Me.GRID.Location = New System.Drawing.Point(10, 59)
+        Me.GRID.Location = New System.Drawing.Point(2, 95)
         Me.GRID.MultiSelect = False
         Me.GRID.Name = "GRID"
         Me.GRID.ReadOnly = True
+        Me.GRID.RowHeadersVisible = False
         Me.GRID.RowHeadersWidth = 51
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRID.Size = New System.Drawing.Size(553, 305)
+        Me.GRID.Size = New System.Drawing.Size(561, 269)
         Me.GRID.TabIndex = 35
+        '
+        'Filtro
+        '
+        Me.Filtro.Location = New System.Drawing.Point(2, 60)
+        Me.Filtro.Name = "Filtro"
+        Me.Filtro.Size = New System.Drawing.Size(306, 29)
+        Me.Filtro.TabIndex = 36
+        Me.Filtro.VALOR = ""
         '
         'Sucursal
         '
@@ -167,13 +177,14 @@ Partial Class Sucursal
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(568, 366)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Filtro)
         Me.Controls.Add(Me.GRID)
         Me.Controls.Add(Me.Estado)
         Me.Controls.Add(Me.BTN_AGREGAR)
         Me.Controls.Add(Me.BTN_MODIFICAR)
         Me.Controls.Add(Me.BTN_REFRESCAR)
         Me.Controls.Add(Me.BTN_SALIR)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "Sucursal"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Sucursal"
@@ -193,4 +204,5 @@ Partial Class Sucursal
     Friend WithEvents BTN_REFRESCAR As Button
     Friend WithEvents BTN_SALIR As Button
     Friend WithEvents GRID As DataGridView
+    Friend WithEvents Filtro As Filtro
 End Class

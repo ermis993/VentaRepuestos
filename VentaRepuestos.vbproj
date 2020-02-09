@@ -90,6 +90,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controles\Filtro.Designer.vb">
+      <DependentUpon>Filtro.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Filtro.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Globales\Actualizaciones.vb" />
     <Compile Include="Controles\Buscador.Designer.vb">
       <DependentUpon>Buscador.vb</DependentUpon>
@@ -255,6 +261,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Controles\Buscador.resx">
       <DependentUpon>Buscador.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controles\Filtro.resx">
+      <DependentUpon>Filtro.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\CambioContrasena.resx">
       <DependentUpon>CambioContrasena.vb</DependentUpon>
@@ -426,16 +435,18 @@
     <None Include="Resources\Left.png" />
     <None Include="Resources\pagar.png" />
     <None Include="Resources\borrar_button.png" />
+    <None Include="Resources\filtro.png" />
+    <None Include="Resources\filtrar.png" />
     <Content Include="Resources\quitar.png" />
     <None Include="Resources\Right.png" />
     <Content Include="Resources\salir.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\bin\FASE_MDOCUM2\GEN\CRFUSION_LIBRERIAS_GENERALES\CRF_CONEXIONES\CRF_CONEXIONES.vbproj">
+    <ProjectReference Include="..\Funciones globales\bin\CRFUSION_LIBRERIAS_GENERALES\CRF_CONEXIONES\CRF_CONEXIONES.vbproj">
       <Project>{bdddff94-3947-49d0-a098-f2e3fe3e909b}</Project>
       <Name>CRF_CONEXIONES</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\bin\FASE_MDOCUM2\GEN\CRFUSION_LIBRERIAS_GENERALES\FUN_CRFUSION\FUN_CRFUSION.vbproj">
+    <ProjectReference Include="..\Funciones globales\bin\CRFUSION_LIBRERIAS_GENERALES\FUN_CRFUSION\FUN_CRFUSION.vbproj">
       <Project>{8fde4698-2b47-4e08-9d9a-09c2d6d754d4}</Project>
       <Name>FUN_CRFUSION</Name>
     </ProjectReference>

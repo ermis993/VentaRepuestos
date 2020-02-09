@@ -8,7 +8,7 @@ Public Class Login
     End Sub
     Private Sub CONFIGURACION()
         Try
-            'CONX.ConexionSTR("TOMMY\SQLEXPRESS,1433", "sa", "1234", "VR_PRUEBAS")
+            ' CONX.ConexionSTR("TOMMY\SQLEXPRESS,1433", "sa", "1234", "VR_PRUEBAS")
             CONX.ConexionSTR("TOMMY\SQLEXPRESS,1433", "sa", "1234", "VR")
         Catch ex As Exception
         End Try

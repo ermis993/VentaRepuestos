@@ -7,19 +7,17 @@ Public Class Actualizaciones
         CREACION_TRIGGERS()
     End Sub
     Public Shared Sub CREACION_TABLAS()
-        CREACION_TABLA_COMPANIA_20200208()
+        CREACION_INVENTARIO_MOV_DET_20200208()
     End Sub
 
 #Region "STORED PROCEDURES"
     Public Shared Sub CREACION_STORED_PROCEDURE()
         USP_FACTURACION_TMP_A_REAL_20200209()
     End Sub
-
     Public Shared Sub USP_FACTURACION_TMP_A_REAL_20200209()
         Try
             If EXISTE_SP("USP_FACTURACION_TMP_A_REAL", "2020-02-09") = False Then
                 DROP_PROCEDURE("USP_FACTURACION_TMP_A_REAL")
-
                 Dim Sql = "	CREATE PROCEDURE [dbo].[USP_FACTURACION_TMP_A_REAL] 											"
                 Sql &= Chr(13) & "	 @COD_CIA VARCHAR(3)											"
                 Sql &= Chr(13) & "	,@COD_SUCUR VARCHAR(3)											"
@@ -143,9 +141,7 @@ Public Class Actualizaciones
     Public Shared Sub USP_ACTIVIDAD_ECONOMICA_MANT_20200209()
         Try
             If EXISTE_SP("USP_ACTIVIDAD_ECONOMICA_MANT", "2020-02-09") = False Then
-                If EXISTE_SP("USP_ACTIVIDAD_ECONOMICA_MANT", "", False) = True Then
-                    DROP_PROCEDURE("USP_ACTIVIDAD_ECONOMICA_MANT")
-                End If
+                DROP_PROCEDURE("USP_ACTIVIDAD_ECONOMICA_MANT")
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_ACTIVIDAD_ECONOMICA_MANT] "
                 SQL &= Chr(13) & "	    @COD_CIA VARCHAR(3),		"
                 SQL &= Chr(13) & "		@MODO INTEGER,					"
@@ -212,9 +208,7 @@ Public Class Actualizaciones
     Public Shared Sub USP_USP_CLIENTE_MANT_20200209()
         Try
             If EXISTE_SP("USP_CLIENTE_MANT", "2020-02-09") = False Then
-                If EXISTE_SP("USP_CLIENTE_MANT", "", False) = True Then
-                    DROP_PROCEDURE("USP_CLIENTE_MANT")
-                End If
+                DROP_PROCEDURE("USP_CLIENTE_MANT")
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_CLIENTE_MANT] "
                 SQL &= Chr(13) & "	    @COD_CIA VARCHAR(3),	"
                 SQL &= Chr(13) & "		@MODO INTEGER,		"
@@ -275,9 +269,7 @@ Public Class Actualizaciones
     Public Shared Sub USP_COMPANIA_MANT_20200209()
         Try
             If EXISTE_SP("USP_COMPANIA_MANT", "2020-02-09") = False Then
-                If EXISTE_SP("USP_COMPANIA_MANT", "", False) = True Then
-                    DROP_PROCEDURE("USP_COMPANIA_MANT")
-                End If
+                DROP_PROCEDURE("USP_COMPANIA_MANT")
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_COMPANIA_MANT] 	"
                 SQL &= Chr(13) & "	    @COD_CIA VARCHAR(3),			"
                 SQL &= Chr(13) & "		@MODO INTEGER,		"
@@ -344,9 +336,7 @@ Public Class Actualizaciones
     Public Shared Sub USP_INGRESA_USUARIO_20200209()
         Try
             If EXISTE_SP("USP_INGRESA_USUARIO", "2020-02-09") = False Then
-                If EXISTE_SP("USP_INGRESA_USUARIO", "", False) = True Then
-                    DROP_PROCEDURE("USP_INGRESA_USUARIO")
-                End If
+                DROP_PROCEDURE("USP_INGRESA_USUARIO")
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_INGRESA_USUARIO]"
                 SQL &= Chr(13) & "	 @COD_USUARIO VARCHAR(8)"
                 SQL &= Chr(13) & "	,@NOMBRE VARCHAR(50)"
@@ -377,7 +367,7 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "	END"
 
                 CONX.Coneccion_Abrir()
-                CONX.EJECUTE(Sql)
+                CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
                 USP_MANT_FACTURACION_TMP_20200209()
             End If
@@ -495,7 +485,7 @@ Public Class Actualizaciones
 
 
                 CONX.Coneccion_Abrir()
-                CONX.EJECUTE(SQL)
+                CONX.EJECUTE(Sql)
                 CONX.Coneccion_Cerrar()
                 USP_MANT_PRODUCTO_20200209()
             End If
@@ -507,9 +497,7 @@ Public Class Actualizaciones
     Public Shared Sub USP_MANT_PRODUCTO_20200209()
         Try
             If EXISTE_SP("USP_MANT_PRODUCTO", "2020-02-09") = False Then
-                If EXISTE_SP("USP_MANT_PRODUCTO", "", False) = True Then
-                    DROP_PROCEDURE("USP_MANT_PRODUCTO")
-                End If
+                DROP_PROCEDURE("USP_MANT_PRODUCTO")
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_MANT_PRODUCTO] 	"
                 SQL &= Chr(13) & "	 @COD_CIA VARCHAR(3)							"
                 SQL &= Chr(13) & "	,@COD_SUCUR VARCHAR(3)			"
@@ -599,9 +587,7 @@ Public Class Actualizaciones
     Public Shared Sub USP_PROVEEDOR_MANT_20200209()
         Try
             If EXISTE_SP("USP_PROVEEDOR_MANT", "2020-02-09") = False Then
-                If EXISTE_SP("USP_PROVEEDOR_MANT", "", False) = True Then
-                    DROP_PROCEDURE("USP_PROVEEDOR_MANT")
-                End If
+                DROP_PROCEDURE("USP_PROVEEDOR_MANT")
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_PROVEEDOR_MANT] 	"
                 SQL &= Chr(13) & "	    @COD_CIA VARCHAR(3),			"
                 SQL &= Chr(13) & "		@COD_SUCUR VARCHAR(3),		"
@@ -657,9 +643,7 @@ Public Class Actualizaciones
     Public Shared Sub GUARDAR_CERTIFICADO_20200209()
         Try
             If EXISTE_SP("GUARDAR_CERTIFICADO", "2020-02-09") = False Then
-                If EXISTE_SP("GUARDAR_CERTIFICADO", "", False) = True Then
-                    DROP_PROCEDURE("GUARDAR_CERTIFICADO")
-                End If
+                DROP_PROCEDURE("GUARDAR_CERTIFICADO")
                 Dim SQL = "	CREATE PROCEDURE [dbo].[GUARDAR_CERTIFICADO] 	"
                 SQL &= Chr(13) & "	    @CERTIFICADO varbinary(MAX),   	"
                 SQL &= Chr(13) & "	    @PIN VARCHAR(50),   	"
@@ -850,7 +834,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_TABLA_SUCURSAL_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -860,6 +843,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_TABLA_SUCURSAL_20200208()
         Try
             If EXISTE_TABLA("SUCURSAL") = False Then
+                CREACION_TABLA_COMPANIA_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[SUCURSAL](	"
                 SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,"
                 SQL &= Chr(13) & "		[COD_SUCUR] [varchar](3) NOT NULL,"
@@ -884,7 +868,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_TABLA_CLIENTE_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -894,6 +877,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_TABLA_CLIENTE_20200208()
         Try
             If EXISTE_TABLA("CLIENTE") = False Then
+                CREACION_TABLA_SUCURSAL_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[CLIENTE](				"
                 SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,			"
                 SQL &= Chr(13) & "		[CEDULA] [varchar](25) NOT NULL,			"
@@ -921,7 +905,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_TABLA_PROVEEDOR_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -931,6 +914,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_TABLA_PROVEEDOR_20200208()
         Try
             If EXISTE_TABLA("PROVEEDOR") = False Then
+                CREACION_TABLA_CLIENTE_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[PROVEEDOR](	"
                 SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,"
                 SQL &= Chr(13) & "		[COD_SUCUR] [varchar](3) NOT NULL,"
@@ -958,7 +942,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_USUARIO_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -968,6 +951,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_USUARIO_20200208()
         Try
             If EXISTE_TABLA("USUARIO") = False Then
+                CREACION_TABLA_PROVEEDOR_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[USUARIO]("
                 SQL &= Chr(13) & "		[COD_USUARIO] [varchar](8) NOT NULL,"
                 SQL &= Chr(13) & "		[NOMBRE] [varchar](50) NOT NULL,"
@@ -988,7 +972,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_COMPANIA_USUARIO_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -998,6 +981,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_COMPANIA_USUARIO_20200208()
         Try
             If EXISTE_TABLA("COMPANIA_USUARIO") = False Then
+                CREACION_USUARIO_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[COMPANIA_USUARIO](	"
                 SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,"
                 SQL &= Chr(13) & "		[COD_USUARIO] [varchar](8) NOT NULL,"
@@ -1014,7 +998,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_ACTIVIDAD_ECONOMICA_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -1024,6 +1007,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_ACTIVIDAD_ECONOMICA_20200208()
         Try
             If EXISTE_TABLA("ACTIVIDAD_ECONOMICA") = False Then
+                CREACION_COMPANIA_USUARIO_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[ACTIVIDAD_ECONOMICA](	"
                 SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,"
                 SQL &= Chr(13) & "		[COD_ACT] [varchar](6) NOT NULL,"
@@ -1040,7 +1024,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_USUARIO_CONTRA_RECUPERACION_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -1050,6 +1033,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_USUARIO_CONTRA_RECUPERACION_20200208()
         Try
             If EXISTE_TABLA("USUARIO_CONTRA_RECUPERACION") = False Then
+                CREACION_ACTIVIDAD_ECONOMICA_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[USUARIO_CONTRA_RECUPERACION](	"
                 SQL &= Chr(13) & "		[CORREO] [varchar](150) NOT NULL,"
                 SQL &= Chr(13) & "		[CODIGO_VERIFICADOR] [varchar](6) NOT NULL"
@@ -1057,7 +1041,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_UNIDAD_MEDIDA_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -1067,6 +1050,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_UNIDAD_MEDIDA_20200208()
         Try
             If EXISTE_TABLA("UNIDAD_MEDIDA") = False Then
+                CREACION_USUARIO_CONTRA_RECUPERACION_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[UNIDAD_MEDIDA](	"
                 SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,"
                 SQL &= Chr(13) & "		[COD_UNIDAD] [varchar](10) NOT NULL,"
@@ -1083,7 +1067,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_TIPO_CAMBIO_GENERAL_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -1093,6 +1076,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_TIPO_CAMBIO_GENERAL_20200208()
         Try
             If EXISTE_TABLA("TIPO_CAMBIO_GENERAL") = False Then
+                CREACION_UNIDAD_MEDIDA_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[TIPO_CAMBIO_GENERAL](	"
                 SQL &= Chr(13) & "		[BANCO] [varchar](200) NULL,"
                 SQL &= Chr(13) & "		[COMPRA] [money] NULL,"
@@ -1102,7 +1086,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_TIPO_CAMBIO_CIA_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -1112,6 +1095,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_TIPO_CAMBIO_CIA_20200208()
         Try
             If EXISTE_TABLA("TIPO_CAMBIO_CIA") = False Then
+                CREACION_TIPO_CAMBIO_GENERAL_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[TIPO_CAMBIO_CIA](	"
                 SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,"
                 SQL &= Chr(13) & "		[FECHA] [datetime] NOT NULL,"
@@ -1127,7 +1111,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_SEGU_DERECHO_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -1137,6 +1120,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_SEGU_DERECHO_20200208()
         Try
             If EXISTE_TABLA("SEGU_DERECHO") = False Then
+                CREACION_TIPO_CAMBIO_CIA_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[SEGU_DERECHO](	"
                 SQL &= Chr(13) & "		[COD_SISTEMA] [varchar](20) NOT NULL,"
                 SQL &= Chr(13) & "		[COD_DERECHO] [varchar](20) NOT NULL,"
@@ -1149,7 +1133,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_USUARIO_DERECHO_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -1159,6 +1142,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_USUARIO_DERECHO_20200208()
         Try
             If EXISTE_TABLA("USUARIO_DERECHO") = False Then
+                CREACION_SEGU_DERECHO_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[USUARIO_DERECHO](	"
                 SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,"
                 SQL &= Chr(13) & "		[COD_DERECHO] [varchar](20) NOT NULL,"
@@ -1180,7 +1164,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_PROVINCIA_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -1190,6 +1173,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_PROVINCIA_20200208()
         Try
             If EXISTE_TABLA("PROVINCIA") = False Then
+                CREACION_USUARIO_DERECHO_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[PROVINCIA](	"
                 SQL &= Chr(13) & "		[CODIGO_PROVINCIA] [int] NOT NULL,"
                 SQL &= Chr(13) & "		[NOMBRE] [varchar](50) NOT NULL,"
@@ -1214,8 +1198,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-
-                CREACION_PRODUCTO_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -1225,6 +1207,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_PRODUCTO_20200208()
         Try
             If EXISTE_TABLA("PRODUCTO") = False Then
+                CREACION_PROVINCIA_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[PRODUCTO](	"
                 SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,"
                 SQL &= Chr(13) & "		[COD_SUCUR] [varchar](3) NOT NULL,"
@@ -1262,7 +1245,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_CANTON_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -1272,6 +1254,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_CANTON_20200208()
         Try
             If EXISTE_TABLA("CANTON") = False Then
+                CREACION_PRODUCTO_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[CANTON](	"
                 SQL &= Chr(13) & "		[CODIGO_PROVINCIA] [int] NOT NULL,"
                 SQL &= Chr(13) & "		[CODIGO_CANTON] [int] NOT NULL,"
@@ -1454,8 +1437,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-
-                CREACION_DISTRITO_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -1465,6 +1446,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_DISTRITO_20200208()
         Try
             If EXISTE_TABLA("DISTRITO") = False Then
+                CREACION_CANTON_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[DISTRITO](	"
                 SQL &= Chr(13) & "		[CODIGO_CANTON] [int] NOT NULL,"
                 SQL &= Chr(13) & "		[CODIGO_DISTRITO] [int] NOT NULL,"
@@ -2523,7 +2505,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_INFORMACION_GENERAL_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -2533,6 +2514,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_INFORMACION_GENERAL_20200208()
         Try
             If EXISTE_TABLA("INFORMACION_GENERAL") = False Then
+                CREACION_DISTRITO_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[INFORMACION_GENERAL](	"
                 SQL &= Chr(13) & "		[EMAIL] [varchar](200) NULL,"
                 SQL &= Chr(13) & "		[TOKEN] [varchar](50) NULL,"
@@ -2543,7 +2525,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_DOCUMENTO_ENC_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -2553,6 +2534,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_DOCUMENTO_ENC_20200208()
         Try
             If EXISTE_TABLA("DOCUMENTO_ENC") = False Then
+                CREACION_INFORMACION_GENERAL_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[DOCUMENTO_ENC](	"
                 SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,"
                 SQL &= Chr(13) & "		[COD_SUCUR] [varchar](3) NOT NULL,"
@@ -2592,7 +2574,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_DOCUMENTO_DET_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -2602,6 +2583,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_DOCUMENTO_DET_20200208()
         Try
             If EXISTE_TABLA("DOCUMENTO_DET") = False Then
+                CREACION_DOCUMENTO_ENC_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[DOCUMENTO_DET](	"
                 SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,"
                 SQL &= Chr(13) & "		[COD_SUCUR] [varchar](3) NOT NULL,"
@@ -2640,7 +2622,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_DOCUMENTO_ENC_TMP_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -2650,6 +2631,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_DOCUMENTO_ENC_TMP_20200208()
         Try
             If EXISTE_TABLA("DOCUMENTO_ENC_TMP") = False Then
+                CREACION_DOCUMENTO_DET_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[DOCUMENTO_ENC_TMP](	"
                 SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,"
                 SQL &= Chr(13) & "		[COD_SUCUR] [varchar](3) NOT NULL,"
@@ -2673,7 +2655,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_DOCUMENTO_DET_TMP_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -2683,6 +2664,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_DOCUMENTO_DET_TMP_20200208()
         Try
             If EXISTE_TABLA("DOCUMENTO_DET_TMP") = False Then
+                CREACION_DOCUMENTO_ENC_TMP_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[DOCUMENTO_DET_TMP](	"
                 SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,"
                 SQL &= Chr(13) & "		[COD_SUCUR] [varchar](3) NOT NULL,"
@@ -2709,7 +2691,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_IMPUESTO_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -2719,6 +2700,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_IMPUESTO_20200208()
         Try
             If EXISTE_TABLA("IMPUESTO") = False Then
+                CREACION_DOCUMENTO_DET_TMP_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[IMPUESTO](	"
                 SQL &= Chr(13) & "		[COD_IMPUESTO] [varchar](3) NOT NULL,"
                 SQL &= Chr(13) & "		[COD_IMPUESTO_DGTD] [varchar](6) NOT NULL,"
@@ -2735,7 +2717,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_INVENTARIO_COD_MOV_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -2745,6 +2726,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_INVENTARIO_COD_MOV_20200208()
         Try
             If EXISTE_TABLA("INVENTARIO_COD_MOV") = False Then
+                CREACION_IMPUESTO_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[INVENTARIO_COD_MOV](	"
                 SQL &= Chr(13) & "		[COD_MOV] [varchar](3) NOT NULL,"
                 SQL &= Chr(13) & "		[DESCRIPCION] [varchar](200) NOT NULL,"
@@ -2754,7 +2736,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_INVENTARIO_MOV_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -2764,6 +2745,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_INVENTARIO_MOV_20200208()
         Try
             If EXISTE_TABLA("INVENTARIO_MOV") = False Then
+                CREACION_INVENTARIO_COD_MOV_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[INVENTARIO_MOV](	"
                 SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,"
                 SQL &= Chr(13) & "		[COD_SUCUR] [varchar](3) NOT NULL,"
@@ -2794,7 +2776,6 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
-                CREACION_INVENTARIO_MOV_DET_20200208()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -2804,6 +2785,7 @@ Public Class Actualizaciones
     Private Shared Sub CREACION_INVENTARIO_MOV_DET_20200208()
         Try
             If EXISTE_TABLA("INVENTARIO_MOV_DET") = False Then
+                CREACION_INVENTARIO_MOV_20200208()
                 Dim SQL = "	CREATE TABLE [dbo].[INVENTARIO_MOV_DET](	"
                 SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,"
                 SQL &= Chr(13) & "		[COD_SUCUR] [varchar](3) NOT NULL,"

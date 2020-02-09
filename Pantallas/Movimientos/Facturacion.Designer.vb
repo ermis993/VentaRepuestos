@@ -32,10 +32,10 @@ Partial Class Facturacion
         Me.RB_INACTIVOS = New System.Windows.Forms.RadioButton()
         Me.RB_ACTIVOS = New System.Windows.Forms.RadioButton()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.DTPINICIO = New System.Windows.Forms.DateTimePicker()
         Me.DTPFINAL = New System.Windows.Forms.DateTimePicker()
+        Me.DTPINICIO = New System.Windows.Forms.DateTimePicker()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -61,7 +61,7 @@ Partial Class Facturacion
         Me.BTN_SALIR.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(684, 472)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(760, 472)
         Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
@@ -94,7 +94,8 @@ Partial Class Facturacion
         '
         Me.GRID.AllowUserToAddRows = False
         Me.GRID.AllowUserToDeleteRows = False
-        Me.GRID.AllowUserToOrderColumns = True
+        Me.GRID.AllowUserToResizeColumns = False
+        Me.GRID.AllowUserToResizeRows = False
         Me.GRID.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.GRID.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
         Me.GRID.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -102,9 +103,10 @@ Partial Class Facturacion
         Me.GRID.MultiSelect = False
         Me.GRID.Name = "GRID"
         Me.GRID.ReadOnly = True
+        Me.GRID.RowHeadersVisible = False
         Me.GRID.RowHeadersWidth = 51
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRID.Size = New System.Drawing.Size(781, 406)
+        Me.GRID.Size = New System.Drawing.Size(857, 406)
         Me.GRID.TabIndex = 34
         '
         'Estado
@@ -112,7 +114,7 @@ Partial Class Facturacion
         Me.Estado.Controls.Add(Me.RB_TODOS)
         Me.Estado.Controls.Add(Me.RB_INACTIVOS)
         Me.Estado.Controls.Add(Me.RB_ACTIVOS)
-        Me.Estado.Location = New System.Drawing.Point(637, 4)
+        Me.Estado.Location = New System.Drawing.Point(713, 1)
         Me.Estado.Name = "Estado"
         Me.Estado.Size = New System.Drawing.Size(146, 54)
         Me.Estado.TabIndex = 35
@@ -158,21 +160,28 @@ Partial Class Facturacion
         Me.GroupBox2.Controls.Add(Me.DTPINICIO)
         Me.GroupBox2.Controls.Add(Me.Label2)
         Me.GroupBox2.Controls.Add(Me.Label1)
-        Me.GroupBox2.Location = New System.Drawing.Point(482, 4)
+        Me.GroupBox2.Location = New System.Drawing.Point(558, 1)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(149, 54)
         Me.GroupBox2.TabIndex = 36
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Fechas"
         '
-        'Label1
+        'DTPFINAL
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(6, 17)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(29, 13)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Del :"
+        Me.DTPFINAL.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DTPFINAL.Location = New System.Drawing.Point(42, 31)
+        Me.DTPFINAL.Name = "DTPFINAL"
+        Me.DTPFINAL.Size = New System.Drawing.Size(98, 20)
+        Me.DTPFINAL.TabIndex = 3
+        '
+        'DTPINICIO
+        '
+        Me.DTPINICIO.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DTPINICIO.Location = New System.Drawing.Point(42, 13)
+        Me.DTPINICIO.Name = "DTPINICIO"
+        Me.DTPINICIO.Size = New System.Drawing.Size(98, 20)
+        Me.DTPINICIO.TabIndex = 2
         '
         'Label2
         '
@@ -183,21 +192,14 @@ Partial Class Facturacion
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Al :"
         '
-        'DTPINICIO
+        'Label1
         '
-        Me.DTPINICIO.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DTPINICIO.Location = New System.Drawing.Point(42, 13)
-        Me.DTPINICIO.Name = "DTPINICIO"
-        Me.DTPINICIO.Size = New System.Drawing.Size(98, 20)
-        Me.DTPINICIO.TabIndex = 2
-        '
-        'DTPFINAL
-        '
-        Me.DTPFINAL.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DTPFINAL.Location = New System.Drawing.Point(42, 31)
-        Me.DTPFINAL.Name = "DTPFINAL"
-        Me.DTPFINAL.Size = New System.Drawing.Size(98, 20)
-        Me.DTPFINAL.TabIndex = 3
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(6, 17)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(29, 13)
+        Me.Label1.TabIndex = 0
+        Me.Label1.Text = "Del :"
         '
         'BTN_REFRESCAR
         '
@@ -205,7 +207,7 @@ Partial Class Facturacion
         Me.BTN_REFRESCAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_REFRESCAR.Image = Global.VentaRepuestos.My.Resources.Resources.refrescar
         Me.BTN_REFRESCAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_REFRESCAR.Location = New System.Drawing.Point(377, 10)
+        Me.BTN_REFRESCAR.Location = New System.Drawing.Point(453, 12)
         Me.BTN_REFRESCAR.Name = "BTN_REFRESCAR"
         Me.BTN_REFRESCAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_REFRESCAR.TabIndex = 37
@@ -218,7 +220,7 @@ Partial Class Facturacion
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ClientSize = New System.Drawing.Size(784, 518)
+        Me.ClientSize = New System.Drawing.Size(862, 518)
         Me.ControlBox = False
         Me.Controls.Add(Me.BTN_REFRESCAR)
         Me.Controls.Add(Me.GroupBox2)

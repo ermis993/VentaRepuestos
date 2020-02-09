@@ -31,6 +31,7 @@ Partial Class Producto
         Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.GRID = New System.Windows.Forms.DataGridView()
+        Me.Filtro = New VentaRepuestos.Filtro()
         Me.Estado.SuspendLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -40,11 +41,9 @@ Partial Class Producto
         Me.Estado.Controls.Add(Me.RB_TODOS)
         Me.Estado.Controls.Add(Me.RB_INACTIVOS)
         Me.Estado.Controls.Add(Me.RB_ACTIVOS)
-        Me.Estado.Location = New System.Drawing.Point(758, 0)
-        Me.Estado.Margin = New System.Windows.Forms.Padding(4)
+        Me.Estado.Location = New System.Drawing.Point(565, -1)
         Me.Estado.Name = "Estado"
-        Me.Estado.Padding = New System.Windows.Forms.Padding(4)
-        Me.Estado.Size = New System.Drawing.Size(195, 63)
+        Me.Estado.Size = New System.Drawing.Size(146, 51)
         Me.Estado.TabIndex = 39
         Me.Estado.TabStop = False
         Me.Estado.Text = "Estado"
@@ -52,10 +51,9 @@ Partial Class Producto
         'RB_TODOS
         '
         Me.RB_TODOS.AutoSize = True
-        Me.RB_TODOS.Location = New System.Drawing.Point(113, 14)
-        Me.RB_TODOS.Margin = New System.Windows.Forms.Padding(4)
+        Me.RB_TODOS.Location = New System.Drawing.Point(85, 11)
         Me.RB_TODOS.Name = "RB_TODOS"
-        Me.RB_TODOS.Size = New System.Drawing.Size(69, 21)
+        Me.RB_TODOS.Size = New System.Drawing.Size(55, 17)
         Me.RB_TODOS.TabIndex = 2
         Me.RB_TODOS.Text = "Todos"
         Me.RB_TODOS.UseVisualStyleBackColor = True
@@ -63,10 +61,9 @@ Partial Class Producto
         'RB_INACTIVOS
         '
         Me.RB_INACTIVOS.AutoSize = True
-        Me.RB_INACTIVOS.Location = New System.Drawing.Point(9, 41)
-        Me.RB_INACTIVOS.Margin = New System.Windows.Forms.Padding(4)
+        Me.RB_INACTIVOS.Location = New System.Drawing.Point(7, 33)
         Me.RB_INACTIVOS.Name = "RB_INACTIVOS"
-        Me.RB_INACTIVOS.Size = New System.Drawing.Size(84, 21)
+        Me.RB_INACTIVOS.Size = New System.Drawing.Size(68, 17)
         Me.RB_INACTIVOS.TabIndex = 1
         Me.RB_INACTIVOS.TabStop = True
         Me.RB_INACTIVOS.Text = "Inactivos"
@@ -76,10 +73,9 @@ Partial Class Producto
         '
         Me.RB_ACTIVOS.AutoSize = True
         Me.RB_ACTIVOS.Checked = True
-        Me.RB_ACTIVOS.Location = New System.Drawing.Point(9, 16)
-        Me.RB_ACTIVOS.Margin = New System.Windows.Forms.Padding(4)
+        Me.RB_ACTIVOS.Location = New System.Drawing.Point(7, 13)
         Me.RB_ACTIVOS.Name = "RB_ACTIVOS"
-        Me.RB_ACTIVOS.Size = New System.Drawing.Size(74, 21)
+        Me.RB_ACTIVOS.Size = New System.Drawing.Size(60, 17)
         Me.RB_ACTIVOS.TabIndex = 0
         Me.RB_ACTIVOS.TabStop = True
         Me.RB_ACTIVOS.Text = "Activos"
@@ -91,10 +87,9 @@ Partial Class Producto
         Me.BTN_AGREGAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_AGREGAR.Image = Global.VentaRepuestos.My.Resources.Resources.agregar
         Me.BTN_AGREGAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_AGREGAR.Location = New System.Drawing.Point(2, 9)
-        Me.BTN_AGREGAR.Margin = New System.Windows.Forms.Padding(4)
+        Me.BTN_AGREGAR.Location = New System.Drawing.Point(2, 7)
         Me.BTN_AGREGAR.Name = "BTN_AGREGAR"
-        Me.BTN_AGREGAR.Size = New System.Drawing.Size(132, 53)
+        Me.BTN_AGREGAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_AGREGAR.TabIndex = 38
         Me.BTN_AGREGAR.Text = "Agregar"
         Me.BTN_AGREGAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -106,10 +101,9 @@ Partial Class Producto
         Me.BTN_MODIFICAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_MODIFICAR.Image = Global.VentaRepuestos.My.Resources.Resources.controles
         Me.BTN_MODIFICAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_MODIFICAR.Location = New System.Drawing.Point(135, 9)
-        Me.BTN_MODIFICAR.Margin = New System.Windows.Forms.Padding(4)
+        Me.BTN_MODIFICAR.Location = New System.Drawing.Point(101, 7)
         Me.BTN_MODIFICAR.Name = "BTN_MODIFICAR"
-        Me.BTN_MODIFICAR.Size = New System.Drawing.Size(132, 53)
+        Me.BTN_MODIFICAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_MODIFICAR.TabIndex = 37
         Me.BTN_MODIFICAR.Text = "Modificar"
         Me.BTN_MODIFICAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -121,10 +115,9 @@ Partial Class Producto
         Me.BTN_REFRESCAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_REFRESCAR.Image = Global.VentaRepuestos.My.Resources.Resources.refrescar
         Me.BTN_REFRESCAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_REFRESCAR.Location = New System.Drawing.Point(268, 9)
-        Me.BTN_REFRESCAR.Margin = New System.Windows.Forms.Padding(4)
+        Me.BTN_REFRESCAR.Location = New System.Drawing.Point(201, 7)
         Me.BTN_REFRESCAR.Name = "BTN_REFRESCAR"
-        Me.BTN_REFRESCAR.Size = New System.Drawing.Size(132, 53)
+        Me.BTN_REFRESCAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_REFRESCAR.TabIndex = 36
         Me.BTN_REFRESCAR.Text = "Refrescar"
         Me.BTN_REFRESCAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -136,10 +129,9 @@ Partial Class Producto
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(401, 9)
-        Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(4)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(301, 7)
         Me.BTN_SALIR.Name = "BTN_SALIR"
-        Me.BTN_SALIR.Size = New System.Drawing.Size(132, 53)
+        Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 35
         Me.BTN_SALIR.Text = "Salir"
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -153,22 +145,31 @@ Partial Class Producto
         Me.GRID.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.GRID.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
         Me.GRID.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.GRID.Location = New System.Drawing.Point(1, 70)
-        Me.GRID.Margin = New System.Windows.Forms.Padding(4)
+        Me.GRID.Location = New System.Drawing.Point(2, 91)
         Me.GRID.MultiSelect = False
         Me.GRID.Name = "GRID"
         Me.GRID.ReadOnly = True
+        Me.GRID.RowHeadersVisible = False
         Me.GRID.RowHeadersWidth = 51
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRID.Size = New System.Drawing.Size(948, 500)
+        Me.GRID.Size = New System.Drawing.Size(711, 369)
         Me.GRID.TabIndex = 40
+        '
+        'Filtro
+        '
+        Me.Filtro.Location = New System.Drawing.Point(2, 56)
+        Me.Filtro.Name = "Filtro"
+        Me.Filtro.Size = New System.Drawing.Size(306, 29)
+        Me.Filtro.TabIndex = 41
+        Me.Filtro.VALOR = ""
         '
         'Producto
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(953, 567)
+        Me.ClientSize = New System.Drawing.Size(715, 461)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Filtro)
         Me.Controls.Add(Me.GRID)
         Me.Controls.Add(Me.Estado)
         Me.Controls.Add(Me.BTN_AGREGAR)
@@ -176,6 +177,7 @@ Partial Class Producto
         Me.Controls.Add(Me.BTN_REFRESCAR)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "Producto"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Producto"
@@ -195,4 +197,5 @@ Partial Class Producto
     Friend WithEvents BTN_REFRESCAR As Button
     Friend WithEvents BTN_SALIR As Button
     Friend WithEvents GRID As DataGridView
+    Friend WithEvents Filtro As Filtro
 End Class

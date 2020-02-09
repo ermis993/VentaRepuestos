@@ -31,6 +31,7 @@ Partial Class Proveedor
         Me.BTN_MODIFICAR = New System.Windows.Forms.Button()
         Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
+        Me.Filtro = New VentaRepuestos.Filtro()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Estado.SuspendLayout()
         Me.SuspendLayout()
@@ -43,13 +44,14 @@ Partial Class Proveedor
         Me.GRID.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.GRID.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
         Me.GRID.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.GRID.Location = New System.Drawing.Point(3, 60)
+        Me.GRID.Location = New System.Drawing.Point(3, 95)
         Me.GRID.MultiSelect = False
         Me.GRID.Name = "GRID"
         Me.GRID.ReadOnly = True
+        Me.GRID.RowHeadersVisible = False
         Me.GRID.RowHeadersWidth = 51
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRID.Size = New System.Drawing.Size(711, 400)
+        Me.GRID.Size = New System.Drawing.Size(711, 365)
         Me.GRID.TabIndex = 34
         '
         'RB_ACTIVOS
@@ -153,12 +155,21 @@ Partial Class Proveedor
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
         '
+        'Filtro
+        '
+        Me.Filtro.Location = New System.Drawing.Point(3, 60)
+        Me.Filtro.Name = "Filtro"
+        Me.Filtro.Size = New System.Drawing.Size(306, 29)
+        Me.Filtro.TabIndex = 36
+        Me.Filtro.VALOR = ""
+        '
         'Proveedor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(717, 461)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Filtro)
         Me.Controls.Add(Me.Estado)
         Me.Controls.Add(Me.GRID)
         Me.Controls.Add(Me.BTN_AGREGAR)
@@ -183,4 +194,5 @@ Partial Class Proveedor
     Friend WithEvents RB_INACTIVOS As RadioButton
     Friend WithEvents RB_TODOS As RadioButton
     Friend WithEvents Estado As GroupBox
+    Friend WithEvents Filtro As Filtro
 End Class

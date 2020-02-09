@@ -142,7 +142,6 @@ Public Class Facturacion
                 SQL &= Chr(13) & "  ORDER BY ENC.FECHA_INC DESC"
             End If
 
-
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)
             CONX.Coneccion_Cerrar()

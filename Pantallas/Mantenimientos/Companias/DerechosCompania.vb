@@ -51,14 +51,25 @@ Public Class DerechosCompania
 
             LVSin.Clear()
             LVSin.Columns.Add("Usuario", 287)
-
-            Dim Sql = "	SELECT U.COD_USUARIO AS Codigo, U.COD_USUARIO + '-' + U.NOMBRE AS Nombre	"
-            Sql &= Chr(13) & "	FROM USUARIO AS U		"
-            Sql &= Chr(13) & "	LEFT JOIN COMPANIA_USUARIO AS CU "
-            Sql &= Chr(13) & "		ON U.COD_USUARIO = CU.COD_USUARIO	"
-            Sql &= Chr(13) & "		AND CU.COD_CIA = " & SCM(COD_CIA)
-            Sql &= Chr(13) & "	WHERE CU.COD_USUARIO IS NULL	"
-            Sql &= Chr(13) & "  ORDER BY U.NOMBRE ASC"
+            Dim SQL As String = ""
+            If COD_USUARIO = "LUNAING" Then
+                SQL = "	SELECT U.COD_USUARIO AS Codigo, U.COD_USUARIO + '-' + U.NOMBRE AS Nombre	"
+                SQL &= Chr(13) & "	FROM USUARIO AS U		"
+                Sql &= Chr(13) & "	LEFT JOIN COMPANIA_USUARIO AS CU "
+                Sql &= Chr(13) & "		ON U.COD_USUARIO = CU.COD_USUARIO	"
+                Sql &= Chr(13) & "		AND CU.COD_CIA = " & SCM(COD_CIA)
+                Sql &= Chr(13) & "	WHERE CU.COD_USUARIO IS NULL	"
+                SQL &= Chr(13) & "  ORDER BY U.NOMBRE ASC"
+            Else
+                SQL = "	SELECT U.COD_USUARIO AS Codigo, U.COD_USUARIO + '-' + U.NOMBRE AS Nombre	"
+                SQL &= Chr(13) & "	FROM USUARIO AS U		"
+                SQL &= Chr(13) & "	LEFT JOIN COMPANIA_USUARIO AS CU "
+                SQL &= Chr(13) & "		ON U.COD_USUARIO = CU.COD_USUARIO	"
+                SQL &= Chr(13) & "		AND CU.COD_CIA = " & SCM(COD_CIA)
+                SQL &= Chr(13) & "	WHERE CU.COD_USUARIO IS NULL	"
+                SQL &= Chr(13) & "	AND U.COD_USUARIO <> 'LUNAING'	"
+                SQL &= Chr(13) & "  ORDER BY U.NOMBRE ASC"
+            End If
 
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(Sql)
@@ -72,19 +83,29 @@ Public Class DerechosCompania
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-
     Private Sub RellenaUsuarioConDerecho()
         Try
             LVCon.Clear()
             LVCon.Columns.Add("Usuario", 287)
-
-            Dim SQL = "	SELECT U.COD_USUARIO AS Codigo, U.COD_USUARIO + '-' + U.NOMBRE AS Nombre	"
-            SQL &= Chr(13) & "	FROM USUARIO AS U		"
-            SQL &= Chr(13) & "	INNER JOIN COMPANIA_USUARIO AS CU	"
-            SQL &= Chr(13) & "		ON U.COD_USUARIO = CU.COD_USUARIO	"
-            SQL &= Chr(13) & "		AND CU.COD_CIA = " & SCM(COD_CIA)
-            SQL &= Chr(13) & "	WHERE U.COD_USUARIO IS NOT NULL	"
-            SQL &= Chr(13) & "  ORDER BY U.NOMBRE ASC"
+            Dim SQL As String = ""
+            If COD_USUARIO = "LUNAING" Then
+                SQL = "	SELECT U.COD_USUARIO AS Codigo, U.COD_USUARIO + '-' + U.NOMBRE AS Nombre	"
+                SQL &= Chr(13) & "	FROM USUARIO AS U		"
+                SQL &= Chr(13) & "	INNER JOIN COMPANIA_USUARIO AS CU	"
+                SQL &= Chr(13) & "		ON U.COD_USUARIO = CU.COD_USUARIO	"
+                SQL &= Chr(13) & "		AND CU.COD_CIA = " & SCM(COD_CIA)
+                SQL &= Chr(13) & "	WHERE U.COD_USUARIO IS NOT NULL	"
+                SQL &= Chr(13) & "  ORDER BY U.NOMBRE ASC"
+            Else
+                SQL = "	SELECT U.COD_USUARIO AS Codigo, U.COD_USUARIO + '-' + U.NOMBRE AS Nombre	"
+                SQL &= Chr(13) & "	FROM USUARIO AS U		"
+                SQL &= Chr(13) & "	INNER JOIN COMPANIA_USUARIO AS CU	"
+                SQL &= Chr(13) & "		ON U.COD_USUARIO = CU.COD_USUARIO	"
+                SQL &= Chr(13) & "		AND CU.COD_CIA = " & SCM(COD_CIA)
+                SQL &= Chr(13) & "	WHERE U.COD_USUARIO IS NOT NULL	"
+                SQL &= Chr(13) & "	AND U.COD_USUARIO <> 'LUNAING'	"
+                SQL &= Chr(13) & "  ORDER BY U.NOMBRE ASC"
+            End If
 
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)
@@ -93,7 +114,6 @@ Public Class DerechosCompania
             For Each Row In DS.Tables(0).Rows
                 LVCon.Items.Add(Row.Item(1))
             Next
-
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

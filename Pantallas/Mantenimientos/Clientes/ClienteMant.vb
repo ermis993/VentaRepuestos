@@ -11,12 +11,13 @@ Public Class ClienteMant
         Me.CEDULA = CEDULA
         Me.PADRE = PADRE
     End Sub
+
     Private Sub CMB_TIPO_CEDULA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_TIPO_CEDULA.SelectedIndexChanged
         Try
             If CMB_TIPO_CEDULA.SelectedIndex = 0 Then 'Física
-                TXT_CEDULA.Mask = "#-####-####"
+                TXT_CEDULA.Mask = "#########"
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 1 Then 'Jurídica
-                TXT_CEDULA.Mask = "#-###-######"
+                TXT_CEDULA.Mask = "##########"
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 2 Then 'Nite
                 TXT_CEDULA.Mask = "############"
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 3 Then 'Dimex
@@ -27,12 +28,22 @@ Public Class ClienteMant
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Function VALIDAR() As Boolean
         Try
             Dim ENTRAR As Boolean = False
-            If TXT_CEDULA.Text.Contains("#") Then
-                MessageBox.Show("¡Cédula incorrecta, debe ingresar todos los dígitos!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            If CMB_TIPO_CEDULA.SelectedIndex = 0 And TXT_CEDULA.Text.Length < 9 Then  'F
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Física contiene 9 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_CEDULA.Select()
+            ElseIf CMB_TIPO_CEDULA.SelectedIndex = 1 And TXT_CEDULA.Text.Length < 10 Then 'J
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Jurídica contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                TXT_CEDULA.Select()
+            ElseIf CMB_TIPO_CEDULA.SelectedIndex = 2 And TXT_CEDULA.Text.Length < 11 Then 'N
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo NITE contiene mínimo 11 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                TXT_CEDULA.Select()
+            ElseIf CMB_TIPO_CEDULA.SelectedIndex = 3 And TXT_CEDULA.Text.Length < 10 Then 'D
+                TXT_CEDULA.Select()
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo DIMEX contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
             ElseIf MODO = CRF_Modos.Insertar And EXISTE_CEDULA() = True Then
                 MessageBox.Show("¡Ya existe un cliente con la cédula : " & TXT_CEDULA.Text & "!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_CEDULA.Select()
@@ -72,6 +83,7 @@ Public Class ClienteMant
             MessageBox.Show(ex.Message)
         End Try
     End Function
+
     Private Sub EJECUTAR()
         Try
             Dim SQL As String = "EXEC USP_CLIENTE_MANT"
@@ -105,6 +117,7 @@ Public Class ClienteMant
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Sub LIMPIAR_TODO()
         CMB_TIPO_CEDULA.SelectedIndex = 0
         TXT_CEDULA.Text = ""
@@ -118,10 +131,12 @@ Public Class ClienteMant
         CK_TIQUETE.Checked = False
         RB_ACTIVO.Checked = True
     End Sub
+
     Private Sub Cerrar()
         PADRE.REFRESCAR()
         Me.Close()
     End Sub
+
     Private Function EXISTE_CEDULA() As Boolean
         Try
             Dim EXISTE As Boolean = False
@@ -142,6 +157,7 @@ Public Class ClienteMant
             MessageBox.Show(ex.Message)
         End Try
     End Function
+
     Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
         Try
             If MODO = CRF_Modos.Insertar Or MODO = CRF_Modos.Modificar Then
@@ -161,9 +177,11 @@ Public Class ClienteMant
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         CERRAR()
     End Sub
+
     Private Sub ClienteMant_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CARGAR_MONEDA()
         If MODO = CRF_Modos.Insertar Then
@@ -176,6 +194,7 @@ Public Class ClienteMant
             LEER()
         End If
     End Sub
+
     Private Sub CARGAR_MONEDA()
         Try
             CMB_MONEDA.DataSource = Nothing
@@ -191,6 +210,7 @@ Public Class ClienteMant
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Sub LEER()
         Try
             Dim SQL As String = "EXEC USP_CLIENTE_MANT"
@@ -245,13 +265,12 @@ Public Class ClienteMant
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Sub TXT_SALDO_Leave(sender As Object, e As EventArgs) Handles TXT_SALDO.Leave
         TXT_SALDO.Text = FMCP(TXT_SALDO.Text, 2)
     End Sub
+
     Private Sub NUMEROS(sender As Object, e As KeyPressEventArgs) Handles TXT_TELEFONO.KeyPress, TXT_SALDO.KeyPress
-        SOLO_NUMEROS(e)
-    End Sub
-    Private Sub SOLO_NUMEROS(ByVal e As KeyPressEventArgs)
         VALIDAR_SOLO_NUMEROS(e)
     End Sub
 End Class

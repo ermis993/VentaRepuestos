@@ -4,7 +4,7 @@ Imports CRF_CONEXIONES.CONEXIONES
 Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Globales
 Public Class LBL_CANTON
-    Dim COD_CIA As String = ""
+    Dim COD_C As String = ""
     Dim Respuesta As New DialogResult
     Dim RUTA As String = ""
     Dim CERTIFICADO As Byte() = Nothing
@@ -15,20 +15,21 @@ Public Class LBL_CANTON
         InitializeComponent()
         Me.MODO = MODO
         Me.PADRE = PADRE
-        Me.COD_CIA = COD_CIA
+        Me.COD_C = COD_CIA
     End Sub
     Private Sub CMB_TIPO_CEDULA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_TIPO_CEDULA.SelectedIndexChanged
         Try
             If CMB_TIPO_CEDULA.SelectedIndex = 0 Then 'Física
-                TXT_CEDULA.Mask = "#-####-####"
+                TXT_CEDULA.Mask = "#########" '9     
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 1 Then 'Jurídica
-                TXT_CEDULA.Mask = "#-###-######"
+                TXT_CEDULA.Mask = "##########" '10
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 2 Then 'Nite
-                TXT_CEDULA.Mask = "############"
+                TXT_CEDULA.Mask = "############" '12
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 3 Then 'Dimex
-                TXT_CEDULA.Mask = "##########"
+                TXT_CEDULA.Mask = "##########" '10
             End If
             TXT_CEDULA.PromptChar = "#"
+
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -39,11 +40,12 @@ Public Class LBL_CANTON
             CMB_TIPO_CEDULA.SelectedIndex = 0
             GENERAR_COD_CIA()
             CHK_FE.Visible = True
+            GB_ACTIVIDADES.Enabled = False
         ElseIf MODO = CRF_Modos.Modificar Then
-            TXT_CODIGO.Text = COD_CIA
+            TXT_CODIGO.Text = COD_C
             LEER()
+            REFRESCAR_ACTIVIDADES()
         End If
-        REFRESCAR_ACTIVIDADES()
     End Sub
     Private Sub CARGAR_PROVINCIAS()
         Try
@@ -71,8 +73,8 @@ Public Class LBL_CANTON
     End Sub
     Private Sub CMB_PROVINCIA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_PROVINCIA.SelectedIndexChanged
         Try
-            CMB_CANTON.DataSource = Nothing
             CMB_DISTRITO.DataSource = Nothing
+            CMB_CANTON.DataSource = Nothing
             If CMB_PROVINCIA.SelectedIndex <> 0 Then
                 Dim LISTA_REF As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
 
@@ -106,25 +108,27 @@ Public Class LBL_CANTON
             If CMB_CANTON.SelectedIndex <> 0 Then
                 Dim LISTA_REF As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
 
-                Dim SQL As String = "SELECT CODIGO_DISTRITO AS CODIGO,NOMBRE"
-                SQL &= Chr(13) & " FROM DISTRITO"
-                SQL &= Chr(13) & " WHERE CODIGO_CANTON = " & CMB_CANTON.SelectedValue
+                If IsNothing(CMB_CANTON.SelectedValue) = False Then
+                    Dim SQL As String = "SELECT CODIGO_DISTRITO AS CODIGO,NOMBRE"
+                    SQL &= Chr(13) & " FROM DISTRITO"
+                    SQL &= Chr(13) & " WHERE CODIGO_CANTON = " & CMB_CANTON.SelectedValue
 
-                CONX.Coneccion_Abrir()
-                Dim DS = CONX.EJECUTE_DS(SQL)
-                CONX.Coneccion_Cerrar()
+                    CONX.Coneccion_Abrir()
+                    Dim DS = CONX.EJECUTE_DS(SQL)
+                    CONX.Coneccion_Cerrar()
 
-                If DS.Tables(0).Rows.Count > 0 Then
-                    LISTA_REF.Add(New KeyValuePair(Of String, String)("", ""))
-                    For Each DISTRITO In DS.Tables(0).Rows
-                        LISTA_REF.Add(New KeyValuePair(Of String, String)(DISTRITO("CODIGO").ToString, DISTRITO("NOMBRE")))
-                    Next
+                    If DS.Tables(0).Rows.Count > 0 Then
+                        LISTA_REF.Add(New KeyValuePair(Of String, String)("", ""))
+                        For Each DISTRITO In DS.Tables(0).Rows
+                            LISTA_REF.Add(New KeyValuePair(Of String, String)(DISTRITO("CODIGO").ToString, DISTRITO("NOMBRE")))
+                        Next
+                    End If
+
+                    CMB_DISTRITO.DataSource = LISTA_REF
+                    CMB_DISTRITO.ValueMember = "Key"
+                    CMB_DISTRITO.DisplayMember = "Value"
+                    CMB_DISTRITO.SelectedIndex = 0
                 End If
-
-                CMB_DISTRITO.DataSource = LISTA_REF
-                CMB_DISTRITO.ValueMember = "Key"
-                CMB_DISTRITO.DisplayMember = "Value"
-                CMB_DISTRITO.SelectedIndex = 0
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -240,12 +244,6 @@ Public Class LBL_CANTON
                 Dim AR = COMANDO.ExecuteReader()
                 AR.Close()
                 CONX.Coneccion_Cerrar()
-
-                Dim SQL = "	UPDATE COMPANIA SET SUBJECT_CERT = NULL ,HUELLA = NULL"
-                SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(TXT_CODIGO.Text)
-                CONX.Coneccion_Abrir()
-                CONX.EJECUTE(SQL)
-                CONX.Coneccion_Cerrar()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -268,23 +266,39 @@ Public Class LBL_CANTON
     Private Function VALIDAR() As Boolean
         Try
             Dim ENTRAR As Boolean = False
+
             If TXT_NOMBRE.Text.ToString.Equals("") Then
                 MessageBox.Show("¡Nombre de compañía incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_NOMBRE.Select()
-            ElseIf TXT_CEDULA.Text.Contains("#") Then
-                MessageBox.Show("¡Cédula incorrecta!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ElseIf CMB_TIPO_CEDULA.SelectedIndex = 0 And TXT_CEDULA.Text.Length < 9 Then  'F
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Física contiene 9 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_CEDULA.Select()
+            ElseIf CMB_TIPO_CEDULA.SelectedIndex = 1 And TXT_CEDULA.Text.Length < 10 Then 'J
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Jurídica contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                TXT_CEDULA.Select()
+            ElseIf CMB_TIPO_CEDULA.SelectedIndex = 2 And TXT_CEDULA.Text.Length < 11 Then 'N
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo NITE contiene mínimo 11 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                TXT_CEDULA.Select()
+            ElseIf CMB_TIPO_CEDULA.SelectedIndex = 3 And TXT_CEDULA.Text.Length < 10 Then 'D
+                TXT_CEDULA.Select()
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo DIMEX contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
             ElseIf MODO = CRF_Modos.Insertar And EXISTE_CEDULA() = True Then
                 MessageBox.Show("¡Ya existe una compañía con la cédula: " & TXT_CEDULA.Text & "!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
             ElseIf TXT_EMAIL.Text.ToString.Equals("") Then
                 MessageBox.Show("¡Correo electrónico incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_EMAIL.Select()
+            ElseIf CMB_PROVINCIA.Text.Equals("") Then
+                MessageBox.Show("¡Provincia incorrecta!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                CMB_PROVINCIA.Select()
+                CMB_PROVINCIA.DroppedDown = True
             ElseIf CMB_CANTON.Text.Equals("") Then
                 MessageBox.Show("¡Cantón incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 CMB_CANTON.Select()
+                CMB_CANTON.DroppedDown = True
             ElseIf CMB_DISTRITO.Text.Equals("") Then
                 MessageBox.Show("¡Distrito incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 CMB_DISTRITO.Select()
+                CMB_DISTRITO.DroppedDown = True
             ElseIf IsNothing(CERTIFICADO) = False And TXT_PIN.Text.Equals("") Then
                 MessageBox.Show("¡Debe ingresar un PIN válido para el certificado importado!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Else
@@ -421,6 +435,7 @@ Public Class LBL_CANTON
             GRID_ACTIVIDADES.DataSource = Nothing
             Dim SQL = "	SELECT COD_ACT as Código,DES_ACT as Descripción,PRINCIPAL as Principal,FECHA_INC as 'Fecha creación'"
             SQL &= Chr(13) & "	FROM ACTIVIDAD_ECONOMICA"
+            SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(TXT_CODIGO.Text)
 
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)

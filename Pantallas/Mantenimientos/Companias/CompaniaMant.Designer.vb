@@ -46,7 +46,7 @@ Partial Class LBL_CANTON
         Me.TXT_EMAIL = New System.Windows.Forms.TextBox()
         Me.LBL_EMAIL = New System.Windows.Forms.Label()
         Me.TAB_FE = New System.Windows.Forms.TabPage()
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.GB_ACTIVIDADES = New System.Windows.Forms.GroupBox()
         Me.BTN_MODIFICAR = New System.Windows.Forms.Button()
         Me.BTN_ELIMINAR = New System.Windows.Forms.Button()
         Me.BTN_AGREGAR = New System.Windows.Forms.Button()
@@ -67,7 +67,7 @@ Partial Class LBL_CANTON
         Me.TAB_INFO.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.TAB_FE.SuspendLayout()
-        Me.GroupBox4.SuspendLayout()
+        Me.GB_ACTIVIDADES.SuspendLayout()
         CType(Me.GRID_ACTIVIDADES, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -327,7 +327,7 @@ Partial Class LBL_CANTON
         '
         'TAB_FE
         '
-        Me.TAB_FE.Controls.Add(Me.GroupBox4)
+        Me.TAB_FE.Controls.Add(Me.GB_ACTIVIDADES)
         Me.TAB_FE.Controls.Add(Me.GroupBox3)
         Me.TAB_FE.Controls.Add(Me.GroupBox2)
         Me.TAB_FE.Location = New System.Drawing.Point(4, 22)
@@ -338,18 +338,18 @@ Partial Class LBL_CANTON
         Me.TAB_FE.Text = "Facturación Electrónica"
         Me.TAB_FE.UseVisualStyleBackColor = True
         '
-        'GroupBox4
+        'GB_ACTIVIDADES
         '
-        Me.GroupBox4.Controls.Add(Me.BTN_MODIFICAR)
-        Me.GroupBox4.Controls.Add(Me.BTN_ELIMINAR)
-        Me.GroupBox4.Controls.Add(Me.BTN_AGREGAR)
-        Me.GroupBox4.Controls.Add(Me.GRID_ACTIVIDADES)
-        Me.GroupBox4.Location = New System.Drawing.Point(6, 159)
-        Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(544, 202)
-        Me.GroupBox4.TabIndex = 6
-        Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Activiades económicas"
+        Me.GB_ACTIVIDADES.Controls.Add(Me.BTN_MODIFICAR)
+        Me.GB_ACTIVIDADES.Controls.Add(Me.BTN_ELIMINAR)
+        Me.GB_ACTIVIDADES.Controls.Add(Me.BTN_AGREGAR)
+        Me.GB_ACTIVIDADES.Controls.Add(Me.GRID_ACTIVIDADES)
+        Me.GB_ACTIVIDADES.Location = New System.Drawing.Point(6, 159)
+        Me.GB_ACTIVIDADES.Name = "GB_ACTIVIDADES"
+        Me.GB_ACTIVIDADES.Size = New System.Drawing.Size(544, 202)
+        Me.GB_ACTIVIDADES.TabIndex = 6
+        Me.GB_ACTIVIDADES.TabStop = False
+        Me.GB_ACTIVIDADES.Text = "Activiades económicas"
         '
         'BTN_MODIFICAR
         '
@@ -563,7 +563,7 @@ Partial Class LBL_CANTON
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.TAB_FE.ResumeLayout(False)
-        Me.GroupBox4.ResumeLayout(False)
+        Me.GB_ACTIVIDADES.ResumeLayout(False)
         CType(Me.GRID_ACTIVIDADES, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
@@ -608,7 +608,7 @@ Partial Class LBL_CANTON
     Friend WithEvents BTN_ACEPTAR As Button
     Friend WithEvents BTN_SALIR As Button
     Friend WithEvents BTN_SELECCIONAR As Button
-    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents GB_ACTIVIDADES As GroupBox
     Friend WithEvents GRID_ACTIVIDADES As DataGridView
     Friend WithEvents BTN_AGREGAR As Button
     Friend WithEvents BTN_ELIMINAR As Button

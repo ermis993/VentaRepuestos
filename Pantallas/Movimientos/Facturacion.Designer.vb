@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Facturacion
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,10 +20,8 @@ Partial Class Facturacion
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.BTN_FACTURAR = New System.Windows.Forms.Button()
-        Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.CMB_TIPO_FACT = New System.Windows.Forms.ComboBox()
         Me.GRID = New System.Windows.Forms.DataGridView()
@@ -36,40 +34,16 @@ Partial Class Facturacion
         Me.DTPINICIO = New System.Windows.Forms.DateTimePicker()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
         Me.Filtro = New VentaRepuestos.Filtro()
+        Me.BTN_RECIBO = New System.Windows.Forms.Button()
+        Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
+        Me.BTN_SALIR = New System.Windows.Forms.Button()
+        Me.BTN_FACTURAR = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Estado.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'BTN_FACTURAR
-        '
-        Me.BTN_FACTURAR.Image = Global.VentaRepuestos.My.Resources.Resources.facturar
-        Me.BTN_FACTURAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_FACTURAR.Location = New System.Drawing.Point(2, 10)
-        Me.BTN_FACTURAR.Margin = New System.Windows.Forms.Padding(2)
-        Me.BTN_FACTURAR.Name = "BTN_FACTURAR"
-        Me.BTN_FACTURAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_FACTURAR.TabIndex = 0
-        Me.BTN_FACTURAR.Text = "Factura"
-        Me.BTN_FACTURAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_FACTURAR.UseVisualStyleBackColor = True
-        '
-        'BTN_SALIR
-        '
-        Me.BTN_SALIR.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
-        Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(760, 472)
-        Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(2)
-        Me.BTN_SALIR.Name = "BTN_SALIR"
-        Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_SALIR.TabIndex = 4
-        Me.BTN_SALIR.Text = "Salir"
-        Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_SALIR.UseVisualStyleBackColor = True
         '
         'GroupBox1
         '
@@ -202,20 +176,6 @@ Partial Class Facturacion
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Del :"
         '
-        'BTN_REFRESCAR
-        '
-        Me.BTN_REFRESCAR.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_REFRESCAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_REFRESCAR.Image = Global.VentaRepuestos.My.Resources.Resources.refrescar
-        Me.BTN_REFRESCAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_REFRESCAR.Location = New System.Drawing.Point(453, 12)
-        Me.BTN_REFRESCAR.Name = "BTN_REFRESCAR"
-        Me.BTN_REFRESCAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_REFRESCAR.TabIndex = 37
-        Me.BTN_REFRESCAR.Text = "Refrescar"
-        Me.BTN_REFRESCAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_REFRESCAR.UseVisualStyleBackColor = False
-        '
         'Filtro
         '
         Me.Filtro.Location = New System.Drawing.Point(2, 58)
@@ -224,6 +184,60 @@ Partial Class Facturacion
         Me.Filtro.TabIndex = 38
         Me.Filtro.VALOR = ""
         '
+        'BTN_RECIBO
+        '
+        Me.BTN_RECIBO.Image = Global.VentaRepuestos.My.Resources.Resources.pago
+        Me.BTN_RECIBO.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_RECIBO.Location = New System.Drawing.Point(105, 7)
+        Me.BTN_RECIBO.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_RECIBO.Name = "BTN_RECIBO"
+        Me.BTN_RECIBO.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_RECIBO.TabIndex = 39
+        Me.BTN_RECIBO.Text = "Recibos/" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "NC"
+        Me.BTN_RECIBO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_RECIBO.UseVisualStyleBackColor = True
+        '
+        'BTN_REFRESCAR
+        '
+        Me.BTN_REFRESCAR.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_REFRESCAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_REFRESCAR.Image = Global.VentaRepuestos.My.Resources.Resources.refrescar
+        Me.BTN_REFRESCAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_REFRESCAR.Location = New System.Drawing.Point(453, 7)
+        Me.BTN_REFRESCAR.Name = "BTN_REFRESCAR"
+        Me.BTN_REFRESCAR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_REFRESCAR.TabIndex = 37
+        Me.BTN_REFRESCAR.Text = "Refrescar"
+        Me.BTN_REFRESCAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_REFRESCAR.UseVisualStyleBackColor = False
+        '
+        'BTN_SALIR
+        '
+        Me.BTN_SALIR.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
+        Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_SALIR.Location = New System.Drawing.Point(760, 472)
+        Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_SALIR.Name = "BTN_SALIR"
+        Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_SALIR.TabIndex = 4
+        Me.BTN_SALIR.Text = "Salir"
+        Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_SALIR.UseVisualStyleBackColor = True
+        '
+        'BTN_FACTURAR
+        '
+        Me.BTN_FACTURAR.Image = Global.VentaRepuestos.My.Resources.Resources.facturar
+        Me.BTN_FACTURAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_FACTURAR.Location = New System.Drawing.Point(2, 7)
+        Me.BTN_FACTURAR.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_FACTURAR.Name = "BTN_FACTURAR"
+        Me.BTN_FACTURAR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_FACTURAR.TabIndex = 0
+        Me.BTN_FACTURAR.Text = "Facturas/" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "ND"
+        Me.BTN_FACTURAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_FACTURAR.UseVisualStyleBackColor = True
+        '
         'Facturacion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -231,6 +245,7 @@ Partial Class Facturacion
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(862, 518)
         Me.ControlBox = False
+        Me.Controls.Add(Me.BTN_RECIBO)
         Me.Controls.Add(Me.Filtro)
         Me.Controls.Add(Me.BTN_REFRESCAR)
         Me.Controls.Add(Me.GroupBox2)
@@ -270,4 +285,5 @@ Partial Class Facturacion
     Friend WithEvents DTPFINAL As DateTimePicker
     Friend WithEvents BTN_REFRESCAR As Button
     Friend WithEvents Filtro As Filtro
+    Friend WithEvents BTN_RECIBO As Button
 End Class

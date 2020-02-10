@@ -121,7 +121,7 @@ Partial Class MenuPrincipal
         '
         Me.BTN_PROVEEDOR.Image = Global.VentaRepuestos.My.Resources.Resources.proveedor1
         Me.BTN_PROVEEDOR.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_PROVEEDOR.Location = New System.Drawing.Point(406, 2)
+        Me.BTN_PROVEEDOR.Location = New System.Drawing.Point(336, 2)
         Me.BTN_PROVEEDOR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_PROVEEDOR.Name = "BTN_PROVEEDOR"
         Me.BTN_PROVEEDOR.Size = New System.Drawing.Size(64, 55)
@@ -134,7 +134,7 @@ Partial Class MenuPrincipal
         '
         Me.BTN_PRODUCTO.Image = Global.VentaRepuestos.My.Resources.Resources.productos
         Me.BTN_PRODUCTO.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_PRODUCTO.Location = New System.Drawing.Point(338, 2)
+        Me.BTN_PRODUCTO.Location = New System.Drawing.Point(269, 2)
         Me.BTN_PRODUCTO.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_PRODUCTO.Name = "BTN_PRODUCTO"
         Me.BTN_PRODUCTO.Size = New System.Drawing.Size(64, 55)
@@ -147,7 +147,7 @@ Partial Class MenuPrincipal
         '
         Me.BTN_FE.Image = Global.VentaRepuestos.My.Resources.Resources.factura
         Me.BTN_FE.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_FE.Location = New System.Drawing.Point(271, 2)
+        Me.BTN_FE.Location = New System.Drawing.Point(403, 2)
         Me.BTN_FE.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_FE.Name = "BTN_FE"
         Me.BTN_FE.Size = New System.Drawing.Size(64, 55)
@@ -160,7 +160,7 @@ Partial Class MenuPrincipal
         '
         Me.BTN_CLIENTE.Image = Global.VentaRepuestos.My.Resources.Resources.client
         Me.BTN_CLIENTE.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_CLIENTE.Location = New System.Drawing.Point(203, 2)
+        Me.BTN_CLIENTE.Location = New System.Drawing.Point(202, 2)
         Me.BTN_CLIENTE.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_CLIENTE.Name = "BTN_CLIENTE"
         Me.BTN_CLIENTE.Size = New System.Drawing.Size(64, 55)
@@ -187,7 +187,7 @@ Partial Class MenuPrincipal
         '
         Me.BTN_USUARIO.Image = Global.VentaRepuestos.My.Resources.Resources.usuario
         Me.BTN_USUARIO.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_USUARIO.Location = New System.Drawing.Point(136, 2)
+        Me.BTN_USUARIO.Location = New System.Drawing.Point(135, 2)
         Me.BTN_USUARIO.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_USUARIO.Name = "BTN_USUARIO"
         Me.BTN_USUARIO.Size = New System.Drawing.Size(64, 55)

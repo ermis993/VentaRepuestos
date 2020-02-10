@@ -437,6 +437,7 @@
     <None Include="Resources\borrar_button.png" />
     <None Include="Resources\filtro.png" />
     <None Include="Resources\filtrar.png" />
+    <None Include="Resources\pago.png" />
     <Content Include="Resources\quitar.png" />
     <None Include="Resources\Right.png" />
     <Content Include="Resources\salir.png" />

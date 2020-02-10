@@ -30,7 +30,7 @@ Public Class Filtro
                 COLUMN.Name
                 COLUMN.HeaderText
 
-                If COLUMN.HeaderText.ToString.ToUpper.Contains("FECHA") Or COLUMN.NameToString.ToUpper.Contains("FECHA") Then
+                If COLUMN.HeaderText.ToString.ToUpper.Contains("FECHA") Or COLUMN.Name.ToString.ToUpper.Contains("FECHA") Then
                 Else
                     LISTA_REF.Add(New KeyValuePair(Of String, String)(COLUMN.Name, COLUMN.HeaderText))
                 End If

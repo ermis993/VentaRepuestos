@@ -25,7 +25,7 @@ Partial Class Factura
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Factura))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TAB_ENC = New System.Windows.Forms.TabPage()
-        Me.Cliente = New Buscador()
+        Me.Cliente = New VentaRepuestos.Buscador()
         Me.TXT_DESCRIPCION = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -76,6 +76,14 @@ Partial Class Factura
         Me.BTN_FACTURAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.TXT_S = New System.Windows.Forms.TextBox()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.TXT_D = New System.Windows.Forms.TextBox()
+        Me.TXT_T = New System.Windows.Forms.TextBox()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.TXT_I = New System.Windows.Forms.TextBox()
+        Me.Label25 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TAB_ENC.SuspendLayout()
         Me.TAB_DET.SuspendLayout()
@@ -698,7 +706,7 @@ Partial Class Factura
         Me.BTN_FACTURAR.Location = New System.Drawing.Point(559, 324)
         Me.BTN_FACTURAR.Name = "BTN_FACTURAR"
         Me.BTN_FACTURAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_FACTURAR.TabIndex = 4
+        Me.BTN_FACTURAR.TabIndex = 10
         Me.BTN_FACTURAR.Text = "Facturar"
         Me.BTN_FACTURAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_FACTURAR.UseVisualStyleBackColor = False
@@ -712,7 +720,7 @@ Partial Class Factura
         Me.BTN_SALIR.Location = New System.Drawing.Point(757, 324)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_SALIR.TabIndex = 3
+        Me.BTN_SALIR.TabIndex = 12
         Me.BTN_SALIR.Text = "Salir"
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
@@ -726,10 +734,90 @@ Partial Class Factura
         Me.BTN_ACEPTAR.Location = New System.Drawing.Point(658, 324)
         Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
         Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_ACEPTAR.TabIndex = 2
+        Me.BTN_ACEPTAR.TabIndex = 11
         Me.BTN_ACEPTAR.Text = "Aceptar"
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label22.Location = New System.Drawing.Point(28, 321)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(70, 18)
+        Me.Label22.TabIndex = 2
+        Me.Label22.Text = "Subtotal :"
+        '
+        'TXT_S
+        '
+        Me.TXT_S.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_S.Location = New System.Drawing.Point(101, 318)
+        Me.TXT_S.Name = "TXT_S"
+        Me.TXT_S.ReadOnly = True
+        Me.TXT_S.Size = New System.Drawing.Size(160, 24)
+        Me.TXT_S.TabIndex = 3
+        Me.TXT_S.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label23.Location = New System.Drawing.Point(10, 346)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(88, 18)
+        Me.Label23.TabIndex = 4
+        Me.Label23.Text = "Descuento :"
+        '
+        'TXT_D
+        '
+        Me.TXT_D.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_D.Location = New System.Drawing.Point(101, 343)
+        Me.TXT_D.Name = "TXT_D"
+        Me.TXT_D.ReadOnly = True
+        Me.TXT_D.Size = New System.Drawing.Size(160, 24)
+        Me.TXT_D.TabIndex = 5
+        Me.TXT_D.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'TXT_T
+        '
+        Me.TXT_T.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_T.Location = New System.Drawing.Point(382, 343)
+        Me.TXT_T.Name = "TXT_T"
+        Me.TXT_T.ReadOnly = True
+        Me.TXT_T.Size = New System.Drawing.Size(160, 24)
+        Me.TXT_T.TabIndex = 9
+        Me.TXT_T.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label24.Location = New System.Drawing.Point(327, 346)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(49, 18)
+        Me.Label24.TabIndex = 8
+        Me.Label24.Text = "Total :"
+        '
+        'TXT_I
+        '
+        Me.TXT_I.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_I.Location = New System.Drawing.Point(382, 318)
+        Me.TXT_I.Name = "TXT_I"
+        Me.TXT_I.ReadOnly = True
+        Me.TXT_I.Size = New System.Drawing.Size(160, 24)
+        Me.TXT_I.TabIndex = 7
+        Me.TXT_I.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label25.Location = New System.Drawing.Point(299, 321)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(77, 18)
+        Me.Label25.TabIndex = 6
+        Me.Label25.Text = "Impuesto :"
         '
         'Factura
         '
@@ -738,6 +826,14 @@ Partial Class Factura
         Me.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.ClientSize = New System.Drawing.Size(858, 368)
         Me.ControlBox = False
+        Me.Controls.Add(Me.TXT_T)
+        Me.Controls.Add(Me.Label24)
+        Me.Controls.Add(Me.TXT_I)
+        Me.Controls.Add(Me.Label25)
+        Me.Controls.Add(Me.TXT_D)
+        Me.Controls.Add(Me.Label23)
+        Me.Controls.Add(Me.TXT_S)
+        Me.Controls.Add(Me.Label22)
         Me.Controls.Add(Me.BTN_FACTURAR)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.BTN_ACEPTAR)
@@ -760,6 +856,7 @@ Partial Class Factura
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -816,4 +913,12 @@ Partial Class Factura
     Friend WithEvents LVResultados As ListView
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents BTN_FACTURAR As Button
+    Friend WithEvents Label22 As Label
+    Friend WithEvents TXT_S As TextBox
+    Friend WithEvents Label23 As Label
+    Friend WithEvents TXT_D As TextBox
+    Friend WithEvents TXT_T As TextBox
+    Friend WithEvents Label24 As Label
+    Friend WithEvents TXT_I As TextBox
+    Friend WithEvents Label25 As Label
 End Class

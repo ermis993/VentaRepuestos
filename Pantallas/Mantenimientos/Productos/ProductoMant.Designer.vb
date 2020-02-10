@@ -29,6 +29,7 @@ Partial Class ProductoMant
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.RB_INACTIVO = New System.Windows.Forms.RadioButton()
         Me.RB_ACTIVO = New System.Windows.Forms.RadioButton()
+        Me.Buscador = New VentaRepuestos.Buscador()
         Me.TXT_FILA = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.TXT_ESTANTE = New System.Windows.Forms.TextBox()
@@ -57,7 +58,6 @@ Partial Class ProductoMant
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
-        Me.Buscador = New VentaRepuestos.Buscador()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.SuspendLayout()
@@ -98,9 +98,9 @@ Partial Class ProductoMant
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!)
         Me.GroupBox1.Location = New System.Drawing.Point(3, 2)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Size = New System.Drawing.Size(572, 358)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
@@ -110,7 +110,7 @@ Partial Class ProductoMant
         '
         Me.TXT_MINIMO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.TXT_MINIMO.Location = New System.Drawing.Point(117, 327)
-        Me.TXT_MINIMO.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_MINIMO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_MINIMO.MaxLength = 18
         Me.TXT_MINIMO.Name = "TXT_MINIMO"
         Me.TXT_MINIMO.Size = New System.Drawing.Size(153, 24)
@@ -162,11 +162,26 @@ Partial Class ProductoMant
         Me.RB_ACTIVO.Text = "Activo"
         Me.RB_ACTIVO.UseVisualStyleBackColor = True
         '
+        'Buscador
+        '
+        Me.Buscador.CODIGO = Nothing
+        Me.Buscador.DESCRIPCION = Nothing
+        Me.Buscador.Location = New System.Drawing.Point(117, 93)
+        Me.Buscador.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Buscador.Name = "Buscador"
+        Me.Buscador.OTROS_CAMP0S = Nothing
+        Me.Buscador.PANTALLA = Nothing
+        Me.Buscador.Size = New System.Drawing.Size(442, 26)
+        Me.Buscador.TabIndex = 5
+        Me.Buscador.TABLA_BUSCAR = Nothing
+        Me.Buscador.VALOR = ""
+        Me.Buscador.VALOR_DESCRIPCION = Nothing
+        '
         'TXT_FILA
         '
         Me.TXT_FILA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.TXT_FILA.Location = New System.Drawing.Point(280, 288)
-        Me.TXT_FILA.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_FILA.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_FILA.MaxLength = 3
         Me.TXT_FILA.Name = "TXT_FILA"
         Me.TXT_FILA.Size = New System.Drawing.Size(76, 24)
@@ -187,7 +202,7 @@ Partial Class ProductoMant
         '
         Me.TXT_ESTANTE.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.TXT_ESTANTE.Location = New System.Drawing.Point(117, 290)
-        Me.TXT_ESTANTE.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_ESTANTE.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_ESTANTE.MaxLength = 3
         Me.TXT_ESTANTE.Name = "TXT_ESTANTE"
         Me.TXT_ESTANTE.Size = New System.Drawing.Size(76, 24)
@@ -208,7 +223,7 @@ Partial Class ProductoMant
         '
         Me.TXT_COLUMNA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.TXT_COLUMNA.Location = New System.Drawing.Point(476, 288)
-        Me.TXT_COLUMNA.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_COLUMNA.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_COLUMNA.MaxLength = 3
         Me.TXT_COLUMNA.Name = "TXT_COLUMNA"
         Me.TXT_COLUMNA.Size = New System.Drawing.Size(76, 24)
@@ -229,7 +244,7 @@ Partial Class ProductoMant
         '
         Me.TXT_PRECIO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.TXT_PRECIO.Location = New System.Drawing.Point(117, 258)
-        Me.TXT_PRECIO.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_PRECIO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_PRECIO.MaxLength = 18
         Me.TXT_PRECIO.Name = "TXT_PRECIO"
         Me.TXT_PRECIO.Size = New System.Drawing.Size(152, 24)
@@ -240,7 +255,7 @@ Partial Class ProductoMant
         '
         Me.TXT_COSTO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.TXT_COSTO.Location = New System.Drawing.Point(117, 228)
-        Me.TXT_COSTO.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_COSTO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_COSTO.MaxLength = 18
         Me.TXT_COSTO.Name = "TXT_COSTO"
         Me.TXT_COSTO.Size = New System.Drawing.Size(152, 24)
@@ -284,7 +299,7 @@ Partial Class ProductoMant
         '
         Me.TXT_EXENTO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.TXT_EXENTO.Location = New System.Drawing.Point(510, 160)
-        Me.TXT_EXENTO.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_EXENTO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_EXENTO.Name = "TXT_EXENTO"
         Me.TXT_EXENTO.ReadOnly = True
         Me.TXT_EXENTO.Size = New System.Drawing.Size(42, 24)
@@ -306,7 +321,7 @@ Partial Class ProductoMant
         '
         Me.TXT_IMPUESTO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.TXT_IMPUESTO.Location = New System.Drawing.Point(344, 160)
-        Me.TXT_IMPUESTO.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_IMPUESTO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_IMPUESTO.Name = "TXT_IMPUESTO"
         Me.TXT_IMPUESTO.ReadOnly = True
         Me.TXT_IMPUESTO.Size = New System.Drawing.Size(76, 24)
@@ -330,7 +345,7 @@ Partial Class ProductoMant
         Me.CMB_IMPUESTO_DGTD.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Me.CMB_IMPUESTO_DGTD.FormattingEnabled = True
         Me.CMB_IMPUESTO_DGTD.Location = New System.Drawing.Point(117, 195)
-        Me.CMB_IMPUESTO_DGTD.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.CMB_IMPUESTO_DGTD.Margin = New System.Windows.Forms.Padding(2)
         Me.CMB_IMPUESTO_DGTD.Name = "CMB_IMPUESTO_DGTD"
         Me.CMB_IMPUESTO_DGTD.Size = New System.Drawing.Size(326, 23)
         Me.CMB_IMPUESTO_DGTD.TabIndex = 11
@@ -352,7 +367,7 @@ Partial Class ProductoMant
         Me.CMB_UNIDADES.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Me.CMB_UNIDADES.FormattingEnabled = True
         Me.CMB_UNIDADES.Location = New System.Drawing.Point(117, 163)
-        Me.CMB_UNIDADES.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.CMB_UNIDADES.Margin = New System.Windows.Forms.Padding(2)
         Me.CMB_UNIDADES.Name = "CMB_UNIDADES"
         Me.CMB_UNIDADES.Size = New System.Drawing.Size(153, 23)
         Me.CMB_UNIDADES.TabIndex = 9
@@ -383,7 +398,7 @@ Partial Class ProductoMant
         '
         Me.TXT_DESC.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.TXT_DESC.Location = New System.Drawing.Point(117, 128)
-        Me.TXT_DESC.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_DESC.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_DESC.MaxLength = 150
         Me.TXT_DESC.Name = "TXT_DESC"
         Me.TXT_DESC.Size = New System.Drawing.Size(434, 24)
@@ -404,7 +419,7 @@ Partial Class ProductoMant
         '
         Me.TXT_COD_BARRA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.TXT_COD_BARRA.Location = New System.Drawing.Point(117, 59)
-        Me.TXT_COD_BARRA.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_COD_BARRA.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_COD_BARRA.MaxLength = 25
         Me.TXT_COD_BARRA.Name = "TXT_COD_BARRA"
         Me.TXT_COD_BARRA.Size = New System.Drawing.Size(434, 24)
@@ -425,7 +440,7 @@ Partial Class ProductoMant
         '
         Me.TXT_CODIGO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.TXT_CODIGO.Location = New System.Drawing.Point(117, 25)
-        Me.TXT_CODIGO.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_CODIGO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_CODIGO.MaxLength = 20
         Me.TXT_CODIGO.Name = "TXT_CODIGO"
         Me.TXT_CODIGO.Size = New System.Drawing.Size(152, 24)
@@ -470,21 +485,6 @@ Partial Class ProductoMant
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
         '
-        'Buscador
-        '
-        Me.Buscador.CODIGO = Nothing
-        Me.Buscador.DESCRIPCION = Nothing
-        Me.Buscador.Location = New System.Drawing.Point(114, 93)
-        Me.Buscador.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Buscador.Name = "Buscador"
-        Me.Buscador.OTROS_CAMP0S = Nothing
-        Me.Buscador.PANTALLA = Nothing
-        Me.Buscador.Size = New System.Drawing.Size(442, 26)
-        Me.Buscador.TabIndex = 5
-        Me.Buscador.TABLA_BUSCAR = Nothing
-        Me.Buscador.VALOR = ""
-        Me.Buscador.VALOR_DESCRIPCION = Nothing
-        '
         'ProductoMant
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -496,7 +496,7 @@ Partial Class ProductoMant
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "ProductoMant"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Producto"

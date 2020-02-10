@@ -7,6 +7,7 @@ Public Class Factura
     Dim Codigo As String
     Dim Padre As Facturacion
     Dim Numero_Doc As Integer
+    Dim Tipo_Mov As String
 
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         EliminaTodoTemporal()
@@ -30,11 +31,12 @@ Public Class Factura
         End Try
     End Sub
 
-    Sub New(ByVal Modo As CRF_Modos, ByVal Padre As Facturacion, Optional ByVal NUMERO_DOC As Integer = 0, Optional ByVal CODIGO As String = "")
+    Sub New(ByVal Modo As CRF_Modos, ByVal Padre As Facturacion, Optional ByVal NUMERO_DOC As Integer = 0, Optional ByVal CODIGO As String = "", Optional ByVal TIPO_MOV As String = "")
 
         InitializeComponent()
         Me.Modo = Modo
         Me.Padre = Padre
+        Me.Tipo_Mov = TIPO_MOV
 
         Cliente.TABLA_BUSCAR = "CLIENTE"
         Cliente.CODIGO = "CEDULA"
@@ -76,8 +78,9 @@ Public Class Factura
                 Sql = "	SELECT CEDULA, TIPO_MOV, FECHA, COD_MONEDA, TIPO_CAMBIO, PLAZO, FORMA_PAGO, ISNULL(DESCRIPCION, '') AS DESCRIPCION"
                 Sql &= Chr(13) & "	FROM DOCUMENTO_ENC"
                 Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
-                Sql &= Chr(13) & " And COD_SUCUR = " & SCM(COD_SUCUR)
+                Sql &= Chr(13) & "  And COD_SUCUR = " & SCM(COD_SUCUR)
                 Sql &= Chr(13) & "	AND NUMERO_DOC = " & Val(Numero_Doc)
+                Sql &= Chr(13) & "  AND TIPO_MOV = " & SCM(Tipo_Mov)
                 CONX.Coneccion_Abrir()
                 Dim DS = CONX.EJECUTE_DS(Sql)
                 CONX.Coneccion_Cerrar()
@@ -182,7 +185,7 @@ Public Class Factura
             TXT_NUMERO.Enabled = False
             TXT_TIPO_CAMBIO.Enabled = False
             DTPFECHA.Enabled = False
-            CMB_DOCUMENTO.Enabled = False
+            CMB_DOCUMENTO.Enabled = IIf(Modo = CRF_Modos.Insertar, True, False)
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -331,6 +334,7 @@ Public Class Factura
         Try
             GRID.Rows.Clear()
             GRID.DataSource = Nothing
+
             GRID.ColumnCount = 8
             GRID.Columns(0).Name = "Linea"
             GRID.Columns(1).Name = "Código"
@@ -385,6 +389,7 @@ Public Class Factura
                 SQL &= Chr(13) & "	WHERE TMP.COD_CIA = " & SCM(COD_CIA)
                 SQL &= Chr(13) & "	AND TMP.COD_SUCUR = " & SCM(COD_SUCUR)
                 SQL &= Chr(13) & " And TMP.NUMERO_DOC =  " & Val(Numero_Doc)
+                SQL &= Chr(13) & " AND TMP.TIPO_MOV = " & SCM(Tipo_Mov)
 
                 CONX.Coneccion_Abrir()
                 Dim DS = CONX.EJECUTE_DS(SQL)
@@ -399,7 +404,7 @@ Public Class Factura
                 End If
             End If
 
-
+            SumatoriaIngreso()
 
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -565,4 +570,49 @@ Public Class Factura
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
+    Private Sub SumatoriaIngreso()
+        Try
+            Dim sql As String = ""
+            If Modo = CRF_Modos.Insertar Then
+                sql = "	SELECT SUM(DESCUENTO) AS DESCUENTO, SUM(IMPUESTO) AS IMPUESTO, SUM(SUBTOTAL) AS SUBTOTAL, SUM(TOTAL) AS TOTAL "
+                sql &= Chr(13) & "	FROM DOCUMENTO_DET_TMP"
+                sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+                sql &= Chr(13) & "  AND COD_SUCUR = " & SCM(COD_SUCUR)
+                sql &= Chr(13) & "	AND TIPO_MOV = " & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
+                sql &= Chr(13) & "	AND CODIGO = " & SCM(Codigo)
+            Else
+                If String.IsNullOrEmpty(Codigo) Then
+                    sql = "	SELECT SUM(DESCUENTO) AS DESCUENTO, SUM(IMPUESTO) AS IMPUESTO, SUM(SUBTOTAL) AS SUBTOTAL, SUM(TOTAL) AS TOTAL "
+                    sql &= Chr(13) & "	FROM DOCUMENTO_DET"
+                    sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+                    sql &= Chr(13) & "  AND COD_SUCUR = " & SCM(COD_SUCUR)
+                    sql &= Chr(13) & "	AND TIPO_MOV = " & SCM(Tipo_Mov)
+                    sql &= Chr(13) & "	AND NUMERO_DOC = " & Val(Numero_Doc)
+                Else
+                    sql = "	SELECT SUM(DESCUENTO) AS DESCUENTO, SUM(IMPUESTO) AS IMPUESTO, SUM(SUBTOTAL) AS SUBTOTAL, SUM(TOTAL) AS TOTAL "
+                    sql &= Chr(13) & "	FROM DOCUMENTO_DET_TMP"
+                    sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+                    sql &= Chr(13) & "  AND COD_SUCUR = " & SCM(COD_SUCUR)
+                    sql &= Chr(13) & "	AND TIPO_MOV = " & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
+                    sql &= Chr(13) & "	AND CODIGO = " & SCM(Codigo)
+                End If
+            End If
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(sql)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                TXT_S.Text = FMCP(DS.Tables(0).Rows(0).Item("SUBTOTAL"))
+                TXT_I.Text = FMCP(DS.Tables(0).Rows(0).Item("IMPUESTO"))
+                TXT_D.Text = FMCP(DS.Tables(0).Rows(0).Item("DESCUENTO"))
+                TXT_T.Text = FMCP(DS.Tables(0).Rows(0).Item("TOTAL"))
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
 End Class

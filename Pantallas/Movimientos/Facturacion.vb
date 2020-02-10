@@ -4,6 +4,7 @@ Public Class Facturacion
     Dim Numero_Doc As Integer
     Dim Codigo As String
     Dim CONSULTA_FILTRO As String = ""
+    Dim Tipo_Mov As String
 
     Private Sub BTN_FACTURAR_Click(sender As Object, e As EventArgs) Handles BTN_FACTURAR.Click
         Try
@@ -21,9 +22,11 @@ Public Class Facturacion
                 If CMB_TIPO_FACT.SelectedIndex = 0 Then
                     Numero_Doc = Val(seleccionado.Cells(0).Value.ToString)
                     Codigo = ""
+                    Tipo_Mov = seleccionado.Cells(1).Value.ToString
                 Else
                     Numero_Doc = 0
                     Codigo = seleccionado.Cells(0).Value.ToString
+                    Tipo_Mov = seleccionado.Cells(1).Value.ToString
                 End If
             End If
         Catch ex As Exception
@@ -105,56 +108,58 @@ Public Class Facturacion
 
     Private Sub RELLENAR_GRID()
         Try
-            GRID.DataSource = Nothing
-            GRID.Rows.Clear()
-            Dim SQL As String = ""
+            If GRID.Columns.Count > 0 Then
+                GRID.Rows.Clear()
+                GRID.DataSource = Nothing
+                Dim SQL As String = ""
 
-            If CMB_TIPO_FACT.SelectedIndex = 0 Then
-                SQL &= Chr(13) & "	SELECT NUMERO_DOC AS Documento, TIPO_MOV as Tipo, C.CEDULA AS Cédula, C.NOMBRE AS Nombre, ENC.DESCRIPCION AS Descripción, CONVERT(VARCHAR(10), ENC.FECHA, 105) AS Fecha	"
-                SQL &= Chr(13) & "	,COD_USUARIO AS Usuario, COD_MONEDA AS Moneda, MONTO AS Subtotal, IMPUESTO AS Impuesto, (MONTO + IMPUESTO) as Total "
-                SQL &= Chr(13) & "	FROM DOCUMENTO_ENC AS ENC	"
-                SQL &= Chr(13) & "	INNER JOIN CLIENTE AS C	"
-                SQL &= Chr(13) & "		ON C.COD_CIA = ENC.COD_CIA "
-                SQL &= Chr(13) & "      AND C.CEDULA = ENC.CEDULA "
-                SQL &= Chr(13) & " WHERE ENC.COD_CIA = " & SCM(COD_CIA)
-                SQL &= Chr(13) & " AND ENC.COD_SUCUR = " & SCM(COD_SUCUR)
-                If RB_ACTIVOS.Checked = True Then
-                    SQL &= Chr(13) & "	AND ENC.ESTADO ='A'"
-                ElseIf RB_INACTIVOS.Checked = True Then
-                    SQL &= Chr(13) & "	AND ENC.ESTADO ='I'"
+                If CMB_TIPO_FACT.SelectedIndex = 0 Then
+                    SQL &= Chr(13) & "	SELECT NUMERO_DOC AS Documento, TIPO_MOV as Tipo, C.CEDULA AS Cédula, C.NOMBRE AS Nombre, ENC.DESCRIPCION AS Descripción, CONVERT(VARCHAR(10), ENC.FECHA, 105) AS Fecha	"
+                    SQL &= Chr(13) & "	,COD_USUARIO AS Usuario, COD_MONEDA AS Moneda, MONTO AS Subtotal, IMPUESTO AS Impuesto, (MONTO + IMPUESTO) as Total "
+                    SQL &= Chr(13) & "	FROM DOCUMENTO_ENC AS ENC	"
+                    SQL &= Chr(13) & "	INNER JOIN CLIENTE AS C	"
+                    SQL &= Chr(13) & "		ON C.COD_CIA = ENC.COD_CIA "
+                    SQL &= Chr(13) & "      AND C.CEDULA = ENC.CEDULA "
+                    SQL &= Chr(13) & " WHERE ENC.COD_CIA = " & SCM(COD_CIA)
+                    SQL &= Chr(13) & " AND ENC.COD_SUCUR = " & SCM(COD_SUCUR)
+                    If RB_ACTIVOS.Checked = True Then
+                        SQL &= Chr(13) & "	AND ENC.ESTADO ='A'"
+                    ElseIf RB_INACTIVOS.Checked = True Then
+                        SQL &= Chr(13) & "	AND ENC.ESTADO ='I'"
+                    End If
+                    SQL &= Chr(13) & " AND ENC.FECHA BETWEEN " & SCM(YMD(DTPINICIO.Value)) & " AND " & SCM(YMD(DTPFINAL.Value))
+                    SQL &= Chr(13) & CONSULTA_FILTRO
+                    SQL &= Chr(13) & " ORDER BY ENC.FECHA_INC DESC"
+                Else
+                    SQL &= Chr(13) & "	SELECT ENC.CODIGO AS Documento, ENC.TIPO_MOV as Tipo, C.CEDULA AS Cédula, C.NOMBRE AS Nombre, ENC.DESCRIPCION AS Descripción, CONVERT(VARCHAR(10), ENC.FECHA, 105) AS Fecha	"
+                    SQL &= Chr(13) & "	,COD_USUARIO AS Usuario, COD_MONEDA AS Moneda, SUM(DET.SUBTOTAL) AS Subtotal, SUM(DET.IMPUESTO) AS Impuesto, SUM(DET.TOTAL) as Total 	"
+                    SQL &= Chr(13) & "	FROM DOCUMENTO_ENC_TMP AS ENC	"
+                    SQL &= Chr(13) & "	INNER JOIN CLIENTE AS C		"
+                    SQL &= Chr(13) & "		ON C.COD_CIA = ENC.COD_CIA	"
+                    SQL &= Chr(13) & "		AND C.CEDULA = ENC.CEDULA "
+                    SQL &= Chr(13) & "	INNER JOIN DOCUMENTO_DET_TMP AS DET	 "
+                    SQL &= Chr(13) & "		ON DET.COD_CIA = ENC.COD_CIA "
+                    SQL &= Chr(13) & "		AND DET.COD_SUCUR = ENC.COD_SUCUR "
+                    SQL &= Chr(13) & "		AND DET.CODIGO = ENC.CODIGO "
+                    SQL &= Chr(13) & "		AND DET.TIPO_MOV = ENC.TIPO_MOV	"
+                    SQL &= Chr(13) & "	WHERE ENC.COD_CIA = " & SCM(COD_CIA)
+                    SQL &= Chr(13) & "  AND ENC.COD_SUCUR = " & SCM(COD_SUCUR)
+                    SQL &= Chr(13) & "  AND CONVERT(VARCHAR(10),ENC.FECHA, 111) BETWEEN " & SCM(YMD(DTPINICIO.Value)) & " AND " & SCM(YMD(DTPFINAL.Value))
+                    SQL &= Chr(13) & CONSULTA_FILTRO
+                    SQL &= Chr(13) & "	GROUP BY ENC.CODIGO, ENC.TIPO_MOV, C.CEDULA, C.NOMBRE, ENC.DESCRIPCION, CONVERT(VARCHAR(10), ENC.FECHA, 105),ENC.FECHA_INC,COD_USUARIO, COD_MONEDA	"
+                    SQL &= Chr(13) & "  ORDER BY ENC.FECHA_INC DESC"
                 End If
-                SQL &= Chr(13) & " AND ENC.FECHA BETWEEN " & SCM(YMD(DTPINICIO.Value)) & " AND " & SCM(YMD(DTPFINAL.Value))
-                SQL &= Chr(13) & CONSULTA_FILTRO
-                SQL &= Chr(13) & " ORDER BY ENC.FECHA_INC DESC"
-            Else
-                SQL &= Chr(13) & "	SELECT ENC.CODIGO AS Documento, ENC.TIPO_MOV as Tipo, C.CEDULA AS Cédula, C.NOMBRE AS Nombre, ENC.DESCRIPCION AS Descripción, CONVERT(VARCHAR(10), ENC.FECHA, 105) AS Fecha	"
-                SQL &= Chr(13) & "	,COD_USUARIO AS Usuario, COD_MONEDA AS Moneda, SUM(DET.SUBTOTAL) AS Subtotal, SUM(DET.IMPUESTO) AS Impuesto, SUM(DET.TOTAL) as Total 	"
-                SQL &= Chr(13) & "	FROM DOCUMENTO_ENC_TMP AS ENC	"
-                SQL &= Chr(13) & "	INNER JOIN CLIENTE AS C		"
-                SQL &= Chr(13) & "		ON C.COD_CIA = ENC.COD_CIA	"
-                SQL &= Chr(13) & "		AND C.CEDULA = ENC.CEDULA "
-                SQL &= Chr(13) & "	INNER JOIN DOCUMENTO_DET_TMP AS DET	 "
-                SQL &= Chr(13) & "		ON DET.COD_CIA = ENC.COD_CIA "
-                SQL &= Chr(13) & "		AND DET.COD_SUCUR = ENC.COD_SUCUR "
-                SQL &= Chr(13) & "		AND DET.CODIGO = ENC.CODIGO "
-                SQL &= Chr(13) & "		AND DET.TIPO_MOV = ENC.TIPO_MOV	"
-                SQL &= Chr(13) & "	WHERE ENC.COD_CIA = " & SCM(COD_CIA)
-                SQL &= Chr(13) & "  AND ENC.COD_SUCUR = " & SCM(COD_SUCUR)
-                SQL &= Chr(13) & "  AND CONVERT(VARCHAR(10),ENC.FECHA, 111) BETWEEN " & SCM(YMD(DTPINICIO.Value)) & " AND " & SCM(YMD(DTPFINAL.Value))
-                SQL &= Chr(13) & CONSULTA_FILTRO
-                SQL &= Chr(13) & "	GROUP BY ENC.CODIGO, ENC.TIPO_MOV, C.CEDULA, C.NOMBRE, ENC.DESCRIPCION, CONVERT(VARCHAR(10), ENC.FECHA, 105),ENC.FECHA_INC,COD_USUARIO, COD_MONEDA	"
-                SQL &= Chr(13) & "  ORDER BY ENC.FECHA_INC DESC"
-            End If
 
-            CONX.Coneccion_Abrir()
-            Dim DS = CONX.EJECUTE_DS(SQL)
-            CONX.Coneccion_Cerrar()
+                CONX.Coneccion_Abrir()
+                Dim DS = CONX.EJECUTE_DS(SQL)
+                CONX.Coneccion_Cerrar()
 
-            If DS.Tables(0).Rows.Count > 0 Then
-                For Each ITEM In DS.Tables(0).Rows
-                    Dim row As String() = New String() {ITEM("Documento"), ITEM("Tipo"), ITEM("Cédula"), ITEM("Nombre"), ITEM("Descripción"), ITEM("Fecha"), ITEM("Usuario"), ITEM("Moneda"), ITEM("Subtotal"), ITEM("Impuesto"), ITEM("Total")}
-                    GRID.Rows.Add(row)
-                Next
+                If DS.Tables(0).Rows.Count > 0 Then
+                    For Each ITEM In DS.Tables(0).Rows
+                        Dim row As String() = New String() {ITEM("Documento"), ITEM("Tipo"), ITEM("Cédula"), ITEM("Nombre"), ITEM("Descripción"), ITEM("Fecha"), ITEM("Usuario"), ITEM("Moneda"), ITEM("Subtotal"), ITEM("Impuesto"), ITEM("Total")}
+                        GRID.Rows.Add(row)
+                    Next
+                End If
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -182,7 +187,7 @@ Public Class Facturacion
     Public Sub Modificar()
         Try
             Leer_indice()
-            Dim PANTALLA As New Factura(CRF_Modos.Modificar, Me, Numero_Doc, Codigo)
+            Dim PANTALLA As New Factura(CRF_Modos.Modificar, Me, Numero_Doc, Codigo, Tipo_Mov)
             PANTALLA.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)

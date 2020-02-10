@@ -37,35 +37,38 @@ Public Class Cliente
         GRID.Columns(8).Name = "SALDO"
         GRID.Columns(9).HeaderText = "Estado"
         GRID.Columns(9).Name = "ESTADO"
-        GRID.Columns(10).HeaderText = "Estado"
-        GRID.Columns(10).Name = "ESTADO"
+        GRID.Columns(10).HeaderText = "Fecha ingreso"
+        GRID.Columns(10).Name = "CONVERT(VARCHAR(10), FECHA_INC, 105)"
         Filtro.FILTRO_CARGAR_COMBO(GRID)
     End Sub
 
     Private Sub RELLENAR_GRID()
         Try
-            GRID.DataSource = Nothing
-            Dim SQL = "	SELECT COD_CIA As Código,CEDULA As Cédula,"
-            SQL &= Chr(13) & "	CASE WHEN TIPO_CEDULA ='F' THEN 'Física' "
-            SQL &= Chr(13) & "	WHEN TIPO_CEDULA ='J' THEN 'Jurídica' END AS 'Tipo cédula',"
-            SQL &= Chr(13) & "	NOMBRE As Nombre,APELLIDO1 As 'Primer apellido',APELLIDO2 as 'Segundo apellido',TELEFONO as Teléfono,CORREO as Correo,SALDO as Saldo,ESTADO as Estado, CONVERT(VARCHAR(10), FECHA_INC, 105) AS 'Fecha ingreso'"
-            SQL &= Chr(13) & "	FROM CLIENTE"
-            If RB_ACTIVOS.Checked = True Then
-                SQL &= Chr(13) & "	WHERE ESTADO ='A'"
-            ElseIf RB_INACTIVOS.Checked = True Then
-                SQL &= Chr(13) & "	WHERE ESTADO ='I'"
-            End If
-            SQL &= Chr(13) & CONSULTA_FILTRO
+            If GRID.Columns.Count > 0 Then
+                GRID.Rows.Clear()
+                GRID.DataSource = Nothing
+                Dim SQL = "	SELECT COD_CIA As Código,CEDULA As Cédula,"
+                SQL &= Chr(13) & "	CASE WHEN TIPO_CEDULA ='F' THEN 'Física' "
+                SQL &= Chr(13) & "	WHEN TIPO_CEDULA ='J' THEN 'Jurídica' END AS 'Tipo cédula',"
+                SQL &= Chr(13) & "	NOMBRE As Nombre,APELLIDO1 As 'Primer apellido',APELLIDO2 as 'Segundo apellido',TELEFONO as Teléfono,CORREO as Correo,SALDO as Saldo,ESTADO as Estado, CONVERT(VARCHAR(10), FECHA_INC, 105) AS 'Fecha ingreso'"
+                SQL &= Chr(13) & "	FROM CLIENTE"
+                If RB_ACTIVOS.Checked = True Then
+                    SQL &= Chr(13) & "	WHERE ESTADO ='A'"
+                ElseIf RB_INACTIVOS.Checked = True Then
+                    SQL &= Chr(13) & "	WHERE ESTADO ='I'"
+                End If
+                SQL &= Chr(13) & CONSULTA_FILTRO
 
-            CONX.Coneccion_Abrir()
-            Dim DS = CONX.EJECUTE_DS(SQL)
-            CONX.Coneccion_Cerrar()
+                CONX.Coneccion_Abrir()
+                Dim DS = CONX.EJECUTE_DS(SQL)
+                CONX.Coneccion_Cerrar()
 
-            If DS.Tables(0).Rows.Count > 0 Then
-                For Each ITEM In DS.Tables(0).Rows
-                    Dim row As String() = New String() {ITEM("Código"), ITEM("Cédula"), ITEM("Tipo cédula"), ITEM("Nombre"), ITEM("Primer apellido"), ITEM("Segundo apellido"), ITEM("Teléfono"), ITEM("Correo"), ITEM("Saldo"), ITEM("Estado"), ITEM("Fecha ingreso")}
-                    GRID.Rows.Add(row)
-                Next
+                If DS.Tables(0).Rows.Count > 0 Then
+                    For Each ITEM In DS.Tables(0).Rows
+                        Dim row As String() = New String() {ITEM("Código"), ITEM("Cédula"), ITEM("Tipo cédula"), ITEM("Nombre"), ITEM("Primer apellido"), ITEM("Segundo apellido"), ITEM("Teléfono"), ITEM("Correo"), ITEM("Saldo"), ITEM("Estado"), ITEM("Fecha ingreso")}
+                        GRID.Rows.Add(row)
+                    Next
+                End If
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

@@ -41,9 +41,8 @@ Partial Class Filtro
         '
         Me.TXT.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT.Location = New System.Drawing.Point(136, 3)
-        Me.TXT.Multiline = True
         Me.TXT.Name = "TXT"
-        Me.TXT.Size = New System.Drawing.Size(134, 23)
+        Me.TXT.Size = New System.Drawing.Size(134, 21)
         Me.TXT.TabIndex = 1
         '
         'BTN_FILTRAR

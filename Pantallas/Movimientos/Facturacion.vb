@@ -50,7 +50,7 @@ Public Class Facturacion
 
     Private Sub FORMATO_GRID()
         If CMB_TIPO_FACT.SelectedIndex = 0 Then
-            GRID.ColumnCount = 10
+            GRID.ColumnCount = 11
             GRID.Columns(0).HeaderText = "Documento"
             GRID.Columns(0).Name = "NUMERO_DOC"
             GRID.Columns(1).HeaderText = "Tipo"
@@ -61,19 +61,21 @@ Public Class Facturacion
             GRID.Columns(3).Name = "C.NOMBRE"
             GRID.Columns(4).HeaderText = "Descripción"
             GRID.Columns(4).Name = "ENC.DESCRIPCION"
-            GRID.Columns(5).HeaderText = "Usuario"
-            GRID.Columns(5).Name = "COD_USUARIO"
-            GRID.Columns(6).HeaderText = "Moneda"
-            GRID.Columns(6).Name = "COD_MONEDA"
-            GRID.Columns(7).HeaderText = "Subtotal"
-            GRID.Columns(7).Name = "MONTO"
-            GRID.Columns(8).HeaderText = "Impuesto"
-            GRID.Columns(8).Name = "IMPUESTO"
-            GRID.Columns(9).HeaderText = "Total"
-            GRID.Columns(9).Name = "(MONTO + IMPUESTO)"
+            GRID.Columns(5).HeaderText = "Fecha"
+            GRID.Columns(5).Name = "CONVERT(VARCHAR(10), ENC.FECHA, 105)"
+            GRID.Columns(6).HeaderText = "Usuario"
+            GRID.Columns(6).Name = "COD_USUARIO"
+            GRID.Columns(7).HeaderText = "Moneda"
+            GRID.Columns(7).Name = "COD_MONEDA"
+            GRID.Columns(8).HeaderText = "Subtotal"
+            GRID.Columns(8).Name = "MONTO"
+            GRID.Columns(9).HeaderText = "Impuesto"
+            GRID.Columns(9).Name = "IMPUESTO"
+            GRID.Columns(10).HeaderText = "Total"
+            GRID.Columns(10).Name = "(MONTO + IMPUESTO)"
             Filtro.FILTRO_CARGAR_COMBO(GRID)
         Else
-            GRID.ColumnCount = 10
+            GRID.ColumnCount = 11
             GRID.Columns(0).HeaderText = "Documento"
             GRID.Columns(0).Name = "ENC.CODIGO"
             GRID.Columns(1).HeaderText = "Tipo"
@@ -84,16 +86,18 @@ Public Class Facturacion
             GRID.Columns(3).Name = "C.NOMBRE"
             GRID.Columns(4).HeaderText = "Descripción"
             GRID.Columns(4).Name = "ENC.DESCRIPCION"
-            GRID.Columns(5).HeaderText = "Usuario"
-            GRID.Columns(5).Name = "COD_USUARIO"
-            GRID.Columns(6).HeaderText = "Moneda"
-            GRID.Columns(6).Name = "COD_MONEDA"
-            GRID.Columns(7).HeaderText = "Subtotal"
-            GRID.Columns(7).Name = "SUM(DET.SUBTOTAL)"
-            GRID.Columns(8).HeaderText = "Impuesto"
-            GRID.Columns(8).Name = "SUM(DET.IMPUESTO)"
-            GRID.Columns(9).HeaderText = "Total"
-            GRID.Columns(9).Name = " SUM(DET.TOTAL)"
+            GRID.Columns(5).HeaderText = "Fecha"
+            GRID.Columns(5).Name = "CONVERT(VARCHAR(10), ENC.FECHA, 105)"
+            GRID.Columns(6).HeaderText = "Usuario"
+            GRID.Columns(6).Name = "COD_USUARIO"
+            GRID.Columns(7).HeaderText = "Moneda"
+            GRID.Columns(7).Name = "COD_MONEDA"
+            GRID.Columns(8).HeaderText = "Subtotal"
+            GRID.Columns(8).Name = "SUM(DET.SUBTOTAL)"
+            GRID.Columns(9).HeaderText = "Impuesto"
+            GRID.Columns(9).Name = "SUM(DET.IMPUESTO)"
+            GRID.Columns(10).HeaderText = "Total"
+            GRID.Columns(10).Name = " SUM(DET.TOTAL)"
             Filtro.FILTRO_CARGAR_COMBO(GRID)
         End If
 

@@ -32,8 +32,8 @@ Partial Class Buscador
         Me.CMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CMB.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CMB.FormattingEnabled = True
-        Me.CMB.Location = New System.Drawing.Point(159, 2)
-        Me.CMB.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.CMB.Location = New System.Drawing.Point(159, 1)
+        Me.CMB.Margin = New System.Windows.Forms.Padding(2)
         Me.CMB.Name = "CMB"
         Me.CMB.Size = New System.Drawing.Size(276, 23)
         Me.CMB.TabIndex = 2
@@ -41,8 +41,8 @@ Partial Class Buscador
         'TXT_BUSCADOR
         '
         Me.TXT_BUSCADOR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
-        Me.TXT_BUSCADOR.Location = New System.Drawing.Point(71, 2)
-        Me.TXT_BUSCADOR.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_BUSCADOR.Location = New System.Drawing.Point(69, 2)
+        Me.TXT_BUSCADOR.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_BUSCADOR.Name = "TXT_BUSCADOR"
         Me.TXT_BUSCADOR.Size = New System.Drawing.Size(85, 22)
         Me.TXT_BUSCADOR.TabIndex = 1
@@ -50,8 +50,8 @@ Partial Class Buscador
         'BTN_BUSCAR
         '
         Me.BTN_BUSCAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
-        Me.BTN_BUSCAR.Location = New System.Drawing.Point(2, 1)
-        Me.BTN_BUSCAR.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.BTN_BUSCAR.Location = New System.Drawing.Point(0, 1)
+        Me.BTN_BUSCAR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_BUSCAR.Name = "BTN_BUSCAR"
         Me.BTN_BUSCAR.Size = New System.Drawing.Size(64, 23)
         Me.BTN_BUSCAR.TabIndex = 0
@@ -65,7 +65,7 @@ Partial Class Buscador
         Me.Controls.Add(Me.BTN_BUSCAR)
         Me.Controls.Add(Me.CMB)
         Me.Controls.Add(Me.TXT_BUSCADOR)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "Buscador"
         Me.Size = New System.Drawing.Size(436, 26)
         Me.ResumeLayout(False)

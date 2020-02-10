@@ -14,6 +14,7 @@ Public Class Actualizaciones
     Public Shared Sub CREACION_STORED_PROCEDURE()
         USP_FACTURACION_TMP_A_REAL_20200209()
     End Sub
+
     Public Shared Sub USP_FACTURACION_TMP_A_REAL_20200209()
         Try
             If EXISTE_SP("USP_FACTURACION_TMP_A_REAL", "2020-02-09") = False Then

@@ -25,10 +25,15 @@ Public Class Filtro
         Try
             CMB.DataSource = Nothing
             Dim LISTA_REF As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
+
             For Each COLUMN In GRID.Columns
                 COLUMN.Name
                 COLUMN.HeaderText
-                LISTA_REF.Add(New KeyValuePair(Of String, String)(COLUMN.Name, COLUMN.HeaderText))
+
+                If COLUMN.HeaderText.ToString.ToUpper.Contains("FECHA") Or COLUMN.NameToString.ToUpper.Contains("FECHA") Then
+                Else
+                    LISTA_REF.Add(New KeyValuePair(Of String, String)(COLUMN.Name, COLUMN.HeaderText))
+                End If
             Next
             CMB.DataSource = LISTA_REF
             CMB.ValueMember = "Key"

@@ -58,10 +58,9 @@ Public Class ProductoMant
                     CMB_IMPUESTO_DGTD.SelectedValue = ITEM("COD_IMPUESTO_DGTD")
                     TXT_PRECIO.Text = ITEM("PRECIO")
                     TXT_COSTO.Text = ITEM("COSTO")
-                    TXT_ESTANTE.Text = ITEM("ESTANTE")
-                    TXT_FILA.Text = ITEM("FILA")
-                    TXT_COLUMNA.Text = ITEM("COLUMNA")
                     TXT_MINIMO.Text = ITEM("MINIMO")
+                    TXT_PRECIO_2.Text = ITEM("PRECIO_2")
+                    TXT_PRECIO_3.Text = ITEM("PRECIO_3")
 
                     If Trim(ITEM("ESTADO")).Equals("A") Then
                         RB_ACTIVO.Checked = True
@@ -102,13 +101,13 @@ Public Class ProductoMant
             ElseIf String.IsNullOrEmpty(TXT_PRECIO.Text) Then
                 MessageBox.Show("¡Debe digitar el precio del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_PRECIO.Select()
-            ElseIf String.IsNullOrEmpty(TXT_ESTANTE.Text) Then
+            ElseIf String.IsNullOrEmpty(TXT_ESTANTE.Text) And Me.MODO = CRF_Modos.Insertar Then
                 MessageBox.Show("¡Debe digitar el estante en el que se cuentra el producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_ESTANTE.Select()
-            ElseIf String.IsNullOrEmpty(TXT_FILA.Text) Then
+            ElseIf String.IsNullOrEmpty(TXT_FILA.Text) And Me.MODO = CRF_Modos.Insertar Then
                 MessageBox.Show("¡Debe digitar la fila en la que se encuentra el producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_FILA.Select()
-            ElseIf String.IsNullOrEmpty(TXT_COLUMNA.Text) Then
+            ElseIf String.IsNullOrEmpty(TXT_COLUMNA.Text) And Me.MODO = CRF_Modos.Insertar Then
                 MessageBox.Show("¡Debe digitar la columna en la que se encuentra el producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_COLUMNA.Select()
             ElseIf String.IsNullOrEmpty(TXT_MINIMO.Text) Then
@@ -127,6 +126,8 @@ Public Class ProductoMant
                 Sql &= Chr(13) & "	,@POR_IMPUESTO = " & Val(TXT_IMPUESTO.Text)
                 Sql &= Chr(13) & "	,@COD_IMPUESTO = " & SCM(CMB_IMPUESTO_DGTD.SelectedValue)
                 Sql &= Chr(13) & "	,@PRECIO = " & FMC(TXT_PRECIO.Text)
+                Sql &= Chr(13) & "	,@PRECIO_2 = " & FMC(TXT_PRECIO_2.Text)
+                Sql &= Chr(13) & "	,@PRECIO_3 = " & FMC(TXT_PRECIO_3.Text)
                 Sql &= Chr(13) & "	,@EXENTO = " & SCM(TXT_EXENTO.Text)
                 Sql &= Chr(13) & "	,@ESTADO = " & SCM(IIf(RB_ACTIVO.Checked, "A", "I"))
                 Sql &= Chr(13) & "	,@ESTANTE = " & SCM(TXT_ESTANTE.Text)
@@ -261,6 +262,8 @@ Public Class ProductoMant
         TXT_FILA.Text = ""
         TXT_COSTO.Text = ""
         TXT_PRECIO.Text = ""
+        TXT_PRECIO_2.Text = ""
+        TXT_PRECIO_3.Text = ""
         TXT_DESC.Text = ""
         TXT_MINIMO.Text = ""
         RB_ACTIVO.Checked = True

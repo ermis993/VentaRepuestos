@@ -69,6 +69,8 @@ Public Class Factura
             End If
         End If
 
+        CMB_PRECIO.SelectedIndex = 0
+
     End Sub
 
     Private Sub RellenaDatos()
@@ -245,21 +247,37 @@ Public Class Factura
         CalculoTotales()
     End Sub
 
-    Private Sub RellenaProducto()
+    Private Sub RellenaProducto(ByVal estante As String, ByVal fila As String, ByVal columna As String)
         Try
-            Dim Sql = "	Select COD_UNIDAD, PRECIO, POR_IMPUESTO	"
-            Sql &= Chr(13) & "	FROM PRODUCTO "
-            Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
-            Sql &= Chr(13) & "	And COD_SUCUR = " & SCM(COD_SUCUR)
-            Sql &= Chr(13) & "	And COD_PROD = " & SCM(TXT_CODIGO.Text)
+            Dim Sql = "	Select COD_UNIDAD, PRECIO, PRECIO_2, PRECIO_3, POR_IMPUESTO, U.ESTANTE, U.FILA, U.COLUMNA	"
+            Sql &= Chr(13) & "	FROM PRODUCTO AS P "
+            Sql &= Chr(13) & "  INNER JOIN PRODUCTO_UBICACION  AS U"
+            Sql &= Chr(13) & "      ON U.COD_PROD = P.COD_PROD"
+            If Not String.IsNullOrEmpty(estante) Then
+                Sql &= Chr(13) & "      AND U.ESTANTE =" & SCM(estante)
+                Sql &= Chr(13) & "      AND U.FILA = " & SCM(fila)
+                Sql &= Chr(13) & "      AND U.COLUMNA = " & SCM(columna)
+            End If
+            Sql &= Chr(13) & "	WHERE P.COD_CIA = " & SCM(COD_CIA)
+            Sql &= Chr(13) & "	And P.COD_SUCUR = " & SCM(COD_SUCUR)
+            Sql &= Chr(13) & "	And P.COD_PROD = " & SCM(TXT_CODIGO.Text)
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(Sql)
             CONX.Coneccion_Cerrar()
 
             If DS.Tables(0).Rows.Count > 0 Then
                 TXT_UNIDAD.Text = DS.Tables(0).Rows(0).Item("COD_UNIDAD")
-                TXT_PRECIO.Text = DS.Tables(0).Rows(0).Item("PRECIO")
+                If CMB_PRECIO.SelectedIndex = 0 Then
+                    TXT_PRECIO.Text = DS.Tables(0).Rows(0).Item("PRECIO")
+                ElseIf CMB_PRECIO.SelectedIndex = 1 Then
+                    TXT_PRECIO.Text = DS.Tables(0).Rows(0).Item("PRECIO_2")
+                Else
+                    TXT_PRECIO.Text = DS.Tables(0).Rows(0).Item("PRECIO_3")
+                End If
                 TXT_IMPUESTO.Text = DS.Tables(0).Rows(0).Item("POR_IMPUESTO")
+                TXT_ESTANTE.Text = DS.Tables(0).Rows(0).Item("ESTANTE")
+                TXT_FILA.Text = DS.Tables(0).Rows(0).Item("FILA")
+                TXT_COLUMNA.Text = DS.Tables(0).Rows(0).Item("COLUMNA")
             Else
                 TXT_UNIDAD.Text = ""
                 TXT_PRECIO.Text = ""
@@ -273,40 +291,46 @@ Public Class Factura
 
     Private Sub IngresarDetalle()
         Try
-            If FMC(TXT_TOTAL.Text) > 0 Then
+            If String.IsNullOrEmpty(TXT_ESTANTE.Text) Or String.IsNullOrEmpty(TXT_FILA.Text) Or String.IsNullOrEmpty(TXT_COLUMNA.Text) Then
+                MessageBox.Show("La ubicación del producto es inválida, vuelva a seleccionar el producto")
+            Else
+                If FMC(TXT_TOTAL.Text) > 0 Then
+                    Dim SQL = "	EXECUTE USP_MANT_FACTURACION_TMP "
+                    SQL &= Chr(13) & "	 @COD_CIA = " & SCM(COD_CIA)
+                    SQL &= Chr(13) & "	,@COD_SUCUR = " & SCM(COD_SUCUR)
+                    SQL &= Chr(13) & "	,@CODIGO = " & SCM(Codigo)
+                    SQL &= Chr(13) & "	,@TIPO_MOV = " & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
+                    SQL &= Chr(13) & "	,@CEDULA = " & SCM(Cliente.VALOR)
+                    SQL &= Chr(13) & "	,@FECHA = " & SCM(YMD(DTPFECHA.Value))
+                    SQL &= Chr(13) & "	,@COD_USUARIO = " & SCM(COD_USUARIO)
+                    SQL &= Chr(13) & "	,@COD_MONEDA = " & SCM(CMB_MONEDA.SelectedItem.ToString.Substring(0, 1))
+                    SQL &= Chr(13) & "	,@TIPO_CAMBIO = " & FMC(TXT_TIPO_CAMBIO.Text)
+                    SQL &= Chr(13) & "	,@PLAZO = " & Val(TXT_PLAZO.Text)
+                    SQL &= Chr(13) & "	,@FORMA_PAGO = " & SCM(CMB_FORMAPAGO.SelectedItem.ToString.Substring(0, 2))
+                    SQL &= Chr(13) & "	,@DESCRIPCION = " & SCM(TXT_DESCRIPCION.Text)
+                    SQL &= Chr(13) & "	,@COD_PROD = " & SCM(TXT_CODIGO.Text)
+                    SQL &= Chr(13) & "	,@COD_UNIDAD = " & SCM(TXT_UNIDAD.Text)
+                    SQL &= Chr(13) & "	,@CANTIDAD = " & FMC(TXT_CANTIDAD.Text)
+                    SQL &= Chr(13) & "	,@PRECIO = " & FMC(TXT_PRECIO.Text)
+                    SQL &= Chr(13) & "	,@POR_DESCUENTO = " & Val(TXT_DESCUENTO.Text)
+                    SQL &= Chr(13) & "	,@DESCUENTO = " & FMC(TXT_DESCUENTOTOTAL.Text)
+                    SQL &= Chr(13) & "	,@POR_IMPUESTO = " & Val(TXT_IMPUESTO.Text)
+                    SQL &= Chr(13) & "	,@IMPUESTO = " & FMC(TXT_IMPUESTOTOTAL.Text)
+                    SQL &= Chr(13) & "	,@SUBTOTAL = " & FMC(TXT_SUBTOTAL.Text)
+                    SQL &= Chr(13) & "	,@TOTAL = " & FMC(TXT_TOTAL.Text)
+                    SQL &= Chr(13) & "	,@ESTANTE = " & SCM(TXT_ESTANTE.Text)
+                    SQL &= Chr(13) & "	,@FILA = " & SCM(TXT_FILA.Text)
+                    SQL &= Chr(13) & "	,@COLUMNA = " & SCM(TXT_COLUMNA.Text)
+                    SQL &= Chr(13) & "	,@MODO =" & Val(Modo)
 
-                Dim SQL = "	EXECUTE USP_MANT_FACTURACION_TMP "
-                SQL &= Chr(13) & "	 @COD_CIA = " & SCM(COD_CIA)
-                SQL &= Chr(13) & "	,@COD_SUCUR = " & SCM(COD_SUCUR)
-                SQL &= Chr(13) & "	,@CODIGO = " & SCM(Codigo)
-                SQL &= Chr(13) & "	,@TIPO_MOV = " & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
-                SQL &= Chr(13) & "	,@CEDULA = " & SCM(Cliente.VALOR)
-                SQL &= Chr(13) & "	,@FECHA = " & SCM(YMD(DTPFECHA.Value))
-                SQL &= Chr(13) & "	,@COD_USUARIO = " & SCM(COD_USUARIO)
-                SQL &= Chr(13) & "	,@COD_MONEDA = " & SCM(CMB_MONEDA.SelectedItem.ToString.Substring(0, 1))
-                SQL &= Chr(13) & "	,@TIPO_CAMBIO = " & FMC(TXT_TIPO_CAMBIO.Text)
-                SQL &= Chr(13) & "	,@PLAZO = " & Val(TXT_PLAZO.Text)
-                SQL &= Chr(13) & "	,@FORMA_PAGO = " & SCM(CMB_FORMAPAGO.SelectedItem.ToString.Substring(0, 2))
-                SQL &= Chr(13) & "	,@DESCRIPCION = " & SCM(TXT_DESCRIPCION.Text)
-                SQL &= Chr(13) & "	,@COD_PROD = " & SCM(TXT_CODIGO.Text)
-                SQL &= Chr(13) & "	,@COD_UNIDAD = " & SCM(TXT_UNIDAD.Text)
-                SQL &= Chr(13) & "	,@CANTIDAD = " & FMC(TXT_CANTIDAD.Text)
-                SQL &= Chr(13) & "	,@PRECIO = " & FMC(TXT_PRECIO.Text)
-                SQL &= Chr(13) & "	,@POR_DESCUENTO = " & Val(TXT_DESCUENTO.Text)
-                SQL &= Chr(13) & "	,@DESCUENTO = " & FMC(TXT_DESCUENTOTOTAL.Text)
-                SQL &= Chr(13) & "	,@POR_IMPUESTO = " & Val(TXT_IMPUESTO.Text)
-                SQL &= Chr(13) & "	,@IMPUESTO = " & FMC(TXT_IMPUESTOTOTAL.Text)
-                SQL &= Chr(13) & "	,@SUBTOTAL = " & FMC(TXT_SUBTOTAL.Text)
-                SQL &= Chr(13) & "	,@TOTAL = " & FMC(TXT_TOTAL.Text)
-                SQL &= Chr(13) & "	,@MODO =" & Val(Modo)
+                    CONX.Coneccion_Abrir()
+                    CONX.EJECUTE(SQL)
+                    CONX.Coneccion_Cerrar()
 
-                CONX.Coneccion_Abrir()
-                CONX.EJECUTE(SQL)
-                CONX.Coneccion_Cerrar()
+                    LimpiarControles()
 
-                LimpiarControles()
-
-                RELLENAR_GRID()
+                    RELLENAR_GRID()
+                End If
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -328,6 +352,10 @@ Public Class Factura
         TXT_UNIDAD.Text = ""
         TXT_CODIGO.Text = ""
         TXT_IMPUESTO.Text = ""
+        TXT_FILA.Text = ""
+        TXT_COLUMNA.Text = ""
+        TXT_ESTANTE.Text = ""
+        LVResultados.Clear()
     End Sub
 
     Public Sub RELLENAR_GRID(Optional ByVal modo As Integer = 0)
@@ -335,19 +363,22 @@ Public Class Factura
             GRID.Rows.Clear()
             GRID.DataSource = Nothing
 
-            GRID.ColumnCount = 8
+            GRID.ColumnCount = 11
             GRID.Columns(0).Name = "Linea"
             GRID.Columns(1).Name = "Código"
-            GRID.Columns(2).Name = "Código"
-            GRID.Columns(3).Name = "Cantidad"
-            GRID.Columns(4).Name = "P/U"
-            GRID.Columns(5).Name = "% Descuento"
-            GRID.Columns(6).Name = "Impuesto"
-            GRID.Columns(7).Name = "Total"
+            GRID.Columns(2).Name = "Descripción"
+            GRID.Columns(3).Name = "Estante"
+            GRID.Columns(4).Name = "Fila"
+            GRID.Columns(5).Name = "Columna"
+            GRID.Columns(6).Name = "Cantidad"
+            GRID.Columns(7).Name = "P/U"
+            GRID.Columns(8).Name = "% Descuento"
+            GRID.Columns(9).Name = "Impuesto"
+            GRID.Columns(10).Name = "Total"
 
             If modo = 0 Then
                 Dim SQL = "	Select TMP.LINEA , PROD.COD_PROD , PROD.DESCRIPCION , TMP.CANTIDAD, TMP.PRECIO "
-                SQL &= Chr(13) & "	, TMP.POR_DESCUENTO , TMP.IMPUESTO, TMP.TOTAL"
+                SQL &= Chr(13) & "	, TMP.POR_DESCUENTO , TMP.IMPUESTO, TMP.TOTAL, TMP.ESTANTE, TMP.FILA, TMP.COLUMNA"
                 SQL &= Chr(13) & "	FROM DOCUMENTO_DET_TMP AS TMP	"
                 SQL &= Chr(13) & "	INNER JOIN PRODUCTO AS PROD		"
                 SQL &= Chr(13) & "		ON PROD.COD_CIA = TMP.COD_CIA	"
@@ -364,7 +395,7 @@ Public Class Factura
                 If DS.Tables(0).Rows.Count > 0 Then
 
                     For Each ITEM In DS.Tables(0).Rows
-                        Dim row As String() = New String() {ITEM("LINEA"), ITEM("COD_PROD"), ITEM("DESCRIPCION"), ITEM("CANTIDAD"), ITEM("PRECIO"), ITEM("POR_DESCUENTO"), ITEM("IMPUESTO"), ITEM("TOTAL")}
+                        Dim row As String() = New String() {ITEM("LINEA"), ITEM("COD_PROD"), ITEM("DESCRIPCION"), ITEM("ESTANTE"), ITEM("FILA"), ITEM("COLUMNA"), ITEM("CANTIDAD"), ITEM("PRECIO"), ITEM("POR_DESCUENTO"), ITEM("IMPUESTO"), ITEM("TOTAL")}
                         GRID.Rows.Add(row)
                     Next
 
@@ -380,7 +411,7 @@ Public Class Factura
                 End If
             Else
                 Dim SQL = "	Select TMP.LINEA , PROD.COD_PROD , PROD.DESCRIPCION , TMP.CANTIDAD, TMP.PRECIO "
-                SQL &= Chr(13) & "	, TMP.POR_DESCUENTO , TMP.IMPUESTO, TMP.TOTAL"
+                SQL &= Chr(13) & "	, TMP.POR_DESCUENTO , TMP.IMPUESTO, TMP.TOTAL, TMP.ESTANTE, TMP.FILA, TMP.COLUMNA"
                 SQL &= Chr(13) & "	FROM DOCUMENTO_DET AS TMP	"
                 SQL &= Chr(13) & "	INNER JOIN PRODUCTO AS PROD		"
                 SQL &= Chr(13) & "		ON PROD.COD_CIA = TMP.COD_CIA	"
@@ -398,7 +429,7 @@ Public Class Factura
                 If DS.Tables(0).Rows.Count > 0 Then
 
                     For Each ITEM In DS.Tables(0).Rows
-                        Dim row As String() = New String() {ITEM("LINEA"), ITEM("COD_PROD"), ITEM("DESCRIPCION"), ITEM("CANTIDAD"), ITEM("PRECIO"), ITEM("POR_DESCUENTO"), ITEM("IMPUESTO"), ITEM("TOTAL")}
+                        Dim row As String() = New String() {ITEM("LINEA"), ITEM("COD_PROD"), ITEM("DESCRIPCION"), ITEM("ESTANTE"), ITEM("FILA"), ITEM("COLUMNA"), ITEM("CANTIDAD"), ITEM("PRECIO"), ITEM("POR_DESCUENTO"), ITEM("IMPUESTO"), ITEM("TOTAL")}
                         GRID.Rows.Add(row)
                     Next
                 End If
@@ -425,10 +456,13 @@ Public Class Factura
         Try
             If Me.GRID.Rows.Count > 0 Then
                 Dim seleccionado = GRID.Rows(GRID.SelectedRows(0).Index)
-                TXT_CANTIDAD.Text = seleccionado.Cells(3).Value.ToString
-                TXT_DESCUENTO.Text = seleccionado.Cells(5).Value.ToString
+                TXT_ESTANTE.Text = seleccionado.Cells(3).Value.ToString
+                TXT_FILA.Text = seleccionado.Cells(4).Value.ToString
+                TXT_COLUMNA.Text = seleccionado.Cells(5).Value.ToString
+                TXT_CANTIDAD.Text = seleccionado.Cells(6).Value.ToString
+                TXT_DESCUENTO.Text = seleccionado.Cells(8).Value.ToString
                 TXT_CODIGO.Text = seleccionado.Cells(1).Value.ToString
-                RellenaProducto()
+                RellenaProducto(seleccionado.Cells(3).Value.ToString, seleccionado.Cells(4).Value.ToString, seleccionado.Cells(5).Value.ToString)
                 CalculoTotales()
                 TabControl1.SelectedIndex = 1
                 TXT_CANTIDAD.Focus()
@@ -445,12 +479,16 @@ Public Class Factura
     Private Sub TXT_CANTIDAD_KeyDown(sender As Object, e As KeyEventArgs) Handles TXT_CANTIDAD.KeyDown
         If e.KeyCode = Keys.Enter Then
             TXT_DESCUENTO.Focus()
+            e.Handled = True
+            e.SuppressKeyPress = True
         End If
     End Sub
 
     Private Sub TXT_DESCUENTO_KeyDown(sender As Object, e As KeyEventArgs) Handles TXT_DESCUENTO.KeyDown
         If e.KeyCode = Keys.Enter Then
             BTN_CALCULAR.Focus()
+            e.Handled = True
+            e.SuppressKeyPress = True
         End If
     End Sub
 
@@ -475,10 +513,6 @@ Public Class Factura
         Cerrar()
     End Sub
 
-    Private Sub TXT_CODIGO_TextChanged(sender As Object, e As EventArgs) Handles TXT_CODIGO.TextChanged
-        Busca_Producto()
-    End Sub
-
     Private Sub Busca_Producto()
         Try
             LVResultados.Clear()
@@ -490,6 +524,7 @@ Public Class Factura
                 Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
                 Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
                 Sql &= Chr(13) & "	AND (DESCRIPCION LIKE " & SCM("%" + TXT_CODIGO.Text + "%") & " Or COD_PROD = " & SCM(TXT_CODIGO.Text) & " Or COD_BARRA = " & SCM(TXT_CODIGO.Text) & ")"
+                Sql &= Chr(13) & "  ORDER BY DESCRIPCION ASC"
 
                 CONX.Coneccion_Abrir()
                 Dim DS = CONX.EJECUTE_DS(Sql)
@@ -511,20 +546,38 @@ Public Class Factura
     End Sub
 
     Private Sub LVResultados_DoubleClick(sender As Object, e As EventArgs) Handles LVResultados.DoubleClick
-        Dim a = LVResultados.SelectedItems(0).Name
 
-        If Not IsNothing(a) Then
-            TXT_CODIGO.Text = a
-            RellenaProducto()
-            TXT_CANTIDAD.Focus()
+        Dim Codigo = LVResultados.SelectedItems(0).Name
+        Dim Descripcion = LVResultados.SelectedItems(0).Text
+
+        If Not IsNothing(Codigo) Then
+
+            TXT_ESTANTE.Text = ""
+            TXT_FILA.Text = ""
+            TXT_COLUMNA.Text = ""
+
+            If ProductoMasUbicaciones(Codigo) Then
+                Dim PANTALLA As New ProductoUbicacionMant(Codigo, Descripcion, CRF_Modos.Seleccionar, Me)
+                PANTALLA.ShowDialog()
+                TXT_CANTIDAD.Focus()
+            Else
+                Proceso(Codigo, "", "", "")
+            End If
         End If
 
+    End Sub
+
+    Private Sub Proceso(ByVal codigo As String, ByVal estante As String, ByVal fila As String, ByVal columna As String)
+        TXT_CODIGO.Text = codigo
+        RellenaProducto(estante, fila, columna)
+        Busca_Producto()
+        TXT_CANTIDAD.Focus()
     End Sub
 
     Private Sub GRID_CellClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles GRID.CellClick
         Try
             If e.RowIndex >= 0 Then
-                If e.ColumnIndex = 8 Then
+                If e.ColumnIndex = 11 Then
                     Dim seleccionado = GRID.Rows(GRID.SelectedRows(0).Index)
                     Dim valor = MessageBox.Show(Me, "¿Seguro que desea eliminar la linea :" + seleccionado.Cells(0).Value.ToString + "?", "Eliminar linea", vbYesNo)
 
@@ -615,4 +668,53 @@ Public Class Factura
         End Try
     End Sub
 
+    Private Sub CMB_PRECIO_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_PRECIO.SelectedIndexChanged
+        Try
+            If Not String.IsNullOrEmpty(TXT_CODIGO.Text) Then
+                RellenaProducto("", "", "")
+                CalculoTotales()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Function ProductoMasUbicaciones(ByVal COD_PROD As String) As Boolean
+        Try
+            Dim bandera As Boolean = False
+            Dim Sql = "	SELECT COD_PROD, ESTANTE, FILA, COLUMNA	"
+            Sql &= Chr(13) & "	FROM INVENTARIO_MOV_DET	"
+            Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+            Sql &= Chr(13) & "	AND COD_PROD = " & SCM(COD_PROD)
+            Sql &= Chr(13) & "	GROUP BY COD_PROD, ESTANTE, FILA, COLUMNA"
+            Sql &= Chr(13) & "	HAVING SUM(CANTIDAD) > 0 "
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(Sql)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 1 Then
+                bandera = True
+            End If
+
+            Return bandera
+
+        Catch ex As Exception
+            Return False
+            MessageBox.Show(ex.Message)
+        End Try
+    End Function
+
+    Public Sub RellenaUbicaciones(ByVal Estante As String, ByVal Fila As String, ByVal Columna As String, ByVal Cod_Prod As String)
+        Proceso(Cod_Prod, Estante, Fila, Columna)
+    End Sub
+
+    Private Sub TXT_CODIGO_KeyDown(sender As Object, e As KeyEventArgs) Handles TXT_CODIGO.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            Busca_Producto()
+            e.Handled = True
+            e.SuppressKeyPress = True
+        End If
+    End Sub
 End Class

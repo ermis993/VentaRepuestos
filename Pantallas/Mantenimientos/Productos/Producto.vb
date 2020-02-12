@@ -4,6 +4,7 @@ Imports VentaRepuestos.Globales
 Public Class Producto
 
     Dim COD_PROD As String
+    Dim DESCRIPCION As String
     Dim MODO As CRF_Modos
     Dim BS As New Buscador
     Dim CONSULTA_FILTRO As String = ""
@@ -29,7 +30,7 @@ Public Class Producto
     End Sub
 
     Private Sub FORMATO_GRID()
-        GRID.ColumnCount = 10
+        GRID.ColumnCount = 7
         GRID.Columns(0).HeaderText = "Código"
         GRID.Columns(0).Name = "COD_PROD"
         GRID.Columns(1).HeaderText = "Descripción"
@@ -42,14 +43,8 @@ Public Class Producto
         GRID.Columns(4).Name = "EXENTO"
         GRID.Columns(5).HeaderText = "Estado"
         GRID.Columns(5).Name = "ESTADO"
-        GRID.Columns(6).HeaderText = "Estante"
-        GRID.Columns(6).Name = "ESTANTE"
-        GRID.Columns(7).HeaderText = "Fila"
-        GRID.Columns(7).Name = "FILA"
-        GRID.Columns(8).HeaderText = "Columna"
-        GRID.Columns(8).Name = "COLUMNA"
-        GRID.Columns(9).HeaderText = "Mínimo"
-        GRID.Columns(9).Name = "MINIMO"
+        GRID.Columns(6).HeaderText = "Mínimo"
+        GRID.Columns(6).Name = "MINIMO"
         Filtro.FILTRO_CARGAR_COMBO(GRID)
     End Sub
 
@@ -59,7 +54,7 @@ Public Class Producto
                 GRID.Rows.Clear()
                 GRID.DataSource = Nothing
                 Dim Sql = "	SELECT COD_PROD AS Código, DESCRIPCION AS Descripción, COSTO AS Costo, PRECIO AS Precio, EXENTO AS Exento "
-                Sql &= Chr(13) & "	,ESTADO AS Estado, ESTANTE AS Estante, FILA AS Fila, COLUMNA as Columna, MINIMO as Mínimo	"
+                Sql &= Chr(13) & "	,ESTADO AS Estado, MINIMO as Mínimo	"
                 Sql &= Chr(13) & "	FROM PRODUCTO	"
                 Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
                 Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
@@ -76,7 +71,7 @@ Public Class Producto
 
                 If DS.Tables(0).Rows.Count > 0 Then
                     For Each ITEM In DS.Tables(0).Rows
-                        Dim row As String() = New String() {ITEM("Código"), ITEM("Descripción"), ITEM("Costo"), ITEM("Precio"), ITEM("Exento"), ITEM("Estado"), ITEM("Estante"), ITEM("Fila"), ITEM("Columna"), ITEM("Mínimo")}
+                        Dim row As String() = New String() {ITEM("Código"), ITEM("Descripción"), ITEM("Costo"), ITEM("Precio"), ITEM("Exento"), ITEM("Estado"), ITEM("Mínimo")}
                         GRID.Rows.Add(row)
                     Next
                 End If
@@ -104,6 +99,7 @@ Public Class Producto
             If Me.GRID.Rows.Count > 0 Then
                 Dim seleccionado = GRID.Rows(GRID.SelectedRows(0).Index)
                 COD_PROD = seleccionado.Cells(0).Value.ToString
+                DESCRIPCION = seleccionado.Cells(1).Value.ToString
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -145,4 +141,15 @@ Public Class Producto
         End If
     End Sub
 
+    Private Sub BTN_UBICACION_Click(sender As Object, e As EventArgs) Handles BTN_UBICACION.Click
+        Try
+            If Me.GRID.Rows.Count > 0 Then
+                Leer_indice()
+                Dim PANTALLA As New ProductoUbicacionMant(COD_PROD, DESCRIPCION)
+                PANTALLA.ShowDialog()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 End Class

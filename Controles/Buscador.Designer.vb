@@ -30,30 +30,30 @@ Partial Class Buscador
         'CMB
         '
         Me.CMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CMB.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CMB.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.CMB.FormattingEnabled = True
-        Me.CMB.Location = New System.Drawing.Point(159, 1)
+        Me.CMB.Location = New System.Drawing.Point(159, 2)
         Me.CMB.Margin = New System.Windows.Forms.Padding(2)
         Me.CMB.Name = "CMB"
-        Me.CMB.Size = New System.Drawing.Size(276, 23)
+        Me.CMB.Size = New System.Drawing.Size(276, 26)
         Me.CMB.TabIndex = 2
         '
         'TXT_BUSCADOR
         '
-        Me.TXT_BUSCADOR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
-        Me.TXT_BUSCADOR.Location = New System.Drawing.Point(69, 2)
+        Me.TXT_BUSCADOR.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_BUSCADOR.Location = New System.Drawing.Point(68, 3)
         Me.TXT_BUSCADOR.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_BUSCADOR.Name = "TXT_BUSCADOR"
-        Me.TXT_BUSCADOR.Size = New System.Drawing.Size(85, 22)
+        Me.TXT_BUSCADOR.Size = New System.Drawing.Size(85, 24)
         Me.TXT_BUSCADOR.TabIndex = 1
         '
         'BTN_BUSCAR
         '
-        Me.BTN_BUSCAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
+        Me.BTN_BUSCAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.BTN_BUSCAR.Location = New System.Drawing.Point(0, 1)
         Me.BTN_BUSCAR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_BUSCAR.Name = "BTN_BUSCAR"
-        Me.BTN_BUSCAR.Size = New System.Drawing.Size(64, 23)
+        Me.BTN_BUSCAR.Size = New System.Drawing.Size(64, 28)
         Me.BTN_BUSCAR.TabIndex = 0
         Me.BTN_BUSCAR.Text = "Buscar"
         Me.BTN_BUSCAR.UseVisualStyleBackColor = True
@@ -67,7 +67,7 @@ Partial Class Buscador
         Me.Controls.Add(Me.TXT_BUSCADOR)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "Buscador"
-        Me.Size = New System.Drawing.Size(436, 26)
+        Me.Size = New System.Drawing.Size(436, 29)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

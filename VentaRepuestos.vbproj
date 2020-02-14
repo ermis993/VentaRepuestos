@@ -139,6 +139,12 @@
     <Compile Include="Pantallas\Movimientos\Facturacion.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pantallas\Movimientos\NotaCredito.Designer.vb">
+      <DependentUpon>NotaCredito.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\NotaCredito.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pantallas\OlvidoContrasena.Designer.vb">
       <DependentUpon>OlvidoContrasena.vb</DependentUpon>
     </Compile>
@@ -285,6 +291,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Movimientos\Facturacion.resx">
       <DependentUpon>Facturacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\NotaCredito.resx">
+      <DependentUpon>NotaCredito.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\OlvidoContrasena.resx">
       <DependentUpon>OlvidoContrasena.vb</DependentUpon>

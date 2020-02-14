@@ -293,6 +293,8 @@ Public Class Factura
         Try
             If String.IsNullOrEmpty(TXT_ESTANTE.Text) Or String.IsNullOrEmpty(TXT_FILA.Text) Or String.IsNullOrEmpty(TXT_COLUMNA.Text) Then
                 MessageBox.Show("La ubicación del producto es inválida, vuelva a seleccionar el producto")
+            ElseIf String.IsNullOrEmpty(Cliente.VALOR) Then
+                MessageBox.Show("El cliente no ha sido seleccionado")
             Else
                 If FMC(TXT_TOTAL.Text) > 0 Then
                     Dim SQL = "	EXECUTE USP_MANT_FACTURACION_TMP "

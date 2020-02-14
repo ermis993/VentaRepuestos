@@ -53,7 +53,7 @@ Public Class Facturacion
 
     Private Sub FORMATO_GRID()
         If CMB_TIPO_FACT.SelectedIndex = 0 Then
-            GRID.ColumnCount = 11
+            GRID.ColumnCount = 12
             GRID.Columns(0).HeaderText = "Documento"
             GRID.Columns(0).Name = "NUMERO_DOC"
             GRID.Columns(1).HeaderText = "Tipo"
@@ -76,9 +76,11 @@ Public Class Facturacion
             GRID.Columns(9).Name = "IMPUESTO"
             GRID.Columns(10).HeaderText = "Total"
             GRID.Columns(10).Name = "(MONTO + IMPUESTO)"
+            GRID.Columns(11).HeaderText = "Saldo"
+            GRID.Columns(11).Name = " ENC.SALDO"
             Filtro.FILTRO_CARGAR_COMBO(GRID)
         Else
-            GRID.ColumnCount = 11
+            GRID.ColumnCount = 12
             GRID.Columns(0).HeaderText = "Documento"
             GRID.Columns(0).Name = "ENC.CODIGO"
             GRID.Columns(1).HeaderText = "Tipo"
@@ -101,6 +103,8 @@ Public Class Facturacion
             GRID.Columns(9).Name = "SUM(DET.IMPUESTO)"
             GRID.Columns(10).HeaderText = "Total"
             GRID.Columns(10).Name = " SUM(DET.TOTAL)"
+            GRID.Columns(11).HeaderText = "Saldo"
+            GRID.Columns(11).Name = " SUM(DET.TOTAL)"
             Filtro.FILTRO_CARGAR_COMBO(GRID)
         End If
 
@@ -115,7 +119,7 @@ Public Class Facturacion
 
                 If CMB_TIPO_FACT.SelectedIndex = 0 Then
                     SQL &= Chr(13) & "	SELECT NUMERO_DOC AS Documento, TIPO_MOV as Tipo, C.CEDULA AS Cédula, C.NOMBRE AS Nombre, ENC.DESCRIPCION AS Descripción, CONVERT(VARCHAR(10), ENC.FECHA, 105) AS Fecha	"
-                    SQL &= Chr(13) & "	,COD_USUARIO AS Usuario, COD_MONEDA AS Moneda, MONTO AS Subtotal, IMPUESTO AS Impuesto, (MONTO + IMPUESTO) as Total "
+                    SQL &= Chr(13) & "	,COD_USUARIO AS Usuario, COD_MONEDA AS Moneda, MONTO AS Subtotal, IMPUESTO AS Impuesto, (MONTO + IMPUESTO) as Total, ENC.SALDO AS Saldo "
                     SQL &= Chr(13) & "	FROM DOCUMENTO_ENC AS ENC	"
                     SQL &= Chr(13) & "	INNER JOIN CLIENTE AS C	"
                     SQL &= Chr(13) & "		ON C.COD_CIA = ENC.COD_CIA "
@@ -132,7 +136,7 @@ Public Class Facturacion
                     SQL &= Chr(13) & " ORDER BY ENC.FECHA_INC DESC"
                 Else
                     SQL &= Chr(13) & "	SELECT ENC.CODIGO AS Documento, ENC.TIPO_MOV as Tipo, C.CEDULA AS Cédula, C.NOMBRE AS Nombre, ENC.DESCRIPCION AS Descripción, CONVERT(VARCHAR(10), ENC.FECHA, 105) AS Fecha	"
-                    SQL &= Chr(13) & "	,COD_USUARIO AS Usuario, COD_MONEDA AS Moneda, SUM(DET.SUBTOTAL) AS Subtotal, SUM(DET.IMPUESTO) AS Impuesto, SUM(DET.TOTAL) as Total 	"
+                    SQL &= Chr(13) & "	,COD_USUARIO AS Usuario, COD_MONEDA AS Moneda, SUM(DET.SUBTOTAL) AS Subtotal, SUM(DET.IMPUESTO) AS Impuesto, SUM(DET.TOTAL) as Total, SUM(DET.TOTAL) as Saldo 	"
                     SQL &= Chr(13) & "	FROM DOCUMENTO_ENC_TMP AS ENC	"
                     SQL &= Chr(13) & "	INNER JOIN CLIENTE AS C		"
                     SQL &= Chr(13) & "		ON C.COD_CIA = ENC.COD_CIA	"
@@ -156,7 +160,7 @@ Public Class Facturacion
 
                 If DS.Tables(0).Rows.Count > 0 Then
                     For Each ITEM In DS.Tables(0).Rows
-                        Dim row As String() = New String() {ITEM("Documento"), ITEM("Tipo"), ITEM("Cédula"), ITEM("Nombre"), ITEM("Descripción"), ITEM("Fecha"), ITEM("Usuario"), ITEM("Moneda"), ITEM("Subtotal"), ITEM("Impuesto"), ITEM("Total")}
+                        Dim row As String() = New String() {ITEM("Documento"), ITEM("Tipo"), ITEM("Cédula"), ITEM("Nombre"), ITEM("Descripción"), ITEM("Fecha"), ITEM("Usuario"), ITEM("Moneda"), ITEM("Subtotal"), ITEM("Impuesto"), ITEM("Total"), ITEM("Saldo")}
                         GRID.Rows.Add(row)
                     Next
                 End If
@@ -218,4 +222,12 @@ Public Class Facturacion
         End If
     End Sub
 
+    Private Sub BTN_RECIBO_Click(sender As Object, e As EventArgs) Handles BTN_RECIBO.Click
+        Try
+            Dim PANTALLA As New NotaCredito()
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 End Class

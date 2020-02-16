@@ -43,6 +43,8 @@ Public Class LBL_CANTON
             GB_ACTIVIDADES.Enabled = False
         ElseIf MODO = CRF_Modos.Modificar Then
             TXT_CODIGO.Text = COD_C
+            CMB_TIPO_CEDULA.Enabled = False
+            TXT_CEDULA.Enabled = False
             LEER()
             REFRESCAR_ACTIVIDADES()
         End If
@@ -287,6 +289,9 @@ Public Class LBL_CANTON
             ElseIf TXT_EMAIL.Text.ToString.Equals("") Then
                 MessageBox.Show("¡Correo electrónico incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_EMAIL.Select()
+            ElseIf TXT_DIRECCION.Text.ToString.Equals("") Then
+                MessageBox.Show("¡Dirrección incorrecta!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                TXT_DIRECCION.Select()
             ElseIf CMB_PROVINCIA.Text.Equals("") Then
                 MessageBox.Show("¡Provincia incorrecta!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 CMB_PROVINCIA.Select()
@@ -337,6 +342,8 @@ Public Class LBL_CANTON
 
                     TXT_CEDULA.Text = ITEM("CEDULA")
                     TXT_EMAIL.Text = ITEM("CORREO")
+                    TXT_DIRECCION.Text = ITEM("DIRECCION")
+
                     CMB_PROVINCIA.SelectedValue = ITEM("COD_PROVINCIA")
                     CMB_CANTON.SelectedValue = ITEM("COD_CANTON")
                     CMB_DISTRITO.SelectedValue = ITEM("COD_DISTRITO")
@@ -361,6 +368,12 @@ Public Class LBL_CANTON
                     Else
                         CHK_FE.Checked = False
                         TAB_FE.Parent = Nothing
+                    End If
+
+                    If ITEM("IND_TIPO_DGTD") = "R" Then
+                        RB_REAL.Checked = True
+                    ElseIf ITEM("IND_TIPO_DGTD") = "P" Then
+                        RB_PRUEBAS.Checked = True
                     End If
                 Next
             End If
@@ -387,6 +400,16 @@ Public Class LBL_CANTON
             SQL &= Chr(13) & ",@FE = " & SCM(IIf(CHK_FE.Checked = True, "S", "N"))
             SQL &= Chr(13) & ",@USUARIO_ATV = " & SCM(TXT_USUARIO_ATV.Text)
             SQL &= Chr(13) & ",@CLAVE_ATV = " & SCM(TXT_CLAVE_ATV.Text)
+            SQL &= Chr(13) & ",@DIRECCION = " & SCM(TXT_DIRECCION.Text)
+            SQL &= Chr(13) & ",@LINK_FT = " & SCM(LINK_FT.Text)
+            SQL &= Chr(13) & ",@LINK_CONSULTAS = " & SCM(LINK_CONSULTAS.Text)
+
+            If RB_REAL.Checked = True Then
+                SQL &= Chr(13) & ",@IND_TIPO_DGTD = " & SCM("R")
+            ElseIf RB_PRUEBAS.Checked = True Then
+                SQL &= Chr(13) & ",@IND_TIPO_DGTD = " & SCM("P")
+            End If
+
             CONX.Coneccion_Abrir()
             CONX.EJECUTE(SQL)
             CONX.Coneccion_Cerrar()
@@ -433,7 +456,7 @@ Public Class LBL_CANTON
     Public Sub REFRESCAR_ACTIVIDADES()
         Try
             GRID_ACTIVIDADES.DataSource = Nothing
-            Dim SQL = "	SELECT COD_ACT as Código,DES_ACT as Descripción,PRINCIPAL as Principal,FECHA_INC as 'Fecha creación'"
+            Dim SQL = "	SELECT COD_ACT as Código,DES_ACT as Descripción,PRINCIPAL as Principal,CONVERT(VARCHAR,FECHA_INC,103) as 'Fecha creación'"
             SQL &= Chr(13) & "	FROM ACTIVIDAD_ECONOMICA"
             SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(TXT_CODIGO.Text)
 
@@ -491,4 +514,18 @@ Public Class LBL_CANTON
             Return False
         End Try
     End Function
+
+    Private Sub RB_REAL_CheckedChanged(sender As Object, e As EventArgs) Handles RB_REAL.CheckedChanged
+        If RB_REAL.Checked = True Then
+            LINK_FT.Text = "https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion"
+            LINK_CONSULTAS.Text = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token"
+        End If
+    End Sub
+
+    Private Sub RB_PRUEBAS_CheckedChanged(sender As Object, e As EventArgs) Handles RB_PRUEBAS.CheckedChanged
+        If RB_PRUEBAS.Checked = True Then
+            LINK_FT.Text = "https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion"
+            LINK_CONSULTAS.Text = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut-stag/protocol/openid-connect/token"
+        End If
+    End Sub
 End Class

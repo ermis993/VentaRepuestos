@@ -53,7 +53,6 @@ Partial Class ProveedorMant
         Me.TXT_CEDULA.PromptChar = Global.Microsoft.VisualBasic.ChrW(35)
         Me.TXT_CEDULA.Size = New System.Drawing.Size(201, 24)
         Me.TXT_CEDULA.TabIndex = 3
-        Me.TXT_CEDULA.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt
         '
         'TXT_NOMBRE
         '

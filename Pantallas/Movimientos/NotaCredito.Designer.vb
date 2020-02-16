@@ -22,8 +22,11 @@ Partial Class NotaCredito
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(NotaCredito))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.CMB_TIPO = New System.Windows.Forms.ComboBox()
+        Me.LBLTIPO = New System.Windows.Forms.Label()
         Me.TXT_TIPO_CAMBIO = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -32,42 +35,43 @@ Partial Class NotaCredito
         Me.CMB_DOCUMENTO = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.LBLTIPO = New System.Windows.Forms.Label()
-        Me.CMB_TIPO = New System.Windows.Forms.ComboBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TAB_ENC = New System.Windows.Forms.TabPage()
-        Me.Cliente = New VentaRepuestos.Buscador()
         Me.TXT_DESCRIPCION = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.CMB_MONEDA = New System.Windows.Forms.ComboBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.TAB_DET = New System.Windows.Forms.TabPage()
-        Me.LVResultados = New System.Windows.Forms.ListView()
-        Me.Label19 = New System.Windows.Forms.Label()
-        Me.TXT_CODIGO = New System.Windows.Forms.TextBox()
-        Me.TXT_CANTIDAD = New System.Windows.Forms.TextBox()
-        Me.Label13 = New System.Windows.Forms.Label()
-        Me.Label22 = New System.Windows.Forms.Label()
-        Me.BTN_INGRESAR = New System.Windows.Forms.Button()
         Me.TAB_FACTURAS = New System.Windows.Forms.TabPage()
         Me.GRID = New System.Windows.Forms.DataGridView()
-        Me.TXT_T = New System.Windows.Forms.TextBox()
-        Me.Label24 = New System.Windows.Forms.Label()
-        Me.TXT_I = New System.Windows.Forms.TextBox()
+        Me.TAB_DET = New System.Windows.Forms.TabPage()
+        Me.GRID2 = New System.Windows.Forms.DataGridView()
+        Me.CMSAfectar = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.IgualarMontoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.IngresarMontoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TXT_DIF = New System.Windows.Forms.TextBox()
         Me.Label25 = New System.Windows.Forms.Label()
-        Me.TXT_D = New System.Windows.Forms.TextBox()
+        Me.TXT_DIS = New System.Windows.Forms.TextBox()
         Me.Label23 = New System.Windows.Forms.Label()
-        Me.TXT_S = New System.Windows.Forms.TextBox()
+        Me.TXT_M = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
+        Me.Cliente = New VentaRepuestos.Buscador()
+        Me.TAB_PRODUCTOS = New System.Windows.Forms.TabPage()
+        Me.GRIDPRODS = New System.Windows.Forms.DataGridView()
+        Me.GRIDPRODS2 = New System.Windows.Forms.DataGridView()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TAB_ENC.SuspendLayout()
-        Me.TAB_DET.SuspendLayout()
         Me.TAB_FACTURAS.SuspendLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TAB_DET.SuspendLayout()
+        CType(Me.GRID2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.CMSAfectar.SuspendLayout()
+        Me.TAB_PRODUCTOS.SuspendLayout()
+        CType(Me.GRIDPRODS, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GRIDPRODS2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -86,52 +90,75 @@ Partial Class NotaCredito
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox1.Size = New System.Drawing.Size(759, 80)
-        Me.GroupBox1.TabIndex = 1
+        Me.GroupBox1.Size = New System.Drawing.Size(790, 80)
+        Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Información ]"
+        '
+        'CMB_TIPO
+        '
+        Me.CMB_TIPO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CMB_TIPO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.CMB_TIPO.FormattingEnabled = True
+        Me.CMB_TIPO.Items.AddRange(New Object() {"DV-Devolución", "DF-Diferencia de precio"})
+        Me.CMB_TIPO.Location = New System.Drawing.Point(370, 44)
+        Me.CMB_TIPO.Margin = New System.Windows.Forms.Padding(2)
+        Me.CMB_TIPO.Name = "CMB_TIPO"
+        Me.CMB_TIPO.Size = New System.Drawing.Size(195, 26)
+        Me.CMB_TIPO.TabIndex = 5
+        '
+        'LBLTIPO
+        '
+        Me.LBLTIPO.AutoSize = True
+        Me.LBLTIPO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.LBLTIPO.Location = New System.Drawing.Point(321, 48)
+        Me.LBLTIPO.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LBLTIPO.Name = "LBLTIPO"
+        Me.LBLTIPO.Size = New System.Drawing.Size(45, 18)
+        Me.LBLTIPO.TabIndex = 4
+        Me.LBLTIPO.Text = "Tipo :"
         '
         'TXT_TIPO_CAMBIO
         '
         Me.TXT_TIPO_CAMBIO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_TIPO_CAMBIO.Location = New System.Drawing.Point(637, 45)
+        Me.TXT_TIPO_CAMBIO.Location = New System.Drawing.Point(670, 44)
         Me.TXT_TIPO_CAMBIO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_TIPO_CAMBIO.Name = "TXT_TIPO_CAMBIO"
         Me.TXT_TIPO_CAMBIO.Size = New System.Drawing.Size(116, 24)
-        Me.TXT_TIPO_CAMBIO.TabIndex = 7
+        Me.TXT_TIPO_CAMBIO.TabIndex = 9
         Me.TXT_TIPO_CAMBIO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label4.Location = New System.Drawing.Point(593, 48)
+        Me.Label4.Location = New System.Drawing.Point(626, 47)
         Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(40, 18)
-        Me.Label4.TabIndex = 6
+        Me.Label4.TabIndex = 8
         Me.Label4.Text = "T.C :"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label3.Location = New System.Drawing.Point(576, 20)
+        Me.Label3.Location = New System.Drawing.Point(609, 19)
         Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(57, 18)
-        Me.Label3.TabIndex = 4
+        Me.Label3.TabIndex = 6
         Me.Label3.Text = "Fecha :"
         '
         'DTPFECHA
         '
         Me.DTPFECHA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.DTPFECHA.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DTPFECHA.Location = New System.Drawing.Point(637, 17)
+        Me.DTPFECHA.Location = New System.Drawing.Point(670, 16)
         Me.DTPFECHA.Margin = New System.Windows.Forms.Padding(2)
         Me.DTPFECHA.Name = "DTPFECHA"
         Me.DTPFECHA.Size = New System.Drawing.Size(116, 24)
-        Me.DTPFECHA.TabIndex = 5
+        Me.DTPFECHA.TabIndex = 7
         '
         'TXT_NUMERO
         '
@@ -176,40 +203,18 @@ Partial Class NotaCredito
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Número :"
         '
-        'LBLTIPO
-        '
-        Me.LBLTIPO.AutoSize = True
-        Me.LBLTIPO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.LBLTIPO.Location = New System.Drawing.Point(321, 48)
-        Me.LBLTIPO.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.LBLTIPO.Name = "LBLTIPO"
-        Me.LBLTIPO.Size = New System.Drawing.Size(45, 18)
-        Me.LBLTIPO.TabIndex = 8
-        Me.LBLTIPO.Text = "Tipo :"
-        '
-        'CMB_TIPO
-        '
-        Me.CMB_TIPO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CMB_TIPO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.CMB_TIPO.FormattingEnabled = True
-        Me.CMB_TIPO.Items.AddRange(New Object() {"DV-Devolución", "DF-Diferencia de precio"})
-        Me.CMB_TIPO.Location = New System.Drawing.Point(370, 44)
-        Me.CMB_TIPO.Margin = New System.Windows.Forms.Padding(2)
-        Me.CMB_TIPO.Name = "CMB_TIPO"
-        Me.CMB_TIPO.Size = New System.Drawing.Size(195, 26)
-        Me.CMB_TIPO.TabIndex = 9
-        '
         'TabControl1
         '
         Me.TabControl1.Controls.Add(Me.TAB_ENC)
         Me.TabControl1.Controls.Add(Me.TAB_FACTURAS)
         Me.TabControl1.Controls.Add(Me.TAB_DET)
+        Me.TabControl1.Controls.Add(Me.TAB_PRODUCTOS)
         Me.TabControl1.Location = New System.Drawing.Point(2, 86)
         Me.TabControl1.Margin = New System.Windows.Forms.Padding(2)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(759, 234)
-        Me.TabControl1.TabIndex = 2
+        Me.TabControl1.Size = New System.Drawing.Size(790, 234)
+        Me.TabControl1.TabIndex = 1
         '
         'TAB_ENC
         '
@@ -223,25 +228,10 @@ Partial Class NotaCredito
         Me.TAB_ENC.Margin = New System.Windows.Forms.Padding(2)
         Me.TAB_ENC.Name = "TAB_ENC"
         Me.TAB_ENC.Padding = New System.Windows.Forms.Padding(2)
-        Me.TAB_ENC.Size = New System.Drawing.Size(788, 208)
+        Me.TAB_ENC.Size = New System.Drawing.Size(782, 208)
         Me.TAB_ENC.TabIndex = 0
         Me.TAB_ENC.Text = "[ Encabezado ]"
         Me.TAB_ENC.UseVisualStyleBackColor = True
-        '
-        'Cliente
-        '
-        Me.Cliente.CODIGO = Nothing
-        Me.Cliente.DESCRIPCION = Nothing
-        Me.Cliente.Location = New System.Drawing.Point(111, 10)
-        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cliente.Name = "Cliente"
-        Me.Cliente.OTROS_CAMP0S = Nothing
-        Me.Cliente.PANTALLA = Nothing
-        Me.Cliente.Size = New System.Drawing.Size(451, 32)
-        Me.Cliente.TabIndex = 1
-        Me.Cliente.TABLA_BUSCAR = Nothing
-        Me.Cliente.VALOR = ""
-        Me.Cliente.VALOR_DESCRIPCION = Nothing
         '
         'TXT_DESCRIPCION
         '
@@ -299,105 +289,13 @@ Partial Class NotaCredito
         Me.Label6.TabIndex = 0
         Me.Label6.Text = "Cliente :"
         '
-        'TAB_DET
-        '
-        Me.TAB_DET.Controls.Add(Me.LVResultados)
-        Me.TAB_DET.Controls.Add(Me.Label19)
-        Me.TAB_DET.Controls.Add(Me.TXT_CODIGO)
-        Me.TAB_DET.Controls.Add(Me.TXT_CANTIDAD)
-        Me.TAB_DET.Controls.Add(Me.Label13)
-        Me.TAB_DET.Controls.Add(Me.Label22)
-        Me.TAB_DET.Controls.Add(Me.BTN_INGRESAR)
-        Me.TAB_DET.Location = New System.Drawing.Point(4, 22)
-        Me.TAB_DET.Margin = New System.Windows.Forms.Padding(2)
-        Me.TAB_DET.Name = "TAB_DET"
-        Me.TAB_DET.Padding = New System.Windows.Forms.Padding(2)
-        Me.TAB_DET.Size = New System.Drawing.Size(788, 208)
-        Me.TAB_DET.TabIndex = 1
-        Me.TAB_DET.Text = "[ Detalle ]"
-        Me.TAB_DET.UseVisualStyleBackColor = True
-        '
-        'LVResultados
-        '
-        Me.LVResultados.HideSelection = False
-        Me.LVResultados.Location = New System.Drawing.Point(132, 44)
-        Me.LVResultados.Name = "LVResultados"
-        Me.LVResultados.Size = New System.Drawing.Size(378, 73)
-        Me.LVResultados.TabIndex = 3
-        Me.LVResultados.UseCompatibleStateImageBehavior = False
-        Me.LVResultados.View = System.Windows.Forms.View.List
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label19.Location = New System.Drawing.Point(42, 43)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(85, 18)
-        Me.Label19.TabIndex = 2
-        Me.Label19.Text = "Productos :"
-        '
-        'TXT_CODIGO
-        '
-        Me.TXT_CODIGO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_CODIGO.Location = New System.Drawing.Point(132, 13)
-        Me.TXT_CODIGO.Name = "TXT_CODIGO"
-        Me.TXT_CODIGO.Size = New System.Drawing.Size(378, 24)
-        Me.TXT_CODIGO.TabIndex = 1
-        '
-        'TXT_CANTIDAD
-        '
-        Me.TXT_CANTIDAD.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_CANTIDAD.Location = New System.Drawing.Point(132, 122)
-        Me.TXT_CANTIDAD.Margin = New System.Windows.Forms.Padding(2)
-        Me.TXT_CANTIDAD.MaxLength = 6
-        Me.TXT_CANTIDAD.Name = "TXT_CANTIDAD"
-        Me.TXT_CANTIDAD.Size = New System.Drawing.Size(89, 24)
-        Me.TXT_CANTIDAD.TabIndex = 5
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label13.Location = New System.Drawing.Point(53, 125)
-        Me.Label13.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(74, 18)
-        Me.Label13.TabIndex = 4
-        Me.Label13.Text = "Cantidad :"
-        '
-        'Label22
-        '
-        Me.Label22.AutoSize = True
-        Me.Label22.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label22.Location = New System.Drawing.Point(5, 16)
-        Me.Label22.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(122, 18)
-        Me.Label22.TabIndex = 0
-        Me.Label22.Text = "Nombre/Código :"
-        '
-        'BTN_INGRESAR
-        '
-        Me.BTN_INGRESAR.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_INGRESAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_INGRESAR.Image = Global.VentaRepuestos.My.Resources.Resources.agregar
-        Me.BTN_INGRESAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_INGRESAR.Location = New System.Drawing.Point(683, 162)
-        Me.BTN_INGRESAR.Name = "BTN_INGRESAR"
-        Me.BTN_INGRESAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_INGRESAR.TabIndex = 16
-        Me.BTN_INGRESAR.Text = "Ingresar"
-        Me.BTN_INGRESAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_INGRESAR.UseVisualStyleBackColor = False
-        '
         'TAB_FACTURAS
         '
         Me.TAB_FACTURAS.Controls.Add(Me.GRID)
         Me.TAB_FACTURAS.Location = New System.Drawing.Point(4, 22)
         Me.TAB_FACTURAS.Margin = New System.Windows.Forms.Padding(2)
         Me.TAB_FACTURAS.Name = "TAB_FACTURAS"
-        Me.TAB_FACTURAS.Size = New System.Drawing.Size(751, 208)
+        Me.TAB_FACTURAS.Size = New System.Drawing.Size(782, 208)
         Me.TAB_FACTURAS.TabIndex = 2
         Me.TAB_FACTURAS.Text = "[ Facturas ]"
         Me.TAB_FACTURAS.UseVisualStyleBackColor = True
@@ -415,62 +313,98 @@ Partial Class NotaCredito
         Me.GRID.Margin = New System.Windows.Forms.Padding(2)
         Me.GRID.MultiSelect = False
         Me.GRID.Name = "GRID"
+        Me.GRID.ReadOnly = True
         Me.GRID.RowHeadersVisible = False
         Me.GRID.RowHeadersWidth = 51
         Me.GRID.RowTemplate.Height = 24
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRID.Size = New System.Drawing.Size(747, 206)
+        Me.GRID.Size = New System.Drawing.Size(777, 206)
         Me.GRID.TabIndex = 0
         '
-        'TXT_T
+        'TAB_DET
         '
-        Me.TXT_T.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_T.Location = New System.Drawing.Point(341, 348)
-        Me.TXT_T.Name = "TXT_T"
-        Me.TXT_T.ReadOnly = True
-        Me.TXT_T.Size = New System.Drawing.Size(160, 24)
-        Me.TXT_T.TabIndex = 17
-        Me.TXT_T.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.TAB_DET.Controls.Add(Me.GRID2)
+        Me.TAB_DET.Location = New System.Drawing.Point(4, 22)
+        Me.TAB_DET.Margin = New System.Windows.Forms.Padding(2)
+        Me.TAB_DET.Name = "TAB_DET"
+        Me.TAB_DET.Padding = New System.Windows.Forms.Padding(2)
+        Me.TAB_DET.Size = New System.Drawing.Size(782, 208)
+        Me.TAB_DET.TabIndex = 1
+        Me.TAB_DET.Text = "[ Detalle ]"
+        Me.TAB_DET.UseVisualStyleBackColor = True
         '
-        'Label24
+        'GRID2
         '
-        Me.Label24.AutoSize = True
-        Me.Label24.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label24.Location = New System.Drawing.Point(286, 351)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(49, 18)
-        Me.Label24.TabIndex = 16
-        Me.Label24.Text = "Total :"
+        Me.GRID2.AllowUserToAddRows = False
+        Me.GRID2.AllowUserToDeleteRows = False
+        Me.GRID2.AllowUserToOrderColumns = True
+        Me.GRID2.AllowUserToResizeColumns = False
+        Me.GRID2.AllowUserToResizeRows = False
+        Me.GRID2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.GRID2.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.GRID2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.GRID2.ContextMenuStrip = Me.CMSAfectar
+        Me.GRID2.Location = New System.Drawing.Point(3, 1)
+        Me.GRID2.Margin = New System.Windows.Forms.Padding(2)
+        Me.GRID2.MultiSelect = False
+        Me.GRID2.Name = "GRID2"
+        Me.GRID2.ReadOnly = True
+        Me.GRID2.RowHeadersVisible = False
+        Me.GRID2.RowHeadersWidth = 51
+        Me.GRID2.RowTemplate.Height = 24
+        Me.GRID2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.GRID2.Size = New System.Drawing.Size(777, 206)
+        Me.GRID2.TabIndex = 1
         '
-        'TXT_I
+        'CMSAfectar
         '
-        Me.TXT_I.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_I.Location = New System.Drawing.Point(341, 323)
-        Me.TXT_I.Name = "TXT_I"
-        Me.TXT_I.ReadOnly = True
-        Me.TXT_I.Size = New System.Drawing.Size(160, 24)
-        Me.TXT_I.TabIndex = 15
-        Me.TXT_I.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.CMSAfectar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.IgualarMontoToolStripMenuItem, Me.IngresarMontoToolStripMenuItem})
+        Me.CMSAfectar.Name = "CMSAfectar"
+        Me.CMSAfectar.Size = New System.Drawing.Size(156, 48)
+        '
+        'IgualarMontoToolStripMenuItem
+        '
+        Me.IgualarMontoToolStripMenuItem.Name = "IgualarMontoToolStripMenuItem"
+        Me.IgualarMontoToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.IgualarMontoToolStripMenuItem.Text = "Igualar monto"
+        '
+        'IngresarMontoToolStripMenuItem
+        '
+        Me.IngresarMontoToolStripMenuItem.Name = "IngresarMontoToolStripMenuItem"
+        Me.IngresarMontoToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.IngresarMontoToolStripMenuItem.Text = "Ingresar monto"
+        '
+        'TXT_DIF
+        '
+        Me.TXT_DIF.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_DIF.Location = New System.Drawing.Point(354, 334)
+        Me.TXT_DIF.Name = "TXT_DIF"
+        Me.TXT_DIF.ReadOnly = True
+        Me.TXT_DIF.Size = New System.Drawing.Size(160, 24)
+        Me.TXT_DIF.TabIndex = 7
+        Me.TXT_DIF.Text = "0.0000"
+        Me.TXT_DIF.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label25
         '
         Me.Label25.AutoSize = True
         Me.Label25.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label25.Location = New System.Drawing.Point(258, 326)
+        Me.Label25.Location = New System.Drawing.Point(271, 337)
         Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(77, 18)
-        Me.Label25.TabIndex = 14
-        Me.Label25.Text = "Impuesto :"
+        Me.Label25.Size = New System.Drawing.Size(82, 18)
+        Me.Label25.TabIndex = 6
+        Me.Label25.Text = "Diferencia :"
         '
-        'TXT_D
+        'TXT_DIS
         '
-        Me.TXT_D.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_D.Location = New System.Drawing.Point(92, 348)
-        Me.TXT_D.Name = "TXT_D"
-        Me.TXT_D.ReadOnly = True
-        Me.TXT_D.Size = New System.Drawing.Size(160, 24)
-        Me.TXT_D.TabIndex = 13
-        Me.TXT_D.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.TXT_DIS.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_DIS.Location = New System.Drawing.Point(92, 348)
+        Me.TXT_DIS.Name = "TXT_DIS"
+        Me.TXT_DIS.ReadOnly = True
+        Me.TXT_DIS.Size = New System.Drawing.Size(160, 24)
+        Me.TXT_DIS.TabIndex = 5
+        Me.TXT_DIS.Text = "0.0000"
+        Me.TXT_DIS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label23
         '
@@ -478,19 +412,20 @@ Partial Class NotaCredito
         Me.Label23.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.Label23.Location = New System.Drawing.Point(3, 351)
         Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(88, 18)
-        Me.Label23.TabIndex = 12
-        Me.Label23.Text = "Descuento :"
+        Me.Label23.Size = New System.Drawing.Size(86, 18)
+        Me.Label23.TabIndex = 4
+        Me.Label23.Text = "Distribuido :"
         '
-        'TXT_S
+        'TXT_M
         '
-        Me.TXT_S.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_S.Location = New System.Drawing.Point(92, 323)
-        Me.TXT_S.Name = "TXT_S"
-        Me.TXT_S.ReadOnly = True
-        Me.TXT_S.Size = New System.Drawing.Size(160, 24)
-        Me.TXT_S.TabIndex = 11
-        Me.TXT_S.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.TXT_M.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_M.Location = New System.Drawing.Point(92, 323)
+        Me.TXT_M.Name = "TXT_M"
+        Me.TXT_M.ReadOnly = True
+        Me.TXT_M.Size = New System.Drawing.Size(160, 24)
+        Me.TXT_M.TabIndex = 3
+        Me.TXT_M.Text = "0.0000"
+        Me.TXT_M.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label16
         '
@@ -498,9 +433,9 @@ Partial Class NotaCredito
         Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.Label16.Location = New System.Drawing.Point(21, 326)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(70, 18)
-        Me.Label16.TabIndex = 10
-        Me.Label16.Text = "Subtotal :"
+        Me.Label16.Size = New System.Drawing.Size(59, 18)
+        Me.Label16.TabIndex = 2
+        Me.Label16.Text = "Monto :"
         '
         'BTN_SALIR
         '
@@ -508,10 +443,10 @@ Partial Class NotaCredito
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(662, 325)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(693, 325)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_SALIR.TabIndex = 19
+        Me.BTN_SALIR.TabIndex = 9
         Me.BTN_SALIR.Text = "Salir"
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
@@ -522,29 +457,97 @@ Partial Class NotaCredito
         Me.BTN_ACEPTAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_ACEPTAR.Image = CType(resources.GetObject("BTN_ACEPTAR.Image"), System.Drawing.Image)
         Me.BTN_ACEPTAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(563, 325)
+        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(594, 325)
         Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
         Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_ACEPTAR.TabIndex = 18
+        Me.BTN_ACEPTAR.TabIndex = 8
         Me.BTN_ACEPTAR.Text = "Aceptar"
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
+        '
+        'Cliente
+        '
+        Me.Cliente.CODIGO = Nothing
+        Me.Cliente.DESCRIPCION = Nothing
+        Me.Cliente.Location = New System.Drawing.Point(111, 10)
+        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
+        Me.Cliente.Name = "Cliente"
+        Me.Cliente.OTROS_CAMP0S = Nothing
+        Me.Cliente.PANTALLA = Nothing
+        Me.Cliente.Size = New System.Drawing.Size(451, 32)
+        Me.Cliente.TabIndex = 1
+        Me.Cliente.TABLA_BUSCAR = Nothing
+        Me.Cliente.VALOR = ""
+        Me.Cliente.VALOR_DESCRIPCION = Nothing
+        '
+        'TAB_PRODUCTOS
+        '
+        Me.TAB_PRODUCTOS.Controls.Add(Me.GRIDPRODS2)
+        Me.TAB_PRODUCTOS.Controls.Add(Me.GRIDPRODS)
+        Me.TAB_PRODUCTOS.Location = New System.Drawing.Point(4, 22)
+        Me.TAB_PRODUCTOS.Name = "TAB_PRODUCTOS"
+        Me.TAB_PRODUCTOS.Size = New System.Drawing.Size(782, 208)
+        Me.TAB_PRODUCTOS.TabIndex = 3
+        Me.TAB_PRODUCTOS.Text = "[ Productos ]"
+        Me.TAB_PRODUCTOS.UseVisualStyleBackColor = True
+        '
+        'GRIDPRODS
+        '
+        Me.GRIDPRODS.AllowUserToAddRows = False
+        Me.GRIDPRODS.AllowUserToDeleteRows = False
+        Me.GRIDPRODS.AllowUserToOrderColumns = True
+        Me.GRIDPRODS.AllowUserToResizeColumns = False
+        Me.GRIDPRODS.AllowUserToResizeRows = False
+        Me.GRIDPRODS.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.GRIDPRODS.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.GRIDPRODS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.GRIDPRODS.Location = New System.Drawing.Point(3, 1)
+        Me.GRIDPRODS.Margin = New System.Windows.Forms.Padding(2)
+        Me.GRIDPRODS.MultiSelect = False
+        Me.GRIDPRODS.Name = "GRIDPRODS"
+        Me.GRIDPRODS.ReadOnly = True
+        Me.GRIDPRODS.RowHeadersVisible = False
+        Me.GRIDPRODS.RowHeadersWidth = 51
+        Me.GRIDPRODS.RowTemplate.Height = 24
+        Me.GRIDPRODS.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.GRIDPRODS.Size = New System.Drawing.Size(777, 98)
+        Me.GRIDPRODS.TabIndex = 2
+        '
+        'GRIDPRODS2
+        '
+        Me.GRIDPRODS2.AllowUserToAddRows = False
+        Me.GRIDPRODS2.AllowUserToDeleteRows = False
+        Me.GRIDPRODS2.AllowUserToOrderColumns = True
+        Me.GRIDPRODS2.AllowUserToResizeColumns = False
+        Me.GRIDPRODS2.AllowUserToResizeRows = False
+        Me.GRIDPRODS2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.GRIDPRODS2.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.GRIDPRODS2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.GRIDPRODS2.Location = New System.Drawing.Point(3, 103)
+        Me.GRIDPRODS2.Margin = New System.Windows.Forms.Padding(2)
+        Me.GRIDPRODS2.MultiSelect = False
+        Me.GRIDPRODS2.Name = "GRIDPRODS2"
+        Me.GRIDPRODS2.ReadOnly = True
+        Me.GRIDPRODS2.RowHeadersVisible = False
+        Me.GRIDPRODS2.RowHeadersWidth = 51
+        Me.GRIDPRODS2.RowTemplate.Height = 24
+        Me.GRIDPRODS2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.GRIDPRODS2.Size = New System.Drawing.Size(777, 103)
+        Me.GRIDPRODS2.TabIndex = 3
         '
         'NotaCredito
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(764, 375)
+        Me.ClientSize = New System.Drawing.Size(796, 375)
         Me.ControlBox = False
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.BTN_ACEPTAR)
-        Me.Controls.Add(Me.TXT_T)
-        Me.Controls.Add(Me.Label24)
-        Me.Controls.Add(Me.TXT_I)
+        Me.Controls.Add(Me.TXT_DIF)
         Me.Controls.Add(Me.Label25)
-        Me.Controls.Add(Me.TXT_D)
+        Me.Controls.Add(Me.TXT_DIS)
         Me.Controls.Add(Me.Label23)
-        Me.Controls.Add(Me.TXT_S)
+        Me.Controls.Add(Me.TXT_M)
         Me.Controls.Add(Me.Label16)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.GroupBox1)
@@ -557,10 +560,14 @@ Partial Class NotaCredito
         Me.TabControl1.ResumeLayout(False)
         Me.TAB_ENC.ResumeLayout(False)
         Me.TAB_ENC.PerformLayout()
-        Me.TAB_DET.ResumeLayout(False)
-        Me.TAB_DET.PerformLayout()
         Me.TAB_FACTURAS.ResumeLayout(False)
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TAB_DET.ResumeLayout(False)
+        CType(Me.GRID2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.CMSAfectar.ResumeLayout(False)
+        Me.TAB_PRODUCTOS.ResumeLayout(False)
+        CType(Me.GRIDPRODS, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GRIDPRODS2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -586,23 +593,21 @@ Partial Class NotaCredito
     Friend WithEvents Label7 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents TAB_DET As TabPage
-    Friend WithEvents LVResultados As ListView
-    Friend WithEvents Label19 As Label
-    Friend WithEvents TXT_CODIGO As TextBox
-    Friend WithEvents TXT_CANTIDAD As TextBox
-    Friend WithEvents Label13 As Label
-    Friend WithEvents Label22 As Label
-    Friend WithEvents BTN_INGRESAR As Button
     Friend WithEvents TAB_FACTURAS As TabPage
     Friend WithEvents GRID As DataGridView
-    Friend WithEvents TXT_T As TextBox
-    Friend WithEvents Label24 As Label
-    Friend WithEvents TXT_I As TextBox
+    Friend WithEvents TXT_DIF As TextBox
     Friend WithEvents Label25 As Label
-    Friend WithEvents TXT_D As TextBox
+    Friend WithEvents TXT_DIS As TextBox
     Friend WithEvents Label23 As Label
-    Friend WithEvents TXT_S As TextBox
+    Friend WithEvents TXT_M As TextBox
     Friend WithEvents Label16 As Label
     Friend WithEvents BTN_SALIR As Button
     Friend WithEvents BTN_ACEPTAR As Button
+    Friend WithEvents CMSAfectar As ContextMenuStrip
+    Friend WithEvents IgualarMontoToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents IngresarMontoToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents GRID2 As DataGridView
+    Friend WithEvents TAB_PRODUCTOS As TabPage
+    Friend WithEvents GRIDPRODS As DataGridView
+    Friend WithEvents GRIDPRODS2 As DataGridView
 End Class

@@ -118,7 +118,8 @@ Public Class Buscador
     End Sub
 
     Private Sub BTN_BUSCAR_Click(sender As Object, e As EventArgs) Handles BTN_BUSCAR.Click
-        Me.PANTALLA.ShowDialog()
+        If IsNothing(Me.PANTALLA) = False Then
+            Me.PANTALLA.ShowDialog()
+        End If
     End Sub
-
 End Class

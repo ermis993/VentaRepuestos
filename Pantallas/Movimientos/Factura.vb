@@ -41,6 +41,7 @@ Public Class Factura
         Cliente.TABLA_BUSCAR = "CLIENTE"
         Cliente.CODIGO = "CEDULA"
         Cliente.DESCRIPCION = "NOMBRE"
+        Cliente.PANTALLA = New Cliente(CRF_Modos.Seleccionar, Cliente)
         Cliente.refrescar()
 
         If Me.Modo = CRF_Modos.Insertar Then

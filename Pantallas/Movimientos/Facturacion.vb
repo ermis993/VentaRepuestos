@@ -133,7 +133,7 @@ Public Class Facturacion
                     End If
                     SQL &= Chr(13) & " AND ENC.FECHA BETWEEN " & SCM(YMD(DTPINICIO.Value)) & " AND " & SCM(YMD(DTPFINAL.Value))
                     SQL &= Chr(13) & CONSULTA_FILTRO
-                    SQL &= Chr(13) & " ORDER BY ENC.FECHA_INC DESC"
+                    SQL &= Chr(13) & " ORDER BY TIPO_MOV DESC, ENC.FECHA_INC DESC"
                 Else
                     SQL &= Chr(13) & "	SELECT ENC.CODIGO AS Documento, ENC.TIPO_MOV as Tipo, C.CEDULA AS Cédula, C.NOMBRE AS Nombre, ENC.DESCRIPCION AS Descripción, CONVERT(VARCHAR(10), ENC.FECHA, 105) AS Fecha	"
                     SQL &= Chr(13) & "	,COD_USUARIO AS Usuario, COD_MONEDA AS Moneda, SUM(DET.SUBTOTAL) AS Subtotal, SUM(DET.IMPUESTO) AS Impuesto, SUM(DET.TOTAL) as Total, SUM(DET.TOTAL) as Saldo 	"
@@ -151,7 +151,7 @@ Public Class Facturacion
                     SQL &= Chr(13) & "  AND CONVERT(VARCHAR(10),ENC.FECHA, 111) BETWEEN " & SCM(YMD(DTPINICIO.Value)) & " AND " & SCM(YMD(DTPFINAL.Value))
                     SQL &= Chr(13) & CONSULTA_FILTRO
                     SQL &= Chr(13) & "	GROUP BY ENC.CODIGO, ENC.TIPO_MOV, C.CEDULA, C.NOMBRE, ENC.DESCRIPCION, CONVERT(VARCHAR(10), ENC.FECHA, 105),ENC.FECHA_INC,COD_USUARIO, COD_MONEDA	"
-                    SQL &= Chr(13) & "  ORDER BY ENC.FECHA_INC DESC"
+                    SQL &= Chr(13) & "  ORDER BY ENC.TIPO_MOV DESC, ENC.FECHA_INC DESC"
                 End If
 
                 CONX.Coneccion_Abrir()
@@ -224,7 +224,7 @@ Public Class Facturacion
 
     Private Sub BTN_RECIBO_Click(sender As Object, e As EventArgs) Handles BTN_RECIBO.Click
         Try
-            Dim PANTALLA As New NotaCredito()
+            Dim PANTALLA As New NotaCredito(Me)
             PANTALLA.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)

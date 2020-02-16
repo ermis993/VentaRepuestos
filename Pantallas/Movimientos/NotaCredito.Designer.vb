@@ -37,6 +37,7 @@ Partial Class NotaCredito
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TAB_ENC = New System.Windows.Forms.TabPage()
+        Me.Cliente = New VentaRepuestos.Buscador()
         Me.TXT_DESCRIPCION = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.CMB_MONEDA = New System.Windows.Forms.ComboBox()
@@ -49,6 +50,9 @@ Partial Class NotaCredito
         Me.CMSAfectar = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.IgualarMontoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.IngresarMontoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TAB_PRODUCTOS = New System.Windows.Forms.TabPage()
+        Me.GRIDPRODS2 = New System.Windows.Forms.DataGridView()
+        Me.GRIDPRODS = New System.Windows.Forms.DataGridView()
         Me.TXT_DIF = New System.Windows.Forms.TextBox()
         Me.Label25 = New System.Windows.Forms.Label()
         Me.TXT_DIS = New System.Windows.Forms.TextBox()
@@ -57,10 +61,6 @@ Partial Class NotaCredito
         Me.Label16 = New System.Windows.Forms.Label()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
-        Me.Cliente = New VentaRepuestos.Buscador()
-        Me.TAB_PRODUCTOS = New System.Windows.Forms.TabPage()
-        Me.GRIDPRODS = New System.Windows.Forms.DataGridView()
-        Me.GRIDPRODS2 = New System.Windows.Forms.DataGridView()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TAB_ENC.SuspendLayout()
@@ -70,8 +70,8 @@ Partial Class NotaCredito
         CType(Me.GRID2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.CMSAfectar.SuspendLayout()
         Me.TAB_PRODUCTOS.SuspendLayout()
-        CType(Me.GRIDPRODS, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GRIDPRODS2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GRIDPRODS, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -233,6 +233,21 @@ Partial Class NotaCredito
         Me.TAB_ENC.Text = "[ Encabezado ]"
         Me.TAB_ENC.UseVisualStyleBackColor = True
         '
+        'Cliente
+        '
+        Me.Cliente.CODIGO = Nothing
+        Me.Cliente.DESCRIPCION = Nothing
+        Me.Cliente.Location = New System.Drawing.Point(111, 10)
+        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
+        Me.Cliente.Name = "Cliente"
+        Me.Cliente.OTROS_CAMP0S = Nothing
+        Me.Cliente.PANTALLA = Nothing
+        Me.Cliente.Size = New System.Drawing.Size(451, 32)
+        Me.Cliente.TabIndex = 1
+        Me.Cliente.TABLA_BUSCAR = Nothing
+        Me.Cliente.VALOR = ""
+        Me.Cliente.VALOR_DESCRIPCION = Nothing
+        '
         'TXT_DESCRIPCION
         '
         Me.TXT_DESCRIPCION.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
@@ -374,6 +389,61 @@ Partial Class NotaCredito
         Me.IngresarMontoToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
         Me.IngresarMontoToolStripMenuItem.Text = "Ingresar monto"
         '
+        'TAB_PRODUCTOS
+        '
+        Me.TAB_PRODUCTOS.Controls.Add(Me.GRIDPRODS2)
+        Me.TAB_PRODUCTOS.Controls.Add(Me.GRIDPRODS)
+        Me.TAB_PRODUCTOS.Location = New System.Drawing.Point(4, 22)
+        Me.TAB_PRODUCTOS.Name = "TAB_PRODUCTOS"
+        Me.TAB_PRODUCTOS.Size = New System.Drawing.Size(782, 208)
+        Me.TAB_PRODUCTOS.TabIndex = 3
+        Me.TAB_PRODUCTOS.Text = "[ Productos ]"
+        Me.TAB_PRODUCTOS.UseVisualStyleBackColor = True
+        '
+        'GRIDPRODS2
+        '
+        Me.GRIDPRODS2.AllowUserToAddRows = False
+        Me.GRIDPRODS2.AllowUserToDeleteRows = False
+        Me.GRIDPRODS2.AllowUserToOrderColumns = True
+        Me.GRIDPRODS2.AllowUserToResizeColumns = False
+        Me.GRIDPRODS2.AllowUserToResizeRows = False
+        Me.GRIDPRODS2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.GRIDPRODS2.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.GRIDPRODS2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.GRIDPRODS2.Location = New System.Drawing.Point(3, 103)
+        Me.GRIDPRODS2.Margin = New System.Windows.Forms.Padding(2)
+        Me.GRIDPRODS2.MultiSelect = False
+        Me.GRIDPRODS2.Name = "GRIDPRODS2"
+        Me.GRIDPRODS2.ReadOnly = True
+        Me.GRIDPRODS2.RowHeadersVisible = False
+        Me.GRIDPRODS2.RowHeadersWidth = 51
+        Me.GRIDPRODS2.RowTemplate.Height = 24
+        Me.GRIDPRODS2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.GRIDPRODS2.Size = New System.Drawing.Size(777, 103)
+        Me.GRIDPRODS2.TabIndex = 3
+        '
+        'GRIDPRODS
+        '
+        Me.GRIDPRODS.AllowUserToAddRows = False
+        Me.GRIDPRODS.AllowUserToDeleteRows = False
+        Me.GRIDPRODS.AllowUserToOrderColumns = True
+        Me.GRIDPRODS.AllowUserToResizeColumns = False
+        Me.GRIDPRODS.AllowUserToResizeRows = False
+        Me.GRIDPRODS.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.GRIDPRODS.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.GRIDPRODS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.GRIDPRODS.Location = New System.Drawing.Point(3, 1)
+        Me.GRIDPRODS.Margin = New System.Windows.Forms.Padding(2)
+        Me.GRIDPRODS.MultiSelect = False
+        Me.GRIDPRODS.Name = "GRIDPRODS"
+        Me.GRIDPRODS.ReadOnly = True
+        Me.GRIDPRODS.RowHeadersVisible = False
+        Me.GRIDPRODS.RowHeadersWidth = 51
+        Me.GRIDPRODS.RowTemplate.Height = 24
+        Me.GRIDPRODS.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.GRIDPRODS.Size = New System.Drawing.Size(777, 98)
+        Me.GRIDPRODS.TabIndex = 2
+        '
         'TXT_DIF
         '
         Me.TXT_DIF.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
@@ -465,76 +535,6 @@ Partial Class NotaCredito
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
         '
-        'Cliente
-        '
-        Me.Cliente.CODIGO = Nothing
-        Me.Cliente.DESCRIPCION = Nothing
-        Me.Cliente.Location = New System.Drawing.Point(111, 10)
-        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cliente.Name = "Cliente"
-        Me.Cliente.OTROS_CAMP0S = Nothing
-        Me.Cliente.PANTALLA = Nothing
-        Me.Cliente.Size = New System.Drawing.Size(451, 32)
-        Me.Cliente.TabIndex = 1
-        Me.Cliente.TABLA_BUSCAR = Nothing
-        Me.Cliente.VALOR = ""
-        Me.Cliente.VALOR_DESCRIPCION = Nothing
-        '
-        'TAB_PRODUCTOS
-        '
-        Me.TAB_PRODUCTOS.Controls.Add(Me.GRIDPRODS2)
-        Me.TAB_PRODUCTOS.Controls.Add(Me.GRIDPRODS)
-        Me.TAB_PRODUCTOS.Location = New System.Drawing.Point(4, 22)
-        Me.TAB_PRODUCTOS.Name = "TAB_PRODUCTOS"
-        Me.TAB_PRODUCTOS.Size = New System.Drawing.Size(782, 208)
-        Me.TAB_PRODUCTOS.TabIndex = 3
-        Me.TAB_PRODUCTOS.Text = "[ Productos ]"
-        Me.TAB_PRODUCTOS.UseVisualStyleBackColor = True
-        '
-        'GRIDPRODS
-        '
-        Me.GRIDPRODS.AllowUserToAddRows = False
-        Me.GRIDPRODS.AllowUserToDeleteRows = False
-        Me.GRIDPRODS.AllowUserToOrderColumns = True
-        Me.GRIDPRODS.AllowUserToResizeColumns = False
-        Me.GRIDPRODS.AllowUserToResizeRows = False
-        Me.GRIDPRODS.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.GRIDPRODS.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.GRIDPRODS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.GRIDPRODS.Location = New System.Drawing.Point(3, 1)
-        Me.GRIDPRODS.Margin = New System.Windows.Forms.Padding(2)
-        Me.GRIDPRODS.MultiSelect = False
-        Me.GRIDPRODS.Name = "GRIDPRODS"
-        Me.GRIDPRODS.ReadOnly = True
-        Me.GRIDPRODS.RowHeadersVisible = False
-        Me.GRIDPRODS.RowHeadersWidth = 51
-        Me.GRIDPRODS.RowTemplate.Height = 24
-        Me.GRIDPRODS.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRIDPRODS.Size = New System.Drawing.Size(777, 98)
-        Me.GRIDPRODS.TabIndex = 2
-        '
-        'GRIDPRODS2
-        '
-        Me.GRIDPRODS2.AllowUserToAddRows = False
-        Me.GRIDPRODS2.AllowUserToDeleteRows = False
-        Me.GRIDPRODS2.AllowUserToOrderColumns = True
-        Me.GRIDPRODS2.AllowUserToResizeColumns = False
-        Me.GRIDPRODS2.AllowUserToResizeRows = False
-        Me.GRIDPRODS2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.GRIDPRODS2.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.GRIDPRODS2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.GRIDPRODS2.Location = New System.Drawing.Point(3, 103)
-        Me.GRIDPRODS2.Margin = New System.Windows.Forms.Padding(2)
-        Me.GRIDPRODS2.MultiSelect = False
-        Me.GRIDPRODS2.Name = "GRIDPRODS2"
-        Me.GRIDPRODS2.ReadOnly = True
-        Me.GRIDPRODS2.RowHeadersVisible = False
-        Me.GRIDPRODS2.RowHeadersWidth = 51
-        Me.GRIDPRODS2.RowTemplate.Height = 24
-        Me.GRIDPRODS2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRIDPRODS2.Size = New System.Drawing.Size(777, 103)
-        Me.GRIDPRODS2.TabIndex = 3
-        '
         'NotaCredito
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -566,8 +566,8 @@ Partial Class NotaCredito
         CType(Me.GRID2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.CMSAfectar.ResumeLayout(False)
         Me.TAB_PRODUCTOS.ResumeLayout(False)
-        CType(Me.GRIDPRODS, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GRIDPRODS2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GRIDPRODS, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

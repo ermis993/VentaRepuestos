@@ -34,11 +34,11 @@ Partial Class Facturacion
         Me.DTPINICIO = New System.Windows.Forms.DateTimePicker()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Filtro = New VentaRepuestos.Filtro()
         Me.BTN_RECIBO = New System.Windows.Forms.Button()
         Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_FACTURAR = New System.Windows.Forms.Button()
+        Me.Filtro = New VentaRepuestos.Filtro()
         Me.GroupBox1.SuspendLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Estado.SuspendLayout()
@@ -59,7 +59,7 @@ Partial Class Facturacion
         '
         Me.CMB_TIPO_FACT.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CMB_TIPO_FACT.FormattingEnabled = True
-        Me.CMB_TIPO_FACT.Items.AddRange(New Object() {"Facturas", "Pre-facturas"})
+        Me.CMB_TIPO_FACT.Items.AddRange(New Object() {"Documentos", "Pre-facturas"})
         Me.CMB_TIPO_FACT.Location = New System.Drawing.Point(6, 16)
         Me.CMB_TIPO_FACT.Name = "CMB_TIPO_FACT"
         Me.CMB_TIPO_FACT.Size = New System.Drawing.Size(103, 21)
@@ -176,14 +176,6 @@ Partial Class Facturacion
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Del :"
         '
-        'Filtro
-        '
-        Me.Filtro.Location = New System.Drawing.Point(2, 58)
-        Me.Filtro.Name = "Filtro"
-        Me.Filtro.Size = New System.Drawing.Size(306, 29)
-        Me.Filtro.TabIndex = 38
-        Me.Filtro.VALOR = ""
-        '
         'BTN_RECIBO
         '
         Me.BTN_RECIBO.Image = Global.VentaRepuestos.My.Resources.Resources.pago
@@ -237,6 +229,14 @@ Partial Class Facturacion
         Me.BTN_FACTURAR.Text = "Facturas/" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "ND"
         Me.BTN_FACTURAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_FACTURAR.UseVisualStyleBackColor = True
+        '
+        'Filtro
+        '
+        Me.Filtro.Location = New System.Drawing.Point(2, 58)
+        Me.Filtro.Name = "Filtro"
+        Me.Filtro.Size = New System.Drawing.Size(306, 29)
+        Me.Filtro.TabIndex = 38
+        Me.Filtro.VALOR = ""
         '
         'Facturacion
         '

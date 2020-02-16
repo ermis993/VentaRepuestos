@@ -152,7 +152,7 @@ Partial Class MenuPrincipal
         Me.BTN_FE.Name = "BTN_FE"
         Me.BTN_FE.Size = New System.Drawing.Size(64, 55)
         Me.BTN_FE.TabIndex = 7
-        Me.BTN_FE.Text = "F.E"
+        Me.BTN_FE.Text = "Ventas"
         Me.BTN_FE.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.BTN_FE.UseVisualStyleBackColor = True
         '

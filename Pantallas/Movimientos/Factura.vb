@@ -608,19 +608,22 @@ Public Class Factura
 
     Private Sub BTN_FACTURAR_Click(sender As Object, e As EventArgs) Handles BTN_FACTURAR.Click
         Try
-            Dim Sql = "	USP_FACTURACION_TMP_A_REAL	"
-            Sql &= Chr(13) & "	 @COD_CIA = " & SCM(COD_CIA)
-            Sql &= Chr(13) & "	,@COD_SUCUR = " & SCM(COD_SUCUR)
-            Sql &= Chr(13) & "	,@TIPO_MOV  = " & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
-            Sql &= Chr(13) & "	,@CODIGO = 	" & SCM(Codigo)
-            CONX.Coneccion_Abrir()
-            CONX.EJECUTE(Sql)
-            CONX.Coneccion_Cerrar()
+            If GRID.Rows.Count <= 0 Then
+                MessageBox.Show(Me, "Debe ingresar al menos una linea del documento", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Else
+                Dim Sql = "	USP_FACTURACION_TMP_A_REAL	"
+                Sql &= Chr(13) & "	 @COD_CIA = " & SCM(COD_CIA)
+                Sql &= Chr(13) & "	,@COD_SUCUR = " & SCM(COD_SUCUR)
+                Sql &= Chr(13) & "	,@TIPO_MOV  = " & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
+                Sql &= Chr(13) & "	,@CODIGO = 	" & SCM(Codigo)
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(Sql)
+                CONX.Coneccion_Cerrar()
 
-            MessageBox.Show("Factura ingresada correctamente")
-            Me.Close()
-            Padre.Refrescar()
-
+                MessageBox.Show("Factura ingresada correctamente")
+                Me.Close()
+                Padre.Refrescar()
+            End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

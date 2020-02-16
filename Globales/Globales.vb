@@ -230,6 +230,7 @@ Public Class Globales
 
     Public Shared Sub SETEO_CONTROL(ByVal Buscador As Buscador, ByVal Pantalla As Form, ByVal Valor As String)
         Try
+            Buscador.refrescar()
             Buscador.VALOR = Valor
             Buscador.ACTUALIZAR_COMBO()
             Pantalla.Close()

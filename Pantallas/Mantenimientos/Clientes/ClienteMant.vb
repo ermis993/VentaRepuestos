@@ -68,12 +68,6 @@ Public Class ClienteMant
             ElseIf TXT_EMAIL.Text.ToString.Equals("") Then
                 MessageBox.Show("¡Correo electrónico incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_EMAIL.Select()
-            ElseIf TXT_SALDO.Text.Equals("") Then
-                MessageBox.Show("¡Saldo incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
-                TXT_SALDO.Select()
-            ElseIf FMC(TXT_SALDO.Text) <= 0 Then
-                MessageBox.Show("¡El saldo debe ser mayor a 0!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
-                TXT_SALDO.Select()
             ElseIf CMB_PROVINCIA.Text.Equals("") Then
                 MessageBox.Show("¡Provincia incorrecta!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 CMB_PROVINCIA.Select()
@@ -86,6 +80,12 @@ Public Class ClienteMant
                 MessageBox.Show("¡Distrito incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 CMB_DISTRITO.Select()
                 CMB_DISTRITO.DroppedDown = True
+            ElseIf TXT_SALDO.Text.Equals("") Then
+                MessageBox.Show("¡Saldo incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                TXT_SALDO.Select()
+            ElseIf FMC(TXT_SALDO.Text) <= 0 Then
+                MessageBox.Show("¡El saldo debe ser mayor a 0!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                TXT_SALDO.Select()
             Else
                 ENTRAR = True
             End If
@@ -113,6 +113,12 @@ Public Class ClienteMant
             SQL &= Chr(13) & ",@MONEDA = " & SCM(CMB_MONEDA.SelectedValue)
             SQL &= Chr(13) & ",@ESTADO = " & SCM(IIf(RB_ACTIVO.Checked = True, "A", "I"))
             SQL &= Chr(13) & ",@FE = " & SCM(IIf(CK_TIQUETE.Checked = True, "N", "S"))
+            SQL &= Chr(13) & ",@COD_PROVINCIA = " & SCM(CMB_PROVINCIA.SelectedValue)
+            SQL &= Chr(13) & ",@PROVINCIA = " & SCM(CMB_PROVINCIA.Text)
+            SQL &= Chr(13) & ",@COD_CANTON = " & SCM(CMB_CANTON.SelectedValue)
+            SQL &= Chr(13) & ",@CANTON = " & SCM(CMB_CANTON.Text)
+            SQL &= Chr(13) & ",@COD_DISTRITO = " & SCM(CMB_DISTRITO.SelectedValue)
+            SQL &= Chr(13) & ",@DISTRITO = " & SCM(CMB_DISTRITO.Text)
 
             CONX.Coneccion_Abrir()
             CONX.EJECUTE(SQL)
@@ -271,7 +277,9 @@ Public Class ClienteMant
                     Else
                         CK_TIQUETE.Checked = False
                     End If
-
+                    CMB_PROVINCIA.SelectedValue = ITEM("COD_PROVINCIA")
+                    CMB_CANTON.SelectedValue = ITEM("COD_CANTON")
+                    CMB_DISTRITO.SelectedValue = ITEM("COD_DISTRITO")
                 Next
             End If
         Catch ex As Exception

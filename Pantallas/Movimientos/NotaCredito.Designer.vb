@@ -37,7 +37,6 @@ Partial Class NotaCredito
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TAB_ENC = New System.Windows.Forms.TabPage()
-        Me.Cliente = New VentaRepuestos.Buscador()
         Me.TXT_DESCRIPCION = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.CMB_MONEDA = New System.Windows.Forms.ComboBox()
@@ -47,9 +46,6 @@ Partial Class NotaCredito
         Me.GRID = New System.Windows.Forms.DataGridView()
         Me.TAB_DET = New System.Windows.Forms.TabPage()
         Me.GRID2 = New System.Windows.Forms.DataGridView()
-        Me.CMSAfectar = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.IgualarMontoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.IngresarMontoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TAB_PRODUCTOS = New System.Windows.Forms.TabPage()
         Me.GRIDPRODS2 = New System.Windows.Forms.DataGridView()
         Me.GRIDPRODS = New System.Windows.Forms.DataGridView()
@@ -61,6 +57,10 @@ Partial Class NotaCredito
         Me.Label16 = New System.Windows.Forms.Label()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
+        Me.CMS = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.IgualarMontoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.IngrearMontoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Cliente = New VentaRepuestos.Buscador()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TAB_ENC.SuspendLayout()
@@ -68,10 +68,10 @@ Partial Class NotaCredito
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TAB_DET.SuspendLayout()
         CType(Me.GRID2, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.CMSAfectar.SuspendLayout()
         Me.TAB_PRODUCTOS.SuspendLayout()
         CType(Me.GRIDPRODS2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GRIDPRODS, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.CMS.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -233,21 +233,6 @@ Partial Class NotaCredito
         Me.TAB_ENC.Text = "[ Encabezado ]"
         Me.TAB_ENC.UseVisualStyleBackColor = True
         '
-        'Cliente
-        '
-        Me.Cliente.CODIGO = Nothing
-        Me.Cliente.DESCRIPCION = Nothing
-        Me.Cliente.Location = New System.Drawing.Point(111, 10)
-        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cliente.Name = "Cliente"
-        Me.Cliente.OTROS_CAMP0S = Nothing
-        Me.Cliente.PANTALLA = Nothing
-        Me.Cliente.Size = New System.Drawing.Size(451, 32)
-        Me.Cliente.TabIndex = 1
-        Me.Cliente.TABLA_BUSCAR = Nothing
-        Me.Cliente.VALOR = ""
-        Me.Cliente.VALOR_DESCRIPCION = Nothing
-        '
         'TXT_DESCRIPCION
         '
         Me.TXT_DESCRIPCION.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
@@ -358,7 +343,6 @@ Partial Class NotaCredito
         Me.GRID2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.GRID2.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight
         Me.GRID2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.GRID2.ContextMenuStrip = Me.CMSAfectar
         Me.GRID2.Location = New System.Drawing.Point(3, 1)
         Me.GRID2.Margin = New System.Windows.Forms.Padding(2)
         Me.GRID2.MultiSelect = False
@@ -370,24 +354,6 @@ Partial Class NotaCredito
         Me.GRID2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.GRID2.Size = New System.Drawing.Size(777, 206)
         Me.GRID2.TabIndex = 1
-        '
-        'CMSAfectar
-        '
-        Me.CMSAfectar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.IgualarMontoToolStripMenuItem, Me.IngresarMontoToolStripMenuItem})
-        Me.CMSAfectar.Name = "CMSAfectar"
-        Me.CMSAfectar.Size = New System.Drawing.Size(156, 48)
-        '
-        'IgualarMontoToolStripMenuItem
-        '
-        Me.IgualarMontoToolStripMenuItem.Name = "IgualarMontoToolStripMenuItem"
-        Me.IgualarMontoToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.IgualarMontoToolStripMenuItem.Text = "Igualar monto"
-        '
-        'IngresarMontoToolStripMenuItem
-        '
-        Me.IngresarMontoToolStripMenuItem.Name = "IngresarMontoToolStripMenuItem"
-        Me.IngresarMontoToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.IngresarMontoToolStripMenuItem.Text = "Ingresar monto"
         '
         'TAB_PRODUCTOS
         '
@@ -535,6 +501,39 @@ Partial Class NotaCredito
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
         '
+        'CMS
+        '
+        Me.CMS.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.IgualarMontoToolStripMenuItem, Me.IngrearMontoToolStripMenuItem})
+        Me.CMS.Name = "CMS"
+        Me.CMS.Size = New System.Drawing.Size(156, 48)
+        '
+        'IgualarMontoToolStripMenuItem
+        '
+        Me.IgualarMontoToolStripMenuItem.Name = "IgualarMontoToolStripMenuItem"
+        Me.IgualarMontoToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
+        Me.IgualarMontoToolStripMenuItem.Text = "Igualar monto"
+        '
+        'IngrearMontoToolStripMenuItem
+        '
+        Me.IngrearMontoToolStripMenuItem.Name = "IngrearMontoToolStripMenuItem"
+        Me.IngrearMontoToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.IngrearMontoToolStripMenuItem.Text = "Ingresar monto"
+        '
+        'Cliente
+        '
+        Me.Cliente.CODIGO = Nothing
+        Me.Cliente.DESCRIPCION = Nothing
+        Me.Cliente.Location = New System.Drawing.Point(111, 10)
+        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
+        Me.Cliente.Name = "Cliente"
+        Me.Cliente.OTROS_CAMP0S = Nothing
+        Me.Cliente.PANTALLA = Nothing
+        Me.Cliente.Size = New System.Drawing.Size(451, 32)
+        Me.Cliente.TabIndex = 1
+        Me.Cliente.TABLA_BUSCAR = Nothing
+        Me.Cliente.VALOR = ""
+        Me.Cliente.VALOR_DESCRIPCION = Nothing
+        '
         'NotaCredito
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -564,10 +563,10 @@ Partial Class NotaCredito
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TAB_DET.ResumeLayout(False)
         CType(Me.GRID2, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.CMSAfectar.ResumeLayout(False)
         Me.TAB_PRODUCTOS.ResumeLayout(False)
         CType(Me.GRIDPRODS2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GRIDPRODS, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.CMS.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -603,11 +602,11 @@ Partial Class NotaCredito
     Friend WithEvents Label16 As Label
     Friend WithEvents BTN_SALIR As Button
     Friend WithEvents BTN_ACEPTAR As Button
-    Friend WithEvents CMSAfectar As ContextMenuStrip
-    Friend WithEvents IgualarMontoToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents IngresarMontoToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents GRID2 As DataGridView
     Friend WithEvents TAB_PRODUCTOS As TabPage
     Friend WithEvents GRIDPRODS As DataGridView
     Friend WithEvents GRIDPRODS2 As DataGridView
+    Friend WithEvents CMS As ContextMenuStrip
+    Friend WithEvents IgualarMontoToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents IngrearMontoToolStripMenuItem As ToolStripMenuItem
 End Class

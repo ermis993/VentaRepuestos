@@ -51,11 +51,18 @@ Public Class NotaCredito
             LBLTIPO.Visible = True
             CMB_TIPO.Visible = True
             CMB_TIPO.SelectedIndex = 0
+            EliminarAfecTodo()
+            RellenaFacturas()
+            RellenaFacturasAfec()
+            CalculoTotales()
         Else
             LBLTIPO.Visible = False
             CMB_TIPO.Visible = False
             CMB_TIPO.SelectedIndex = -1
-            EliminaProductosTmp()
+            EliminarAfecTodo()
+            RellenaFacturas()
+            RellenaFacturasAfec()
+            CalculoTotales()
         End If
     End Sub
 
@@ -71,10 +78,12 @@ Public Class NotaCredito
                 SQL &= Chr(13) & "  LEFT JOIN DOCUMENTO_AFEC_DET_TMP AS AFEC"
                 SQL &= Chr(13) & "      ON AFEC.NUMERO_DOC = ENC.NUMERO_DOC"
                 SQL &= Chr(13) & "      AND AFEC.TIPO_MOV = ENC.TIPO_MOV"
-                SQL &= Chr(13) & "	WHERE CEDULA = " & SCM(Cliente.VALOR)
+                SQL &= Chr(13) & "	WHERE ENC.COD_CIA = " & SCM(COD_CIA)
+                SQL &= Chr(13) & "  AND ENC.COD_SUCUR = " & SCM(COD_SUCUR)
+                SQL &= Chr(13) & "  AND CEDULA = " & SCM(Cliente.VALOR)
                 SQL &= Chr(13) & "	AND COD_MONEDA = " & SCM(CMB_MONEDA.SelectedItem.ToString.Substring(0, 1))
                 SQL &= Chr(13) & "  AND SALDO > 0 "
-                SQL &= Chr(13) & "  AND ENC.TIPO_MOV IN ('FA', 'FC')"
+                SQL &= Chr(13) & "  AND ENC.TIPO_MOV In ('FA', 'FC')"
                 SQL &= Chr(13) & "  AND AFEC.NUMERO_DOC IS NULL"
 
                 CONX.Coneccion_Abrir()
@@ -95,7 +104,7 @@ Public Class NotaCredito
     Private Sub RellenaFacturasAfec()
         Try
             GRID2.DataSource = Nothing
-            Dim SQL = "	SELECT CODIGO AS Código, NUMERO_DOC AS Número, TIPO_MOV AS Tipo, FECHA AS Fecha, MONTO_DOC AS Monto, MONTO_AFEC AS 'Monto afectado', (MONTO_DOC - MONTO_AFEC) as Saldo"
+            Dim SQL = "	SELECT CODIGO AS Código, NUMERO_DOC AS Número, TIPO_MOV AS Tipo, FECHA AS Fecha, MONTO_DOC AS Monto, (MONTO_DOC - MONTO_AFEC) as Saldo"
             SQL &= Chr(13) & " FROM DOCUMENTO_AFEC_DET_TMP"
             SQL &= Chr(13) & " WHERE CODIGO = 	" & SCM(Codigo)
 
@@ -114,7 +123,7 @@ Public Class NotaCredito
     Private Sub RellenaProductos()
         Try
             GRIDPRODS.DataSource = Nothing
-            Dim SQL = "	SELECT DET.NUMERO_DOC AS Número, DET.TIPO_MOV as Tipo, DET.LINEA as Linea, DET.COD_PROD as Código, (DET.CANTIDAD - ISNULL(PROD.CANTIDAD,0)) as Cantidad		"
+            Dim SQL = "	SELECT DET.NUMERO_DOC AS Número, DET.TIPO_MOV as Tipo, DET.LINEA as Linea, DET.COD_PROD as Código, DET.PRECIO AS 'P/U', DET.POR_DESCUENTO AS Descuento, DET.POR_IMPUESTO AS Impuesto, (DET.CANTIDAD - ISNULL(PROD.CANTIDAD,0)) as Cantidad	"
             SQL &= Chr(13) & "	, DET.ESTANTE AS Estante, DET.FILA AS Fila, DET.COLUMNA AS Columna"
             SQL &= Chr(13) & "	FROM DOCUMENTO_AFEC_DET_TMP AS TMP		"
             SQL &= Chr(13) & "	INNER JOIN DOCUMENTO_DET AS DET		"
@@ -149,7 +158,7 @@ Public Class NotaCredito
     Private Sub RellenaProductosAfec()
         Try
             GRIDPRODS2.DataSource = Nothing
-            Dim SQL = "	SELECT CODIGO AS Código, NUMERO_DOC AS Número, TIPO_MOV AS Tipo, LINEA as Linea, COD_PROD AS Código, CANTIDAD AS Cantidad,	"
+            Dim SQL = "	SELECT CODIGO AS Código, NUMERO_DOC AS Número, TIPO_MOV AS Tipo, LINEA as Linea, COD_PROD AS Código, PRECIO_UNITARIO AS 'P/U', POR_DESCUENTO AS Descuento, POR_IMPUESTO AS Impuesto, CANTIDAD AS Cantidad,	"
             SQL &= Chr(13) & "	ESTANTE AS Estante, FILA as Fila, COLUMNA AS Columna"
             SQL &= Chr(13) & "	FROM DOCUMENTO_AFEC_DET_PRODUCTOS_TMP	"
             SQL &= Chr(13) & "	WHERE CODIGO = 	" & SCM(Codigo)
@@ -220,52 +229,6 @@ Public Class NotaCredito
         Me.Padre.Refrescar()
     End Sub
 
-    Private Sub IgualarMontoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgualarMontoToolStripMenuItem.Click
-        Leer_indice(2)
-        If MONTO_DOC_AFEC > 0 Then
-
-            Dim Sql = "	UPDATE DOCUMENTO_AFEC_DET_TMP	"
-            Sql &= Chr(13) & "	SET MONTO_AFEC = " & FMC(MONTO_DOC_AFEC)
-            Sql &= Chr(13) & "	WHERE NUMERO_DOC = 	" & Val(NUMERO_DOC)
-            Sql &= Chr(13) & " And TIPO_MOV =   " & SCM(TIPO_MOV)
-
-            CONX.Coneccion_Abrir()
-            CONX.EJECUTE(Sql)
-            CONX.Coneccion_Cerrar()
-
-            RellenaFacturasAfec()
-            CalculoTotales()
-        End If
-    End Sub
-
-    Private Sub IngresarMontoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IngresarMontoToolStripMenuItem.Click
-        Try
-            Leer_indice(2)
-            If MONTO_DOC_AFEC > 0 Then
-                Dim valor As Double = InputBox("Ingrese el monto con el cual desea afectar el documento, el monto actual es: " & FMC(MONTO_DOC_AFEC), "Ingrese el valor")
-                If (FMC(MONTO_DOC_AFEC) - FMC(valor)) >= 0 Then
-
-                    Dim Sql = "	UPDATE DOCUMENTO_AFEC_DET_TMP	"
-                    Sql &= Chr(13) & "	SET MONTO_AFEC = " & FMC(valor)
-                    Sql &= Chr(13) & "	WHERE NUMERO_DOC = 	" & Val(NUMERO_DOC)
-                    Sql &= Chr(13) & " And TIPO_MOV =   " & SCM(TIPO_MOV)
-
-                    CONX.Coneccion_Abrir()
-                    CONX.EJECUTE(Sql)
-                    CONX.Coneccion_Cerrar()
-
-                    RellenaFacturasAfec()
-                    CalculoTotales()
-
-                Else
-                    MessageBox.Show("El monto digitado es mayor al monto que se está afectando")
-                End If
-            End If
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-        End Try
-    End Sub
-
     Private Sub GRID_DoubleClick(sender As Object, e As EventArgs) Handles GRID.DoubleClick
         Try
             Leer_indice(1)
@@ -308,10 +271,8 @@ Public Class NotaCredito
         End Try
     End Function
 
-    Private Sub GRID2_DoubleClick(sender As Object, e As EventArgs) Handles GRID2.DoubleClick
+    Private Sub EliminarAfec()
         Try
-            Leer_indice(2)
-
             Dim SQL = " DELETE FROM DOCUMENTO_AFEC_DET_TMP WHERE CODIGO = " & SCM(Codigo) & " AND NUMERO_DOC = " & Val(NUMERO_DOC) & " AND TIPO_MOV = " & SCM(TIPO_MOV)
             Dim SQL2 = " DELETE FROM DOCUMENTO_AFEC_DET_PRODUCTOS_TMP WHERE CODIGO = " & SCM(Codigo) & " AND NUMERO_DOC = " & Val(NUMERO_DOC) & " AND TIPO_MOV = " & SCM(TIPO_MOV)
 
@@ -319,6 +280,30 @@ Public Class NotaCredito
             CONX.EJECUTE(SQL)
             CONX.EJECUTE(SQL2)
             CONX.Coneccion_Cerrar()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub EliminarAfecTodo()
+        Try
+            Dim SQL = " DELETE FROM DOCUMENTO_AFEC_DET_TMP WHERE CODIGO = " & SCM(Codigo)
+            Dim SQL2 = " DELETE FROM DOCUMENTO_AFEC_DET_PRODUCTOS_TMP WHERE CODIGO = " & SCM(Codigo)
+
+            CONX.Coneccion_Abrir()
+            CONX.EJECUTE(SQL)
+            CONX.EJECUTE(SQL2)
+            CONX.Coneccion_Cerrar()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub GRID2_DoubleClick(sender As Object, e As EventArgs) Handles GRID2.DoubleClick
+        Try
+            Leer_indice(2)
+
+            EliminarAfec()
 
             RellenaFacturas()
             RellenaFacturasAfec()
@@ -380,6 +365,8 @@ Public Class NotaCredito
         Else
             EscondeTab(TabProducto, False)
             EliminaProductosTmp()
+            IngresaMontoAfec()
+            CalculoTotales()
         End If
     End Sub
 
@@ -425,22 +412,24 @@ Public Class NotaCredito
             If GRIDPRODS.Rows.Count > 0 Then
                 Dim seleccionado = GRIDPRODS.Rows(GRIDPRODS.SelectedRows(0).Index)
 
-                Dim Cantidad_Actual = seleccionado.Cells(4).Value
+                Dim Cantidad_Actual = seleccionado.Cells(7).Value
                 Dim valor As Double = InputBox("Ingrese la cantidad del producto a devolver, la cantidad actual es: " & FMC(Cantidad_Actual, 4), "Ingrese el valor")
 
                 If FMC(valor) > 0 Then
                     If (FMC(Cantidad_Actual) - FMC(valor)) >= 0 Then
 
-                        Dim SQL = "	INSERT INTO DOCUMENTO_AFEC_DET_PRODUCTOS_TMP(COD_CIA, COD_SUCUR, CODIGO,NUMERO_DOC,TIPO_MOV,LINEA,COD_PROD,CANTIDAD,ESTANTE,FILA,COLUMNA)	"
-                        SQL &= Chr(13) & "	SELECT " & SCM(COD_CIA) & "," & SCM(COD_SUCUR) & "," & SCM(Codigo) & "," & Val(seleccionado.Cells(0).Value) & "," & SCM(seleccionado.Cells(1).Value)
-                        SQL &= Chr(13) & "," & Val(seleccionado.Cells(2).Value) & "," & SCM(seleccionado.Cells(3).Value) & "," & FMC(FMC(valor), 4)
-                        SQL &= Chr(13) & "," & SCM(seleccionado.Cells(5).Value) & "," & SCM(seleccionado.Cells(6).Value) & "," & SCM(seleccionado.Cells(7).Value)
+                        Dim SQL = "	INSERT INTO DOCUMENTO_AFEC_DET_PRODUCTOS_TMP(COD_CIA,COD_SUCUR,CODIGO,NUMERO_DOC,TIPO_MOV,LINEA,COD_PROD,PRECIO_UNITARIO,POR_DESCUENTO,POR_IMPUESTO,CANTIDAD,ESTANTE,FILA,COLUMNA)	"
+                        SQL &= Chr(13) & "	SELECT " & SCM(COD_CIA) & "," & SCM(COD_SUCUR) & "," & SCM(Codigo) & "," & Val(seleccionado.Cells(0).Value) & "," & SCM(seleccionado.Cells(1).Value) & "," & Val(seleccionado.Cells(2).Value)
+                        SQL &= Chr(13) & "," & SCM(seleccionado.Cells(3).Value) & "," & FMC(seleccionado.Cells(4).Value, 4) & "," & Val(seleccionado.Cells(5).Value) & "," & Val(seleccionado.Cells(6).Value) & "," & FMC(FMC(valor), 4)
+                        SQL &= Chr(13) & "," & SCM(seleccionado.Cells(8).Value) & "," & SCM(seleccionado.Cells(9).Value) & "," & SCM(seleccionado.Cells(10).Value)
                         CONX.Coneccion_Abrir()
                         CONX.EJECUTE(SQL)
                         CONX.Coneccion_Cerrar()
 
+                        IngresaMontoAfec()
                         RellenaProductosAfec()
                         RellenaProductos()
+                        CalculoTotales()
                     Else
                         MessageBox.Show("La cantidad ingresada es mayor a la cantidad que se puede afectar")
                     End If
@@ -467,8 +456,10 @@ Public Class NotaCredito
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
 
+                IngresaMontoAfec()
                 RellenaProductosAfec()
                 RellenaProductos()
+                CalculoTotales()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -543,7 +534,6 @@ Public Class NotaCredito
                 SQL &= Chr(13) & "," & FMC(TXT_TIPO_CAMBIO.Text) & ", 0,'EF'," & SCM(TXT_DESCRIPCION.Text) & ", NULL"
             End If
 
-
             CONX.Coneccion_Abrir()
             CONX.EJECUTE(Sql)
             CONX.Coneccion_Cerrar()
@@ -553,4 +543,86 @@ Public Class NotaCredito
         End Try
     End Sub
 
+    Private Sub IngresaMontoAfec()
+        Try
+            Dim SQL = "IF EXISTS(SELECT COD_CIA"
+            SQL &= Chr(13) & "  FROM DOCUMENTO_AFEC_DET_PRODUCTOS_TMP		"
+            SQL &= Chr(13) & "  WHERE CODIGO =" & SCM(Codigo) & ")"
+            SQL &= Chr(13) & "  BEGIN"
+            SQL &= Chr(13) & "  UPDATE DOCUMENTO_AFEC_DET_TMP"
+            SQL &= Chr(13) & "	SET MONTO_AFEC = T1.TOTAL		"
+            SQL &= Chr(13) & "	FROM("
+            SQL &= Chr(13) & "  SELECT COD_CIA, COD_SUCUR, CODIGO, SUM((PRECIO_UNITARIO * CANTIDAD) - (((PRECIO_UNITARIO * CANTIDAD) * POR_DESCUENTO) / 100) + (((PRECIO_UNITARIO * CANTIDAD)-((PRECIO_UNITARIO * CANTIDAD) * POR_DESCUENTO) / 100) * POR_IMPUESTO) / 100) AS TOTAL"
+            SQL &= Chr(13) & "  FROM DOCUMENTO_AFEC_DET_PRODUCTOS_TMP "
+            SQL &= Chr(13) & "  WHERE CODIGO = " & SCM(Codigo)
+            SQL &= Chr(13) & "  GROUP BY COD_CIA, COD_SUCUR, CODIGO"
+            SQL &= Chr(13) & ") AS T1"
+            SQL &= Chr(13) & " WHERE DOCUMENTO_AFEC_DET_TMP.COD_CIA = T1.COD_CIA"
+            SQL &= Chr(13) & " AND DOCUMENTO_AFEC_DET_TMP.COD_SUCUR = T1.COD_SUCUR"
+            SQL &= Chr(13) & " AND DOCUMENTO_AFEC_DET_TMP.CODIGO = T1.CODIGO"
+            SQL &= Chr(13) & " END "
+            SQL &= Chr(13) & " ELSE "
+            SQL &= Chr(13) & " BEGIN"
+            SQL &= Chr(13) & " UPDATE DOCUMENTO_AFEC_DET_TMP"
+            SQL &= Chr(13) & " SET MONTO_AFEC = 0"
+            SQL &= Chr(13) & " WHERE CODIGO = " & SCM(Codigo)
+            SQL &= Chr(13) & " END"
+
+            CONX.Coneccion_Abrir()
+            CONX.EJECUTE(SQL)
+            CONX.Coneccion_Cerrar()
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub IgualarMontoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgualarMontoToolStripMenuItem.Click
+        Leer_indice(2)
+        If MONTO_DOC_AFEC > 0 Then
+            Dim Sql = "UPDATE DOCUMENTO_AFEC_DET_TMP"
+            Sql &= Chr(13) & "  SET MONTO_AFEC = " & FMC(MONTO_DOC_AFEC)
+            Sql &= Chr(13) & "  WHERE NUMERO_DOC = " & Val(NUMERO_DOC)
+            Sql &= Chr(13) & "  AND TIPO_MOV = " & SCM(TIPO_MOV)
+
+            CONX.Coneccion_Abrir()
+            CONX.EJECUTE(Sql)
+            CONX.Coneccion_Cerrar()
+
+            RellenaFacturasAfec()
+            CalculoTotales()
+        End If
+    End Sub
+
+    Private Sub IngrearMontoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IngrearMontoToolStripMenuItem.Click
+        Leer_indice(2)
+        If MONTO_DOC_AFEC > 0 Then
+            Dim Valor As Double = InputBox("Ingrese el monto con el cual desea afectar, el monto actual es: " & FMCP(MONTO_DOC, 4), "Ingrese el valor")
+
+            If (FMC(MONTO_DOC_AFEC, 4) - FMC(Valor)) >= 0 Then
+                Dim Sql = "UPDATE DOCUMENTO_AFEC_DET_TMP"
+                Sql &= Chr(13) & "  SET MONTO_AFEC = " & FMC(Valor)
+                Sql &= Chr(13) & "  WHERE NUMERO_DOC = " & Val(NUMERO_DOC)
+                Sql &= Chr(13) & "  AND TIPO_MOV = " & SCM(TIPO_MOV)
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(Sql)
+                CONX.Coneccion_Cerrar()
+
+                RellenaFacturasAfec()
+                CalculoTotales()
+            End If
+
+        End If
+    End Sub
+
+    Private Sub GRID2_Click(sender As Object, e As MouseEventArgs) Handles GRID2.Click
+        If e.Button = MouseButtons.Right Then
+            If CMB_TIPO.SelectedIndex <> 0 Then
+                CMS.Show(GRID2, GRID2.PointToClient(Cursor.Position))
+            Else
+                CMS.Hide()
+            End If
+        End If
+    End Sub
 End Class

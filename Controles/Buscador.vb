@@ -33,6 +33,7 @@ Public Class Buscador
         If VALIDAR() Then
             Dim SQL As String = "SELECT " & CODIGO & "," & DESCRIPCION
             SQL &= Chr(13) & " FROM " & TABLA_BUSCAR
+            SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)
             CONX.Coneccion_Cerrar()

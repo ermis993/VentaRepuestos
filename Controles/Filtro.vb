@@ -43,4 +43,10 @@ Public Class Filtro
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
+    Private Sub TXT_KeyPress(sender As Object, e As KeyEventArgs) Handles TXT.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            RaiseEvent Filtrar_Click(Me, e)
+        End If
+    End Sub
 End Class

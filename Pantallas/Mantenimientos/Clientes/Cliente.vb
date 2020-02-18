@@ -52,10 +52,11 @@ Public Class Cliente
                 SQL &= Chr(13) & "	WHEN TIPO_CEDULA ='J' THEN 'Jurídica' END AS 'Tipo cédula',"
                 SQL &= Chr(13) & "	NOMBRE As Nombre,APELLIDO1 As 'Primer apellido',APELLIDO2 as 'Segundo apellido',TELEFONO as Teléfono,CORREO as Correo,SALDO as Saldo,ESTADO as Estado, CONVERT(VARCHAR(10), FECHA_INC, 105) AS 'Fecha ingreso'"
                 SQL &= Chr(13) & "	FROM CLIENTE"
+                SQL &= Chr(13) & "	WHERE COD_CIA =" & SCM(COD_CIA)
                 If RB_ACTIVOS.Checked = True Then
-                    SQL &= Chr(13) & "	WHERE ESTADO ='A'"
+                    SQL &= Chr(13) & "	AND ESTADO ='A'"
                 ElseIf RB_INACTIVOS.Checked = True Then
-                    SQL &= Chr(13) & "	WHERE ESTADO ='I'"
+                    SQL &= Chr(13) & "	AND ESTADO ='I'"
                 End If
                 SQL &= Chr(13) & CONSULTA_FILTRO
 

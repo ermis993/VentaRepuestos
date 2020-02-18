@@ -53,7 +53,7 @@ Public Class Facturacion
 
     Private Sub FORMATO_GRID()
         If CMB_TIPO_FACT.SelectedIndex = 0 Then
-            GRID.ColumnCount = 12
+            GRID.ColumnCount = 13
             GRID.Columns(0).HeaderText = "Documento"
             GRID.Columns(0).Name = "NUMERO_DOC"
             GRID.Columns(1).HeaderText = "Tipo"
@@ -78,6 +78,8 @@ Public Class Facturacion
             GRID.Columns(10).Name = "(MONTO + IMPUESTO)"
             GRID.Columns(11).HeaderText = "Saldo"
             GRID.Columns(11).Name = " ENC.SALDO"
+            GRID.Columns(12).HeaderText = "Saldo"
+            GRID.Columns(12).Name = " ENC.SALDO"
             Filtro.FILTRO_CARGAR_COMBO(GRID)
         Else
             GRID.ColumnCount = 12
@@ -118,12 +120,17 @@ Public Class Facturacion
                 Dim SQL As String = ""
 
                 If CMB_TIPO_FACT.SelectedIndex = 0 Then
-                    SQL &= Chr(13) & "	SELECT NUMERO_DOC AS Documento, TIPO_MOV as Tipo, C.CEDULA AS Cédula, C.NOMBRE AS Nombre, ENC.DESCRIPCION AS Descripción, CONVERT(VARCHAR(10), ENC.FECHA, 105) AS Fecha	"
-                    SQL &= Chr(13) & "	,COD_USUARIO AS Usuario, COD_MONEDA AS Moneda, MONTO AS Subtotal, IMPUESTO AS Impuesto, (MONTO + IMPUESTO) as Total, ENC.SALDO AS Saldo "
+                    SQL &= Chr(13) & "	SELECT ENC.NUMERO_DOC AS Documento, ENC.TIPO_MOV as Tipo, C.CEDULA AS Cédula, C.NOMBRE AS Nombre, ENC.DESCRIPCION AS Descripción, CONVERT(VARCHAR(10), ENC.FECHA, 105) AS Fecha	"
+                    SQL &= Chr(13) & "	,COD_USUARIO AS Usuario, COD_MONEDA AS Moneda, MONTO AS Subtotal, IMPUESTO AS Impuesto, (MONTO + IMPUESTO) as Total, ENC.SALDO AS Saldo, ISNULL(DE.RESPUESTA_DGTD, 'P') AS Respuesta "
                     SQL &= Chr(13) & "	FROM DOCUMENTO_ENC AS ENC	"
                     SQL &= Chr(13) & "	INNER JOIN CLIENTE AS C	"
                     SQL &= Chr(13) & "		ON C.COD_CIA = ENC.COD_CIA "
                     SQL &= Chr(13) & "      AND C.CEDULA = ENC.CEDULA "
+                    SQL &= Chr(13) & "   LEFT JOIN DOCUMENTO_ELECTRONICO AS DE "
+                    SQL &= Chr(13) & "		ON ENC.COD_CIA = DE.COD_CIA "
+                    SQL &= Chr(13) & "      AND ENC.COD_SUCUR = DE.COD_SUCUR "
+                    SQL &= Chr(13) & "      AND ENC.NUMERO_DOC = DE.NUMERO_DOC "
+                    SQL &= Chr(13) & "      AND ENC.TIPO_MOV = DE.TIPO_MOV "
                     SQL &= Chr(13) & " WHERE ENC.COD_CIA = " & SCM(COD_CIA)
                     SQL &= Chr(13) & " AND ENC.COD_SUCUR = " & SCM(COD_SUCUR)
                     If RB_ACTIVOS.Checked = True Then
@@ -133,10 +140,10 @@ Public Class Facturacion
                     End If
                     SQL &= Chr(13) & " AND ENC.FECHA BETWEEN " & SCM(YMD(DTPINICIO.Value)) & " AND " & SCM(YMD(DTPFINAL.Value))
                     SQL &= Chr(13) & CONSULTA_FILTRO
-                    SQL &= Chr(13) & " ORDER BY TIPO_MOV DESC, ENC.FECHA_INC DESC"
+                    SQL &= Chr(13) & " ORDER BY ENC.TIPO_MOV DESC, ENC.FECHA_INC DESC"
                 Else
                     SQL &= Chr(13) & "	SELECT ENC.CODIGO AS Documento, ENC.TIPO_MOV as Tipo, C.CEDULA AS Cédula, C.NOMBRE AS Nombre, ENC.DESCRIPCION AS Descripción, CONVERT(VARCHAR(10), ENC.FECHA, 105) AS Fecha	"
-                    SQL &= Chr(13) & "	,COD_USUARIO AS Usuario, COD_MONEDA AS Moneda, SUM(DET.SUBTOTAL) AS Subtotal, SUM(DET.IMPUESTO) AS Impuesto, SUM(DET.TOTAL) as Total, SUM(DET.TOTAL) as Saldo 	"
+                    SQL &= Chr(13) & "	,COD_USUARIO AS Usuario, COD_MONEDA AS Moneda, SUM(DET.SUBTOTAL) AS Subtotal, SUM(DET.IMPUESTO) AS Impuesto, SUM(DET.TOTAL) as Total, SUM(DET.TOTAL) as Saldo, 'P' AS Respuesta 	"
                     SQL &= Chr(13) & "	FROM DOCUMENTO_ENC_TMP AS ENC	"
                     SQL &= Chr(13) & "	INNER JOIN CLIENTE AS C		"
                     SQL &= Chr(13) & "		ON C.COD_CIA = ENC.COD_CIA	"
@@ -160,10 +167,30 @@ Public Class Facturacion
 
                 If DS.Tables(0).Rows.Count > 0 Then
                     For Each ITEM In DS.Tables(0).Rows
-                        Dim row As String() = New String() {ITEM("Documento"), ITEM("Tipo"), ITEM("Cédula"), ITEM("Nombre"), ITEM("Descripción"), ITEM("Fecha"), ITEM("Usuario"), ITEM("Moneda"), ITEM("Subtotal"), ITEM("Impuesto"), ITEM("Total"), ITEM("Saldo")}
+                        Dim row As String() = New String() {ITEM("Documento"), ITEM("Tipo"), ITEM("Cédula"), ITEM("Nombre"), ITEM("Descripción"), ITEM("Fecha"), ITEM("Usuario"), ITEM("Moneda"), ITEM("Subtotal"), ITEM("Impuesto"), ITEM("Total"), ITEM("Saldo"), ITEM("Respuesta")}
                         GRID.Rows.Add(row)
                     Next
                 End If
+                'PintarEstados()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub PintarEstados()
+        Try
+            Dim dgv As DataGridView = Me.GRID
+            If dgv.Rows.Count > 0 Then
+                For i As Integer = 0 To dgv.Rows.Count - 1
+                    If dgv.Rows(i).Cells(13).Value = "A" Then
+                        dgv.Rows(i).Cells("Documento").Style.BackColor = Color.Green
+                        dgv.Rows(i).Cells("Tipo").Style.BackColor = Color.Green
+                    ElseIf dgv.Rows(i).Cells(13).Value = "R" Then
+                        dgv.Rows(i).Cells("Documento").Style.BackColor = Color.Green
+                        dgv.Rows(i).Cells("Tipo").Style.BackColor = Color.Green
+                    End If
+                Next
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

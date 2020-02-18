@@ -78,8 +78,8 @@ Public Class Facturacion
             GRID.Columns(10).Name = "(MONTO + IMPUESTO)"
             GRID.Columns(11).HeaderText = "Saldo"
             GRID.Columns(11).Name = " ENC.SALDO"
-            GRID.Columns(12).HeaderText = "Saldo"
-            GRID.Columns(12).Name = " ENC.SALDO"
+            GRID.Columns(12).HeaderText = "DGTD"
+            GRID.Columns(12).Name = " ISNULL(DE.RESPUESTA_DGTD, 'P')"
             Filtro.FILTRO_CARGAR_COMBO(GRID)
         Else
             GRID.ColumnCount = 12
@@ -171,7 +171,11 @@ Public Class Facturacion
                         GRID.Rows.Add(row)
                     Next
                 End If
-                'PintarEstados()
+
+                If CMB_TIPO_FACT.SelectedIndex = 0 Then
+                    PintarEstados()
+                End If
+
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -183,12 +187,12 @@ Public Class Facturacion
             Dim dgv As DataGridView = Me.GRID
             If dgv.Rows.Count > 0 Then
                 For i As Integer = 0 To dgv.Rows.Count - 1
-                    If dgv.Rows(i).Cells(13).Value = "A" Then
-                        dgv.Rows(i).Cells("Documento").Style.BackColor = Color.Green
-                        dgv.Rows(i).Cells("Tipo").Style.BackColor = Color.Green
-                    ElseIf dgv.Rows(i).Cells(13).Value = "R" Then
-                        dgv.Rows(i).Cells("Documento").Style.BackColor = Color.Green
-                        dgv.Rows(i).Cells("Tipo").Style.BackColor = Color.Green
+                    If dgv.Rows(i).Cells(12).Value = "A" Then
+                        dgv.Rows(i).Cells(0).Style.BackColor = Color.ForestGreen
+                        dgv.Rows(i).Cells(1).Style.BackColor = Color.ForestGreen
+                    ElseIf dgv.Rows(i).Cells(12).Value = "R" Then
+                        dgv.Rows(i).Cells(0).Style.BackColor = Color.DarkRed
+                        dgv.Rows(i).Cells(1).Style.BackColor = Color.DarkRed
                     End If
                 Next
             End If

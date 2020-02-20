@@ -103,7 +103,7 @@ Public Class ProveedorMant
             If MODO = CRF_Modos.Insertar Or MODO = CRF_Modos.Modificar Then
                 If VALIDAR() = True Then
                     If EMAIL_VALIDO(TXT_EMAIL.Text) = False Then
-                        Respuesta = MessageBox.Show("¡El email ingresado parece ser un email no válido!", Me.Name, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                        Respuesta = MessageBox.Show("¡El email ingresado parece ser un email no válido!", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
                         If Respuesta = DialogResult.Yes Then
                             EJECUTAR()
                         End If
@@ -201,10 +201,10 @@ Public Class ProveedorMant
 
             If MODO = CRF_Modos.Insertar Then
                 LIMPIAR_TODO()
-                MessageBox.Show("¡Proveedor agregado correctamente!", Me.Name, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("¡Proveedor agregado correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             ElseIf MODO = CRF_Modos.Modificar Then
                 CERRAR()
-                MessageBox.Show("¡Proveedor modificado correctamente!", Me.Name, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("¡Proveedor modificado correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
 
         Catch ex As Exception

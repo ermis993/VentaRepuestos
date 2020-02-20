@@ -176,9 +176,9 @@ Public Class LBL_CANTON
                 Next
             End If
             If CERT.Length <> 4 Then
-                Respuesta = MessageBox.Show("¡Actualmente existe un certificado importado!" & vbNewLine & "¿Desea importar uno nuevo y eliminar el actual?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                Respuesta = MessageBox.Show(Me, "¡Actualmente existe un certificado importado!" & vbNewLine & "¿Desea importar uno nuevo y eliminar el actual?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
             Else
-                Respuesta = MessageBox.Show("¿Desea abrir el explorador de archivos?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                Respuesta = MessageBox.Show(Me, "¿Desea abrir el explorador de archivos?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
             End If
             If Respuesta = DialogResult.Yes Then
                 OPD_Llave.Title = "Seleccione un archivo"
@@ -416,10 +416,10 @@ Public Class LBL_CANTON
 
             If MODO = CRF_Modos.Insertar Then
                 LIMPIAR_TODO()
-                MessageBox.Show("¡Compañía ingresada correctamente!", Me.Name, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("¡Compañía ingresada correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             ElseIf MODO = CRF_Modos.Modificar Then
                 Cerrar()
-                MessageBox.Show("¡Compañía modificada correctamente!", Me.Name, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("¡Compañía modificada correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

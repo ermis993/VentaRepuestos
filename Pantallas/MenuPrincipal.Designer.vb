@@ -29,6 +29,7 @@ Partial Class MenuPrincipal
         Me.TXT_COMPRA = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.BTN_CONSULTA = New System.Windows.Forms.Button()
         Me.BTN_PROVEEDOR = New System.Windows.Forms.Button()
         Me.BTN_PRODUCTO = New System.Windows.Forms.Button()
         Me.BTN_FE = New System.Windows.Forms.Button()
@@ -49,7 +50,7 @@ Partial Class MenuPrincipal
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox1.Size = New System.Drawing.Size(200, 68)
+        Me.GroupBox1.Size = New System.Drawing.Size(324, 68)
         Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Sucursal ]"
@@ -61,7 +62,7 @@ Partial Class MenuPrincipal
         Me.CMB_SUCURSAL.Location = New System.Drawing.Point(4, 27)
         Me.CMB_SUCURSAL.Margin = New System.Windows.Forms.Padding(2)
         Me.CMB_SUCURSAL.Name = "CMB_SUCURSAL"
-        Me.CMB_SUCURSAL.Size = New System.Drawing.Size(192, 21)
+        Me.CMB_SUCURSAL.Size = New System.Drawing.Size(316, 21)
         Me.CMB_SUCURSAL.TabIndex = 0
         '
         'GroupBox2
@@ -70,11 +71,11 @@ Partial Class MenuPrincipal
         Me.GroupBox2.Controls.Add(Me.TXT_COMPRA)
         Me.GroupBox2.Controls.Add(Me.Label2)
         Me.GroupBox2.Controls.Add(Me.Label1)
-        Me.GroupBox2.Location = New System.Drawing.Point(205, 458)
+        Me.GroupBox2.Location = New System.Drawing.Point(329, 458)
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox2.Size = New System.Drawing.Size(248, 68)
+        Me.GroupBox2.Size = New System.Drawing.Size(159, 68)
         Me.GroupBox2.TabIndex = 5
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "[ Tipo cambio ]"
@@ -117,11 +118,24 @@ Partial Class MenuPrincipal
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Compra :"
         '
+        'BTN_CONSULTA
+        '
+        Me.BTN_CONSULTA.Image = Global.VentaRepuestos.My.Resources.Resources.consultas
+        Me.BTN_CONSULTA.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.BTN_CONSULTA.Location = New System.Drawing.Point(5, 399)
+        Me.BTN_CONSULTA.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_CONSULTA.Name = "BTN_CONSULTA"
+        Me.BTN_CONSULTA.Size = New System.Drawing.Size(64, 55)
+        Me.BTN_CONSULTA.TabIndex = 10
+        Me.BTN_CONSULTA.Text = "Consultas"
+        Me.BTN_CONSULTA.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.BTN_CONSULTA.UseVisualStyleBackColor = True
+        '
         'BTN_PROVEEDOR
         '
         Me.BTN_PROVEEDOR.Image = Global.VentaRepuestos.My.Resources.Resources.proveedor1
         Me.BTN_PROVEEDOR.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_PROVEEDOR.Location = New System.Drawing.Point(336, 2)
+        Me.BTN_PROVEEDOR.Location = New System.Drawing.Point(261, 2)
         Me.BTN_PROVEEDOR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_PROVEEDOR.Name = "BTN_PROVEEDOR"
         Me.BTN_PROVEEDOR.Size = New System.Drawing.Size(64, 55)
@@ -134,7 +148,7 @@ Partial Class MenuPrincipal
         '
         Me.BTN_PRODUCTO.Image = Global.VentaRepuestos.My.Resources.Resources.productos
         Me.BTN_PRODUCTO.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_PRODUCTO.Location = New System.Drawing.Point(269, 2)
+        Me.BTN_PRODUCTO.Location = New System.Drawing.Point(325, 2)
         Me.BTN_PRODUCTO.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_PRODUCTO.Name = "BTN_PRODUCTO"
         Me.BTN_PRODUCTO.Size = New System.Drawing.Size(64, 55)
@@ -147,7 +161,7 @@ Partial Class MenuPrincipal
         '
         Me.BTN_FE.Image = Global.VentaRepuestos.My.Resources.Resources.factura
         Me.BTN_FE.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_FE.Location = New System.Drawing.Point(403, 2)
+        Me.BTN_FE.Location = New System.Drawing.Point(389, 2)
         Me.BTN_FE.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_FE.Name = "BTN_FE"
         Me.BTN_FE.Size = New System.Drawing.Size(64, 55)
@@ -160,7 +174,7 @@ Partial Class MenuPrincipal
         '
         Me.BTN_CLIENTE.Image = Global.VentaRepuestos.My.Resources.Resources.client
         Me.BTN_CLIENTE.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_CLIENTE.Location = New System.Drawing.Point(202, 2)
+        Me.BTN_CLIENTE.Location = New System.Drawing.Point(196, 2)
         Me.BTN_CLIENTE.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_CLIENTE.Name = "BTN_CLIENTE"
         Me.BTN_CLIENTE.Size = New System.Drawing.Size(64, 55)
@@ -173,21 +187,21 @@ Partial Class MenuPrincipal
         '
         Me.BTN_SALIR.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
-        Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(806, 2)
+        Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.BTN_SALIR.Location = New System.Drawing.Point(840, 2)
         Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_SALIR.Name = "BTN_SALIR"
-        Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_SALIR.Size = New System.Drawing.Size(64, 55)
         Me.BTN_SALIR.TabIndex = 3
         Me.BTN_SALIR.Text = "Salir"
-        Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.BTN_SALIR.UseVisualStyleBackColor = True
         '
         'BTN_USUARIO
         '
         Me.BTN_USUARIO.Image = Global.VentaRepuestos.My.Resources.Resources.usuario
         Me.BTN_USUARIO.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_USUARIO.Location = New System.Drawing.Point(135, 2)
+        Me.BTN_USUARIO.Location = New System.Drawing.Point(131, 2)
         Me.BTN_USUARIO.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_USUARIO.Name = "BTN_USUARIO"
         Me.BTN_USUARIO.Size = New System.Drawing.Size(64, 55)
@@ -200,7 +214,7 @@ Partial Class MenuPrincipal
         '
         Me.BTN_SUCURSAL.Image = Global.VentaRepuestos.My.Resources.Resources.sucursal
         Me.BTN_SUCURSAL.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_SUCURSAL.Location = New System.Drawing.Point(68, 2)
+        Me.BTN_SUCURSAL.Location = New System.Drawing.Point(66, 2)
         Me.BTN_SUCURSAL.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_SUCURSAL.Name = "BTN_SUCURSAL"
         Me.BTN_SUCURSAL.Size = New System.Drawing.Size(64, 55)
@@ -228,6 +242,7 @@ Partial Class MenuPrincipal
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(906, 528)
         Me.ControlBox = False
+        Me.Controls.Add(Me.BTN_CONSULTA)
         Me.Controls.Add(Me.BTN_PROVEEDOR)
         Me.Controls.Add(Me.BTN_PRODUCTO)
         Me.Controls.Add(Me.BTN_FE)
@@ -266,4 +281,5 @@ Partial Class MenuPrincipal
     Friend WithEvents BTN_FE As Button
     Friend WithEvents BTN_PRODUCTO As Button
     Friend WithEvents BTN_PROVEEDOR As Button
+    Friend WithEvents BTN_CONSULTA As Button
 End Class

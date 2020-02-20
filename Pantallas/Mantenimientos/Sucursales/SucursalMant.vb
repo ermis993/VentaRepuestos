@@ -37,18 +37,19 @@ Public Class SucursalMant
             Dim Estado As String
 
             If String.IsNullOrEmpty(TXT_CODIGO.Text) Then
-                MessageBox.Show("El código de sucursal no puede ser vacío")
+                MessageBox.Show("El código de sucursal no puede ser vacío", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                TXT_CODIGO.Select()
             ElseIf String.IsNullOrEmpty(TXT_NOMBRE.Text) Then
-                MessageBox.Show("Debe ingresar el nombre de la sucursal")
+                MessageBox.Show("Debe ingresar el nombre de la sucursal", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 TXT_NOMBRE.Select()
             ElseIf String.IsNullOrEmpty(TXT_DIRECCION.Text) Then
-                MessageBox.Show("Debe ingresar la dirección de la sucursal")
+                MessageBox.Show("Debe ingresar la dirección de la sucursal", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 TXT_DIRECCION.Select()
             ElseIf String.IsNullOrEmpty(TXT_TELEFONO.Text) Then
-                MessageBox.Show("Debe ingresar el teléfono de la sucursal")
+                MessageBox.Show("Debe ingresar el teléfono de la sucursall", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 TXT_TELEFONO.Select()
             ElseIf String.IsNullOrEmpty(TXT_CORREO.Text) Then
-                MessageBox.Show("Es necesario un correo para la sucursal")
+                MessageBox.Show("Es necesario un correo para la sucursal", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 TXT_CORREO.Select()
             Else
 
@@ -66,6 +67,8 @@ Public Class SucursalMant
                 SQL &= Chr(13) & ",@TELEFONO=" & SCM(TXT_TELEFONO.Text)
                 SQL &= Chr(13) & ",@CORREO=" & SCM(TXT_CORREO.Text)
                 SQL &= Chr(13) & ",@ESTADO=" & SCM(Estado)
+                SQL &= Chr(13) & ",@RUTA_TIQUETE=" & SCM(TXT_RUTA_TIQUETE.Text)
+                SQL &= Chr(13) & ",@ANCHO_TIQUETE=" & Val(TXT_ANCHO_PAPEL.Text)
                 SQL &= Chr(13) & ",@MODO=" & Val(Me.MODO)
 
                 CONX.Coneccion_Abrir()
@@ -74,10 +77,10 @@ Public Class SucursalMant
 
                 LimpiarTodo()
                 If MODO = CRF_Modos.Insertar Then
-                    MessageBox.Show("Sucursal ingresada correctamente")
+                    MessageBox.Show("Sucursal ingresada correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Me.Close()
                 ElseIf MODO = CRF_Modos.Modificar Then
-                    MessageBox.Show("Sucursal modificada correctamente")
+                    MessageBox.Show("Sucursal modificada correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Me.Close()
                 End If
 
@@ -106,6 +109,8 @@ Public Class SucursalMant
                     TXT_DIRECCION.Text = ITEM("DIRECCION")
                     TXT_CORREO.Text = ITEM("CORREO")
                     TXT_TELEFONO.Text = ITEM("TELEFONO")
+                    TXT_RUTA_TIQUETE.Text = ITEM("IMPRESION_TIQUETE")
+                    TXT_ANCHO_PAPEL.Text = ITEM("ANCHO_TIQUETE")
 
                     If ITEM("ESTADO") = "A" Then
                         RB_ACTIVA.Checked = True

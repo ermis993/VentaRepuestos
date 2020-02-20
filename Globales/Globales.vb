@@ -238,4 +238,85 @@ Public Class Globales
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
+    Public Shared Function RELLENOCENTRO(ByVal TEXTO As String, ByVal CANTIDAD As Integer) As String
+        Try
+            TEXTO = TEXTO.PadLeft((CANTIDAD + TEXTO.Length) \ 2).PadRight(CANTIDAD)
+            Return TEXTO
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
+
+    Public Shared Function RELLENO(ByVal TEXTO As String, ByVal CANTIDAD As Integer, ByVal CARACTER As String) As String
+        Try
+            TEXTO = TEXTO.PadLeft(CANTIDAD, CARACTER)
+            Return TEXTO
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
+
+    Public Shared Function RELLENOIZQUIERDA(ByVal TEXTO As String, ByVal CANTIDAD As Integer) As String
+        Try
+            TEXTO = TEXTO.PadLeft(CANTIDAD)
+            Return TEXTO
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
+
+    Public Shared Function RELLENODERECHA(ByVal TEXTO As String, ByVal CANTIDAD As Integer) As String
+        Try
+            TEXTO = TEXTO.PadRight(CANTIDAD)
+            Return TEXTO
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
+
+    Public Shared Function DIRECCION_IMPRESION() As String
+        Try
+            Dim respuesta As String = ""
+            Dim SQL As String = "SELECT ISNULL(IMPRESION_TIQUETE,'') AS IMPRESION_TIQUETE"
+            SQL &= Chr(13) & " FROM SUCURSAL "
+            SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & " AND COD_SUCUR = " & SCM(COD_SUCUR)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                respuesta = DS.Tables(0).Rows(0).Item("IMPRESION_TIQUETE")
+            End If
+
+            Return respuesta
+
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
+
+    Public Shared Function ANCHO_IMPRESION() As Integer
+        Try
+            Dim respuesta As Integer = 0
+            Dim SQL As String = "SELECT ISNULL(ANCHO_TIQUETE,0) AS ANCHO_TIQUETE"
+            SQL &= Chr(13) & " FROM SUCURSAL "
+            SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & " AND COD_SUCUR = " & SCM(COD_SUCUR)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                respuesta = DS.Tables(0).Rows(0).Item("ANCHO_TIQUETE")
+            End If
+
+            Return respuesta
+
+        Catch ex As Exception
+            Return 0
+        End Try
+    End Function
+
 End Class

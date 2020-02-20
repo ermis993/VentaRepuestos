@@ -293,9 +293,9 @@ Public Class Factura
     Private Sub IngresarDetalle()
         Try
             If String.IsNullOrEmpty(TXT_ESTANTE.Text) Or String.IsNullOrEmpty(TXT_FILA.Text) Or String.IsNullOrEmpty(TXT_COLUMNA.Text) Then
-                MessageBox.Show("La ubicación del producto es inválida, vuelva a seleccionar el producto")
+                MessageBox.Show(Me, "La ubicación del producto es inválida, vuelva a seleccionar el producto", "Mensaje ubicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
             ElseIf String.IsNullOrEmpty(Cliente.VALOR) Then
-                MessageBox.Show("El cliente no ha sido seleccionado")
+                MessageBox.Show(Me, "El cliente no ha sido seleccionado", "Mensaje cliente", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Else
                 If FMC(TXT_TOTAL.Text) > 0 Then
                     Dim SQL = "	EXECUTE USP_MANT_FACTURACION_TMP "
@@ -582,7 +582,7 @@ Public Class Factura
             If e.RowIndex >= 0 Then
                 If e.ColumnIndex = 11 Then
                     Dim seleccionado = GRID.Rows(GRID.SelectedRows(0).Index)
-                    Dim valor = MessageBox.Show(Me, "¿Seguro que desea eliminar la linea :" + seleccionado.Cells(0).Value.ToString + "?", "Eliminar linea", vbYesNo)
+                    Dim valor = MessageBox.Show(Me, "¿Seguro que desea eliminar la linea :" + seleccionado.Cells(0).Value.ToString + "?", "Eliminar linea", vbYesNo, MessageBoxIcon.Question)
 
                     If valor = DialogResult.Yes Then
 
@@ -598,7 +598,7 @@ Public Class Factura
 
                         RELLENAR_GRID()
 
-                        MessageBox.Show("Producto eliminado correctamente")
+                        MessageBox.Show(Me, "Producto eliminado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     End If
                 End If
             End If
@@ -618,12 +618,21 @@ Public Class Factura
                 Sql &= Chr(13) & "	,@TIPO_MOV  = " & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
                 Sql &= Chr(13) & "	,@CODIGO = 	" & SCM(Codigo)
                 CONX.Coneccion_Abrir()
-                CONX.EJECUTE(Sql)
+                Dim DS = CONX.EJECUTE_DS(Sql)
                 CONX.Coneccion_Cerrar()
 
-                MessageBox.Show("Factura ingresada correctamente")
-                Me.Close()
-                Padre.Refrescar()
+                Dim valor = MessageBox.Show(Me, "Documento ingresado correctamente, ¿desea imprimir el documento?", Me.Text, vbYesNo, MessageBoxIcon.Question)
+                If valor = DialogResult.Yes Then
+
+                    Dim imp As New Impresion()
+                    imp.Imprimir(COD_CIA, COD_SUCUR, DS.Tables(0).Rows(0).Item(0), CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
+
+                    Me.Close()
+                    Padre.Refrescar()
+                Else
+                    Me.Close()
+                    Padre.Refrescar()
+                End If
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

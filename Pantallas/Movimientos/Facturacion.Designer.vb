@@ -38,6 +38,7 @@ Partial Class Facturacion
         Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_FACTURAR = New System.Windows.Forms.Button()
+        Me.BTN_IMPRIMIR = New System.Windows.Forms.Button()
         Me.Filtro = New VentaRepuestos.Filtro()
         Me.GroupBox1.SuspendLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -230,6 +231,19 @@ Partial Class Facturacion
         Me.BTN_FACTURAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_FACTURAR.UseVisualStyleBackColor = True
         '
+        'BTN_IMPRIMIR
+        '
+        Me.BTN_IMPRIMIR.Image = Global.VentaRepuestos.My.Resources.Resources.imprimir1
+        Me.BTN_IMPRIMIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_IMPRIMIR.Location = New System.Drawing.Point(208, 7)
+        Me.BTN_IMPRIMIR.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_IMPRIMIR.Name = "BTN_IMPRIMIR"
+        Me.BTN_IMPRIMIR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_IMPRIMIR.TabIndex = 40
+        Me.BTN_IMPRIMIR.Text = "Imprimir"
+        Me.BTN_IMPRIMIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_IMPRIMIR.UseVisualStyleBackColor = True
+        '
         'Filtro
         '
         Me.Filtro.Location = New System.Drawing.Point(2, 58)
@@ -245,6 +259,7 @@ Partial Class Facturacion
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(862, 518)
         Me.ControlBox = False
+        Me.Controls.Add(Me.BTN_IMPRIMIR)
         Me.Controls.Add(Me.BTN_RECIBO)
         Me.Controls.Add(Me.Filtro)
         Me.Controls.Add(Me.BTN_REFRESCAR)
@@ -286,4 +301,5 @@ Partial Class Facturacion
     Friend WithEvents BTN_REFRESCAR As Button
     Friend WithEvents Filtro As Filtro
     Friend WithEvents BTN_RECIBO As Button
+    Friend WithEvents BTN_IMPRIMIR As Button
 End Class

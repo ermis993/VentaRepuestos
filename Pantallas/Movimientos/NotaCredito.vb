@@ -431,10 +431,10 @@ Public Class NotaCredito
                         RellenaProductos()
                         CalculoTotales()
                     Else
-                        MessageBox.Show("La cantidad ingresada es mayor a la cantidad que se puede afectar")
+                        MessageBox.Show("La cantidad ingresada es mayor a la cantidad que se puede afectar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     End If
                 Else
-                    MessageBox.Show("La cantidad ingresada no es mayor a 0, es necesario que sea mayor")
+                    MessageBox.Show("La cantidad ingresada no es mayor a 0, es necesario que sea mayor", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 End If
             End If
         Catch ex As Exception
@@ -469,9 +469,9 @@ Public Class NotaCredito
     Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
         Try
             If FMC(TXT_M.Text) = FMC(TXT_DIF.Text) Then
-                MessageBox.Show("Debe de afectar el monto del o los documentos ingresados, actualmente no se ha afectado ningún monto")
+                MessageBox.Show("Debe de afectar el monto del o los documentos ingresados, actualmente no se ha afectado ningún monto", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             ElseIf CMB_TIPO.SelectedIndex = 0 And GRIDPRODS2.Rows.Count <= 0 Then
-                MessageBox.Show("Debe de ingresar el o los productos en la devolución, actualmente no se ha ingresado ningún producto")
+                MessageBox.Show("Debe de ingresar el o los productos en la devolución, actualmente no se ha ingresado ningún producto", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Else
                 If FMC(TXT_DIF.Text) > 0 Then
                     Dim respuesta = MessageBox.Show(Me, "La diferencia está siendo mayor a 0, ¿Seguro desea continuar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
@@ -510,7 +510,7 @@ Public Class NotaCredito
             CONX.EJECUTE(Sql)
             CONX.Coneccion_Cerrar()
 
-            MessageBox.Show("Documento ingresado correctamente")
+            MessageBox.Show("Documento ingresado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             Cerrar()
         Catch ex As Exception
             MessageBox.Show(ex.Message)

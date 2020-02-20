@@ -104,6 +104,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Globales\Globales.vb" />
+    <Compile Include="Globales\Impresion.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -125,6 +126,12 @@
       <DependentUpon>MenuPrincipal.vb</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\MenuPrincipal.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\ConsultaSaldos.Designer.vb">
+      <DependentUpon>ConsultaSaldos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\ConsultaSaldos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\Movimientos\Factura.Designer.vb">
@@ -285,6 +292,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\ConsultaSaldos.resx">
+      <DependentUpon>ConsultaSaldos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Movimientos\Factura.resx">
       <DependentUpon>Factura.vb</DependentUpon>
@@ -457,6 +467,8 @@
     <None Include="Resources\filtro.png" />
     <None Include="Resources\filtrar.png" />
     <None Include="Resources\pago.png" />
+    <None Include="Resources\imprimir1.png" />
+    <None Include="Resources\consultas.png" />
     <Content Include="Resources\quitar.png" />
     <None Include="Resources\Right.png" />
     <Content Include="Resources\salir.png" />

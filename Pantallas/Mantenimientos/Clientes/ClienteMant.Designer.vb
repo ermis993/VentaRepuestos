@@ -32,6 +32,12 @@ Partial Class ClienteMant
         Me.TXT_NOMBRE = New System.Windows.Forms.TextBox()
         Me.TXT_PRIMER_APELLIDO = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.CMB_DISTRITO = New System.Windows.Forms.ComboBox()
+        Me.LBL_DISTRITO = New System.Windows.Forms.Label()
+        Me.CMB_CANTON = New System.Windows.Forms.ComboBox()
+        Me.LBL_CANTO = New System.Windows.Forms.Label()
+        Me.CMB_PROVINCIA = New System.Windows.Forms.ComboBox()
+        Me.LBL_PROVINCIA = New System.Windows.Forms.Label()
         Me.BTN_BUSCAR = New System.Windows.Forms.Button()
         Me.TXT_CEDULA = New System.Windows.Forms.MaskedTextBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -52,12 +58,6 @@ Partial Class ClienteMant
         Me.Label4 = New System.Windows.Forms.Label()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
-        Me.CMB_DISTRITO = New System.Windows.Forms.ComboBox()
-        Me.LBL_DISTRITO = New System.Windows.Forms.Label()
-        Me.CMB_CANTON = New System.Windows.Forms.ComboBox()
-        Me.LBL_CANTO = New System.Windows.Forms.Label()
-        Me.CMB_PROVINCIA = New System.Windows.Forms.ComboBox()
-        Me.LBL_PROVINCIA = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -177,6 +177,69 @@ Partial Class ClienteMant
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Información General ]"
         '
+        'CMB_DISTRITO
+        '
+        Me.CMB_DISTRITO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CMB_DISTRITO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CMB_DISTRITO.FormattingEnabled = True
+        Me.CMB_DISTRITO.Location = New System.Drawing.Point(137, 343)
+        Me.CMB_DISTRITO.Name = "CMB_DISTRITO"
+        Me.CMB_DISTRITO.Size = New System.Drawing.Size(262, 24)
+        Me.CMB_DISTRITO.TabIndex = 23
+        '
+        'LBL_DISTRITO
+        '
+        Me.LBL_DISTRITO.AutoSize = True
+        Me.LBL_DISTRITO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LBL_DISTRITO.ForeColor = System.Drawing.Color.Black
+        Me.LBL_DISTRITO.Location = New System.Drawing.Point(71, 347)
+        Me.LBL_DISTRITO.Name = "LBL_DISTRITO"
+        Me.LBL_DISTRITO.Size = New System.Drawing.Size(63, 18)
+        Me.LBL_DISTRITO.TabIndex = 22
+        Me.LBL_DISTRITO.Text = "Distrito :"
+        '
+        'CMB_CANTON
+        '
+        Me.CMB_CANTON.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CMB_CANTON.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CMB_CANTON.FormattingEnabled = True
+        Me.CMB_CANTON.Location = New System.Drawing.Point(137, 313)
+        Me.CMB_CANTON.Name = "CMB_CANTON"
+        Me.CMB_CANTON.Size = New System.Drawing.Size(262, 24)
+        Me.CMB_CANTON.TabIndex = 21
+        '
+        'LBL_CANTO
+        '
+        Me.LBL_CANTO.AutoSize = True
+        Me.LBL_CANTO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LBL_CANTO.ForeColor = System.Drawing.Color.Black
+        Me.LBL_CANTO.Location = New System.Drawing.Point(70, 314)
+        Me.LBL_CANTO.Name = "LBL_CANTO"
+        Me.LBL_CANTO.Size = New System.Drawing.Size(64, 18)
+        Me.LBL_CANTO.TabIndex = 20
+        Me.LBL_CANTO.Text = "Cantón :"
+        '
+        'CMB_PROVINCIA
+        '
+        Me.CMB_PROVINCIA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CMB_PROVINCIA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CMB_PROVINCIA.FormattingEnabled = True
+        Me.CMB_PROVINCIA.Location = New System.Drawing.Point(137, 279)
+        Me.CMB_PROVINCIA.Name = "CMB_PROVINCIA"
+        Me.CMB_PROVINCIA.Size = New System.Drawing.Size(262, 24)
+        Me.CMB_PROVINCIA.TabIndex = 19
+        '
+        'LBL_PROVINCIA
+        '
+        Me.LBL_PROVINCIA.AutoSize = True
+        Me.LBL_PROVINCIA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LBL_PROVINCIA.ForeColor = System.Drawing.Color.Black
+        Me.LBL_PROVINCIA.Location = New System.Drawing.Point(57, 281)
+        Me.LBL_PROVINCIA.Name = "LBL_PROVINCIA"
+        Me.LBL_PROVINCIA.Size = New System.Drawing.Size(77, 18)
+        Me.LBL_PROVINCIA.TabIndex = 18
+        Me.LBL_PROVINCIA.Text = "Provincia :"
+        '
         'BTN_BUSCAR
         '
         Me.BTN_BUSCAR.Location = New System.Drawing.Point(341, 59)
@@ -189,11 +252,11 @@ Partial Class ClienteMant
         '
         'TXT_CEDULA
         '
-        Me.TXT_CEDULA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TXT_CEDULA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_CEDULA.Location = New System.Drawing.Point(137, 60)
         Me.TXT_CEDULA.Name = "TXT_CEDULA"
         Me.TXT_CEDULA.PromptChar = Global.Microsoft.VisualBasic.ChrW(35)
-        Me.TXT_CEDULA.Size = New System.Drawing.Size(201, 24)
+        Me.TXT_CEDULA.Size = New System.Drawing.Size(201, 22)
         Me.TXT_CEDULA.TabIndex = 3
         '
         'GroupBox2
@@ -391,69 +454,6 @@ Partial Class ClienteMant
         Me.BTN_ACEPTAR.Text = "Aceptar"
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
-        '
-        'CMB_DISTRITO
-        '
-        Me.CMB_DISTRITO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CMB_DISTRITO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CMB_DISTRITO.FormattingEnabled = True
-        Me.CMB_DISTRITO.Location = New System.Drawing.Point(137, 343)
-        Me.CMB_DISTRITO.Name = "CMB_DISTRITO"
-        Me.CMB_DISTRITO.Size = New System.Drawing.Size(262, 24)
-        Me.CMB_DISTRITO.TabIndex = 23
-        '
-        'LBL_DISTRITO
-        '
-        Me.LBL_DISTRITO.AutoSize = True
-        Me.LBL_DISTRITO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LBL_DISTRITO.ForeColor = System.Drawing.Color.Black
-        Me.LBL_DISTRITO.Location = New System.Drawing.Point(71, 347)
-        Me.LBL_DISTRITO.Name = "LBL_DISTRITO"
-        Me.LBL_DISTRITO.Size = New System.Drawing.Size(63, 18)
-        Me.LBL_DISTRITO.TabIndex = 22
-        Me.LBL_DISTRITO.Text = "Distrito :"
-        '
-        'CMB_CANTON
-        '
-        Me.CMB_CANTON.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CMB_CANTON.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CMB_CANTON.FormattingEnabled = True
-        Me.CMB_CANTON.Location = New System.Drawing.Point(137, 313)
-        Me.CMB_CANTON.Name = "CMB_CANTON"
-        Me.CMB_CANTON.Size = New System.Drawing.Size(262, 24)
-        Me.CMB_CANTON.TabIndex = 21
-        '
-        'LBL_CANTO
-        '
-        Me.LBL_CANTO.AutoSize = True
-        Me.LBL_CANTO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LBL_CANTO.ForeColor = System.Drawing.Color.Black
-        Me.LBL_CANTO.Location = New System.Drawing.Point(70, 314)
-        Me.LBL_CANTO.Name = "LBL_CANTO"
-        Me.LBL_CANTO.Size = New System.Drawing.Size(64, 18)
-        Me.LBL_CANTO.TabIndex = 20
-        Me.LBL_CANTO.Text = "Cantón :"
-        '
-        'CMB_PROVINCIA
-        '
-        Me.CMB_PROVINCIA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CMB_PROVINCIA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CMB_PROVINCIA.FormattingEnabled = True
-        Me.CMB_PROVINCIA.Location = New System.Drawing.Point(137, 279)
-        Me.CMB_PROVINCIA.Name = "CMB_PROVINCIA"
-        Me.CMB_PROVINCIA.Size = New System.Drawing.Size(262, 24)
-        Me.CMB_PROVINCIA.TabIndex = 19
-        '
-        'LBL_PROVINCIA
-        '
-        Me.LBL_PROVINCIA.AutoSize = True
-        Me.LBL_PROVINCIA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LBL_PROVINCIA.ForeColor = System.Drawing.Color.Black
-        Me.LBL_PROVINCIA.Location = New System.Drawing.Point(57, 281)
-        Me.LBL_PROVINCIA.Name = "LBL_PROVINCIA"
-        Me.LBL_PROVINCIA.Size = New System.Drawing.Size(77, 18)
-        Me.LBL_PROVINCIA.TabIndex = 18
-        Me.LBL_PROVINCIA.Text = "Provincia :"
         '
         'ClienteMant
         '

@@ -126,10 +126,10 @@ Public Class ClienteMant
 
             If MODO = CRF_Modos.Insertar Then
                 LIMPIAR_TODO()
-                MessageBox.Show("¡Cliente agregado correctamente!", Me.Name, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("¡Cliente agregado correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             ElseIf MODO = CRF_Modos.Modificar Then
                 CERRAR()
-                MessageBox.Show("¡Cliente modificado correctamente!", Me.Name, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("¡Cliente modificado correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

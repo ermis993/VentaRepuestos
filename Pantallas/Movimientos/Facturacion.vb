@@ -261,4 +261,18 @@ Public Class Facturacion
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
+    Private Sub BTN_IMPRIMIR_Click(sender As Object, e As EventArgs) Handles BTN_IMPRIMIR.Click
+        Try
+            Leer_indice()
+            If Tipo_Mov = "FC" Or Tipo_Mov = "FA" Then
+                Dim imp As New Impresion()
+                imp.Imprimir(COD_CIA, COD_SUCUR, Numero_Doc, Tipo_Mov)
+            Else
+                MessageBox.Show(Me, "Solamente se pueden imprimir facturas", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 End Class

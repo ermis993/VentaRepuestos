@@ -151,10 +151,10 @@ Public Class ProductoMant
 
                 If Me.MODO = CRF_Modos.Insertar Then
                     LIMPIAR_TODO()
-                    MessageBox.Show("¡Producto agregado correctamente!")
+                    MessageBox.Show("¡Producto agregado correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Else
                     Me.Close()
-                    MessageBox.Show("¡Producto modificado correctamente!")
+                    MessageBox.Show("¡Producto modificado correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
 
             End If

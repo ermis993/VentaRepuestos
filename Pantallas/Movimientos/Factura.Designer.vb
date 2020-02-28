@@ -546,7 +546,7 @@ Partial Class Factura
         Me.TXT_DESCUENTO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.TXT_DESCUENTO.Location = New System.Drawing.Point(421, 122)
         Me.TXT_DESCUENTO.Margin = New System.Windows.Forms.Padding(2)
-        Me.TXT_DESCUENTO.MaxLength = 3
+        Me.TXT_DESCUENTO.MaxLength = 4
         Me.TXT_DESCUENTO.Name = "TXT_DESCUENTO"
         Me.TXT_DESCUENTO.Size = New System.Drawing.Size(89, 24)
         Me.TXT_DESCUENTO.TabIndex = 9

@@ -101,12 +101,12 @@ Public Class ProductoMant
             ElseIf String.IsNullOrEmpty(TXT_PRECIO.Text) Then
                 MessageBox.Show("¡Debe digitar el precio del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_PRECIO.Select()
-            ElseIf String.IsNullOrEmpty(TXT_PRECIO_2.Text) Then
-                MessageBox.Show("¡Debe digitar el precio 2 del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
-                TXT_PRECIO_2.Select()
-            ElseIf String.IsNullOrEmpty(TXT_PRECIO_3.Text) Then
-                MessageBox.Show("¡Debe digitar el precio 3 del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
-                TXT_PRECIO_3.Select()
+                'ElseIf String.IsNullOrEmpty(TXT_PRECIO_2.Text) Then
+                '    MessageBox.Show("¡Debe digitar el precio 2 del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                '    TXT_PRECIO_2.Select()
+                'ElseIf String.IsNullOrEmpty(TXT_PRECIO_3.Text) Then
+                '    MessageBox.Show("¡Debe digitar el precio 3 del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                '    TXT_PRECIO_3.Select()
             ElseIf FMC(TXT_COSTO.Text) > FMC(TXT_PRECIO.Text) Or FMC(TXT_COSTO.Text) > FMC(TXT_PRECIO_2.Text) Or FMC(TXT_COSTO.Text) > FMC(TXT_PRECIO_3.Text) Then
                 MessageBox.Show("¡El precio costo es mayor a los precios ingresados, verifique el monto ingresado en los precios!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
             ElseIf String.IsNullOrEmpty(TXT_ESTANTE.Text) And Me.MODO = CRF_Modos.Insertar Then
@@ -134,8 +134,8 @@ Public Class ProductoMant
                 Sql &= Chr(13) & "	,@POR_IMPUESTO = " & Val(TXT_IMPUESTO.Text)
                 Sql &= Chr(13) & "	,@COD_IMPUESTO = " & SCM(CMB_IMPUESTO_DGTD.SelectedValue)
                 Sql &= Chr(13) & "	,@PRECIO = " & FMC(TXT_PRECIO.Text)
-                Sql &= Chr(13) & "	,@PRECIO_2 = " & FMC(TXT_PRECIO_2.Text)
-                Sql &= Chr(13) & "	,@PRECIO_3 = " & FMC(TXT_PRECIO_3.Text)
+                Sql &= Chr(13) & "	,@PRECIO_2 = " & FMC(TXT_PRECIO.Text)
+                Sql &= Chr(13) & "	,@PRECIO_3 = " & FMC(TXT_PRECIO.Text)
                 Sql &= Chr(13) & "	,@EXENTO = " & SCM(TXT_EXENTO.Text)
                 Sql &= Chr(13) & "	,@ESTADO = " & SCM(IIf(RB_ACTIVO.Checked, "A", "I"))
                 Sql &= Chr(13) & "	,@ESTANTE = " & SCM(TXT_ESTANTE.Text)

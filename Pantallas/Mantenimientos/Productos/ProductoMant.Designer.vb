@@ -24,12 +24,15 @@ Partial Class ProductoMant
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ProductoMant))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.TXT_PRECIO_3 = New System.Windows.Forms.TextBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.TXT_PRECIO_2 = New System.Windows.Forms.TextBox()
+        Me.Label16 = New System.Windows.Forms.Label()
         Me.TXT_MINIMO = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.RB_INACTIVO = New System.Windows.Forms.RadioButton()
         Me.RB_ACTIVO = New System.Windows.Forms.RadioButton()
-        Me.Buscador = New VentaRepuestos.Buscador()
         Me.TXT_FILA = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.TXT_ESTANTE = New System.Windows.Forms.TextBox()
@@ -58,10 +61,7 @@ Partial Class ProductoMant
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
-        Me.TXT_PRECIO_2 = New System.Windows.Forms.TextBox()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.TXT_PRECIO_3 = New System.Windows.Forms.TextBox()
-        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Buscador = New VentaRepuestos.Buscador()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.SuspendLayout()
@@ -113,6 +113,54 @@ Partial Class ProductoMant
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Información general ]"
+        '
+        'TXT_PRECIO_3
+        '
+        Me.TXT_PRECIO_3.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_PRECIO_3.Location = New System.Drawing.Point(475, 258)
+        Me.TXT_PRECIO_3.Margin = New System.Windows.Forms.Padding(2)
+        Me.TXT_PRECIO_3.MaxLength = 18
+        Me.TXT_PRECIO_3.Name = "TXT_PRECIO_3"
+        Me.TXT_PRECIO_3.Size = New System.Drawing.Size(76, 24)
+        Me.TXT_PRECIO_3.TabIndex = 24
+        Me.TXT_PRECIO_3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.TXT_PRECIO_3.Visible = False
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label17.Location = New System.Drawing.Point(399, 261)
+        Me.Label17.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(67, 18)
+        Me.Label17.TabIndex = 23
+        Me.Label17.Text = "Precio 3:"
+        Me.Label17.Visible = False
+        '
+        'TXT_PRECIO_2
+        '
+        Me.TXT_PRECIO_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_PRECIO_2.Location = New System.Drawing.Point(280, 258)
+        Me.TXT_PRECIO_2.Margin = New System.Windows.Forms.Padding(2)
+        Me.TXT_PRECIO_2.MaxLength = 18
+        Me.TXT_PRECIO_2.Name = "TXT_PRECIO_2"
+        Me.TXT_PRECIO_2.Size = New System.Drawing.Size(76, 24)
+        Me.TXT_PRECIO_2.TabIndex = 22
+        Me.TXT_PRECIO_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.TXT_PRECIO_2.Visible = False
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label16.Location = New System.Drawing.Point(212, 261)
+        Me.Label16.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(67, 18)
+        Me.Label16.TabIndex = 21
+        Me.Label16.Text = "Precio 2:"
+        Me.Label16.Visible = False
         '
         'TXT_MINIMO
         '
@@ -170,21 +218,6 @@ Partial Class ProductoMant
         Me.RB_ACTIVO.Text = "Activo"
         Me.RB_ACTIVO.UseVisualStyleBackColor = True
         '
-        'Buscador
-        '
-        Me.Buscador.CODIGO = Nothing
-        Me.Buscador.DESCRIPCION = Nothing
-        Me.Buscador.Location = New System.Drawing.Point(117, 86)
-        Me.Buscador.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Buscador.Name = "Buscador"
-        Me.Buscador.OTROS_CAMP0S = Nothing
-        Me.Buscador.PANTALLA = Nothing
-        Me.Buscador.Size = New System.Drawing.Size(451, 32)
-        Me.Buscador.TabIndex = 5
-        Me.Buscador.TABLA_BUSCAR = Nothing
-        Me.Buscador.VALOR = ""
-        Me.Buscador.VALOR_DESCRIPCION = Nothing
-        '
         'TXT_FILA
         '
         Me.TXT_FILA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
@@ -194,6 +227,7 @@ Partial Class ProductoMant
         Me.TXT_FILA.Name = "TXT_FILA"
         Me.TXT_FILA.Size = New System.Drawing.Size(76, 24)
         Me.TXT_FILA.TabIndex = 28
+        Me.TXT_FILA.Text = "1"
         '
         'Label14
         '
@@ -215,6 +249,7 @@ Partial Class ProductoMant
         Me.TXT_ESTANTE.Name = "TXT_ESTANTE"
         Me.TXT_ESTANTE.Size = New System.Drawing.Size(76, 24)
         Me.TXT_ESTANTE.TabIndex = 26
+        Me.TXT_ESTANTE.Text = "1"
         '
         'Label13
         '
@@ -236,6 +271,7 @@ Partial Class ProductoMant
         Me.TXT_COLUMNA.Name = "TXT_COLUMNA"
         Me.TXT_COLUMNA.Size = New System.Drawing.Size(76, 24)
         Me.TXT_COLUMNA.TabIndex = 30
+        Me.TXT_COLUMNA.Text = "1"
         '
         'Label12
         '
@@ -493,49 +529,20 @@ Partial Class ProductoMant
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
         '
-        'TXT_PRECIO_2
+        'Buscador
         '
-        Me.TXT_PRECIO_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_PRECIO_2.Location = New System.Drawing.Point(280, 258)
-        Me.TXT_PRECIO_2.Margin = New System.Windows.Forms.Padding(2)
-        Me.TXT_PRECIO_2.MaxLength = 18
-        Me.TXT_PRECIO_2.Name = "TXT_PRECIO_2"
-        Me.TXT_PRECIO_2.Size = New System.Drawing.Size(76, 24)
-        Me.TXT_PRECIO_2.TabIndex = 22
-        Me.TXT_PRECIO_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label16.Location = New System.Drawing.Point(212, 261)
-        Me.Label16.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(67, 18)
-        Me.Label16.TabIndex = 21
-        Me.Label16.Text = "Precio 2:"
-        '
-        'TXT_PRECIO_3
-        '
-        Me.TXT_PRECIO_3.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_PRECIO_3.Location = New System.Drawing.Point(475, 258)
-        Me.TXT_PRECIO_3.Margin = New System.Windows.Forms.Padding(2)
-        Me.TXT_PRECIO_3.MaxLength = 18
-        Me.TXT_PRECIO_3.Name = "TXT_PRECIO_3"
-        Me.TXT_PRECIO_3.Size = New System.Drawing.Size(76, 24)
-        Me.TXT_PRECIO_3.TabIndex = 24
-        Me.TXT_PRECIO_3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label17.Location = New System.Drawing.Point(399, 261)
-        Me.Label17.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(67, 18)
-        Me.Label17.TabIndex = 23
-        Me.Label17.Text = "Precio 3:"
+        Me.Buscador.CODIGO = Nothing
+        Me.Buscador.DESCRIPCION = Nothing
+        Me.Buscador.Location = New System.Drawing.Point(117, 86)
+        Me.Buscador.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Buscador.Name = "Buscador"
+        Me.Buscador.OTROS_CAMP0S = Nothing
+        Me.Buscador.PANTALLA = Nothing
+        Me.Buscador.Size = New System.Drawing.Size(451, 32)
+        Me.Buscador.TabIndex = 5
+        Me.Buscador.TABLA_BUSCAR = Nothing
+        Me.Buscador.VALOR = ""
+        Me.Buscador.VALOR_DESCRIPCION = Nothing
         '
         'ProductoMant
         '

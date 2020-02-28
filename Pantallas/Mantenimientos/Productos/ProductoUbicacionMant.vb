@@ -79,7 +79,7 @@ Public Class ProductoUbicacionMant
                 CONX.Coneccion_Cerrar()
 
                 LIMPIAR_TODO()
-                MessageBox.Show("¡Ubicación ingresada correctamente!")
+                MessageBox.Show("¡Ubicación ingresada correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 RELLENAR_GRID()
 
             End If

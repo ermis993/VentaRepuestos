@@ -32,7 +32,7 @@ Partial Class ConsultaSaldos
         'TXT_BUSCADOR
         '
         Me.TXT_BUSCADOR.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_BUSCADOR.Location = New System.Drawing.Point(119, 7)
+        Me.TXT_BUSCADOR.Location = New System.Drawing.Point(175, 7)
         Me.TXT_BUSCADOR.Name = "TXT_BUSCADOR"
         Me.TXT_BUSCADOR.Size = New System.Drawing.Size(414, 24)
         Me.TXT_BUSCADOR.TabIndex = 0
@@ -41,7 +41,7 @@ Partial Class ConsultaSaldos
         '
         Me.BTN_BUSCAR.Image = Global.VentaRepuestos.My.Resources.Resources.filtrar
         Me.BTN_BUSCAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_BUSCAR.Location = New System.Drawing.Point(539, 3)
+        Me.BTN_BUSCAR.Location = New System.Drawing.Point(595, 3)
         Me.BTN_BUSCAR.Name = "BTN_BUSCAR"
         Me.BTN_BUSCAR.Size = New System.Drawing.Size(75, 33)
         Me.BTN_BUSCAR.TabIndex = 1
@@ -58,7 +58,7 @@ Partial Class ConsultaSaldos
         Me.GRID.Name = "GRID"
         Me.GRID.RowHeadersVisible = False
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRID.Size = New System.Drawing.Size(722, 341)
+        Me.GRID.Size = New System.Drawing.Size(808, 341)
         Me.GRID.TabIndex = 2
         '
         'BTN_SALIR
@@ -67,7 +67,7 @@ Partial Class ConsultaSaldos
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(625, 389)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(711, 389)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 13
@@ -80,7 +80,7 @@ Partial Class ConsultaSaldos
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ClientSize = New System.Drawing.Size(726, 437)
+        Me.ClientSize = New System.Drawing.Size(813, 437)
         Me.ControlBox = False
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.GRID)

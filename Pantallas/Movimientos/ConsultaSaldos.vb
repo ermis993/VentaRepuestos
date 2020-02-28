@@ -27,13 +27,14 @@ Public Class ConsultaSaldos
             GRID.Rows.Clear()
             GRID.DataSource = Nothing
 
-            GRID.ColumnCount = 3
+            GRID.ColumnCount = 4
             GRID.Columns(0).Name = "Código"
             GRID.Columns(1).Name = "Descripción"
             GRID.Columns(2).Name = "Cantidad"
+            GRID.Columns(3).Name = "Precio"
 
             If Not String.IsNullOrEmpty(TXT_BUSCADOR.Text) Then
-                Dim Sql = "	SELECT P.COD_PROD, P.DESCRIPCION, ISNULL(SUM(DET.CANTIDAD), 0) AS CANTIDAD "
+                Dim Sql = "	SELECT P.COD_PROD, P.DESCRIPCION, ISNULL(SUM(DET.CANTIDAD), 0) AS CANTIDAD, (PRECIO + ((PRECIO*POR_IMPUESTO) / 100)) AS PRECIO  "
                 Sql &= Chr(13) & "	FROM PRODUCTO AS P	"
                 Sql &= Chr(13) & "	LEFT JOIN INVENTARIO_MOV_DET AS DET	"
                 Sql &= Chr(13) & "	    ON DET.COD_CIA = P.COD_CIA	"
@@ -42,7 +43,7 @@ Public Class ConsultaSaldos
                 Sql &= Chr(13) & "	WHERE P.COD_CIA = " & SCM(COD_CIA)
                 Sql &= Chr(13) & "	AND P.COD_SUCUR = " & SCM(COD_SUCUR)
                 Sql &= Chr(13) & "	AND (P.DESCRIPCION LIKE " & SCM("%" + TXT_BUSCADOR.Text + "%") & " Or P.COD_PROD = " & SCM(TXT_BUSCADOR.Text) & " Or P.COD_BARRA = " & SCM(TXT_BUSCADOR.Text) & ")"
-                Sql &= Chr(13) & "  GROUP BY P.COD_PROD, P.DESCRIPCION"
+                Sql &= Chr(13) & "  GROUP BY P.COD_PROD, P.DESCRIPCION, (PRECIO + ((PRECIO*POR_IMPUESTO) / 100))"
                 Sql &= Chr(13) & "  ORDER BY DESCRIPCION ASC"
 
                 CONX.Coneccion_Abrir()
@@ -51,7 +52,7 @@ Public Class ConsultaSaldos
 
                 If DS.Tables(0).Rows.Count > 0 Then
                     For Each ITEM In DS.Tables(0).Rows
-                        Dim row As String() = New String() {ITEM("COD_PROD"), ITEM("DESCRIPCION"), ITEM("CANTIDAD")}
+                        Dim row As String() = New String() {ITEM("COD_PROD"), ITEM("DESCRIPCION"), ITEM("CANTIDAD"), ITEM("PRECIO")}
                         GRID.Rows.Add(row)
                     Next
                     GRID.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells

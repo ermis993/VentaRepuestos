@@ -221,10 +221,10 @@ Public Class Factura
                 Descuento = FMC(TXT_DESCUENTO.Text)
                 Impuesto = FMC(TXT_IMPUESTO.Text)
 
-                Descuento_Total = ((Precio_Unitario * Cantidad) * Descuento) / 100
-                Impuesto_Total = (((Precio_Unitario * Cantidad) - Descuento_Total) * Impuesto) / 100
-                Subtotal = ((Precio_Unitario * Cantidad) - Descuento_Total)
-                Total = Subtotal + Impuesto_Total
+                Descuento_Total = FMC(((Precio_Unitario * Cantidad) * Descuento) / 100)
+                Impuesto_Total = FMC((((Precio_Unitario * Cantidad) - Descuento_Total) * Impuesto) / 100)
+                Subtotal = FMC(((Precio_Unitario * Cantidad) - Descuento_Total))
+                Total = FMC(Subtotal + Impuesto_Total)
 
                 TXT_DESCUENTOTOTAL.Text = FMCP(Descuento_Total)
                 TXT_IMPUESTOTOTAL.Text = FMCP(Impuesto_Total)
@@ -549,25 +549,26 @@ Public Class Factura
     End Sub
 
     Private Sub LVResultados_DoubleClick(sender As Object, e As EventArgs) Handles LVResultados.DoubleClick
+        Try
+            Dim Codigo = LVResultados.SelectedItems(0).Name
+            Dim Descripcion = LVResultados.SelectedItems(0).Text
 
-        Dim Codigo = LVResultados.SelectedItems(0).Name
-        Dim Descripcion = LVResultados.SelectedItems(0).Text
+            If Not IsNothing(Codigo) Then
 
-        If Not IsNothing(Codigo) Then
+                TXT_ESTANTE.Text = ""
+                TXT_FILA.Text = ""
+                TXT_COLUMNA.Text = ""
 
-            TXT_ESTANTE.Text = ""
-            TXT_FILA.Text = ""
-            TXT_COLUMNA.Text = ""
-
-            If ProductoMasUbicaciones(Codigo) Then
-                Dim PANTALLA As New ProductoUbicacionMant(Codigo, Descripcion, CRF_Modos.Seleccionar, Me)
-                PANTALLA.ShowDialog()
-                TXT_CANTIDAD.Focus()
-            Else
-                Proceso(Codigo, "", "", "")
+                If ProductoMasUbicaciones(Codigo) Then
+                    Dim PANTALLA As New ProductoUbicacionMant(Codigo, Descripcion, CRF_Modos.Seleccionar, Me)
+                    PANTALLA.ShowDialog()
+                    TXT_CANTIDAD.Focus()
+                Else
+                    Proceso(Codigo, "", "", "")
+                End If
             End If
-        End If
-
+        Catch ex As Exception
+        End Try
     End Sub
 
     Private Sub Proceso(ByVal codigo As String, ByVal estante As String, ByVal fila As String, ByVal columna As String)

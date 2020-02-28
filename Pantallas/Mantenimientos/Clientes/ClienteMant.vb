@@ -383,4 +383,8 @@ Public Class ClienteMant
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
+    Private Sub BTN_BUSCAR_Click(sender As Object, e As EventArgs) Handles BTN_BUSCAR.Click
+
+    End Sub
 End Class

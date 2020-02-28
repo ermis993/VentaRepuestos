@@ -25,12 +25,12 @@ Partial Class DerechosCompania
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.CMB_COMPANIA = New System.Windows.Forms.ComboBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.LVSin = New System.Windows.Forms.ListView()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.LVCon = New System.Windows.Forms.ListView()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_QUITAR = New System.Windows.Forms.Button()
         Me.BTN_AGREGAR = New System.Windows.Forms.Button()
-        Me.LVSin = New System.Windows.Forms.ListView()
-        Me.LVCon = New System.Windows.Forms.ListView()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -40,9 +40,11 @@ Partial Class DerechosCompania
         '
         Me.GroupBox1.Controls.Add(Me.CMB_COMPANIA)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.GroupBox1.Location = New System.Drawing.Point(104, 12)
+        Me.GroupBox1.Location = New System.Drawing.Point(86, 10)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(580, 93)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Size = New System.Drawing.Size(435, 76)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Compañía ]"
@@ -52,10 +54,9 @@ Partial Class DerechosCompania
         Me.CMB_COMPANIA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CMB_COMPANIA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CMB_COMPANIA.FormattingEnabled = True
-        Me.CMB_COMPANIA.Location = New System.Drawing.Point(40, 40)
-        Me.CMB_COMPANIA.Margin = New System.Windows.Forms.Padding(4)
+        Me.CMB_COMPANIA.Location = New System.Drawing.Point(30, 32)
         Me.CMB_COMPANIA.Name = "CMB_COMPANIA"
-        Me.CMB_COMPANIA.Size = New System.Drawing.Size(520, 32)
+        Me.CMB_COMPANIA.Size = New System.Drawing.Size(391, 26)
         Me.CMB_COMPANIA.TabIndex = 27
         '
         'GroupBox2
@@ -63,25 +64,55 @@ Partial Class DerechosCompania
         Me.GroupBox2.Controls.Add(Me.LVSin)
         Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.GroupBox2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 111)
+        Me.GroupBox2.Location = New System.Drawing.Point(9, 90)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(299, 306)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox2.Size = New System.Drawing.Size(224, 299)
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "[ Sin derecho ]"
         '
+        'LVSin
+        '
+        Me.LVSin.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.LVSin.HideSelection = False
+        Me.LVSin.Location = New System.Drawing.Point(4, 23)
+        Me.LVSin.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.LVSin.MultiSelect = False
+        Me.LVSin.Name = "LVSin"
+        Me.LVSin.Size = New System.Drawing.Size(216, 272)
+        Me.LVSin.TabIndex = 0
+        Me.LVSin.UseCompatibleStateImageBehavior = False
+        Me.LVSin.View = System.Windows.Forms.View.Details
+        '
         'GroupBox3
         '
-        Me.GroupBox3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox3.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GroupBox3.Controls.Add(Me.LVCon)
         Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.GroupBox3.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.GroupBox3.Location = New System.Drawing.Point(457, 111)
+        Me.GroupBox3.Location = New System.Drawing.Point(343, 90)
+        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(299, 306)
+        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox3.Size = New System.Drawing.Size(224, 299)
         Me.GroupBox3.TabIndex = 2
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "[ Con derecho ]"
+        '
+        'LVCon
+        '
+        Me.LVCon.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.LVCon.HideSelection = False
+        Me.LVCon.Location = New System.Drawing.Point(4, 23)
+        Me.LVCon.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.LVCon.MultiSelect = False
+        Me.LVCon.Name = "LVCon"
+        Me.LVCon.Size = New System.Drawing.Size(216, 272)
+        Me.LVCon.TabIndex = 0
+        Me.LVCon.UseCompatibleStateImageBehavior = False
+        Me.LVCon.View = System.Windows.Forms.View.Details
         '
         'BTN_SALIR
         '
@@ -91,10 +122,9 @@ Partial Class DerechosCompania
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(624, 439)
-        Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(4)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(468, 394)
         Me.BTN_SALIR.Name = "BTN_SALIR"
-        Me.BTN_SALIR.Size = New System.Drawing.Size(132, 53)
+        Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 5
         Me.BTN_SALIR.Text = "Salir"
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -104,9 +134,10 @@ Partial Class DerechosCompania
         '
         Me.BTN_QUITAR.Image = Global.VentaRepuestos.My.Resources.Resources.quitar
         Me.BTN_QUITAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_QUITAR.Location = New System.Drawing.Point(317, 292)
+        Me.BTN_QUITAR.Location = New System.Drawing.Point(240, 160)
+        Me.BTN_QUITAR.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.BTN_QUITAR.Name = "BTN_QUITAR"
-        Me.BTN_QUITAR.Size = New System.Drawing.Size(132, 53)
+        Me.BTN_QUITAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_QUITAR.TabIndex = 4
         Me.BTN_QUITAR.Text = "Quitar"
         Me.BTN_QUITAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -116,44 +147,21 @@ Partial Class DerechosCompania
         '
         Me.BTN_AGREGAR.Image = Global.VentaRepuestos.My.Resources.Resources.agregar
         Me.BTN_AGREGAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_AGREGAR.Location = New System.Drawing.Point(317, 189)
+        Me.BTN_AGREGAR.Location = New System.Drawing.Point(240, 113)
+        Me.BTN_AGREGAR.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.BTN_AGREGAR.Name = "BTN_AGREGAR"
-        Me.BTN_AGREGAR.Size = New System.Drawing.Size(132, 53)
+        Me.BTN_AGREGAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_AGREGAR.TabIndex = 3
         Me.BTN_AGREGAR.Text = "Agregar"
         Me.BTN_AGREGAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_AGREGAR.UseVisualStyleBackColor = True
         '
-        'LVSin
-        '
-        Me.LVSin.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.LVSin.HideSelection = False
-        Me.LVSin.Location = New System.Drawing.Point(6, 28)
-        Me.LVSin.MultiSelect = False
-        Me.LVSin.Name = "LVSin"
-        Me.LVSin.Size = New System.Drawing.Size(287, 272)
-        Me.LVSin.TabIndex = 0
-        Me.LVSin.UseCompatibleStateImageBehavior = False
-        Me.LVSin.View = System.Windows.Forms.View.Details
-        '
-        'LVCon
-        '
-        Me.LVCon.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.LVCon.HideSelection = False
-        Me.LVCon.Location = New System.Drawing.Point(6, 28)
-        Me.LVCon.MultiSelect = False
-        Me.LVCon.Name = "LVCon"
-        Me.LVCon.Size = New System.Drawing.Size(287, 272)
-        Me.LVCon.TabIndex = 0
-        Me.LVCon.UseCompatibleStateImageBehavior = False
-        Me.LVCon.View = System.Windows.Forms.View.Details
-        '
         'DerechosCompania
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ClientSize = New System.Drawing.Size(767, 505)
+        Me.ClientSize = New System.Drawing.Size(577, 444)
         Me.ControlBox = False
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.BTN_QUITAR)
@@ -162,7 +170,7 @@ Partial Class DerechosCompania
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.MinimumSize = New System.Drawing.Size(785, 552)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "DerechosCompania"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Derechos Compania"

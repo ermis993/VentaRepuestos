@@ -213,7 +213,7 @@ Partial Class ClienteMant
         Me.LBL_CANTO.AutoSize = True
         Me.LBL_CANTO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_CANTO.ForeColor = System.Drawing.Color.Black
-        Me.LBL_CANTO.Location = New System.Drawing.Point(70, 314)
+        Me.LBL_CANTO.Location = New System.Drawing.Point(70, 316)
         Me.LBL_CANTO.Name = "LBL_CANTO"
         Me.LBL_CANTO.Size = New System.Drawing.Size(64, 18)
         Me.LBL_CANTO.TabIndex = 20
@@ -234,7 +234,7 @@ Partial Class ClienteMant
         Me.LBL_PROVINCIA.AutoSize = True
         Me.LBL_PROVINCIA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_PROVINCIA.ForeColor = System.Drawing.Color.Black
-        Me.LBL_PROVINCIA.Location = New System.Drawing.Point(57, 281)
+        Me.LBL_PROVINCIA.Location = New System.Drawing.Point(57, 282)
         Me.LBL_PROVINCIA.Name = "LBL_PROVINCIA"
         Me.LBL_PROVINCIA.Size = New System.Drawing.Size(77, 18)
         Me.LBL_PROVINCIA.TabIndex = 18
@@ -242,13 +242,12 @@ Partial Class ClienteMant
         '
         'BTN_BUSCAR
         '
-        Me.BTN_BUSCAR.Location = New System.Drawing.Point(341, 59)
+        Me.BTN_BUSCAR.Image = Global.VentaRepuestos.My.Resources.Resources.consultas
+        Me.BTN_BUSCAR.Location = New System.Drawing.Point(350, 52)
         Me.BTN_BUSCAR.Name = "BTN_BUSCAR"
-        Me.BTN_BUSCAR.Size = New System.Drawing.Size(71, 25)
+        Me.BTN_BUSCAR.Size = New System.Drawing.Size(39, 40)
         Me.BTN_BUSCAR.TabIndex = 4
-        Me.BTN_BUSCAR.Text = "Buscar"
         Me.BTN_BUSCAR.UseVisualStyleBackColor = True
-        Me.BTN_BUSCAR.Visible = False
         '
         'TXT_CEDULA
         '
@@ -333,7 +332,7 @@ Partial Class ClienteMant
         '
         Me.CK_TIQUETE.AutoSize = True
         Me.CK_TIQUETE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CK_TIQUETE.Location = New System.Drawing.Point(9, 79)
+        Me.CK_TIQUETE.Location = New System.Drawing.Point(9, 77)
         Me.CK_TIQUETE.Name = "CK_TIQUETE"
         Me.CK_TIQUETE.Size = New System.Drawing.Size(189, 20)
         Me.CK_TIQUETE.TabIndex = 2
@@ -402,7 +401,7 @@ Partial Class ClienteMant
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(61, 189)
+        Me.Label6.Location = New System.Drawing.Point(60, 191)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(74, 18)
         Me.Label6.TabIndex = 11
@@ -421,7 +420,7 @@ Partial Class ClienteMant
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(56, 220)
+        Me.Label4.Location = New System.Drawing.Point(56, 221)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(79, 18)
         Me.Label4.TabIndex = 13

@@ -14,10 +14,14 @@ Public Class ClienteMant
 
     Private Sub CMB_TIPO_CEDULA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_TIPO_CEDULA.SelectedIndexChanged
         Try
+            Responsive(False)
+            TXT_CEDULA.Text = ""
+            TXT_NOMBRE.Text = ""
             If CMB_TIPO_CEDULA.SelectedIndex = 0 Then 'Física
                 TXT_CEDULA.Mask = "#########"
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 1 Then 'Jurídica
                 TXT_CEDULA.Mask = "##########"
+                Responsive(True)
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 2 Then 'Nite
                 TXT_CEDULA.Mask = "############"
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 3 Then 'Dimex
@@ -29,6 +33,87 @@ Public Class ClienteMant
         End Try
     End Sub
 
+    Private Sub Responsive(ByVal JURIDICA As Boolean)
+        Try
+            If JURIDICA = True Then
+                'PRIMER APELLIDO
+                Label3.Visible = False
+                TXT_PRIMER_APELLIDO.Visible = False
+                TXT_PRIMER_APELLIDO.Text = ""
+                'SEGUNDO APELLIDO
+                Label2.Visible = False
+                TXT_SEGUNDO_APELLIDO.Visible = False
+                TXT_SEGUNDO_APELLIDO.Text = ""
+                'TELEFONO
+                Label6.Location = New Point(60, 129)
+                TXT_TELEFONO.Location = New Point(137, 126)
+                'DIRECCION
+                Label4.Location = New Point(55, 161)
+                TXT_DIRECCION.Location = New Point(137, 158)
+                'EMAIL
+                Label7.Location = New Point(82, 191)
+                TXT_EMAIL.Location = New Point(137, 188)
+                'PROVINCIA
+                LBL_PROVINCIA.Location = New Point(57, 221)
+                CMB_PROVINCIA.Location = New Point(137, 218)
+                'CANTON
+                LBL_CANTO.Location = New Point(70, 252)
+                CMB_CANTON.Location = New Point(137, 249)
+                'DISTRITO
+                LBL_DISTRITO.Location = New Point(71, 282)
+                CMB_DISTRITO.Location = New Point(137, 279)
+                'GB
+                GroupBox2.Location = New Point(9, 309)
+                'GB MAYOR
+                GroupBox1.Size = New Size(449, 417)
+                'BTN ACEPTAR
+                BTN_ACEPTAR.Location = New Point(263, 422)
+                'BTN SALIR
+                BTN_SALIR.Location = New Point(362, 422)
+                'PANTALLA
+                Me.Size = New Size(494, 509)
+            Else
+                'PRIMER APELLIDO
+                Label3.Visible = True
+                TXT_PRIMER_APELLIDO.Visible = True
+                'SEGUNDO APELLIDO
+                Label2.Visible = True
+                TXT_SEGUNDO_APELLIDO.Visible = True
+                'TELEFONO
+                Label6.Location = New Point(60, 191)
+                TXT_TELEFONO.Location = New Point(137, 188)
+                'DIRECCION
+                Label4.Location = New Point(56, 221)
+                TXT_DIRECCION.Location = New Point(137, 218)
+                'EMAIL
+                Label7.Location = New Point(82, 252)
+                TXT_EMAIL.Location = New Point(137, 249)
+                'PROVINCIA
+                LBL_PROVINCIA.Location = New Point(57, 282)
+                CMB_PROVINCIA.Location = New Point(137, 279)
+                'CANTON
+                LBL_CANTO.Location = New Point(70, 316)
+                CMB_CANTON.Location = New Point(137, 313)
+                'DISTRITO
+                LBL_DISTRITO.Location = New Point(71, 347)
+                CMB_DISTRITO.Location = New Point(137, 343)
+                'GB
+                GroupBox2.Location = New Point(9, 369)
+                'GB MAYOR
+                GroupBox1.Size = New Size(449, 475)
+                'BTN ACEPTAR
+                BTN_ACEPTAR.Location = New Point(263, 483)
+                'BTN SALIR
+                BTN_SALIR.Location = New Point(362, 483)
+
+                'PANTALLA
+                Me.Size = New Size(494, 568)
+
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
     Private Function VALIDAR() As Boolean
         Try
             Dim ENTRAR As Boolean = False
@@ -50,10 +135,10 @@ Public Class ClienteMant
             ElseIf TXT_NOMBRE.Text.ToString.Equals("") Then
                 MessageBox.Show("¡Nombre incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_NOMBRE.Select()
-            ElseIf TXT_PRIMER_APELLIDO.Text.Equals("") Then
+            ElseIf TXT_PRIMER_APELLIDO.Text.Equals("") And CMB_TIPO_CEDULA.SelectedIndex <> 1 Then
                 MessageBox.Show("¡Primer apellido incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_PRIMER_APELLIDO.Select()
-            ElseIf TXT_SEGUNDO_APELLIDO.Text.Equals("") Then
+            ElseIf TXT_SEGUNDO_APELLIDO.Text.Equals("") And CMB_TIPO_CEDULA.SelectedIndex <> 1 Then
                 MessageBox.Show("¡Segundo apellido incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TXT_SEGUNDO_APELLIDO.Select()
             ElseIf TXT_TELEFONO.Text.Equals("") Then
@@ -210,6 +295,7 @@ Public Class ClienteMant
             CMB_TIPO_CEDULA.Enabled = False
             TXT_CEDULA.ReadOnly = True
             BTN_BUSCAR.Enabled = True
+            BTN_BUSCAR.Enabled = False
             LEER()
         End If
     End Sub
@@ -319,6 +405,7 @@ Public Class ClienteMant
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Sub CMB_PROVINCIA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_PROVINCIA.SelectedIndexChanged
         Try
             CMB_DISTRITO.DataSource = Nothing
@@ -385,6 +472,65 @@ Public Class ClienteMant
     End Sub
 
     Private Sub BTN_BUSCAR_Click(sender As Object, e As EventArgs) Handles BTN_BUSCAR.Click
-
+        Try
+            If CMB_TIPO_CEDULA.SelectedIndex = 0 And TXT_CEDULA.Text.Length < 9 Then  'F
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Física contiene 9 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                TXT_CEDULA.Select()
+            ElseIf CMB_TIPO_CEDULA.SelectedIndex = 1 And TXT_CEDULA.Text.Length < 10 Then 'J
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Jurídica contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                TXT_CEDULA.Select()
+            ElseIf CMB_TIPO_CEDULA.SelectedIndex = 2 And TXT_CEDULA.Text.Length < 11 Then 'N
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo NITE contiene mínimo 11 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                TXT_CEDULA.Select()
+            ElseIf CMB_TIPO_CEDULA.SelectedIndex = 3 And TXT_CEDULA.Text.Length < 10 Then 'D
+                TXT_CEDULA.Select()
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo DIMEX contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Else
+                Select Case CMB_TIPO_CEDULA.SelectedIndex
+                    Case 0
+                        BUSCAR_EN_SIC("F")
+                    Case 1
+                        BUSCAR_EN_SIC("J")
+                    Case 2
+                        BUSCAR_EN_SIC("N")
+                    Case 3
+                        BUSCAR_EN_SIC("D")
+                End Select
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
+
+    Private Sub BUSCAR_EN_SIC(ByVal TIPO As String)
+        Try
+            Dim SQL As String = "EXECUTE USP_OBTIENE_DATOS_SIC "
+            SQL &= Chr(13) & "    @TIPO  = " & SCM(TIPO)
+            SQL &= Chr(13) & "   ,@CEDULA  = " & SCM(TXT_CEDULA.Text)
+            CONX_SIC.Coneccion_Abrir()
+            Dim DS = CONX_SIC.EJECUTE_DS(SQL)
+            CONX_SIC.Coneccion_Cerrar()
+
+            If DS.Tables.Count > 0 Then
+                If DS.Tables(0).Rows.Count > 0 Then
+                    For Each ITEM In DS.Tables(0).Rows
+                        If TIPO <> "J" Then
+                            TXT_NOMBRE.Text = ITEM("NOMBRE")
+                            TXT_PRIMER_APELLIDO.Text = ITEM("APELLIDO1")
+                            TXT_SEGUNDO_APELLIDO.Text = ITEM("APELLIDO2")
+                        Else
+                            TXT_NOMBRE.Text = ITEM("NOMBRE")
+                        End If
+                        TXT_TELEFONO.Select()
+                        Exit For
+                    Next
+                Else
+                    MessageBox.Show("¡Información del número de cédula " & TXT_CEDULA.Text & " no encontrada!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                End If
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
 End Class

@@ -22,7 +22,7 @@ Public Class Cliente
         GRID.Columns(1).HeaderText = "Cédula"
         GRID.Columns(1).Name = "CEDULA"
         GRID.Columns(2).HeaderText = "Tipo cédula"
-        GRID.Columns(2).Name = "CASE WHEN TIPO_CEDULA ='F' THEN 'Física' WHEN TIPO_CEDULA ='J' THEN 'Jurídica' END"
+        GRID.Columns(2).Name = "CASE WHEN TIPO_CEDULA ='F' THEN 'Física' WHEN TIPO_CEDULA ='J' THEN 'Jurídica' WHEN TIPO_CEDULA ='N' THEN 'Nite' WHEN TIPO_CEDULA ='D' THEN 'Dimex' END"
         GRID.Columns(3).HeaderText = "Nombre"
         GRID.Columns(3).Name = "NOMBRE"
         GRID.Columns(4).HeaderText = "Primer apellido"
@@ -49,7 +49,10 @@ Public Class Cliente
                 GRID.DataSource = Nothing
                 Dim SQL = "	SELECT COD_CIA As Código,CEDULA As Cédula,"
                 SQL &= Chr(13) & "	CASE WHEN TIPO_CEDULA ='F' THEN 'Física' "
-                SQL &= Chr(13) & "	WHEN TIPO_CEDULA ='J' THEN 'Jurídica' END AS 'Tipo cédula',"
+                SQL &= Chr(13) & "	WHEN TIPO_CEDULA ='J' THEN 'Jurídica' "
+                SQL &= Chr(13) & "	WHEN TIPO_CEDULA ='N' THEN 'Nite' "
+                SQL &= Chr(13) & "	WHEN TIPO_CEDULA ='D' THEN 'Dimex' "
+                SQL &= Chr(13) & "  END AS 'Tipo cédula',"
                 SQL &= Chr(13) & "	NOMBRE As Nombre,APELLIDO1 As 'Primer apellido',APELLIDO2 as 'Segundo apellido',TELEFONO as Teléfono,CORREO as Correo,SALDO as Saldo,ESTADO as Estado, CONVERT(VARCHAR(10), FECHA_INC, 105) AS 'Fecha ingreso'"
                 SQL &= Chr(13) & "	FROM CLIENTE"
                 SQL &= Chr(13) & "	WHERE COD_CIA =" & SCM(COD_CIA)

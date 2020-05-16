@@ -6,6 +6,7 @@ Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Public Class Globales
 
     Public Shared CONX As New SQLCON
+    Public Shared CONX_SIC As New SQLCON
     Public Shared COD_CIA As String
     Public Shared COD_SUCUR As String
     Public Shared COD_USUARIO As String

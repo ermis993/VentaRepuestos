@@ -2,6 +2,8 @@
 Imports System.Text.RegularExpressions
 Imports CRF_CONEXIONES.CONEXIONES
 Imports FUN_CRFUSION.FUNCIONES_GENERALES
+Imports Microsoft.Office.Interop.Excel
+Imports Microsoft.Office.Interop
 
 Public Class Globales
 
@@ -319,5 +321,94 @@ Public Class Globales
             Return 0
         End Try
     End Function
+
+
+    Public Shared Function EXPORTAR_EXCEL(ByVal Datos As DataSet, ByVal Nombre_Reporte As String, ByRef ProgressBar As ProgressBar) As Boolean
+
+        ProgressBar.Value = 15
+
+        Dim f As FolderBrowserDialog = New FolderBrowserDialog
+        Dim bandera As Boolean = False
+
+        Try
+            If f.ShowDialog() = DialogResult.OK Then
+                Threading.Thread.CurrentThread.CurrentCulture = Globalization.CultureInfo.CreateSpecificCulture("en-US")
+                Dim oExcel As Application
+                Dim oBook As Workbook
+                Dim oSheet As Worksheet
+                oExcel = CreateObject("Excel.Application")
+                oBook = oExcel.Workbooks.Add(Type.Missing)
+                oSheet = oBook.Worksheets(1)
+
+                Dim dc As DataColumn
+                Dim dr As DataRow
+                Dim colIndex As Integer = 0
+                Dim rowIndex As Integer = 0
+
+                ProgressBar.Value = 20
+                'Se exportan las columnas
+                For Each dc In Datos.Tables(0).Columns
+                    colIndex += 1
+                    oSheet.Cells(1, colIndex) = dc.ColumnName
+                Next
+                ProgressBar.Value = 25
+
+
+                ProgressBar.Value = 30
+                'Se exportan las filas
+                For Each dr In Datos.Tables(0).Rows
+                    rowIndex += 1
+                    colIndex = 0
+                    For Each dc In Datos.Tables(0).Columns
+                        colIndex += 1
+                        oSheet.Cells(rowIndex + 1, colIndex) = dr(dc.ColumnName)
+                    Next
+                Next
+                ProgressBar.Value = 35
+
+                ProgressBar.Value = 40
+                'Ruta donde se va a guardar
+                Dim fileName As String = "\" + Nombre_Reporte + ".xls"
+                Dim finalPath = f.SelectedPath + fileName
+                oSheet.Columns.AutoFit()
+                ProgressBar.Value = 50
+
+                ProgressBar.Value = 60
+                'Save file in final path
+                oBook.SaveAs(finalPath, XlFileFormat.xlWorkbookNormal, Type.Missing,
+                Type.Missing, Type.Missing, Type.Missing, XlSaveAsAccessMode.xlExclusive,
+                Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing)
+                ProgressBar.Value = 80
+
+                'Release the objects
+                ReleaseObject(oSheet)
+                oBook.Close(False, Type.Missing, Type.Missing)
+                ReleaseObject(oBook)
+                oExcel.Quit()
+                ReleaseObject(oExcel)
+                ProgressBar.Value = 90
+
+                'Limpiar la memoria
+                GC.Collect()
+
+                ProgressBar.Value = 100
+
+                bandera = True
+            End If
+            Return bandera
+        Catch ex As Exception
+            Throw New Exception(ex.Message)
+        End Try
+    End Function
+
+    Private Shared Sub ReleaseObject(ByVal o As Object)
+        Try
+            While (Runtime.InteropServices.Marshal.ReleaseComObject(o) > 0)
+            End While
+        Catch
+        Finally
+            o = Nothing
+        End Try
+    End Sub
 
 End Class

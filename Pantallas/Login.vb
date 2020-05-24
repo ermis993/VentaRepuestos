@@ -8,11 +8,11 @@ Public Class Login
     End Sub
     Private Sub CONFIGURACION()
         Try
-            'CONX.ConexionSTR("DESKTOP-HT8MNPN\SQLEXPRESS,1433", "sa", "1234", "VR")
+            CONX.ConexionSTR("DESKTOP-42HEF7C", "sa", "1234", "VR")
             'CONX_SIC.ConexionSTR("DESKTOP-HT8MNPN\SQLEXPRESS,1433", "sa", "1234", "INFORMACION_SIC")
-            CONX.ConexionSTR("DESKTOP-OG4U60G\SQLEXPRESS,1433", "sa", "union1234", "VR")
+            'CONX.ConexionSTR("DESKTOP-OG4U60G\SQLEXPRESS,1433", "sa", "union1234", "VR")
 
-            CONX.ConexionSTR("DESKTOP-OG4U60G\SQLEXPRESS,1433", "sa", "union1234", "INFORMACION_SIC")
+            'CONX.ConexionSTR("DESKTOP-OG4U60G\SQLEXPRESS,1433", "sa", "union1234", "INFORMACION_SIC")
         Catch ex As Exception
         End Try
     End Sub

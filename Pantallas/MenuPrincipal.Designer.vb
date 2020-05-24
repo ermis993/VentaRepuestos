@@ -29,6 +29,7 @@ Partial Class MenuPrincipal
         Me.TXT_COMPRA = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.BTN_REPORTES = New System.Windows.Forms.Button()
         Me.BTN_CONSULTA = New System.Windows.Forms.Button()
         Me.BTN_PROVEEDOR = New System.Windows.Forms.Button()
         Me.BTN_PRODUCTO = New System.Windows.Forms.Button()
@@ -117,6 +118,19 @@ Partial Class MenuPrincipal
         Me.Label1.Size = New System.Drawing.Size(49, 13)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Compra :"
+        '
+        'BTN_REPORTES
+        '
+        Me.BTN_REPORTES.Image = Global.VentaRepuestos.My.Resources.Resources.reportes
+        Me.BTN_REPORTES.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.BTN_REPORTES.Location = New System.Drawing.Point(772, 2)
+        Me.BTN_REPORTES.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_REPORTES.Name = "BTN_REPORTES"
+        Me.BTN_REPORTES.Size = New System.Drawing.Size(64, 55)
+        Me.BTN_REPORTES.TabIndex = 11
+        Me.BTN_REPORTES.Text = "Reportes"
+        Me.BTN_REPORTES.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.BTN_REPORTES.UseVisualStyleBackColor = True
         '
         'BTN_CONSULTA
         '
@@ -242,6 +256,7 @@ Partial Class MenuPrincipal
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(906, 528)
         Me.ControlBox = False
+        Me.Controls.Add(Me.BTN_REPORTES)
         Me.Controls.Add(Me.BTN_CONSULTA)
         Me.Controls.Add(Me.BTN_PROVEEDOR)
         Me.Controls.Add(Me.BTN_PRODUCTO)
@@ -282,4 +297,5 @@ Partial Class MenuPrincipal
     Friend WithEvents BTN_PRODUCTO As Button
     Friend WithEvents BTN_PROVEEDOR As Button
     Friend WithEvents BTN_CONSULTA As Button
+    Friend WithEvents BTN_REPORTES As Button
 End Class

@@ -361,6 +361,9 @@ Public Class Globales
                     colIndex = 0
                     For Each dc In Datos.Tables(0).Columns
                         colIndex += 1
+                        If Tipo_Doc(dr(dc.ColumnName)) Then
+                            oSheet.Cells(rowIndex + 1, colIndex).NumberFormat = "@"
+                        End If
                         oSheet.Cells(rowIndex + 1, colIndex) = dr(dc.ColumnName)
                     Next
                 Next
@@ -374,13 +377,11 @@ Public Class Globales
                 ProgressBar.Value = 50
 
                 ProgressBar.Value = 60
-                'Save file in final path
                 oBook.SaveAs(finalPath, XlFileFormat.xlWorkbookNormal, Type.Missing,
                 Type.Missing, Type.Missing, Type.Missing, XlSaveAsAccessMode.xlExclusive,
                 Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing)
                 ProgressBar.Value = 80
 
-                'Release the objects
                 ReleaseObject(oSheet)
                 oBook.Close(False, Type.Missing, Type.Missing)
                 ReleaseObject(oBook)
@@ -397,6 +398,7 @@ Public Class Globales
             End If
             Return bandera
         Catch ex As Exception
+            ProgressBar.Value = 0
             Throw New Exception(ex.Message)
         End Try
     End Function
@@ -410,5 +412,20 @@ Public Class Globales
             o = Nothing
         End Try
     End Sub
+
+    Private Shared Function Tipo_Doc(ByVal Objecto As Object) As String
+        Try
+            Dim bandera = False
+            If Val(Objecto) > 0 Then
+                If Objecto.ToString().Length >= 18 Then
+                    bandera = True
+                End If
+            End If
+            Return bandera
+        Catch ex As Exception
+            Throw New Exception(ex.Message)
+        End Try
+    End Function
+
 
 End Class

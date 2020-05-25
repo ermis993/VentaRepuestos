@@ -12,9 +12,7 @@ Public Class Reportes
                     Case "TRI"
                         Select Case CMB_REPORTE.SelectedValue
                             Case "01"
-
                                 PB_CARGA.Increment(5)
-
                                 Dim SQL = "	SELECT CLI.NOMBRE + ' ' + CLI.APELLIDO1 + ' ' + CLI.APELLIDO2 AS Cliente, ''+DOC_ELEC.CONSECUTIVO AS Documento, CONVERT(VARCHAR(10),ENC.FECHA, 103) AS Fecha, ENC.TIPO_MOV as Tipo	"
                                 SQL &= Chr(13) & "	,CASE WHEN ENC.TIPO_MOV = 'NC' THEN ENC.MONTO * -1 ELSE  ENC.MONTO END AS Subtotal, CASE WHEN ENC.TIPO_MOV = 'NC' THEN ENC.IMPUESTO * -1 ELSE ENC.IMPUESTO  END AS Impuesto	"
                                 SQL &= Chr(13) & "	,CASE WHEN ENC.TIPO_MOV = 'NC' THEN (ENC.MONTO + ENC.IMPUESTO) * -1 ELSE (ENC.MONTO + ENC.IMPUESTO) END AS Total	"
@@ -48,15 +46,45 @@ Public Class Reportes
                                     MessageBox.Show("Sin registros para generar el documento")
                                 End If
                         End Select
+                    Case "DOC"
+                        Select Case CMB_REPORTE.SelectedValue
+                            Case "01"
+                                PB_CARGA.Increment(5)
+                                Dim SQL = "	SELECT CLI.NOMBRE + ' ' + CLI.APELLIDO1 + ' ' + CLI.APELLIDO2 AS Cliente, ENC.NUMERO_DOC AS Número, CONVERT(VARCHAR(10),ENC.FECHA, 103) AS Fecha, ENC.TIPO_MOV as Tipo	"
+                                SQL &= Chr(13) & ", CASE When ENC.COD_MONEDA = 'L' THEN 'Colones' ELSE 'Dólares' END AS Moneda	"
+                                SQL &= Chr(13) & "	,CASE WHEN ENC.TIPO_MOV = 'NC' THEN ENC.MONTO * -1 ELSE  ENC.MONTO END AS Subtotal, CASE WHEN ENC.TIPO_MOV = 'NC' THEN ENC.IMPUESTO * -1 ELSE ENC.IMPUESTO  END AS Impuesto	"
+                                SQL &= Chr(13) & "	,Case When ENC.TIPO_MOV = 'NC' THEN (ENC.MONTO + ENC.IMPUESTO) * -1 ELSE (ENC.MONTO + ENC.IMPUESTO) END AS Total	"
+                                SQL &= Chr(13) & "	FROM DOCUMENTO_ENC AS ENC	"
+                                SQL &= Chr(13) & "	INNER JOIN CLIENTE AS CLI	"
+                                SQL &= Chr(13) & "		ON CLI.COD_CIA = ENC.COD_CIA"
+                                SQL &= Chr(13) & " And CLI.CEDULA = ENC.CEDULA"
+                                SQL &= Chr(13) & "	WHERE ENC.COD_CIA = " & SCM(COD_CIA)
+                                SQL &= Chr(13) & "	AND ENC.COD_SUCUR = " & SCM(COD_SUCUR)
+                                SQL &= Chr(13) & "	AND ENC.FECHA BETWEEN " & SCM(YMD(DTP_INICIO.Value)) & " AND " & SCM(YMD(DTP_FINAL.Value))
+                                SQL &= Chr(13) & "	ORDER BY ENC.NUMERO_DOC ASC, ENC.FECHA ASC	"
+                                CONX.Coneccion_Abrir()
+                                Dim DS = CONX.EJECUTE_DS(SQL)
+                                CONX.Coneccion_Cerrar()
+
+                                PB_CARGA.Increment(10)
+
+                                If DS.Tables(0).Rows.Count > 0 Then
+                                    If EXPORTAR_EXCEL(DS, "Documentos_por_rango_de_fechas_del_" + DMA(DTP_INICIO.Value).Replace("/", "-") + "_al_" + DMA(DTP_FINAL.Value).Replace("/", "-"), PB_CARGA) Then
+                                        MessageBox.Show("Registro generado correctamente")
+                                        PB_CARGA.Value = 0
+                                    End If
+                                Else
+                                    PB_CARGA.Value = 0
+                                    MessageBox.Show("Sin registros para generar el documento")
+                                End If
+                        End Select
                 End Select
-                        ElseIf CMB_MODULO.SelectedValue = "CXP" Then
+            ElseIf CMB_MODULO.SelectedValue = "CXP" Then
                 Select Case CMB_TIPO.SelectedValue
                     Case "TRI"
 
                 End Select
             End If
-
-            'EXPORTAR_EXCEL(ByVal Datos As DataSet, ByVal Nombre_Reporte As String)
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -68,9 +96,10 @@ Public Class Reportes
             CMB_MODULO.DataSource = Nothing
 
             Dim LISTA_REF As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String)) From {
-                New KeyValuePair(Of String, String)("CXC", "Cuentas por cobrar"),
-                New KeyValuePair(Of String, String)("CXP", "Cuentas por pagar")
+                New KeyValuePair(Of String, String)("CXC", "Cuentas por cobrar")
             }
+            '    ,New KeyValuePair(Of String, String)("CXP", "Cuentas por pagar")
+            '}
 
             CMB_MODULO.ValueMember = "Key"
             CMB_MODULO.DisplayMember = "Value"
@@ -115,7 +144,7 @@ Public Class Reportes
                 Select Case CMB_TIPO.SelectedValue
                     Case "DOC"
                         LISTA_REF = New List(Of KeyValuePair(Of String, String)) From {
-                                       New KeyValuePair(Of String, String)("01", "Documentos por rango de fechas")
+                                       New KeyValuePair(Of String, String)("01", "Documentos por rango de fechas (excel)")
                                    }
                     Case "TRI"
                         LISTA_REF = New List(Of KeyValuePair(Of String, String)) From {

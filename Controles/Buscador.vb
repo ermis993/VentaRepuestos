@@ -31,9 +31,10 @@ Public Class Buscador
     Public Sub refrescar()
 
         If VALIDAR() Then
-            Dim SQL As String = "SELECT " & CODIGO & "," & DESCRIPCION
+            Dim SQL As String = "SELECT " & CODIGO & " AS Codigo," & DESCRIPCION & " AS Descripcion"
             SQL &= Chr(13) & " FROM " & TABLA_BUSCAR
             SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & " ORDER BY " & DESCRIPCION & " ASC"
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)
             CONX.Coneccion_Cerrar()
@@ -42,7 +43,7 @@ Public Class Buscador
                 CMB.DataSource = Nothing
                 LISTA_REF.Add(New KeyValuePair(Of String, String)("", ""))
                 For Each ITEM In DS.Tables(0).Rows
-                    LISTA_REF.Add(New KeyValuePair(Of String, String)(ITEM(CODIGO).ToString, ITEM(DESCRIPCION).ToString.ToUpper))
+                    LISTA_REF.Add(New KeyValuePair(Of String, String)(ITEM("Codigo").ToString, ITEM("Descripcion").ToString.ToUpper))
                 Next
                 CMB.DataSource = LISTA_REF
                 CMB.ValueMember = "Key"

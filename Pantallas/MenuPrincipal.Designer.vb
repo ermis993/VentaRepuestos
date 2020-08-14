@@ -29,16 +29,22 @@ Partial Class MenuPrincipal
         Me.TXT_COMPRA = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.BTN_BACKUP = New System.Windows.Forms.Button()
+        Me.BTN_COMPRAS = New System.Windows.Forms.Button()
+        Me.BTN_ENCOMIENDA = New System.Windows.Forms.Button()
+        Me.BTN_CLIENTE = New System.Windows.Forms.Button()
+        Me.BTN_XML = New System.Windows.Forms.Button()
         Me.BTN_REPORTES = New System.Windows.Forms.Button()
         Me.BTN_CONSULTA = New System.Windows.Forms.Button()
         Me.BTN_PROVEEDOR = New System.Windows.Forms.Button()
         Me.BTN_PRODUCTO = New System.Windows.Forms.Button()
         Me.BTN_FE = New System.Windows.Forms.Button()
-        Me.BTN_CLIENTE = New System.Windows.Forms.Button()
+        Me.BTN_FAMILIA = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_USUARIO = New System.Windows.Forms.Button()
         Me.BTN_SUCURSAL = New System.Windows.Forms.Button()
         Me.BTN_COMPANIA = New System.Windows.Forms.Button()
+        Me.LBL_SALUDO = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -119,6 +125,71 @@ Partial Class MenuPrincipal
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Compra :"
         '
+        'BTN_BACKUP
+        '
+        Me.BTN_BACKUP.Image = Global.VentaRepuestos.My.Resources.Resources.backup
+        Me.BTN_BACKUP.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.BTN_BACKUP.Location = New System.Drawing.Point(704, 2)
+        Me.BTN_BACKUP.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_BACKUP.Name = "BTN_BACKUP"
+        Me.BTN_BACKUP.Size = New System.Drawing.Size(64, 55)
+        Me.BTN_BACKUP.TabIndex = 17
+        Me.BTN_BACKUP.Text = "BackUp"
+        Me.BTN_BACKUP.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.BTN_BACKUP.UseVisualStyleBackColor = True
+        '
+        'BTN_COMPRAS
+        '
+        Me.BTN_COMPRAS.Image = Global.VentaRepuestos.My.Resources.Resources.compras
+        Me.BTN_COMPRAS.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.BTN_COMPRAS.Location = New System.Drawing.Point(521, 2)
+        Me.BTN_COMPRAS.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_COMPRAS.Name = "BTN_COMPRAS"
+        Me.BTN_COMPRAS.Size = New System.Drawing.Size(64, 55)
+        Me.BTN_COMPRAS.TabIndex = 16
+        Me.BTN_COMPRAS.Text = "Compras"
+        Me.BTN_COMPRAS.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.BTN_COMPRAS.UseVisualStyleBackColor = True
+        '
+        'BTN_ENCOMIENDA
+        '
+        Me.BTN_ENCOMIENDA.Image = Global.VentaRepuestos.My.Resources.Resources.encomienda
+        Me.BTN_ENCOMIENDA.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.BTN_ENCOMIENDA.Location = New System.Drawing.Point(772, 61)
+        Me.BTN_ENCOMIENDA.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_ENCOMIENDA.Name = "BTN_ENCOMIENDA"
+        Me.BTN_ENCOMIENDA.Size = New System.Drawing.Size(79, 55)
+        Me.BTN_ENCOMIENDA.TabIndex = 15
+        Me.BTN_ENCOMIENDA.Text = "Encomienda"
+        Me.BTN_ENCOMIENDA.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.BTN_ENCOMIENDA.UseVisualStyleBackColor = True
+        '
+        'BTN_CLIENTE
+        '
+        Me.BTN_CLIENTE.Image = Global.VentaRepuestos.My.Resources.Resources.client
+        Me.BTN_CLIENTE.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.BTN_CLIENTE.Location = New System.Drawing.Point(196, 2)
+        Me.BTN_CLIENTE.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_CLIENTE.Name = "BTN_CLIENTE"
+        Me.BTN_CLIENTE.Size = New System.Drawing.Size(64, 55)
+        Me.BTN_CLIENTE.TabIndex = 14
+        Me.BTN_CLIENTE.Text = "Cliente"
+        Me.BTN_CLIENTE.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.BTN_CLIENTE.UseVisualStyleBackColor = True
+        '
+        'BTN_XML
+        '
+        Me.BTN_XML.Image = Global.VentaRepuestos.My.Resources.Resources.importar_xml
+        Me.BTN_XML.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.BTN_XML.Location = New System.Drawing.Point(73, 399)
+        Me.BTN_XML.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_XML.Name = "BTN_XML"
+        Me.BTN_XML.Size = New System.Drawing.Size(64, 55)
+        Me.BTN_XML.TabIndex = 12
+        Me.BTN_XML.Text = "XMLs"
+        Me.BTN_XML.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.BTN_XML.UseVisualStyleBackColor = True
+        '
         'BTN_REPORTES
         '
         Me.BTN_REPORTES.Image = Global.VentaRepuestos.My.Resources.Resources.reportes
@@ -162,7 +233,7 @@ Partial Class MenuPrincipal
         '
         Me.BTN_PRODUCTO.Image = Global.VentaRepuestos.My.Resources.Resources.productos
         Me.BTN_PRODUCTO.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_PRODUCTO.Location = New System.Drawing.Point(325, 2)
+        Me.BTN_PRODUCTO.Location = New System.Drawing.Point(391, 2)
         Me.BTN_PRODUCTO.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_PRODUCTO.Name = "BTN_PRODUCTO"
         Me.BTN_PRODUCTO.Size = New System.Drawing.Size(64, 55)
@@ -175,7 +246,7 @@ Partial Class MenuPrincipal
         '
         Me.BTN_FE.Image = Global.VentaRepuestos.My.Resources.Resources.factura
         Me.BTN_FE.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_FE.Location = New System.Drawing.Point(389, 2)
+        Me.BTN_FE.Location = New System.Drawing.Point(456, 2)
         Me.BTN_FE.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_FE.Name = "BTN_FE"
         Me.BTN_FE.Size = New System.Drawing.Size(64, 55)
@@ -184,18 +255,18 @@ Partial Class MenuPrincipal
         Me.BTN_FE.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.BTN_FE.UseVisualStyleBackColor = True
         '
-        'BTN_CLIENTE
+        'BTN_FAMILIA
         '
-        Me.BTN_CLIENTE.Image = Global.VentaRepuestos.My.Resources.Resources.client
-        Me.BTN_CLIENTE.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_CLIENTE.Location = New System.Drawing.Point(196, 2)
-        Me.BTN_CLIENTE.Margin = New System.Windows.Forms.Padding(2)
-        Me.BTN_CLIENTE.Name = "BTN_CLIENTE"
-        Me.BTN_CLIENTE.Size = New System.Drawing.Size(64, 55)
-        Me.BTN_CLIENTE.TabIndex = 6
-        Me.BTN_CLIENTE.Text = "Cliente"
-        Me.BTN_CLIENTE.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.BTN_CLIENTE.UseVisualStyleBackColor = True
+        Me.BTN_FAMILIA.Image = Global.VentaRepuestos.My.Resources.Resources.familia
+        Me.BTN_FAMILIA.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.BTN_FAMILIA.Location = New System.Drawing.Point(326, 2)
+        Me.BTN_FAMILIA.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_FAMILIA.Name = "BTN_FAMILIA"
+        Me.BTN_FAMILIA.Size = New System.Drawing.Size(64, 55)
+        Me.BTN_FAMILIA.TabIndex = 13
+        Me.BTN_FAMILIA.Text = "Familia"
+        Me.BTN_FAMILIA.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.BTN_FAMILIA.UseVisualStyleBackColor = True
         '
         'BTN_SALIR
         '
@@ -250,18 +321,34 @@ Partial Class MenuPrincipal
         Me.BTN_COMPANIA.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.BTN_COMPANIA.UseVisualStyleBackColor = True
         '
+        'LBL_SALUDO
+        '
+        Me.LBL_SALUDO.AutoSize = True
+        Me.LBL_SALUDO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LBL_SALUDO.Location = New System.Drawing.Point(2, 70)
+        Me.LBL_SALUDO.Name = "LBL_SALUDO"
+        Me.LBL_SALUDO.Size = New System.Drawing.Size(51, 18)
+        Me.LBL_SALUDO.TabIndex = 18
+        Me.LBL_SALUDO.Text = "Label3"
+        '
         'MenuPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(906, 528)
         Me.ControlBox = False
+        Me.Controls.Add(Me.LBL_SALUDO)
+        Me.Controls.Add(Me.BTN_BACKUP)
+        Me.Controls.Add(Me.BTN_COMPRAS)
+        Me.Controls.Add(Me.BTN_ENCOMIENDA)
+        Me.Controls.Add(Me.BTN_CLIENTE)
+        Me.Controls.Add(Me.BTN_XML)
         Me.Controls.Add(Me.BTN_REPORTES)
         Me.Controls.Add(Me.BTN_CONSULTA)
         Me.Controls.Add(Me.BTN_PROVEEDOR)
         Me.Controls.Add(Me.BTN_PRODUCTO)
         Me.Controls.Add(Me.BTN_FE)
-        Me.Controls.Add(Me.BTN_CLIENTE)
+        Me.Controls.Add(Me.BTN_FAMILIA)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.BTN_SALIR)
@@ -278,6 +365,7 @@ Partial Class MenuPrincipal
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -292,10 +380,16 @@ Partial Class MenuPrincipal
     Friend WithEvents Label1 As Label
     Friend WithEvents TXT_VENTA As TextBox
     Friend WithEvents TXT_COMPRA As TextBox
-    Friend WithEvents BTN_CLIENTE As Button
+    Friend WithEvents BTN_FAMILIA As Button
     Friend WithEvents BTN_FE As Button
     Friend WithEvents BTN_PRODUCTO As Button
     Friend WithEvents BTN_PROVEEDOR As Button
     Friend WithEvents BTN_CONSULTA As Button
     Friend WithEvents BTN_REPORTES As Button
+    Friend WithEvents BTN_XML As Button
+    Friend WithEvents BTN_CLIENTE As Button
+    Friend WithEvents BTN_ENCOMIENDA As Button
+    Friend WithEvents BTN_COMPRAS As Button
+    Friend WithEvents BTN_BACKUP As Button
+    Friend WithEvents LBL_SALUDO As Label
 End Class

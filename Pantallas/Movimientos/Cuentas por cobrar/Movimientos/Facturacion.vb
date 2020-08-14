@@ -4,6 +4,7 @@ Public Class Facturacion
     Dim Numero_Doc As Integer
     Dim Codigo As String
     Dim CONSULTA_FILTRO As String = ""
+    Dim Respuesta As String = ""
     Dim Tipo_Mov As String
 
     Private Sub BTN_FACTURAR_Click(sender As Object, e As EventArgs) Handles BTN_FACTURAR.Click
@@ -23,6 +24,7 @@ Public Class Facturacion
                     Numero_Doc = Val(seleccionado.Cells(0).Value.ToString)
                     Codigo = ""
                     Tipo_Mov = seleccionado.Cells(1).Value.ToString
+                    Respuesta = seleccionado.Cells(12).Value.ToString
                 Else
                     Numero_Doc = 0
                     Codigo = seleccionado.Cells(0).Value.ToString
@@ -270,6 +272,46 @@ Public Class Facturacion
                 imp.Imprimir(COD_CIA, COD_SUCUR, Numero_Doc, Tipo_Mov)
             Else
                 MessageBox.Show(Me, "Solamente se pueden imprimir facturas", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub MostrarRechazoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MostrarRechazoToolStripMenuItem.Click
+        Try
+            Leer_indice()
+            If Respuesta = "R" Then
+                Dim Pantalla As New RespuestaDGTD(Numero_Doc, Tipo_Mov)
+                Pantalla.ShowDialog()
+            Else
+                MessageBox.Show(Me, "El estado del documento seleccionado no es 'Rechazado'", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub RegenerarDocumentoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RegenerarDocumentoToolStripMenuItem.Click
+        Try
+            Leer_indice()
+            If Respuesta = "R" Then
+                Dim valor = MessageBox.Show(Me, "¿Está seguro que desea regenerar el documento: " & Numero_Doc & " ?", Me.Text, vbYesNo, MessageBoxIcon.Question)
+                If valor = DialogResult.Yes Then
+                    Dim SQL = "	EXECUTE USP_REGENERA_DOCUMENTO_ELECTRONICO"
+                    SQL &= Chr(13) & "	@COD_CIA = " & SCM(COD_CIA)
+                    SQL &= Chr(13) & ", @COD_SUCUR = " & SCM(COD_SUCUR)
+                    SQL &= Chr(13) & ", @NUMERO_DOC = " & Val(Numero_Doc)
+                    SQL &= Chr(13) & ", @TIPO_MOV = " & SCM(Tipo_Mov)
+                    CONX.Coneccion_Abrir()
+                    CONX.EJECUTE(SQL)
+                    CONX.Coneccion_Cerrar()
+
+                    RELLENAR_GRID()
+                    MessageBox.Show(Me, "Documento regenerado correctamente", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            Else
+                MessageBox.Show(Me, "Solamente se pueden regenerar documentos rechazados", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

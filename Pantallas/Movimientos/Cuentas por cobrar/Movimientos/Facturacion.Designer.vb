@@ -22,9 +22,13 @@ Partial Class Facturacion
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.CMB_TIPO_FACT = New System.Windows.Forms.ComboBox()
         Me.GRID = New System.Windows.Forms.DataGridView()
+        Me.CMS_OPCIONES = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.MostrarRechazoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RegenerarDocumentoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Estado = New System.Windows.Forms.GroupBox()
         Me.RB_TODOS = New System.Windows.Forms.RadioButton()
         Me.RB_INACTIVOS = New System.Windows.Forms.RadioButton()
@@ -42,6 +46,7 @@ Partial Class Facturacion
         Me.Filtro = New VentaRepuestos.Filtro()
         Me.GroupBox1.SuspendLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.CMS_OPCIONES.SuspendLayout()
         Me.Estado.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -75,6 +80,7 @@ Partial Class Facturacion
         Me.GRID.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.GRID.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
         Me.GRID.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.GRID.ContextMenuStrip = Me.CMS_OPCIONES
         Me.GRID.Location = New System.Drawing.Point(2, 93)
         Me.GRID.MultiSelect = False
         Me.GRID.Name = "GRID"
@@ -84,6 +90,24 @@ Partial Class Facturacion
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.GRID.Size = New System.Drawing.Size(857, 374)
         Me.GRID.TabIndex = 34
+        '
+        'CMS_OPCIONES
+        '
+        Me.CMS_OPCIONES.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MostrarRechazoToolStripMenuItem, Me.RegenerarDocumentoToolStripMenuItem})
+        Me.CMS_OPCIONES.Name = "CMS_OPCIONES"
+        Me.CMS_OPCIONES.Size = New System.Drawing.Size(193, 70)
+        '
+        'MostrarRechazoToolStripMenuItem
+        '
+        Me.MostrarRechazoToolStripMenuItem.Name = "MostrarRechazoToolStripMenuItem"
+        Me.MostrarRechazoToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
+        Me.MostrarRechazoToolStripMenuItem.Text = "Mostrar rechazo"
+        '
+        'RegenerarDocumentoToolStripMenuItem
+        '
+        Me.RegenerarDocumentoToolStripMenuItem.Name = "RegenerarDocumentoToolStripMenuItem"
+        Me.RegenerarDocumentoToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
+        Me.RegenerarDocumentoToolStripMenuItem.Text = "Regenerar documento"
         '
         'Estado
         '
@@ -276,6 +300,7 @@ Partial Class Facturacion
         Me.Text = "Facturación"
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.CMS_OPCIONES.ResumeLayout(False)
         Me.Estado.ResumeLayout(False)
         Me.Estado.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
@@ -302,4 +327,7 @@ Partial Class Facturacion
     Friend WithEvents Filtro As Filtro
     Friend WithEvents BTN_RECIBO As Button
     Friend WithEvents BTN_IMPRIMIR As Button
+    Friend WithEvents CMS_OPCIONES As ContextMenuStrip
+    Friend WithEvents MostrarRechazoToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RegenerarDocumentoToolStripMenuItem As ToolStripMenuItem
 End Class

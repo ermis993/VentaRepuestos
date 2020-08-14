@@ -50,6 +50,7 @@ Public Class SeleccionCompania
             COD_CIA = CMB_COMPANIA.SelectedValue
             If COD_CIA <> "" And IsNothing(COD_CIA) = False Then
                 Dim FECHA = DateTime.Now.ToString
+                IND_ENCOMIENDA = ES_ENCOMIENDA(COD_CIA)
                 If EXISTE_TC_CIA(FECHA) = False Then
                     If EXISTE_TC(FECHA) = False Then
                         TIPO_CAMBIO_INDICADORES_ECONOMICOS(FECHA)

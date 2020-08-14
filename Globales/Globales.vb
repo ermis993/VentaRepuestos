@@ -1,9 +1,8 @@
-﻿Imports System.Net.Mail
+﻿Imports System.Globalization
 Imports System.Text.RegularExpressions
 Imports CRF_CONEXIONES.CONEXIONES
 Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports Microsoft.Office.Interop.Excel
-Imports Microsoft.Office.Interop
 
 Public Class Globales
 
@@ -12,6 +11,7 @@ Public Class Globales
     Public Shared COD_CIA As String
     Public Shared COD_SUCUR As String
     Public Shared COD_USUARIO As String
+    Public Shared IND_ENCOMIENDA As String
 
     Public Shared TC_COMPRA As Decimal
     Public Shared TC_VENTA As Decimal
@@ -80,6 +80,55 @@ Public Class Globales
             Return ""
         End Try
     End Function
+
+    Public Shared Function DIA_ESPANOL(ByVal Dia As DayOfWeek) As String
+        Select Case Dia
+            Case DayOfWeek.Monday
+                Return "Lunes"
+            Case DayOfWeek.Tuesday
+                Return "Martes"
+            Case DayOfWeek.Wednesday
+                Return "Miércoles"
+            Case DayOfWeek.Thursday
+                Return "Jueves"
+            Case DayOfWeek.Friday
+                Return "Viernes"
+            Case DayOfWeek.Saturday
+                Return "Sábado"
+            Case Else
+                Return "Domingo"
+        End Select
+    End Function
+
+    Public Shared Function MES_ESPANOL(ByVal Mes As String) As String
+        Select Case Mes
+            Case "January"
+                Return "Enero"
+            Case "February"
+                Return "Febrero"
+            Case "March"
+                Return "Marzo"
+            Case "April"
+                Return "Abril"
+            Case "May"
+                Return "Mayo"
+            Case "June"
+                Return "Junio"
+            Case "July"
+                Return "Julio"
+            Case "August"
+                Return "Agosto"
+            Case "September"
+                Return "Septiembre"
+            Case "October"
+                Return "Octubre"
+            Case "November"
+                Return "Noviembre"
+            Case "December"
+                Return "Diciembre"
+        End Select
+    End Function
+
     Public Shared Function RellenaEspacioIzquierda(ByVal Cantidad As String, ByVal Caracter As String, ByVal Texto As String) As String
         Try
             Return Texto.PadLeft(Cantidad, Caracter)
@@ -154,6 +203,25 @@ Public Class Globales
                 EXISTE = True
             End If
             Return EXISTE
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            Return False
+        End Try
+    End Function
+    Public Shared Function ES_ENCOMIENDA(ByVal COD_CIA As String) As String
+        Try
+            Dim ENCOMIENDA As String = "N"
+            Dim SQL = "	SELECT ISNULL(IND_ENCOMIENDA, 'N') AS IND_ENCOMIENDA FROM COMPANIA WHERE COD_CIA = " & SCM(COD_CIA)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+            If DS.Tables(0).Rows.Count > 0 Then
+                For Each ITEM In DS.Tables(0).Rows
+                    ENCOMIENDA = ITEM("IND_ENCOMIENDA")
+                    Exit For
+                Next
+            End If
+            Return ENCOMIENDA
         Catch ex As Exception
             MessageBox.Show(ex.Message)
             Return False
@@ -361,7 +429,9 @@ Public Class Globales
                     colIndex = 0
                     For Each dc In Datos.Tables(0).Columns
                         colIndex += 1
-                        If Tipo_Doc(dr(dc.ColumnName)) Then
+                        If Tipo_Doc(dr(dc.ColumnName), "Fecha") Then
+                            oSheet.Cells(rowIndex + 1, colIndex).NumberFormat = "dd/mm/yyyy"
+                        ElseIf Tipo_Doc(dr(dc.ColumnName), "String") Then
                             oSheet.Cells(rowIndex + 1, colIndex).NumberFormat = "@"
                         End If
                         oSheet.Cells(rowIndex + 1, colIndex) = dr(dc.ColumnName)
@@ -413,14 +483,26 @@ Public Class Globales
         End Try
     End Sub
 
-    Private Shared Function Tipo_Doc(ByVal Objecto As Object) As String
+    Private Shared Function Tipo_Doc(ByVal Objecto As Object, ByVal tipo_validacion As String) As String
         Try
             Dim bandera = False
-            If Val(Objecto) > 0 Then
-                If Objecto.ToString().Length >= 18 Then
-                    bandera = True
-                End If
-            End If
+
+            Select Case tipo_validacion
+                Case "String"
+                    If Val(Objecto) > 0 Then
+                        If Objecto.ToString().Length >= 18 Then
+                            bandera = True
+                        End If
+                    End If
+                Case "Fecha"
+                    Dim test
+                    If Date.TryParseExact(Objecto, "yyyy/MM/dd",
+                          New CultureInfo("es-ES"),
+                          DateTimeStyles.None, test) Then
+                        bandera = True
+                    End If
+            End Select
+
             Return bandera
         Catch ex As Exception
             Throw New Exception(ex.Message)

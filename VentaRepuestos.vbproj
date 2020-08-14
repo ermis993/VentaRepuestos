@@ -126,6 +126,42 @@
     <Compile Include="Pantallas\Generador reportes\Reportes.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\RespuestaDGTD.Designer.vb">
+      <DependentUpon>RespuestaDGTD.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\RespuestaDGTD.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\CXP_Factura.Designer.vb">
+      <DependentUpon>CXP_Factura.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\CXP_Factura.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\CXP_Facturacion.Designer.vb">
+      <DependentUpon>CXP_Facturacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\CXP_Facturacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Encomiendas\Encomienda.Designer.vb">
+      <DependentUpon>Encomienda.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Encomiendas\Encomienda.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Mantenimientos\Familias\Familia.Designer.vb">
+      <DependentUpon>Familia.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Mantenimientos\Familias\Familia.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Mantenimientos\Familias\FamiliaMant.Designer.vb">
+      <DependentUpon>FamiliaMant.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Mantenimientos\Familias\FamiliaMant.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pantallas\Mantenimientos\Productos\ProductoUbicacionMant.Designer.vb">
       <DependentUpon>ProductoUbicacionMant.vb</DependentUpon>
     </Compile>
@@ -144,22 +180,52 @@
     <Compile Include="Pantallas\Movimientos\ConsultaSaldos.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pantallas\Movimientos\Factura.Designer.vb">
+    <Compile Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\DocumentoElectronico.Designer.vb">
+      <DependentUpon>DocumentoElectronico.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\DocumentoElectronico.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\Factura.Designer.vb">
       <DependentUpon>Factura.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pantallas\Movimientos\Factura.vb">
+    <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\Factura.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pantallas\Movimientos\Facturacion.Designer.vb">
+    <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\Facturacion.Designer.vb">
       <DependentUpon>Facturacion.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pantallas\Movimientos\Facturacion.vb">
+    <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\Facturacion.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pantallas\Movimientos\NotaCredito.Designer.vb">
+    <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\NotaCredito.Designer.vb">
       <DependentUpon>NotaCredito.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pantallas\Movimientos\NotaCredito.vb">
+    <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\NotaCredito.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\DocumentoElectronicoImp.Designer.vb">
+      <DependentUpon>DocumentoElectronicoImp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\DocumentoElectronicoImp.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Encomiendas\EncomiendaMant.Designer.vb">
+      <DependentUpon>EncomiendaMant.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Encomiendas\EncomiendaMant.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Encomiendas\Ruta.Designer.vb">
+      <DependentUpon>Ruta.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Encomiendas\Ruta.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Encomiendas\RutaMant.Designer.vb">
+      <DependentUpon>RutaMant.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Encomiendas\RutaMant.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\OlvidoContrasena.Designer.vb">
@@ -300,6 +366,24 @@
     <EmbeddedResource Include="Pantallas\Generador reportes\Reportes.resx">
       <DependentUpon>Reportes.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\RespuestaDGTD.resx">
+      <DependentUpon>RespuestaDGTD.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\CXP_Factura.resx">
+      <DependentUpon>CXP_Factura.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\CXP_Facturacion.resx">
+      <DependentUpon>CXP_Facturacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Encomiendas\Encomienda.resx">
+      <DependentUpon>Encomienda.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Mantenimientos\Familias\Familia.resx">
+      <DependentUpon>Familia.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Mantenimientos\Familias\FamiliaMant.resx">
+      <DependentUpon>FamiliaMant.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Mantenimientos\Productos\ProductoUbicacionMant.resx">
       <DependentUpon>ProductoUbicacionMant.vb</DependentUpon>
     </EmbeddedResource>
@@ -309,14 +393,26 @@
     <EmbeddedResource Include="Pantallas\Movimientos\ConsultaSaldos.resx">
       <DependentUpon>ConsultaSaldos.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pantallas\Movimientos\Factura.resx">
+    <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\Factura.resx">
       <DependentUpon>Factura.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pantallas\Movimientos\Facturacion.resx">
+    <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\Facturacion.resx">
       <DependentUpon>Facturacion.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pantallas\Movimientos\NotaCredito.resx">
+    <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\NotaCredito.resx">
       <DependentUpon>NotaCredito.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\DocumentoElectronico.resx">
+      <DependentUpon>DocumentoElectronico.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Encomiendas\EncomiendaMant.resx">
+      <DependentUpon>EncomiendaMant.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Encomiendas\Ruta.resx">
+      <DependentUpon>Ruta.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Encomiendas\RutaMant.resx">
+      <DependentUpon>RutaMant.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\OlvidoContrasena.resx">
       <DependentUpon>OlvidoContrasena.vb</DependentUpon>
@@ -470,6 +566,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\transportar.png" />
     <None Include="Resources\ubicacion.png" />
     <None Include="Resources\proveedor1.png" />
     <None Include="Resources\calculadora.png" />
@@ -484,9 +581,19 @@
     <None Include="Resources\imprimir1.png" />
     <None Include="Resources\consultas.png" />
     <None Include="Resources\generar.png" />
+    <None Include="Resources\importar_xml.png" />
+    <None Include="Resources\export.png" />
+    <None Include="Resources\import.png" />
+    <None Include="Resources\familia.png" />
+    <None Include="Resources\encomienda.png" />
+    <None Include="Resources\entregar.png" />
+    <None Include="Resources\compras.png" />
+    <None Include="Resources\backup.png" />
     <Content Include="Resources\quitar.png" />
     <None Include="Resources\Right.png" />
     <None Include="Resources\reportes.png" />
+    <None Include="Resources\recibir.png" />
+    <None Include="Resources\ruta.png" />
     <Content Include="Resources\salir.png" />
   </ItemGroup>
   <ItemGroup>
@@ -527,6 +634,9 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pantallas\Movimientos\Cuentas por pagar\Mantenimientos\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

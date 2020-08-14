@@ -44,7 +44,7 @@ Partial Class Sucursal
         Me.Estado.Controls.Add(Me.RB_ACTIVAS)
         Me.Estado.Location = New System.Drawing.Point(417, 2)
         Me.Estado.Name = "Estado"
-        Me.Estado.Size = New System.Drawing.Size(146, 51)
+        Me.Estado.Size = New System.Drawing.Size(146, 52)
         Me.Estado.TabIndex = 34
         Me.Estado.TabStop = False
         Me.Estado.Text = "Estado"
@@ -62,7 +62,7 @@ Partial Class Sucursal
         'RB_INACTIVAS
         '
         Me.RB_INACTIVAS.AutoSize = True
-        Me.RB_INACTIVAS.Location = New System.Drawing.Point(7, 33)
+        Me.RB_INACTIVAS.Location = New System.Drawing.Point(7, 30)
         Me.RB_INACTIVAS.Name = "RB_INACTIVAS"
         Me.RB_INACTIVAS.Size = New System.Drawing.Size(68, 17)
         Me.RB_INACTIVAS.TabIndex = 1

@@ -69,7 +69,7 @@ Partial Class Proveedor
         'RB_INACTIVOS
         '
         Me.RB_INACTIVOS.AutoSize = True
-        Me.RB_INACTIVOS.Location = New System.Drawing.Point(7, 33)
+        Me.RB_INACTIVOS.Location = New System.Drawing.Point(7, 29)
         Me.RB_INACTIVOS.Name = "RB_INACTIVOS"
         Me.RB_INACTIVOS.Size = New System.Drawing.Size(68, 17)
         Me.RB_INACTIVOS.TabIndex = 1

@@ -14,14 +14,12 @@ Public Class ClienteMant
 
     Private Sub CMB_TIPO_CEDULA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_TIPO_CEDULA.SelectedIndexChanged
         Try
-            Responsive(False)
             TXT_CEDULA.Text = ""
             TXT_NOMBRE.Text = ""
             If CMB_TIPO_CEDULA.SelectedIndex = 0 Then 'Física
                 TXT_CEDULA.Mask = "#########"
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 1 Then 'Jurídica
                 TXT_CEDULA.Mask = "##########"
-                Responsive(True)
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 2 Then 'Nite
                 TXT_CEDULA.Mask = "############"
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 3 Then 'Dimex
@@ -33,87 +31,6 @@ Public Class ClienteMant
         End Try
     End Sub
 
-    Private Sub Responsive(ByVal JURIDICA As Boolean)
-        Try
-            If JURIDICA = True Then
-                'PRIMER APELLIDO
-                Label3.Visible = False
-                TXT_PRIMER_APELLIDO.Visible = False
-                TXT_PRIMER_APELLIDO.Text = ""
-                'SEGUNDO APELLIDO
-                Label2.Visible = False
-                TXT_SEGUNDO_APELLIDO.Visible = False
-                TXT_SEGUNDO_APELLIDO.Text = ""
-                'TELEFONO
-                Label6.Location = New Point(60, 129)
-                TXT_TELEFONO.Location = New Point(137, 126)
-                'DIRECCION
-                Label4.Location = New Point(55, 161)
-                TXT_DIRECCION.Location = New Point(137, 158)
-                'EMAIL
-                Label7.Location = New Point(82, 191)
-                TXT_EMAIL.Location = New Point(137, 188)
-                'PROVINCIA
-                LBL_PROVINCIA.Location = New Point(57, 221)
-                CMB_PROVINCIA.Location = New Point(137, 218)
-                'CANTON
-                LBL_CANTO.Location = New Point(70, 252)
-                CMB_CANTON.Location = New Point(137, 249)
-                'DISTRITO
-                LBL_DISTRITO.Location = New Point(71, 282)
-                CMB_DISTRITO.Location = New Point(137, 279)
-                'GB
-                GroupBox2.Location = New Point(9, 309)
-                'GB MAYOR
-                GroupBox1.Size = New Size(449, 417)
-                'BTN ACEPTAR
-                BTN_ACEPTAR.Location = New Point(263, 422)
-                'BTN SALIR
-                BTN_SALIR.Location = New Point(362, 422)
-                'PANTALLA
-                Me.Size = New Size(494, 509)
-            Else
-                'PRIMER APELLIDO
-                Label3.Visible = True
-                TXT_PRIMER_APELLIDO.Visible = True
-                'SEGUNDO APELLIDO
-                Label2.Visible = True
-                TXT_SEGUNDO_APELLIDO.Visible = True
-                'TELEFONO
-                Label6.Location = New Point(60, 191)
-                TXT_TELEFONO.Location = New Point(137, 188)
-                'DIRECCION
-                Label4.Location = New Point(56, 221)
-                TXT_DIRECCION.Location = New Point(137, 218)
-                'EMAIL
-                Label7.Location = New Point(82, 252)
-                TXT_EMAIL.Location = New Point(137, 249)
-                'PROVINCIA
-                LBL_PROVINCIA.Location = New Point(57, 282)
-                CMB_PROVINCIA.Location = New Point(137, 279)
-                'CANTON
-                LBL_CANTO.Location = New Point(70, 316)
-                CMB_CANTON.Location = New Point(137, 313)
-                'DISTRITO
-                LBL_DISTRITO.Location = New Point(71, 347)
-                CMB_DISTRITO.Location = New Point(137, 343)
-                'GB
-                GroupBox2.Location = New Point(9, 369)
-                'GB MAYOR
-                GroupBox1.Size = New Size(449, 475)
-                'BTN ACEPTAR
-                BTN_ACEPTAR.Location = New Point(263, 483)
-                'BTN SALIR
-                BTN_SALIR.Location = New Point(362, 483)
-
-                'PANTALLA
-                Me.Size = New Size(494, 568)
-
-            End If
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-        End Try
-    End Sub
     Private Function VALIDAR() As Boolean
         Try
             Dim ENTRAR As Boolean = False
@@ -213,7 +130,7 @@ Public Class ClienteMant
                 LIMPIAR_TODO()
                 MessageBox.Show("¡Cliente agregado correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             ElseIf MODO = CRF_Modos.Modificar Then
-                CERRAR()
+                Cerrar()
                 MessageBox.Show("¡Cliente modificado correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
         Catch ex As Exception
@@ -282,12 +199,16 @@ Public Class ClienteMant
     End Sub
 
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
-        CERRAR()
+        Cerrar()
     End Sub
 
     Private Sub ClienteMant_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CARGAR_MONEDA()
         CARGAR_PROVINCIAS()
+
+        DTPFECHA.Format = DateTimePickerFormat.Custom
+        DTPFECHA.CustomFormat = "dd/MM/yyyy HH:mm"
+
         If MODO = CRF_Modos.Insertar Then
             CMB_TIPO_CEDULA.SelectedIndex = 0
             TXT_CEDULA.Select()
@@ -297,7 +218,15 @@ Public Class ClienteMant
             BTN_BUSCAR.Enabled = True
             BTN_BUSCAR.Enabled = False
             LEER()
+            RELLENAR_GRID()
         End If
+
+        If Me.MODO = CRF_Modos.Modificar Then
+            TabPage2.Parent = TabControl1
+        Else
+            TabPage2.Parent = Nothing
+        End If
+
     End Sub
 
     Private Sub CARGAR_MONEDA()
@@ -528,6 +457,126 @@ Public Class ClienteMant
                     MessageBox.Show("¡Información del número de cédula " & TXT_CEDULA.Text & " no encontrada!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 End If
             End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Public Sub RELLENAR_GRID()
+        Try
+            GRID.Rows.Clear()
+            GRID.DataSource = Nothing
+
+            GRID.ColumnCount = 6
+            GRID.Columns(0).Name = "Tipo"
+            GRID.Columns(1).Name = "Documento"
+            GRID.Columns(2).Name = "Nombre"
+            GRID.Columns(3).Name = "Fecha"
+            GRID.Columns(4).Name = "Porcentaje"
+            GRID.Columns(5).Name = "Estado"
+
+            Dim SQL = "	SELECT TIPO_DOC, NUMERO_DOC, NOMBRE, CONVERT(VARCHAR(10), GETDATE(), 105) AS FECHA, PORCENTAJE, ESTADO "
+            SQL &= Chr(13) & "	FROM CLIENTE_EXONERACION"
+            SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & "	AND CEDULA = " & SCM(TXT_CEDULA.Text)
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+
+                For Each ITEM In DS.Tables(0).Rows
+                    Dim row As String() = New String() {ITEM("TIPO_DOC"), ITEM("NUMERO_DOC"), ITEM("NOMBRE"), ITEM("FECHA"), ITEM("PORCENTAJE"), ITEM("ESTADO")}
+                    GRID.Rows.Add(row)
+                Next
+
+                Dim btn As New DataGridViewImageColumn()
+                Dim img As Image = My.Resources.borrar_button
+
+                GRID.Columns.Add(btn)
+                btn.HeaderText = ""
+                btn.Name = "Eliminar"
+                btn.Width = 32
+                btn.Image = img
+                btn.ImageLayout = DataGridViewImageCellLayout.Normal
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_ACEPTAR_EXO_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR_EXO.Click
+        Try
+            If CMB_TIPO.SelectedIndex = -1 Then
+                MessageBox.Show("Se debe elegir el tipo de documento de la exoneración", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                CMB_TIPO.Select()
+            ElseIf String.IsNullOrEmpty(TXT_EXO_NUMERO.Text) Then
+                MessageBox.Show("Es necesario ingresar el número de documento de la exoneración", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                TXT_EXO_NUMERO.Focus()
+            ElseIf String.IsNullOrEmpty(TXT_NOMRE_INSTITUCION.Text) Then
+                MessageBox.Show("Es necesario ingresar el nombre de la institución de la exoneración", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                TXT_NOMRE_INSTITUCION.Focus()
+            ElseIf Val(TXT_PORCENTAJE.Text) <= 0 Then
+                MessageBox.Show("El porcentaje de exoneración no puede ser 0", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                TXT_PORCENTAJE.Focus()
+            Else
+                Dim SQL = "	INSERT INTO CLIENTE_EXONERACION (COD_CIA,CEDULA,TIPO_DOC,NUMERO_DOC,NOMBRE,FECHA,PORCENTAJE,ESTADO,COD_USUARIO) "
+                SQL &= Chr(13) & "	SELECT " & SCM(COD_CIA) & "," & SCM(TXT_CEDULA.Text) & "," & SCM(CMB_TIPO.SelectedItem.ToString.Substring(0, 2))
+                SQL &= Chr(13) & "," & SCM(TXT_EXO_NUMERO.Text) & "," & SCM(TXT_NOMRE_INSTITUCION.Text) & "," & SCM(YMDHm(DTPFECHA.Value))
+                SQL &= Chr(13) & "," & Val(TXT_PORCENTAJE.Text) & "," & SCM(IIf(RB_EXO_ACTIVO.Checked = True, "A", "I")) & "," & SCM(COD_USUARIO)
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+
+                MessageBox.Show("¡Exoneración ingresada correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                RELLENAR_GRID()
+                Limpiar_Exoneracion()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub GRID_CellClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles GRID.CellClick
+        Try
+            If e.RowIndex >= 0 Then
+                If e.ColumnIndex = 6 Then
+                    Dim seleccionado = GRID.Rows(GRID.SelectedRows(0).Index)
+                    Dim valor = MessageBox.Show(Me, "¿Seguro que desea eliminar la exoneración :" + seleccionado.Cells(1).Value.ToString + "?", "Eliminar exoneración", vbYesNo, MessageBoxIcon.Question)
+
+                    If valor = DialogResult.Yes Then
+
+                        Dim SQL = "	DELETE FROM CLIENTE_EXONERACION	"
+                        SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+                        SQL &= Chr(13) & "	AND CEDULA = " & SCM(TXT_CEDULA.Text)
+                        SQL &= Chr(13) & "	AND TIPO_DOC = " & SCM(seleccionado.Cells(0).Value)
+                        SQL &= Chr(13) & "	AND NUMERO_DOC = " & SCM(seleccionado.Cells(1).Value)
+
+                        CONX.Coneccion_Abrir()
+                        CONX.EJECUTE(SQL)
+                        CONX.Coneccion_Cerrar()
+
+                        RELLENAR_GRID()
+
+                        MessageBox.Show(Me, "Exoneración eliminada correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    End If
+                End If
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+
+    Private Sub Limpiar_Exoneracion()
+        Try
+            CMB_TIPO.SelectedIndex = -1
+            TXT_EXO_NUMERO.Text = ""
+            TXT_NOMRE_INSTITUCION.Text = ""
+            TXT_PORCENTAJE.Text = ""
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

@@ -39,6 +39,7 @@ Partial Class LBL_CANTON
         Me.CMB_DISTRITO = New System.Windows.Forms.ComboBox()
         Me.TAB_COMPANIA = New System.Windows.Forms.TabControl()
         Me.TAB_INFO = New System.Windows.Forms.TabPage()
+        Me.CHK_ENCOMIENDA = New System.Windows.Forms.CheckBox()
         Me.TXT_DIRECCION = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.CHK_FE = New System.Windows.Forms.CheckBox()
@@ -241,6 +242,7 @@ Partial Class LBL_CANTON
         '
         'TAB_INFO
         '
+        Me.TAB_INFO.Controls.Add(Me.CHK_ENCOMIENDA)
         Me.TAB_INFO.Controls.Add(Me.TXT_DIRECCION)
         Me.TAB_INFO.Controls.Add(Me.Label1)
         Me.TAB_INFO.Controls.Add(Me.CHK_FE)
@@ -269,6 +271,18 @@ Partial Class LBL_CANTON
         Me.TAB_INFO.Text = "Información general"
         Me.TAB_INFO.UseVisualStyleBackColor = True
         '
+        'CHK_ENCOMIENDA
+        '
+        Me.CHK_ENCOMIENDA.AutoSize = True
+        Me.CHK_ENCOMIENDA.Enabled = False
+        Me.CHK_ENCOMIENDA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CHK_ENCOMIENDA.Location = New System.Drawing.Point(99, 317)
+        Me.CHK_ENCOMIENDA.Name = "CHK_ENCOMIENDA"
+        Me.CHK_ENCOMIENDA.Size = New System.Drawing.Size(162, 20)
+        Me.CHK_ENCOMIENDA.TabIndex = 20
+        Me.CHK_ENCOMIENDA.Text = "¿Utiliza encomiendas?"
+        Me.CHK_ENCOMIENDA.UseVisualStyleBackColor = True
+        '
         'TXT_DIRECCION
         '
         Me.TXT_DIRECCION.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -293,8 +307,6 @@ Partial Class LBL_CANTON
         'CHK_FE
         '
         Me.CHK_FE.AutoSize = True
-        Me.CHK_FE.Checked = True
-        Me.CHK_FE.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CHK_FE.Enabled = False
         Me.CHK_FE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CHK_FE.Location = New System.Drawing.Point(99, 294)
@@ -309,7 +321,7 @@ Partial Class LBL_CANTON
         Me.GroupBox1.Controls.Add(Me.RB_INACTIVA)
         Me.GroupBox1.Controls.Add(Me.RB_ACTIVA)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
-        Me.GroupBox1.Location = New System.Drawing.Point(99, 332)
+        Me.GroupBox1.Location = New System.Drawing.Point(99, 343)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(342, 48)
         Me.GroupBox1.TabIndex = 19
@@ -745,4 +757,5 @@ Partial Class LBL_CANTON
     Friend WithEvents RB_REAL As RadioButton
     Friend WithEvents Label6 As Label
     Friend WithEvents Label3 As Label
+    Friend WithEvents CHK_ENCOMIENDA As CheckBox
 End Class

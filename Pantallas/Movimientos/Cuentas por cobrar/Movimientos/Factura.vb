@@ -40,13 +40,20 @@ Public Class Factura
 
         Cliente.TABLA_BUSCAR = "CLIENTE"
         Cliente.CODIGO = "CEDULA"
-        Cliente.DESCRIPCION = "NOMBRE"
+        Cliente.DESCRIPCION = "NOMBRE+ ' ' + APELLIDO1"
         Cliente.PANTALLA = New Cliente(CRF_Modos.Seleccionar, Cliente)
         Cliente.refrescar()
+
+        Cliente_Retira.TABLA_BUSCAR = "CLIENTE"
+        Cliente_Retira.CODIGO = "CEDULA"
+        Cliente_Retira.DESCRIPCION = "NOMBRE+ ' ' + APELLIDO1"
+        Cliente_Retira.PANTALLA = New Cliente(CRF_Modos.Seleccionar, Cliente)
+        Cliente_Retira.refrescar()
 
         If Me.Modo = CRF_Modos.Insertar Then
             TXT_TIPO_CAMBIO.Text = FMCP(TC_VENTA)
             Me.Codigo = GenerarCodigo()
+            CARGAR_RUTAS()
             BloqueaControles()
             CMB_DOCUMENTO.SelectedIndex = 0
             CMB_FORMAPAGO.SelectedIndex = 0
@@ -68,6 +75,12 @@ Public Class Factura
             Else
                 RELLENAR_GRID()
             End If
+        End If
+
+        If IND_ENCOMIENDA = "S" And Me.Modo = CRF_Modos.Insertar Then
+            TAB_ENCOMIENDA.Parent = TabControl1
+        Else
+            TAB_ENCOMIENDA.Parent = Nothing
         End If
 
         CMB_PRECIO.SelectedIndex = 0
@@ -207,29 +220,37 @@ Public Class Factura
         Try
             If Not String.IsNullOrEmpty(TXT_CODIGO.Text) Then
 
-                Dim Cantidad As Double
-                Dim Precio_Unitario As Double
-                Dim Descuento As Double
-                Dim Descuento_Total As Double
-                Dim Impuesto As Double
-                Dim Impuesto_Total As Double
-                Dim Subtotal As Double
-                Dim Total As Double
+                Dim Cantidad As Decimal
+                Dim Precio_Unitario As Decimal
+                Dim Descuento As Decimal
+                Dim Descuento_Total As Decimal
+                Dim Impuesto As Decimal
+                Dim Impuesto_Total As Decimal
+                Dim Subtotal As Decimal
+                Dim Total As Decimal
+                Dim Exoneracion As Decimal
+                Dim Exoneracion_Total As Decimal
 
                 Cantidad = FMC(TXT_CANTIDAD.Text)
                 Precio_Unitario = FMC(TXT_PRECIO.Text)
                 Descuento = FMC(TXT_DESCUENTO.Text)
                 Impuesto = FMC(TXT_IMPUESTO.Text)
+                Exoneracion = FMC(TXT_EXONERACION.Text)
+
+                'Se saca la exoneración
+                Impuesto = Impuesto - Exoneracion
 
                 Descuento_Total = FMC(((Precio_Unitario * Cantidad) * Descuento) / 100)
                 Impuesto_Total = FMC((((Precio_Unitario * Cantidad) - Descuento_Total) * Impuesto) / 100)
                 Subtotal = FMC(((Precio_Unitario * Cantidad) - Descuento_Total))
                 Total = FMC(Subtotal + Impuesto_Total)
+                Exoneracion_Total = FMC((((Precio_Unitario * Cantidad) - Descuento_Total) * Exoneracion) / 100)
 
                 TXT_DESCUENTOTOTAL.Text = FMCP(Descuento_Total)
                 TXT_IMPUESTOTOTAL.Text = FMCP(Impuesto_Total)
                 TXT_SUBTOTAL.Text = FMCP(Subtotal)
                 TXT_TOTAL.Text = FMCP(Total)
+                TXT_MONTO_EXONERACION.Text = FMCP(Exoneracion_Total)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -319,6 +340,8 @@ Public Class Factura
                     SQL &= Chr(13) & "	,@DESCUENTO = " & FMC(TXT_DESCUENTOTOTAL.Text)
                     SQL &= Chr(13) & "	,@POR_IMPUESTO = " & Val(TXT_IMPUESTO.Text)
                     SQL &= Chr(13) & "	,@IMPUESTO = " & FMC(TXT_IMPUESTOTOTAL.Text)
+                    SQL &= Chr(13) & "	,@POR_EXO = " & Val(TXT_EXONERACION.Text)
+                    SQL &= Chr(13) & "	,@EXONERACION = " & FMC(TXT_MONTO_EXONERACION.Text)
                     SQL &= Chr(13) & "	,@SUBTOTAL = " & FMC(TXT_SUBTOTAL.Text)
                     SQL &= Chr(13) & "	,@TOTAL = " & FMC(TXT_TOTAL.Text)
                     SQL &= Chr(13) & "	,@ESTANTE = " & SCM(TXT_ESTANTE.Text)
@@ -358,6 +381,8 @@ Public Class Factura
         TXT_FILA.Text = ""
         TXT_COLUMNA.Text = ""
         TXT_ESTANTE.Text = ""
+        TXT_EXONERACION.Text = ""
+        TXT_MONTO_EXONERACION.Text = ""
         LVResultados.Clear()
     End Sub
 
@@ -466,6 +491,7 @@ Public Class Factura
                 TXT_DESCUENTO.Text = seleccionado.Cells(8).Value.ToString
                 TXT_CODIGO.Text = seleccionado.Cells(1).Value.ToString
                 RellenaProducto(seleccionado.Cells(3).Value.ToString, seleccionado.Cells(4).Value.ToString, seleccionado.Cells(5).Value.ToString)
+                RellenaExoneracion()
                 CalculoTotales()
                 TabControl1.SelectedIndex = 1
                 TXT_CANTIDAD.Focus()
@@ -574,6 +600,7 @@ Public Class Factura
     Private Sub Proceso(ByVal codigo As String, ByVal estante As String, ByVal fila As String, ByVal columna As String)
         TXT_CODIGO.Text = codigo
         RellenaProducto(estante, fila, columna)
+        RellenaExoneracion()
         Busca_Producto()
         TXT_CANTIDAD.Focus()
     End Sub
@@ -612,6 +639,14 @@ Public Class Factura
         Try
             If GRID.Rows.Count <= 0 Then
                 MessageBox.Show(Me, "Debe ingresar al menos una linea del documento", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            ElseIf String.IsNullOrEmpty(Cliente_Retira.VALOR) And IND_ENCOMIENDA = "S" Then
+                MessageBox.Show(Me, "El cliente que retira la encomienda no ha sido seleccionado", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            ElseIf Val(TXT_CANT_BULTOS.Text) <= 0 And IND_ENCOMIENDA = "S" Then
+                MessageBox.Show(Me, "La cantidad de bultos no puede ser menor o igual a cero", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            ElseIf CMB_ORIGEN.SelectedIndex = -1 And IND_ENCOMIENDA = "S" Then
+                MessageBox.Show(Me, "No se ha elegido el origen de la encomienda", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            ElseIf CMB_DESTINO.SelectedIndex = -1 And IND_ENCOMIENDA = "S" Then
+                MessageBox.Show(Me, "No se ha elegido el destino de la encomienda", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Else
                 Dim Sql = "	USP_FACTURACION_TMP_A_REAL	"
                 Sql &= Chr(13) & "	 @COD_CIA = " & SCM(COD_CIA)
@@ -621,6 +656,23 @@ Public Class Factura
                 CONX.Coneccion_Abrir()
                 Dim DS = CONX.EJECUTE_DS(Sql)
                 CONX.Coneccion_Cerrar()
+
+                If IND_ENCOMIENDA = "S" Then
+                    Dim NUMERO_GUIA = GENERA_NUMERO_GUIA()
+                    Sql = "INSERT INTO DOCUMENTO_GUIA(COD_CIA,COD_SUCUR,NUMERO_DOC,TIPO_MOV,NUMERO_GUIA,CEDULA,CANT_BULTOS,ORIGEN,DESTINO,COD_USUARIO,FECHA_INC)"
+                    Sql &= Chr(13) & "SELECT " & SCM(COD_CIA) & "," & SCM(COD_SUCUR) & "," & Val(DS.Tables(0).Rows(0).Item(0)) & "," & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2)) & "," & Val(NUMERO_GUIA) & "," & SCM(Cliente_Retira.VALOR)
+                    Sql &= Chr(13) & "," & Val(TXT_CANT_BULTOS.Text) & "," & SCM(CMB_ORIGEN.SelectedItem().ToString.Substring(1, 3)) & "," & SCM(CMB_DESTINO.SelectedItem().ToString.Substring(1, 3)) & "," & SCM(COD_USUARIO) & ", GETDATE()"
+                    CONX.Coneccion_Abrir()
+                    CONX.EJECUTE(Sql)
+                    CONX.Coneccion_Cerrar()
+
+                    Sql = "INSERT INTO DOCUMENTO_GUIA_UBICACION(COD_CIA,COD_SUCUR,NUMERO_DOC,TIPO_MOV,NUMERO_GUIA,COD_UBICACION,COD_USUARIO,FECHA_INC)"
+                    Sql &= Chr(13) & "SELECT " & SCM(COD_CIA) & "," & SCM(COD_SUCUR) & "," & Val(DS.Tables(0).Rows(0).Item(0)) & "," & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2)) & "," & Val(NUMERO_GUIA)
+                    Sql &= Chr(13) & "," & SCM(CMB_ORIGEN.SelectedItem().ToString.Substring(1, 3)) & "," & SCM(COD_USUARIO) & ", GETDATE()"
+                    CONX.Coneccion_Abrir()
+                    CONX.EJECUTE(Sql)
+                    CONX.Coneccion_Cerrar()
+                End If
 
                 Dim valor = MessageBox.Show(Me, "Documento ingresado correctamente, ¿desea imprimir el documento?", Me.Text, vbYesNo, MessageBoxIcon.Question)
                 If valor = DialogResult.Yes Then
@@ -644,7 +696,7 @@ Public Class Factura
         Try
             Dim sql As String = ""
             If Modo = CRF_Modos.Insertar Then
-                sql = "	SELECT SUM(DESCUENTO) AS DESCUENTO, SUM(IMPUESTO) AS IMPUESTO, SUM(SUBTOTAL) AS SUBTOTAL, SUM(TOTAL) AS TOTAL "
+                sql = "	SELECT SUM(DESCUENTO) AS DESCUENTO, SUM(IMPUESTO) AS IMPUESTO, SUM(EXONERACION) AS EXONERACION , SUM(SUBTOTAL) AS SUBTOTAL, SUM(TOTAL) AS TOTAL "
                 sql &= Chr(13) & "	FROM DOCUMENTO_DET_TMP"
                 sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
                 sql &= Chr(13) & "  AND COD_SUCUR = " & SCM(COD_SUCUR)
@@ -652,14 +704,14 @@ Public Class Factura
                 sql &= Chr(13) & "	AND CODIGO = " & SCM(Codigo)
             Else
                 If String.IsNullOrEmpty(Codigo) Then
-                    sql = "	SELECT SUM(DESCUENTO) AS DESCUENTO, SUM(IMPUESTO) AS IMPUESTO, SUM(SUBTOTAL) AS SUBTOTAL, SUM(TOTAL) AS TOTAL "
+                    sql = "	SELECT SUM(DESCUENTO) AS DESCUENTO, SUM(IMPUESTO) AS IMPUESTO, SUM(EXONERACION) AS EXONERACION, SUM(SUBTOTAL) AS SUBTOTAL, SUM(TOTAL) AS TOTAL "
                     sql &= Chr(13) & "	FROM DOCUMENTO_DET"
                     sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
                     sql &= Chr(13) & "  AND COD_SUCUR = " & SCM(COD_SUCUR)
                     sql &= Chr(13) & "	AND TIPO_MOV = " & SCM(Tipo_Mov)
                     sql &= Chr(13) & "	AND NUMERO_DOC = " & Val(Numero_Doc)
                 Else
-                    sql = "	SELECT SUM(DESCUENTO) AS DESCUENTO, SUM(IMPUESTO) AS IMPUESTO, SUM(SUBTOTAL) AS SUBTOTAL, SUM(TOTAL) AS TOTAL "
+                    sql = "	SELECT SUM(DESCUENTO) AS DESCUENTO, SUM(IMPUESTO) AS IMPUESTO, SUM(EXONERACION) AS EXONERACION, SUM(SUBTOTAL) AS SUBTOTAL, SUM(TOTAL) AS TOTAL "
                     sql &= Chr(13) & "	FROM DOCUMENTO_DET_TMP"
                     sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
                     sql &= Chr(13) & "  AND COD_SUCUR = " & SCM(COD_SUCUR)
@@ -676,6 +728,7 @@ Public Class Factura
                 TXT_S.Text = FMCP(DS.Tables(0).Rows(0).Item("SUBTOTAL"))
                 TXT_I.Text = FMCP(DS.Tables(0).Rows(0).Item("IMPUESTO"))
                 TXT_D.Text = FMCP(DS.Tables(0).Rows(0).Item("DESCUENTO"))
+                TXT_E.Text = FMCP(DS.Tables(0).Rows(0).Item("EXONERACION"))
                 TXT_T.Text = FMCP(DS.Tables(0).Rows(0).Item("TOTAL"))
             End If
 
@@ -733,4 +786,89 @@ Public Class Factura
             e.SuppressKeyPress = True
         End If
     End Sub
+
+    Private Function GENERA_NUMERO_GUIA() As Integer
+        Try
+            Dim NUM_GUIA As Integer = 0
+
+            Dim Sql = "	SELECT ISNULL(MAX(NUMERO_GUIA), 0) + 1 AS GUIA"
+            Sql &= Chr(13) & "	FROM DOCUMENTO_GUIA	"
+            Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(Sql)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                NUM_GUIA = Val(DS.Tables(0).Rows(0).Item("GUIA"))
+            End If
+
+            Return NUM_GUIA
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Function
+
+    Private Sub CARGAR_RUTAS()
+        Try
+            CMB_ORIGEN.DataSource = Nothing
+            CMB_DESTINO.DataSource = Nothing
+
+            Dim LISTA_REF As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
+            Dim LISTA_REF_DES As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
+
+            Dim SQL As String = "SELECT COD_UBICACION AS CODIGO, DESC_UBICACION AS NOMBRE"
+            SQL &= Chr(13) & " FROM GUIA_UBICACION"
+            SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & " AND COD_SUCUR = " & SCM(COD_SUCUR)
+            SQL &= Chr(13) & " AND ESTADO = 'A'"
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                For Each Row In DS.Tables(0).Rows
+                    LISTA_REF.Add(New KeyValuePair(Of String, String)(Row("CODIGO").ToString, Row("CODIGO").ToString.ToUpper & " - " & Row("NOMBRE").ToString.ToUpper))
+                    LISTA_REF_DES.Add(New KeyValuePair(Of String, String)(Row("CODIGO").ToString, Row("CODIGO").ToString.ToUpper & " - " & Row("NOMBRE").ToString.ToUpper))
+                Next
+
+                CMB_ORIGEN.ValueMember = "Key"
+                CMB_ORIGEN.DisplayMember = "Value"
+                CMB_ORIGEN.DataSource = LISTA_REF
+                CMB_ORIGEN.SelectedIndex = -1
+
+                CMB_DESTINO.ValueMember = "Key"
+                CMB_DESTINO.DisplayMember = "Value"
+                CMB_DESTINO.DataSource = LISTA_REF_DES
+
+                CMB_DESTINO.SelectedIndex = -1
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub RellenaExoneracion()
+        Try
+            Dim SQL = "	SELECT PORCENTAJE"
+            SQL &= Chr(13) & "	FROM CLIENTE_EXONERACION"
+            SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & " And CEDULA = " & SCM(Cliente.VALOR)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                TXT_EXONERACION.Text = Val(DS.Tables(0).Rows(0).Item("PORCENTAJE"))
+            Else
+                TXT_EXONERACION.Text = "0"
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
 End Class

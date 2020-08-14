@@ -65,6 +65,7 @@ Public Class SucursalMant
                 SQL &= Chr(13) & ",@NOMBRE=" & SCM(TXT_NOMBRE.Text)
                 SQL &= Chr(13) & ",@DIRECCION=" & SCM(TXT_DIRECCION.Text)
                 SQL &= Chr(13) & ",@TELEFONO=" & SCM(TXT_TELEFONO.Text)
+                SQL &= Chr(13) & ",@TELEFONO2=" & SCM(TXT_TELEFONO2.Text)
                 SQL &= Chr(13) & ",@CORREO=" & SCM(TXT_CORREO.Text)
                 SQL &= Chr(13) & ",@ESTADO=" & SCM(Estado)
                 SQL &= Chr(13) & ",@RUTA_TIQUETE=" & SCM(TXT_RUTA_TIQUETE.Text)
@@ -109,6 +110,7 @@ Public Class SucursalMant
                     TXT_DIRECCION.Text = ITEM("DIRECCION")
                     TXT_CORREO.Text = ITEM("CORREO")
                     TXT_TELEFONO.Text = ITEM("TELEFONO")
+                    TXT_TELEFONO2.Text = ITEM("TELEFONO_2")
                     TXT_RUTA_TIQUETE.Text = ITEM("IMPRESION_TIQUETE")
                     TXT_ANCHO_PAPEL.Text = ITEM("ANCHO_TIQUETE")
 

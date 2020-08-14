@@ -1,5 +1,7 @@
 ﻿Imports VentaRepuestos.Globales
 Imports FUN_CRFUSION.FUNCIONES_GENERALES
+Imports System.Threading
+
 Public Class MenuPrincipal
 
     Dim Bandera_Sucursal As Boolean = True
@@ -32,6 +34,7 @@ Public Class MenuPrincipal
     Private Sub MenuPrincipal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CARGAR_SUCURSALES()
         CARGAR_TIPO_CAMBIO()
+        CARGAR_SALUDO()
     End Sub
     Private Sub CARGAR_TIPO_CAMBIO()
         Dim SQL = "	SELECT * FROM TIPO_CAMBIO_CIA"
@@ -51,6 +54,31 @@ Public Class MenuPrincipal
             Next
         End If
     End Sub
+
+    Private Sub CARGAR_SALUDO()
+        Dim SQL = "	SELECT NOMBRE"
+        SQL &= Chr(13) & "	FROM USUARIO"
+        SQL &= Chr(13) & "	WHERE COD_USUARIO =" & SCM(COD_USUARIO)
+        CONX.Coneccion_Abrir()
+        Dim DS = CONX.EJECUTE_DS(SQL)
+        CONX.Coneccion_Cerrar()
+
+        Dim DIA = DateTime.Now.ToString("dd")
+        Dim MES = DateTime.Now.ToString("MM")
+        Dim ANO = DateTime.Now.ToString("yyyy")
+        Dim DIA_LETRAS = DIA_ESPANOL(DateTime.Now.DayOfWeek)
+        Dim MES_LETRA = MES_ESPANOL(Thread.CurrentThread.CurrentCulture.DateTimeFormat.MonthNames(MES - 1))
+
+        If DS.Tables(0).Rows.Count > 0 Then
+            For Each ITEM In DS.Tables(0).Rows
+                LBL_SALUDO.Text = "Bienvenid@ " & ITEM("NOMBRE") & ", la fecha actual es: " & DIA_LETRAS & " " & DIA & " de " & MES_LETRA & " del " & ANO
+                Exit For
+            Next
+        End If
+    End Sub
+
+
+
     Private Sub CARGAR_SUCURSALES()
         Try
             CMB_SUCURSAL.DataSource = Nothing
@@ -112,14 +140,14 @@ Public Class MenuPrincipal
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-    Private Sub BTN_CLIENTE_Click(sender As Object, e As EventArgs) Handles BTN_CLIENTE.Click
-        Try
-            Dim PANTALLA As New Cliente()
-            PANTALLA.ShowDialog()
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-        End Try
-    End Sub
+    'Private Sub BTN_CLIENTE_Click(sender As Object, e As EventArgs) Handles BTN_CLIENTE.Click
+    '    Try
+    '        Dim PANTALLA As New Cliente()
+    '        PANTALLA.ShowDialog()
+    '    Catch ex As Exception
+    '        MessageBox.Show(ex.Message)
+    '    End Try
+    'End Sub
     Private Sub BTN_FE_Click(sender As Object, e As EventArgs) Handles BTN_FE.Click
         Try
             Dim PANTALLA As New Facturacion()
@@ -166,6 +194,72 @@ Public Class MenuPrincipal
         Try
             Dim PANTALLA As New Reportes()
             PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_XML_Click(sender As Object, e As EventArgs) Handles BTN_XML.Click
+        Try
+            Dim PANTALLA As New DocumentoElectronico()
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_FAMILIA_Click(sender As Object, e As EventArgs) Handles BTN_FAMILIA.Click
+        Try
+            Dim PANTALLA As New Familia()
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_CLIENTE_Click(sender As Object, e As EventArgs) Handles BTN_CLIENTE.Click
+        Try
+            Dim PANTALLA As New Cliente()
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_ENCOMIENDA_Click(sender As Object, e As EventArgs) Handles BTN_ENCOMIENDA.Click
+        Try
+            Dim PANTALLA As New Encomienda()
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_COMPRAS_Click(sender As Object, e As EventArgs) Handles BTN_COMPRAS.Click
+        Try
+            Dim PANTALLA As New CXP_Facturacion()
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_BACKUP_Click(sender As Object, e As EventArgs) Handles BTN_BACKUP.Click
+        Try
+            Dim Ruta As New SaveFileDialog With {
+                .FileName = "BackUp_" + DMA(FECHA_HOY()).Replace("/", "-"),
+                .Filter = "SQL Server database backup files |*.bak"
+            }
+
+            If Ruta.ShowDialog() = DialogResult.OK Then
+                Dim SQL As String = "BACKUP DATABASE VR TO disk=" & SCM(Ruta.FileName)
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+
+                MessageBox.Show("BackUp generado correctamente")
+            End If
+
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

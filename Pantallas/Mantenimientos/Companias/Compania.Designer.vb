@@ -80,7 +80,7 @@ Partial Class Compania
         'RB_INACTIVAS
         '
         Me.RB_INACTIVAS.AutoSize = True
-        Me.RB_INACTIVAS.Location = New System.Drawing.Point(7, 33)
+        Me.RB_INACTIVAS.Location = New System.Drawing.Point(7, 30)
         Me.RB_INACTIVAS.Name = "RB_INACTIVAS"
         Me.RB_INACTIVAS.Size = New System.Drawing.Size(68, 17)
         Me.RB_INACTIVAS.TabIndex = 1

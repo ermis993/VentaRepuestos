@@ -87,7 +87,7 @@ Partial Class ProductoUbicacionMant
         Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.GroupBox3.Location = New System.Drawing.Point(43, 102)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(259, 33)
+        Me.GroupBox3.Size = New System.Drawing.Size(259, 38)
         Me.GroupBox3.TabIndex = 10
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Estado"

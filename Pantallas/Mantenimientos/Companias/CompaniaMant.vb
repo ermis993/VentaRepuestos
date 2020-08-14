@@ -39,7 +39,8 @@ Public Class LBL_CANTON
         If MODO = CRF_Modos.Insertar Then
             CMB_TIPO_CEDULA.SelectedIndex = 0
             GENERAR_COD_CIA()
-            CHK_FE.Visible = True
+            CHK_FE.Enabled = True
+            CHK_ENCOMIENDA.Enabled = True
             GB_ACTIVIDADES.Enabled = False
         ElseIf MODO = CRF_Modos.Modificar Then
             TXT_CODIGO.Text = COD_C
@@ -362,12 +363,19 @@ Public Class LBL_CANTON
                     End If
 
                     Dim FE As String = ITEM("FE")
+                    Dim ENCOMIENDA As String = ITEM("IND_ENCOMIENDA")
 
                     If Trim(FE).Equals("S") Then
                         CHK_FE.Checked = True
                     Else
                         CHK_FE.Checked = False
                         TAB_FE.Parent = Nothing
+                    End If
+
+                    If Trim(ENCOMIENDA).Equals("S") Then
+                        CHK_ENCOMIENDA.Checked = True
+                    Else
+                        CHK_ENCOMIENDA.Checked = False
                     End If
 
                     If ITEM("IND_TIPO_DGTD") = "R" Then

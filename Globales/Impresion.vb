@@ -64,11 +64,12 @@ Public Class Impresion
 
             If DS.Tables(2).Rows.Count > 0 Then
 
-                strPrint = RELLENOCENTRO(DS.Tables(0).Rows(0).Item("Compania").ToString.ToUpper, Ancho_Tiquete) & vbCrLf
-                strPrint = strPrint & RELLENOCENTRO(DS.Tables(0).Rows(0).Item("Sucursal").ToString.ToUpper, Ancho_Tiquete) & vbCrLf
-                strPrint = strPrint & RELLENOCENTRO("Cédula :" + DS.Tables(0).Rows(0).Item("Cedula").ToString, Ancho_Tiquete) & vbCrLf
-                strPrint = strPrint & RELLENOCENTRO("Teléfono :" + DS.Tables(0).Rows(0).Item("Telefono").ToString, Ancho_Tiquete) & vbCrLf
-                strPrint = strPrint & RELLENOCENTRO(DS.Tables(0).Rows(0).Item("Provincia").ToString.ToUpper & "," & DS.Tables(0).Rows(0).Item("Canton").ToString.ToUpper & "," & DS.Tables(0).Rows(0).Item("Distrito").ToString.ToUpper, Ancho_Tiquete) & vbCrLf
+                strPrint = ""
+                strPrint = RELLENOCENTRO(DS.Tables(0).Rows(0).Item("Sucursal").ToString.ToUpper, Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO(DS.Tables(0).Rows(0).Item("Compania").ToString.ToUpper, Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO("Cedula # " + DS.Tables(0).Rows(0).Item("Cedula").ToString, Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO("Telefonos :" + DS.Tables(0).Rows(0).Item("Telefono").ToString, Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO(DS.Tables(0).Rows(0).Item("Provincia").ToString.ToUpper & "," & DS.Tables(0).Rows(0).Item("Canton").ToString.ToUpper, Ancho_Tiquete) & vbCrLf
                 strPrint = strPrint & RELLENOCENTRO(DS.Tables(0).Rows(0).Item("Direccion").ToString, Ancho_Tiquete) & vbCrLf
                 strPrint = strPrint & RELLENOCENTRO(DS.Tables(0).Rows(0).Item("Correo").ToString, Ancho_Tiquete) & vbCrLf
                 strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-") & vbCrLf
@@ -104,10 +105,9 @@ Public Class Impresion
                 strPrint = strPrint & RELLENOIZQUIERDA("I.V.A", 10) & ":" & RELLENOIZQUIERDA(FMCP(DS.Tables(3).Rows(0).Item("IMPUESTO"), 2), 11) & vbCrLf
                 strPrint = strPrint & RELLENOIZQUIERDA("Total", 10) & ":" & RELLENOIZQUIERDA(FMCP(DS.Tables(3).Rows(0).Item("TOTAL"), 2), 11) & vbCrLf
                 strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-") & vbCrLf
-                strPrint = strPrint & RELLENOCENTRO("AUTORIZADA MEDIANTE RESOLUCION Nº", Ancho_Tiquete) & vbCrLf
-                strPrint = strPrint & RELLENOCENTRO("DGTD-R-33-2019 DEL 20 DE JUNIO", Ancho_Tiquete) & vbCrLf
-                strPrint = strPrint & RELLENOCENTRO("DEL 2019", Ancho_Tiquete) & vbCrLf
-
+                strPrint = strPrint & RELLENOCENTRO("AUTORIZADA MEDIANTE RESOLUCION N#", Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO("DGTD-R-33-2019 DEL 20 DE JUNIO DEL 2019", Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-") & vbCrLf
                 Print(strPrint)
 
             End If

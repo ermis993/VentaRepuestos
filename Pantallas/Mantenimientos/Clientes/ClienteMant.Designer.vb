@@ -38,7 +38,6 @@ Partial Class ClienteMant
         Me.LBL_CANTO = New System.Windows.Forms.Label()
         Me.CMB_PROVINCIA = New System.Windows.Forms.ComboBox()
         Me.LBL_PROVINCIA = New System.Windows.Forms.Label()
-        Me.BTN_BUSCAR = New System.Windows.Forms.Button()
         Me.TXT_CEDULA = New System.Windows.Forms.MaskedTextBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.CMB_MONEDA = New System.Windows.Forms.ComboBox()
@@ -56,11 +55,39 @@ Partial Class ClienteMant
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TXT_SEGUNDO_APELLIDO = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.GRID = New System.Windows.Forms.DataGridView()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.RB_EXO_INACTIVO = New System.Windows.Forms.RadioButton()
+        Me.RB_EXO_ACTIVO = New System.Windows.Forms.RadioButton()
+        Me.TXT_PORCENTAJE = New System.Windows.Forms.TextBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.DTPFECHA = New System.Windows.Forms.DateTimePicker()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.TXT_NOMRE_INSTITUCION = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.TXT_EXO_NUMERO = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.CMB_TIPO = New System.Windows.Forms.ComboBox()
+        Me.BTN_BUSCAR = New System.Windows.Forms.Button()
+        Me.BTN_ACEPTAR_EXO = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
+        Me.TabControl1.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
+        Me.TabPage2.SuspendLayout()
+        Me.GroupBox6.SuspendLayout()
+        CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox4.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
         Me.SuspendLayout()
         '
         'LBL_CODIGO
@@ -170,12 +197,11 @@ Partial Class ClienteMant
         Me.GroupBox1.Controls.Add(Me.LBL_TIPO_CEDULA)
         Me.GroupBox1.Controls.Add(Me.LBL_CODIGO)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 2)
+        Me.GroupBox1.Location = New System.Drawing.Point(6, 6)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(449, 475)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "[ Información General ]"
         '
         'CMB_DISTRITO
         '
@@ -239,15 +265,6 @@ Partial Class ClienteMant
         Me.LBL_PROVINCIA.Size = New System.Drawing.Size(77, 18)
         Me.LBL_PROVINCIA.TabIndex = 18
         Me.LBL_PROVINCIA.Text = "Provincia :"
-        '
-        'BTN_BUSCAR
-        '
-        Me.BTN_BUSCAR.Image = Global.VentaRepuestos.My.Resources.Resources.consultas
-        Me.BTN_BUSCAR.Location = New System.Drawing.Point(350, 52)
-        Me.BTN_BUSCAR.Name = "BTN_BUSCAR"
-        Me.BTN_BUSCAR.Size = New System.Drawing.Size(39, 40)
-        Me.BTN_BUSCAR.TabIndex = 4
-        Me.BTN_BUSCAR.UseVisualStyleBackColor = True
         '
         'TXT_CEDULA
         '
@@ -426,13 +443,259 @@ Partial Class ClienteMant
         Me.Label4.TabIndex = 13
         Me.Label4.Text = "Dirección :"
         '
+        'TabControl1
+        '
+        Me.TabControl1.Controls.Add(Me.TabPage1)
+        Me.TabControl1.Controls.Add(Me.TabPage2)
+        Me.TabControl1.Location = New System.Drawing.Point(1, 3)
+        Me.TabControl1.Name = "TabControl1"
+        Me.TabControl1.SelectedIndex = 0
+        Me.TabControl1.Size = New System.Drawing.Size(481, 519)
+        Me.TabControl1.TabIndex = 3
+        '
+        'TabPage1
+        '
+        Me.TabPage1.Controls.Add(Me.GroupBox1)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.TabPage1.Size = New System.Drawing.Size(473, 493)
+        Me.TabPage1.TabIndex = 0
+        Me.TabPage1.Text = "Información general "
+        Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'TabPage2
+        '
+        Me.TabPage2.Controls.Add(Me.GroupBox6)
+        Me.TabPage2.Controls.Add(Me.GroupBox4)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.TabPage2.Size = New System.Drawing.Size(473, 493)
+        Me.TabPage2.TabIndex = 1
+        Me.TabPage2.Text = "Exoneración"
+        Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'GroupBox6
+        '
+        Me.GroupBox6.Controls.Add(Me.GRID)
+        Me.GroupBox6.Location = New System.Drawing.Point(7, 240)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(460, 247)
+        Me.GroupBox6.TabIndex = 1
+        Me.GroupBox6.TabStop = False
+        Me.GroupBox6.Text = "Exoneraciones ingresadas"
+        '
+        'GRID
+        '
+        Me.GRID.AllowUserToAddRows = False
+        Me.GRID.AllowUserToDeleteRows = False
+        Me.GRID.AllowUserToOrderColumns = True
+        Me.GRID.AllowUserToResizeColumns = False
+        Me.GRID.AllowUserToResizeRows = False
+        Me.GRID.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.GRID.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.GRID.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.GRID.Location = New System.Drawing.Point(5, 18)
+        Me.GRID.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GRID.MultiSelect = False
+        Me.GRID.Name = "GRID"
+        Me.GRID.RowHeadersVisible = False
+        Me.GRID.RowHeadersWidth = 51
+        Me.GRID.RowTemplate.Height = 24
+        Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.GRID.Size = New System.Drawing.Size(450, 224)
+        Me.GRID.TabIndex = 1
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.BTN_ACEPTAR_EXO)
+        Me.GroupBox4.Controls.Add(Me.GroupBox5)
+        Me.GroupBox4.Controls.Add(Me.TXT_PORCENTAJE)
+        Me.GroupBox4.Controls.Add(Me.Label13)
+        Me.GroupBox4.Controls.Add(Me.DTPFECHA)
+        Me.GroupBox4.Controls.Add(Me.Label12)
+        Me.GroupBox4.Controls.Add(Me.TXT_NOMRE_INSTITUCION)
+        Me.GroupBox4.Controls.Add(Me.Label11)
+        Me.GroupBox4.Controls.Add(Me.TXT_EXO_NUMERO)
+        Me.GroupBox4.Controls.Add(Me.Label10)
+        Me.GroupBox4.Controls.Add(Me.Label9)
+        Me.GroupBox4.Controls.Add(Me.CMB_TIPO)
+        Me.GroupBox4.Location = New System.Drawing.Point(7, 17)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(460, 217)
+        Me.GroupBox4.TabIndex = 0
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Información"
+        '
+        'GroupBox5
+        '
+        Me.GroupBox5.Controls.Add(Me.RB_EXO_INACTIVO)
+        Me.GroupBox5.Controls.Add(Me.RB_EXO_ACTIVO)
+        Me.GroupBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox5.Location = New System.Drawing.Point(274, 107)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(180, 53)
+        Me.GroupBox5.TabIndex = 10
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "Estado"
+        '
+        'RB_EXO_INACTIVO
+        '
+        Me.RB_EXO_INACTIVO.AutoSize = True
+        Me.RB_EXO_INACTIVO.Location = New System.Drawing.Point(76, 21)
+        Me.RB_EXO_INACTIVO.Name = "RB_EXO_INACTIVO"
+        Me.RB_EXO_INACTIVO.Size = New System.Drawing.Size(72, 20)
+        Me.RB_EXO_INACTIVO.TabIndex = 1
+        Me.RB_EXO_INACTIVO.TabStop = True
+        Me.RB_EXO_INACTIVO.Text = "Inactivo"
+        Me.RB_EXO_INACTIVO.UseVisualStyleBackColor = True
+        '
+        'RB_EXO_ACTIVO
+        '
+        Me.RB_EXO_ACTIVO.AutoSize = True
+        Me.RB_EXO_ACTIVO.Checked = True
+        Me.RB_EXO_ACTIVO.Location = New System.Drawing.Point(7, 20)
+        Me.RB_EXO_ACTIVO.Name = "RB_EXO_ACTIVO"
+        Me.RB_EXO_ACTIVO.Size = New System.Drawing.Size(63, 20)
+        Me.RB_EXO_ACTIVO.TabIndex = 0
+        Me.RB_EXO_ACTIVO.TabStop = True
+        Me.RB_EXO_ACTIVO.Text = "Activo"
+        Me.RB_EXO_ACTIVO.UseVisualStyleBackColor = True
+        '
+        'TXT_PORCENTAJE
+        '
+        Me.TXT_PORCENTAJE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TXT_PORCENTAJE.Location = New System.Drawing.Point(113, 135)
+        Me.TXT_PORCENTAJE.MaxLength = 2
+        Me.TXT_PORCENTAJE.Multiline = True
+        Me.TXT_PORCENTAJE.Name = "TXT_PORCENTAJE"
+        Me.TXT_PORCENTAJE.Size = New System.Drawing.Size(98, 24)
+        Me.TXT_PORCENTAJE.TabIndex = 9
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.ForeColor = System.Drawing.Color.Black
+        Me.Label13.Location = New System.Drawing.Point(25, 138)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(87, 18)
+        Me.Label13.TabIndex = 8
+        Me.Label13.Text = "Porcentaje :"
+        '
+        'DTPFECHA
+        '
+        Me.DTPFECHA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
+        Me.DTPFECHA.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPFECHA.Location = New System.Drawing.Point(113, 107)
+        Me.DTPFECHA.Name = "DTPFECHA"
+        Me.DTPFECHA.Size = New System.Drawing.Size(156, 22)
+        Me.DTPFECHA.TabIndex = 7
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.ForeColor = System.Drawing.Color.Black
+        Me.Label12.Location = New System.Drawing.Point(55, 109)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(57, 18)
+        Me.Label12.TabIndex = 6
+        Me.Label12.Text = "Fecha :"
+        '
+        'TXT_NOMRE_INSTITUCION
+        '
+        Me.TXT_NOMRE_INSTITUCION.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TXT_NOMRE_INSTITUCION.Location = New System.Drawing.Point(113, 77)
+        Me.TXT_NOMRE_INSTITUCION.Multiline = True
+        Me.TXT_NOMRE_INSTITUCION.Name = "TXT_NOMRE_INSTITUCION"
+        Me.TXT_NOMRE_INSTITUCION.Size = New System.Drawing.Size(341, 24)
+        Me.TXT_NOMRE_INSTITUCION.TabIndex = 5
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.ForeColor = System.Drawing.Color.Black
+        Me.Label11.Location = New System.Drawing.Point(42, 80)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(70, 18)
+        Me.Label11.TabIndex = 4
+        Me.Label11.Text = "Nombre :"
+        '
+        'TXT_EXO_NUMERO
+        '
+        Me.TXT_EXO_NUMERO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TXT_EXO_NUMERO.Location = New System.Drawing.Point(113, 47)
+        Me.TXT_EXO_NUMERO.Multiline = True
+        Me.TXT_EXO_NUMERO.Name = "TXT_EXO_NUMERO"
+        Me.TXT_EXO_NUMERO.Size = New System.Drawing.Size(341, 24)
+        Me.TXT_EXO_NUMERO.TabIndex = 3
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.ForeColor = System.Drawing.Color.Black
+        Me.Label10.Location = New System.Drawing.Point(6, 50)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(106, 18)
+        Me.Label10.TabIndex = 2
+        Me.Label10.Text = "Documento # :"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.ForeColor = System.Drawing.Color.Black
+        Me.Label9.Location = New System.Drawing.Point(67, 18)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(45, 18)
+        Me.Label9.TabIndex = 0
+        Me.Label9.Text = "Tipo :"
+        '
+        'CMB_TIPO
+        '
+        Me.CMB_TIPO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CMB_TIPO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CMB_TIPO.FormattingEnabled = True
+        Me.CMB_TIPO.Items.AddRange(New Object() {"01 -Compras autorizadas ", "04 -Exenciones Dirección General de Hacienda"})
+        Me.CMB_TIPO.Location = New System.Drawing.Point(113, 15)
+        Me.CMB_TIPO.Name = "CMB_TIPO"
+        Me.CMB_TIPO.Size = New System.Drawing.Size(341, 24)
+        Me.CMB_TIPO.TabIndex = 1
+        '
+        'BTN_BUSCAR
+        '
+        Me.BTN_BUSCAR.Image = Global.VentaRepuestos.My.Resources.Resources.consultas
+        Me.BTN_BUSCAR.Location = New System.Drawing.Point(350, 52)
+        Me.BTN_BUSCAR.Name = "BTN_BUSCAR"
+        Me.BTN_BUSCAR.Size = New System.Drawing.Size(39, 40)
+        Me.BTN_BUSCAR.TabIndex = 4
+        Me.BTN_BUSCAR.UseVisualStyleBackColor = True
+        '
+        'BTN_ACEPTAR_EXO
+        '
+        Me.BTN_ACEPTAR_EXO.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_ACEPTAR_EXO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_ACEPTAR_EXO.Image = CType(resources.GetObject("BTN_ACEPTAR_EXO.Image"), System.Drawing.Image)
+        Me.BTN_ACEPTAR_EXO.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_ACEPTAR_EXO.Location = New System.Drawing.Point(355, 166)
+        Me.BTN_ACEPTAR_EXO.Name = "BTN_ACEPTAR_EXO"
+        Me.BTN_ACEPTAR_EXO.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_ACEPTAR_EXO.TabIndex = 11
+        Me.BTN_ACEPTAR_EXO.Text = "Aplicar"
+        Me.BTN_ACEPTAR_EXO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_ACEPTAR_EXO.UseVisualStyleBackColor = False
+        '
         'BTN_SALIR
         '
         Me.BTN_SALIR.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(362, 483)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(383, 528)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 0
@@ -446,7 +709,7 @@ Partial Class ClienteMant
         Me.BTN_ACEPTAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_ACEPTAR.Image = CType(resources.GetObject("BTN_ACEPTAR.Image"), System.Drawing.Image)
         Me.BTN_ACEPTAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(263, 483)
+        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(284, 528)
         Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
         Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_ACEPTAR.TabIndex = 2
@@ -458,11 +721,11 @@ Partial Class ClienteMant
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(478, 529)
+        Me.ClientSize = New System.Drawing.Size(487, 575)
         Me.ControlBox = False
+        Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.BTN_ACEPTAR)
-        Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Name = "ClienteMant"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -473,6 +736,15 @@ Partial Class ClienteMant
         Me.GroupBox2.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
+        Me.TabControl1.ResumeLayout(False)
+        Me.TabPage1.ResumeLayout(False)
+        Me.TabPage2.ResumeLayout(False)
+        Me.GroupBox6.ResumeLayout(False)
+        CType(Me.GRID, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
+        Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox5.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -512,4 +784,24 @@ Partial Class ClienteMant
     Friend WithEvents LBL_CANTO As Label
     Friend WithEvents CMB_PROVINCIA As ComboBox
     Friend WithEvents LBL_PROVINCIA As Label
+    Friend WithEvents TabControl1 As TabControl
+    Friend WithEvents TabPage1 As TabPage
+    Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents CMB_TIPO As ComboBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Label10 As Label
+    Friend WithEvents TXT_EXO_NUMERO As TextBox
+    Friend WithEvents Label11 As Label
+    Friend WithEvents TXT_NOMRE_INSTITUCION As TextBox
+    Friend WithEvents Label12 As Label
+    Friend WithEvents DTPFECHA As DateTimePicker
+    Friend WithEvents TXT_PORCENTAJE As TextBox
+    Friend WithEvents Label13 As Label
+    Friend WithEvents GroupBox5 As GroupBox
+    Friend WithEvents RB_EXO_INACTIVO As RadioButton
+    Friend WithEvents RB_EXO_ACTIVO As RadioButton
+    Friend WithEvents BTN_ACEPTAR_EXO As Button
+    Friend WithEvents GroupBox6 As GroupBox
+    Friend WithEvents GRID As DataGridView
 End Class

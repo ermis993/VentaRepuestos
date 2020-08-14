@@ -45,6 +45,8 @@ Partial Class SucursalMant
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TXT_RUTA_TIQUETE = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.TXT_TELEFONO2 = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBox2.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -130,7 +132,7 @@ Partial Class SucursalMant
         Me.TXT_TELEFONO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
         Me.TXT_TELEFONO.Location = New System.Drawing.Point(94, 151)
         Me.TXT_TELEFONO.Margin = New System.Windows.Forms.Padding(2)
-        Me.TXT_TELEFONO.MaxLength = 8
+        Me.TXT_TELEFONO.MaxLength = 19
         Me.TXT_TELEFONO.Name = "TXT_TELEFONO"
         Me.TXT_TELEFONO.Size = New System.Drawing.Size(141, 22)
         Me.TXT_TELEFONO.TabIndex = 7
@@ -155,7 +157,7 @@ Partial Class SucursalMant
         Me.TXT_CORREO.MaxLength = 150
         Me.TXT_CORREO.Name = "TXT_CORREO"
         Me.TXT_CORREO.Size = New System.Drawing.Size(363, 22)
-        Me.TXT_CORREO.TabIndex = 9
+        Me.TXT_CORREO.TabIndex = 11
         '
         'Label4
         '
@@ -166,7 +168,7 @@ Partial Class SucursalMant
         Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(59, 18)
-        Me.Label4.TabIndex = 8
+        Me.Label4.TabIndex = 10
         Me.Label4.Text = "Correo:"
         '
         'GroupBox2
@@ -177,7 +179,7 @@ Partial Class SucursalMant
         Me.GroupBox2.Location = New System.Drawing.Point(94, 210)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(362, 48)
-        Me.GroupBox2.TabIndex = 10
+        Me.GroupBox2.TabIndex = 12
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Estado"
         '
@@ -230,6 +232,8 @@ Partial Class SucursalMant
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.TXT_TELEFONO2)
+        Me.TabPage1.Controls.Add(Me.Label7)
         Me.TabPage1.Controls.Add(Me.GroupBox2)
         Me.TabPage1.Controls.Add(Me.TXT_CORREO)
         Me.TabPage1.Controls.Add(Me.Label4)
@@ -300,6 +304,28 @@ Partial Class SucursalMant
         Me.Label5.TabIndex = 0
         Me.Label5.Text = "Ruta impresión tiquete :"
         '
+        'TXT_TELEFONO2
+        '
+        Me.TXT_TELEFONO2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
+        Me.TXT_TELEFONO2.Location = New System.Drawing.Point(315, 151)
+        Me.TXT_TELEFONO2.Margin = New System.Windows.Forms.Padding(2)
+        Me.TXT_TELEFONO2.MaxLength = 19
+        Me.TXT_TELEFONO2.Name = "TXT_TELEFONO2"
+        Me.TXT_TELEFONO2.Size = New System.Drawing.Size(141, 22)
+        Me.TXT_TELEFONO2.TabIndex = 9
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label7.ForeColor = System.Drawing.Color.Black
+        Me.Label7.Location = New System.Drawing.Point(239, 153)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(70, 18)
+        Me.Label7.TabIndex = 8
+        Me.Label7.Text = "Teléfono:"
+        '
         'SucursalMant
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -347,4 +373,6 @@ Partial Class SucursalMant
     Friend WithEvents TXT_RUTA_TIQUETE As TextBox
     Friend WithEvents Label6 As Label
     Friend WithEvents TXT_ANCHO_PAPEL As TextBox
+    Friend WithEvents TXT_TELEFONO2 As TextBox
+    Friend WithEvents Label7 As Label
 End Class

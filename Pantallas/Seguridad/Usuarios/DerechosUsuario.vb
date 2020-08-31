@@ -4,108 +4,49 @@ Imports VentaRepuestos.Globales
 Public Class DerechosUsuario
     Dim COD_USUARIO As String = ""
     Public Shared DT_SISTEMAS As New DataTable
-    Sub New(ByVal COD_USUARIO As String)
+    Sub New(Optional ByVal COD_USUARIO As String = "")
         InitializeComponent()
         Me.COD_USUARIO = COD_USUARIO
     End Sub
     Private Sub DerechosUsuario_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        CARGAR_CHECK_BOXES()
         LVCon.Columns.Add("Lista de derechos", 321)
         LVSin.Columns.Add("Lista de derechos", 321)
         INICIAR_DT()
+        Cargar_Derechos()
     End Sub
-    Private Sub CARGAR_CHECK_BOXES()
+
+    Public Sub Cargar_Derechos()
         Try
-            Dim SQL = "	SELECT DISTINCT(COD_SISTEMA) AS COD_SISTEMA FROM SEGU_DERECHO ORDER BY COD_SISTEMA ASC"
+            LVCon.Items.Clear()
+            LVSin.Items.Clear()
+
+            Dim SQL = "	SELECT D.COD_DERECHO,D.DESCRIPCION, CASE WHEN ISNULL(U.COD_USUARIO,'')='' THEN 'N' ELSE 'S' END AS CONTIENE "
+            SQL &= Chr(13) & "	FROM SEGU_DERECHO AS D"
+            SQL &= Chr(13) & "	LEFT JOIN USUARIO_DERECHO AS U"
+            SQL &= Chr(13) & "	ON D.COD_DERECHO = U.COD_DERECHO"
+            SQL &= Chr(13) & "	AND U.COD_CIA= " & SCM(COD_CIA)
+            SQL &= Chr(13) & "	AND U.COD_USUARIO= " & SCM(COD_USUARIO)
+            SQL &= Chr(13) & "  WHERE D.ESTADO = 'A'"
+
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)
             CONX.Coneccion_Cerrar()
 
             If DS.Tables(0).Rows.Count > 0 Then
-
-                Dim LARGO = 12
-                Dim ALTO = 12
-                Dim CANTIDAD_EN_LINEA = 0
-
                 For Each ITEM In DS.Tables(0).Rows
-
-                    If CANTIDAD_EN_LINEA = 5 Then
-                        ALTO += 40
-                        LARGO = 12
-                        CANTIDAD_EN_LINEA = 0
-                    End If
-
-                    Dim checkBox = New CheckBox()
-                    checkBox.Location = New Point(LARGO, ALTO)
-                    checkBox.Text = ITEM("COD_SISTEMA")
-                    checkBox.Tag = ITEM("COD_SISTEMA")
-                    checkBox.Size = New Size(100, 20)
-                    AddHandler checkBox.CheckedChanged, AddressOf CBX_CheckedChanged
-                    Controls.Add(checkBox)
-                    LARGO += 124
-                    CANTIDAD_EN_LINEA += 1
-                Next
-            End If
-        Catch ex As Exception
-
-        End Try
-    End Sub
-    Private Sub CBX_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs)
-        Try
-            Dim CHK As CheckBox = DirectCast(sender, CheckBox) 'Use DirectCast to cast the sender into a checkbox
-
-            If CHK.Checked = True Then
-                Dim SQL = "	SELECT D.COD_SISTEMA,D.COD_DERECHO,D.DESCRIPCION, CASE WHEN ISNULL(U.COD_USUARIO,'')='' THEN 'N' ELSE 'S' END AS CONTIENE "
-                SQL &= Chr(13) & "	FROM SEGU_DERECHO AS D"
-                SQL &= Chr(13) & "	LEFT JOIN USUARIO_DERECHO AS U"
-                SQL &= Chr(13) & "	ON D.COD_DERECHO = U.COD_DERECHO"
-                SQL &= Chr(13) & "	AND U.COD_CIA= " & SCM(COD_CIA)
-                SQL &= Chr(13) & "	AND U.COD_USUARIO= " & SCM(COD_USUARIO)
-                SQL &= Chr(13) & "	WHERE D.COD_SISTEMA = " & SCM(CHK.Text)
-
-                CONX.Coneccion_Abrir()
-                Dim DS = CONX.EJECUTE_DS(SQL)
-                CONX.Coneccion_Cerrar()
-
-                If DS.Tables(0).Rows.Count > 0 Then
-                    AGREGAR_A_DT(CHK.Text)
-                    For Each ITEM In DS.Tables(0).Rows
-
-                        Dim LVI As New ListViewItem
-                        If ITEM("CONTIENE") = "S" Then
-                            LVI.Text = ITEM("DESCRIPCION")
-                            LVI.Name = ITEM("COD_DERECHO")
-                            LVI.Tag = ITEM("COD_SISTEMA")
-                            LVCon.Items.Add(LVI)
-                        Else
-                            LVI.Text = ITEM("DESCRIPCION")
-                            LVI.Name = ITEM("COD_DERECHO")
-                            LVI.Tag = ITEM("COD_SISTEMA")
-                            LVSin.Items.Add(LVI)
-                        End If
-                    Next
-                End If
-            Else
-                'ELIMINAR  DE LISTA SIN
-                For Each LVI In LVSin.Items
-                    If LVI.TAG = CHK.Text.ToString Then
-                        LVSin.Items.Remove(LVI)
-                    End If
-                Next
-                'ELIMINAR DE LISTA CON
-                For Each LVI In LVCon.Items
-                    If LVI.TAG = CHK.Text.ToString Then
-                        LVCon.Items.Remove(LVI)
-                    End If
-                Next
-
-                For Each FILA In DT_SISTEMAS.Rows
-                    If FILA("SISTEMA") = CHK.Text.ToString Then
-                        DT_SISTEMAS.Rows.Remove(FILA)
-                        Exit For
+                    Dim LVI As New ListViewItem
+                    If ITEM("CONTIENE") = "S" Then
+                        LVI.Text = ITEM("DESCRIPCION")
+                        LVI.Name = ITEM("COD_DERECHO")
+                        LVCon.Items.Add(LVI)
+                    Else
+                        LVI.Text = ITEM("DESCRIPCION")
+                        LVI.Name = ITEM("COD_DERECHO")
+                        LVSin.Items.Add(LVI)
                     End If
                 Next
             End If
+
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -116,36 +57,16 @@ Public Class DerechosUsuario
     Public Shared Sub INICIAR_DT()
         Try
             DT_SISTEMAS = New DataTable
-            DT_SISTEMAS.Columns.Add(New DataColumn("SISTEMA", System.Type.GetType("System.String")))
+            DT_SISTEMAS.Columns.Add(New DataColumn("COD_DERECHO", System.Type.GetType("System.String")))
 
             Dim PK(1) As DataColumn
-            PK(1) = DT_SISTEMAS.Columns("SISTEMA")
+            PK(1) = DT_SISTEMAS.Columns("COD_DERECHO")
             DT_SISTEMAS.PrimaryKey = PK
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-    Public Sub AGREGAR_A_DT(ByVal SISTEMA As String)
-        Try
-            Dim ENTRAR As Boolean = True
-            If DT_SISTEMAS.Rows.Count > 0 Then
-                For Each FILA As DataRow In DT_SISTEMAS.Rows
-                    Dim SYS = FILA("SISTEMA")
-                    If SISTEMA.ToString.Equals(SYS) Then
-                        ENTRAR = False
-                    End If
-                Next
-            End If
-            If ENTRAR Then
-                Dim ROW As DataRow
-                ROW = DT_SISTEMAS.NewRow()
-                ROW("SISTEMA") = SISTEMA
-                DT_SISTEMAS.Rows.Add(ROW)
-            End If
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-        End Try
-    End Sub
+
     Private Sub LVSin_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles LVSin.MouseDoubleClick
         Try
             If Not LVSin.FocusedItem Is Nothing Then
@@ -303,6 +224,15 @@ Public Class DerechosUsuario
                 LVSin.Items(0).Selected = True
                 LVSin.Items(0).Focused = True
             Next
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_INCLUIR_Click(sender As Object, e As EventArgs) Handles BTN_INCLUIR.Click
+        Try
+            Dim PANTALLA As New DerechosUsuarioMant(Me)
+            PANTALLA.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

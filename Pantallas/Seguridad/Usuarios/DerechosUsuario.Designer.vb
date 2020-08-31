@@ -27,6 +27,7 @@ Partial Class DerechosUsuario
         Me.LVCon = New System.Windows.Forms.ListView()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.LVSin = New System.Windows.Forms.ListView()
+        Me.BTN_INCLUIR = New System.Windows.Forms.Button()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.TODOS_SIN = New System.Windows.Forms.Button()
@@ -93,6 +94,20 @@ Partial Class DerechosUsuario
         Me.LVSin.TabIndex = 0
         Me.LVSin.UseCompatibleStateImageBehavior = False
         Me.LVSin.View = System.Windows.Forms.View.Details
+        '
+        'BTN_INCLUIR
+        '
+        Me.BTN_INCLUIR.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_INCLUIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_INCLUIR.Image = Global.VentaRepuestos.My.Resources.Resources.agregar
+        Me.BTN_INCLUIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_INCLUIR.Location = New System.Drawing.Point(3, 2)
+        Me.BTN_INCLUIR.Name = "BTN_INCLUIR"
+        Me.BTN_INCLUIR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_INCLUIR.TabIndex = 35
+        Me.BTN_INCLUIR.Text = "Agregar"
+        Me.BTN_INCLUIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_INCLUIR.UseVisualStyleBackColor = False
         '
         'BTN_ACEPTAR
         '
@@ -184,6 +199,7 @@ Partial Class DerechosUsuario
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(671, 479)
         Me.ControlBox = False
+        Me.Controls.Add(Me.BTN_INCLUIR)
         Me.Controls.Add(Me.BTN_ACEPTAR)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.TODOS_SIN)
@@ -195,7 +211,7 @@ Partial Class DerechosUsuario
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Name = "DerechosUsuario"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "DerechosUsuario"
+        Me.Text = "Usuario derechos"
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.ResumeLayout(False)
@@ -212,4 +228,5 @@ Partial Class DerechosUsuario
     Friend WithEvents TODOS_SIN As Button
     Friend WithEvents BTN_SALIR As Button
     Friend WithEvents BTN_ACEPTAR As Button
+    Friend WithEvents BTN_INCLUIR As Button
 End Class

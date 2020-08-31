@@ -70,6 +70,8 @@ Public Class SucursalMant
                 SQL &= Chr(13) & ",@ESTADO=" & SCM(Estado)
                 SQL &= Chr(13) & ",@RUTA_TIQUETE=" & SCM(TXT_RUTA_TIQUETE.Text)
                 SQL &= Chr(13) & ",@ANCHO_TIQUETE=" & Val(TXT_ANCHO_PAPEL.Text)
+                SQL &= Chr(13) & ",@RUTA_ETIQUETA=" & SCM(TXT_RUTA_ETIQUETA.Text)
+                SQL &= Chr(13) & ",@ANCHO_ETIQUETA=" & Val(TXT_ANCHO_PAPEL_ETIQUETA.Text)
                 SQL &= Chr(13) & ",@MODO=" & Val(Me.MODO)
 
                 CONX.Coneccion_Abrir()
@@ -113,6 +115,8 @@ Public Class SucursalMant
                     TXT_TELEFONO2.Text = ITEM("TELEFONO_2")
                     TXT_RUTA_TIQUETE.Text = ITEM("IMPRESION_TIQUETE")
                     TXT_ANCHO_PAPEL.Text = ITEM("ANCHO_TIQUETE")
+                    TXT_RUTA_ETIQUETA.Text = ITEM("IMPRESION_ETIQUETA")
+                    TXT_ANCHO_PAPEL_ETIQUETA.Text = ITEM("ANCHO_ETIQUETA")
 
                     If ITEM("ESTADO") = "A" Then
                         RB_ACTIVA.Checked = True

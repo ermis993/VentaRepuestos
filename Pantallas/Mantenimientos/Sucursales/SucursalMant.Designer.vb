@@ -40,17 +40,25 @@ Partial Class SucursalMant
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.TXT_TELEFONO2 = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.TXT_ANCHO_PAPEL = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TXT_RUTA_TIQUETE = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.TXT_TELEFONO2 = New System.Windows.Forms.TextBox()
-        Me.Label7 = New System.Windows.Forms.Label()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.TXT_RUTA_ETIQUETA = New System.Windows.Forms.TextBox()
+        Me.TXT_ANCHO_PAPEL_ETIQUETA = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.GroupBox2.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
         Me.SuspendLayout()
         '
         'BTN_SALIR
@@ -253,57 +261,6 @@ Partial Class SucursalMant
         Me.TabPage1.Text = "[ Información general ]"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
-        'TabPage2
-        '
-        Me.TabPage2.Controls.Add(Me.TXT_ANCHO_PAPEL)
-        Me.TabPage2.Controls.Add(Me.Label6)
-        Me.TabPage2.Controls.Add(Me.TXT_RUTA_TIQUETE)
-        Me.TabPage2.Controls.Add(Me.Label5)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(468, 271)
-        Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "[ Impresión ]"
-        Me.TabPage2.UseVisualStyleBackColor = True
-        '
-        'TXT_ANCHO_PAPEL
-        '
-        Me.TXT_ANCHO_PAPEL.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_ANCHO_PAPEL.Location = New System.Drawing.Point(179, 37)
-        Me.TXT_ANCHO_PAPEL.MaxLength = 3
-        Me.TXT_ANCHO_PAPEL.Name = "TXT_ANCHO_PAPEL"
-        Me.TXT_ANCHO_PAPEL.Size = New System.Drawing.Size(100, 24)
-        Me.TXT_ANCHO_PAPEL.TabIndex = 3
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label6.Location = New System.Drawing.Point(28, 40)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(144, 18)
-        Me.Label6.TabIndex = 2
-        Me.Label6.Text = "Ancho papel tiquete :"
-        '
-        'TXT_RUTA_TIQUETE
-        '
-        Me.TXT_RUTA_TIQUETE.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_RUTA_TIQUETE.Location = New System.Drawing.Point(179, 10)
-        Me.TXT_RUTA_TIQUETE.Name = "TXT_RUTA_TIQUETE"
-        Me.TXT_RUTA_TIQUETE.Size = New System.Drawing.Size(282, 24)
-        Me.TXT_RUTA_TIQUETE.TabIndex = 1
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label5.Location = New System.Drawing.Point(9, 13)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(163, 18)
-        Me.Label5.TabIndex = 0
-        Me.Label5.Text = "Ruta impresión tiquete :"
-        '
         'TXT_TELEFONO2
         '
         Me.TXT_TELEFONO2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
@@ -326,6 +283,118 @@ Partial Class SucursalMant
         Me.Label7.TabIndex = 8
         Me.Label7.Text = "Teléfono:"
         '
+        'TabPage2
+        '
+        Me.TabPage2.Controls.Add(Me.GroupBox3)
+        Me.TabPage2.Controls.Add(Me.GroupBox1)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage2.Size = New System.Drawing.Size(468, 271)
+        Me.TabPage2.TabIndex = 1
+        Me.TabPage2.Text = "[ Impresión ]"
+        Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'TXT_ANCHO_PAPEL
+        '
+        Me.TXT_ANCHO_PAPEL.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_ANCHO_PAPEL.Location = New System.Drawing.Point(177, 46)
+        Me.TXT_ANCHO_PAPEL.MaxLength = 3
+        Me.TXT_ANCHO_PAPEL.Name = "TXT_ANCHO_PAPEL"
+        Me.TXT_ANCHO_PAPEL.Size = New System.Drawing.Size(100, 24)
+        Me.TXT_ANCHO_PAPEL.TabIndex = 3
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label6.Location = New System.Drawing.Point(26, 49)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(144, 18)
+        Me.Label6.TabIndex = 2
+        Me.Label6.Text = "Ancho papel tiquete :"
+        '
+        'TXT_RUTA_TIQUETE
+        '
+        Me.TXT_RUTA_TIQUETE.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_RUTA_TIQUETE.Location = New System.Drawing.Point(177, 19)
+        Me.TXT_RUTA_TIQUETE.Name = "TXT_RUTA_TIQUETE"
+        Me.TXT_RUTA_TIQUETE.Size = New System.Drawing.Size(272, 24)
+        Me.TXT_RUTA_TIQUETE.TabIndex = 1
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label5.Location = New System.Drawing.Point(7, 22)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(163, 18)
+        Me.Label5.TabIndex = 0
+        Me.Label5.Text = "Ruta impresión tiquete :"
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.TXT_RUTA_TIQUETE)
+        Me.GroupBox1.Controls.Add(Me.TXT_ANCHO_PAPEL)
+        Me.GroupBox1.Controls.Add(Me.Label5)
+        Me.GroupBox1.Controls.Add(Me.Label6)
+        Me.GroupBox1.Location = New System.Drawing.Point(6, 6)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(455, 100)
+        Me.GroupBox1.TabIndex = 4
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "[ Impresora tiquetes ]"
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.TXT_RUTA_ETIQUETA)
+        Me.GroupBox3.Controls.Add(Me.TXT_ANCHO_PAPEL_ETIQUETA)
+        Me.GroupBox3.Controls.Add(Me.Label8)
+        Me.GroupBox3.Controls.Add(Me.Label9)
+        Me.GroupBox3.Location = New System.Drawing.Point(7, 112)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(455, 100)
+        Me.GroupBox3.TabIndex = 5
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "[ Impresora etiquetas ]"
+        '
+        'TXT_RUTA_ETIQUETA
+        '
+        Me.TXT_RUTA_ETIQUETA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_RUTA_ETIQUETA.Location = New System.Drawing.Point(177, 19)
+        Me.TXT_RUTA_ETIQUETA.Name = "TXT_RUTA_ETIQUETA"
+        Me.TXT_RUTA_ETIQUETA.Size = New System.Drawing.Size(272, 24)
+        Me.TXT_RUTA_ETIQUETA.TabIndex = 1
+        '
+        'TXT_ANCHO_PAPEL_ETIQUETA
+        '
+        Me.TXT_ANCHO_PAPEL_ETIQUETA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_ANCHO_PAPEL_ETIQUETA.Location = New System.Drawing.Point(177, 46)
+        Me.TXT_ANCHO_PAPEL_ETIQUETA.MaxLength = 3
+        Me.TXT_ANCHO_PAPEL_ETIQUETA.Name = "TXT_ANCHO_PAPEL_ETIQUETA"
+        Me.TXT_ANCHO_PAPEL_ETIQUETA.Size = New System.Drawing.Size(100, 24)
+        Me.TXT_ANCHO_PAPEL_ETIQUETA.TabIndex = 3
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label8.Location = New System.Drawing.Point(7, 22)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(171, 18)
+        Me.Label8.TabIndex = 0
+        Me.Label8.Text = "Ruta impresión etiqueta :"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label9.Location = New System.Drawing.Point(26, 49)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(152, 18)
+        Me.Label9.TabIndex = 2
+        Me.Label9.Text = "Ancho papel etiqueta :"
+        '
         'SucursalMant
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -346,7 +415,10 @@ Partial Class SucursalMant
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
-        Me.TabPage2.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -375,4 +447,10 @@ Partial Class SucursalMant
     Friend WithEvents TXT_ANCHO_PAPEL As TextBox
     Friend WithEvents TXT_TELEFONO2 As TextBox
     Friend WithEvents Label7 As Label
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents TXT_RUTA_ETIQUETA As TextBox
+    Friend WithEvents TXT_ANCHO_PAPEL_ETIQUETA As TextBox
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Label9 As Label
 End Class

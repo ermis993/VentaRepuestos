@@ -26,7 +26,7 @@ Public Class Reportes
                                 SQL &= Chr(13) & "		AND DOC_ELEC.NUMERO_DOC = ENC.NUMERO_DOC "
                                 SQL &= Chr(13) & "		AND DOC_ELEC.TIPO_MOV = ENC.TIPO_MOV "
                                 SQL &= Chr(13) & "	WHERE ENC.COD_CIA = " & SCM(COD_CIA)
-                                SQL &= Chr(13) & "	AND ENC.COD_SUCUR = " & SCM(COD_SUCUR)
+                                'SQL &= Chr(13) & "	AND ENC.COD_SUCUR = " & SCM(COD_SUCUR)
                                 SQL &= Chr(13) & "	AND ENC.FECHA BETWEEN " & SCM(YMD(DTP_INICIO.Value)) & " AND " & SCM(YMD(DTP_FINAL.Value))
                                 SQL &= Chr(13) & "	AND ENC.TIPO_MOV IN ('FA', 'FC', 'NC', 'ND') "
                                 SQL &= Chr(13) & "	ORDER BY ENC.FECHA ASC	"
@@ -95,7 +95,7 @@ Public Class Reportes
                                 SQL &= Chr(13) & " And PROV.COD_SUCUR = CXP.COD_SUCUR"
                                 SQL &= Chr(13) & "		AND PROV.CEDULA = CXP.CEDULA"
                                 SQL &= Chr(13) & "	WHERE CXP.COD_CIA = " & SCM(COD_CIA)
-                                SQL &= Chr(13) & "	AND CXP.COD_SUCUR = " & SCM(COD_SUCUR)
+                                'SQL &= Chr(13) & "	AND CXP.COD_SUCUR = " & SCM(COD_SUCUR)
                                 SQL &= Chr(13) & "	AND CXP.FECHA BETWEEN " & SCM(YMD(DTP_INICIO.Value)) & " AND " & SCM(YMD(DTP_FINAL.Value))
                                 SQL &= Chr(13) & "	AND CXP.TIPO_MOV IN ('FA', 'FC', 'NC', 'ND') "
                                 SQL &= Chr(13) & "	ORDER BY CXP.FECHA ASC	"

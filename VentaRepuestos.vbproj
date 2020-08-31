@@ -109,6 +109,8 @@
     </Compile>
     <Compile Include="Globales\Globales.vb" />
     <Compile Include="Globales\Impresion.vb" />
+    <Compile Include="Globales\Printer.vb" />
+    <Compile Include="Globales\PrintFormat.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -335,6 +337,12 @@
     <Compile Include="Pantallas\Seguridad\Usuarios\DerechosUsuario.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pantallas\Seguridad\Usuarios\DerechosUsuarioMant.Designer.vb">
+      <DependentUpon>DerechosUsuarioMant.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Seguridad\Usuarios\DerechosUsuarioMant.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pantallas\Seguridad\Usuarios\Usuario.Designer.vb">
       <DependentUpon>Usuario.vb</DependentUpon>
     </Compile>
@@ -467,6 +475,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Seguridad\Usuarios\DerechosUsuario.resx">
       <DependentUpon>DerechosUsuario.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Seguridad\Usuarios\DerechosUsuarioMant.resx">
+      <DependentUpon>DerechosUsuarioMant.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Seguridad\Usuarios\Usuario.resx">
       <DependentUpon>Usuario.vb</DependentUpon>

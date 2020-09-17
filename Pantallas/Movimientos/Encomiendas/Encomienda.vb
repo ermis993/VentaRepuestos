@@ -38,15 +38,13 @@ Public Class Encomienda
                 SQL &= Chr(13) & "	FROM DOCUMENTO_GUIA AS GUIA	"
                 SQL &= Chr(13) & "	INNER JOIN CLIENTE AS CLI	"
                 SQL &= Chr(13) & "		ON CLI.COD_CIA = GUIA.COD_CIA"
-                SQL &= Chr(13) & " And CLI.CEDULA = GUIA.CEDULA"
+                SQL &= Chr(13) & "      AND CLI.CEDULA = GUIA.CEDULA"
                 SQL &= Chr(13) & "	INNER JOIN GUIA_UBICACION AS UBI_ORIGEN	"
                 SQL &= Chr(13) & "		ON UBI_ORIGEN.COD_CIA = GUIA.COD_CIA"
-                SQL &= Chr(13) & "		AND UBI_ORIGEN.COD_SUCUR = GUIA.COD_SUCUR"
-                SQL &= Chr(13) & " And UBI_ORIGEN.COD_UBICACION = GUIA.ORIGEN"
+                SQL &= Chr(13) & "      AND UBI_ORIGEN.COD_UBICACION = GUIA.ORIGEN"
                 SQL &= Chr(13) & "	INNER JOIN GUIA_UBICACION AS UBI_DESTINO	"
                 SQL &= Chr(13) & "		ON UBI_DESTINO.COD_CIA = GUIA.COD_CIA"
-                SQL &= Chr(13) & "		AND UBI_DESTINO.COD_SUCUR = GUIA.COD_SUCUR"
-                SQL &= Chr(13) & " And UBI_DESTINO.COD_UBICACION = GUIA.DESTINO"
+                SQL &= Chr(13) & "      AND UBI_DESTINO.COD_UBICACION = GUIA.DESTINO"
                 SQL &= Chr(13) & " WHERE GUIA.COD_CIA = " & SCM(COD_CIA)
                 SQL &= Chr(13) & " AND GUIA.COD_SUCUR = " & SCM(COD_SUCUR)
                 If CMB_FILTRO.SelectedIndex = 1 Then
@@ -154,6 +152,8 @@ Public Class Encomienda
                 GUIA = seleccionado.Cells(1).Value.ToString
                 ESTADO = seleccionado.Cells(6).Value.ToString.Substring(0, 1)
                 TIPO_MOV = seleccionado.Cells(8).Value.ToString
+            Else
+                ESTADO = ""
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -168,7 +168,7 @@ Public Class Encomienda
         Try
             Leer_indice()
             If ESTADO = "T" Then
-                Dim PANTALLA As New EncomiendaMant(Val(GUIA), "R", NUMERO_DOC, TIPO_MOV, Me)
+                Dim PANTALLA As New EncomiendaMant(GUIA, "R", NUMERO_DOC, TIPO_MOV, Me, "Recibida")
                 PANTALLA.ShowDialog()
             Else
                 MessageBox.Show("La encomienda debe de estar en estado de 'Transportando' para poder recibirla", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -182,7 +182,7 @@ Public Class Encomienda
         Try
             Leer_indice()
             If ESTADO = "R" Then
-                Dim PANTALLA As New EncomiendaMant(Val(GUIA), "E", NUMERO_DOC, TIPO_MOV, Me)
+                Dim PANTALLA As New EncomiendaMant(GUIA, "E", NUMERO_DOC, TIPO_MOV, Me, "Entregada")
                 PANTALLA.ShowDialog()
             Else
                 MessageBox.Show("La encomienda debe de estar en estado de 'Recibido' para poder entregar al cliente", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -196,7 +196,7 @@ Public Class Encomienda
         Try
             Leer_indice()
             If ESTADO = "P" Then
-                Dim PANTALLA As New EncomiendaMant(Val(GUIA), "T", NUMERO_DOC, TIPO_MOV, Me)
+                Dim PANTALLA As New EncomiendaMant(GUIA, "T", NUMERO_DOC, TIPO_MOV, Me, "Transporte")
                 PANTALLA.ShowDialog()
             Else
                 MessageBox.Show("La encomienda debe de estar en estado de 'Pendiente' para poder transportarla", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -210,8 +210,32 @@ Public Class Encomienda
         Try
             If Me.GRID.Rows.Count > 0 Then
                 Leer_indice()
-                Dim PANTALLA As New EncomiendaMant(Val(GUIA), "X", NUMERO_DOC, TIPO_MOV, Me)
+                Dim PANTALLA As New EncomiendaMant(GUIA, "X", NUMERO_DOC, TIPO_MOV, Me, "")
                 PANTALLA.ShowDialog()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_REPORTE_Click(sender As Object, e As EventArgs) Handles BTN_REPORTE.Click
+        Try
+            Dim PANTALLA As New EncomiendaReporte()
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles BTN_TODO.Click
+        Try
+            Dim mensaje As String = "Este proceso enviará a transporte todas las encomiendas pendientes en el rango de fechas digitado" & vbNewLine
+            mensaje = mensaje & " ¿Está seguro que desea hacerlo?" & vbNewLine
+            mensaje = mensaje & " (Este es un proceso irreversible)"
+
+            Dim valor = MessageBox.Show(Me, mensaje, Me.Text, vbYesNo, MessageBoxIcon.Question)
+            If valor = DialogResult.Yes Then
+
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

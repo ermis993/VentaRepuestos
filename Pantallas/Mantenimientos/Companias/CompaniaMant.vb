@@ -257,6 +257,7 @@ Public Class LBL_CANTON
             If MODO = CRF_Modos.Insertar Or MODO = CRF_Modos.Modificar Then
                 If VALIDAR() = True Then
                     EJECUTAR()
+
                     If IsNothing(CERTIFICADO) = False And TXT_PIN.Text <> "" Then
                         GUARDAR_CERTIFICADO()
                     End If
@@ -424,15 +425,45 @@ Public Class LBL_CANTON
 
             If MODO = CRF_Modos.Insertar Then
                 LIMPIAR_TODO()
+                Actualizar_Imagen_Compania()
                 MessageBox.Show("¡Compañía ingresada correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             ElseIf MODO = CRF_Modos.Modificar Then
                 Cerrar()
+                Actualizar_Imagen_Compania()
                 MessageBox.Show("¡Compañía modificada correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
+    Private Sub Actualizar_Imagen_Compania()
+        Try
+            Dim MS As New MemoryStream
+            PictureBox1.Image.Save(MS, PictureBox1.Image.RawFormat)
+
+            Dim COMANDO As New SqlCommand()
+            COMANDO.CommandType = CommandType.Text
+            Dim FOTO As New SqlParameter("@FOTO", SqlDbType.Image)
+            FOTO.Value = MS.ToArray()
+            Dim COMPANIA As New SqlParameter("@COD_CIA", SqlDbType.VarChar)
+            COMPANIA.Value = TXT_CODIGO.Text
+
+            COMANDO.CommandText = "UPDATE COMPANIA SET LOGO = @FOTO WHERE COD_CIA = @COD_CIA"
+            COMANDO.Parameters.Add(FOTO)
+            COMANDO.Parameters.Add(COMPANIA)
+
+            CONX.Coneccion_Abrir()
+            COMANDO.Connection = CONX.Connection
+            Dim AR = COMANDO.ExecuteReader()
+            AR.Close()
+            CONX.Coneccion_Cerrar()
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
     Private Sub Cerrar()
         Me.Close()
         PADRE.Refrescar()
@@ -535,5 +566,20 @@ Public Class LBL_CANTON
             LINK_FT.Text = "https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion"
             LINK_CONSULTAS.Text = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut-stag/protocol/openid-connect/token"
         End If
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Try
+            Dim OPF As New OpenFileDialog With {
+                .Filter = "Seleccionar Imagen(*.JPG;*.PNG;*.GIF)|*.jpg;*.png;*gif"
+            }
+
+            If OPF.ShowDialog = Windows.Forms.DialogResult.OK Then
+                PictureBox1.Image = Image.FromFile(OPF.FileName)
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 End Class

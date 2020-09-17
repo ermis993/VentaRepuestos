@@ -16,6 +16,7 @@ Public Class ProductoMant
 
         Buscador.TABLA_BUSCAR = "Proveedor"
         Buscador.CODIGO = "CEDULA"
+        Buscador.OTROS_CAMP0S = COD_SUCUR
         Buscador.DESCRIPCION = "NOMBRE"
         Buscador.PANTALLA = New Proveedor(CRF_Modos.Seleccionar, Buscador)
         Buscador.refrescar()

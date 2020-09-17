@@ -317,4 +317,25 @@ Public Class Facturacion
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
+    Private Sub ReenviarDocumentoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReenviarDocumentoToolStripMenuItem.Click
+        Try
+            Leer_indice()
+            If Numero_Doc <> 0 Then
+                Dim SQL = "	UPDATE DOCUMENTO_ELECTRONICO"
+                SQL &= Chr(13) & "	SET IND_ENVIADO = 'N'"
+                SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+                SQL &= Chr(13) & "  AND COD_SUCUR =" & SCM(COD_SUCUR)
+                SQL &= Chr(13) & "  AND NUMERO_DOC = " & Val(Numero_Doc)
+                SQL &= Chr(13) & "  AND TIPO_MOV = " & SCM(Tipo_Mov)
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+
+                MessageBox.Show(Me, "Se ha marcado el documento correctamente para su reenvió, en unos minutos se realizará el proceso", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

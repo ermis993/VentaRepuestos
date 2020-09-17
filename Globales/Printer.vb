@@ -206,10 +206,15 @@ Public Class Printer
     End Sub
 
     Public Shared Sub NewPrint()
+        Dim Direccion As String = DIRECCION_IMPRESION()
         PrintDatalist = New PrintDatalist
         _myfont = New Font("Courier New", 8, FontStyle.Regular, GraphicsUnit.Point) 'Default
         prn = New Printing.PrintDocument
-        prn.DocumentName = DIRECCION_IMPRESION()
+
+        If Direccion <> "" Then
+            prn.PrinterSettings.PrinterName = DIRECCION_IMPRESION()
+        End If
+
         row = 0
         Dim PS1 As New System.Drawing.Printing.PageSettings
         With PS1

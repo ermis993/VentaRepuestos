@@ -147,4 +147,14 @@ Public Class Sucursal
             Rellenar_GRID()
         End If
     End Sub
+
+    Private Sub BTN_DERECHO_Click(sender As Object, e As EventArgs) Handles BTN_DERECHO.Click
+        Try
+            ItemSeleccionado()
+            Dim PANTALLA As New DerechosSucursal(COD_SUCUR)
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 End Class

@@ -63,7 +63,8 @@ Public Class Factura
             Me.Codigo = CODIGO
             Me.Numero_Doc = Val(NUMERO_DOC)
             BloqueaControles()
-
+            CARGAR_RUTAS()
+            SETEO_ENCOMIENDA()
             RellenaDatos()
 
             If Me.Numero_Doc > 0 Then
@@ -77,7 +78,7 @@ Public Class Factura
             End If
         End If
 
-        If IND_ENCOMIENDA = "S" And Me.Modo = CRF_Modos.Insertar Then
+        If IND_ENCOMIENDA = "S" Then
             TAB_ENCOMIENDA.Parent = TabControl1
         Else
             TAB_ENCOMIENDA.Parent = Nothing
@@ -637,6 +638,8 @@ Public Class Factura
 
     Private Sub BTN_FACTURAR_Click(sender As Object, e As EventArgs) Handles BTN_FACTURAR.Click
         Try
+            Dim imp As New Impresion()
+
             If GRID.Rows.Count <= 0 Then
                 MessageBox.Show(Me, "Debe ingresar al menos una linea del documento", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             ElseIf String.IsNullOrEmpty(Cliente_Retira.VALOR) And IND_ENCOMIENDA = "S" Then
@@ -647,6 +650,8 @@ Public Class Factura
                 MessageBox.Show(Me, "No se ha elegido el origen de la encomienda", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             ElseIf CMB_DESTINO.SelectedIndex = -1 And IND_ENCOMIENDA = "S" Then
                 MessageBox.Show(Me, "No se ha elegido el destino de la encomienda", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            ElseIf CMB_DESTINO.SelectedIndex = CMB_ORIGEN.SelectedIndex And IND_ENCOMIENDA = "S" Then
+                MessageBox.Show(Me, "La direcciones de origen y destino deben ser distintas", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Else
                 Dim Sql = "	USP_FACTURACION_TMP_A_REAL	"
                 Sql &= Chr(13) & "	 @COD_CIA = " & SCM(COD_CIA)
@@ -658,16 +663,16 @@ Public Class Factura
                 CONX.Coneccion_Cerrar()
 
                 If IND_ENCOMIENDA = "S" Then
-                    Dim NUMERO_GUIA = GENERA_NUMERO_GUIA()
-                    Sql = "INSERT INTO DOCUMENTO_GUIA(COD_CIA,COD_SUCUR,NUMERO_DOC,TIPO_MOV,NUMERO_GUIA,CEDULA,CANT_BULTOS,ORIGEN,DESTINO,COD_USUARIO,FECHA_INC)"
-                    Sql &= Chr(13) & "SELECT " & SCM(COD_CIA) & "," & SCM(COD_SUCUR) & "," & Val(DS.Tables(0).Rows(0).Item(0)) & "," & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2)) & "," & Val(NUMERO_GUIA) & "," & SCM(Cliente_Retira.VALOR)
-                    Sql &= Chr(13) & "," & Val(TXT_CANT_BULTOS.Text) & "," & SCM(CMB_ORIGEN.SelectedItem().ToString.Substring(1, 3)) & "," & SCM(CMB_DESTINO.SelectedItem().ToString.Substring(1, 3)) & "," & SCM(COD_USUARIO) & ", GETDATE()"
+                    Dim NUMERO_GUIA = GENERA_NUMERO_GUIA(CMB_ORIGEN.SelectedItem().ToString.Substring(1, 3))
+                    Sql = "INSERT INTO DOCUMENTO_GUIA(COD_CIA,COD_SUCUR,NUMERO_DOC,TIPO_MOV,NUMERO_GUIA,CEDULA,CANT_BULTOS,ORIGEN,DESTINO,COD_USUARIO,FECHA_INC,TIPO_MERCADERIA)"
+                    Sql &= Chr(13) & "SELECT " & SCM(COD_CIA) & "," & SCM(COD_SUCUR) & "," & Val(DS.Tables(0).Rows(0).Item(0)) & "," & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2)) & "," & SCM(NUMERO_GUIA) & "," & SCM(Cliente_Retira.VALOR)
+                    Sql &= Chr(13) & "," & Val(TXT_CANT_BULTOS.Text) & "," & SCM(CMB_ORIGEN.SelectedItem().ToString.Substring(1, 3)) & "," & SCM(CMB_DESTINO.SelectedItem().ToString.Substring(1, 3)) & "," & SCM(COD_USUARIO) & ", GETDATE() , " & SCM(IIf(CHK_MN.Checked, "N", "U"))
                     CONX.Coneccion_Abrir()
                     CONX.EJECUTE(Sql)
                     CONX.Coneccion_Cerrar()
 
                     Sql = "INSERT INTO DOCUMENTO_GUIA_UBICACION(COD_CIA,COD_SUCUR,NUMERO_DOC,TIPO_MOV,NUMERO_GUIA,COD_UBICACION,COD_USUARIO,FECHA_INC)"
-                    Sql &= Chr(13) & "SELECT " & SCM(COD_CIA) & "," & SCM(COD_SUCUR) & "," & Val(DS.Tables(0).Rows(0).Item(0)) & "," & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2)) & "," & Val(NUMERO_GUIA)
+                    Sql &= Chr(13) & "SELECT " & SCM(COD_CIA) & "," & SCM(COD_SUCUR) & "," & Val(DS.Tables(0).Rows(0).Item(0)) & "," & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2)) & "," & SCM(NUMERO_GUIA)
                     Sql &= Chr(13) & "," & SCM(CMB_ORIGEN.SelectedItem().ToString.Substring(1, 3)) & "," & SCM(COD_USUARIO) & ", GETDATE()"
                     CONX.Coneccion_Abrir()
                     CONX.EJECUTE(Sql)
@@ -676,10 +681,7 @@ Public Class Factura
 
                 Dim valor = MessageBox.Show(Me, "Documento ingresado correctamente, ¿desea imprimir el documento?", Me.Text, vbYesNo, MessageBoxIcon.Question)
                 If valor = DialogResult.Yes Then
-
-                    Dim imp As New Impresion()
                     imp.Imprimir(COD_CIA, COD_SUCUR, DS.Tables(0).Rows(0).Item(0), CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
-
                     Me.Close()
                     Padre.Refrescar()
                 Else
@@ -787,21 +789,22 @@ Public Class Factura
         End If
     End Sub
 
-    Private Function GENERA_NUMERO_GUIA() As Integer
+    Private Function GENERA_NUMERO_GUIA(ByVal Origen As String) As String
         Try
-            Dim NUM_GUIA As Integer = 0
+            Dim NUM_GUIA As String = ""
 
-            Dim Sql = "	SELECT ISNULL(MAX(NUMERO_GUIA), 0) + 1 AS GUIA"
+            Dim Sql = "	SELECT ISNULL(MAX(SUBSTRING(NUMERO_GUIA,4,3)),0) + 1 AS GUIA "
             Sql &= Chr(13) & "	FROM DOCUMENTO_GUIA	"
             Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
-            Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+            'Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+            Sql &= Chr(13) & "  AND SUBSTRING(NUMERO_GUIA, 1, 3) = " & SCM(Origen)
 
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(Sql)
             CONX.Coneccion_Cerrar()
 
             If DS.Tables(0).Rows.Count > 0 Then
-                NUM_GUIA = Val(DS.Tables(0).Rows(0).Item("GUIA"))
+                NUM_GUIA = Origen & RellenaEspacioIzquierda(3, "0", DS.Tables(0).Rows(0).Item("GUIA"))
             End If
 
             Return NUM_GUIA
@@ -812,40 +815,73 @@ Public Class Factura
 
     Private Sub CARGAR_RUTAS()
         Try
-            CMB_ORIGEN.DataSource = Nothing
-            CMB_DESTINO.DataSource = Nothing
+            If IND_ENCOMIENDA = "S" Then
+                CMB_ORIGEN.DataSource = Nothing
+                CMB_DESTINO.DataSource = Nothing
 
-            Dim LISTA_REF As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
-            Dim LISTA_REF_DES As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
+                Dim LISTA_REF As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
+                Dim LISTA_REF_DES As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
 
-            Dim SQL As String = "SELECT COD_UBICACION AS CODIGO, DESC_UBICACION AS NOMBRE"
-            SQL &= Chr(13) & " FROM GUIA_UBICACION"
-            SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
-            SQL &= Chr(13) & " AND COD_SUCUR = " & SCM(COD_SUCUR)
-            SQL &= Chr(13) & " AND ESTADO = 'A'"
+                Dim SQL As String = "SELECT COD_UBICACION AS CODIGO, DESC_UBICACION AS NOMBRE"
+                SQL &= Chr(13) & " FROM GUIA_UBICACION"
+                SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
+                SQL &= Chr(13) & " AND ESTADO = 'A'"
+                SQL &= Chr(13) & " AND IND_TIPO = 'P'"
 
-            CONX.Coneccion_Abrir()
-            Dim DS = CONX.EJECUTE_DS(SQL)
-            CONX.Coneccion_Cerrar()
+                CONX.Coneccion_Abrir()
+                Dim DS = CONX.EJECUTE_DS(SQL)
+                CONX.Coneccion_Cerrar()
 
-            If DS.Tables(0).Rows.Count > 0 Then
-                For Each Row In DS.Tables(0).Rows
-                    LISTA_REF.Add(New KeyValuePair(Of String, String)(Row("CODIGO").ToString, Row("CODIGO").ToString.ToUpper & " - " & Row("NOMBRE").ToString.ToUpper))
-                    LISTA_REF_DES.Add(New KeyValuePair(Of String, String)(Row("CODIGO").ToString, Row("CODIGO").ToString.ToUpper & " - " & Row("NOMBRE").ToString.ToUpper))
-                Next
+                If DS.Tables(0).Rows.Count > 0 Then
+                    For Each Row In DS.Tables(0).Rows
+                        LISTA_REF.Add(New KeyValuePair(Of String, String)(Row("CODIGO").ToString, Row("CODIGO").ToString.ToUpper & " - " & Row("NOMBRE").ToString.ToUpper))
+                        LISTA_REF_DES.Add(New KeyValuePair(Of String, String)(Row("CODIGO").ToString, Row("CODIGO").ToString.ToUpper & " - " & Row("NOMBRE").ToString.ToUpper))
+                    Next
 
-                CMB_ORIGEN.ValueMember = "Key"
-                CMB_ORIGEN.DisplayMember = "Value"
-                CMB_ORIGEN.DataSource = LISTA_REF
-                CMB_ORIGEN.SelectedIndex = -1
+                    CMB_ORIGEN.ValueMember = "Key"
+                    CMB_ORIGEN.DisplayMember = "Value"
+                    CMB_ORIGEN.DataSource = LISTA_REF
+                    CMB_ORIGEN.SelectedIndex = -1
 
-                CMB_DESTINO.ValueMember = "Key"
-                CMB_DESTINO.DisplayMember = "Value"
-                CMB_DESTINO.DataSource = LISTA_REF_DES
+                    CMB_DESTINO.ValueMember = "Key"
+                    CMB_DESTINO.DisplayMember = "Value"
+                    CMB_DESTINO.DataSource = LISTA_REF_DES
 
-                CMB_DESTINO.SelectedIndex = -1
+                    CMB_DESTINO.SelectedIndex = -1
+                End If
             End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 
+    Private Sub SETEO_ENCOMIENDA()
+        Try
+            If IND_ENCOMIENDA = "S" Then
+                Dim SQL As String = "SELECT ORIGEN, DESTINO, CANT_BULTOS, CEDULA, TIPO_MERCADERIA "
+                SQL &= Chr(13) & "	FROM DOCUMENTO_GUIA	"
+                SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+                SQL &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+                SQL &= Chr(13) & "	AND NUMERO_DOC = " & Val(Numero_Doc)
+                SQL &= Chr(13) & "  AND TIPO_MOV = " & SCM(Tipo_Mov)
+
+                CONX.Coneccion_Abrir()
+                Dim DS = CONX.EJECUTE_DS(SQL)
+                CONX.Coneccion_Cerrar()
+
+                If DS.Tables(0).Rows.Count > 0 Then
+                    For Each Row In DS.Tables(0).Rows
+                        CMB_ORIGEN.SelectedValue = Row("ORIGEN")
+                        CMB_DESTINO.SelectedValue = Row("DESTINO")
+                        TXT_CANT_BULTOS.Text = Val(Row("CANT_BULTOS"))
+
+                        CHK_MU.Checked = IIf(Row("TIPO_MERCADERIA") = "N", False, True)
+
+                        Cliente_Retira.VALOR = Row("CEDULA")
+                        Cliente_Retira.ACTUALIZAR_COMBO()
+                    Next
+                End If
+            End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -871,4 +907,11 @@ Public Class Factura
         End Try
     End Sub
 
+    Private Sub CHK_MN_CheckedChanged(sender As Object, e As EventArgs) Handles CHK_MN.CheckedChanged
+        CHK_MU.Checked = IIf(CHK_MN.Checked, False, True)
+    End Sub
+
+    Private Sub CHK_MU_CheckedChanged(sender As Object, e As EventArgs) Handles CHK_MU.CheckedChanged
+        CHK_MN.Checked = IIf(CHK_MU.Checked, False, True)
+    End Sub
 End Class

@@ -15,13 +15,15 @@ Public Class Ruta
     End Sub
 
     Private Sub FORMATO_GRID()
-        GRID.ColumnCount = 3
+        GRID.ColumnCount = 4
         GRID.Columns(0).HeaderText = "Código"
         GRID.Columns(0).Name = "COD_UBICACION"
         GRID.Columns(1).HeaderText = "Descripción"
         GRID.Columns(1).Name = "DESC_UBICACION"
         GRID.Columns(2).HeaderText = "Estado"
         GRID.Columns(2).Name = "ESTADO"
+        GRID.Columns(3).HeaderText = "Tipo"
+        GRID.Columns(3).Name = "IND_TIPO"
         Filtro.FILTRO_CARGAR_COMBO(GRID)
     End Sub
 
@@ -34,13 +36,14 @@ Public Class Ruta
             If GRID.Columns.Count > 0 Then
                 GRID.Rows.Clear()
                 GRID.DataSource = Nothing
-                Dim SQL = "	SELECT COD_UBICACION As Código,DESC_UBICACION As Descripción, ESTADO AS Estado"
+                Dim SQL = "	SELECT COD_UBICACION As Código,DESC_UBICACION As Descripción, ESTADO AS Estado, CASE WHEN IND_TIPO = 'P' THEN 'Rutas iniciales' ELSE 'Rutas intermedias' END AS Tipo"
                 SQL &= Chr(13) & "	FROM GUIA_UBICACION"
                 If RB_ACTIVOS.Checked = True Then
                     SQL &= Chr(13) & "	WHERE ESTADO ='A'"
                 ElseIf RB_INACTIVOS.Checked = True Then
                     SQL &= Chr(13) & "	WHERE ESTADO ='I'"
                 End If
+                'SQL &= Chr(13) & "AND IND_TIPO = 'P'"
                 SQL &= Chr(13) & CONSULTA_FILTRO
 
                 CONX.Coneccion_Abrir()
@@ -49,7 +52,7 @@ Public Class Ruta
 
                 If DS.Tables(0).Rows.Count > 0 Then
                     For Each ITEM In DS.Tables(0).Rows
-                        Dim row As String() = New String() {ITEM("Código"), ITEM("Descripción"), ITEM("Estado")}
+                        Dim row As String() = New String() {ITEM("Código"), ITEM("Descripción"), ITEM("Estado"), ITEM("Tipo")}
                         GRID.Rows.Add(row)
                     Next
                 End If

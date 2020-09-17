@@ -73,6 +73,9 @@ Partial Class LBL_CANTON
         Me.OPD_Llave = New System.Windows.Forms.OpenFileDialog()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.TAB_COMPANIA.SuspendLayout()
         Me.TAB_INFO.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -82,6 +85,8 @@ Partial Class LBL_CANTON
         CType(Me.GRID_ACTIVIDADES, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'LBL_CODIGO
@@ -185,7 +190,7 @@ Partial Class LBL_CANTON
         Me.CMB_PROVINCIA.FormattingEnabled = True
         Me.CMB_PROVINCIA.Location = New System.Drawing.Point(100, 195)
         Me.CMB_PROVINCIA.Name = "CMB_PROVINCIA"
-        Me.CMB_PROVINCIA.Size = New System.Drawing.Size(158, 24)
+        Me.CMB_PROVINCIA.Size = New System.Drawing.Size(193, 24)
         Me.CMB_PROVINCIA.TabIndex = 13
         '
         'LBL_CANTO
@@ -206,7 +211,7 @@ Partial Class LBL_CANTON
         Me.CMB_CANTON.FormattingEnabled = True
         Me.CMB_CANTON.Location = New System.Drawing.Point(99, 228)
         Me.CMB_CANTON.Name = "CMB_CANTON"
-        Me.CMB_CANTON.Size = New System.Drawing.Size(158, 24)
+        Me.CMB_CANTON.Size = New System.Drawing.Size(194, 24)
         Me.CMB_CANTON.TabIndex = 15
         '
         'LBL_DISTRITO
@@ -227,7 +232,7 @@ Partial Class LBL_CANTON
         Me.CMB_DISTRITO.FormattingEnabled = True
         Me.CMB_DISTRITO.Location = New System.Drawing.Point(99, 261)
         Me.CMB_DISTRITO.Name = "CMB_DISTRITO"
-        Me.CMB_DISTRITO.Size = New System.Drawing.Size(158, 24)
+        Me.CMB_DISTRITO.Size = New System.Drawing.Size(194, 24)
         Me.CMB_DISTRITO.TabIndex = 17
         '
         'TAB_COMPANIA
@@ -242,6 +247,7 @@ Partial Class LBL_CANTON
         '
         'TAB_INFO
         '
+        Me.TAB_INFO.Controls.Add(Me.GroupBox5)
         Me.TAB_INFO.Controls.Add(Me.CHK_ENCOMIENDA)
         Me.TAB_INFO.Controls.Add(Me.TXT_DIRECCION)
         Me.TAB_INFO.Controls.Add(Me.Label1)
@@ -290,7 +296,7 @@ Partial Class LBL_CANTON
         Me.TXT_DIRECCION.MaxLength = 255
         Me.TXT_DIRECCION.Multiline = True
         Me.TXT_DIRECCION.Name = "TXT_DIRECCION"
-        Me.TXT_DIRECCION.Size = New System.Drawing.Size(342, 24)
+        Me.TXT_DIRECCION.Size = New System.Drawing.Size(194, 24)
         Me.TXT_DIRECCION.TabIndex = 11
         '
         'Label1
@@ -358,7 +364,7 @@ Partial Class LBL_CANTON
         Me.TXT_EMAIL.MaxLength = 150
         Me.TXT_EMAIL.Multiline = True
         Me.TXT_EMAIL.Name = "TXT_EMAIL"
-        Me.TXT_EMAIL.Size = New System.Drawing.Size(342, 24)
+        Me.TXT_EMAIL.Size = New System.Drawing.Size(193, 24)
         Me.TXT_EMAIL.TabIndex = 9
         '
         'LBL_EMAIL
@@ -675,6 +681,42 @@ Partial Class LBL_CANTON
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
         '
+        'GroupBox5
+        '
+        Me.GroupBox5.Controls.Add(Me.PictureBox1)
+        Me.GroupBox5.Controls.Add(Me.Button1)
+        Me.GroupBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.GroupBox5.ForeColor = System.Drawing.Color.Black
+        Me.GroupBox5.Location = New System.Drawing.Point(298, 69)
+        Me.GroupBox5.Margin = New System.Windows.Forms.Padding(2)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Padding = New System.Windows.Forms.Padding(2)
+        Me.GroupBox5.Size = New System.Drawing.Size(253, 275)
+        Me.GroupBox5.TabIndex = 21
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "[ Imagen ]"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Location = New System.Drawing.Point(4, 23)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(245, 206)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 12
+        Me.PictureBox1.TabStop = False
+        '
+        'Button1
+        '
+        Me.Button1.ForeColor = System.Drawing.Color.Black
+        Me.Button1.Location = New System.Drawing.Point(4, 238)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(2)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(245, 33)
+        Me.Button1.TabIndex = 0
+        Me.Button1.Text = "Seleccionar"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'LBL_CANTON
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -704,6 +746,8 @@ Partial Class LBL_CANTON
         Me.GroupBox3.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.GroupBox5.ResumeLayout(False)
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -758,4 +802,7 @@ Partial Class LBL_CANTON
     Friend WithEvents Label6 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents CHK_ENCOMIENDA As CheckBox
+    Friend WithEvents GroupBox5 As GroupBox
+    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents Button1 As Button
 End Class

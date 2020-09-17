@@ -36,6 +36,8 @@ Partial Class Encomienda
         Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
         Me.BTN_RECEPCION = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
+        Me.BTN_REPORTE = New System.Windows.Forms.Button()
+        Me.BTN_TODO = New System.Windows.Forms.Button()
         Me.GroupBox2.SuspendLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -48,7 +50,7 @@ Partial Class Encomienda
         Me.GroupBox2.Controls.Add(Me.DTPINICIO)
         Me.GroupBox2.Controls.Add(Me.Label2)
         Me.GroupBox2.Controls.Add(Me.Label1)
-        Me.GroupBox2.Location = New System.Drawing.Point(649, 3)
+        Me.GroupBox2.Location = New System.Drawing.Point(645, 3)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(149, 54)
         Me.GroupBox2.TabIndex = 4
@@ -131,7 +133,7 @@ Partial Class Encomienda
         '
         Me.BTN_ENVIAR.Image = Global.VentaRepuestos.My.Resources.Resources.transportar
         Me.BTN_ENVIAR.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_ENVIAR.Location = New System.Drawing.Point(512, 2)
+        Me.BTN_ENVIAR.Location = New System.Drawing.Point(2, 2)
         Me.BTN_ENVIAR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_ENVIAR.Name = "BTN_ENVIAR"
         Me.BTN_ENVIAR.Size = New System.Drawing.Size(64, 55)
@@ -144,7 +146,7 @@ Partial Class Encomienda
         '
         Me.BTN_ENTREGAR.Image = Global.VentaRepuestos.My.Resources.Resources.entregar
         Me.BTN_ENTREGAR.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_ENTREGAR.Location = New System.Drawing.Point(70, 2)
+        Me.BTN_ENTREGAR.Location = New System.Drawing.Point(138, 2)
         Me.BTN_ENTREGAR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_ENTREGAR.Name = "BTN_ENTREGAR"
         Me.BTN_ENTREGAR.Size = New System.Drawing.Size(64, 55)
@@ -170,7 +172,7 @@ Partial Class Encomienda
         '
         Me.BTN_REFRESCAR.Image = Global.VentaRepuestos.My.Resources.Resources.refrescar
         Me.BTN_REFRESCAR.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_REFRESCAR.Location = New System.Drawing.Point(138, 2)
+        Me.BTN_REFRESCAR.Location = New System.Drawing.Point(206, 2)
         Me.BTN_REFRESCAR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_REFRESCAR.Name = "BTN_REFRESCAR"
         Me.BTN_REFRESCAR.Size = New System.Drawing.Size(64, 55)
@@ -183,7 +185,7 @@ Partial Class Encomienda
         '
         Me.BTN_RECEPCION.Image = Global.VentaRepuestos.My.Resources.Resources.recibir
         Me.BTN_RECEPCION.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_RECEPCION.Location = New System.Drawing.Point(2, 2)
+        Me.BTN_RECEPCION.Location = New System.Drawing.Point(70, 2)
         Me.BTN_RECEPCION.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_RECEPCION.Name = "BTN_RECEPCION"
         Me.BTN_RECEPCION.Size = New System.Drawing.Size(64, 55)
@@ -199,7 +201,7 @@ Partial Class Encomienda
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(699, 404)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(695, 404)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 6
@@ -207,12 +209,40 @@ Partial Class Encomienda
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
         '
+        'BTN_REPORTE
+        '
+        Me.BTN_REPORTE.Image = Global.VentaRepuestos.My.Resources.Resources.reportes
+        Me.BTN_REPORTE.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.BTN_REPORTE.Location = New System.Drawing.Point(512, 2)
+        Me.BTN_REPORTE.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_REPORTE.Name = "BTN_REPORTE"
+        Me.BTN_REPORTE.Size = New System.Drawing.Size(64, 55)
+        Me.BTN_REPORTE.TabIndex = 9
+        Me.BTN_REPORTE.Text = "Reporte"
+        Me.BTN_REPORTE.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.BTN_REPORTE.UseVisualStyleBackColor = True
+        '
+        'BTN_TODO
+        '
+        Me.BTN_TODO.Image = Global.VentaRepuestos.My.Resources.Resources.derecha
+        Me.BTN_TODO.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.BTN_TODO.Location = New System.Drawing.Point(444, 3)
+        Me.BTN_TODO.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_TODO.Name = "BTN_TODO"
+        Me.BTN_TODO.Size = New System.Drawing.Size(64, 55)
+        Me.BTN_TODO.TabIndex = 10
+        Me.BTN_TODO.Text = "Todo"
+        Me.BTN_TODO.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.BTN_TODO.UseVisualStyleBackColor = True
+        '
         'Encomienda
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(796, 450)
         Me.ControlBox = False
+        Me.Controls.Add(Me.BTN_TODO)
+        Me.Controls.Add(Me.BTN_REPORTE)
         Me.Controls.Add(Me.BTN_ENVIAR)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.BTN_ENTREGAR)
@@ -248,4 +278,6 @@ Partial Class Encomienda
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents CMB_FILTRO As ComboBox
     Friend WithEvents BTN_ENVIAR As Button
+    Friend WithEvents BTN_REPORTE As Button
+    Friend WithEvents BTN_TODO As Button
 End Class

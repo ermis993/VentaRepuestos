@@ -55,6 +55,7 @@ Public Class RegistreseAqui
                 COMANDO.Parameters.Add(TELEFONO)
                 COMANDO.Parameters.Add(DIRECCION)
                 COMANDO.Parameters.Add(CORREO)
+                COMANDO.Parameters.Add(FOTO)
                 COMANDO.Parameters.Add(CONTRASENA)
 
                 CONX.Coneccion_Abrir()
@@ -64,6 +65,8 @@ Public Class RegistreseAqui
                 CONX.Coneccion_Cerrar()
 
                 LimpiarTodo()
+
+
                 MessageBox.Show("Usuario ingresado correctamente", "Aviso")
 
             End If

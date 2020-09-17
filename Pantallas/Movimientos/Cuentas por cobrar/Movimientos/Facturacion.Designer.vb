@@ -29,6 +29,7 @@ Partial Class Facturacion
         Me.CMS_OPCIONES = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.MostrarRechazoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RegenerarDocumentoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReenviarDocumentoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Estado = New System.Windows.Forms.GroupBox()
         Me.RB_TODOS = New System.Windows.Forms.RadioButton()
         Me.RB_INACTIVOS = New System.Windows.Forms.RadioButton()
@@ -93,7 +94,8 @@ Partial Class Facturacion
         '
         'CMS_OPCIONES
         '
-        Me.CMS_OPCIONES.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MostrarRechazoToolStripMenuItem, Me.RegenerarDocumentoToolStripMenuItem})
+        Me.CMS_OPCIONES.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.CMS_OPCIONES.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MostrarRechazoToolStripMenuItem, Me.RegenerarDocumentoToolStripMenuItem, Me.ReenviarDocumentoToolStripMenuItem})
         Me.CMS_OPCIONES.Name = "CMS_OPCIONES"
         Me.CMS_OPCIONES.Size = New System.Drawing.Size(193, 70)
         '
@@ -108,6 +110,12 @@ Partial Class Facturacion
         Me.RegenerarDocumentoToolStripMenuItem.Name = "RegenerarDocumentoToolStripMenuItem"
         Me.RegenerarDocumentoToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
         Me.RegenerarDocumentoToolStripMenuItem.Text = "Regenerar documento"
+        '
+        'ReenviarDocumentoToolStripMenuItem
+        '
+        Me.ReenviarDocumentoToolStripMenuItem.Name = "ReenviarDocumentoToolStripMenuItem"
+        Me.ReenviarDocumentoToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
+        Me.ReenviarDocumentoToolStripMenuItem.Text = "Reenviar documento"
         '
         'Estado
         '
@@ -206,7 +214,7 @@ Partial Class Facturacion
         Me.BTN_RECIBO.Image = Global.VentaRepuestos.My.Resources.Resources.pago
         Me.BTN_RECIBO.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BTN_RECIBO.Location = New System.Drawing.Point(105, 7)
-        Me.BTN_RECIBO.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_RECIBO.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.BTN_RECIBO.Name = "BTN_RECIBO"
         Me.BTN_RECIBO.Size = New System.Drawing.Size(99, 43)
         Me.BTN_RECIBO.TabIndex = 39
@@ -233,8 +241,8 @@ Partial Class Facturacion
         Me.BTN_SALIR.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(760, 472)
-        Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(761, 471)
+        Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 4
@@ -247,7 +255,7 @@ Partial Class Facturacion
         Me.BTN_FACTURAR.Image = Global.VentaRepuestos.My.Resources.Resources.facturar
         Me.BTN_FACTURAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BTN_FACTURAR.Location = New System.Drawing.Point(2, 7)
-        Me.BTN_FACTURAR.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_FACTURAR.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.BTN_FACTURAR.Name = "BTN_FACTURAR"
         Me.BTN_FACTURAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_FACTURAR.TabIndex = 0
@@ -260,7 +268,7 @@ Partial Class Facturacion
         Me.BTN_IMPRIMIR.Image = Global.VentaRepuestos.My.Resources.Resources.imprimir1
         Me.BTN_IMPRIMIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BTN_IMPRIMIR.Location = New System.Drawing.Point(208, 7)
-        Me.BTN_IMPRIMIR.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_IMPRIMIR.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.BTN_IMPRIMIR.Name = "BTN_IMPRIMIR"
         Me.BTN_IMPRIMIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_IMPRIMIR.TabIndex = 40
@@ -271,6 +279,7 @@ Partial Class Facturacion
         'Filtro
         '
         Me.Filtro.Location = New System.Drawing.Point(2, 58)
+        Me.Filtro.Margin = New System.Windows.Forms.Padding(4)
         Me.Filtro.Name = "Filtro"
         Me.Filtro.Size = New System.Drawing.Size(306, 29)
         Me.Filtro.TabIndex = 38
@@ -281,7 +290,7 @@ Partial Class Facturacion
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ClientSize = New System.Drawing.Size(862, 518)
+        Me.ClientSize = New System.Drawing.Size(864, 517)
         Me.ControlBox = False
         Me.Controls.Add(Me.BTN_IMPRIMIR)
         Me.Controls.Add(Me.BTN_RECIBO)
@@ -294,7 +303,7 @@ Partial Class Facturacion
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.BTN_FACTURAR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Margin = New System.Windows.Forms.Padding(2)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "Facturacion"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Facturación"
@@ -330,4 +339,5 @@ Partial Class Facturacion
     Friend WithEvents CMS_OPCIONES As ContextMenuStrip
     Friend WithEvents MostrarRechazoToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RegenerarDocumentoToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ReenviarDocumentoToolStripMenuItem As ToolStripMenuItem
 End Class

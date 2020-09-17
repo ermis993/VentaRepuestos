@@ -1,41 +1,12 @@
 ﻿Imports VentaRepuestos.Globales
 Imports FUN_CRFUSION.FUNCIONES_GENERALES
-Public Class DerechosCompania
+Public Class DerechosSucursal
+    Dim COD_SUCUR As String
 
-    Dim COD_CIA As String
-
-    Sub New(ByVal COD_CIA As String)
+    Sub New(ByVal COD_SUCUR As String)
         InitializeComponent()
-        Me.COD_CIA = COD_CIA
-        CARGAR_COMPANIA()
+        Me.COD_SUCUR = COD_SUCUR
         RellenaListViews()
-    End Sub
-
-    Private Sub CARGAR_COMPANIA()
-        Try
-            CMB_COMPANIA.DataSource = Nothing
-            Dim LISTA_REF As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
-
-            Dim SQL As String = "SELECT COD_CIA AS CODIGO , NOMBRE"
-            SQL &= Chr(13) & " FROM COMPANIA"
-            SQL &= Chr(13) & " WHERE ESTADO ='A'"
-            SQL &= Chr(13) & " AND COD_CIA = " & SCM(COD_CIA)
-
-            CONX.Coneccion_Abrir()
-            Dim DS = CONX.EJECUTE_DS(SQL)
-            CONX.Coneccion_Cerrar()
-
-            If DS.Tables(0).Rows.Count > 0 Then
-                For Each CANTON In DS.Tables(0).Rows
-                    LISTA_REF.Add(New KeyValuePair(Of String, String)(CANTON("CODIGO").ToString, CANTON("CODIGO").ToString & " - " & CANTON("NOMBRE").ToString.ToUpper))
-                Next
-            End If
-            CMB_COMPANIA.DataSource = LISTA_REF
-            CMB_COMPANIA.ValueMember = "Key"
-            CMB_COMPANIA.DisplayMember = "Value"
-            CMB_COMPANIA.SelectedIndex = 0
-        Catch ex As Exception
-        End Try
     End Sub
 
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
@@ -55,24 +26,26 @@ Public Class DerechosCompania
             If COD_USUARIO = "LUNAING" Then
                 SQL = "	SELECT U.COD_USUARIO AS Codigo, U.COD_USUARIO + '-' + U.NOMBRE AS Nombre	"
                 SQL &= Chr(13) & "	FROM USUARIO AS U		"
-                Sql &= Chr(13) & "	LEFT JOIN COMPANIA_USUARIO AS CU "
-                Sql &= Chr(13) & "		ON U.COD_USUARIO = CU.COD_USUARIO	"
-                Sql &= Chr(13) & "		AND CU.COD_CIA = " & SCM(COD_CIA)
-                Sql &= Chr(13) & "	WHERE CU.COD_USUARIO IS NULL	"
+                SQL &= Chr(13) & "	LEFT JOIN SUCURSAL_USUARIO AS CU "
+                SQL &= Chr(13) & "		ON U.COD_USUARIO = CU.COD_USUARIO	"
+                SQL &= Chr(13) & "		AND CU.COD_CIA = " & SCM(COD_CIA)
+                SQL &= Chr(13) & "		AND CU.COD_SUCUR = " & SCM(Me.COD_SUCUR)
+                SQL &= Chr(13) & "	WHERE CU.COD_USUARIO IS NULL	"
                 SQL &= Chr(13) & "  ORDER BY U.NOMBRE ASC"
             Else
                 SQL = "	SELECT U.COD_USUARIO AS Codigo, U.COD_USUARIO + '-' + U.NOMBRE AS Nombre	"
                 SQL &= Chr(13) & "	FROM USUARIO AS U		"
-                SQL &= Chr(13) & "	LEFT JOIN COMPANIA_USUARIO AS CU "
+                SQL &= Chr(13) & "	LEFT JOIN SUCURSAL_USUARIO AS CU "
                 SQL &= Chr(13) & "		ON U.COD_USUARIO = CU.COD_USUARIO	"
                 SQL &= Chr(13) & "		AND CU.COD_CIA = " & SCM(COD_CIA)
+                SQL &= Chr(13) & "		AND CU.COD_SUCUR = " & SCM(Me.COD_SUCUR)
                 SQL &= Chr(13) & "	WHERE CU.COD_USUARIO IS NULL	"
                 SQL &= Chr(13) & "	AND U.COD_USUARIO <> 'LUNAING'	"
                 SQL &= Chr(13) & "  ORDER BY U.NOMBRE ASC"
             End If
 
             CONX.Coneccion_Abrir()
-            Dim DS = CONX.EJECUTE_DS(Sql)
+            Dim DS = CONX.EJECUTE_DS(SQL)
             CONX.Coneccion_Cerrar()
 
             For Each Row In DS.Tables(0).Rows
@@ -91,17 +64,19 @@ Public Class DerechosCompania
             If COD_USUARIO = "LUNAING" Then
                 SQL = "	SELECT U.COD_USUARIO AS Codigo, U.COD_USUARIO + '-' + U.NOMBRE AS Nombre	"
                 SQL &= Chr(13) & "	FROM USUARIO AS U		"
-                SQL &= Chr(13) & "	INNER JOIN COMPANIA_USUARIO AS CU	"
+                SQL &= Chr(13) & "	INNER JOIN SUCURSAL_USUARIO AS CU	"
                 SQL &= Chr(13) & "		ON U.COD_USUARIO = CU.COD_USUARIO	"
                 SQL &= Chr(13) & "		AND CU.COD_CIA = " & SCM(COD_CIA)
+                SQL &= Chr(13) & "		AND CU.COD_SUCUR = " & SCM(Me.COD_SUCUR)
                 SQL &= Chr(13) & "	WHERE U.COD_USUARIO IS NOT NULL	"
                 SQL &= Chr(13) & "  ORDER BY U.NOMBRE ASC"
             Else
                 SQL = "	SELECT U.COD_USUARIO AS Codigo, U.COD_USUARIO + '-' + U.NOMBRE AS Nombre	"
                 SQL &= Chr(13) & "	FROM USUARIO AS U		"
-                SQL &= Chr(13) & "	INNER JOIN COMPANIA_USUARIO AS CU	"
+                SQL &= Chr(13) & "	INNER JOIN SUCURSAL_USUARIO AS CU	"
                 SQL &= Chr(13) & "		ON U.COD_USUARIO = CU.COD_USUARIO	"
                 SQL &= Chr(13) & "		AND CU.COD_CIA = " & SCM(COD_CIA)
+                SQL &= Chr(13) & "		AND CU.COD_SUCUR = " & SCM(Me.COD_SUCUR)
                 SQL &= Chr(13) & "	WHERE U.COD_USUARIO IS NOT NULL	"
                 SQL &= Chr(13) & "	AND U.COD_USUARIO <> 'LUNAING'	"
                 SQL &= Chr(13) & "  ORDER BY U.NOMBRE ASC"
@@ -124,8 +99,8 @@ Public Class DerechosCompania
             If Not LVSin.FocusedItem Is Nothing Then
                 Dim Usuario = LVSin.Items(LVSin.FocusedItem.Index).SubItems(0).Text
 
-                Dim SQL = "	INSERT INTO COMPANIA_USUARIO(COD_CIA, COD_USUARIO)	"
-                SQL &= Chr(13) & "	SELECT " & SCM(COD_CIA) & "," & SCM(Usuario.Substring(0, Usuario.IndexOf("-")))
+                Dim SQL = "	INSERT INTO SUCURSAL_USUARIO(COD_CIA, COD_SUCUR, COD_USUARIO)	"
+                SQL &= Chr(13) & "	SELECT " & SCM(COD_CIA) & "," & SCM(Me.COD_SUCUR) & "," & SCM(Usuario.Substring(0, Usuario.IndexOf("-")))
 
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
@@ -144,8 +119,9 @@ Public Class DerechosCompania
             If Not LVCon.FocusedItem Is Nothing Then
                 Dim Usuario = LVCon.Items(LVCon.FocusedItem.Index).SubItems(0).Text
 
-                Dim SQL = "	DELETE FROM COMPANIA_USUARIO"
+                Dim SQL = "	DELETE FROM SUCURSAL_USUARIO"
                 SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
+                SQL &= Chr(13) & " AND COD_SUCUR = " & SCM(Me.COD_SUCUR)
                 SQL &= Chr(13) & " AND COD_USUARIO = " & SCM(Usuario.Substring(0, Usuario.IndexOf("-")))
 
                 CONX.Coneccion_Abrir()
@@ -166,15 +142,5 @@ Public Class DerechosCompania
         RellenaUsuarioConDerecho()
     End Sub
 
-    Private Sub GroupBox2_Enter(sender As Object, e As EventArgs) Handles GroupBox2.Enter
 
-    End Sub
-
-    Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter
-
-    End Sub
-
-    Private Sub GroupBox3_Enter(sender As Object, e As EventArgs) Handles GroupBox3.Enter
-
-    End Sub
 End Class

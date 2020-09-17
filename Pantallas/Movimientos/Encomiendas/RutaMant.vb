@@ -24,11 +24,11 @@ Public Class RutaMant
             Else
                 Dim SQL As String = "EXEC USP_RUTA_MANT"
                 SQL &= Chr(13) & " @COD_CIA = " & SCM(COD_CIA)
-                SQL &= Chr(13) & ",@COD_SUCUR = " & SCM(COD_SUCUR)
                 SQL &= Chr(13) & ",@CODIGO = " & SCM(TXT_CODIGO.Text)
                 SQL &= Chr(13) & ",@DESCRIPCION = " & SCM(TXT_DESCRIPCION.Text)
                 SQL &= Chr(13) & ",@ESTADO = " & SCM(IIf(RB_ACTIVO.Checked = True, "A", "I"))
                 SQL &= Chr(13) & ",@COD_USUARIO = " & SCM(COD_USUARIO)
+                SQL &= Chr(13) & ",@TIPO = " & SCM(IIf(CMB_TIPO_RUTA.SelectedIndex = 0, "P", "S"))
                 SQL &= Chr(13) & ",@MODO = " & Val(MODO)
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
@@ -91,6 +91,9 @@ Public Class RutaMant
                     Else
                         RB_INACTIVO.Checked = True
                     End If
+
+                    CMB_TIPO_RUTA.SelectedIndex = IIf(ITEM("IND_TIPO") = "P", 0, 1)
+
                 Next
             End If
         Catch ex As Exception

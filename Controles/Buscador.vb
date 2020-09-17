@@ -6,6 +6,7 @@ Public Class Buscador
     Public Property CODIGO As String
     Public Property DESCRIPCION As String
     Public Property OTROS_CAMP0S As String
+    Public Property CAMPO_FILTRAR As String
     Private Property DESC As String
     Public Property VALOR As String
         Get
@@ -33,27 +34,31 @@ Public Class Buscador
         If VALIDAR() Then
             Dim SQL As String = "SELECT " & CODIGO & " AS Codigo," & DESCRIPCION & " AS Descripcion"
             SQL &= Chr(13) & " FROM " & TABLA_BUSCAR
-            SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
-            SQL &= Chr(13) & " ORDER BY " & DESCRIPCION & " ASC"
-            CONX.Coneccion_Abrir()
-            Dim DS = CONX.EJECUTE_DS(SQL)
-            CONX.Coneccion_Cerrar()
-            If DS.Tables(0).Rows.Count > 0 Then
-                Dim LISTA_REF As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
-                CMB.DataSource = Nothing
-                LISTA_REF.Add(New KeyValuePair(Of String, String)("", ""))
-                For Each ITEM In DS.Tables(0).Rows
-                    LISTA_REF.Add(New KeyValuePair(Of String, String)(ITEM("Codigo").ToString, ITEM("Descripcion").ToString.ToUpper))
-                Next
-                CMB.DataSource = LISTA_REF
-                CMB.ValueMember = "Key"
-                CMB.DisplayMember = "Value"
-                CMB.SelectedIndex = 0
-                TXT_BUSCADOR.Text = ""
+            SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)           
+            If OTROS_CAMP0S <> "" Then
+                SQL &= Chr(13) & " AND " & CAMPO_FILTRAR & " = " & SCM(OTROS_CAMP0S)
             End If
-        End If
+            SQL &= Chr(13) & " ORDER BY " & DESCRIPCION & " ASC"
+                CONX.Coneccion_Abrir()
+                Dim DS = CONX.EJECUTE_DS(SQL)
+                CONX.Coneccion_Cerrar()
+                If DS.Tables(0).Rows.Count > 0 Then
+                    Dim LISTA_REF As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
+                    CMB.DataSource = Nothing
+                    LISTA_REF.Add(New KeyValuePair(Of String, String)("", ""))
+                    For Each ITEM In DS.Tables(0).Rows
+                        LISTA_REF.Add(New KeyValuePair(Of String, String)(ITEM("Codigo").ToString, ITEM("Descripcion").ToString.ToUpper))
+                    Next
+                    CMB.DataSource = LISTA_REF
+                    CMB.ValueMember = "Key"
+                    CMB.DisplayMember = "Value"
+                    CMB.SelectedIndex = 0
+                    TXT_BUSCADOR.Text = ""
+                End If
+            End If
 
     End Sub
+
     Private Sub Button1_Click(sender As Object, e As EventArgs)
         refrescar()
     End Sub

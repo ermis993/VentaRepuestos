@@ -33,7 +33,6 @@ Partial Class ProductoMant
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.RB_INACTIVO = New System.Windows.Forms.RadioButton()
         Me.RB_ACTIVO = New System.Windows.Forms.RadioButton()
-        Me.Buscador = New VentaRepuestos.Buscador()
         Me.TXT_FILA = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.TXT_ESTANTE = New System.Windows.Forms.TextBox()
@@ -62,6 +61,7 @@ Partial Class ProductoMant
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
+        Me.Buscador = New VentaRepuestos.Buscador()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.SuspendLayout()
@@ -213,21 +213,6 @@ Partial Class ProductoMant
         Me.RB_ACTIVO.TabStop = True
         Me.RB_ACTIVO.Text = "Activo"
         Me.RB_ACTIVO.UseVisualStyleBackColor = True
-        '
-        'Buscador
-        '
-        Me.Buscador.CODIGO = Nothing
-        Me.Buscador.DESCRIPCION = Nothing
-        Me.Buscador.Location = New System.Drawing.Point(117, 86)
-        Me.Buscador.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Buscador.Name = "Buscador"
-        Me.Buscador.OTROS_CAMP0S = Nothing
-        Me.Buscador.PANTALLA = Nothing
-        Me.Buscador.Size = New System.Drawing.Size(451, 32)
-        Me.Buscador.TabIndex = 5
-        Me.Buscador.TABLA_BUSCAR = Nothing
-        Me.Buscador.VALOR = ""
-        Me.Buscador.VALOR_DESCRIPCION = Nothing
         '
         'TXT_FILA
         '
@@ -539,6 +524,22 @@ Partial Class ProductoMant
         Me.BTN_SALIR.Text = "Salir"
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
+        '
+        'Buscador
+        '
+        Me.Buscador.CAMPO_FILTRAR = "COD_SUCUR"
+        Me.Buscador.CODIGO = Nothing
+        Me.Buscador.DESCRIPCION = Nothing
+        Me.Buscador.Location = New System.Drawing.Point(117, 86)
+        Me.Buscador.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Buscador.Name = "Buscador"
+        Me.Buscador.OTROS_CAMP0S = ""
+        Me.Buscador.PANTALLA = Nothing
+        Me.Buscador.Size = New System.Drawing.Size(451, 32)
+        Me.Buscador.TabIndex = 5
+        Me.Buscador.TABLA_BUSCAR = Nothing
+        Me.Buscador.VALOR = ""
+        Me.Buscador.VALOR_DESCRIPCION = Nothing
         '
         'ProductoMant
         '

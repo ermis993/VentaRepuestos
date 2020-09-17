@@ -45,8 +45,10 @@ Partial Class MenuPrincipal
         Me.BTN_SUCURSAL = New System.Windows.Forms.Button()
         Me.BTN_COMPANIA = New System.Windows.Forms.Button()
         Me.LBL_SALUDO = New System.Windows.Forms.Label()
+        Me.PB_IMAGEN = New System.Windows.Forms.PictureBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        CType(Me.PB_IMAGEN, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -331,12 +333,23 @@ Partial Class MenuPrincipal
         Me.LBL_SALUDO.TabIndex = 18
         Me.LBL_SALUDO.Text = "Label3"
         '
+        'PB_IMAGEN
+        '
+        Me.PB_IMAGEN.Location = New System.Drawing.Point(302, 128)
+        Me.PB_IMAGEN.Name = "PB_IMAGEN"
+        Me.PB_IMAGEN.Size = New System.Drawing.Size(295, 211)
+        Me.PB_IMAGEN.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PB_IMAGEN.TabIndex = 19
+        Me.PB_IMAGEN.TabStop = False
+        '
         'MenuPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(906, 528)
         Me.ControlBox = False
+        Me.Controls.Add(Me.PB_IMAGEN)
         Me.Controls.Add(Me.LBL_SALUDO)
         Me.Controls.Add(Me.BTN_BACKUP)
         Me.Controls.Add(Me.BTN_COMPRAS)
@@ -364,6 +377,7 @@ Partial Class MenuPrincipal
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        CType(Me.PB_IMAGEN, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -392,4 +406,5 @@ Partial Class MenuPrincipal
     Friend WithEvents BTN_COMPRAS As Button
     Friend WithEvents BTN_BACKUP As Button
     Friend WithEvents LBL_SALUDO As Label
+    Friend WithEvents PB_IMAGEN As PictureBox
 End Class

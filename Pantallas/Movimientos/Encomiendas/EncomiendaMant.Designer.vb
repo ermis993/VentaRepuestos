@@ -37,15 +37,17 @@ Partial Class EncomiendaMant
         Me.TXT_ENVIA = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.LST_TRACKING = New System.Windows.Forms.ListView()
+        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
         Me.CMB_ORIGEN = New System.Windows.Forms.ComboBox()
         Me.Label32 = New System.Windows.Forms.Label()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
-        Me.LST_TRACKING = New System.Windows.Forms.ListView()
-        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.CMB_SUCURSAL = New System.Windows.Forms.ComboBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -189,14 +191,43 @@ Partial Class EncomiendaMant
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Tracking de movimientos"
         '
+        'LST_TRACKING
+        '
+        Me.LST_TRACKING.Activation = System.Windows.Forms.ItemActivation.OneClick
+        Me.LST_TRACKING.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3})
+        Me.LST_TRACKING.HideSelection = False
+        Me.LST_TRACKING.HoverSelection = True
+        Me.LST_TRACKING.Location = New System.Drawing.Point(6, 19)
+        Me.LST_TRACKING.Name = "LST_TRACKING"
+        Me.LST_TRACKING.Size = New System.Drawing.Size(325, 129)
+        Me.LST_TRACKING.TabIndex = 0
+        Me.LST_TRACKING.UseCompatibleStateImageBehavior = False
+        Me.LST_TRACKING.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeader1
+        '
+        Me.ColumnHeader1.Text = "Ubicación"
+        Me.ColumnHeader1.Width = 130
+        '
+        'ColumnHeader2
+        '
+        Me.ColumnHeader2.Text = "Fecha"
+        Me.ColumnHeader2.Width = 120
+        '
+        'ColumnHeader3
+        '
+        Me.ColumnHeader3.Text = "Usuario"
+        Me.ColumnHeader3.Width = 70
+        '
         'GroupBox3
         '
-        Me.GroupBox3.Controls.Add(Me.BTN_ACEPTAR)
+        Me.GroupBox3.Controls.Add(Me.CMB_SUCURSAL)
+        Me.GroupBox3.Controls.Add(Me.Label6)
         Me.GroupBox3.Controls.Add(Me.CMB_ORIGEN)
         Me.GroupBox3.Controls.Add(Me.Label32)
         Me.GroupBox3.Location = New System.Drawing.Point(12, 195)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(691, 90)
+        Me.GroupBox3.Size = New System.Drawing.Size(691, 124)
         Me.GroupBox3.TabIndex = 4
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Aplicar ubicación"
@@ -207,7 +238,7 @@ Partial Class EncomiendaMant
         Me.BTN_ACEPTAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_ACEPTAR.Image = CType(resources.GetObject("BTN_ACEPTAR.Image"), System.Drawing.Image)
         Me.BTN_ACEPTAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(586, 35)
+        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(499, 325)
         Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
         Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_ACEPTAR.TabIndex = 2
@@ -242,7 +273,7 @@ Partial Class EncomiendaMant
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(604, 291)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(604, 325)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 5
@@ -250,41 +281,36 @@ Partial Class EncomiendaMant
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
         '
-        'LST_TRACKING
+        'CMB_SUCURSAL
         '
-        Me.LST_TRACKING.Activation = System.Windows.Forms.ItemActivation.OneClick
-        Me.LST_TRACKING.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3})
-        Me.LST_TRACKING.HoverSelection = True
-        Me.LST_TRACKING.Location = New System.Drawing.Point(6, 19)
-        Me.LST_TRACKING.Name = "LST_TRACKING"
-        Me.LST_TRACKING.Size = New System.Drawing.Size(325, 129)
-        Me.LST_TRACKING.TabIndex = 0
-        Me.LST_TRACKING.UseCompatibleStateImageBehavior = False
-        Me.LST_TRACKING.View = System.Windows.Forms.View.Details
+        Me.CMB_SUCURSAL.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CMB_SUCURSAL.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.CMB_SUCURSAL.FormattingEnabled = True
+        Me.CMB_SUCURSAL.Location = New System.Drawing.Point(11, 94)
+        Me.CMB_SUCURSAL.Name = "CMB_SUCURSAL"
+        Me.CMB_SUCURSAL.Size = New System.Drawing.Size(434, 26)
+        Me.CMB_SUCURSAL.TabIndex = 4
         '
-        'ColumnHeader1
+        'Label6
         '
-        Me.ColumnHeader1.Text = "Ubicación"
-        Me.ColumnHeader1.Width = 130
-        '
-        'ColumnHeader2
-        '
-        Me.ColumnHeader2.Text = "Fecha"
-        Me.ColumnHeader2.Width = 120
-        '
-        'ColumnHeader3
-        '
-        Me.ColumnHeader3.Text = "Usuario"
-        Me.ColumnHeader3.Width = 70
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label6.Location = New System.Drawing.Point(10, 73)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(126, 18)
+        Me.Label6.TabIndex = 3
+        Me.Label6.Text = "Sucursal destino :"
         '
         'EncomiendaMant
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(709, 338)
+        Me.ClientSize = New System.Drawing.Size(709, 371)
         Me.ControlBox = False
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.GroupBox3)
+        Me.Controls.Add(Me.BTN_ACEPTAR)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.TXT_GUIA)
@@ -326,4 +352,6 @@ Partial Class EncomiendaMant
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
     Friend WithEvents ColumnHeader3 As ColumnHeader
+    Friend WithEvents CMB_SUCURSAL As ComboBox
+    Friend WithEvents Label6 As Label
 End Class

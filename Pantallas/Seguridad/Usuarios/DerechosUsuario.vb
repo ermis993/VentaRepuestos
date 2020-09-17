@@ -174,7 +174,15 @@ Public Class DerechosUsuario
             Next
 
             If LVCon.Items.Count > 0 Then
-                Dim SQL = "	INSERT INTO USUARIO_DERECHO(COD_CIA,COD_DERECHO,COD_USUARIO)"
+
+                Dim SQL = "	DELETE FROM USUARIO_DERECHO"
+                SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+                SQL &= Chr(13) & "	AND COD_USUARIO = " & SCM(COD_USUARIO)
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+
+                SQL = "	INSERT INTO USUARIO_DERECHO(COD_CIA,COD_DERECHO,COD_USUARIO)"
                 Dim ULTIMO As Integer = LVCon.Items.Count - 1
                 Dim CANTIDAD As Integer = 0
                 For Each LVI In LVCon.Items

@@ -8,7 +8,8 @@ Public Class Login
     End Sub
     Private Sub CONFIGURACION()
         Try
-            CONX.ConexionSTR("DESKTOP-42HEF7C", "sa", "1234", "VR")
+
+            CONX.Inicializar_cadena_conexion("DESKTOP-42HEF7C", "sa", "1234", "VR")
             'CONX_SIC.ConexionSTR("DESKTOP-HT8MNPN\SQLEXPRESS,1433", "sa", "1234", "INFORMACION_SIC")
             'CONX.ConexionSTR("DESKTOP-OG4U60G\SQLEXPRESS,1433", "sa", "union1234", "VR")
             CONX_SIC.ConexionSTR("DESKTOP-OG4U60G\SQLEXPRESS,1433", "sa", "union1234", "INFORMACION_SIC")
@@ -34,7 +35,10 @@ Public Class Login
                     Next
                 End If
                 If COINCIDENCIA = True Then
+                    TXT_USUARIO.Text = ""
+                    TXT_CONTRASENA.Text = ""
                     Me.Visible = False
+                    Actualizaciones.ACTUALIZACIONES()
                     Dim PANTALLA As New SeleccionCompania()
                     PANTALLA.Show()
                 Else

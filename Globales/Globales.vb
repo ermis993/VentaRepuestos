@@ -1,4 +1,6 @@
-﻿Imports System.Globalization
+﻿Imports System.Data.SqlClient
+Imports System.Globalization
+Imports System.IO
 Imports System.Text.RegularExpressions
 Imports CRF_CONEXIONES.CONEXIONES
 Imports FUN_CRFUSION.FUNCIONES_GENERALES
@@ -368,6 +370,28 @@ Public Class Globales
         End Try
     End Function
 
+    Public Shared Function DIRECCION_ETIQUETA() As String
+        Try
+            Dim respuesta As String = ""
+            Dim SQL As String = "SELECT ISNULL(IMPRESION_ETIQUETA,'') AS IMPRESION_TIQUETE"
+            SQL &= Chr(13) & " FROM SUCURSAL "
+            SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & " AND COD_SUCUR = " & SCM(COD_SUCUR)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                respuesta = DS.Tables(0).Rows(0).Item("IMPRESION_TIQUETE")
+            End If
+
+            Return respuesta
+
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
+
     Public Shared Function ANCHO_IMPRESION() As Integer
         Try
             Dim respuesta As Integer = 0
@@ -509,5 +533,55 @@ Public Class Globales
         End Try
     End Function
 
+    Public Shared Sub RellenaImagen(ByRef Panel As PictureBox)
+        Try
+            Dim COMANDO As New SqlCommand With {
+                .CommandType = CommandType.Text,
+                .CommandText = "SELECT LOGO FROM COMPANIA WHERE COD_CIA = " & SCM(COD_CIA)
+            }
+
+            CONX.Coneccion_Abrir()
+            COMANDO.Connection = CONX.Connection
+
+            Dim da As New SqlDataAdapter(COMANDO)
+            Dim ds As New DataSet()
+            da.Fill(ds, "COMPANIA")
+            Dim c As Integer = ds.Tables(0).Rows.Count
+            If c > 0 Then
+                Dim bytBLOBData() As Byte =
+                    ds.Tables(0).Rows(c - 1)("LOGO")
+                Dim stmBLOBData As New MemoryStream(bytBLOBData)
+                Panel.Image = Image.FromStream(stmBLOBData)
+
+            End If
+            CONX.Coneccion_Cerrar()
+
+        Catch ex As Exception
+            CONX.Coneccion_Cerrar()
+        End Try
+    End Sub
+
+    Public Shared Function TieneDerecho(ByVal COD_DERECHO As String) As Boolean
+        Try
+            Dim BANDERA As Boolean = False
+
+            Dim SQL As String = "SELECT *"
+            SQL &= Chr(13) & " FROM USUARIO_DERECHO "
+            SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & " AND COD_DERECHO = " & SCM(COD_DERECHO)
+            SQL &= Chr(13) & " AND COD_USUARIO = " & SCM(COD_USUARIO)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                BANDERA = True
+            End If
+
+            Return BANDERA
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
 
 End Class

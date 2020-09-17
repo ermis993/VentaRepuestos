@@ -32,10 +32,34 @@ Public Class MenuPrincipal
     End Sub
 
     Private Sub MenuPrincipal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Habilita_Botones()
         CARGAR_SUCURSALES()
         CARGAR_TIPO_CAMBIO()
         CARGAR_SALUDO()
+        RellenaImagen(PB_IMAGEN)
     End Sub
+
+    Private Sub Habilita_Botones()
+        Try
+            BTN_COMPANIA.Enabled = TieneDerecho("DCIA")
+            BTN_SUCURSAL.Enabled = TieneDerecho("DSUC")
+            BTN_USUARIO.Enabled = TieneDerecho("DUSU")
+            BTN_CLIENTE.Enabled = TieneDerecho("DCLI")
+            BTN_PROVEEDOR.Enabled = TieneDerecho("DPROV")
+            BTN_FAMILIA.Enabled = TieneDerecho("DFAM")
+            BTN_PRODUCTO.Enabled = TieneDerecho("DPROD")
+            BTN_FE.Enabled = TieneDerecho("DVEN")
+            BTN_COMPRAS.Enabled = TieneDerecho("DCOMP")
+            BTN_BACKUP.Enabled = TieneDerecho("DBACK")
+            BTN_REPORTES.Enabled = TieneDerecho("DREPT")
+            BTN_ENCOMIENDA.Enabled = TieneDerecho("DENC")
+            BTN_CONSULTA.Enabled = TieneDerecho("DCONS")
+            BTN_XML.Enabled = TieneDerecho("DXML")
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
     Private Sub CARGAR_TIPO_CAMBIO()
         Dim SQL = "	SELECT * FROM TIPO_CAMBIO_CIA"
         SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
@@ -84,9 +108,13 @@ Public Class MenuPrincipal
             CMB_SUCURSAL.DataSource = Nothing
             Dim LISTA_REF As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
 
-            Dim SQL As String = "SELECT COD_SUCUR AS CODIGO, NOMBRE"
-            SQL &= Chr(13) & " FROM SUCURSAL"
-            SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
+            Dim SQL As String = "SELECT SUC.COD_SUCUR AS CODIGO, NOMBRE"
+            SQL &= Chr(13) & " FROM SUCURSAL AS SUC"
+            SQL &= Chr(13) & " INNER JOIN SUCURSAL_USUARIO AS USU"
+            SQL &= Chr(13) & " 	ON SUC.COD_CIA = USU.COD_CIA"
+            SQL &= Chr(13) & " 	AND SUC.COD_SUCUR = USU.COD_SUCUR"
+            SQL &= Chr(13) & "	AND USU.COD_USUARIO =" & SCM(COD_USUARIO)
+            SQL &= Chr(13) & " WHERE SUC.COD_CIA = " & SCM(COD_CIA)
             SQL &= Chr(13) & " AND ESTADO = 'A'"
 
             CONX.Coneccion_Abrir()
@@ -175,10 +203,15 @@ Public Class MenuPrincipal
     Private Sub BTN_USUARIO_Click(sender As Object, e As EventArgs) Handles BTN_USUARIO.Click
         Try
             Dim PANTALLA As New Usuario()
+            AddHandler PANTALLA.FormClosed, AddressOf Proceso_Botones
             PANTALLA.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
+    End Sub
+
+    Private Sub Proceso_Botones(ByVal sender As Object, ByVal e As FormClosedEventArgs)
+        Habilita_Botones()
     End Sub
 
     Private Sub BTN_CONSULTA_Click(sender As Object, e As EventArgs) Handles BTN_CONSULTA.Click

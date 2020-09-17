@@ -107,6 +107,9 @@ Partial Class Factura
         Me.Label25 = New System.Windows.Forms.Label()
         Me.TXT_E = New System.Windows.Forms.TextBox()
         Me.Label36 = New System.Windows.Forms.Label()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.CHK_MU = New System.Windows.Forms.CheckBox()
+        Me.CHK_MN = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.TAB_ENC.SuspendLayout()
         Me.TAB_DET.SuspendLayout()
@@ -115,6 +118,7 @@ Partial Class Factura
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TAB_ENCOMIENDA.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -764,6 +768,7 @@ Partial Class Factura
         '
         'TAB_ENCOMIENDA
         '
+        Me.TAB_ENCOMIENDA.Controls.Add(Me.GroupBox3)
         Me.TAB_ENCOMIENDA.Controls.Add(Me.CMB_DESTINO)
         Me.TAB_ENCOMIENDA.Controls.Add(Me.CMB_ORIGEN)
         Me.TAB_ENCOMIENDA.Controls.Add(Me.Label33)
@@ -1115,6 +1120,42 @@ Partial Class Factura
         Me.Label36.TabIndex = 13
         Me.Label36.Text = "Exoneración :"
         '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.CHK_MU)
+        Me.GroupBox3.Controls.Add(Me.CHK_MN)
+        Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.GroupBox3.Location = New System.Drawing.Point(63, 147)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(502, 45)
+        Me.GroupBox3.TabIndex = 8
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Tipo de mercaderia"
+        '
+        'CHK_MU
+        '
+        Me.CHK_MU.AutoSize = True
+        Me.CHK_MU.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.CHK_MU.Location = New System.Drawing.Point(313, 17)
+        Me.CHK_MU.Name = "CHK_MU"
+        Me.CHK_MU.Size = New System.Drawing.Size(148, 22)
+        Me.CHK_MU.TabIndex = 1
+        Me.CHK_MU.Text = "Mercadería Usada"
+        Me.CHK_MU.UseVisualStyleBackColor = True
+        '
+        'CHK_MN
+        '
+        Me.CHK_MN.AutoSize = True
+        Me.CHK_MN.Checked = True
+        Me.CHK_MN.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CHK_MN.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.CHK_MN.Location = New System.Drawing.Point(151, 17)
+        Me.CHK_MN.Name = "CHK_MN"
+        Me.CHK_MN.Size = New System.Drawing.Size(144, 22)
+        Me.CHK_MN.TabIndex = 0
+        Me.CHK_MN.Text = "Mercadería nueva"
+        Me.CHK_MN.UseVisualStyleBackColor = True
+        '
         'Factura
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1155,6 +1196,8 @@ Partial Class Factura
         Me.TAB_ENCOMIENDA.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1244,4 +1287,7 @@ Partial Class Factura
     Friend WithEvents Label35 As Label
     Friend WithEvents TXT_E As TextBox
     Friend WithEvents Label36 As Label
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents CHK_MU As CheckBox
+    Friend WithEvents CHK_MN As CheckBox
 End Class

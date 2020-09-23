@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Producto
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,19 +20,20 @@ Partial Class Producto
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Estado = New System.Windows.Forms.GroupBox()
         Me.RB_TODOS = New System.Windows.Forms.RadioButton()
         Me.RB_INACTIVOS = New System.Windows.Forms.RadioButton()
         Me.RB_ACTIVOS = New System.Windows.Forms.RadioButton()
         Me.GRID = New System.Windows.Forms.DataGridView()
-        Me.Filtro = New VentaRepuestos.Filtro()
         Me.BTN_UBICACION = New System.Windows.Forms.Button()
         Me.BTN_AGREGAR = New System.Windows.Forms.Button()
         Me.BTN_MODIFICAR = New System.Windows.Forms.Button()
         Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
+        Me.Filtro = New VentaRepuestos.Filtro()
+        Me.BTN_VERIFICACION = New System.Windows.Forms.Button()
         Me.Estado.SuspendLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -42,7 +43,7 @@ Partial Class Producto
         Me.Estado.Controls.Add(Me.RB_TODOS)
         Me.Estado.Controls.Add(Me.RB_INACTIVOS)
         Me.Estado.Controls.Add(Me.RB_ACTIVOS)
-        Me.Estado.Location = New System.Drawing.Point(565, -1)
+        Me.Estado.Location = New System.Drawing.Point(605, 2)
         Me.Estado.Name = "Estado"
         Me.Estado.Size = New System.Drawing.Size(146, 51)
         Me.Estado.TabIndex = 5
@@ -90,23 +91,15 @@ Partial Class Producto
         Me.GRID.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.GRID.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
         Me.GRID.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.GRID.Location = New System.Drawing.Point(2, 91)
+        Me.GRID.Location = New System.Drawing.Point(0, 86)
         Me.GRID.MultiSelect = False
         Me.GRID.Name = "GRID"
         Me.GRID.ReadOnly = True
         Me.GRID.RowHeadersVisible = False
         Me.GRID.RowHeadersWidth = 51
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRID.Size = New System.Drawing.Size(711, 369)
+        Me.GRID.Size = New System.Drawing.Size(751, 419)
         Me.GRID.TabIndex = 7
-        '
-        'Filtro
-        '
-        Me.Filtro.Location = New System.Drawing.Point(2, 56)
-        Me.Filtro.Name = "Filtro"
-        Me.Filtro.Size = New System.Drawing.Size(306, 29)
-        Me.Filtro.TabIndex = 6
-        Me.Filtro.VALOR = ""
         '
         'BTN_UBICACION
         '
@@ -114,7 +107,7 @@ Partial Class Producto
         Me.BTN_UBICACION.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_UBICACION.Image = Global.VentaRepuestos.My.Resources.Resources.ubicacion
         Me.BTN_UBICACION.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_UBICACION.Location = New System.Drawing.Point(300, 7)
+        Me.BTN_UBICACION.Location = New System.Drawing.Point(300, 2)
         Me.BTN_UBICACION.Name = "BTN_UBICACION"
         Me.BTN_UBICACION.Size = New System.Drawing.Size(99, 43)
         Me.BTN_UBICACION.TabIndex = 3
@@ -128,7 +121,7 @@ Partial Class Producto
         Me.BTN_AGREGAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_AGREGAR.Image = Global.VentaRepuestos.My.Resources.Resources.agregar
         Me.BTN_AGREGAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_AGREGAR.Location = New System.Drawing.Point(2, 7)
+        Me.BTN_AGREGAR.Location = New System.Drawing.Point(2, 2)
         Me.BTN_AGREGAR.Name = "BTN_AGREGAR"
         Me.BTN_AGREGAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_AGREGAR.TabIndex = 0
@@ -142,7 +135,7 @@ Partial Class Producto
         Me.BTN_MODIFICAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_MODIFICAR.Image = Global.VentaRepuestos.My.Resources.Resources.controles
         Me.BTN_MODIFICAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_MODIFICAR.Location = New System.Drawing.Point(101, 7)
+        Me.BTN_MODIFICAR.Location = New System.Drawing.Point(101, 2)
         Me.BTN_MODIFICAR.Name = "BTN_MODIFICAR"
         Me.BTN_MODIFICAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_MODIFICAR.TabIndex = 1
@@ -156,7 +149,7 @@ Partial Class Producto
         Me.BTN_REFRESCAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_REFRESCAR.Image = Global.VentaRepuestos.My.Resources.Resources.refrescar
         Me.BTN_REFRESCAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_REFRESCAR.Location = New System.Drawing.Point(201, 7)
+        Me.BTN_REFRESCAR.Location = New System.Drawing.Point(201, 2)
         Me.BTN_REFRESCAR.Name = "BTN_REFRESCAR"
         Me.BTN_REFRESCAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_REFRESCAR.TabIndex = 2
@@ -170,7 +163,7 @@ Partial Class Producto
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(399, 7)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(500, 2)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 4
@@ -178,12 +171,35 @@ Partial Class Producto
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
         '
+        'Filtro
+        '
+        Me.Filtro.Location = New System.Drawing.Point(2, 51)
+        Me.Filtro.Name = "Filtro"
+        Me.Filtro.Size = New System.Drawing.Size(306, 29)
+        Me.Filtro.TabIndex = 6
+        Me.Filtro.VALOR = ""
+        '
+        'BTN_VERIFICACION
+        '
+        Me.BTN_VERIFICACION.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_VERIFICACION.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_VERIFICACION.Image = Global.VentaRepuestos.My.Resources.Resources.aceptar
+        Me.BTN_VERIFICACION.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_VERIFICACION.Location = New System.Drawing.Point(400, 2)
+        Me.BTN_VERIFICACION.Name = "BTN_VERIFICACION"
+        Me.BTN_VERIFICACION.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_VERIFICACION.TabIndex = 8
+        Me.BTN_VERIFICACION.Text = "Verificar"
+        Me.BTN_VERIFICACION.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_VERIFICACION.UseVisualStyleBackColor = False
+        '
         'Producto
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(715, 461)
+        Me.ClientSize = New System.Drawing.Size(753, 506)
         Me.ControlBox = False
+        Me.Controls.Add(Me.BTN_VERIFICACION)
         Me.Controls.Add(Me.BTN_UBICACION)
         Me.Controls.Add(Me.Filtro)
         Me.Controls.Add(Me.GRID)
@@ -215,4 +231,5 @@ Partial Class Producto
     Friend WithEvents GRID As DataGridView
     Friend WithEvents Filtro As Filtro
     Friend WithEvents BTN_UBICACION As Button
+    Friend WithEvents BTN_VERIFICACION As Button
 End Class

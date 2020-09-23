@@ -37,19 +37,19 @@ Public Class SucursalMant
             Dim Estado As String
 
             If String.IsNullOrEmpty(TXT_CODIGO.Text) Then
-                MessageBox.Show("El código de sucursal no puede ser vacío", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("El código de sucursal no puede ser vacío", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CODIGO.Select()
             ElseIf String.IsNullOrEmpty(TXT_NOMBRE.Text) Then
-                MessageBox.Show("Debe ingresar el nombre de la sucursal", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("Debe ingresar el nombre de la sucursal", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_NOMBRE.Select()
             ElseIf String.IsNullOrEmpty(TXT_DIRECCION.Text) Then
-                MessageBox.Show("Debe ingresar la dirección de la sucursal", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("Debe ingresar la dirección de la sucursal", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_DIRECCION.Select()
             ElseIf String.IsNullOrEmpty(TXT_TELEFONO.Text) Then
-                MessageBox.Show("Debe ingresar el teléfono de la sucursall", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("Debe ingresar el teléfono de la sucursall", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_TELEFONO.Select()
             ElseIf String.IsNullOrEmpty(TXT_CORREO.Text) Then
-                MessageBox.Show("Es necesario un correo para la sucursal", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("Es necesario un correo para la sucursal", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CORREO.Select()
             Else
 

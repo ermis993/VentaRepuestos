@@ -31,14 +31,11 @@ Public Class Encomienda
                 GRID.DataSource = Nothing
                 Dim SQL As String = ""
 
-                SQL = "	SELECT GUIA.NUMERO_DOC, NUMERO_GUIA, CLI.NOMBRE + ' ' + CLI.APELLIDO1 + ' ' + CLI.APELLIDO2 AS RETIRA, "
+                SQL = "	SELECT GUIA.NUMERO_DOC, NUMERO_GUIA, ISNULL(GUIA.RETIRA, '') AS RETIRA, "
                 SQL &= Chr(13) & "	UBI_ORIGEN.DESC_UBICACION AS ORIGEN, UBI_DESTINO.DESC_UBICACION AS DESTINO, "
                 SQL &= Chr(13) & "	CANT_BULTOS, CASE WHEN GUIA.ESTADO = 'P' THEN 'Pendiente' WHEN GUIA.ESTADO = 'T' THEN 'Transportando' WHEN GUIA.ESTADO = 'R' THEN 'Recibido' WHEN GUIA.ESTADO = 'E' THEN 'Entregada' END AS ESTADO,"
                 SQL &= Chr(13) & "	CONVERT(VARCHAR(10), GUIA.FECHA_INC, 105) + ' ' + RIGHT(CONVERT(VARCHAR, GUIA.FECHA_INC, 100), 7) AS HORA, GUIA.TIPO_MOV"
                 SQL &= Chr(13) & "	FROM DOCUMENTO_GUIA AS GUIA	"
-                SQL &= Chr(13) & "	INNER JOIN CLIENTE AS CLI	"
-                SQL &= Chr(13) & "		ON CLI.COD_CIA = GUIA.COD_CIA"
-                SQL &= Chr(13) & "      AND CLI.CEDULA = GUIA.CEDULA"
                 SQL &= Chr(13) & "	INNER JOIN GUIA_UBICACION AS UBI_ORIGEN	"
                 SQL &= Chr(13) & "		ON UBI_ORIGEN.COD_CIA = GUIA.COD_CIA"
                 SQL &= Chr(13) & "      AND UBI_ORIGEN.COD_UBICACION = GUIA.ORIGEN"
@@ -46,7 +43,7 @@ Public Class Encomienda
                 SQL &= Chr(13) & "		ON UBI_DESTINO.COD_CIA = GUIA.COD_CIA"
                 SQL &= Chr(13) & "      AND UBI_DESTINO.COD_UBICACION = GUIA.DESTINO"
                 SQL &= Chr(13) & " WHERE GUIA.COD_CIA = " & SCM(COD_CIA)
-                SQL &= Chr(13) & " AND GUIA.COD_SUCUR = " & SCM(COD_SUCUR)
+                SQL &= Chr(13) & " AND GUIA.COD_DERECHO = " & SCM(COD_SUCUR)
                 If CMB_FILTRO.SelectedIndex = 1 Then
                     SQL &= Chr(13) & "	AND GUIA.ESTADO ='P'"
                 ElseIf CMB_FILTRO.SelectedIndex = 2 Then
@@ -56,6 +53,7 @@ Public Class Encomienda
                 ElseIf CMB_FILTRO.SelectedIndex = 4 Then
                     SQL &= Chr(13) & "	AND GUIA.ESTADO ='E'"
                 End If
+                SQL &= Chr(13) & "	AND GUIA.ESTADO <> 'N'"
                 SQL &= Chr(13) & " AND CONVERT(VARCHAR(10), GUIA.FECHA_INC, 111) BETWEEN " & SCM(YMD(DTPINICIO.Value)) & " AND " & SCM(YMD(DTPFINAL.Value))
                 SQL &= Chr(13) & " ORDER BY NUMERO_GUIA ASC"
 
@@ -121,6 +119,15 @@ Public Class Encomienda
 
     Private Sub Encomienda_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+
+            BTN_UBICACION.Enabled = TieneDerecho("DINRUTA")
+
+            DTPINICIO.Format = DateTimePickerFormat.Custom
+            DTPINICIO.CustomFormat = "dd-MM-yyyy hh:mm:ss tt"
+
+            DTPFINAL.Format = DateTimePickerFormat.Custom
+            DTPFINAL.CustomFormat = "dd-MM-yyyy hh:mm:ss tt"
+
             CMB_FILTRO.SelectedIndex = 0
             Refrescar()
         Catch ex As Exception
@@ -171,7 +178,7 @@ Public Class Encomienda
                 Dim PANTALLA As New EncomiendaMant(GUIA, "R", NUMERO_DOC, TIPO_MOV, Me, "Recibida")
                 PANTALLA.ShowDialog()
             Else
-                MessageBox.Show("La encomienda debe de estar en estado de 'Transportando' para poder recibirla", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("La encomienda debe de estar en estado de 'Transportando' para poder recibirla", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -185,7 +192,7 @@ Public Class Encomienda
                 Dim PANTALLA As New EncomiendaMant(GUIA, "E", NUMERO_DOC, TIPO_MOV, Me, "Entregada")
                 PANTALLA.ShowDialog()
             Else
-                MessageBox.Show("La encomienda debe de estar en estado de 'Recibido' para poder entregar al cliente", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("La encomienda debe de estar en estado de 'Recibido' para poder entregar al cliente", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -199,7 +206,7 @@ Public Class Encomienda
                 Dim PANTALLA As New EncomiendaMant(GUIA, "T", NUMERO_DOC, TIPO_MOV, Me, "Transporte")
                 PANTALLA.ShowDialog()
             Else
-                MessageBox.Show("La encomienda debe de estar en estado de 'Pendiente' para poder transportarla", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("La encomienda debe de estar en estado de 'Pendiente' para poder transportarla", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -235,7 +242,9 @@ Public Class Encomienda
 
             Dim valor = MessageBox.Show(Me, mensaje, Me.Text, vbYesNo, MessageBoxIcon.Question)
             If valor = DialogResult.Yes Then
-
+                Leer_indice()
+                Dim PANTALLA As New EncomiendaMantEspecial("T", DTPINICIO.Value, DTPFINAL.Value, Me)
+                PANTALLA.ShowDialog()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

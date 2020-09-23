@@ -116,7 +116,7 @@ Public Class Compania
                 Dim Derechos As New DerechosCompania(COD_CIA)
                 Derechos.ShowDialog()
             Else
-                MessageBox.Show("Debe seleccionar la compañía")
+                MessageBox.Show("Debe seleccionar la compañía", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

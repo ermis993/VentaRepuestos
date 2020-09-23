@@ -25,7 +25,6 @@ Partial Class Factura
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Factura))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TAB_ENC = New System.Windows.Forms.TabPage()
-        Me.Cliente = New VentaRepuestos.Buscador()
         Me.TXT_DESCRIPCION = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -77,6 +76,19 @@ Partial Class Factura
         Me.TAB_LINEAS = New System.Windows.Forms.TabPage()
         Me.GRID = New System.Windows.Forms.DataGridView()
         Me.TAB_ENCOMIENDA = New System.Windows.Forms.TabPage()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.Label40 = New System.Windows.Forms.Label()
+        Me.TXT_VALOR = New System.Windows.Forms.TextBox()
+        Me.TXT_DETALLE_ENVIO = New System.Windows.Forms.TextBox()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.TXT_TELEFONO_RETIRA = New System.Windows.Forms.TextBox()
+        Me.Label38 = New System.Windows.Forms.Label()
+        Me.TXT_RETIRA = New System.Windows.Forms.TextBox()
+        Me.TXT_ENVIA = New System.Windows.Forms.TextBox()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.CHK_MU = New System.Windows.Forms.CheckBox()
+        Me.CHK_MN = New System.Windows.Forms.CheckBox()
         Me.CMB_DESTINO = New System.Windows.Forms.ComboBox()
         Me.CMB_ORIGEN = New System.Windows.Forms.ComboBox()
         Me.Label33 = New System.Windows.Forms.Label()
@@ -84,7 +96,6 @@ Partial Class Factura
         Me.TXT_CANT_BULTOS = New System.Windows.Forms.TextBox()
         Me.Label31 = New System.Windows.Forms.Label()
         Me.Label30 = New System.Windows.Forms.Label()
-        Me.Cliente_Retira = New VentaRepuestos.Buscador()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TXT_NUMERO = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -107,9 +118,7 @@ Partial Class Factura
         Me.Label25 = New System.Windows.Forms.Label()
         Me.TXT_E = New System.Windows.Forms.TextBox()
         Me.Label36 = New System.Windows.Forms.Label()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.CHK_MU = New System.Windows.Forms.CheckBox()
-        Me.CHK_MN = New System.Windows.Forms.CheckBox()
+        Me.Cliente = New VentaRepuestos.Buscador()
         Me.TabControl1.SuspendLayout()
         Me.TAB_ENC.SuspendLayout()
         Me.TAB_DET.SuspendLayout()
@@ -117,8 +126,9 @@ Partial Class Factura
         Me.TAB_LINEAS.SuspendLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TAB_ENCOMIENDA.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -155,21 +165,6 @@ Partial Class Factura
         Me.TAB_ENC.TabIndex = 0
         Me.TAB_ENC.Text = "[ Encabezado ]"
         Me.TAB_ENC.UseVisualStyleBackColor = True
-        '
-        'Cliente
-        '
-        Me.Cliente.CODIGO = Nothing
-        Me.Cliente.DESCRIPCION = Nothing
-        Me.Cliente.Location = New System.Drawing.Point(111, 10)
-        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cliente.Name = "Cliente"
-        Me.Cliente.OTROS_CAMP0S = Nothing
-        Me.Cliente.PANTALLA = Nothing
-        Me.Cliente.Size = New System.Drawing.Size(451, 32)
-        Me.Cliente.TabIndex = 1
-        Me.Cliente.TABLA_BUSCAR = "CLIENTE"
-        Me.Cliente.VALOR = ""
-        Me.Cliente.VALOR_DESCRIPCION = Nothing
         '
         'TXT_DESCRIPCION
         '
@@ -768,6 +763,14 @@ Partial Class Factura
         '
         'TAB_ENCOMIENDA
         '
+        Me.TAB_ENCOMIENDA.Controls.Add(Me.GroupBox4)
+        Me.TAB_ENCOMIENDA.Controls.Add(Me.TXT_DETALLE_ENVIO)
+        Me.TAB_ENCOMIENDA.Controls.Add(Me.Label39)
+        Me.TAB_ENCOMIENDA.Controls.Add(Me.TXT_TELEFONO_RETIRA)
+        Me.TAB_ENCOMIENDA.Controls.Add(Me.Label38)
+        Me.TAB_ENCOMIENDA.Controls.Add(Me.TXT_RETIRA)
+        Me.TAB_ENCOMIENDA.Controls.Add(Me.TXT_ENVIA)
+        Me.TAB_ENCOMIENDA.Controls.Add(Me.Label37)
         Me.TAB_ENCOMIENDA.Controls.Add(Me.GroupBox3)
         Me.TAB_ENCOMIENDA.Controls.Add(Me.CMB_DESTINO)
         Me.TAB_ENCOMIENDA.Controls.Add(Me.CMB_ORIGEN)
@@ -776,7 +779,6 @@ Partial Class Factura
         Me.TAB_ENCOMIENDA.Controls.Add(Me.TXT_CANT_BULTOS)
         Me.TAB_ENCOMIENDA.Controls.Add(Me.Label31)
         Me.TAB_ENCOMIENDA.Controls.Add(Me.Label30)
-        Me.TAB_ENCOMIENDA.Controls.Add(Me.Cliente_Retira)
         Me.TAB_ENCOMIENDA.Location = New System.Drawing.Point(4, 22)
         Me.TAB_ENCOMIENDA.Name = "TAB_ENCOMIENDA"
         Me.TAB_ENCOMIENDA.Size = New System.Drawing.Size(846, 231)
@@ -784,95 +786,223 @@ Partial Class Factura
         Me.TAB_ENCOMIENDA.Text = "[ Encomienda ]"
         Me.TAB_ENCOMIENDA.UseVisualStyleBackColor = True
         '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.Label40)
+        Me.GroupBox4.Controls.Add(Me.TXT_VALOR)
+        Me.GroupBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.GroupBox4.Location = New System.Drawing.Point(579, 80)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(264, 63)
+        Me.GroupBox4.TabIndex = 15
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Valor de mercaderia"
+        '
+        'Label40
+        '
+        Me.Label40.AutoSize = True
+        Me.Label40.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label40.Location = New System.Drawing.Point(5, 29)
+        Me.Label40.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label40.Name = "Label40"
+        Me.Label40.Size = New System.Drawing.Size(27, 18)
+        Me.Label40.TabIndex = 0
+        Me.Label40.Text = "₡ :"
+        '
+        'TXT_VALOR
+        '
+        Me.TXT_VALOR.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_VALOR.Location = New System.Drawing.Point(35, 27)
+        Me.TXT_VALOR.Margin = New System.Windows.Forms.Padding(2)
+        Me.TXT_VALOR.MaxLength = 12
+        Me.TXT_VALOR.Name = "TXT_VALOR"
+        Me.TXT_VALOR.Size = New System.Drawing.Size(218, 24)
+        Me.TXT_VALOR.TabIndex = 1
+        Me.TXT_VALOR.Text = "0"
+        '
+        'TXT_DETALLE_ENVIO
+        '
+        Me.TXT_DETALLE_ENVIO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_DETALLE_ENVIO.Location = New System.Drawing.Point(123, 99)
+        Me.TXT_DETALLE_ENVIO.Margin = New System.Windows.Forms.Padding(2)
+        Me.TXT_DETALLE_ENVIO.MaxLength = 300
+        Me.TXT_DETALLE_ENVIO.Name = "TXT_DETALLE_ENVIO"
+        Me.TXT_DETALLE_ENVIO.Size = New System.Drawing.Size(434, 24)
+        Me.TXT_DETALLE_ENVIO.TabIndex = 7
+        '
+        'Label39
+        '
+        Me.Label39.AutoSize = True
+        Me.Label39.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label39.Location = New System.Drawing.Point(24, 102)
+        Me.Label39.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label39.Name = "Label39"
+        Me.Label39.Size = New System.Drawing.Size(96, 18)
+        Me.Label39.TabIndex = 6
+        Me.Label39.Text = "Detalle envío:"
+        '
+        'TXT_TELEFONO_RETIRA
+        '
+        Me.TXT_TELEFONO_RETIRA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_TELEFONO_RETIRA.Location = New System.Drawing.Point(123, 71)
+        Me.TXT_TELEFONO_RETIRA.Margin = New System.Windows.Forms.Padding(2)
+        Me.TXT_TELEFONO_RETIRA.MaxLength = 10
+        Me.TXT_TELEFONO_RETIRA.Name = "TXT_TELEFONO_RETIRA"
+        Me.TXT_TELEFONO_RETIRA.Size = New System.Drawing.Size(102, 24)
+        Me.TXT_TELEFONO_RETIRA.TabIndex = 5
+        '
+        'Label38
+        '
+        Me.Label38.AutoSize = True
+        Me.Label38.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label38.Location = New System.Drawing.Point(5, 74)
+        Me.Label38.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label38.Name = "Label38"
+        Me.Label38.Size = New System.Drawing.Size(117, 18)
+        Me.Label38.TabIndex = 4
+        Me.Label38.Text = "Teléfono Retira :"
+        '
+        'TXT_RETIRA
+        '
+        Me.TXT_RETIRA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_RETIRA.Location = New System.Drawing.Point(123, 43)
+        Me.TXT_RETIRA.Margin = New System.Windows.Forms.Padding(2)
+        Me.TXT_RETIRA.MaxLength = 300
+        Me.TXT_RETIRA.Name = "TXT_RETIRA"
+        Me.TXT_RETIRA.Size = New System.Drawing.Size(434, 24)
+        Me.TXT_RETIRA.TabIndex = 3
+        '
+        'TXT_ENVIA
+        '
+        Me.TXT_ENVIA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_ENVIA.Location = New System.Drawing.Point(123, 14)
+        Me.TXT_ENVIA.Margin = New System.Windows.Forms.Padding(2)
+        Me.TXT_ENVIA.MaxLength = 300
+        Me.TXT_ENVIA.Name = "TXT_ENVIA"
+        Me.TXT_ENVIA.Size = New System.Drawing.Size(434, 24)
+        Me.TXT_ENVIA.TabIndex = 1
+        '
+        'Label37
+        '
+        Me.Label37.AutoSize = True
+        Me.Label37.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label37.Location = New System.Drawing.Point(66, 17)
+        Me.Label37.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(52, 18)
+        Me.Label37.TabIndex = 0
+        Me.Label37.Text = "Envia :"
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.CHK_MU)
+        Me.GroupBox3.Controls.Add(Me.CHK_MN)
+        Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.GroupBox3.Location = New System.Drawing.Point(579, 11)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(264, 63)
+        Me.GroupBox3.TabIndex = 14
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Tipo de mercaderia"
+        '
+        'CHK_MU
+        '
+        Me.CHK_MU.AutoSize = True
+        Me.CHK_MU.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.CHK_MU.Location = New System.Drawing.Point(5, 38)
+        Me.CHK_MU.Name = "CHK_MU"
+        Me.CHK_MU.Size = New System.Drawing.Size(148, 22)
+        Me.CHK_MU.TabIndex = 1
+        Me.CHK_MU.Text = "Mercadería Usada"
+        Me.CHK_MU.UseVisualStyleBackColor = True
+        '
+        'CHK_MN
+        '
+        Me.CHK_MN.AutoSize = True
+        Me.CHK_MN.Checked = True
+        Me.CHK_MN.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CHK_MN.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.CHK_MN.Location = New System.Drawing.Point(6, 17)
+        Me.CHK_MN.Name = "CHK_MN"
+        Me.CHK_MN.Size = New System.Drawing.Size(144, 22)
+        Me.CHK_MN.TabIndex = 0
+        Me.CHK_MN.Text = "Mercadería nueva"
+        Me.CHK_MN.UseVisualStyleBackColor = True
+        '
         'CMB_DESTINO
         '
         Me.CMB_DESTINO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CMB_DESTINO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.CMB_DESTINO.FormattingEnabled = True
-        Me.CMB_DESTINO.Location = New System.Drawing.Point(131, 115)
+        Me.CMB_DESTINO.Location = New System.Drawing.Point(123, 194)
         Me.CMB_DESTINO.Name = "CMB_DESTINO"
         Me.CMB_DESTINO.Size = New System.Drawing.Size(434, 26)
-        Me.CMB_DESTINO.TabIndex = 7
+        Me.CMB_DESTINO.TabIndex = 13
         '
         'CMB_ORIGEN
         '
         Me.CMB_ORIGEN.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CMB_ORIGEN.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.CMB_ORIGEN.FormattingEnabled = True
-        Me.CMB_ORIGEN.Location = New System.Drawing.Point(131, 80)
+        Me.CMB_ORIGEN.Location = New System.Drawing.Point(123, 158)
         Me.CMB_ORIGEN.Name = "CMB_ORIGEN"
         Me.CMB_ORIGEN.Size = New System.Drawing.Size(434, 26)
-        Me.CMB_ORIGEN.TabIndex = 5
+        Me.CMB_ORIGEN.TabIndex = 11
         '
         'Label33
         '
         Me.Label33.AutoSize = True
         Me.Label33.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label33.Location = New System.Drawing.Point(60, 119)
+        Me.Label33.Location = New System.Drawing.Point(55, 197)
         Me.Label33.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label33.Name = "Label33"
         Me.Label33.Size = New System.Drawing.Size(67, 18)
-        Me.Label33.TabIndex = 6
+        Me.Label33.TabIndex = 12
         Me.Label33.Text = "Destino :"
         '
         'Label32
         '
         Me.Label32.AutoSize = True
         Me.Label32.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label32.Location = New System.Drawing.Point(67, 84)
+        Me.Label32.Location = New System.Drawing.Point(58, 162)
         Me.Label32.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(60, 18)
-        Me.Label32.TabIndex = 4
+        Me.Label32.TabIndex = 10
         Me.Label32.Text = "Origen :"
         '
         'TXT_CANT_BULTOS
         '
         Me.TXT_CANT_BULTOS.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_CANT_BULTOS.Location = New System.Drawing.Point(131, 50)
+        Me.TXT_CANT_BULTOS.Location = New System.Drawing.Point(123, 128)
         Me.TXT_CANT_BULTOS.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_CANT_BULTOS.MaxLength = 3
         Me.TXT_CANT_BULTOS.Name = "TXT_CANT_BULTOS"
         Me.TXT_CANT_BULTOS.Size = New System.Drawing.Size(76, 24)
-        Me.TXT_CANT_BULTOS.TabIndex = 3
+        Me.TXT_CANT_BULTOS.TabIndex = 9
         Me.TXT_CANT_BULTOS.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label31
         '
         Me.Label31.AutoSize = True
         Me.Label31.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label31.Location = New System.Drawing.Point(7, 53)
+        Me.Label31.Location = New System.Drawing.Point(4, 129)
         Me.Label31.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(120, 18)
-        Me.Label31.TabIndex = 2
+        Me.Label31.TabIndex = 8
         Me.Label31.Text = "Cantidad Bultos :"
         '
         'Label30
         '
         Me.Label30.AutoSize = True
         Me.Label30.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label30.Location = New System.Drawing.Point(72, 21)
+        Me.Label30.Location = New System.Drawing.Point(65, 46)
         Me.Label30.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label30.Name = "Label30"
         Me.Label30.Size = New System.Drawing.Size(55, 18)
-        Me.Label30.TabIndex = 0
+        Me.Label30.TabIndex = 2
         Me.Label30.Text = "Retira :"
-        '
-        'Cliente_Retira
-        '
-        Me.Cliente_Retira.CODIGO = Nothing
-        Me.Cliente_Retira.DESCRIPCION = Nothing
-        Me.Cliente_Retira.Location = New System.Drawing.Point(131, 14)
-        Me.Cliente_Retira.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cliente_Retira.Name = "Cliente_Retira"
-        Me.Cliente_Retira.OTROS_CAMP0S = Nothing
-        Me.Cliente_Retira.PANTALLA = Nothing
-        Me.Cliente_Retira.Size = New System.Drawing.Size(451, 32)
-        Me.Cliente_Retira.TabIndex = 1
-        Me.Cliente_Retira.TABLA_BUSCAR = "CLIENTE"
-        Me.Cliente_Retira.VALOR = ""
-        Me.Cliente_Retira.VALOR_DESCRIPCION = Nothing
         '
         'Label1
         '
@@ -987,7 +1117,7 @@ Partial Class Factura
         Me.BTN_FACTURAR.Location = New System.Drawing.Point(559, 375)
         Me.BTN_FACTURAR.Name = "BTN_FACTURAR"
         Me.BTN_FACTURAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_FACTURAR.TabIndex = 10
+        Me.BTN_FACTURAR.TabIndex = 12
         Me.BTN_FACTURAR.Text = "Facturar"
         Me.BTN_FACTURAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_FACTURAR.UseVisualStyleBackColor = False
@@ -1001,7 +1131,7 @@ Partial Class Factura
         Me.BTN_SALIR.Location = New System.Drawing.Point(757, 375)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_SALIR.TabIndex = 12
+        Me.BTN_SALIR.TabIndex = 14
         Me.BTN_SALIR.Text = "Salir"
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
@@ -1015,7 +1145,7 @@ Partial Class Factura
         Me.BTN_ACEPTAR.Location = New System.Drawing.Point(658, 375)
         Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
         Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_ACEPTAR.TabIndex = 11
+        Me.BTN_ACEPTAR.TabIndex = 13
         Me.BTN_ACEPTAR.Text = "Aceptar"
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
@@ -1067,7 +1197,7 @@ Partial Class Factura
         Me.TXT_T.Name = "TXT_T"
         Me.TXT_T.ReadOnly = True
         Me.TXT_T.Size = New System.Drawing.Size(160, 24)
-        Me.TXT_T.TabIndex = 9
+        Me.TXT_T.TabIndex = 11
         Me.TXT_T.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label24
@@ -1077,7 +1207,7 @@ Partial Class Factura
         Me.Label24.Location = New System.Drawing.Point(327, 375)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(49, 18)
-        Me.Label24.TabIndex = 8
+        Me.Label24.TabIndex = 10
         Me.Label24.Text = "Total :"
         '
         'TXT_I
@@ -1087,7 +1217,7 @@ Partial Class Factura
         Me.TXT_I.Name = "TXT_I"
         Me.TXT_I.ReadOnly = True
         Me.TXT_I.Size = New System.Drawing.Size(160, 24)
-        Me.TXT_I.TabIndex = 7
+        Me.TXT_I.TabIndex = 9
         Me.TXT_I.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label25
@@ -1097,7 +1227,7 @@ Partial Class Factura
         Me.Label25.Location = New System.Drawing.Point(299, 350)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(77, 18)
-        Me.Label25.TabIndex = 6
+        Me.Label25.TabIndex = 8
         Me.Label25.Text = "Impuesto :"
         '
         'TXT_E
@@ -1107,7 +1237,7 @@ Partial Class Factura
         Me.TXT_E.Name = "TXT_E"
         Me.TXT_E.ReadOnly = True
         Me.TXT_E.Size = New System.Drawing.Size(160, 24)
-        Me.TXT_E.TabIndex = 14
+        Me.TXT_E.TabIndex = 7
         Me.TXT_E.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label36
@@ -1117,51 +1247,31 @@ Partial Class Factura
         Me.Label36.Location = New System.Drawing.Point(-1, 401)
         Me.Label36.Name = "Label36"
         Me.Label36.Size = New System.Drawing.Size(99, 18)
-        Me.Label36.TabIndex = 13
+        Me.Label36.TabIndex = 6
         Me.Label36.Text = "Exoneración :"
         '
-        'GroupBox3
+        'Cliente
         '
-        Me.GroupBox3.Controls.Add(Me.CHK_MU)
-        Me.GroupBox3.Controls.Add(Me.CHK_MN)
-        Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.GroupBox3.Location = New System.Drawing.Point(63, 147)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(502, 45)
-        Me.GroupBox3.TabIndex = 8
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Tipo de mercaderia"
-        '
-        'CHK_MU
-        '
-        Me.CHK_MU.AutoSize = True
-        Me.CHK_MU.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.CHK_MU.Location = New System.Drawing.Point(313, 17)
-        Me.CHK_MU.Name = "CHK_MU"
-        Me.CHK_MU.Size = New System.Drawing.Size(148, 22)
-        Me.CHK_MU.TabIndex = 1
-        Me.CHK_MU.Text = "Mercadería Usada"
-        Me.CHK_MU.UseVisualStyleBackColor = True
-        '
-        'CHK_MN
-        '
-        Me.CHK_MN.AutoSize = True
-        Me.CHK_MN.Checked = True
-        Me.CHK_MN.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CHK_MN.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.CHK_MN.Location = New System.Drawing.Point(151, 17)
-        Me.CHK_MN.Name = "CHK_MN"
-        Me.CHK_MN.Size = New System.Drawing.Size(144, 22)
-        Me.CHK_MN.TabIndex = 0
-        Me.CHK_MN.Text = "Mercadería nueva"
-        Me.CHK_MN.UseVisualStyleBackColor = True
+        Me.Cliente.CAMPO_FILTRAR = Nothing
+        Me.Cliente.CODIGO = Nothing
+        Me.Cliente.DESCRIPCION = Nothing
+        Me.Cliente.Location = New System.Drawing.Point(111, 10)
+        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
+        Me.Cliente.Name = "Cliente"
+        Me.Cliente.OTROS_CAMP0S = Nothing
+        Me.Cliente.PANTALLA = Nothing
+        Me.Cliente.Size = New System.Drawing.Size(451, 32)
+        Me.Cliente.TabIndex = 1
+        Me.Cliente.TABLA_BUSCAR = "CLIENTE"
+        Me.Cliente.VALOR = ""
+        Me.Cliente.VALOR_DESCRIPCION = Nothing
         '
         'Factura
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.ClientSize = New System.Drawing.Size(858, 423)
+        Me.ClientSize = New System.Drawing.Size(860, 424)
         Me.ControlBox = False
         Me.Controls.Add(Me.TXT_E)
         Me.Controls.Add(Me.Label36)
@@ -1194,10 +1304,12 @@ Partial Class Factura
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TAB_ENCOMIENDA.ResumeLayout(False)
         Me.TAB_ENCOMIENDA.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1273,7 +1385,6 @@ Partial Class Factura
     Friend WithEvents TXT_COLUMNA As TextBox
     Friend WithEvents Label29 As Label
     Friend WithEvents TAB_ENCOMIENDA As TabPage
-    Friend WithEvents Cliente_Retira As Buscador
     Friend WithEvents Label30 As Label
     Friend WithEvents TXT_CANT_BULTOS As TextBox
     Friend WithEvents Label31 As Label
@@ -1290,4 +1401,14 @@ Partial Class Factura
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents CHK_MU As CheckBox
     Friend WithEvents CHK_MN As CheckBox
+    Friend WithEvents TXT_ENVIA As TextBox
+    Friend WithEvents Label37 As Label
+    Friend WithEvents TXT_RETIRA As TextBox
+    Friend WithEvents TXT_TELEFONO_RETIRA As TextBox
+    Friend WithEvents Label38 As Label
+    Friend WithEvents TXT_DETALLE_ENVIO As TextBox
+    Friend WithEvents Label39 As Label
+    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents TXT_VALOR As TextBox
+    Friend WithEvents Label40 As Label
 End Class

@@ -8,6 +8,7 @@ Public Class Factura
     Dim Padre As Facturacion
     Dim Numero_Doc As Integer
     Dim Tipo_Mov As String
+    Dim Cantidad_Global As Double = 0
 
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         EliminaTodoTemporal()
@@ -43,12 +44,6 @@ Public Class Factura
         Cliente.DESCRIPCION = "NOMBRE+ ' ' + APELLIDO1"
         Cliente.PANTALLA = New Cliente(CRF_Modos.Seleccionar, Cliente)
         Cliente.refrescar()
-
-        Cliente_Retira.TABLA_BUSCAR = "CLIENTE"
-        Cliente_Retira.CODIGO = "CEDULA"
-        Cliente_Retira.DESCRIPCION = "NOMBRE+ ' ' + APELLIDO1"
-        Cliente_Retira.PANTALLA = New Cliente(CRF_Modos.Seleccionar, Cliente)
-        Cliente_Retira.refrescar()
 
         If Me.Modo = CRF_Modos.Insertar Then
             TXT_TIPO_CAMBIO.Text = FMCP(TC_VENTA)
@@ -315,9 +310,9 @@ Public Class Factura
     Private Sub IngresarDetalle()
         Try
             If String.IsNullOrEmpty(TXT_ESTANTE.Text) Or String.IsNullOrEmpty(TXT_FILA.Text) Or String.IsNullOrEmpty(TXT_COLUMNA.Text) Then
-                MessageBox.Show(Me, "La ubicación del producto es inválida, vuelva a seleccionar el producto", "Mensaje ubicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show(Me, "La ubicación del producto es inválida, vuelva a seleccionar el producto", "Mensaje ubicación", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf String.IsNullOrEmpty(Cliente.VALOR) Then
-                MessageBox.Show(Me, "El cliente no ha sido seleccionado", "Mensaje cliente", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show(Me, "El cliente no ha sido seleccionado", "Mensaje cliente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
                 If FMC(TXT_TOTAL.Text) > 0 Then
                     Dim SQL = "	EXECUTE USP_MANT_FACTURACION_TMP "
@@ -353,6 +348,11 @@ Public Class Factura
                     CONX.Coneccion_Abrir()
                     CONX.EJECUTE(SQL)
                     CONX.Coneccion_Cerrar()
+
+                    If IND_ENCOMIENDA = "S" Then
+                        Cantidad_Global += FMC(TXT_CANTIDAD.Text)
+                        TXT_CANT_BULTOS.Text = Val(Cantidad_Global)
+                    End If
 
                     LimpiarControles()
 
@@ -496,6 +496,12 @@ Public Class Factura
                 CalculoTotales()
                 TabControl1.SelectedIndex = 1
                 TXT_CANTIDAD.Focus()
+
+                If IND_ENCOMIENDA = "S" Then
+                    Cantidad_Global -= FMC(seleccionado.Cells(6).Value)
+                    TXT_CANT_BULTOS.Text = Val(Cantidad_Global)
+                End If
+
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -625,6 +631,11 @@ Public Class Factura
                         CONX.EJECUTE(SQL)
                         CONX.Coneccion_Cerrar()
 
+                        If IND_ENCOMIENDA = "S" Then
+                            Cantidad_Global -= FMC(seleccionado.Cells(6).Value)
+                            TXT_CANT_BULTOS.Text = Val(Cantidad_Global)
+                        End If
+
                         RELLENAR_GRID()
 
                         MessageBox.Show(Me, "Producto eliminado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -638,20 +649,62 @@ Public Class Factura
 
     Private Sub BTN_FACTURAR_Click(sender As Object, e As EventArgs) Handles BTN_FACTURAR.Click
         Try
-            Dim imp As New Impresion()
+            Dim valor = MessageBox.Show(Me, "¿Seguro que desea facturar el documento?", "Facturacion", vbYesNo, MessageBoxIcon.Question)
+            If valor = DialogResult.Yes Then
+                If GRID.Rows.Count <= 0 Then
+                    MessageBox.Show(Me, "Debe ingresar al menos una linea del documento", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                ElseIf String.IsNullOrEmpty(TXT_ENVIA.Text) And IND_ENCOMIENDA = "S" Then
+                    MessageBox.Show(Me, "El cliente que envia la encomienda no ha sido ingresado", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                ElseIf String.IsNullOrEmpty(TXT_RETIRA.Text) And IND_ENCOMIENDA = "S" Then
+                    MessageBox.Show(Me, "El cliente que retira la encomienda no ha sido ingresado", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                ElseIf String.IsNullOrEmpty(TXT_TELEFONO_RETIRA.Text) And IND_ENCOMIENDA = "S" Then
+                    MessageBox.Show(Me, "El número de teléfono que retira la encomienda no ha sido ingresado", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                ElseIf String.IsNullOrEmpty(TXT_DETALLE_ENVIO.Text) And IND_ENCOMIENDA = "S" Then
+                    MessageBox.Show(Me, "No se ha ingresado una descripción de lo enviado en la encomienda", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                ElseIf Val(TXT_CANT_BULTOS.Text) <= 0 And IND_ENCOMIENDA = "S" Then
+                    MessageBox.Show(Me, "La cantidad de bultos no puede ser menor o igual a cero", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                ElseIf CMB_ORIGEN.SelectedIndex = -1 And IND_ENCOMIENDA = "S" Then
+                    MessageBox.Show(Me, "No se ha elegido el origen de la encomienda", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                ElseIf CMB_DESTINO.SelectedIndex = -1 And IND_ENCOMIENDA = "S" Then
+                    MessageBox.Show(Me, "No se ha elegido el destino de la encomienda", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                ElseIf FMC(TXT_VALOR.Text) < 0 And IND_ENCOMIENDA = "S" Then
+                    MessageBox.Show(Me, "El valor del producto no puede ser menor a 0", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                ElseIf CMB_DESTINO.SelectedIndex = CMB_ORIGEN.SelectedIndex And IND_ENCOMIENDA = "S" Then
+                    MessageBox.Show(Me, "La direcciones de origen y destino deben ser distintas", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                Else
+                    Dim Pantalla As New FacturaCambio(FMC(TXT_T.Text))
+                    AddHandler Pantalla.FormClosed, AddressOf Accion_Facturar
+                    Pantalla.ShowDialog()
+                End If
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 
+    Private Sub Accion_Facturar(ByVal sender As Form, ByVal e As EventArgs)
+        Try
+            Dim imp As New Impresion()
             If GRID.Rows.Count <= 0 Then
-                MessageBox.Show(Me, "Debe ingresar al menos una linea del documento", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            ElseIf String.IsNullOrEmpty(Cliente_Retira.VALOR) And IND_ENCOMIENDA = "S" Then
-                MessageBox.Show(Me, "El cliente que retira la encomienda no ha sido seleccionado", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(Me, "Debe ingresar al menos una linea del documento", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            ElseIf String.IsNullOrEmpty(TXT_ENVIA.Text) And IND_ENCOMIENDA = "S" Then
+                MessageBox.Show(Me, "El cliente que envia la encomienda no ha sido ingresado", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            ElseIf String.IsNullOrEmpty(TXT_RETIRA.Text) And IND_ENCOMIENDA = "S" Then
+                MessageBox.Show(Me, "El cliente que retira la encomienda no ha sido ingresado", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            ElseIf String.IsNullOrEmpty(TXT_TELEFONO_RETIRA.Text) And IND_ENCOMIENDA = "S" Then
+                MessageBox.Show(Me, "El número de teléfono que retira la encomienda no ha sido ingresado", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            ElseIf String.IsNullOrEmpty(TXT_DETALLE_ENVIO.Text) And IND_ENCOMIENDA = "S" Then
+                MessageBox.Show(Me, "No se ha ingresado una descripción de lo enviado en la encomienda", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf Val(TXT_CANT_BULTOS.Text) <= 0 And IND_ENCOMIENDA = "S" Then
-                MessageBox.Show(Me, "La cantidad de bultos no puede ser menor o igual a cero", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(Me, "La cantidad de bultos no puede ser menor o igual a cero", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf CMB_ORIGEN.SelectedIndex = -1 And IND_ENCOMIENDA = "S" Then
-                MessageBox.Show(Me, "No se ha elegido el origen de la encomienda", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(Me, "No se ha elegido el origen de la encomienda", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf CMB_DESTINO.SelectedIndex = -1 And IND_ENCOMIENDA = "S" Then
-                MessageBox.Show(Me, "No se ha elegido el destino de la encomienda", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(Me, "No se ha elegido el destino de la encomienda", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            ElseIf FMC(TXT_VALOR.Text) < 0 And IND_ENCOMIENDA = "S" Then
+                MessageBox.Show(Me, "El valor del producto no puede ser menor a 0", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf CMB_DESTINO.SelectedIndex = CMB_ORIGEN.SelectedIndex And IND_ENCOMIENDA = "S" Then
-                MessageBox.Show(Me, "La direcciones de origen y destino deben ser distintas", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(Me, "La direcciones de origen y destino deben ser distintas", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
                 Dim Sql = "	USP_FACTURACION_TMP_A_REAL	"
                 Sql &= Chr(13) & "	 @COD_CIA = " & SCM(COD_CIA)
@@ -664,9 +717,10 @@ Public Class Factura
 
                 If IND_ENCOMIENDA = "S" Then
                     Dim NUMERO_GUIA = GENERA_NUMERO_GUIA(CMB_ORIGEN.SelectedItem().ToString.Substring(1, 3))
-                    Sql = "INSERT INTO DOCUMENTO_GUIA(COD_CIA,COD_SUCUR,NUMERO_DOC,TIPO_MOV,NUMERO_GUIA,CEDULA,CANT_BULTOS,ORIGEN,DESTINO,COD_USUARIO,FECHA_INC,TIPO_MERCADERIA)"
-                    Sql &= Chr(13) & "SELECT " & SCM(COD_CIA) & "," & SCM(COD_SUCUR) & "," & Val(DS.Tables(0).Rows(0).Item(0)) & "," & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2)) & "," & SCM(NUMERO_GUIA) & "," & SCM(Cliente_Retira.VALOR)
+                    Sql = "INSERT INTO DOCUMENTO_GUIA(COD_CIA,COD_SUCUR,NUMERO_DOC,TIPO_MOV,NUMERO_GUIA,CANT_BULTOS,ORIGEN,DESTINO,COD_USUARIO,FECHA_INC,TIPO_MERCADERIA,ENVIA,RETIRA,DESCRIPCION,VALOR_ENCOMIENDA,TELEFONO_RETIRA,COD_DERECHO)"
+                    Sql &= Chr(13) & "SELECT " & SCM(COD_CIA) & "," & SCM(COD_SUCUR) & "," & Val(DS.Tables(0).Rows(0).Item(0)) & "," & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2)) & "," & SCM(NUMERO_GUIA)
                     Sql &= Chr(13) & "," & Val(TXT_CANT_BULTOS.Text) & "," & SCM(CMB_ORIGEN.SelectedItem().ToString.Substring(1, 3)) & "," & SCM(CMB_DESTINO.SelectedItem().ToString.Substring(1, 3)) & "," & SCM(COD_USUARIO) & ", GETDATE() , " & SCM(IIf(CHK_MN.Checked, "N", "U"))
+                    Sql &= Chr(13) & "," & SCM(TXT_ENVIA.Text) & "," & SCM(TXT_RETIRA.Text) & "," & SCM(TXT_DETALLE_ENVIO.Text) & "," & FMC(TXT_VALOR.Text) & "," & SCM(TXT_TELEFONO_RETIRA.Text) & "," & SCM(COD_SUCUR)
                     CONX.Coneccion_Abrir()
                     CONX.EJECUTE(Sql)
                     CONX.Coneccion_Cerrar()
@@ -679,18 +733,30 @@ Public Class Factura
                     CONX.Coneccion_Cerrar()
                 End If
 
-                Dim valor = MessageBox.Show(Me, "Documento ingresado correctamente, ¿desea imprimir el documento?", Me.Text, vbYesNo, MessageBoxIcon.Question)
-                If valor = DialogResult.Yes Then
+                If IND_ENCOMIENDA = "S" Then
+                    imp.ImprimirEncomienda(COD_CIA, COD_SUCUR, DS.Tables(0).Rows(0).Item(0), CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
+                    imp.ImprimirEtiquetas(COD_CIA, COD_SUCUR, DS.Tables(0).Rows(0).Item(0), CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
+                End If
+
+                If IND_ENCOMIENDA = "S" Then
                     imp.Imprimir(COD_CIA, COD_SUCUR, DS.Tables(0).Rows(0).Item(0), CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
                     Me.Close()
                     Padre.Refrescar()
                 Else
-                    Me.Close()
-                    Padre.Refrescar()
+                    Dim pregunta = MessageBox.Show(Me, "Documento ingresado correctamente, ¿desea imprimir el documento?", Me.Text, vbYesNo, MessageBoxIcon.Question)
+                    If pregunta = DialogResult.Yes Then
+                        imp.Imprimir(COD_CIA, COD_SUCUR, DS.Tables(0).Rows(0).Item(0), CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
+                        Me.Close()
+                        Padre.Refrescar()
+                    Else
+                        Me.Close()
+                        Padre.Refrescar()
+                    End If
                 End If
+
             End If
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
+            Throw ex
         End Try
     End Sub
 
@@ -858,10 +924,10 @@ Public Class Factura
     Private Sub SETEO_ENCOMIENDA()
         Try
             If IND_ENCOMIENDA = "S" Then
-                Dim SQL As String = "SELECT ORIGEN, DESTINO, CANT_BULTOS, CEDULA, TIPO_MERCADERIA "
+                Dim SQL As String = "SELECT ORIGEN, DESTINO, CANT_BULTOS, TIPO_MERCADERIA, ENVIA, RETIRA, DESCRIPCION, VALOR_ENCOMIENDA, TELEFONO_RETIRA "
                 SQL &= Chr(13) & "	FROM DOCUMENTO_GUIA	"
                 SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
-                SQL &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+                SQL &= Chr(13) & "	AND COD_DERECHO = " & SCM(COD_SUCUR)
                 SQL &= Chr(13) & "	AND NUMERO_DOC = " & Val(Numero_Doc)
                 SQL &= Chr(13) & "  AND TIPO_MOV = " & SCM(Tipo_Mov)
 
@@ -874,11 +940,12 @@ Public Class Factura
                         CMB_ORIGEN.SelectedValue = Row("ORIGEN")
                         CMB_DESTINO.SelectedValue = Row("DESTINO")
                         TXT_CANT_BULTOS.Text = Val(Row("CANT_BULTOS"))
-
+                        TXT_TELEFONO_RETIRA.Text = Row("TELEFONO_RETIRA")
+                        TXT_ENVIA.Text = Row("ENVIA")
+                        TXT_RETIRA.Text = Row("RETIRA")
+                        TXT_DETALLE_ENVIO.Text = Row("DESCRIPCION")
+                        TXT_VALOR.Text = FMC(Row("VALOR_ENCOMIENDA"))
                         CHK_MU.Checked = IIf(Row("TIPO_MERCADERIA") = "N", False, True)
-
-                        Cliente_Retira.VALOR = Row("CEDULA")
-                        Cliente_Retira.ACTUALIZAR_COMBO()
                     Next
                 End If
             End If

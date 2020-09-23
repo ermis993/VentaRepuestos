@@ -74,10 +74,10 @@ Public Class ActEconomicaMant
         Try
             Dim ENTRAR As Boolean = False
             If TXT_COD_ACT.Text.Equals("") Then
-                MessageBox.Show("Error en el código de actividad")
+                MessageBox.Show("Error en el código de actividad", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_COD_ACT.Select()
             ElseIf TXT_DES_ACT.Text.Equals("") Then
-                MessageBox.Show("Error en la descripción de actividad")
+                MessageBox.Show("Error en la descripción de actividad", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_DES_ACT.Select()
             Else
                 ENTRAR = True
@@ -98,7 +98,7 @@ Public Class ActEconomicaMant
             CONX.Coneccion_Cerrar()
 
             If DS.Tables(0).Rows.Count > 0 Then
-                MessageBox.Show("Ya existe una actividad económica con el código " & TXT_COD_ACT.Text)
+                MessageBox.Show("Ya existe una actividad económica con el código " & TXT_COD_ACT.Text, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
                 EJECUTAR()
             End If
@@ -126,13 +126,13 @@ Public Class ActEconomicaMant
             CONX.EJECUTE(Sql)
             CONX.Coneccion_Cerrar()
             If MODO = CRF_Modos.Insertar Then
-                MessageBox.Show("Actividad económica agregada correctamente")
+                MessageBox.Show("Actividad económica agregada correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 LIMPIAR()
             ElseIf MODO = CRF_Modos.Modificar Then
-                MessageBox.Show("Actividad económica modificada correctamente")
+                MessageBox.Show("Actividad económica modificada correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 CERRAR()
             ElseIf MODO = CRF_Modos.Eliminar Then
-                MessageBox.Show("Actividad económica eliminada correctamente")
+                MessageBox.Show("Actividad económica eliminada correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 CERRAR()
             End If
         Catch ex As Exception

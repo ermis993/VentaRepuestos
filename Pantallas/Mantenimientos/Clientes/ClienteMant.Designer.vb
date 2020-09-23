@@ -38,6 +38,7 @@ Partial Class ClienteMant
         Me.LBL_CANTO = New System.Windows.Forms.Label()
         Me.CMB_PROVINCIA = New System.Windows.Forms.ComboBox()
         Me.LBL_PROVINCIA = New System.Windows.Forms.Label()
+        Me.BTN_BUSCAR = New System.Windows.Forms.Button()
         Me.TXT_CEDULA = New System.Windows.Forms.MaskedTextBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.CMB_MONEDA = New System.Windows.Forms.ComboBox()
@@ -61,6 +62,7 @@ Partial Class ClienteMant
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.GRID = New System.Windows.Forms.DataGridView()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.BTN_ACEPTAR_EXO = New System.Windows.Forms.Button()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.RB_EXO_INACTIVO = New System.Windows.Forms.RadioButton()
         Me.RB_EXO_ACTIVO = New System.Windows.Forms.RadioButton()
@@ -74,8 +76,6 @@ Partial Class ClienteMant
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.CMB_TIPO = New System.Windows.Forms.ComboBox()
-        Me.BTN_BUSCAR = New System.Windows.Forms.Button()
-        Me.BTN_ACEPTAR_EXO = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
@@ -156,9 +156,10 @@ Partial Class ClienteMant
         '
         Me.TXT_NOMBRE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_NOMBRE.Location = New System.Drawing.Point(137, 92)
+        Me.TXT_NOMBRE.MaxLength = 250
         Me.TXT_NOMBRE.Multiline = True
         Me.TXT_NOMBRE.Name = "TXT_NOMBRE"
-        Me.TXT_NOMBRE.Size = New System.Drawing.Size(201, 24)
+        Me.TXT_NOMBRE.Size = New System.Drawing.Size(297, 24)
         Me.TXT_NOMBRE.TabIndex = 6
         '
         'TXT_PRIMER_APELLIDO
@@ -167,7 +168,7 @@ Partial Class ClienteMant
         Me.TXT_PRIMER_APELLIDO.Location = New System.Drawing.Point(137, 126)
         Me.TXT_PRIMER_APELLIDO.Multiline = True
         Me.TXT_PRIMER_APELLIDO.Name = "TXT_PRIMER_APELLIDO"
-        Me.TXT_PRIMER_APELLIDO.Size = New System.Drawing.Size(201, 24)
+        Me.TXT_PRIMER_APELLIDO.Size = New System.Drawing.Size(297, 24)
         Me.TXT_PRIMER_APELLIDO.TabIndex = 8
         '
         'GroupBox1
@@ -265,6 +266,16 @@ Partial Class ClienteMant
         Me.LBL_PROVINCIA.Size = New System.Drawing.Size(77, 18)
         Me.LBL_PROVINCIA.TabIndex = 18
         Me.LBL_PROVINCIA.Text = "Provincia :"
+        '
+        'BTN_BUSCAR
+        '
+        Me.BTN_BUSCAR.BackgroundImage = Global.VentaRepuestos.My.Resources.Resources.consultas
+        Me.BTN_BUSCAR.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.BTN_BUSCAR.Location = New System.Drawing.Point(344, 60)
+        Me.BTN_BUSCAR.Name = "BTN_BUSCAR"
+        Me.BTN_BUSCAR.Size = New System.Drawing.Size(28, 22)
+        Me.BTN_BUSCAR.TabIndex = 4
+        Me.BTN_BUSCAR.UseVisualStyleBackColor = True
         '
         'TXT_CEDULA
         '
@@ -380,9 +391,10 @@ Partial Class ClienteMant
         Me.TXT_EMAIL.BackColor = System.Drawing.SystemColors.Window
         Me.TXT_EMAIL.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_EMAIL.Location = New System.Drawing.Point(137, 249)
+        Me.TXT_EMAIL.MaxLength = 300
         Me.TXT_EMAIL.Multiline = True
         Me.TXT_EMAIL.Name = "TXT_EMAIL"
-        Me.TXT_EMAIL.Size = New System.Drawing.Size(262, 24)
+        Me.TXT_EMAIL.Size = New System.Drawing.Size(297, 24)
         Me.TXT_EMAIL.TabIndex = 16
         '
         'TXT_TELEFONO
@@ -392,7 +404,7 @@ Partial Class ClienteMant
         Me.TXT_TELEFONO.MaxLength = 8
         Me.TXT_TELEFONO.Multiline = True
         Me.TXT_TELEFONO.Name = "TXT_TELEFONO"
-        Me.TXT_TELEFONO.Size = New System.Drawing.Size(201, 24)
+        Me.TXT_TELEFONO.Size = New System.Drawing.Size(130, 24)
         Me.TXT_TELEFONO.TabIndex = 12
         '
         'Label7
@@ -411,7 +423,7 @@ Partial Class ClienteMant
         Me.TXT_DIRECCION.Location = New System.Drawing.Point(137, 218)
         Me.TXT_DIRECCION.Multiline = True
         Me.TXT_DIRECCION.Name = "TXT_DIRECCION"
-        Me.TXT_DIRECCION.Size = New System.Drawing.Size(262, 24)
+        Me.TXT_DIRECCION.Size = New System.Drawing.Size(297, 24)
         Me.TXT_DIRECCION.TabIndex = 14
         '
         'Label6
@@ -430,7 +442,7 @@ Partial Class ClienteMant
         Me.TXT_SEGUNDO_APELLIDO.Location = New System.Drawing.Point(137, 158)
         Me.TXT_SEGUNDO_APELLIDO.Multiline = True
         Me.TXT_SEGUNDO_APELLIDO.Name = "TXT_SEGUNDO_APELLIDO"
-        Me.TXT_SEGUNDO_APELLIDO.Size = New System.Drawing.Size(201, 24)
+        Me.TXT_SEGUNDO_APELLIDO.Size = New System.Drawing.Size(297, 24)
         Me.TXT_SEGUNDO_APELLIDO.TabIndex = 10
         '
         'Label4
@@ -458,7 +470,7 @@ Partial Class ClienteMant
         Me.TabPage1.Controls.Add(Me.GroupBox1)
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage1.Size = New System.Drawing.Size(473, 493)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Información general "
@@ -470,7 +482,7 @@ Partial Class ClienteMant
         Me.TabPage2.Controls.Add(Me.GroupBox4)
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage2.Size = New System.Drawing.Size(473, 493)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Exoneración"
@@ -497,7 +509,7 @@ Partial Class ClienteMant
         Me.GRID.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight
         Me.GRID.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.GRID.Location = New System.Drawing.Point(5, 18)
-        Me.GRID.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GRID.Margin = New System.Windows.Forms.Padding(2)
         Me.GRID.MultiSelect = False
         Me.GRID.Name = "GRID"
         Me.GRID.RowHeadersVisible = False
@@ -527,6 +539,20 @@ Partial Class ClienteMant
         Me.GroupBox4.TabIndex = 0
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Información"
+        '
+        'BTN_ACEPTAR_EXO
+        '
+        Me.BTN_ACEPTAR_EXO.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_ACEPTAR_EXO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_ACEPTAR_EXO.Image = CType(resources.GetObject("BTN_ACEPTAR_EXO.Image"), System.Drawing.Image)
+        Me.BTN_ACEPTAR_EXO.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_ACEPTAR_EXO.Location = New System.Drawing.Point(355, 166)
+        Me.BTN_ACEPTAR_EXO.Name = "BTN_ACEPTAR_EXO"
+        Me.BTN_ACEPTAR_EXO.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_ACEPTAR_EXO.TabIndex = 11
+        Me.BTN_ACEPTAR_EXO.Text = "Aplicar"
+        Me.BTN_ACEPTAR_EXO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_ACEPTAR_EXO.UseVisualStyleBackColor = False
         '
         'GroupBox5
         '
@@ -665,29 +691,6 @@ Partial Class ClienteMant
         Me.CMB_TIPO.Name = "CMB_TIPO"
         Me.CMB_TIPO.Size = New System.Drawing.Size(341, 24)
         Me.CMB_TIPO.TabIndex = 1
-        '
-        'BTN_BUSCAR
-        '
-        Me.BTN_BUSCAR.Image = Global.VentaRepuestos.My.Resources.Resources.consultas
-        Me.BTN_BUSCAR.Location = New System.Drawing.Point(350, 52)
-        Me.BTN_BUSCAR.Name = "BTN_BUSCAR"
-        Me.BTN_BUSCAR.Size = New System.Drawing.Size(39, 40)
-        Me.BTN_BUSCAR.TabIndex = 4
-        Me.BTN_BUSCAR.UseVisualStyleBackColor = True
-        '
-        'BTN_ACEPTAR_EXO
-        '
-        Me.BTN_ACEPTAR_EXO.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_ACEPTAR_EXO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_ACEPTAR_EXO.Image = CType(resources.GetObject("BTN_ACEPTAR_EXO.Image"), System.Drawing.Image)
-        Me.BTN_ACEPTAR_EXO.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_ACEPTAR_EXO.Location = New System.Drawing.Point(355, 166)
-        Me.BTN_ACEPTAR_EXO.Name = "BTN_ACEPTAR_EXO"
-        Me.BTN_ACEPTAR_EXO.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_ACEPTAR_EXO.TabIndex = 11
-        Me.BTN_ACEPTAR_EXO.Text = "Aplicar"
-        Me.BTN_ACEPTAR_EXO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_ACEPTAR_EXO.UseVisualStyleBackColor = False
         '
         'BTN_SALIR
         '

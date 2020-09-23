@@ -128,7 +128,7 @@ Public Class DocumentoElectronicoImp
 
         Catch ex As Exception
             If ex.Message.Contains("Object reference not set") Or ex.Message.Contains("Referencia a objeto no establecida") Then
-                MessageBox.Show("¡Parece ser que el documento que está tratando de importar no corresponde a un archivo XML!" & vbNewLine & "El error es : " & ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("¡Parece ser que el documento que está tratando de importar no corresponde a un archivo XML!" & vbNewLine & "El error es : " & ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
                 MessageBox.Show(ex.Message)
             End If
@@ -555,7 +555,7 @@ Public Class DocumentoElectronicoImp
         Try
             If XML_CARGADO = True Then
                 If RB_RECHAZADO.Checked = True And TXT_RAZON.Text = "" Then
-                    MessageBox.Show("¡Debe indicar la razón del por qué rechaza el documento!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show("¡Debe indicar la razón del por qué rechaza el documento!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 Else
                     COD_ACT_ECO = CMB_ACTIVIDAD.SelectedValue.ToString
                     CONDICION_IVA = "01"
@@ -601,7 +601,7 @@ Public Class DocumentoElectronicoImp
                     End If
                 End If
                     Else
-                MessageBox.Show("¡Debe cargar un documento para poder incluirlo en el sistema!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("¡Debe cargar un documento para poder incluirlo en el sistema!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -714,13 +714,13 @@ Public Class DocumentoElectronicoImp
     Private Sub VALIDAR()
         Try
             If Mid(CONSECUTIVO, 9, 2) = "04" Then
-                MessageBox.Show("¡El documento que está tratando de importar es un tiquete electrónico, este documento no se puede utilizar para la aceptación de gastos!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡El documento que está tratando de importar es un tiquete electrónico, este documento no se puede utilizar para la aceptación de gastos!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 LIMPIAR()
             ElseIf VALIDAR_CEDULA_RECEPTOR() = False Then
-                MessageBox.Show("¡La cédula del receptor especificada en el documento electrónico " & CEDULA_RECEPTOR & " no coincide con la cédula de la compañía " & CEDULA_CIA & "!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("¡La cédula del receptor especificada en el documento electrónico " & CEDULA_RECEPTOR & " no coincide con la cédula de la compañía " & CEDULA_CIA & "!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 LIMPIAR()
             ElseIf FMC(TIPO_CAMBIO, 2) <= 1 And COD_MONEDA.ToUpper = "DOL" Then
-                MessageBox.Show("¡El documento que está tratando de importar es un documento en dólares y posee un tipo de cambio inválido!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("¡El documento que está tratando de importar es un documento en dólares y posee un tipo de cambio inválido!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 LIMPIAR()
             ElseIf EXISTE_DOCUMENTO() = True Then 'El Messagebox está dentro del método
                 LIMPIAR()
@@ -826,10 +826,10 @@ Public Class DocumentoElectronicoImp
                     ESTADO = ITEM("RESPUESTA_DGTD")
                 Next
                 If Trim(ESTADO) = "A" Then
-                    MessageBox.Show("¡El documento que está tratando de importar ya existe en la base de datos y fue aceptado por la DGTD!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show("¡El documento que está tratando de importar ya existe en la base de datos y fue aceptado por la DGTD!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                     EXISTE_DOCUMENTO = True
                 ElseIf Trim(ESTADO) = "" Then
-                    MessageBox.Show("¡El documento que está tratando de importar ya existe en la base de datos y está siendo procesado por el sistema!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show("¡El documento que está tratando de importar ya existe en la base de datos y está siendo procesado por el sistema!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                     EXISTE_DOCUMENTO = True
                 End If
             End If

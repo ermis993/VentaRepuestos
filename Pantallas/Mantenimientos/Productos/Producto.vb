@@ -53,7 +53,7 @@ Public Class Producto
             If GRID.Columns.Count > 0 Then
                 GRID.Rows.Clear()
                 GRID.DataSource = Nothing
-                Dim Sql = "	SELECT COD_PROD AS Código, DESCRIPCION AS Descripción, COSTO AS Costo, PRECIO AS Precio, EXENTO AS Exento "
+                Dim Sql = "	SELECT TOP 100 COD_PROD AS Código, DESCRIPCION AS Descripción, COSTO AS Costo, PRECIO AS Precio, EXENTO AS Exento "
                 Sql &= Chr(13) & "	,ESTADO AS Estado, MINIMO as Mínimo	"
                 Sql &= Chr(13) & "	FROM PRODUCTO	"
                 Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
@@ -148,6 +148,15 @@ Public Class Producto
                 Dim PANTALLA As New ProductoUbicacionMant(COD_PROD, DESCRIPCION)
                 PANTALLA.ShowDialog()
             End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_VERIFICACION_Click_1(sender As Object, e As EventArgs) Handles BTN_VERIFICACION.Click
+        Try
+            Dim PANTALLA As New ProductoVerificacion()
+            PANTALLA.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

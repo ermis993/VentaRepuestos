@@ -85,6 +85,7 @@ Public Class ProveedorMant
                     TXT_TELEFONO.Text = ITEM("TELEFONO")
                     TXT_DIRECCION.Text = ITEM("DIRECCION")
                     TXT_EMAIL.Text = ITEM("CORREO")
+                    TXT_POR_VENTA.Text = Val(ITEM("PORCENTAJE_VENTA"))
 
                     If Trim(ITEM("ESTADO")).Equals("A") Then
                         RB_ACTIVO.Checked = True
@@ -103,7 +104,7 @@ Public Class ProveedorMant
             If MODO = CRF_Modos.Insertar Or MODO = CRF_Modos.Modificar Then
                 If VALIDAR() = True Then
                     If EMAIL_VALIDO(TXT_EMAIL.Text) = False Then
-                        Respuesta = MessageBox.Show("¡El email ingresado parece ser un email no válido!", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                        Respuesta = MessageBox.Show("¡El email ingresado parece ser un email no válido!", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
                         If Respuesta = DialogResult.Yes Then
                             EJECUTAR()
                         End If
@@ -122,35 +123,38 @@ Public Class ProveedorMant
         Try
             VALIDAR = False
             If CMB_TIPO_CEDULA.SelectedIndex = 0 And TXT_CEDULA.Text.Length < 9 Then  'F
-                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Física contiene 9 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Física contiene 9 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CEDULA.Select()
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 1 And TXT_CEDULA.Text.Length < 10 Then 'J
-                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Jurídica contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Jurídica contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CEDULA.Select()
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 2 And TXT_CEDULA.Text.Length < 11 Then 'N
-                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo NITE contiene mínimo 11 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo NITE contiene mínimo 11 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CEDULA.Select()
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 3 And TXT_CEDULA.Text.Length < 10 Then 'D
                 TXT_CEDULA.Select()
-                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo DIMEX contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo DIMEX contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf MODO = CRF_Modos.Insertar And EXISTE_CEDULA() = True Then
-                MessageBox.Show("¡Ya existe un proveedor con la cédula : " & TXT_CEDULA.Text & "!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Ya existe un proveedor con la cédula : " & TXT_CEDULA.Text & "!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CEDULA.Select()
             ElseIf TXT_NOMBRE.Text.ToString.Equals("") Then
-                MessageBox.Show("¡Nombre incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Nombre incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_NOMBRE.Select()
             ElseIf TXT_TELEFONO.Text.Equals("") Then
-                MessageBox.Show("¡Teléfono incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Teléfono incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_TELEFONO.Select()
             ElseIf TXT_TELEFONO.Text.Length < 8 Then
-                MessageBox.Show("¡Teléfono incorrecto, debe contener 8 dígitos!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Teléfono incorrecto, debe contener 8 dígitos!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_TELEFONO.Select()
             ElseIf TXT_DIRECCION.Text.Equals("") Then
-                MessageBox.Show("¡Dirección incorrecta, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Dirección incorrecta, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_DIRECCION.Select()
             ElseIf TXT_EMAIL.Text.ToString.Equals("") Then
-                MessageBox.Show("¡Correo electrónico incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Correo electrónico incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_EMAIL.Select()
+            ElseIf String.IsNullOrEmpty(TXT_POR_VENTA.Text) Then
+                MessageBox.Show("¡Porcentaje incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                TXT_POR_VENTA.Select()
             Else
                 VALIDAR = True
             End If
@@ -194,6 +198,7 @@ Public Class ProveedorMant
             SQL &= Chr(13) & ",@TELEFONO = " & SCM(TXT_TELEFONO.Text)
             SQL &= Chr(13) & ",@CORREO = " & SCM(TXT_EMAIL.Text)
             SQL &= Chr(13) & ",@ESTADO = " & SCM(IIf(RB_ACTIVO.Checked = True, "A", "I"))
+            SQL &= Chr(13) & ",@PORCENTAJE = " & Val(TXT_POR_VENTA.Text)
 
             CONX.Coneccion_Abrir()
             CONX.EJECUTE(SQL)
@@ -219,6 +224,7 @@ Public Class ProveedorMant
         TXT_DIRECCION.Text = ""
         TXT_TELEFONO.Text = ""
         TXT_EMAIL.Text = ""
+        TXT_POR_VENTA.Text = ""
         RB_ACTIVO.Checked = True
     End Sub
 

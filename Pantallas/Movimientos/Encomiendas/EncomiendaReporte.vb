@@ -9,10 +9,10 @@ Public Class EncomiendaReporte
 
     Private Sub EncomiendaReporte_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DTP_INICIO.Format = DateTimePickerFormat.Custom
-        DTP_INICIO.CustomFormat = "dd-MM-yyyy hh:mm:ss"
+        DTP_INICIO.CustomFormat = "dd-MM-yyyy hh:mm:ss tt"
 
         DTP_FINAL.Format = DateTimePickerFormat.Custom
-        DTP_FINAL.CustomFormat = "dd-MM-yyyy hh:mm:ss"
+        DTP_FINAL.CustomFormat = "dd-MM-yyyy hh:mm:ss tt"
 
 
         RellenaTreeView()
@@ -33,7 +33,7 @@ Public Class EncomiendaReporte
                         End If
                 End Select
             Else
-                MessageBox.Show(Me, "Se debe seleccionar el reporte a generar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(Me, "Se debe seleccionar el reporte a generar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
 
         Catch ex As Exception

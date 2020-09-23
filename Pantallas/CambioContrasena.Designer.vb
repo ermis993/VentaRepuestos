@@ -42,62 +42,70 @@ Partial Class CambioContrasena
         Me.GroupBox1.Controls.Add(Me.TXT_NCONTRASENA)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
+        Me.GroupBox1.Location = New System.Drawing.Point(9, 10)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(583, 213)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Size = New System.Drawing.Size(437, 173)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Nueva contraseña ]"
         '
         'TXT_CODIGO
         '
-        Me.TXT_CODIGO.Location = New System.Drawing.Point(301, 54)
+        Me.TXT_CODIGO.Location = New System.Drawing.Point(226, 44)
+        Me.TXT_CODIGO.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.TXT_CODIGO.Name = "TXT_CODIGO"
-        Me.TXT_CODIGO.Size = New System.Drawing.Size(260, 29)
+        Me.TXT_CODIGO.Size = New System.Drawing.Size(196, 24)
         Me.TXT_CODIGO.TabIndex = 1
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(59, 54)
+        Me.Label3.Location = New System.Drawing.Point(44, 44)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(236, 24)
+        Me.Label3.Size = New System.Drawing.Size(185, 18)
         Me.Label3.TabIndex = 0
         Me.Label3.Text = "Digite el código verificador:"
         '
         'TXT_DCONTRASENA
         '
-        Me.TXT_DCONTRASENA.Location = New System.Drawing.Point(301, 152)
+        Me.TXT_DCONTRASENA.Location = New System.Drawing.Point(226, 124)
+        Me.TXT_DCONTRASENA.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.TXT_DCONTRASENA.Name = "TXT_DCONTRASENA"
         Me.TXT_DCONTRASENA.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.TXT_DCONTRASENA.Size = New System.Drawing.Size(260, 29)
+        Me.TXT_DCONTRASENA.Size = New System.Drawing.Size(196, 24)
         Me.TXT_DCONTRASENA.TabIndex = 5
         Me.TXT_DCONTRASENA.UseSystemPasswordChar = True
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(6, 155)
+        Me.Label2.Location = New System.Drawing.Point(4, 126)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(289, 24)
+        Me.Label2.Size = New System.Drawing.Size(226, 18)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "Digite nuevamente la contraseña:"
         '
         'TXT_NCONTRASENA
         '
-        Me.TXT_NCONTRASENA.Location = New System.Drawing.Point(301, 99)
+        Me.TXT_NCONTRASENA.Location = New System.Drawing.Point(226, 80)
+        Me.TXT_NCONTRASENA.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.TXT_NCONTRASENA.Name = "TXT_NCONTRASENA"
         Me.TXT_NCONTRASENA.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.TXT_NCONTRASENA.Size = New System.Drawing.Size(260, 29)
+        Me.TXT_NCONTRASENA.Size = New System.Drawing.Size(196, 24)
         Me.TXT_NCONTRASENA.TabIndex = 3
         Me.TXT_NCONTRASENA.UseSystemPasswordChar = True
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(48, 99)
+        Me.Label1.Location = New System.Drawing.Point(36, 80)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(247, 24)
+        Me.Label1.Size = New System.Drawing.Size(194, 18)
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "Digite su nueva contraseña :"
         '
@@ -105,9 +113,10 @@ Partial Class CambioContrasena
         '
         Me.BTN_ACEPTAR.Image = Global.VentaRepuestos.My.Resources.Resources.aceptar
         Me.BTN_ACEPTAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(463, 245)
+        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(347, 199)
+        Me.BTN_ACEPTAR.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
-        Me.BTN_ACEPTAR.Size = New System.Drawing.Size(132, 53)
+        Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_ACEPTAR.TabIndex = 1
         Me.BTN_ACEPTAR.Text = "Aceptar"
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -115,12 +124,15 @@ Partial Class CambioContrasena
         '
         'CambioContrasena
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ClientSize = New System.Drawing.Size(607, 310)
+        Me.ClientSize = New System.Drawing.Size(455, 252)
+        Me.ControlBox = False
         Me.Controls.Add(Me.BTN_ACEPTAR)
         Me.Controls.Add(Me.GroupBox1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "CambioContrasena"

@@ -290,7 +290,7 @@ Public Class MenuPrincipal
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
 
-                MessageBox.Show("BackUp generado correctamente")
+                MessageBox.Show("BackUp generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
 
         Catch ex As Exception

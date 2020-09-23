@@ -44,6 +44,8 @@ Partial Class Facturacion
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_FACTURAR = New System.Windows.Forms.Button()
         Me.BTN_IMPRIMIR = New System.Windows.Forms.Button()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.LBL_TOTAL_FACTURADO = New System.Windows.Forms.Label()
         Me.Filtro = New VentaRepuestos.Filtro()
         Me.GroupBox1.SuspendLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -214,7 +216,7 @@ Partial Class Facturacion
         Me.BTN_RECIBO.Image = Global.VentaRepuestos.My.Resources.Resources.pago
         Me.BTN_RECIBO.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BTN_RECIBO.Location = New System.Drawing.Point(105, 7)
-        Me.BTN_RECIBO.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.BTN_RECIBO.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_RECIBO.Name = "BTN_RECIBO"
         Me.BTN_RECIBO.Size = New System.Drawing.Size(99, 43)
         Me.BTN_RECIBO.TabIndex = 39
@@ -242,7 +244,7 @@ Partial Class Facturacion
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BTN_SALIR.Location = New System.Drawing.Point(761, 471)
-        Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 4
@@ -255,7 +257,7 @@ Partial Class Facturacion
         Me.BTN_FACTURAR.Image = Global.VentaRepuestos.My.Resources.Resources.facturar
         Me.BTN_FACTURAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BTN_FACTURAR.Location = New System.Drawing.Point(2, 7)
-        Me.BTN_FACTURAR.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.BTN_FACTURAR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_FACTURAR.Name = "BTN_FACTURAR"
         Me.BTN_FACTURAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_FACTURAR.TabIndex = 0
@@ -268,13 +270,33 @@ Partial Class Facturacion
         Me.BTN_IMPRIMIR.Image = Global.VentaRepuestos.My.Resources.Resources.imprimir1
         Me.BTN_IMPRIMIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BTN_IMPRIMIR.Location = New System.Drawing.Point(208, 7)
-        Me.BTN_IMPRIMIR.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.BTN_IMPRIMIR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_IMPRIMIR.Name = "BTN_IMPRIMIR"
         Me.BTN_IMPRIMIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_IMPRIMIR.TabIndex = 40
         Me.BTN_IMPRIMIR.Text = "Imprimir"
         Me.BTN_IMPRIMIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_IMPRIMIR.UseVisualStyleBackColor = True
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(124, 484)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(160, 24)
+        Me.Label3.TabIndex = 41
+        Me.Label3.Text = "Total facturado :"
+        '
+        'LBL_TOTAL_FACTURADO
+        '
+        Me.LBL_TOTAL_FACTURADO.AutoSize = True
+        Me.LBL_TOTAL_FACTURADO.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LBL_TOTAL_FACTURADO.Location = New System.Drawing.Point(284, 484)
+        Me.LBL_TOTAL_FACTURADO.Name = "LBL_TOTAL_FACTURADO"
+        Me.LBL_TOTAL_FACTURADO.Size = New System.Drawing.Size(49, 24)
+        Me.LBL_TOTAL_FACTURADO.TabIndex = 42
+        Me.LBL_TOTAL_FACTURADO.Text = "0.00"
         '
         'Filtro
         '
@@ -292,6 +314,8 @@ Partial Class Facturacion
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(864, 517)
         Me.ControlBox = False
+        Me.Controls.Add(Me.LBL_TOTAL_FACTURADO)
+        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.BTN_IMPRIMIR)
         Me.Controls.Add(Me.BTN_RECIBO)
         Me.Controls.Add(Me.Filtro)
@@ -303,7 +327,7 @@ Partial Class Facturacion
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.BTN_FACTURAR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "Facturacion"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Facturación"
@@ -315,6 +339,7 @@ Partial Class Facturacion
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -340,4 +365,6 @@ Partial Class Facturacion
     Friend WithEvents MostrarRechazoToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RegenerarDocumentoToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ReenviarDocumentoToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Label3 As Label
+    Friend WithEvents LBL_TOTAL_FACTURADO As Label
 End Class

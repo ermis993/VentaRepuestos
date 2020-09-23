@@ -5,15 +5,15 @@ Public Class CambioContrasena
     Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
         Try
             If String.IsNullOrEmpty(TXT_CODIGO.Text) Then
-                MessageBox.Show("El código verificador no puede ser vacío")
+                MessageBox.Show("El código verificador no puede ser vacío", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf String.IsNullOrEmpty(TXT_NCONTRASENA.Text) Then
-                MessageBox.Show("Debe de ingresar la contraseña nueva")
+                MessageBox.Show("Debe de ingresar la contraseña nueva", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf String.IsNullOrEmpty(TXT_DCONTRASENA.Text) Then
-                MessageBox.Show("Debe ingresar nuevamente la contraseña")
+                MessageBox.Show("Debe ingresar nuevamente la contraseña", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf TXT_NCONTRASENA.Text <> TXT_DCONTRASENA.Text Then
-                MessageBox.Show("Las contraseñas ingresadas no coinciden")
+                MessageBox.Show("Las contraseñas ingresadas no coinciden", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf ValidaCodigoVerificador() = False Then
-                MessageBox.Show("Código verificador incorrecto")
+                MessageBox.Show("Código verificador incorrecto", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
                 Dim Sql = "	UPDATE USUARIO	"
                 Sql &= Chr(13) & "	SET CONTRASENA = " & SCM(TXT_NCONTRASENA.Text)
@@ -28,7 +28,7 @@ Public Class CambioContrasena
                 CONX.EJECUTE(Sql)
                 CONX.Coneccion_Cerrar()
 
-                MessageBox.Show("Se cambió la contraseña con exito")
+                MessageBox.Show("Se cambió la contraseña con éxito", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Me.Close()
             End If
         Catch ex As Exception

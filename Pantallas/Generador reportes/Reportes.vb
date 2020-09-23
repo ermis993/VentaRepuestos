@@ -38,12 +38,12 @@ Public Class Reportes
 
                                 If DS.Tables(0).Rows.Count > 0 Then
                                     If EXPORTAR_EXCEL(DS, "D151(CXC)_del_" + DMA(DTP_INICIO.Value).Replace("/", "-") + "_al_" + DMA(DTP_FINAL.Value).Replace("/", "-"), PB_CARGA) Then
-                                        MessageBox.Show("Registro generado correctamente")
+                                        MessageBox.Show(Me, "Registro generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                                         PB_CARGA.Value = 0
                                     End If
                                 Else
                                     PB_CARGA.Value = 0
-                                    MessageBox.Show("Sin registros para generar el documento")
+                                    MessageBox.Show(Me, "Sin registros para generar el documento", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                                 End If
                         End Select
                     Case "DOC"
@@ -70,12 +70,12 @@ Public Class Reportes
 
                                 If DS.Tables(0).Rows.Count > 0 Then
                                     If EXPORTAR_EXCEL(DS, "Documentos_por_rango_de_fechas_del_" + DMA(DTP_INICIO.Value).Replace("/", "-") + "_al_" + DMA(DTP_FINAL.Value).Replace("/", "-"), PB_CARGA) Then
-                                        MessageBox.Show("Registro generado correctamente")
+                                        MessageBox.Show(Me, "Registro generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                                         PB_CARGA.Value = 0
                                     End If
                                 Else
                                     PB_CARGA.Value = 0
-                                    MessageBox.Show("Sin registros para generar el documento")
+                                    MessageBox.Show(Me, "Sin registros para generar el documento", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                                 End If
                         End Select
                 End Select
@@ -107,12 +107,12 @@ Public Class Reportes
 
                                 If DS.Tables(0).Rows.Count > 0 Then
                                     If EXPORTAR_EXCEL(DS, "D151(CXP)_del_" + DMA(DTP_INICIO.Value).Replace("/", "-") + "_al_" + DMA(DTP_FINAL.Value).Replace("/", "-"), PB_CARGA) Then
-                                        MessageBox.Show("Registro generado correctamente")
+                                        MessageBox.Show(Me, "Registro generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                                         PB_CARGA.Value = 0
                                     End If
                                 Else
                                     PB_CARGA.Value = 0
-                                    MessageBox.Show("Sin registros para generar el documento")
+                                    MessageBox.Show(Me, "Sin registros para generar el documento", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                                 End If
                         End Select
                     Case "DOC"
@@ -140,12 +140,12 @@ Public Class Reportes
 
                                 If DS.Tables(0).Rows.Count > 0 Then
                                     If EXPORTAR_EXCEL(DS, "Documentos_por_rango_de_fechas_del_" + DMA(DTP_INICIO.Value).Replace("/", "-") + "_al_" + DMA(DTP_FINAL.Value).Replace("/", "-"), PB_CARGA) Then
-                                        MessageBox.Show("Registro generado correctamente")
+                                        MessageBox.Show(Me, "Registro generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                                         PB_CARGA.Value = 0
                                     End If
                                 Else
                                     PB_CARGA.Value = 0
-                                    MessageBox.Show("Sin registros para generar el documento")
+                                    MessageBox.Show(Me, "Sin registros para generar el documento", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                                 End If
                         End Select
                 End Select
@@ -177,6 +177,8 @@ Public Class Reportes
 
     Private Sub Reportes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         RELLENA_MODULOS()
+        DTP_FINAL.Enabled = TieneDerecho("FECREP")
+        DTP_INICIO.Enabled = TieneDerecho("FECREP")
     End Sub
 
     Private Sub CMB_MODULO_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_MODULO.SelectedIndexChanged

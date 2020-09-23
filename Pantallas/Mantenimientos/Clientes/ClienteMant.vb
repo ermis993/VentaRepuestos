@@ -35,58 +35,58 @@ Public Class ClienteMant
         Try
             Dim ENTRAR As Boolean = False
             If CMB_TIPO_CEDULA.SelectedIndex = 0 And TXT_CEDULA.Text.Length < 9 Then  'F
-                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Física contiene 9 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Física contiene 9 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CEDULA.Select()
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 1 And TXT_CEDULA.Text.Length < 10 Then 'J
-                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Jurídica contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Jurídica contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CEDULA.Select()
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 2 And TXT_CEDULA.Text.Length < 11 Then 'N
-                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo NITE contiene mínimo 11 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo NITE contiene mínimo 11 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CEDULA.Select()
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 3 And TXT_CEDULA.Text.Length < 10 Then 'D
                 TXT_CEDULA.Select()
-                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo DIMEX contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo DIMEX contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf MODO = CRF_Modos.Insertar And EXISTE_CEDULA() = True Then
-                MessageBox.Show("¡Ya existe un cliente con la cédula : " & TXT_CEDULA.Text & "!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Ya existe un cliente con la cédula : " & TXT_CEDULA.Text & "!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CEDULA.Select()
             ElseIf TXT_NOMBRE.Text.ToString.Equals("") Then
-                MessageBox.Show("¡Nombre incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Nombre incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_NOMBRE.Select()
             ElseIf TXT_PRIMER_APELLIDO.Text.Equals("") And CMB_TIPO_CEDULA.SelectedIndex <> 1 Then
-                MessageBox.Show("¡Primer apellido incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Primer apellido incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_PRIMER_APELLIDO.Select()
             ElseIf TXT_SEGUNDO_APELLIDO.Text.Equals("") And CMB_TIPO_CEDULA.SelectedIndex <> 1 Then
-                MessageBox.Show("¡Segundo apellido incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Segundo apellido incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_SEGUNDO_APELLIDO.Select()
             ElseIf TXT_TELEFONO.Text.Equals("") Then
-                MessageBox.Show("¡Teléfono incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Teléfono incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_TELEFONO.Select()
             ElseIf TXT_TELEFONO.Text.Length < 8 Then
-                MessageBox.Show("¡Teléfono incorrecto, debe contener 8 dígitos!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Teléfono incorrecto, debe contener 8 dígitos!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_TELEFONO.Select()
             ElseIf TXT_DIRECCION.Text.Equals("") Then
-                MessageBox.Show("¡Dirección incorrecta, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Dirección incorrecta, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_DIRECCION.Select()
             ElseIf TXT_EMAIL.Text.ToString.Equals("") Then
-                MessageBox.Show("¡Correo electrónico incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Correo electrónico incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_EMAIL.Select()
             ElseIf CMB_PROVINCIA.Text.Equals("") Then
-                MessageBox.Show("¡Provincia incorrecta!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Provincia incorrecta!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 CMB_PROVINCIA.Select()
                 CMB_PROVINCIA.DroppedDown = True
             ElseIf CMB_CANTON.Text.Equals("") Then
-                MessageBox.Show("¡Cantón incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Cantón incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 CMB_CANTON.Select()
                 CMB_CANTON.DroppedDown = True
             ElseIf CMB_DISTRITO.Text.Equals("") Then
-                MessageBox.Show("¡Distrito incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Distrito incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 CMB_DISTRITO.Select()
                 CMB_DISTRITO.DroppedDown = True
             ElseIf TXT_SALDO.Text.Equals("") Then
-                MessageBox.Show("¡Saldo incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Saldo incorrecto, no debe dejarse en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_SALDO.Select()
             ElseIf FMC(TXT_SALDO.Text) <= 0 Then
-                MessageBox.Show("¡El saldo debe ser mayor a 0!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡El saldo debe ser mayor a 0!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_SALDO.Select()
             Else
                 ENTRAR = True
@@ -128,10 +128,10 @@ Public Class ClienteMant
 
             If MODO = CRF_Modos.Insertar Then
                 LIMPIAR_TODO()
-                MessageBox.Show("¡Cliente agregado correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show(Me, "¡Cliente agregado correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             ElseIf MODO = CRF_Modos.Modificar Then
                 Cerrar()
-                MessageBox.Show("¡Cliente modificado correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show(Me, "¡Cliente modificado correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -403,17 +403,17 @@ Public Class ClienteMant
     Private Sub BTN_BUSCAR_Click(sender As Object, e As EventArgs) Handles BTN_BUSCAR.Click
         Try
             If CMB_TIPO_CEDULA.SelectedIndex = 0 And TXT_CEDULA.Text.Length < 9 Then  'F
-                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Física contiene 9 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Física contiene 9 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CEDULA.Select()
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 1 And TXT_CEDULA.Text.Length < 10 Then 'J
-                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Jurídica contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Jurídica contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CEDULA.Select()
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 2 And TXT_CEDULA.Text.Length < 11 Then 'N
-                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo NITE contiene mínimo 11 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo NITE contiene mínimo 11 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CEDULA.Select()
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 3 And TXT_CEDULA.Text.Length < 10 Then 'D
                 TXT_CEDULA.Select()
-                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo DIMEX contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo DIMEX contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
                 Select Case CMB_TIPO_CEDULA.SelectedIndex
                     Case 0
@@ -510,16 +510,16 @@ Public Class ClienteMant
     Private Sub BTN_ACEPTAR_EXO_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR_EXO.Click
         Try
             If CMB_TIPO.SelectedIndex = -1 Then
-                MessageBox.Show("Se debe elegir el tipo de documento de la exoneración", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("Se debe elegir el tipo de documento de la exoneración", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 CMB_TIPO.Select()
             ElseIf String.IsNullOrEmpty(TXT_EXO_NUMERO.Text) Then
-                MessageBox.Show("Es necesario ingresar el número de documento de la exoneración", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("Es necesario ingresar el número de documento de la exoneración", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_EXO_NUMERO.Focus()
             ElseIf String.IsNullOrEmpty(TXT_NOMRE_INSTITUCION.Text) Then
-                MessageBox.Show("Es necesario ingresar el nombre de la institución de la exoneración", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("Es necesario ingresar el nombre de la institución de la exoneración", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_NOMRE_INSTITUCION.Focus()
             ElseIf Val(TXT_PORCENTAJE.Text) <= 0 Then
-                MessageBox.Show("El porcentaje de exoneración no puede ser 0", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("El porcentaje de exoneración no puede ser 0", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_PORCENTAJE.Focus()
             Else
                 Dim SQL = "	INSERT INTO CLIENTE_EXONERACION (COD_CIA,CEDULA,TIPO_DOC,NUMERO_DOC,NOMBRE,FECHA,PORCENTAJE,ESTADO,COD_USUARIO) "

@@ -23,6 +23,7 @@ Partial Class EncomiendaReporte
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.TV_REPORTES = New System.Windows.Forms.TreeView()
         Me.BTN_GENERAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -30,7 +31,6 @@ Partial Class EncomiendaReporte
         Me.DTP_INICIO = New System.Windows.Forms.DateTimePicker()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.TV_REPORTES = New System.Windows.Forms.TreeView()
         Me.LBL_REPORTE_SELECCIONADO = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -40,20 +40,27 @@ Partial Class EncomiendaReporte
         '
         Me.GroupBox1.Controls.Add(Me.TV_REPORTES)
         Me.GroupBox1.Location = New System.Drawing.Point(9, 61)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Size = New System.Drawing.Size(487, 177)
         Me.GroupBox1.TabIndex = 8
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Reportes disponibles ]"
+        '
+        'TV_REPORTES
+        '
+        Me.TV_REPORTES.Location = New System.Drawing.Point(7, 18)
+        Me.TV_REPORTES.Name = "TV_REPORTES"
+        Me.TV_REPORTES.Size = New System.Drawing.Size(475, 154)
+        Me.TV_REPORTES.TabIndex = 0
         '
         'BTN_GENERAR
         '
         Me.BTN_GENERAR.Image = Global.VentaRepuestos.My.Resources.Resources.generar
         Me.BTN_GENERAR.ImageAlign = System.Drawing.ContentAlignment.TopCenter
         Me.BTN_GENERAR.Location = New System.Drawing.Point(9, 2)
-        Me.BTN_GENERAR.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.BTN_GENERAR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_GENERAR.Name = "BTN_GENERAR"
         Me.BTN_GENERAR.Size = New System.Drawing.Size(64, 55)
         Me.BTN_GENERAR.TabIndex = 9
@@ -83,9 +90,9 @@ Partial Class EncomiendaReporte
         Me.GroupBox2.Controls.Add(Me.Label2)
         Me.GroupBox2.Controls.Add(Me.Label1)
         Me.GroupBox2.Location = New System.Drawing.Point(9, 243)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2)
         Me.GroupBox2.Size = New System.Drawing.Size(487, 81)
         Me.GroupBox2.TabIndex = 10
         Me.GroupBox2.TabStop = False
@@ -94,17 +101,17 @@ Partial Class EncomiendaReporte
         'DTP_FINAL
         '
         Me.DTP_FINAL.Location = New System.Drawing.Point(77, 47)
-        Me.DTP_FINAL.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.DTP_FINAL.Margin = New System.Windows.Forms.Padding(2)
         Me.DTP_FINAL.Name = "DTP_FINAL"
-        Me.DTP_FINAL.Size = New System.Drawing.Size(151, 20)
+        Me.DTP_FINAL.Size = New System.Drawing.Size(161, 20)
         Me.DTP_FINAL.TabIndex = 3
         '
         'DTP_INICIO
         '
         Me.DTP_INICIO.Location = New System.Drawing.Point(77, 23)
-        Me.DTP_INICIO.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.DTP_INICIO.Margin = New System.Windows.Forms.Padding(2)
         Me.DTP_INICIO.Name = "DTP_INICIO"
-        Me.DTP_INICIO.Size = New System.Drawing.Size(151, 20)
+        Me.DTP_INICIO.Size = New System.Drawing.Size(161, 20)
         Me.DTP_INICIO.TabIndex = 2
         '
         'Label2
@@ -127,13 +134,6 @@ Partial Class EncomiendaReporte
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Fecha inicio :"
         '
-        'TV_REPORTES
-        '
-        Me.TV_REPORTES.Location = New System.Drawing.Point(7, 18)
-        Me.TV_REPORTES.Name = "TV_REPORTES"
-        Me.TV_REPORTES.Size = New System.Drawing.Size(475, 154)
-        Me.TV_REPORTES.TabIndex = 0
-        '
         'LBL_REPORTE_SELECCIONADO
         '
         Me.LBL_REPORTE_SELECCIONADO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -154,7 +154,7 @@ Partial Class EncomiendaReporte
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "EncomiendaReporte"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Reportes"

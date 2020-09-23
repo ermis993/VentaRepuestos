@@ -205,6 +205,30 @@ Public Class Printer
 
     End Sub
 
+    Public Shared Sub NewPrintTiquet()
+        Dim Direccion As String = DIRECCION_ETIQUETA()
+        PrintDatalist = New PrintDatalist
+        _myfont = New Font("Courier New", 15, FontStyle.Regular, GraphicsUnit.Point) 'Default
+        prn = New Printing.PrintDocument
+
+        If Direccion <> "" Then
+            prn.PrinterSettings.PrinterName = Direccion
+        End If
+
+        row = 0
+        Dim PS1 As New System.Drawing.Printing.PageSettings
+        With PS1
+            .PaperSize = (From s As PaperSize In prn.PrinterSettings.PaperSizes.Cast(Of PaperSize)()).FirstOrDefault
+            .Margins.Left = 0
+            .Margins.Right = 0
+            .Margins.Top = 0
+            .Margins.Bottom = 0
+        End With
+        prn.DefaultPageSettings = PS1
+
+        AddHandler prn.PrintPage, AddressOf Document_PrintPage
+    End Sub
+
     Public Shared Sub NewPrint()
         Dim Direccion As String = DIRECCION_IMPRESION()
         PrintDatalist = New PrintDatalist
@@ -212,7 +236,7 @@ Public Class Printer
         prn = New Printing.PrintDocument
 
         If Direccion <> "" Then
-            prn.PrinterSettings.PrinterName = DIRECCION_IMPRESION()
+            prn.PrinterSettings.PrinterName = Direccion
         End If
 
         row = 0

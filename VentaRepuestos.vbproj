@@ -62,6 +62,9 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>umbrella-corp-icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
@@ -132,10 +135,22 @@
     <Compile Include="Pantallas\Generador reportes\Reportes.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pantallas\Mantenimientos\Productos\ProductoVerificacion.Designer.vb">
+      <DependentUpon>ProductoVerificacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Mantenimientos\Productos\ProductoVerificacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pantallas\Mantenimientos\Sucursales\DerechosSucursal.Designer.vb">
       <DependentUpon>DerechosSucursal.vb</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Mantenimientos\Sucursales\DerechosSucursal.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\FacturaCambio.Designer.vb">
+      <DependentUpon>FacturaCambio.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\FacturaCambio.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\RespuestaDGTD.Designer.vb">
@@ -226,6 +241,12 @@
       <DependentUpon>EncomiendaMant.vb</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Movimientos\Encomiendas\EncomiendaMant.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Encomiendas\EncomiendaMantEspecial.Designer.vb">
+      <DependentUpon>EncomiendaMantEspecial.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Encomiendas\EncomiendaMantEspecial.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\Movimientos\Encomiendas\EncomiendaProceso.vb" />
@@ -397,8 +418,14 @@
     <EmbeddedResource Include="Pantallas\Generador reportes\Reportes.resx">
       <DependentUpon>Reportes.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Mantenimientos\Productos\ProductoVerificacion.resx">
+      <DependentUpon>ProductoVerificacion.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Mantenimientos\Sucursales\DerechosSucursal.resx">
       <DependentUpon>DerechosSucursal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\FacturaCambio.resx">
+      <DependentUpon>FacturaCambio.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\RespuestaDGTD.resx">
       <DependentUpon>RespuestaDGTD.vb</DependentUpon>
@@ -441,6 +468,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Movimientos\Encomiendas\EncomiendaMant.resx">
       <DependentUpon>EncomiendaMant.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Encomiendas\EncomiendaMantEspecial.resx">
+      <DependentUpon>EncomiendaMantEspecial.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Movimientos\Encomiendas\EncomiendaReporte.resx">
       <DependentUpon>EncomiendaReporte.vb</DependentUpon>
@@ -610,6 +640,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="umbrella-corp-icon.ico" />
     <None Include="Resources\transportar.png" />
     <None Include="Resources\ubicacion.png" />
     <None Include="Resources\proveedor1.png" />

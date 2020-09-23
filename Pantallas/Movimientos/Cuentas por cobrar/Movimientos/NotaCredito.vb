@@ -431,10 +431,10 @@ Public Class NotaCredito
                         RellenaProductos()
                         CalculoTotales()
                     Else
-                        MessageBox.Show("La cantidad ingresada es mayor a la cantidad que se puede afectar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                        MessageBox.Show("La cantidad ingresada es mayor a la cantidad que se puede afectar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                     End If
                 Else
-                    MessageBox.Show("La cantidad ingresada no es mayor a 0, es necesario que sea mayor", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    MessageBox.Show("La cantidad ingresada no es mayor a 0, es necesario que sea mayor", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If
             End If
         Catch ex As Exception
@@ -469,9 +469,9 @@ Public Class NotaCredito
     Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
         Try
             If FMC(TXT_M.Text) = FMC(TXT_DIF.Text) Then
-                MessageBox.Show("Debe de afectar el monto del o los documentos ingresados, actualmente no se ha afectado ningún monto", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("Debe de afectar el monto del o los documentos ingresados, actualmente no se ha afectado ningún monto", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf CMB_TIPO.SelectedIndex = 0 And GRIDPRODS2.Rows.Count <= 0 Then
-                MessageBox.Show("Debe de ingresar el o los productos en la devolución, actualmente no se ha ingresado ningún producto", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("Debe de ingresar el o los productos en la devolución, actualmente no se ha ingresado ningún producto", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
                 If FMC(TXT_DIF.Text) > 0 Then
                     Dim respuesta = MessageBox.Show(Me, "La diferencia está siendo mayor a 0, ¿Seguro desea continuar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Question)

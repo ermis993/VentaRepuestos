@@ -18,10 +18,10 @@ Public Class OlvidoContrasena
     Private Sub EnviarCorreo(ByVal Destinatario As String)
         Try
             If String.IsNullOrEmpty(TXT_DESTINATARIO.Text) Then
-                MessageBox.Show("El campo [Destinatario] no puede estar en blanco")
+                MessageBox.Show("El campo [Destinatario] no puede estar en blanco", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_DESTINATARIO.Select()
             ElseIf ExisteDestinatario(TXT_DESTINATARIO.Text) = False Then
-                MessageBox.Show("El Destinatario ingresado no está registrado en la base de datos")
+                MessageBox.Show("El Destinatario ingresado no está registrado en la base de datos", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_DESTINATARIO.Select()
             Else
                 Dim CodigoVerificador As String = GeneraCodigoVerificador()

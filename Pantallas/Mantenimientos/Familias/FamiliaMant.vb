@@ -18,10 +18,10 @@ Public Class FamiliaMant
     Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
         Try
             If String.IsNullOrEmpty(TXT_CODIGO.Text) Then
-                MessageBox.Show("¡Debe de ingresar el código de la familia!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Debe de ingresar el código de la familia!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CODIGO.Select()
             ElseIf String.IsNullOrEmpty(TXT_DESCRIPCION.Text) Then
-                MessageBox.Show("¡Debe de ingresar la descripción de la familia!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Debe de ingresar la descripción de la familia!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_DESCRIPCION.Select()
             Else
                 Dim SQL As String = "EXEC USP_FAMILIA_MANT"

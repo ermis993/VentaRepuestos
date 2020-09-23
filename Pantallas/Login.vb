@@ -8,11 +8,18 @@ Public Class Login
     End Sub
     Private Sub CONFIGURACION()
         Try
-
-            CONX.Inicializar_cadena_conexion("DESKTOP-42HEF7C", "sa", "1234", "VR")
-            'CONX_SIC.ConexionSTR("DESKTOP-HT8MNPN\SQLEXPRESS,1433", "sa", "1234", "INFORMACION_SIC")
-            'CONX.ConexionSTR("DESKTOP-OG4U60G\SQLEXPRESS,1433", "sa", "union1234", "VR")
+            'PRUEBAS
+            'CONX.Inicializar_cadena_conexion("DESKTOP-42HEF7C,1433", "admin_sql", "1234", "VR")
+            'AUTORESPUESTOS LA UNION
+            CONX.Inicializar_cadena_conexion("DESKTOP-OG4U60G\SQLEXPRESS,1433", "sa", "union1234", "VR")
             CONX_SIC.ConexionSTR("DESKTOP-OG4U60G\SQLEXPRESS,1433", "sa", "union1234", "INFORMACION_SIC")
+            'BIKE_RIDE'
+            'CONX.Inicializar_cadena_conexion("DESKTOP-7F4Q844", "sa", "1234", "VR") 'BIKERIDE
+            'CONX_SIC.ConexionSTR("DESKTOP-7F4Q844", "sa", "1234", "INFORMACION_SIC")
+            'VEGA
+            'CONX.Inicializar_cadena_conexion("DESKTOP-4JGE226,1433", "sa", "1234", "VR")
+            'CONX_SIC.ConexionSTR("DESKTOP-4JGE226,1433", "sa", "1234", "INFORMACION_SIC")
+
         Catch ex As Exception
         End Try
     End Sub
@@ -42,7 +49,7 @@ Public Class Login
                     Dim PANTALLA As New SeleccionCompania()
                     PANTALLA.Show()
                 Else
-                    MessageBox.Show("¡Usuario no encontrado!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show("¡Usuario no encontrado!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If
             End If
         Catch ex As Exception
@@ -56,11 +63,11 @@ Public Class Login
         Try
             Dim ENTRAR As Boolean = True
             If TXT_USUARIO.Text.ToString.Equals("") Then
-                MessageBox.Show("¡Usuario inválido,no se deben dejar espacios en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Usuario inválido,no se deben dejar espacios en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 ENTRAR = False
             End If
             If TXT_CONTRASENA.Text.ToString.Equals("") Then
-                MessageBox.Show("¡Contraseña inválida, no se deben dejar espacios en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Contraseña inválida, no se deben dejar espacios en blanco!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 ENTRAR = False
             End If
             Return ENTRAR

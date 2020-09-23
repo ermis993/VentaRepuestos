@@ -88,39 +88,39 @@ Public Class ProductoMant
     Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
         Try
             If String.IsNullOrEmpty(TXT_CODIGO.Text) Then
-                MessageBox.Show("¡Debe digitar un código de producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Debe digitar un código de producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CODIGO.Select()
             ElseIf String.IsNullOrEmpty(Buscador.VALOR) Then
-                MessageBox.Show("¡Debe seleccionar el proveedor!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Debe seleccionar el proveedor!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 Buscador.Select()
             ElseIf String.IsNullOrEmpty(TXT_DESC.Text) Then
-                MessageBox.Show("¡Debe digitar la descripción del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Debe digitar la descripción del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_DESC.Select()
             ElseIf String.IsNullOrEmpty(TXT_COSTO.Text) Then
-                MessageBox.Show("¡Debe digitar el costo del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Debe digitar el costo del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_COSTO.Select()
             ElseIf String.IsNullOrEmpty(TXT_PRECIO.Text) Then
-                MessageBox.Show("¡Debe digitar el precio del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Debe digitar el precio del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_PRECIO.Select()
             ElseIf String.IsNullOrEmpty(TXT_PRECIO_2.Text) Then
-                MessageBox.Show("¡Debe digitar el precio 2 del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Debe digitar el precio 2 del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_PRECIO_2.Select()
             ElseIf String.IsNullOrEmpty(TXT_PRECIO_3.Text) Then
-                MessageBox.Show("¡Debe digitar el precio 3 del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Debe digitar el precio 3 del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_PRECIO_3.Select()
             ElseIf FMC(TXT_COSTO.Text) > FMC(TXT_PRECIO.Text) Or FMC(TXT_COSTO.Text) > FMC(TXT_PRECIO_2.Text) Or FMC(TXT_COSTO.Text) > FMC(TXT_PRECIO_3.Text) Then
-                MessageBox.Show("¡El precio costo es mayor a los precios ingresados, verifique el monto ingresado en los precios!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡El precio costo es mayor a los precios ingresados, verifique el monto ingresado en los precios!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf String.IsNullOrEmpty(TXT_ESTANTE.Text) And Me.MODO = CRF_Modos.Insertar Then
-                MessageBox.Show("¡Debe digitar el estante en el que se cuentra el producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Debe digitar el estante en el que se cuentra el producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_ESTANTE.Select()
             ElseIf String.IsNullOrEmpty(TXT_FILA.Text) And Me.MODO = CRF_Modos.Insertar Then
-                MessageBox.Show("¡Debe digitar la fila en la que se encuentra el producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Debe digitar la fila en la que se encuentra el producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_FILA.Select()
             ElseIf String.IsNullOrEmpty(TXT_COLUMNA.Text) And Me.MODO = CRF_Modos.Insertar Then
-                MessageBox.Show("¡Debe digitar la columna en la que se encuentra el producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Debe digitar la columna en la que se encuentra el producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_COLUMNA.Select()
             ElseIf String.IsNullOrEmpty(TXT_MINIMO.Text) Then
-                MessageBox.Show("¡Debe digitar la cantidad minima en stock del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Debe digitar la cantidad minima en stock del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_MINIMO.Select()
             Else
 
@@ -277,4 +277,48 @@ Public Class ProductoMant
         RB_ACTIVO.Checked = True
     End Sub
 
+    Private Sub TXT_COSTO_Leave(sender As Object, e As EventArgs) Handles TXT_COSTO.Leave
+        Try
+            Dim Porcentaje_Venta As Decimal = 0.0
+
+            Dim valor = MessageBox.Show(Me, "¿Desea aplicar la fórmula automática para el cálculo de precios?", "Consulta fórmula", vbYesNo, MessageBoxIcon.Question)
+            If valor = DialogResult.Yes Then
+                If String.IsNullOrEmpty(Buscador.VALOR) Then
+                    MessageBox.Show("¡Para el cálculo de la fórmula es necesario seleccionar el proveedor!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                ElseIf String.IsNullOrEmpty(TXT_COSTO.Text) Or FMC(TXT_COSTO.Text) <= 0 Then
+                    MessageBox.Show("¡Para el cálculo de la fórmula es necesario ingresar el precio costo!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Else
+
+                    Dim SQL As String = "SELECT PORCENTAJE_VENTA"
+                    SQL &= Chr(13) & " FROM PROVEEDOR"
+                    SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
+                    SQL &= Chr(13) & " AND COD_SUCUR = " & SCM(COD_SUCUR)
+                    SQL &= Chr(13) & " AND CEDULA = " & SCM(Buscador.VALOR)
+
+                    CONX.Coneccion_Abrir()
+                    Dim DS = CONX.EJECUTE_DS(SQL)
+                    CONX.Coneccion_Cerrar()
+
+                    If DS.Tables(0).Rows.Count > 0 Then
+                        Porcentaje_Venta = Val(DS.Tables(0).Rows(0).Item(0))
+                    End If
+
+
+                    If Val(Porcentaje_Venta) <= 0 Then
+                        MessageBox.Show("¡La fórmula no se puede aplicar, ya que el porcentaje de venta del proveedor es menor o igual a cero!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    Else
+                        Porcentaje_Venta = (1 + (Porcentaje_Venta / 100))
+                        Dim precio As Decimal = (FMC(TXT_COSTO.Text, 4) * Porcentaje_Venta)
+
+
+                        TXT_PRECIO.Text = FMCP(precio, 4)
+                        TXT_PRECIO_2.Text = FMCP(precio, 4)
+                        TXT_PRECIO_3.Text = FMCP(precio, 4)
+                    End If
+                End If
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 End Class

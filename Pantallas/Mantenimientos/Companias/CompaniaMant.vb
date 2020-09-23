@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports System.IO
+Imports System.Security.Cryptography.X509Certificates
 Imports CRF_CONEXIONES.CONEXIONES
 Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Globales
@@ -7,7 +8,7 @@ Public Class LBL_CANTON
     Dim COD_C As String = ""
     Dim Respuesta As New DialogResult
     Dim RUTA As String = ""
-    Dim CERTIFICADO As Byte() = Nothing
+    Dim CERTIFICADO As String = ""
     Dim MODO As New CRF_Modos
     Dim PADRE As New Compania
     Dim COD_ACT As String = ""
@@ -163,7 +164,7 @@ Public Class LBL_CANTON
     End Sub
     Private Sub BTN_SELECCIONAR_Click(sender As Object, e As EventArgs) Handles BTN_SELECCIONAR.Click
         Try
-            Dim CERT As Byte()
+            Dim CERT As STRING
             Dim SQL = "	SELECT ISNULL(CERTIFICADO,0) AS CERTIFICADO "
             SQL &= Chr(13) & "	FROM COMPANIA"
             SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(TXT_CODIGO.Text)
@@ -201,7 +202,7 @@ Public Class LBL_CANTON
             If IsNothing(OPD_Llave.FileName) = False Then
                 Dim extension = Path.GetExtension(OPD_Llave.FileName)
                 If extension <> ".p12" Then
-                    MessageBox.Show("El archivo seleccionado no corresponde a un archivo .p12", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show("El archivo seleccionado no corresponde a un archivo .p12", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 Else
                     RUTA = OPD_Llave.FileName
                 End If
@@ -210,15 +211,21 @@ Public Class LBL_CANTON
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-    Private Function Bytes(ByVal PATH As String) As Byte()
+    Private Function Bytes(ByVal PATH As String) As String
         Try
-            Dim FS As FileStream = File.Open(PATH, FileMode.Open, FileAccess.Read)
-            Dim Archivo(FS.Length) As Byte
-            If FS.Length > 0 Then
-                FS.Read(Archivo, 0, FS.Length - 1)
-                FS.Close()
-            End If
-            Return Archivo
+            Dim cert As New X509Certificate2(PATH, TXT_PIN.Text, X509KeyStorageFlags.PersistKeySet)
+            Dim stringOfCertWithPrivateKey = Convert.ToBase64String(cert.Export(X509ContentType.Cert))
+
+            Return stringOfCertWithPrivateKey
+
+
+            'Dim FS As FileStream = File.Open(PATH, FileMode.Open, FileAccess.Read)
+            'Dim Archivo(FS.Length) As Byte
+            'If FS.Length > 0 Then
+            '    FS.Read(Archivo, 0, FS.Length - 1)
+            '    FS.Close()
+            'End If
+            'Return Archivo
 
         Catch ex As Exception
             Return Nothing
@@ -227,12 +234,12 @@ Public Class LBL_CANTON
     End Function
     Private Sub GUARDAR_CERTIFICADO()
         Try
-            If IsNothing(CERTIFICADO) = False And TXT_PIN.Text <> "" Then
+            If String.IsNullOrEmpty(CERTIFICADO) = False And TXT_PIN.Text <> "" Then
                 Dim COMANDO As New SqlCommand()
                 COMANDO.CommandType = CommandType.StoredProcedure
                 Dim PIN As New SqlParameter("@PIN", SqlDbType.VarChar)
                 PIN.Value = TXT_PIN.Text
-                Dim CERT As New SqlParameter("@CERTIFICADO", SqlDbType.VarBinary)
+                Dim CERT As New SqlParameter("@CERTIFICADO", SqlDbType.VarChar)
                 CERT.Value = CERTIFICADO
                 Dim COD_CIA As New SqlParameter("@COD_CIA", SqlDbType.VarChar)
                 COD_CIA.Value = TXT_CODIGO.Text
@@ -272,42 +279,42 @@ Public Class LBL_CANTON
             Dim ENTRAR As Boolean = False
 
             If TXT_NOMBRE.Text.ToString.Equals("") Then
-                MessageBox.Show("¡Nombre de compañía incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Nombre de compañía incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_NOMBRE.Select()
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 0 And TXT_CEDULA.Text.Length < 9 Then  'F
-                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Física contiene 9 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Física contiene 9 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CEDULA.Select()
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 1 And TXT_CEDULA.Text.Length < 10 Then 'J
-                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Jurídica contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Jurídica contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CEDULA.Select()
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 2 And TXT_CEDULA.Text.Length < 11 Then 'N
-                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo NITE contiene mínimo 11 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo NITE contiene mínimo 11 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CEDULA.Select()
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 3 And TXT_CEDULA.Text.Length < 10 Then 'D
                 TXT_CEDULA.Select()
-                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo DIMEX contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo DIMEX contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf MODO = CRF_Modos.Insertar And EXISTE_CEDULA() = True Then
-                MessageBox.Show("¡Ya existe una compañía con la cédula: " & TXT_CEDULA.Text & "!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Ya existe una compañía con la cédula: " & TXT_CEDULA.Text & "!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf TXT_EMAIL.Text.ToString.Equals("") Then
-                MessageBox.Show("¡Correo electrónico incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Correo electrónico incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_EMAIL.Select()
             ElseIf TXT_DIRECCION.Text.ToString.Equals("") Then
-                MessageBox.Show("¡Dirrección incorrecta!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Dirrección incorrecta!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_DIRECCION.Select()
             ElseIf CMB_PROVINCIA.Text.Equals("") Then
-                MessageBox.Show("¡Provincia incorrecta!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Provincia incorrecta!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 CMB_PROVINCIA.Select()
                 CMB_PROVINCIA.DroppedDown = True
             ElseIf CMB_CANTON.Text.Equals("") Then
-                MessageBox.Show("¡Cantón incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Cantón incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 CMB_CANTON.Select()
                 CMB_CANTON.DroppedDown = True
             ElseIf CMB_DISTRITO.Text.Equals("") Then
-                MessageBox.Show("¡Distrito incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Distrito incorrecto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 CMB_DISTRITO.Select()
                 CMB_DISTRITO.DroppedDown = True
             ElseIf IsNothing(CERTIFICADO) = False And TXT_PIN.Text.Equals("") Then
-                MessageBox.Show("¡Debe ingresar un PIN válido para el certificado importado!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("¡Debe ingresar un PIN válido para el certificado importado!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
                 ENTRAR = True
             End If
@@ -460,7 +467,6 @@ Public Class LBL_CANTON
             CONX.Coneccion_Cerrar()
 
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
         End Try
     End Sub
 

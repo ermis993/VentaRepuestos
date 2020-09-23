@@ -50,9 +50,9 @@ Partial Class Encomienda
         Me.GroupBox2.Controls.Add(Me.DTPINICIO)
         Me.GroupBox2.Controls.Add(Me.Label2)
         Me.GroupBox2.Controls.Add(Me.Label1)
-        Me.GroupBox2.Location = New System.Drawing.Point(645, 3)
+        Me.GroupBox2.Location = New System.Drawing.Point(588, 3)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(149, 54)
+        Me.GroupBox2.Size = New System.Drawing.Size(206, 54)
         Me.GroupBox2.TabIndex = 4
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Fechas"
@@ -60,17 +60,17 @@ Partial Class Encomienda
         'DTPFINAL
         '
         Me.DTPFINAL.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DTPFINAL.Location = New System.Drawing.Point(42, 31)
+        Me.DTPFINAL.Location = New System.Drawing.Point(41, 31)
         Me.DTPFINAL.Name = "DTPFINAL"
-        Me.DTPFINAL.Size = New System.Drawing.Size(98, 20)
+        Me.DTPFINAL.Size = New System.Drawing.Size(155, 20)
         Me.DTPFINAL.TabIndex = 3
         '
         'DTPINICIO
         '
         Me.DTPINICIO.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DTPINICIO.Location = New System.Drawing.Point(42, 13)
+        Me.DTPINICIO.Location = New System.Drawing.Point(41, 13)
         Me.DTPINICIO.Name = "DTPINICIO"
-        Me.DTPINICIO.Size = New System.Drawing.Size(98, 20)
+        Me.DTPINICIO.Size = New System.Drawing.Size(155, 20)
         Me.DTPINICIO.TabIndex = 2
         '
         'Label2
@@ -159,7 +159,7 @@ Partial Class Encomienda
         '
         Me.BTN_UBICACION.Image = Global.VentaRepuestos.My.Resources.Resources.ruta
         Me.BTN_UBICACION.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_UBICACION.Location = New System.Drawing.Point(580, 2)
+        Me.BTN_UBICACION.Location = New System.Drawing.Point(519, 2)
         Me.BTN_UBICACION.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_UBICACION.Name = "BTN_UBICACION"
         Me.BTN_UBICACION.Size = New System.Drawing.Size(64, 55)
@@ -213,7 +213,7 @@ Partial Class Encomienda
         '
         Me.BTN_REPORTE.Image = Global.VentaRepuestos.My.Resources.Resources.reportes
         Me.BTN_REPORTE.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_REPORTE.Location = New System.Drawing.Point(512, 2)
+        Me.BTN_REPORTE.Location = New System.Drawing.Point(451, 2)
         Me.BTN_REPORTE.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_REPORTE.Name = "BTN_REPORTE"
         Me.BTN_REPORTE.Size = New System.Drawing.Size(64, 55)
@@ -226,7 +226,7 @@ Partial Class Encomienda
         '
         Me.BTN_TODO.Image = Global.VentaRepuestos.My.Resources.Resources.derecha
         Me.BTN_TODO.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_TODO.Location = New System.Drawing.Point(444, 3)
+        Me.BTN_TODO.Location = New System.Drawing.Point(383, 3)
         Me.BTN_TODO.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_TODO.Name = "BTN_TODO"
         Me.BTN_TODO.Size = New System.Drawing.Size(64, 55)

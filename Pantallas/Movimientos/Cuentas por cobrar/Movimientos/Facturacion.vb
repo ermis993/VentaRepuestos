@@ -47,6 +47,9 @@ Public Class Facturacion
     Private Sub Facturacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CMB_TIPO_FACT.SelectedIndex = 0
         RELLENAR_GRID()
+
+        BTN_FACTURAR.Enabled = TieneDerecho("VFACTS")
+        BTN_RECIBO.Enabled = TieneDerecho("VREB")
     End Sub
 
     Public Sub Refrescar()
@@ -116,6 +119,8 @@ Public Class Facturacion
 
     Private Sub RELLENAR_GRID()
         Try
+            Dim Total_Facturado As Decimal = 0
+
             If GRID.Columns.Count > 0 Then
                 GRID.Rows.Clear()
                 GRID.DataSource = Nothing
@@ -171,8 +176,17 @@ Public Class Facturacion
                     For Each ITEM In DS.Tables(0).Rows
                         Dim row As String() = New String() {ITEM("Documento"), ITEM("Tipo"), ITEM("Cédula"), ITEM("Nombre"), ITEM("Descripción"), ITEM("Fecha"), ITEM("Usuario"), ITEM("Moneda"), ITEM("Subtotal"), ITEM("Impuesto"), ITEM("Total"), ITEM("Saldo"), ITEM("Respuesta")}
                         GRID.Rows.Add(row)
+
+                        If ITEM("Tipo") = "NC" Then
+                            Total_Facturado -= FMC(ITEM("Total"))
+                        ElseIf ITEM("Tipo") = "FA" Or ITEM("Tipo") = "FC" Or ITEM("Tipo") = "ND" Then
+                            Total_Facturado += FMC(ITEM("Total"))
+                        End If
+
                     Next
                 End If
+
+                LBL_TOTAL_FACTURADO.Text = FMCP(Total_Facturado)
 
                 If CMB_TIPO_FACT.SelectedIndex = 0 Then
                     PintarEstados()
@@ -271,7 +285,7 @@ Public Class Facturacion
                 Dim imp As New Impresion()
                 imp.Imprimir(COD_CIA, COD_SUCUR, Numero_Doc, Tipo_Mov)
             Else
-                MessageBox.Show(Me, "Solamente se pueden imprimir facturas", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show(Me, "Solamente se pueden imprimir facturas", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -285,7 +299,7 @@ Public Class Facturacion
                 Dim Pantalla As New RespuestaDGTD(Numero_Doc, Tipo_Mov)
                 Pantalla.ShowDialog()
             Else
-                MessageBox.Show(Me, "El estado del documento seleccionado no es 'Rechazado'", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show(Me, "El estado del documento seleccionado no es 'Rechazado'", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -311,7 +325,7 @@ Public Class Facturacion
                     MessageBox.Show(Me, "Documento regenerado correctamente", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
             Else
-                MessageBox.Show(Me, "Solamente se pueden regenerar documentos rechazados", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show(Me, "Solamente se pueden regenerar documentos rechazados", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

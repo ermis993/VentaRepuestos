@@ -8,25 +8,25 @@ Public Class RegistreseAqui
     Private Sub BTN_GUARDAR_Click(sender As Object, e As EventArgs) Handles BTN_GUARDAR.Click
         Try
             If String.IsNullOrEmpty(TXT_CODIGO.Text) Then
-                MessageBox.Show("¡Debe de ingresar el código de usuario!", "Error")
+                MessageBox.Show("¡Debe de ingresar el código de usuario!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CODIGO.Select()
             ElseIf String.IsNullOrEmpty(TXT_NOMUSUARIO.Text) Then
-                MessageBox.Show("¡Debe de ingresar un nombre de usuario!", "Error")
+                MessageBox.Show("¡Debe de ingresar un nombre de usuario!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_NOMUSUARIO.Select()
             ElseIf String.IsNullOrEmpty(TXT_CONTRASENA.Text) Then
-                MessageBox.Show("¡Debe de ingresar la contraseña!", "Error")
+                MessageBox.Show("¡Debe de ingresar la contraseña!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CONTRASENA.Select()
             ElseIf String.IsNullOrEmpty(TXT_TELEFONO.Text) Then
-                MessageBox.Show("¡Debe de ingresar el correo del usuario!", "Error")
+                MessageBox.Show("¡Debe de ingresar el correo del usuario!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_TELEFONO.Select()
             ElseIf String.IsNullOrEmpty(TXT_DIRECCION.Text) Then
-                MessageBox.Show("¡Debe de ingresar la dirección del usuario!", "Error")
+                MessageBox.Show("¡Debe de ingresar la dirección del usuario!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_DIRECCION.Select()
             ElseIf String.IsNullOrEmpty(TXT_CORREO.Text) Then
-                MessageBox.Show("¡Debe de ingresar el correo del usuario!", "Error")
+                MessageBox.Show("¡Debe de ingresar el correo del usuario!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CORREO.Select()
             ElseIf PictureBox1.Image Is Nothing Then
-                MessageBox.Show("¡Debe seleccionar una imagen para el usuario!", "Error")
+                MessageBox.Show("¡Debe seleccionar una imagen para el usuario!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
                 Dim MS As New MemoryStream
                 PictureBox1.Image.Save(MS, PictureBox1.Image.RawFormat)
@@ -67,7 +67,7 @@ Public Class RegistreseAqui
                 LimpiarTodo()
 
 
-                MessageBox.Show("Usuario ingresado correctamente", "Aviso")
+                MessageBox.Show("Usuario ingresado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             End If
         Catch ex As Exception

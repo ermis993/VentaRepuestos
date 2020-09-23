@@ -7,6 +7,7 @@ Public Class EncomiendaMant
     Dim Numero_Doc As Integer
     Dim Padre As Encomienda
     Dim Palabra_Clave As String
+    Dim Cod_SUCUR_DERECHO As String
 
     Sub New(ByVal Num_Guia As String, ByVal Estado As String, ByVal Doc As Integer, ByVal Tipo As String, ByVal padrecito As Encomienda, ByVal Palabra As String)
         InitializeComponent()
@@ -43,20 +44,14 @@ Public Class EncomiendaMant
 
     Private Sub RellenaCampos()
         Try
-            Dim SQL = "	SELECT ENVIA.NOMBRE + ' ' + ENVIA.APELLIDO1 + ' ' + ENVIA.APELLIDO2 AS ENVIA,	"
-            SQL &= Chr(13) & "	RETIRA.NOMBRE + ' ' + RETIRA.APELLIDO1 + ' ' + RETIRA.APELLIDO2 AS RETIRA,	"
+            Dim SQL = "	SELECT GUIA.COD_SUCUR,  GUIA.ENVIA AS ENVIA,	"
+            SQL &= Chr(13) & "	GUIA.RETIRA AS RETIRA,	"
             SQL &= Chr(13) & "	ORIGEN.DESC_UBICACION AS ORIGEN, DESTINO.DESC_UBICACION AS DESTINO, GUIA.CANT_BULTOS AS BULTOS"
             SQL &= Chr(13) & "	FROM DOCUMENTO_GUIA AS GUIA	"
             SQL &= Chr(13) & "	INNER JOIN DOCUMENTO_ENC AS ENC	"
             SQL &= Chr(13) & "		ON ENC.COD_CIA = GUIA.COD_CIA"
             SQL &= Chr(13) & "      AND ENC.NUMERO_DOC = Guia.NUMERO_DOC"
             SQL &= Chr(13) & "		AND ENC.TIPO_MOV = GUIA.TIPO_MOV"
-            SQL &= Chr(13) & "	INNER JOIN CLIENTE AS ENVIA	"
-            SQL &= Chr(13) & "		ON ENVIA.COD_CIA = ENC.COD_CIA"
-            SQL &= Chr(13) & "      AND ENVIA.CEDULA = ENC.CEDULA"
-            SQL &= Chr(13) & "	INNER JOIN CLIENTE AS RETIRA	"
-            SQL &= Chr(13) & "		ON RETIRA.COD_CIA = GUIA.COD_CIA"
-            SQL &= Chr(13) & "		AND RETIRA.CEDULA = GUIA.CEDULA"
             SQL &= Chr(13) & "	INNER JOIN GUIA_UBICACION AS ORIGEN	"
             SQL &= Chr(13) & "		ON ORIGEN.COD_CIA = GUIA.COD_CIA"
             SQL &= Chr(13) & "		AND ORIGEN.COD_UBICACION = GUIA.ORIGEN"
@@ -64,7 +59,7 @@ Public Class EncomiendaMant
             SQL &= Chr(13) & "		ON DESTINO.COD_CIA = GUIA.COD_CIA"
             SQL &= Chr(13) & "		AND DESTINO.COD_UBICACION = GUIA.DESTINO"
             SQL &= Chr(13) & "	WHERE GUIA.COD_CIA = " & SCM(COD_CIA)
-            SQL &= Chr(13) & "	AND GUIA.COD_SUCUR = " & SCM(COD_SUCUR)
+            SQL &= Chr(13) & "	AND GUIA.COD_DERECHO = " & SCM(COD_SUCUR)
             SQL &= Chr(13) & "  AND Guia.NUMERO_GUIA = " & SCM(Guia)
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)
@@ -77,6 +72,7 @@ Public Class EncomiendaMant
                     TXT_ORIGEN.Text = ITEM("ORIGEN")
                     TXT_DESTINO.Text = ITEM("DESTINO")
                     TXT_BULTO.Text = Val(ITEM("BULTOS"))
+                    Cod_SUCUR_DERECHO = ITEM("COD_SUCUR")
                 Next
             End If
 
@@ -124,7 +120,7 @@ Public Class EncomiendaMant
             SQL &= Chr(13) & "			SELECT COD_CIA, COD_SUCUR, COD_UBICACION"
             SQL &= Chr(13) & "			FROM DOCUMENTO_GUIA_UBICACION"
             SQL &= Chr(13) & "			WHERE COD_CIA =" & SCM(COD_CIA)
-            SQL &= Chr(13) & "          And COD_SUCUR = " & SCM(COD_SUCUR)
+            SQL &= Chr(13) & "          And COD_SUCUR = " & SCM(Cod_SUCUR)
             SQL &= Chr(13) & "          And NUMERO_GUIA = " & Val(Guia)
             SQL &= Chr(13) & "	) AS DOC	"
             SQL &= Chr(13) & "		ON DOC.COD_CIA = UBI.COD_CIA"
@@ -189,7 +185,7 @@ Public Class EncomiendaMant
     Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
         Try
             Dim Sql = "INSERT INTO DOCUMENTO_GUIA_UBICACION(COD_CIA,COD_SUCUR,NUMERO_DOC,TIPO_MOV,NUMERO_GUIA,COD_UBICACION,COD_USUARIO,FECHA_INC)"
-            Sql &= Chr(13) & "SELECT " & SCM(COD_CIA) & "," & IIf(Estado_Actualizar = "T", SCM(CMB_SUCURSAL.SelectedItem().ToString.Substring(1, 3)), COD_SUCUR) & "," & Val(Numero_Doc) & "," & SCM(Tipo_Mov) & "," & SCM(Guia)
+            Sql &= Chr(13) & "SELECT " & SCM(COD_CIA) & "," & SCM(Cod_SUCUR_DERECHO) & "," & Val(Numero_Doc) & "," & SCM(Tipo_Mov) & "," & SCM(Guia)
             Sql &= Chr(13) & "," & SCM(CMB_ORIGEN.SelectedItem().ToString.Substring(1, 3)) & "," & SCM(COD_USUARIO) & ", GETDATE()"
             CONX.Coneccion_Abrir()
             CONX.EJECUTE(Sql)
@@ -197,9 +193,9 @@ Public Class EncomiendaMant
 
             Sql = "	UPDATE DOCUMENTO_GUIA	"
             Sql &= Chr(13) & "	SET ESTADO = " & SCM(Estado_Actualizar)
-            Sql &= Chr(13) & "	, COD_SUCUR = " & SCM(IIf(Estado_Actualizar = "T", SCM(CMB_SUCURSAL.SelectedItem().ToString.Substring(1, 3)), COD_SUCUR))
+            Sql &= Chr(13) & "	, COD_DERECHO = " & SCM(IIf(Estado_Actualizar = "T", SCM(CMB_SUCURSAL.SelectedItem().ToString.Substring(1, 3)), COD_SUCUR))
             Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
-            Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+            Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(Cod_SUCUR_DERECHO)
             Sql &= Chr(13) & "	AND NUMERO_DOC = " & Val(Numero_Doc)
             Sql &= Chr(13) & "	AND TIPO_MOV = " & SCM(Tipo_Mov)
             Sql &= Chr(13) & "	AND NUMERO_GUIA = " & Val(Guia)

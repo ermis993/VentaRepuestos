@@ -55,13 +55,13 @@ Public Class ProductoUbicacionMant
     Private Sub BTN_INGRESAR_Click(sender As Object, e As EventArgs) Handles BTN_INGRESAR.Click
         Try
             If String.IsNullOrEmpty(TXT_ESTANTE.Text) Then
-                MessageBox.Show("¡Debe ingresar el estante del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("¡Debe ingresar el estante del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_ESTANTE.Select()
             ElseIf String.IsNullOrEmpty(TXT_FILA.Text) Then
-                MessageBox.Show("¡Debe ingresar la fila del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("¡Debe ingresar la fila del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_FILA.Select()
             ElseIf String.IsNullOrEmpty(TXT_COLUMNA.Text) Then
-                MessageBox.Show("¡Debe ingresar la columna del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("¡Debe ingresar la columna del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_COLUMNA.Select()
             Else
 

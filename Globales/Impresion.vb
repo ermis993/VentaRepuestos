@@ -20,6 +20,18 @@ Public Class Impresion
         Printer.DoPrint()
     End Sub
 
+    Private Shared Sub PrintTiquet(ByVal text As String)
+
+        Printer.NewPrintTiquet()
+        Dim linesarray() = text.Split(New String() {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
+
+        For Each line As String In linesarray
+            Printer.Print(line)
+        Next
+
+        Printer.DoPrint()
+    End Sub
+
     Public Shared Sub Imprimir(ByVal COD_CIA As String, ByVal COD_SUCUR As String, ByVal NUMERO_DOC As Integer, ByVal TIPO_MOV As String)
         Try
             Dim strPrint As String
@@ -65,6 +77,20 @@ Public Class Impresion
                 Next
                 strPrint = strPrint & RELLENOCENTRO("[FIN DETALLE]", Ancho_Tiquete) & vbCrLf
                 strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-") & vbCrLf
+
+                If IND_ENCOMIENDA = "S" Then
+                    strPrint = strPrint & RELLENOCENTRO("[ DETALLE TRANSPORTE ]", Ancho_Tiquete) & vbCrLf
+                    strPrint = strPrint & RELLENODERECHA("GUIA #", 8) & ": " & DS.Tables(4).Rows(0).Item("NUMERO_GUIA").ToString & vbCrLf
+                    strPrint = strPrint & RELLENODERECHA("ENVIA", 8) & ": " & DS.Tables(4).Rows(0).Item("ENVIA").ToString & vbCrLf
+                    strPrint = strPrint & RELLENODERECHA("RETIRA", 8) & ": " & DS.Tables(4).Rows(0).Item("RETIRA").ToString & vbCrLf
+                    strPrint = strPrint & RELLENODERECHA("DETALLE", 8) & ": " & DS.Tables(4).Rows(0).Item("DETALLE_GUIA").ToString & vbCrLf
+                    strPrint = strPrint & RELLENODERECHA("VALOR", 8) & ": " & FMCP(DS.Tables(4).Rows(0).Item("VALOR")) & vbCrLf
+                    strPrint = strPrint & RELLENODERECHA("HORA RECIBIDO", 13) & ": " & DS.Tables(4).Rows(0).Item("HORA_INGRESO").ToString & vbCrLf
+                    strPrint = strPrint & RELLENODERECHA("HORA ENVIO", 13) & ": " & DS.Tables(4).Rows(0).Item("HORA_ENVIO").ToString & vbCrLf
+                    strPrint = strPrint & RELLENOCENTRO("[ FIN DETALLE TRANSPORTE ]", Ancho_Tiquete) & vbCrLf
+                    strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-") & vbCrLf
+                End If
+
                 strPrint = strPrint & "Cantidad de lineas :" & DS.Tables(3).Rows(0).Item("LINEAS").ToString & vbCrLf
                 strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-") & vbCrLf
                 Dim gravado As String = RELLENOIZQUIERDA("Gravado", 10) & ":" & RELLENOIZQUIERDA(FMCP(DS.Tables(3).Rows(0).Item("GRAVADO"), 2), 11)
@@ -79,7 +105,7 @@ Public Class Impresion
                 strPrint = strPrint & RELLENOIZQUIERDA(exento, Ancho_Tiquete) & vbCrLf
                 strPrint = strPrint & RELLENOIZQUIERDA(exonerado, Ancho_Tiquete) & vbCrLf
                 strPrint = strPrint & RELLENOIZQUIERDA(descuento, Ancho_Tiquete) & vbCrLf
-                strPrint = strPrint & RELLENOIZQUIERDA(gravado, Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENOIZQUIERDA(iva, Ancho_Tiquete) & vbCrLf
                 strPrint = strPrint & RELLENOIZQUIERDA(subtotal, Ancho_Tiquete) & vbCrLf
                 strPrint = strPrint & RELLENOIZQUIERDA(total, Ancho_Tiquete) & vbCrLf
 
@@ -89,6 +115,89 @@ Public Class Impresion
                 strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-")
                 Print(strPrint)
 
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Public Shared Sub ImprimirEncomienda(ByVal COD_CIA As String, ByVal COD_SUCUR As String, ByVal NUMERO_DOC As Integer, ByVal TIPO_MOV As String)
+        Try
+            Dim strPrint As String
+            Dim Ancho_Tiquete As Integer = ANCHO_IMPRESION()
+            Dim Sql = "	EXEC USP_DATOS_FACTURA_ENCOMIENDA "
+            Sql &= Chr(13) & "	@COD_CIA = 	" & SCM(COD_CIA)
+            Sql &= Chr(13) & "	,@COD_SUCUR = " & SCM(COD_SUCUR)
+            Sql &= Chr(13) & "	,@NUMERO_DOC = " & Val(NUMERO_DOC)
+            Sql &= Chr(13) & "  ,@TIPO_MOV =  " & SCM(TIPO_MOV)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(Sql)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+
+                strPrint = ""
+                strPrint = strPrint & RELLENODERECHA("ENVIA", 8) & ": " & DS.Tables(0).Rows(0).Item("ENVIA").ToString.ToUpper & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENODERECHA("RETIRA", 8) & ": " & DS.Tables(0).Rows(0).Item("RETIRA").ToString.ToUpper & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENODERECHA("TELEFONO", 8) & ": " & DS.Tables(0).Rows(0).Item("TELEFONO").ToString & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENODERECHA("GUIA", 8) & ": " & DS.Tables(0).Rows(0).Item("NUMERO_GUIA").ToString.ToUpper & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENODERECHA("BULTOS", 8) & ": " & DS.Tables(0).Rows(0).Item("CANT_BULTOS").ToString & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENODERECHA("FECHA", 8) & ": " & DMAHms(DS.Tables(0).Rows(0).Item("FECHA_IMP").ToString) & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENO("", Ancho_Tiquete, "_") & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO("FIRMA Y CEDULA", Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete)
+                strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-")
+                Print(strPrint)
+
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Public Shared Sub ImprimirEtiquetas(ByVal COD_CIA As String, ByVal COD_SUCUR As String, ByVal NUMERO_DOC As Integer, ByVal TIPO_MOV As String)
+        Try
+            Dim strPrint As String = ""
+            Dim Ancho_Tiquete As Integer = ANCHO_IMPRESION_ETIQUETA()
+            Dim Sql = "	EXEC USP_DATOS_FACTURA_ETIQUETA "
+            Sql &= Chr(13) & "	@COD_CIA = 	" & SCM(COD_CIA)
+            Sql &= Chr(13) & "	,@COD_SUCUR = " & SCM(COD_SUCUR)
+            Sql &= Chr(13) & "	,@NUMERO_DOC = " & Val(NUMERO_DOC)
+            Sql &= Chr(13) & "  ,@TIPO_MOV =  " & SCM(TIPO_MOV)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(Sql)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                For Each ITEM In DS.Tables(0).Rows
+                    strPrint = ""
+                    strPrint = strPrint & RELLENODERECHA("GUIA", 8) & ": " & ITEM("NUMERO_GUIA") & vbCrLf
+                    strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                    strPrint = strPrint & RELLENODERECHA("ENVIA", 8) & ": " & ITEM("ENVIA").ToString.ToUpper & vbCrLf
+                    strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                    strPrint = strPrint & RELLENODERECHA("RETIRA", 8) & ": " & ITEM("RETIRA").ToString.ToUpper & vbCrLf
+                    strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                    strPrint = strPrint & RELLENODERECHA("TELEFONO", 8) & ": " & ITEM("TELEFONO") & vbCrLf
+                    strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                    strPrint = strPrint & RELLENODERECHA("BULTOS", 8) & ": " & ITEM("CONTADOR") & " DE " & ITEM("CANT_BULTOS") & vbCrLf
+                    strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                    strPrint = strPrint & RELLENODERECHA("DESTINO", 8) & ": " & ITEM("DESC_UBICACION").ToString.ToUpper & vbCrLf
+                    strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+
+                    PrintTiquet(strPrint)
+                Next
             End If
 
         Catch ex As Exception

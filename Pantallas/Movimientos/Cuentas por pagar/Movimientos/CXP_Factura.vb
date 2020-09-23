@@ -270,9 +270,9 @@ Public Class CXP_Factura
     Private Sub IngresarDetalle()
         Try
             If String.IsNullOrEmpty(TXT_ESTANTE.Text) Or String.IsNullOrEmpty(TXT_FILA.Text) Or String.IsNullOrEmpty(TXT_COLUMNA.Text) Then
-                MessageBox.Show(Me, "La ubicación del producto es inválida, vuelva a seleccionar el producto", "Mensaje ubicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show(Me, "La ubicación del producto es inválida, vuelva a seleccionar el producto", "Mensaje ubicación", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf String.IsNullOrEmpty(Cliente.VALOR) Then
-                MessageBox.Show(Me, "El proveedor no ha sido seleccionado", "Mensaje proveedor", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show(Me, "El proveedor no ha sido seleccionado", "Mensaje proveedor", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
                 If FMC(TXT_TOTAL.Text) > 0 Then
                     Dim SQL = "	EXECUTE USP_MANT_CXP_FACTURACION_TMP "
@@ -473,23 +473,26 @@ Public Class CXP_Factura
     End Sub
 
     Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
+        Try
+            If Modo = CRF_Modos.Modificar Then
+                Dim Sql = "	UPDATE CXP_DOCUMENTO_ENC_TMP	"
+                Sql &= Chr(13) & "				SET CEDULA = " & SCM(Cliente.VALOR)
+                Sql &= Chr(13) & "				,COD_USUARIO = " & SCM(COD_USUARIO)
+                Sql &= Chr(13) & "				,COD_MONEDA = " & SCM(CMB_MONEDA.SelectedItem.ToString.Substring(0, 1))
+                Sql &= Chr(13) & "				,FORMA_PAGO = " & SCM(CMB_FORMAPAGO.SelectedItem.ToString.Substring(0, 2))
+                Sql &= Chr(13) & "				,DESCRIPCION = " & SCM(TXT_DESCRIPCION.Text)
+                Sql &= Chr(13) & "				WHERE COD_CIA = " & SCM(COD_CIA)
+                Sql &= Chr(13) & "				AND COD_SUCUR = " & SCM(COD_SUCUR)
+                Sql &= Chr(13) & "				AND CODIGO = " & SCM(Codigo)
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(Sql)
+                CONX.Coneccion_Cerrar()
+            End If
 
-        If Modo = CRF_Modos.Modificar Then
-            Dim Sql = "	UPDATE CXP_DOCUMENTO_ENC_TMP	"
-            Sql &= Chr(13) & "				SET CEDULA = " & SCM(Cliente.VALOR)
-            Sql &= Chr(13) & "				,COD_USUARIO = " & SCM(COD_USUARIO)
-            Sql &= Chr(13) & "				,COD_MONEDA = " & SCM(CMB_MONEDA.SelectedItem.ToString.Substring(0, 1))
-            Sql &= Chr(13) & "				,FORMA_PAGO = " & SCM(CMB_FORMAPAGO.SelectedItem.ToString.Substring(0, 2))
-            Sql &= Chr(13) & "				,DESCRIPCION = " & SCM(TXT_DESCRIPCION.Text)
-            Sql &= Chr(13) & "				WHERE COD_CIA = " & SCM(COD_CIA)
-            Sql &= Chr(13) & "				AND COD_SUCUR = " & SCM(COD_SUCUR)
-            Sql &= Chr(13) & "				AND CODIGO = " & SCM(Codigo)
-            CONX.Coneccion_Abrir()
-            CONX.EJECUTE(Sql)
-            CONX.Coneccion_Cerrar()
-        End If
-
-        Cerrar()
+            Cerrar()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 
     Private Sub Busca_Producto()
@@ -589,7 +592,7 @@ Public Class CXP_Factura
     Private Sub BTN_FACTURAR_Click(sender As Object, e As EventArgs) Handles BTN_FACTURAR.Click
         Try
             If GRID.Rows.Count <= 0 Then
-                MessageBox.Show(Me, "Debe ingresar al menos una linea del documento", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(Me, "Debe ingresar al menos una linea del documento", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
                 Dim Sql = "	USP_CXP_FACTURACION_TMP_A_REAL	"
                 Sql &= Chr(13) & "	 @COD_CIA = " & SCM(COD_CIA)

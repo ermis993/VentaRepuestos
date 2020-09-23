@@ -414,6 +414,28 @@ Public Class Globales
         End Try
     End Function
 
+    Public Shared Function ANCHO_IMPRESION_ETIQUETA() As Integer
+        Try
+            Dim respuesta As Integer = 0
+            Dim SQL As String = "SELECT ISNULL(ANCHO_TIQUETE,0) AS ANCHO_ETIQUETA"
+            SQL &= Chr(13) & " FROM SUCURSAL "
+            SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & " AND COD_SUCUR = " & SCM(COD_SUCUR)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                respuesta = DS.Tables(0).Rows(0).Item("ANCHO_TIQUETE")
+            End If
+
+            Return respuesta
+
+        Catch ex As Exception
+            Return 0
+        End Try
+    End Function
+
 
     Public Shared Function EXPORTAR_EXCEL(ByVal Datos As DataSet, ByVal Nombre_Reporte As String, ByRef ProgressBar As ProgressBar) As Boolean
 

@@ -236,6 +236,7 @@ Public Class CXP_Factura
             Sql &= Chr(13) & "	FROM PRODUCTO AS P "
             Sql &= Chr(13) & "  INNER JOIN PRODUCTO_UBICACION  AS U"
             Sql &= Chr(13) & "      ON U.COD_PROD = P.COD_PROD"
+            Sql &= Chr(13) & "      AND U.ESTADO = 'A'"
             If Not String.IsNullOrEmpty(estante) Then
                 Sql &= Chr(13) & "      AND U.ESTANTE =" & SCM(estante)
                 Sql &= Chr(13) & "      AND U.FILA = " & SCM(fila)
@@ -502,11 +503,14 @@ Public Class CXP_Factura
 
             If Not String.IsNullOrEmpty(TXT_CODIGO.Text) Then
                 Dim Sql = "	SELECT COD_PROD,  DESCRIPCION "
-                Sql &= Chr(13) & "	FROM PRODUCTO	"
-                Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
-                Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
-                Sql &= Chr(13) & "	AND (DESCRIPCION LIKE " & SCM("%" + TXT_CODIGO.Text + "%") & " Or COD_PROD = " & SCM(TXT_CODIGO.Text) & " Or COD_BARRA = " & SCM(TXT_CODIGO.Text) & ")"
-                Sql &= Chr(13) & "	AND CEDULA = " & SCM(Cliente.VALOR)
+                Sql &= Chr(13) & "	FROM PRODUCTO AS PROD	"
+                Sql &= Chr(13) & "  LEFT JOIN PRODUCTO_RELACION AS REL"
+                Sql &= Chr(13) & " 	    ON REL.COD_CIA = PROD.COD_CIA"
+                Sql &= Chr(13) & " 	    AND REL.COD_SUCUR = PROD.COD_SUCUR"
+                Sql &= Chr(13) & " 	    AND REL.COD_PROD_PADRE = PROD.COD_PROD"
+                Sql &= Chr(13) & "	WHERE PROD.COD_CIA = " & SCM(COD_CIA)
+                Sql &= Chr(13) & "	AND PROD.COD_SUCUR = " & SCM(COD_SUCUR)
+                Sql &= Chr(13) & "	AND (DESCRIPCION LIKE " & SCM("%" + TXT_CODIGO.Text + "%") & " Or COD_PROD = " & SCM(TXT_CODIGO.Text) & " Or COD_BARRA = " & SCM(TXT_CODIGO.Text) & " Or REL.COD_PROD_HIJO = " & SCM(TXT_CODIGO.Text) & ")"
                 Sql &= Chr(13) & "  ORDER BY DESCRIPCION ASC"
 
                 CONX.Coneccion_Abrir()

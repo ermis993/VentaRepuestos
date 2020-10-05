@@ -596,14 +596,40 @@ Public Class DocumentoElectronicoImp
                         AR.Close()
                         CONX.Coneccion_Cerrar()
 
-                        LIMPIAR()
-                        MessageBox.Show("¡Documento incluido correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Dim Mensaje As String
+                        Mensaje = "¡Documento incluido correctamente!" & vbNewLine
+                        Mensaje &= "¿Desea realizar el ingreso de inventario de la factura importada?"
+
+                        Dim valor = MessageBox.Show(Me, Mensaje, "Aviso", vbYesNo, MessageBoxIcon.Question)
+                        If valor = DialogResult.Yes Then
+                            PROCESO_MOVIMIENTO_DE_INVENTARIO()
+                        Else
+                            LIMPIAR()
+                        End If
                     End If
                 End If
-                    Else
+            Else
                 MessageBox.Show("¡Debe cargar un documento para poder incluirlo en el sistema!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
         Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub PROCESO_MOVIMIENTO_DE_INVENTARIO()
+        Try
+            Dim SQL = "	EXECUTE USP_INGRESO_INVENTARIO "
+            SQL &= Chr(13) & "	 @COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & "	,@COD_SUCUR = " & SCM(COD_SUCUR)
+            SQL &= Chr(13) & "	,@CLAVE = " & SCM(TXT_CLAVE.Text)
+            CONX.Coneccion_Abrir()
+            CONX.EJECUTE(SQL)
+            CONX.Coneccion_Cerrar()
+
+            LIMPIAR()
+            MessageBox.Show("¡Inventario ingresado correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Catch ex As Exception
+            LIMPIAR()
             MessageBox.Show(ex.Message)
         End Try
     End Sub

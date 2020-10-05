@@ -7,6 +7,7 @@ Public Class Reportes
 
     Private Sub BTN_GENERAR_Click(sender As Object, e As EventArgs) Handles BTN_GENERAR.Click
         Try
+            Cursor.Current = Cursors.WaitCursor
             If CMB_MODULO.SelectedValue = "CXC" Then
                 Select Case CMB_TIPO.SelectedValue
                     Case "TRI"
@@ -150,6 +151,7 @@ Public Class Reportes
                         End Select
                 End Select
             End If
+            Cursor.Current = Cursors.Default
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

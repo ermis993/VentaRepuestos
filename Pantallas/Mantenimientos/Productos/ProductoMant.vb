@@ -4,10 +4,10 @@ Imports VentaRepuestos.Globales
 Public Class ProductoMant
 
     Dim MODO As CRF_Modos
-    Dim PADRE As Producto
+    Dim PADRE As Object
     Dim COD_PROD As String
 
-    Sub New(ByVal MODO As CRF_Modos, ByVal PADRE As Producto, Optional COD_PROD As String = "")
+    Sub New(ByVal MODO As CRF_Modos, ByVal PADRE As Object, Optional COD_PROD As String = "", Optional DESCRIPCION As String = "", Optional TARIFA As Integer = 0, Optional PRECIO_COSTO As Decimal = 0.0, Optional CEDULA As String = "")
         InitializeComponent()
 
         Me.MODO = MODO
@@ -28,8 +28,16 @@ Public Class ProductoMant
             TXT_CODIGO.ReadOnly = True
             LEER()
             TXT_COD_BARRA.Select()
-        Else
+        ElseIf Me.MODO = CRF_Modos.Insertar Then
             TXT_CODIGO.Select()
+        Else
+            TXT_CODIGO.Text = COD_PROD
+            TXT_DESC.Text = DESCRIPCION
+            CMB_UNIDADES.SelectedValue = "Unid"
+            CMB_IMPUESTO_DGTD.SelectedValue = IIf(TARIFA = 13, "017", "010")
+            TXT_COSTO.Text = FMC(PRECIO_COSTO)
+            Buscador.VALOR = CEDULA
+            Buscador.ACTUALIZAR_COMBO()
         End If
 
     End Sub
@@ -81,8 +89,8 @@ Public Class ProductoMant
     End Sub
 
     Private Sub Cerrar()
-        Me.PADRE.RELLENAR_GRID()
         Me.Close()
+        Me.PADRE.RELLENAR_GRID()
     End Sub
 
     Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
@@ -124,6 +132,8 @@ Public Class ProductoMant
                 TXT_MINIMO.Select()
             Else
 
+                Me.MODO = IIf(Me.MODO = CRF_Modos.Formula, CRF_Modos.Insertar, Me.MODO)
+
                 Dim Sql = "EXEC	USP_MANT_PRODUCTO "
                 Sql &= Chr(13) & "	 @COD_CIA = " & SCM(COD_CIA)
                 Sql &= Chr(13) & "	,@COD_SUCUR = " & SCM(COD_SUCUR)
@@ -152,6 +162,7 @@ Public Class ProductoMant
 
                 If Me.MODO = CRF_Modos.Insertar Then
                     LIMPIAR_TODO()
+                    Cerrar()
                     MessageBox.Show("¡Producto agregado correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Else
                     Me.Close()

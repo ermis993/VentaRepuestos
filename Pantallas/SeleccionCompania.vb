@@ -57,6 +57,7 @@ Public Class SeleccionCompania
                     End If
                     GUARDAR_TIPO_CAMBIO(FECHA)
                 End If
+
                 Me.Close()
                 Dim PANTALLA As New MenuPrincipal()
                 PANTALLA.ShowDialog()
@@ -65,6 +66,18 @@ Public Class SeleccionCompania
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+    Private Sub Actualizaciones()
+        Try
+
+            If Not EXISTE_TABLA_EN_FECHA("APARTADO_ENC_TMP", "2020-09-28") Then
+
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         Me.Close()
         Login.Visible = True

@@ -210,6 +210,29 @@ Public Class Globales
             Return False
         End Try
     End Function
+
+    Public Shared Function EXISTE_TABLA_EN_FECHA(ByVal TABLA As String, ByVal FECHA As String) As Boolean
+        Try
+            Dim EXISTE As Boolean = False
+            Dim SQL = "	SELECT NAME "
+            SQL &= Chr(13) & "FROM SYS.TABLES"
+            SQL &= Chr(13) & "WHERE NAME =" & SCM(TABLA)
+            SQL &= Chr(13) & "AND SCHEMA_ID = SCHEMA_ID('dbo')"
+            SQL &= Chr(13) & "AND CONVERT(VARCHAR(10), MODIFY_DATE, 126) < " & SCM(YMD(FECHA))
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+            If DS.Tables(0).Rows.Count > 0 Then
+                EXISTE = True
+            End If
+            Return EXISTE
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            Return False
+        End Try
+    End Function
+
     Public Shared Function ES_ENCOMIENDA(ByVal COD_CIA As String) As String
         Try
             Dim ENCOMIENDA As String = "N"

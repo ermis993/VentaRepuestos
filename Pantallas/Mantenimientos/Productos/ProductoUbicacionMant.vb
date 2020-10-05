@@ -4,9 +4,9 @@ Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Public Class ProductoUbicacionMant
 
     Dim MODO As CRF_Modos
-    Dim PADRE As Factura
+    Dim PADRE As Object
 
-    Sub New(ByVal COD_PROD As String, ByVal DESCRIPCION As String, Optional ByVal MODO As CRF_Modos = CRF_Modos.Nada, Optional ByVal PADRE As Factura = Nothing)
+    Sub New(ByVal COD_PROD As String, ByVal DESCRIPCION As String, Optional ByVal MODO As CRF_Modos = CRF_Modos.Nada, Optional ByVal PADRE As Object = Nothing)
         InitializeComponent()
         TXT_CODIGO.Text = COD_PROD
         TXT_DESC.Text = DESCRIPCION

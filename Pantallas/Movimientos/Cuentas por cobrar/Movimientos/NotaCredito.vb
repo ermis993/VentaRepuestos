@@ -10,12 +10,14 @@ Public Class NotaCredito
     Dim Codigo As String
     Dim TabProducto As TabPage
     Dim Padre As Facturacion
+    Dim Tipo As String
 
     Private PaginaEscondidas As New List(Of TabPage)
 
-    Sub New(ByVal PADRE As Facturacion)
+    Sub New(ByVal PADRE As Facturacion, ByVal Tipo_Proceso As String)
         InitializeComponent()
 
+        Me.Tipo = Tipo_Proceso
         Me.Padre = PADRE
         Cliente.TABLA_BUSCAR = "CLIENTE"
         Cliente.CODIGO = "CEDULA"
@@ -24,8 +26,12 @@ Public Class NotaCredito
 
         Codigo = GenerarCodigo()
 
-        TabProducto = TabControl1.TabPages(3)
+        If Tipo = "A" Then
+            TAB_FACTURAS.Text = "[ Apartados ]"
+            CMB_DOCUMENTO.Enabled = False
+        End If
 
+        TabProducto = TabControl1.TabPages(3)
         EscondeTab(TabProducto, False)
 
         CMB_DOCUMENTO.SelectedIndex = 0
@@ -69,22 +75,38 @@ Public Class NotaCredito
     Private Sub RellenaFacturas()
         Try
             If Not CMB_MONEDA.SelectedIndex <= -1 And String.IsNullOrEmpty(Cliente.VALOR) = False Then
-
+                Dim SQL As String = ""
                 GRID.DataSource = Nothing
 
-                Dim SQL = "	SELECT ENC.TIPO_MOV AS Tipo, ENC.NUMERO_DOC AS Número, CONVERT(VARCHAR(10),ENC.FECHA, 105) AS Fecha, MONTO AS Subtotal		"
-                SQL &= Chr(13) & "	, IMPUESTO as Impuesto, (MONTO+IMPUESTO) AS Total, SALDO as Saldo"
-                SQL &= Chr(13) & "	FROM DOCUMENTO_ENC AS ENC"
-                SQL &= Chr(13) & "  LEFT JOIN DOCUMENTO_AFEC_DET_TMP AS AFEC"
-                SQL &= Chr(13) & "      ON AFEC.NUMERO_DOC = ENC.NUMERO_DOC"
-                SQL &= Chr(13) & "      AND AFEC.TIPO_MOV = ENC.TIPO_MOV"
-                SQL &= Chr(13) & "	WHERE ENC.COD_CIA = " & SCM(COD_CIA)
-                SQL &= Chr(13) & "  AND ENC.COD_SUCUR = " & SCM(COD_SUCUR)
-                SQL &= Chr(13) & "  AND CEDULA = " & SCM(Cliente.VALOR)
-                SQL &= Chr(13) & "	AND COD_MONEDA = " & SCM(CMB_MONEDA.SelectedItem.ToString.Substring(0, 1))
-                SQL &= Chr(13) & "  AND SALDO > 0 "
-                SQL &= Chr(13) & "  AND ENC.TIPO_MOV In ('FA', 'FC')"
-                SQL &= Chr(13) & "  AND AFEC.NUMERO_DOC IS NULL"
+                If Tipo = "F" Then
+                    SQL = "	SELECT ENC.TIPO_MOV AS Tipo, ENC.NUMERO_DOC AS Número, CONVERT(VARCHAR(10),ENC.FECHA, 105) AS Fecha, MONTO AS Subtotal		"
+                    SQL &= Chr(13) & "	, IMPUESTO as Impuesto, (MONTO+IMPUESTO) AS Total, SALDO as Saldo"
+                    SQL &= Chr(13) & "	FROM DOCUMENTO_ENC AS ENC"
+                    SQL &= Chr(13) & "  LEFT JOIN DOCUMENTO_AFEC_DET_TMP AS AFEC"
+                    SQL &= Chr(13) & "      ON AFEC.NUMERO_DOC = ENC.NUMERO_DOC"
+                    SQL &= Chr(13) & "      AND AFEC.TIPO_MOV = ENC.TIPO_MOV"
+                    SQL &= Chr(13) & "	WHERE ENC.COD_CIA = " & SCM(COD_CIA)
+                    SQL &= Chr(13) & "  AND ENC.COD_SUCUR = " & SCM(COD_SUCUR)
+                    SQL &= Chr(13) & "  AND CEDULA = " & SCM(Cliente.VALOR)
+                    SQL &= Chr(13) & "	AND COD_MONEDA = " & SCM(CMB_MONEDA.SelectedItem.ToString.Substring(0, 1))
+                    SQL &= Chr(13) & "  AND SALDO > 0 "
+                    SQL &= Chr(13) & "  AND ENC.TIPO_MOV In ('FA', 'FC')"
+                    SQL &= Chr(13) & "  AND AFEC.NUMERO_DOC IS NULL"
+                Else
+                    SQL = "	SELECT ENC.TIPO_MOV AS Tipo, ENC.NUMERO_DOC AS Número, CONVERT(VARCHAR(10),ENC.FECHA, 105) AS Fecha, MONTO AS Subtotal		"
+                    SQL &= Chr(13) & "	, IMPUESTO as Impuesto, (MONTO+IMPUESTO) AS Total, SALDO as Saldo"
+                    SQL &= Chr(13) & "	FROM APARTADO_ENC AS ENC"
+                    SQL &= Chr(13) & "  LEFT JOIN DOCUMENTO_AFEC_DET_TMP AS AFEC"
+                    SQL &= Chr(13) & "      ON AFEC.NUMERO_DOC = ENC.NUMERO_DOC"
+                    SQL &= Chr(13) & "      AND AFEC.TIPO_MOV = ENC.TIPO_MOV"
+                    SQL &= Chr(13) & "	WHERE ENC.COD_CIA = " & SCM(COD_CIA)
+                    SQL &= Chr(13) & "  AND ENC.COD_SUCUR = " & SCM(COD_SUCUR)
+                    SQL &= Chr(13) & "  AND CEDULA = " & SCM(Cliente.VALOR)
+                    SQL &= Chr(13) & "	AND COD_MONEDA = " & SCM(CMB_MONEDA.SelectedItem.ToString.Substring(0, 1))
+                    SQL &= Chr(13) & "  AND SALDO > 0 "
+                    SQL &= Chr(13) & "  AND ENC.TIPO_MOV In ('AA', 'AC')"
+                    SQL &= Chr(13) & "  AND AFEC.NUMERO_DOC IS NULL"
+                End If
 
                 CONX.Coneccion_Abrir()
                 Dim DS = CONX.EJECUTE_DS(SQL)
@@ -413,28 +435,30 @@ Public Class NotaCredito
                 Dim seleccionado = GRIDPRODS.Rows(GRIDPRODS.SelectedRows(0).Index)
 
                 Dim Cantidad_Actual = seleccionado.Cells(7).Value
-                Dim valor As Double = InputBox("Ingrese la cantidad del producto a devolver, la cantidad actual es: " & FMC(Cantidad_Actual, 4), "Ingrese el valor")
+                Dim valor As String = InputBox("Ingrese la cantidad del producto a devolver, la cantidad actual es: " & FMC(Cantidad_Actual, 4), "Ingrese el valor")
 
-                If FMC(valor) > 0 Then
-                    If (FMC(Cantidad_Actual) - FMC(valor)) >= 0 Then
+                If Not String.IsNullOrEmpty(valor) Then
+                    If FMC(valor) > 0 Then
+                        If (FMC(Cantidad_Actual) - FMC(valor)) >= 0 Then
 
-                        Dim SQL = "	INSERT INTO DOCUMENTO_AFEC_DET_PRODUCTOS_TMP(COD_CIA,COD_SUCUR,CODIGO,NUMERO_DOC,TIPO_MOV,LINEA,COD_PROD,PRECIO_UNITARIO,POR_DESCUENTO,POR_IMPUESTO,CANTIDAD,ESTANTE,FILA,COLUMNA)	"
-                        SQL &= Chr(13) & "	SELECT " & SCM(COD_CIA) & "," & SCM(COD_SUCUR) & "," & SCM(Codigo) & "," & Val(seleccionado.Cells(0).Value) & "," & SCM(seleccionado.Cells(1).Value) & "," & Val(seleccionado.Cells(2).Value)
-                        SQL &= Chr(13) & "," & SCM(seleccionado.Cells(3).Value) & "," & FMC(seleccionado.Cells(4).Value, 4) & "," & Val(seleccionado.Cells(5).Value) & "," & Val(seleccionado.Cells(6).Value) & "," & FMC(FMC(valor), 4)
-                        SQL &= Chr(13) & "," & SCM(seleccionado.Cells(8).Value) & "," & SCM(seleccionado.Cells(9).Value) & "," & SCM(seleccionado.Cells(10).Value)
-                        CONX.Coneccion_Abrir()
-                        CONX.EJECUTE(SQL)
-                        CONX.Coneccion_Cerrar()
+                            Dim SQL = "	INSERT INTO DOCUMENTO_AFEC_DET_PRODUCTOS_TMP(COD_CIA,COD_SUCUR,CODIGO,NUMERO_DOC,TIPO_MOV,LINEA,COD_PROD,PRECIO_UNITARIO,POR_DESCUENTO,POR_IMPUESTO,CANTIDAD,ESTANTE,FILA,COLUMNA)	"
+                            SQL &= Chr(13) & "	SELECT " & SCM(COD_CIA) & "," & SCM(COD_SUCUR) & "," & SCM(Codigo) & "," & Val(seleccionado.Cells(0).Value) & "," & SCM(seleccionado.Cells(1).Value) & "," & Val(seleccionado.Cells(2).Value)
+                            SQL &= Chr(13) & "," & SCM(seleccionado.Cells(3).Value) & "," & FMC(seleccionado.Cells(4).Value, 4) & "," & Val(seleccionado.Cells(5).Value) & "," & Val(seleccionado.Cells(6).Value) & "," & FMC(FMC(valor), 4)
+                            SQL &= Chr(13) & "," & SCM(seleccionado.Cells(8).Value) & "," & SCM(seleccionado.Cells(9).Value) & "," & SCM(seleccionado.Cells(10).Value)
+                            CONX.Coneccion_Abrir()
+                            CONX.EJECUTE(SQL)
+                            CONX.Coneccion_Cerrar()
 
-                        IngresaMontoAfec()
-                        RellenaProductosAfec()
-                        RellenaProductos()
-                        CalculoTotales()
+                            IngresaMontoAfec()
+                            RellenaProductosAfec()
+                            RellenaProductos()
+                            CalculoTotales()
+                        Else
+                            MessageBox.Show("La cantidad ingresada es mayor a la cantidad que se puede afectar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                        End If
                     Else
-                        MessageBox.Show("La cantidad ingresada es mayor a la cantidad que se puede afectar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                        MessageBox.Show("La cantidad ingresada no es mayor a 0, es necesario que sea mayor", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                     End If
-                Else
-                    MessageBox.Show("La cantidad ingresada no es mayor a 0, es necesario que sea mayor", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If
             End If
         Catch ex As Exception
@@ -597,22 +621,23 @@ Public Class NotaCredito
     Private Sub IngrearMontoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IngrearMontoToolStripMenuItem.Click
         Leer_indice(2)
         If MONTO_DOC_AFEC > 0 Then
-            Dim Valor As Double = InputBox("Ingrese el monto con el cual desea afectar, el monto actual es: " & FMCP(MONTO_DOC, 4), "Ingrese el valor")
+            Dim Valor As String = InputBox("Ingrese el monto con el cual desea afectar, el monto actual es: " & FMCP(MONTO_DOC, 4), "Ingrese el valor")
 
-            If (FMC(MONTO_DOC_AFEC, 4) - FMC(Valor)) >= 0 Then
-                Dim Sql = "UPDATE DOCUMENTO_AFEC_DET_TMP"
-                Sql &= Chr(13) & "  SET MONTO_AFEC = " & FMC(Valor)
-                Sql &= Chr(13) & "  WHERE NUMERO_DOC = " & Val(NUMERO_DOC)
-                Sql &= Chr(13) & "  AND TIPO_MOV = " & SCM(TIPO_MOV)
+            If Not String.IsNullOrEmpty(Valor) Then
+                If (FMC(MONTO_DOC_AFEC, 4) - FMC(Valor)) >= 0 Then
+                    Dim Sql = "UPDATE DOCUMENTO_AFEC_DET_TMP"
+                    Sql &= Chr(13) & "  SET MONTO_AFEC = " & FMC(Valor)
+                    Sql &= Chr(13) & "  WHERE NUMERO_DOC = " & Val(NUMERO_DOC)
+                    Sql &= Chr(13) & "  AND TIPO_MOV = " & SCM(TIPO_MOV)
 
-                CONX.Coneccion_Abrir()
-                CONX.EJECUTE(Sql)
-                CONX.Coneccion_Cerrar()
+                    CONX.Coneccion_Abrir()
+                    CONX.EJECUTE(Sql)
+                    CONX.Coneccion_Cerrar()
 
-                RellenaFacturasAfec()
-                CalculoTotales()
+                    RellenaFacturasAfec()
+                    CalculoTotales()
+                End If
             End If
-
         End If
     End Sub
 

@@ -29,15 +29,17 @@ Partial Class ProductoVerificacion
         Me.GRID = New System.Windows.Forms.DataGridView()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.TXT_CODIGO = New System.Windows.Forms.TextBox()
-        Me.TXT_DESCRIPCION = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.TXT_TARIFA = New System.Windows.Forms.TextBox()
-        Me.Label4 = New System.Windows.Forms.Label()
+        Me.BTN_INGRESAR = New System.Windows.Forms.Button()
         Me.TXT_PU = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.BTN_INGRESAR = New System.Windows.Forms.Button()
+        Me.TXT_TARIFA = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.TXT_DESCRIPCION = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.TXT_CODIGO = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.TXT_CEDULA = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -114,6 +116,8 @@ Partial Class ProductoVerificacion
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.TXT_CEDULA)
+        Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.BTN_INGRESAR)
         Me.GroupBox1.Controls.Add(Me.TXT_PU)
         Me.GroupBox1.Controls.Add(Me.Label5)
@@ -130,59 +134,19 @@ Partial Class ProductoVerificacion
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Información producto ]"
         '
-        'Label2
+        'BTN_INGRESAR
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(29, 25)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(54, 13)
-        Me.Label2.TabIndex = 0
-        Me.Label2.Text = "Código :"
-        '
-        'TXT_CODIGO
-        '
-        Me.TXT_CODIGO.Location = New System.Drawing.Point(81, 21)
-        Me.TXT_CODIGO.Name = "TXT_CODIGO"
-        Me.TXT_CODIGO.ReadOnly = True
-        Me.TXT_CODIGO.Size = New System.Drawing.Size(100, 20)
-        Me.TXT_CODIGO.TabIndex = 1
-        '
-        'TXT_DESCRIPCION
-        '
-        Me.TXT_DESCRIPCION.Location = New System.Drawing.Point(81, 47)
-        Me.TXT_DESCRIPCION.Name = "TXT_DESCRIPCION"
-        Me.TXT_DESCRIPCION.ReadOnly = True
-        Me.TXT_DESCRIPCION.Size = New System.Drawing.Size(343, 20)
-        Me.TXT_DESCRIPCION.TabIndex = 3
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(2, 51)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(82, 13)
-        Me.Label3.TabIndex = 2
-        Me.Label3.Text = "Descripción :"
-        '
-        'TXT_TARIFA
-        '
-        Me.TXT_TARIFA.Location = New System.Drawing.Point(232, 21)
-        Me.TXT_TARIFA.Name = "TXT_TARIFA"
-        Me.TXT_TARIFA.ReadOnly = True
-        Me.TXT_TARIFA.Size = New System.Drawing.Size(32, 20)
-        Me.TXT_TARIFA.TabIndex = 5
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(186, 25)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(48, 13)
-        Me.Label4.TabIndex = 4
-        Me.Label4.Text = "Tarifa :"
+        Me.BTN_INGRESAR.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_INGRESAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_INGRESAR.Image = Global.VentaRepuestos.My.Resources.Resources.agregar
+        Me.BTN_INGRESAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_INGRESAR.Location = New System.Drawing.Point(325, 69)
+        Me.BTN_INGRESAR.Name = "BTN_INGRESAR"
+        Me.BTN_INGRESAR.Size = New System.Drawing.Size(99, 45)
+        Me.BTN_INGRESAR.TabIndex = 17
+        Me.BTN_INGRESAR.Text = "Ingresar"
+        Me.BTN_INGRESAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_INGRESAR.UseVisualStyleBackColor = False
         '
         'TXT_PU
         '
@@ -202,19 +166,77 @@ Partial Class ProductoVerificacion
         Me.Label5.TabIndex = 6
         Me.Label5.Text = "P/C :"
         '
-        'BTN_INGRESAR
+        'TXT_TARIFA
         '
-        Me.BTN_INGRESAR.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_INGRESAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_INGRESAR.Image = Global.VentaRepuestos.My.Resources.Resources.agregar
-        Me.BTN_INGRESAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_INGRESAR.Location = New System.Drawing.Point(325, 69)
-        Me.BTN_INGRESAR.Name = "BTN_INGRESAR"
-        Me.BTN_INGRESAR.Size = New System.Drawing.Size(99, 45)
-        Me.BTN_INGRESAR.TabIndex = 17
-        Me.BTN_INGRESAR.Text = "Ingresar"
-        Me.BTN_INGRESAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_INGRESAR.UseVisualStyleBackColor = False
+        Me.TXT_TARIFA.Location = New System.Drawing.Point(232, 21)
+        Me.TXT_TARIFA.Name = "TXT_TARIFA"
+        Me.TXT_TARIFA.ReadOnly = True
+        Me.TXT_TARIFA.Size = New System.Drawing.Size(32, 20)
+        Me.TXT_TARIFA.TabIndex = 5
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(186, 25)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(48, 13)
+        Me.Label4.TabIndex = 4
+        Me.Label4.Text = "Tarifa :"
+        '
+        'TXT_DESCRIPCION
+        '
+        Me.TXT_DESCRIPCION.Location = New System.Drawing.Point(81, 47)
+        Me.TXT_DESCRIPCION.Name = "TXT_DESCRIPCION"
+        Me.TXT_DESCRIPCION.ReadOnly = True
+        Me.TXT_DESCRIPCION.Size = New System.Drawing.Size(343, 20)
+        Me.TXT_DESCRIPCION.TabIndex = 3
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(2, 51)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(82, 13)
+        Me.Label3.TabIndex = 2
+        Me.Label3.Text = "Descripción :"
+        '
+        'TXT_CODIGO
+        '
+        Me.TXT_CODIGO.Location = New System.Drawing.Point(81, 21)
+        Me.TXT_CODIGO.Name = "TXT_CODIGO"
+        Me.TXT_CODIGO.ReadOnly = True
+        Me.TXT_CODIGO.Size = New System.Drawing.Size(100, 20)
+        Me.TXT_CODIGO.TabIndex = 1
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(29, 25)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(54, 13)
+        Me.Label2.TabIndex = 0
+        Me.Label2.Text = "Código :"
+        '
+        'TXT_CEDULA
+        '
+        Me.TXT_CEDULA.Location = New System.Drawing.Point(81, 73)
+        Me.TXT_CEDULA.Name = "TXT_CEDULA"
+        Me.TXT_CEDULA.ReadOnly = True
+        Me.TXT_CEDULA.Size = New System.Drawing.Size(100, 20)
+        Me.TXT_CEDULA.TabIndex = 19
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(29, 77)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(54, 13)
+        Me.Label6.TabIndex = 18
+        Me.Label6.Text = "Cédula :"
         '
         'ProductoVerificacion
         '
@@ -257,4 +279,6 @@ Partial Class ProductoVerificacion
     Friend WithEvents TXT_PU As TextBox
     Friend WithEvents Label5 As Label
     Friend WithEvents BTN_INGRESAR As Button
+    Friend WithEvents TXT_CEDULA As TextBox
+    Friend WithEvents Label6 As Label
 End Class

@@ -415,6 +415,7 @@ Public Class ClienteMant
                 TXT_CEDULA.Select()
                 MessageBox.Show("¡Cédula incorrecta, una cédula de tipo DIMEX contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
+                Cursor.Current = Cursors.WaitCursor
                 Select Case CMB_TIPO_CEDULA.SelectedIndex
                     Case 0
                         BUSCAR_EN_SIC("F")
@@ -425,6 +426,7 @@ Public Class ClienteMant
                     Case 3
                         BUSCAR_EN_SIC("D")
                 End Select
+                Cursor.Current = Cursors.Default
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

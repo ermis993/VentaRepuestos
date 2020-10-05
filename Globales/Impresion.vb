@@ -25,8 +25,14 @@ Public Class Impresion
         Printer.NewPrintTiquet()
         Dim linesarray() = text.Split(New String() {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
 
+        Printer.SetFont("Arial", 25, FontStyle.Regular)
         For Each line As String In linesarray
             Printer.Print(line)
+            If line.Contains("DESTINO") Then
+                Printer.SetFont("Arial", 25, FontStyle.Regular)
+            Else
+                Printer.SetFont("Courier New", 13, FontStyle.Regular)
+            End If
         Next
 
         Printer.DoPrint()
@@ -65,6 +71,7 @@ Public Class Impresion
                 strPrint = strPrint & RELLENODERECHA("Venta", 8) & ":" & DS.Tables(1).Rows(0).Item("VENTA").ToString & vbCrLf
                 strPrint = strPrint & RELLENODERECHA("Cliente", 8) & ":" & DS.Tables(1).Rows(0).Item("Nombre").ToString & vbCrLf
                 strPrint = strPrint & RELLENODERECHA("Vendedor", 8) & ":" & DS.Tables(1).Rows(0).Item("Usuario").ToString & vbCrLf
+                strPrint = strPrint & RELLENODERECHA("Descripcion", 8) & ":" & DS.Tables(1).Rows(0).Item("DETALLE").ToString & vbCrLf
                 strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-") & vbCrLf
                 strPrint = strPrint & RELLENOCENTRO("[DETALLE]", Ancho_Tiquete) & vbCrLf
                 strPrint = strPrint & RELLENO("", Ancho_Tiquete, "") & vbCrLf
@@ -122,6 +129,61 @@ Public Class Impresion
         End Try
     End Sub
 
+    Public Shared Sub ImprimirVenta(ByVal COD_CIA As String, ByVal COD_SUCUR As String, ByVal DESDE As String, ByVal HASTA As String)
+        Try
+            Dim strPrint As String
+            Dim Ancho_Tiquete As Integer = ANCHO_IMPRESION()
+
+            Dim Sql = "	SELECT SUM(CASE WHEN FORMA_PAGO = 'EF' THEN (MONTO + IMPUESTO) * CASE WHEN TIPO_MOV = 'NC' THEN -1 ELSE 1 END ELSE 0 END) AS EFECTIVO "
+            Sql &= Chr(13) & "	,SUM(CASE WHEN FORMA_PAGO = 'TR' THEN (MONTO + IMPUESTO) * CASE WHEN TIPO_MOV = 'NC' THEN -1 ELSE 1 END ELSE 0 END) AS TRANSFERENCIA"
+            Sql &= Chr(13) & "	,SUM(CASE WHEN FORMA_PAGO = 'TA' THEN (MONTO + IMPUESTO) * CASE WHEN TIPO_MOV = 'NC' THEN -1 ELSE 1 END ELSE 0 END) AS TARJETA"
+            Sql &= Chr(13) & "	,GETDATE() AS FECHA, SUM((MONTO + IMPUESTO) * CASE WHEN TIPO_MOV = 'NC' THEN -1 ELSE 1 END) AS TOTAL"
+            Sql &= Chr(13) & "  FROM DOCUMENTO_ENC"
+            Sql &= Chr(13) & "  WHERE COD_CIA = " & SCM(COD_CIA)
+            Sql &= Chr(13) & "  AND COD_SUCUR =" & SCM(COD_SUCUR)
+            Sql &= Chr(13) & "  AND FECHA BETWEEN " & SCM(YMD(DESDE)) & " AND " & SCM(YMD(HASTA))
+            Sql &= Chr(13) & "  AND TIPO_MOV IN ('FA', 'FC', 'NC')"
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(Sql)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+
+                strPrint = ""
+                strPrint &= RELLENO("", Ancho_Tiquete, "*") & vbCrLf
+                strPrint &= "**" & RELLENOCENTRO("REPORTE DE VENTAS", Ancho_Tiquete) & "**" & vbCrLf
+                strPrint &= RELLENO("", Ancho_Tiquete, "*") & vbCrLf
+                strPrint &= RELLENODERECHA("Generado", 8) & ": " & DMA(DS.Tables(0).Rows(0).Item("FECHA").ToString) & vbCrLf
+                strPrint &= RELLENODERECHA("Usuario", 8) & ": " & COD_USUARIO & vbCrLf
+                strPrint &= "Rango de fechas : " & DMA(DESDE) & " al " & DMA(HASTA) & vbCrLf
+                strPrint &= RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                strPrint &= RELLENOCENTRO("[ DETALLE VENTAS REALIZADAS ]", Ancho_Tiquete) & vbCrLf
+
+                Dim efectivo As String = RELLENOIZQUIERDA("Efectivo", 13) & ":" & RELLENOIZQUIERDA(FMCP(DS.Tables(0).Rows(0).Item("EFECTIVO"), 2), 11)
+                Dim transferencia As String = RELLENOIZQUIERDA("Transferencia", 13) & ":" & RELLENOIZQUIERDA(FMCP(DS.Tables(0).Rows(0).Item("TRANSFERENCIA"), 2), 11)
+                Dim tarjeta As String = RELLENOIZQUIERDA("Tarjeta", 13) & ":" & RELLENOIZQUIERDA(FMCP(DS.Tables(0).Rows(0).Item("TARJETA"), 2), 11)
+                Dim total As String = RELLENOIZQUIERDA("Total", 13) & ":" & RELLENOIZQUIERDA(FMCP(DS.Tables(0).Rows(0).Item("TOTAL"), 2), 11)
+
+
+
+                strPrint &= RELLENOIZQUIERDA(efectivo, Ancho_Tiquete) & vbCrLf
+                strPrint &= RELLENOIZQUIERDA(transferencia, Ancho_Tiquete) & vbCrLf
+                strPrint &= RELLENOIZQUIERDA(tarjeta, Ancho_Tiquete) & vbCrLf
+                strPrint &= RELLENOIZQUIERDA(total, Ancho_Tiquete) & vbCrLf
+
+                strPrint &= RELLENOCENTRO("[ FIN DETALLE VENTAS REALIZADAS ]", Ancho_Tiquete) & vbCrLf
+                strPrint &= RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                strPrint &= RELLENO("", Ancho_Tiquete, "-")
+                Print(strPrint)
+
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+
     Public Shared Sub ImprimirEncomienda(ByVal COD_CIA As String, ByVal COD_SUCUR As String, ByVal NUMERO_DOC As Integer, ByVal TIPO_MOV As String)
         Try
             Dim strPrint As String
@@ -150,6 +212,7 @@ Public Class Impresion
                 strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
                 strPrint = strPrint & RELLENODERECHA("FECHA", 8) & ": " & DMAHms(DS.Tables(0).Rows(0).Item("FECHA_IMP").ToString) & vbCrLf
                 strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENODERECHA("DETALLE", 8) & ": " & DS.Tables(0).Rows(0).Item("DETALLE").ToString.ToUpper & vbCrLf
                 strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
                 strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
                 strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
@@ -195,6 +258,9 @@ Public Class Impresion
                     strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
                     strPrint = strPrint & RELLENODERECHA("DESTINO", 8) & ": " & ITEM("DESC_UBICACION").ToString.ToUpper & vbCrLf
                     strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                    strPrint = strPrint & "                               " & ITEM("LETRA").ToString.ToUpper.Substring(0, 1) & vbCrLf
+                    strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+
 
                     PrintTiquet(strPrint)
                 Next

@@ -23,6 +23,7 @@ Public Class EncomiendaReporte
             Dim Nodo_Seleccionado As TreeNode = TV_REPORTES.SelectedNode
 
             If Nodo_Seleccionado IsNot Nothing Then
+                Cursor.Current = Cursors.WaitCursor
                 Select Case Nodo_Seleccionado.Name
                     Case "ENC01"
                         Dim f As FolderBrowserDialog = New FolderBrowserDialog
@@ -32,6 +33,7 @@ Public Class EncomiendaReporte
                             MessageBox.Show(Me, "Reporte generado correctamente", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         End If
                 End Select
+                Cursor.Current = Cursors.Default
             Else
                 MessageBox.Show(Me, "Se debe seleccionar el reporte a generar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If

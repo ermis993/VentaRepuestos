@@ -73,9 +73,11 @@
       <HintPath>packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic.PowerPacks, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Services" />
@@ -135,6 +137,12 @@
     <Compile Include="Pantallas\Generador reportes\Reportes.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pantallas\Mantenimientos\Productos\ProductoEnlaze.Designer.vb">
+      <DependentUpon>ProductoEnlaze.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Mantenimientos\Productos\ProductoEnlaze.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pantallas\Mantenimientos\Productos\ProductoVerificacion.Designer.vb">
       <DependentUpon>ProductoVerificacion.vb</DependentUpon>
     </Compile>
@@ -147,6 +155,12 @@
     <Compile Include="Pantallas\Mantenimientos\Sucursales\DerechosSucursal.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\Apartado.Designer.vb">
+      <DependentUpon>Apartado.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\Apartado.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\FacturaCambio.Designer.vb">
       <DependentUpon>FacturaCambio.vb</DependentUpon>
     </Compile>
@@ -157,6 +171,12 @@
       <DependentUpon>RespuestaDGTD.vb</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\RespuestaDGTD.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Reportes\Reportes_CXC.Designer.vb">
+      <DependentUpon>Reportes_CXC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Reportes\Reportes_CXC.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\CXP_Factura.Designer.vb">
@@ -418,17 +438,26 @@
     <EmbeddedResource Include="Pantallas\Generador reportes\Reportes.resx">
       <DependentUpon>Reportes.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Mantenimientos\Productos\ProductoEnlaze.resx">
+      <DependentUpon>ProductoEnlaze.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Mantenimientos\Productos\ProductoVerificacion.resx">
       <DependentUpon>ProductoVerificacion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Mantenimientos\Sucursales\DerechosSucursal.resx">
       <DependentUpon>DerechosSucursal.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\Apartado.resx">
+      <DependentUpon>Apartado.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\FacturaCambio.resx">
       <DependentUpon>FacturaCambio.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\RespuestaDGTD.resx">
       <DependentUpon>RespuestaDGTD.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por cobrar\Reportes\Reportes_CXC.resx">
+      <DependentUpon>Reportes_CXC.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\CXP_Factura.resx">
       <DependentUpon>CXP_Factura.vb</DependentUpon>
@@ -640,6 +669,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\apartado.png" />
+    <None Include="Resources\anular.png" />
+    <None Include="Resources\contrasena_login.png" />
+    <None Include="Resources\entrar.png" />
+    <None Include="Resources\salida.png" />
     <Content Include="umbrella-corp-icon.ico" />
     <None Include="Resources\transportar.png" />
     <None Include="Resources\ubicacion.png" />

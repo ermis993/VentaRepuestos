@@ -9,17 +9,16 @@ Public Class Login
     Private Sub CONFIGURACION()
         Try
             'PRUEBAS
-            'CONX.Inicializar_cadena_conexion("DESKTOP-42HEF7C,1433", "admin_sql", "1234", "VR")
+            CONX.Inicializar_cadena_conexion("DESKTOP-42HEF7C,1433", "admin_sql", "1234", "VR")
             'AUTORESPUESTOS LA UNION
-            CONX.Inicializar_cadena_conexion("DESKTOP-OG4U60G\SQLEXPRESS,1433", "sa", "union1234", "VR")
-            CONX_SIC.ConexionSTR("DESKTOP-OG4U60G\SQLEXPRESS,1433", "sa", "union1234", "INFORMACION_SIC")
+            'CONX.Inicializar_cadena_conexion("DESKTOP-OG4U60G\SQLEXPRESS,1433", "sa", "union1234", "VR")
+            'CONX_SIC.ConexionSTR("DESKTOP-OG4U60G\SQLEXPRESS,1433", "sa", "union1234", "INFORMACION_SIC")
             'BIKE_RIDE'
-            'CONX.Inicializar_cadena_conexion("DESKTOP-7F4Q844", "sa", "1234", "VR") 'BIKERIDE
-            'CONX_SIC.ConexionSTR("DESKTOP-7F4Q844", "sa", "1234", "INFORMACION_SIC")
+            'CONX.Inicializar_cadena_conexion("DESKTOP-7F4Q844, 1433", "sa", "1234", "VR")
+            'CONX_SIC.ConexionSTR("DESKTOP-7F4Q844, 1433", "sa", "1234", "INFORMACION_SIC")
             'VEGA
             'CONX.Inicializar_cadena_conexion("DESKTOP-4JGE226,1433", "sa", "1234", "VR")
             'CONX_SIC.ConexionSTR("DESKTOP-4JGE226,1433", "sa", "1234", "INFORMACION_SIC")
-
         Catch ex As Exception
         End Try
     End Sub
@@ -29,7 +28,7 @@ Public Class Login
                 Dim SQL As String = " SELECT * "
                 SQL &= Chr(13) & " FROM USUARIO"
                 SQL &= Chr(13) & " WHERE (COD_USUARIO = " & SCM(TXT_USUARIO.Text) & " OR CORREO =" & SCM(TXT_USUARIO.Text) & ")"
-                SQL &= Chr(13) & " AND CONTRASENA = " & SCM(TXT_CONTRASENA.Text)
+                SQL &= Chr(13) & " AND CONTRASENA = " & SCM(TXT_CONTRASENA.Text.Trim)
                 CONX.Coneccion_Abrir()
                 Dim DS = CONX.EJECUTE_DS(SQL)
                 CONX.Coneccion_Cerrar()
@@ -104,5 +103,9 @@ Public Class Login
         If e.KeyChar = ChrW(Keys.Enter) Then
             Ingreso()
         End If
+    End Sub
+
+    Private Sub Login_Activated(sender As Object, e As EventArgs) Handles MyBase.Activated
+        TXT_USUARIO.Select()
     End Sub
 End Class

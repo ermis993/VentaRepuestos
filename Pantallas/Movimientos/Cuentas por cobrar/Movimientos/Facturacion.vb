@@ -50,6 +50,10 @@ Public Class Facturacion
 
         BTN_FACTURAR.Enabled = TieneDerecho("VFACTS")
         BTN_RECIBO.Enabled = TieneDerecho("VREB")
+        BTN_REPORTES.Enabled = TieneDerecho("DREPT")
+        BTN_APARTADO.Enabled = TieneDerecho("DAPAR")
+        BTN_ANULAR.Enabled = TieneDerecho("APART")
+        CMB_VER.Enabled = TieneDerecho("DAPAR")
     End Sub
 
     Public Sub Refrescar()
@@ -129,19 +133,19 @@ Public Class Facturacion
                 If CMB_TIPO_FACT.SelectedIndex = 0 Then
                     SQL &= Chr(13) & "	SELECT ENC.NUMERO_DOC AS Documento, ENC.TIPO_MOV as Tipo, C.CEDULA AS Cédula, C.NOMBRE AS Nombre, ENC.DESCRIPCION AS Descripción, CONVERT(VARCHAR(10), ENC.FECHA, 105) AS Fecha	"
                     SQL &= Chr(13) & "	,COD_USUARIO AS Usuario, COD_MONEDA AS Moneda, MONTO AS Subtotal, IMPUESTO AS Impuesto, (MONTO + IMPUESTO) as Total, ENC.SALDO AS Saldo, ISNULL(DE.RESPUESTA_DGTD, 'P') AS Respuesta "
-                    SQL &= Chr(13) & "	FROM DOCUMENTO_ENC AS ENC	"
-                    SQL &= Chr(13) & "	INNER JOIN CLIENTE AS C	"
-                    SQL &= Chr(13) & "		ON C.COD_CIA = ENC.COD_CIA "
-                    SQL &= Chr(13) & "      AND C.CEDULA = ENC.CEDULA "
-                    SQL &= Chr(13) & "   LEFT JOIN DOCUMENTO_ELECTRONICO AS DE "
-                    SQL &= Chr(13) & "		ON ENC.COD_CIA = DE.COD_CIA "
-                    SQL &= Chr(13) & "      AND ENC.COD_SUCUR = DE.COD_SUCUR "
-                    SQL &= Chr(13) & "      AND ENC.NUMERO_DOC = DE.NUMERO_DOC "
-                    SQL &= Chr(13) & "      AND ENC.TIPO_MOV = DE.TIPO_MOV "
+                    SQL &= Chr(13) & "	FROM " & IIf(CMB_VER.SelectedIndex = 0, "DOCUMENTO_ENC", "APARTADO_ENC") & " AS ENC	"
+                    SQL &= Chr(13) & "	INNER JOIN CLIENTE As C	"
+                    SQL &= Chr(13) & "		On C.COD_CIA = ENC.COD_CIA "
+                    SQL &= Chr(13) & "      And C.CEDULA = ENC.CEDULA "
+                    SQL &= Chr(13) & "   LEFT JOIN DOCUMENTO_ELECTRONICO As DE "
+                    SQL &= Chr(13) & "		On ENC.COD_CIA = DE.COD_CIA "
+                    SQL &= Chr(13) & "      And ENC.COD_SUCUR = DE.COD_SUCUR "
+                    SQL &= Chr(13) & "      And ENC.NUMERO_DOC = DE.NUMERO_DOC "
+                    SQL &= Chr(13) & "      And ENC.TIPO_MOV = DE.TIPO_MOV "
                     SQL &= Chr(13) & " WHERE ENC.COD_CIA = " & SCM(COD_CIA)
-                    SQL &= Chr(13) & " AND ENC.COD_SUCUR = " & SCM(COD_SUCUR)
+                    SQL &= Chr(13) & " And ENC.COD_SUCUR = " & SCM(COD_SUCUR)
                     If RB_ACTIVOS.Checked = True Then
-                        SQL &= Chr(13) & "	AND ENC.ESTADO ='A'"
+                        SQL &= Chr(13) & "	And ENC.ESTADO ='A'"
                     ElseIf RB_INACTIVOS.Checked = True Then
                         SQL &= Chr(13) & "	AND ENC.ESTADO ='I'"
                     End If
@@ -151,11 +155,11 @@ Public Class Facturacion
                 Else
                     SQL &= Chr(13) & "	SELECT ENC.CODIGO AS Documento, ENC.TIPO_MOV as Tipo, C.CEDULA AS Cédula, C.NOMBRE AS Nombre, ENC.DESCRIPCION AS Descripción, CONVERT(VARCHAR(10), ENC.FECHA, 105) AS Fecha	"
                     SQL &= Chr(13) & "	,COD_USUARIO AS Usuario, COD_MONEDA AS Moneda, SUM(DET.SUBTOTAL) AS Subtotal, SUM(DET.IMPUESTO) AS Impuesto, SUM(DET.TOTAL) as Total, SUM(DET.TOTAL) as Saldo, 'P' AS Respuesta 	"
-                    SQL &= Chr(13) & "	FROM DOCUMENTO_ENC_TMP AS ENC	"
+                    SQL &= Chr(13) & "	FROM " & IIf(CMB_VER.SelectedIndex = 0, "DOCUMENTO_ENC_TMP", "APARTADO_ENC_TMP") & " AS ENC	"
                     SQL &= Chr(13) & "	INNER JOIN CLIENTE AS C		"
                     SQL &= Chr(13) & "		ON C.COD_CIA = ENC.COD_CIA	"
                     SQL &= Chr(13) & "		AND C.CEDULA = ENC.CEDULA "
-                    SQL &= Chr(13) & "	INNER JOIN DOCUMENTO_DET_TMP AS DET	 "
+                    SQL &= Chr(13) & "	INNER JOIN " & IIf(CMB_VER.SelectedIndex = 0, "DOCUMENTO_DET_TMP", "APARTADO_DET_TMP") & " AS DET	 "
                     SQL &= Chr(13) & "		ON DET.COD_CIA = ENC.COD_CIA "
                     SQL &= Chr(13) & "		AND DET.COD_SUCUR = ENC.COD_SUCUR "
                     SQL &= Chr(13) & "		AND DET.CODIGO = ENC.CODIGO "
@@ -181,8 +185,9 @@ Public Class Facturacion
                             Total_Facturado -= FMC(ITEM("Total"))
                         ElseIf ITEM("Tipo") = "FA" Or ITEM("Tipo") = "FC" Or ITEM("Tipo") = "ND" Then
                             Total_Facturado += FMC(ITEM("Total"))
+                        ElseIf ITEM("Tipo") = "AA" Or ITEM("Tipo") = "AC" Then
+                            Total_Facturado += FMC(ITEM("Total"))
                         End If
-
                     Next
                 End If
 
@@ -238,8 +243,14 @@ Public Class Facturacion
     Public Sub Modificar()
         Try
             Leer_indice()
-            Dim PANTALLA As New Factura(CRF_Modos.Modificar, Me, Numero_Doc, Codigo, Tipo_Mov)
-            PANTALLA.ShowDialog()
+            If CMB_VER.SelectedIndex = 0 Then
+                Dim PANTALLA As New Factura(CRF_Modos.Modificar, Me, Numero_Doc, Codigo, Tipo_Mov)
+                PANTALLA.ShowDialog()
+            Else
+                Dim PANTALLA As New Apartado(CRF_Modos.Modificar, Me, Numero_Doc, Codigo, Tipo_Mov)
+                PANTALLA.ShowDialog()
+            End If
+
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -259,6 +270,7 @@ Public Class Facturacion
 
     Sub New()
         InitializeComponent()
+        CMB_VER.SelectedIndex = 0
         FORMATO_GRID()
     End Sub
 
@@ -271,7 +283,7 @@ Public Class Facturacion
 
     Private Sub BTN_RECIBO_Click(sender As Object, e As EventArgs) Handles BTN_RECIBO.Click
         Try
-            Dim PANTALLA As New NotaCredito(Me)
+            Dim PANTALLA As New NotaCredito(Me, IIf(CMB_VER.SelectedIndex = 0, "F", "A"))
             PANTALLA.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -335,7 +347,7 @@ Public Class Facturacion
     Private Sub ReenviarDocumentoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReenviarDocumentoToolStripMenuItem.Click
         Try
             Leer_indice()
-            If Numero_Doc <> 0 Then
+            If Numero_Doc <> 0 And (Tipo_Mov = "FA" Or Tipo_Mov = "FC") Then
                 Dim SQL = "	UPDATE DOCUMENTO_ELECTRONICO"
                 SQL &= Chr(13) & "	SET IND_ENVIADO = 'N'"
                 SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
@@ -347,9 +359,65 @@ Public Class Facturacion
                 CONX.Coneccion_Cerrar()
 
                 MessageBox.Show(Me, "Se ha marcado el documento correctamente para su reenvió, en unos minutos se realizará el proceso", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                MessageBox.Show(Me, "Solamente se pueden reenviar factura de contado o crédito", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
         Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 
+    Private Sub BTN_REPORTES_Click(sender As Object, e As EventArgs) Handles BTN_REPORTES.Click
+        Try
+            Dim Pantalla As New Reportes_CXC()
+            Pantalla.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_APARTADO_Click(sender As Object, e As EventArgs) Handles BTN_APARTADO.Click
+        Try
+            Dim PANTALLA As New Apartado(CRF_Modos.Insertar, Me)
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub CMB_VER_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_VER.SelectedIndexChanged
+        FORMATO_GRID()
+        RELLENAR_GRID()
+    End Sub
+
+    Private Sub BTN_ANULAR_Click(sender As Object, e As EventArgs) Handles BTN_ANULAR.Click
+        Try
+            Leer_indice()
+            If Numero_Doc > 0 And (Tipo_Mov = "AC" Or Tipo_Mov = "AA") Then
+                Dim mensaje As String = ""
+                mensaje &= "¿Seguro que desea anular el apartado # " & Numero_Doc & " ?" & vbNewLine
+                mensaje &= "Si realiza este proceso es imposible recuperar el saldo y estado del documento"
+
+                Dim valor = MessageBox.Show(Me, mensaje, "Facturacion", vbYesNo, MessageBoxIcon.Question)
+                If valor = DialogResult.Yes Then
+                    Dim SQL = "	UPDATE APARTADO_ENC"
+                    SQL &= Chr(13) & "	SET ESTADO = 'N', SALDO = 0"
+                    SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+                    SQL &= Chr(13) & "  AND COD_SUCUR =" & SCM(COD_SUCUR)
+                    SQL &= Chr(13) & "  AND NUMERO_DOC = " & Val(Numero_Doc)
+                    SQL &= Chr(13) & "  AND TIPO_MOV = " & SCM(Tipo_Mov)
+                    CONX.Coneccion_Abrir()
+                    CONX.EJECUTE(SQL)
+                    CONX.Coneccion_Cerrar()
+                    CONSULTA_FILTRO = ""
+                    RELLENAR_GRID()
+                    MessageBox.Show(Me, "Apartado anulado correctamente", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            Else
+                MessageBox.Show(Me, "Solamente se pueden anular apartados", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
         End Try
     End Sub
 End Class

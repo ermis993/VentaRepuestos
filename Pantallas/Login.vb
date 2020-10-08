@@ -27,7 +27,7 @@ Public Class Login
             If VALIDAR() = True Then
                 Dim SQL As String = " SELECT * "
                 SQL &= Chr(13) & " FROM USUARIO"
-                SQL &= Chr(13) & " WHERE (COD_USUARIO = " & SCM(TXT_USUARIO.Text) & " OR CORREO =" & SCM(TXT_USUARIO.Text) & ")"
+                SQL &= Chr(13) & " WHERE (COD_USUARIO = " & SCM(TXT_USUARIO.Text.Trim) & " OR CORREO =" & SCM(TXT_USUARIO.Text.Trim) & ")"
                 SQL &= Chr(13) & " AND CONTRASENA = " & SCM(TXT_CONTRASENA.Text.Trim)
                 CONX.Coneccion_Abrir()
                 Dim DS = CONX.EJECUTE_DS(SQL)
@@ -44,7 +44,6 @@ Public Class Login
                     TXT_USUARIO.Text = ""
                     TXT_CONTRASENA.Text = ""
                     Me.Visible = False
-                    Actualizaciones.ACTUALIZACIONES()
                     Dim PANTALLA As New SeleccionCompania()
                     PANTALLA.Show()
                 Else

@@ -57,7 +57,7 @@ Public Class SeleccionCompania
                     End If
                     GUARDAR_TIPO_CAMBIO(FECHA)
                 End If
-
+                Actualizaciones()
                 Me.Close()
                 Dim PANTALLA As New MenuPrincipal()
                 PANTALLA.ShowDialog()
@@ -69,10 +69,14 @@ Public Class SeleccionCompania
     Private Sub Actualizaciones()
         Try
 
-            If Not EXISTE_TABLA_EN_FECHA("APARTADO_ENC_TMP", "2020-09-28") Then
+            LBL_ACTUALIZACIONES.Visible = True
+            PG_ACTUALIZACIONES.Visible = True
 
-            End If
+            Dim Actualizar As New Actualizaciones
+            Actualizar.ACTUALIZACIONES(PG_ACTUALIZACIONES)
 
+            LBL_ACTUALIZACIONES.Visible = False
+            PG_ACTUALIZACIONES.Visible = False
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

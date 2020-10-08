@@ -310,7 +310,10 @@ Public Class Factura
 
     Private Sub IngresarDetalle()
         Try
-            If String.IsNullOrEmpty(TXT_ESTANTE.Text) Or String.IsNullOrEmpty(TXT_FILA.Text) Or String.IsNullOrEmpty(TXT_COLUMNA.Text) Then
+            If FMC(TXT_CANTIDAD.Text) <= 0 Then
+                TXT_CANTIDAD.Select()
+                MessageBox.Show(Me, "La cantidad del producto no puede ser menor o igual a cero (0)", "Mensaje cantidad", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            ElseIf String.IsNullOrEmpty(TXT_ESTANTE.Text) Or String.IsNullOrEmpty(TXT_FILA.Text) Or String.IsNullOrEmpty(TXT_COLUMNA.Text) Then
                 MessageBox.Show(Me, "La ubicación del producto es inválida, vuelva a seleccionar el producto", "Mensaje ubicación", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf String.IsNullOrEmpty(Cliente.VALOR) Then
                 MessageBox.Show(Me, "El cliente no ha sido seleccionado", "Mensaje cliente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -611,11 +614,47 @@ Public Class Factura
 
     Private Sub Proceso(ByVal codigo As String, ByVal estante As String, ByVal fila As String, ByVal columna As String)
         TXT_CODIGO.Text = codigo
-        RellenaProducto(estante, fila, columna)
-        RellenaExoneracion()
-        Busca_Producto()
-        TXT_CANTIDAD.Focus()
+
+        Dim Saldo_Producto As Decimal = Saldo_Actual(codigo)
+
+        If ((IND_VENTAS_NEGATIVAS = "S" And Saldo_Producto <= 0.0) Or Saldo_Producto > 0.0) Then
+            RellenaProducto(estante, fila, columna)
+            RellenaExoneracion()
+            Busca_Producto()
+            TXT_CANTIDAD.Focus()
+        Else
+            MessageBox.Show(Me, "La sucursal no permite ventas con inventario negativo, el saldo actual del producto es: " & FMC(Saldo_Producto), "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End If
     End Sub
+
+    Private Function Saldo_Actual(ByVal COD_PROD As String) As Decimal
+        Dim Resultado As Decimal = 0.0
+        Try
+            Dim Sql = "	SELECT ISNULL(SUM(DET.CANTIDAD), 0) AS CANTIDAD  "
+            Sql &= Chr(13) & "	FROM PRODUCTO AS P	"
+            Sql &= Chr(13) & "	LEFT JOIN INVENTARIO_MOV_DET AS DET	"
+            Sql &= Chr(13) & "	    ON DET.COD_CIA = P.COD_CIA	"
+            Sql &= Chr(13) & "	    AND DET.COD_SUCUR = P.COD_SUCUR	"
+            Sql &= Chr(13) & "	    AND DET.COD_PROD = P.COD_PROD	"
+            Sql &= Chr(13) & "	WHERE P.COD_CIA = " & SCM(COD_CIA)
+            Sql &= Chr(13) & "	AND P.COD_SUCUR = " & SCM(COD_SUCUR)
+            Sql &= Chr(13) & "	AND P.COD_PROD = " & SCM(COD_PROD)
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(Sql)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                Resultado = FMC(DS.Tables(0).Rows(0).Item("CANTIDAD"))
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+
+        Return Resultado
+
+    End Function
 
     Private Sub GRID_CellClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles GRID.CellClick
         Try

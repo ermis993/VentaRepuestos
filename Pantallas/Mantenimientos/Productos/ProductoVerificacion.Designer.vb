@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class ProductoVerificacion
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class ProductoVerificacion
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.BTN_VERIFICAR = New System.Windows.Forms.Button()
         Me.PB_CARGA = New System.Windows.Forms.ProgressBar()
@@ -29,6 +29,8 @@ Partial Class ProductoVerificacion
         Me.GRID = New System.Windows.Forms.DataGridView()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.TXT_CEDULA = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.BTN_INGRESAR = New System.Windows.Forms.Button()
         Me.TXT_PU = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -38,8 +40,7 @@ Partial Class ProductoVerificacion
         Me.Label3 = New System.Windows.Forms.Label()
         Me.TXT_CODIGO = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.TXT_CEDULA = New System.Windows.Forms.TextBox()
-        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Filtro = New VentaRepuestos.Filtro()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -134,6 +135,24 @@ Partial Class ProductoVerificacion
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Información producto ]"
         '
+        'TXT_CEDULA
+        '
+        Me.TXT_CEDULA.Location = New System.Drawing.Point(81, 73)
+        Me.TXT_CEDULA.Name = "TXT_CEDULA"
+        Me.TXT_CEDULA.ReadOnly = True
+        Me.TXT_CEDULA.Size = New System.Drawing.Size(100, 20)
+        Me.TXT_CEDULA.TabIndex = 19
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(29, 77)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(54, 13)
+        Me.Label6.TabIndex = 18
+        Me.Label6.Text = "Cédula :"
+        '
         'BTN_INGRESAR
         '
         Me.BTN_INGRESAR.BackColor = System.Drawing.SystemColors.ButtonFace
@@ -220,23 +239,13 @@ Partial Class ProductoVerificacion
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "Código :"
         '
-        'TXT_CEDULA
+        'Filtro
         '
-        Me.TXT_CEDULA.Location = New System.Drawing.Point(81, 73)
-        Me.TXT_CEDULA.Name = "TXT_CEDULA"
-        Me.TXT_CEDULA.ReadOnly = True
-        Me.TXT_CEDULA.Size = New System.Drawing.Size(100, 20)
-        Me.TXT_CEDULA.TabIndex = 19
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(29, 77)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(54, 13)
-        Me.Label6.TabIndex = 18
-        Me.Label6.Text = "Cédula :"
+        Me.Filtro.Location = New System.Drawing.Point(2, 360)
+        Me.Filtro.Name = "Filtro"
+        Me.Filtro.Size = New System.Drawing.Size(306, 29)
+        Me.Filtro.TabIndex = 17
+        Me.Filtro.VALOR = ""
         '
         'ProductoVerificacion
         '
@@ -244,6 +253,7 @@ Partial Class ProductoVerificacion
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(862, 401)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Filtro)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.GRID)
@@ -281,4 +291,5 @@ Partial Class ProductoVerificacion
     Friend WithEvents BTN_INGRESAR As Button
     Friend WithEvents TXT_CEDULA As TextBox
     Friend WithEvents Label6 As Label
+    Friend WithEvents Filtro As Filtro
 End Class

@@ -27,6 +27,8 @@ Partial Class SeleccionCompania
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
         Me.CMB_COMPANIA = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.PG_ACTUALIZACIONES = New System.Windows.Forms.ProgressBar()
+        Me.LBL_ACTUALIZACIONES = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'BTN_SALIR
@@ -38,7 +40,7 @@ Partial Class SeleccionCompania
         Me.BTN_SALIR.Location = New System.Drawing.Point(191, 112)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_SALIR.TabIndex = 25
+        Me.BTN_SALIR.TabIndex = 5
         Me.BTN_SALIR.Text = "Salir"
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
@@ -52,7 +54,7 @@ Partial Class SeleccionCompania
         Me.BTN_ACEPTAR.Location = New System.Drawing.Point(92, 112)
         Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
         Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_ACEPTAR.TabIndex = 24
+        Me.BTN_ACEPTAR.TabIndex = 4
         Me.BTN_ACEPTAR.Text = "Aceptar"
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
@@ -62,20 +64,39 @@ Partial Class SeleccionCompania
         Me.CMB_COMPANIA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CMB_COMPANIA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CMB_COMPANIA.FormattingEnabled = True
-        Me.CMB_COMPANIA.Location = New System.Drawing.Point(3, 49)
+        Me.CMB_COMPANIA.Location = New System.Drawing.Point(5, 32)
         Me.CMB_COMPANIA.Name = "CMB_COMPANIA"
-        Me.CMB_COMPANIA.Size = New System.Drawing.Size(287, 26)
-        Me.CMB_COMPANIA.TabIndex = 26
+        Me.CMB_COMPANIA.Size = New System.Drawing.Size(283, 26)
+        Me.CMB_COMPANIA.TabIndex = 1
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(91, 26)
+        Me.Label1.Location = New System.Drawing.Point(75, 9)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(80, 18)
-        Me.Label1.TabIndex = 27
-        Me.Label1.Text = "Compañía:"
+        Me.Label1.Size = New System.Drawing.Size(142, 18)
+        Me.Label1.TabIndex = 0
+        Me.Label1.Text = "Compañía a utilizar :"
+        '
+        'PG_ACTUALIZACIONES
+        '
+        Me.PG_ACTUALIZACIONES.Location = New System.Drawing.Point(92, 78)
+        Me.PG_ACTUALIZACIONES.Name = "PG_ACTUALIZACIONES"
+        Me.PG_ACTUALIZACIONES.Size = New System.Drawing.Size(196, 23)
+        Me.PG_ACTUALIZACIONES.TabIndex = 3
+        Me.PG_ACTUALIZACIONES.Visible = False
+        '
+        'LBL_ACTUALIZACIONES
+        '
+        Me.LBL_ACTUALIZACIONES.AutoSize = True
+        Me.LBL_ACTUALIZACIONES.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LBL_ACTUALIZACIONES.Location = New System.Drawing.Point(2, 83)
+        Me.LBL_ACTUALIZACIONES.Name = "LBL_ACTUALIZACIONES"
+        Me.LBL_ACTUALIZACIONES.Size = New System.Drawing.Size(87, 13)
+        Me.LBL_ACTUALIZACIONES.TabIndex = 2
+        Me.LBL_ACTUALIZACIONES.Text = "Actualizaciones :"
+        Me.LBL_ACTUALIZACIONES.Visible = False
         '
         'SeleccionCompania
         '
@@ -84,6 +105,8 @@ Partial Class SeleccionCompania
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(293, 156)
         Me.ControlBox = False
+        Me.Controls.Add(Me.LBL_ACTUALIZACIONES)
+        Me.Controls.Add(Me.PG_ACTUALIZACIONES)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.CMB_COMPANIA)
         Me.Controls.Add(Me.BTN_SALIR)
@@ -101,4 +124,6 @@ Partial Class SeleccionCompania
     Friend WithEvents BTN_ACEPTAR As Button
     Friend WithEvents CMB_COMPANIA As ComboBox
     Friend WithEvents Label1 As Label
+    Friend WithEvents PG_ACTUALIZACIONES As ProgressBar
+    Friend WithEvents LBL_ACTUALIZACIONES As Label
 End Class

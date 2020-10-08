@@ -7,6 +7,7 @@ Public Class ProductoVerificacion
     Dim CEDULA As String
     Dim TARIFA As Integer
     Dim PC As Decimal
+    Dim CONSULTA_FILTRO As String = ""
 
     Sub New()
         InitializeComponent()
@@ -25,6 +26,7 @@ Public Class ProductoVerificacion
         GRID.Columns(3).Name = "TARIFA"
         GRID.Columns(4).HeaderText = "Proveedor"
         GRID.Columns(4).Name = "CEDULA"
+        Filtro.FILTRO_CARGAR_COMBO(GRID)
     End Sub
     Private Sub Leer_indice()
         Try
@@ -69,8 +71,11 @@ Public Class ProductoVerificacion
                 sql &= Chr(13) & "	AND (PROD.COD_PROD IS NULL AND REL.COD_PROD_PADRE IS NULL)	"
                 sql &= Chr(13) & "	AND DETALLE NOT LIKE '%TRANSPORTE%'	"
                 sql &= Chr(13) & "	AND PROD_E.CODIGO IS NOT NULL"
+                sql &= Chr(13) & CONSULTA_FILTRO
                 sql &= Chr(13) & "	GROUP BY PROD_E.CODIGO, UPPER(PROD_E.DETALLE), PROD_E.TARIFA, ENC.CEDULA"
                 sql &= Chr(13) & "	ORDER BY DETALLE ASC	"
+
+
                 CONX.Coneccion_Abrir()
                 Dim DS = CONX.EJECUTE_DS(sql)
                 CONX.Coneccion_Cerrar()
@@ -192,5 +197,13 @@ Public Class ProductoVerificacion
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
+    End Sub
+
+    Private Sub FILTRAR(sender As Object, e As EventArgs) Handles Filtro.Filtrar_Click
+        If Filtro.VALOR <> "" Then
+            CONSULTA_FILTRO = Filtro.FILTRAR()
+            RELLENAR_GRID()
+            CONSULTA_FILTRO = ""
+        End If
     End Sub
 End Class

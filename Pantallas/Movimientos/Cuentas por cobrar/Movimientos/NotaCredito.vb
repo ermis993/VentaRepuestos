@@ -35,10 +35,11 @@ Public Class NotaCredito
         EscondeTab(TabProducto, False)
 
         CMB_DOCUMENTO.SelectedIndex = 0
+        CMB_MONEDA.SelectedIndex = 0
+
         TXT_TIPO_CAMBIO.Text = FMCP(TC_VENTA)
 
         BloqueaControles()
-
     End Sub
 
     Public Sub BloqueaControles()

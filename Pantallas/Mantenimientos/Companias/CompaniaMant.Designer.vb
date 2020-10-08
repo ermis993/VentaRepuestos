@@ -39,6 +39,9 @@ Partial Class LBL_CANTON
         Me.CMB_DISTRITO = New System.Windows.Forms.ComboBox()
         Me.TAB_COMPANIA = New System.Windows.Forms.TabControl()
         Me.TAB_INFO = New System.Windows.Forms.TabPage()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.CHK_ENCOMIENDA = New System.Windows.Forms.CheckBox()
         Me.TXT_DIRECCION = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -73,11 +76,10 @@ Partial Class LBL_CANTON
         Me.OPD_Llave = New System.Windows.Forms.OpenFileDialog()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.TAB_COMPANIA.SuspendLayout()
         Me.TAB_INFO.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.TAB_FE.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -85,8 +87,6 @@ Partial Class LBL_CANTON
         CType(Me.GRID_ACTIVIDADES, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
-        Me.GroupBox5.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'LBL_CODIGO
@@ -118,7 +118,7 @@ Partial Class LBL_CANTON
         Me.CMB_TIPO_CEDULA.Items.AddRange(New Object() {"Física", "Jurídica", "Nite", "Dimex"})
         Me.CMB_TIPO_CEDULA.Location = New System.Drawing.Point(99, 72)
         Me.CMB_TIPO_CEDULA.Name = "CMB_TIPO_CEDULA"
-        Me.CMB_TIPO_CEDULA.Size = New System.Drawing.Size(158, 24)
+        Me.CMB_TIPO_CEDULA.Size = New System.Drawing.Size(194, 24)
         Me.CMB_TIPO_CEDULA.TabIndex = 5
         '
         'LBL_CEDULA
@@ -138,7 +138,7 @@ Partial Class LBL_CANTON
         Me.TXT_CEDULA.Location = New System.Drawing.Point(100, 103)
         Me.TXT_CEDULA.Name = "TXT_CEDULA"
         Me.TXT_CEDULA.PromptChar = Global.Microsoft.VisualBasic.ChrW(35)
-        Me.TXT_CEDULA.Size = New System.Drawing.Size(158, 22)
+        Me.TXT_CEDULA.Size = New System.Drawing.Size(193, 22)
         Me.TXT_CEDULA.TabIndex = 7
         '
         'LBL_NOMBRE
@@ -159,7 +159,7 @@ Partial Class LBL_CANTON
         Me.TXT_NOMBRE.MaxLength = 100
         Me.TXT_NOMBRE.Multiline = True
         Me.TXT_NOMBRE.Name = "TXT_NOMBRE"
-        Me.TXT_NOMBRE.Size = New System.Drawing.Size(342, 24)
+        Me.TXT_NOMBRE.Size = New System.Drawing.Size(451, 24)
         Me.TXT_NOMBRE.TabIndex = 3
         '
         'TXT_CODIGO
@@ -277,6 +277,42 @@ Partial Class LBL_CANTON
         Me.TAB_INFO.Text = "Información general"
         Me.TAB_INFO.UseVisualStyleBackColor = True
         '
+        'GroupBox5
+        '
+        Me.GroupBox5.Controls.Add(Me.PictureBox1)
+        Me.GroupBox5.Controls.Add(Me.Button1)
+        Me.GroupBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.GroupBox5.ForeColor = System.Drawing.Color.Black
+        Me.GroupBox5.Location = New System.Drawing.Point(298, 69)
+        Me.GroupBox5.Margin = New System.Windows.Forms.Padding(2)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Padding = New System.Windows.Forms.Padding(2)
+        Me.GroupBox5.Size = New System.Drawing.Size(253, 275)
+        Me.GroupBox5.TabIndex = 21
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "[ Imagen ]"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Location = New System.Drawing.Point(4, 23)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(245, 206)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 12
+        Me.PictureBox1.TabStop = False
+        '
+        'Button1
+        '
+        Me.Button1.ForeColor = System.Drawing.Color.Black
+        Me.Button1.Location = New System.Drawing.Point(4, 238)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(2)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(245, 33)
+        Me.Button1.TabIndex = 0
+        Me.Button1.Text = "Seleccionar"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'CHK_ENCOMIENDA
         '
         Me.CHK_ENCOMIENDA.AutoSize = True
@@ -327,9 +363,9 @@ Partial Class LBL_CANTON
         Me.GroupBox1.Controls.Add(Me.RB_INACTIVA)
         Me.GroupBox1.Controls.Add(Me.RB_ACTIVA)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
-        Me.GroupBox1.Location = New System.Drawing.Point(99, 343)
+        Me.GroupBox1.Location = New System.Drawing.Point(298, 346)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(342, 48)
+        Me.GroupBox1.Size = New System.Drawing.Size(253, 48)
         Me.GroupBox1.TabIndex = 19
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Estado"
@@ -337,7 +373,7 @@ Partial Class LBL_CANTON
         'RB_INACTIVA
         '
         Me.RB_INACTIVA.AutoSize = True
-        Me.RB_INACTIVA.Location = New System.Drawing.Point(263, 19)
+        Me.RB_INACTIVA.Location = New System.Drawing.Point(92, 19)
         Me.RB_INACTIVA.Name = "RB_INACTIVA"
         Me.RB_INACTIVA.Size = New System.Drawing.Size(72, 20)
         Me.RB_INACTIVA.TabIndex = 1
@@ -349,7 +385,7 @@ Partial Class LBL_CANTON
         '
         Me.RB_ACTIVA.AutoSize = True
         Me.RB_ACTIVA.Checked = True
-        Me.RB_ACTIVA.Location = New System.Drawing.Point(15, 19)
+        Me.RB_ACTIVA.Location = New System.Drawing.Point(16, 19)
         Me.RB_ACTIVA.Name = "RB_ACTIVA"
         Me.RB_ACTIVA.Size = New System.Drawing.Size(63, 20)
         Me.RB_ACTIVA.TabIndex = 0
@@ -681,42 +717,6 @@ Partial Class LBL_CANTON
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
         '
-        'GroupBox5
-        '
-        Me.GroupBox5.Controls.Add(Me.PictureBox1)
-        Me.GroupBox5.Controls.Add(Me.Button1)
-        Me.GroupBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.GroupBox5.ForeColor = System.Drawing.Color.Black
-        Me.GroupBox5.Location = New System.Drawing.Point(298, 69)
-        Me.GroupBox5.Margin = New System.Windows.Forms.Padding(2)
-        Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox5.Size = New System.Drawing.Size(253, 275)
-        Me.GroupBox5.TabIndex = 21
-        Me.GroupBox5.TabStop = False
-        Me.GroupBox5.Text = "[ Imagen ]"
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Location = New System.Drawing.Point(4, 23)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(245, 206)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 12
-        Me.PictureBox1.TabStop = False
-        '
-        'Button1
-        '
-        Me.Button1.ForeColor = System.Drawing.Color.Black
-        Me.Button1.Location = New System.Drawing.Point(4, 238)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(2)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(245, 33)
-        Me.Button1.TabIndex = 0
-        Me.Button1.Text = "Seleccionar"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'LBL_CANTON
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -734,6 +734,8 @@ Partial Class LBL_CANTON
         Me.TAB_COMPANIA.ResumeLayout(False)
         Me.TAB_INFO.ResumeLayout(False)
         Me.TAB_INFO.PerformLayout()
+        Me.GroupBox5.ResumeLayout(False)
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.TAB_FE.ResumeLayout(False)
@@ -746,8 +748,6 @@ Partial Class LBL_CANTON
         Me.GroupBox3.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
-        Me.GroupBox5.ResumeLayout(False)
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

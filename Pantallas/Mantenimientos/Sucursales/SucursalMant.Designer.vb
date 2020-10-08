@@ -43,22 +43,27 @@ Partial Class SucursalMant
         Me.TXT_TELEFONO2 = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.TXT_ANCHO_PAPEL = New System.Windows.Forms.TextBox()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.TXT_RUTA_TIQUETE = New System.Windows.Forms.TextBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.TXT_RUTA_ETIQUETA = New System.Windows.Forms.TextBox()
         Me.TXT_ANCHO_PAPEL_ETIQUETA = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.TXT_RUTA_TIQUETE = New System.Windows.Forms.TextBox()
+        Me.TXT_ANCHO_PAPEL = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.CHK_VENTAS_NEGATIVAS = New System.Windows.Forms.CheckBox()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.GroupBox2.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        Me.TabPage3.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'BTN_SALIR
@@ -232,6 +237,7 @@ Partial Class SucursalMant
         '
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
+        Me.TabControl1.Controls.Add(Me.TabPage3)
         Me.TabControl1.Location = New System.Drawing.Point(-1, 2)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -295,56 +301,6 @@ Partial Class SucursalMant
         Me.TabPage2.Text = "[ Impresión ]"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
-        'TXT_ANCHO_PAPEL
-        '
-        Me.TXT_ANCHO_PAPEL.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_ANCHO_PAPEL.Location = New System.Drawing.Point(177, 46)
-        Me.TXT_ANCHO_PAPEL.MaxLength = 3
-        Me.TXT_ANCHO_PAPEL.Name = "TXT_ANCHO_PAPEL"
-        Me.TXT_ANCHO_PAPEL.Size = New System.Drawing.Size(100, 24)
-        Me.TXT_ANCHO_PAPEL.TabIndex = 3
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label6.Location = New System.Drawing.Point(26, 49)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(144, 18)
-        Me.Label6.TabIndex = 2
-        Me.Label6.Text = "Ancho papel tiquete :"
-        '
-        'TXT_RUTA_TIQUETE
-        '
-        Me.TXT_RUTA_TIQUETE.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_RUTA_TIQUETE.Location = New System.Drawing.Point(177, 19)
-        Me.TXT_RUTA_TIQUETE.Name = "TXT_RUTA_TIQUETE"
-        Me.TXT_RUTA_TIQUETE.Size = New System.Drawing.Size(272, 24)
-        Me.TXT_RUTA_TIQUETE.TabIndex = 1
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label5.Location = New System.Drawing.Point(7, 22)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(163, 18)
-        Me.Label5.TabIndex = 0
-        Me.Label5.Text = "Ruta impresión tiquete :"
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.TXT_RUTA_TIQUETE)
-        Me.GroupBox1.Controls.Add(Me.TXT_ANCHO_PAPEL)
-        Me.GroupBox1.Controls.Add(Me.Label5)
-        Me.GroupBox1.Controls.Add(Me.Label6)
-        Me.GroupBox1.Location = New System.Drawing.Point(6, 6)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(455, 100)
-        Me.GroupBox1.TabIndex = 4
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "[ Impresora tiquetes ]"
-        '
         'GroupBox3
         '
         Me.GroupBox3.Controls.Add(Me.TXT_RUTA_ETIQUETA)
@@ -395,6 +351,86 @@ Partial Class SucursalMant
         Me.Label9.TabIndex = 2
         Me.Label9.Text = "Ancho papel etiqueta :"
         '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.TXT_RUTA_TIQUETE)
+        Me.GroupBox1.Controls.Add(Me.TXT_ANCHO_PAPEL)
+        Me.GroupBox1.Controls.Add(Me.Label5)
+        Me.GroupBox1.Controls.Add(Me.Label6)
+        Me.GroupBox1.Location = New System.Drawing.Point(6, 6)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(455, 100)
+        Me.GroupBox1.TabIndex = 4
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "[ Impresora tiquetes ]"
+        '
+        'TXT_RUTA_TIQUETE
+        '
+        Me.TXT_RUTA_TIQUETE.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_RUTA_TIQUETE.Location = New System.Drawing.Point(177, 19)
+        Me.TXT_RUTA_TIQUETE.Name = "TXT_RUTA_TIQUETE"
+        Me.TXT_RUTA_TIQUETE.Size = New System.Drawing.Size(272, 24)
+        Me.TXT_RUTA_TIQUETE.TabIndex = 1
+        '
+        'TXT_ANCHO_PAPEL
+        '
+        Me.TXT_ANCHO_PAPEL.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_ANCHO_PAPEL.Location = New System.Drawing.Point(177, 46)
+        Me.TXT_ANCHO_PAPEL.MaxLength = 3
+        Me.TXT_ANCHO_PAPEL.Name = "TXT_ANCHO_PAPEL"
+        Me.TXT_ANCHO_PAPEL.Size = New System.Drawing.Size(100, 24)
+        Me.TXT_ANCHO_PAPEL.TabIndex = 3
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label5.Location = New System.Drawing.Point(7, 22)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(163, 18)
+        Me.Label5.TabIndex = 0
+        Me.Label5.Text = "Ruta impresión tiquete :"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label6.Location = New System.Drawing.Point(26, 49)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(144, 18)
+        Me.Label6.TabIndex = 2
+        Me.Label6.Text = "Ancho papel tiquete :"
+        '
+        'TabPage3
+        '
+        Me.TabPage3.Controls.Add(Me.Panel1)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.Size = New System.Drawing.Size(468, 271)
+        Me.TabPage3.TabIndex = 2
+        Me.TabPage3.Text = "Indicadores"
+        Me.TabPage3.UseVisualStyleBackColor = True
+        '
+        'CHK_VENTAS_NEGATIVAS
+        '
+        Me.CHK_VENTAS_NEGATIVAS.AutoSize = True
+        Me.CHK_VENTAS_NEGATIVAS.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CHK_VENTAS_NEGATIVAS.Location = New System.Drawing.Point(6, 12)
+        Me.CHK_VENTAS_NEGATIVAS.Name = "CHK_VENTAS_NEGATIVAS"
+        Me.CHK_VENTAS_NEGATIVAS.Size = New System.Drawing.Size(261, 17)
+        Me.CHK_VENTAS_NEGATIVAS.TabIndex = 0
+        Me.CHK_VENTAS_NEGATIVAS.Text = "Permitir realizar ventas de productos sin inventario"
+        Me.CHK_VENTAS_NEGATIVAS.UseVisualStyleBackColor = True
+        '
+        'Panel1
+        '
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.CHK_VENTAS_NEGATIVAS)
+        Me.Panel1.Location = New System.Drawing.Point(3, 3)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(462, 265)
+        Me.Panel1.TabIndex = 1
+        '
         'SucursalMant
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -415,10 +451,13 @@ Partial Class SucursalMant
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.TabPage3.ResumeLayout(False)
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -453,4 +492,7 @@ Partial Class SucursalMant
     Friend WithEvents TXT_ANCHO_PAPEL_ETIQUETA As TextBox
     Friend WithEvents Label8 As Label
     Friend WithEvents Label9 As Label
+    Friend WithEvents TabPage3 As TabPage
+    Friend WithEvents CHK_VENTAS_NEGATIVAS As CheckBox
+    Friend WithEvents Panel1 As Panel
 End Class

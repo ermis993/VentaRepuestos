@@ -14,6 +14,7 @@ Public Class Globales
     Public Shared COD_SUCUR As String
     Public Shared COD_USUARIO As String
     Public Shared IND_ENCOMIENDA As String
+    Public Shared IND_VENTAS_NEGATIVAS As String
 
     Public Shared TC_COMPRA As Decimal
     Public Shared TC_VENTA As Decimal
@@ -211,14 +212,14 @@ Public Class Globales
         End Try
     End Function
 
-    Public Shared Function EXISTE_TABLA_EN_FECHA(ByVal TABLA As String, ByVal FECHA As String) As Boolean
+    Public Shared Function EXISTE_TABLA(ByVal TABLA As String) As Boolean
         Try
             Dim EXISTE As Boolean = False
             Dim SQL = "	SELECT NAME "
             SQL &= Chr(13) & "FROM SYS.TABLES"
             SQL &= Chr(13) & "WHERE NAME =" & SCM(TABLA)
             SQL &= Chr(13) & "AND SCHEMA_ID = SCHEMA_ID('dbo')"
-            SQL &= Chr(13) & "AND CONVERT(VARCHAR(10), MODIFY_DATE, 126) < " & SCM(YMD(FECHA))
+            'SQL &= Chr(13) & "AND CONVERT(VARCHAR(10), MODIFY_DATE, 126) < " & SCM(YMD(FECHA))
 
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)
@@ -232,6 +233,72 @@ Public Class Globales
             Return False
         End Try
     End Function
+
+    Public Shared Function EXISTE_PROCEDIMIENTO(ByVal PROCEDIMIENTO As String, ByVal FECHA As String) As Boolean
+        Try
+            Dim EXISTE As Boolean = False
+            Dim SQL = "	SELECT *  "
+            SQL &= Chr(13) & "FROM sysobjects"
+            SQL &= Chr(13) & "WHERE TYPE = 'P' "
+            SQL &= Chr(13) & "AND NAME = " & SCM(PROCEDIMIENTO)
+            SQL &= Chr(13) & "AND CONVERT(VARCHAR(10), CRDATE, 126) >= " & SCM(YMD(FECHA))
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+            If DS.Tables(0).Rows.Count > 0 Then
+                EXISTE = True
+            End If
+            Return EXISTE
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            Return False
+        End Try
+    End Function
+
+    Public Shared Sub ELIMINA_PROCEDIMIENTO(ByVal PROCEDIMIENTO As String)
+        Try
+            Dim SQL = "DROP PROCEDURE IF EXISTS " & PROCEDIMIENTO
+            CONX.Coneccion_Abrir()
+            CONX.EJECUTE(SQL)
+            CONX.Coneccion_Cerrar()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Public Shared Function EXISTE_TRIGGER(ByVal TRIGGER As String, ByVal FECHA As String) As Boolean
+        Try
+            Dim EXISTE As Boolean = False
+            Dim SQL = "	SELECT *  "
+            SQL &= Chr(13) & "FROM sys.triggers"
+            SQL &= Chr(13) & "WHERE NAME = " & SCM(TRIGGER)
+            SQL &= Chr(13) & "AND CONVERT(VARCHAR(10), MODIFY_DATE, 126) >= " & SCM(YMD(FECHA))
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+            If DS.Tables(0).Rows.Count > 0 Then
+                EXISTE = True
+            End If
+            Return EXISTE
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            Return False
+        End Try
+    End Function
+
+    Public Shared Sub ELIMINA_TRIGGER(ByVal TRIGGER As String)
+        Try
+            Dim SQL = "DROP TRIGGER IF EXISTS " & TRIGGER
+            CONX.Coneccion_Abrir()
+            CONX.EJECUTE(SQL)
+            CONX.Coneccion_Cerrar()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
 
     Public Shared Function ES_ENCOMIENDA(ByVal COD_CIA As String) As String
         Try
@@ -252,6 +319,27 @@ Public Class Globales
             Return False
         End Try
     End Function
+
+    Public Shared Function VENTA_NEGATIVA(ByVal COD_CIA As String, ByVal COD_SUCUR As String) As String
+        Try
+            Dim RESULTADO As String = "N"
+            Dim SQL = "	SELECT ISNULL(IND_PERMITE_VENTAS_NEGATIVO, 'N') AS IND_VENTAS FROM SUCURSAL_INDICADORES WHERE COD_CIA = " & SCM(COD_CIA) & " AND COD_SUCUR = " & SCM(COD_SUCUR)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+            If DS.Tables(0).Rows.Count > 0 Then
+                For Each ITEM In DS.Tables(0).Rows
+                    RESULTADO = ITEM("IND_VENTAS")
+                    Exit For
+                Next
+            End If
+            Return RESULTADO
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            Return False
+        End Try
+    End Function
+
     Public Shared Function FECHA_HOY() As String
         Try
             Dim FECHA As String = DateTime.Now.ToString
@@ -606,6 +694,17 @@ Public Class Globales
         End Try
     End Sub
 
+    Public Shared Function ConsultaSaldoProducto(ByVal COD_PROD As String) As Decimal
+        Try
+            Dim Resultado As Decimal = 0.0
+
+
+
+
+        Catch ex As Exception
+            Return 0.0
+        End Try
+    End Function
     Public Shared Function TieneDerecho(ByVal COD_DERECHO As String) As Boolean
         Try
             Dim BANDERA As Boolean = False

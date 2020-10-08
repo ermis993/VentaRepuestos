@@ -111,9 +111,9 @@ Public Class MenuPrincipal
             Dim SQL As String = "SELECT SUC.COD_SUCUR AS CODIGO, NOMBRE"
             SQL &= Chr(13) & " FROM SUCURSAL AS SUC"
             SQL &= Chr(13) & " INNER JOIN SUCURSAL_USUARIO AS USU"
-            SQL &= Chr(13) & " 	ON SUC.COD_CIA = USU.COD_CIA"
-            SQL &= Chr(13) & " 	AND SUC.COD_SUCUR = USU.COD_SUCUR"
-            SQL &= Chr(13) & "	AND USU.COD_USUARIO =" & SCM(COD_USUARIO)
+            SQL &= Chr(13) & " 	    ON SUC.COD_CIA = USU.COD_CIA"
+            SQL &= Chr(13) & " 	    AND SUC.COD_SUCUR = USU.COD_SUCUR"
+            SQL &= Chr(13) & "	    AND USU.COD_USUARIO =" & SCM(COD_USUARIO)
             SQL &= Chr(13) & " WHERE SUC.COD_CIA = " & SCM(COD_CIA)
             SQL &= Chr(13) & " AND ESTADO = 'A'"
 
@@ -162,6 +162,7 @@ Public Class MenuPrincipal
             If Not CMB_SUCURSAL.DataSource Is Nothing Then
                 If Bandera_Sucursal = True Then
                     COD_SUCUR = CMB_SUCURSAL.SelectedItem().ToString.Substring(1, 3)
+                    IND_VENTAS_NEGATIVAS = VENTA_NEGATIVA(COD_CIA, COD_SUCUR)
                 End If
             End If
         Catch ex As Exception

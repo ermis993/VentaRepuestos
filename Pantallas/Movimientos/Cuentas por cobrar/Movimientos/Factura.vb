@@ -267,7 +267,7 @@ Public Class Factura
 
     Private Sub RellenaProducto(ByVal estante As String, ByVal fila As String, ByVal columna As String)
         Try
-            Dim Sql = "	Select COD_UNIDAD, PRECIO, PRECIO_2, PRECIO_3, POR_IMPUESTO, U.ESTANTE, U.FILA, U.COLUMNA	"
+            Dim Sql = "	Select COD_UNIDAD, PRECIO, PRECIO_2, PRECIO_3, POR_IMPUESTO, U.ESTANTE, U.FILA, U.COLUMNA, ISNULL(OBSERVACION, '') AS MENSAJE	"
             Sql &= Chr(13) & "	FROM PRODUCTO AS P "
             Sql &= Chr(13) & "  INNER JOIN PRODUCTO_UBICACION  AS U"
             Sql &= Chr(13) & "      ON U.COD_PROD = P.COD_PROD"
@@ -297,6 +297,10 @@ Public Class Factura
                 TXT_ESTANTE.Text = DS.Tables(0).Rows(0).Item("ESTANTE")
                 TXT_FILA.Text = DS.Tables(0).Rows(0).Item("FILA")
                 TXT_COLUMNA.Text = DS.Tables(0).Rows(0).Item("COLUMNA")
+
+                If Not String.IsNullOrEmpty(DS.Tables(0).Rows(0).Item("MENSAJE")) Then
+                    MessageBox.Show(Me, DS.Tables(0).Rows(0).Item("MENSAJE"), "Información", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                End If
             Else
                 TXT_UNIDAD.Text = ""
                 TXT_PRECIO.Text = ""

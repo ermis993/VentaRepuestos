@@ -532,11 +532,22 @@ Public Class NotaCredito
             Sql &= Chr(13) & "	,@TIPO_MOV  = " & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
             Sql &= Chr(13) & "	,@CODIGO = 	" & SCM(Codigo)
             CONX.Coneccion_Abrir()
-            CONX.EJECUTE(Sql)
+            Dim DS = CONX.EJECUTE_DS(Sql)
             CONX.Coneccion_Cerrar()
 
-            MessageBox.Show("Documento ingresado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Cerrar()
+            If CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2) = "RB" Then
+                Dim pregunta = MessageBox.Show(Me, "Documento ingresado correctamente, ¿desea imprimir el documento?", Me.Text, vbYesNo, MessageBoxIcon.Question)
+                If pregunta = DialogResult.Yes Then
+                    Dim imp As New Impresion()
+                    imp.ImprimirRecibo(COD_CIA, COD_SUCUR, DS.Tables(0).Rows(0).Item(0), CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
+                    Cerrar()
+                Else
+                    Cerrar()
+                End If
+            Else
+                MessageBox.Show("Documento ingresado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Cerrar()
+            End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

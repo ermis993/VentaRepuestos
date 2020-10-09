@@ -129,6 +129,68 @@ Public Class Impresion
         End Try
     End Sub
 
+    Public Shared Sub ImprimirRecibo(ByVal COD_CIA As String, ByVal COD_SUCUR As String, ByVal NUMERO_DOC As Integer, ByVal TIPO_MOV As String)
+        Try
+            Dim strPrint As String
+            Dim Ancho_Tiquete As Integer = ANCHO_IMPRESION()
+            Dim Sql = "	EXEC USP_DATOS_RECIBO_IMPRESION "
+            Sql &= Chr(13) & "	@COD_CIA = 	" & SCM(COD_CIA)
+            Sql &= Chr(13) & "	,@COD_SUCUR = " & SCM(COD_SUCUR)
+            Sql &= Chr(13) & "	,@NUMERO_DOC = " & Val(NUMERO_DOC)
+            Sql &= Chr(13) & "  ,@TIPO_MOV =  " & SCM(TIPO_MOV)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(Sql)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(2).Rows.Count > 0 Then
+
+                strPrint = ""
+                strPrint = RELLENOCENTRO(DS.Tables(0).Rows(0).Item("Sucursal").ToString.ToUpper, Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO(DS.Tables(0).Rows(0).Item("Compania").ToString.ToUpper, Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO("Cedula # " + DS.Tables(0).Rows(0).Item("Cedula").ToString, Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO("Telefonos :" + DS.Tables(0).Rows(0).Item("Telefono").ToString, Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO(DS.Tables(0).Rows(0).Item("Provincia").ToString.ToUpper & "," & DS.Tables(0).Rows(0).Item("Canton").ToString.ToUpper, Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO(DS.Tables(0).Rows(0).Item("Direccion").ToString, Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO(DS.Tables(0).Rows(0).Item("Correo").ToString, Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-") & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO(DS.Tables(1).Rows(0).Item("TIPO").ToString, Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENODERECHA("Doc #", 8) & ":" & RELLENO(DS.Tables(1).Rows(0).Item("Numero").ToString, 8, "0") & vbCrLf
+                strPrint = strPrint & RELLENODERECHA("Fecha", 8) & ":" & DMA(DS.Tables(1).Rows(0).Item("FECHA").ToString) & RELLENOIZQUIERDA("Moneda :", 10) & DS.Tables(1).Rows(0).Item("MONEDA").ToString & vbCrLf
+                strPrint = strPrint & RELLENODERECHA("Venta", 8) & ":" & DS.Tables(1).Rows(0).Item("VENTA").ToString & vbCrLf
+                strPrint = strPrint & RELLENODERECHA("Cliente", 8) & ":" & DS.Tables(1).Rows(0).Item("Nombre").ToString & vbCrLf
+                strPrint = strPrint & RELLENODERECHA("Vendedor", 8) & ":" & DS.Tables(1).Rows(0).Item("Usuario").ToString & vbCrLf
+                strPrint = strPrint & RELLENODERECHA("Descripcion", 8) & ":" & DS.Tables(1).Rows(0).Item("DETALLE").ToString & vbCrLf
+                strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-") & vbCrLf
+                strPrint = strPrint & RELLENOCENTRO("[ DOCUMENTOS AFECTADOS ]", Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENO("", Ancho_Tiquete, "") & vbCrLf
+                For Each ITEM In DS.Tables(2).Rows
+                    strPrint = strPrint & RELLENODERECHA("Documento:", 12) & RELLENO(ITEM("NUMERO_DOC_AFEC"), 8, "0") & RELLENOIZQUIERDA("Tipo:", 9) & RELLENOIZQUIERDA(ITEM("TIPO_MOV_AFEC"), 5) & vbCrLf
+                    strPrint = strPrint & RELLENODERECHA("Fecha:", 7) & RELLENOIZQUIERDA(ITEM("FECHA"), 11) & RELLENOIZQUIERDA("Saldo Ant:", 11) & RELLENOIZQUIERDA(FMCP(ITEM("SALDO_ANTERIOR"), 2), 11) & vbCrLf
+                    strPrint = strPrint & RELLENODERECHA("Monto:", 7) & RELLENOIZQUIERDA(FMCP(ITEM("MONTO_AFEC"), 2), 11) & RELLENOIZQUIERDA("Saldo Nue:", 11) & RELLENOIZQUIERDA(FMCP(ITEM("NUEVO_SALDO"), 2), 11) & vbCrLf
+                    strPrint = strPrint & RELLENO("", Ancho_Tiquete, "") & vbCrLf
+                Next
+                strPrint = strPrint & RELLENOCENTRO("[ FIN DOCUMENTOS AFECTADOS ]", Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-") & vbCrLf
+
+                strPrint = strPrint & "Cantidad de documentos afectados: " & DS.Tables(3).Rows(0).Item("DOCS_AFEC").ToString & vbCrLf
+                strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-") & vbCrLf
+
+                Dim MR As String = RELLENOIZQUIERDA("Monto recibo", 15) & ":" & RELLENOIZQUIERDA(FMCP(DS.Tables(3).Rows(0).Item("MR"), 2), 11)
+                Dim MU As String = RELLENOIZQUIERDA("Monto utilizado", 15) & ":" & RELLENOIZQUIERDA(FMCP(DS.Tables(3).Rows(0).Item("MU"), 2), 11)
+                Dim SR As String = RELLENOIZQUIERDA("Saldo recibo", 15) & ":" & RELLENOIZQUIERDA(FMCP(DS.Tables(3).Rows(0).Item("SR"), 2), 11)
+
+                strPrint = strPrint & RELLENOIZQUIERDA(MR, Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENOIZQUIERDA(MU, Ancho_Tiquete) & vbCrLf
+                strPrint = strPrint & RELLENOIZQUIERDA(SR, Ancho_Tiquete) & vbCrLf
+
+                strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-") & vbCrLf
+                Print(strPrint)
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
     Public Shared Sub ImprimirVenta(ByVal COD_CIA As String, ByVal COD_SUCUR As String, ByVal DESDE As String, ByVal HASTA As String)
         Try
             Dim strPrint As String
@@ -151,7 +213,7 @@ Public Class Impresion
 
                 strPrint = ""
                 strPrint &= RELLENO("", Ancho_Tiquete, "*") & vbCrLf
-                strPrint &= "**" & RELLENOCENTRO("REPORTE DE VENTAS", Ancho_Tiquete) & "**" & vbCrLf
+                strPrint &= RELLENOCENTRO("REPORTE DE VENTAS", Ancho_Tiquete) & vbCrLf
                 strPrint &= RELLENO("", Ancho_Tiquete, "*") & vbCrLf
                 strPrint &= RELLENODERECHA("Generado", 8) & ": " & DMA(DS.Tables(0).Rows(0).Item("FECHA").ToString) & vbCrLf
                 strPrint &= RELLENODERECHA("Usuario", 8) & ": " & COD_USUARIO & vbCrLf

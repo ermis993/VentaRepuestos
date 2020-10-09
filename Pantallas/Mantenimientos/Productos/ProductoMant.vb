@@ -21,6 +21,13 @@ Public Class ProductoMant
         Buscador.PANTALLA = New Proveedor(CRF_Modos.Seleccionar, Buscador)
         Buscador.refrescar()
 
+        Buscador_Familia.TABLA_BUSCAR = "FAMILIA"
+        Buscador_Familia.CODIGO = "CODIGO"
+        Buscador_Familia.DESCRIPCION = "DESCRIPCION"
+        Buscador_Familia.PANTALLA = New Familia(CRF_Modos.Seleccionar, Buscador_Familia)
+        Buscador_Familia.FILTRAR_POR_COMPANIA = False
+        Buscador_Familia.refrescar()
+
         CARGAR_UNIDAD_MEDIDA()
         CARGAR_IMPUESTO()
 
@@ -76,6 +83,10 @@ Public Class ProductoMant
                     Else
                         RB_INACTIVO.Checked = True
                     End If
+
+                    Buscador_Familia.VALOR = VALNULL(ITEM("COD_FAMILIA"))
+                    Buscador_Familia.ACTUALIZAR_COMBO()
+                    TXT_OBSERVACION.Text = VALNULL(ITEM("OBSERVACION"))
                 Next
             End If
         Catch ex As Exception
@@ -154,6 +165,8 @@ Public Class ProductoMant
                 Sql &= Chr(13) & "	,@COLUMNA = " & SCM(TXT_COLUMNA.Text)
                 Sql &= Chr(13) & "	,@MINIMO = " & FMC(TXT_MINIMO.Text)
                 Sql &= Chr(13) & "	,@COD_BARRA = " & SCM(TXT_COD_BARRA.Text)
+                Sql &= Chr(13) & "	,@COD_FAMILIA = " & SCM(Buscador_Familia.VALOR)
+                Sql &= Chr(13) & "	,@OBSERVACION = " & SCM(TXT_OBSERVACION.Text)
                 Sql &= Chr(13) & "	,@MODO = " & Val(Me.MODO)
 
                 CONX.Coneccion_Abrir()

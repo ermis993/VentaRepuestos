@@ -8,6 +8,8 @@ Public Class Buscador
     Public Property OTROS_CAMP0S As String
     Public Property CAMPO_FILTRAR As String
     Private Property DESC As String
+    Public Property FILTRAR_POR_COMPANIA As Boolean = True
+
     Public Property VALOR As String
         Get
             Return Me.TXT_BUSCADOR.Text
@@ -34,9 +36,15 @@ Public Class Buscador
         If VALIDAR() Then
             Dim SQL As String = "SELECT " & CODIGO & " AS Codigo," & DESCRIPCION & " AS Descripcion"
             SQL &= Chr(13) & " FROM " & TABLA_BUSCAR
-            SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)           
-            If OTROS_CAMP0S <> "" Then
-                SQL &= Chr(13) & " AND " & CAMPO_FILTRAR & " = " & SCM(OTROS_CAMP0S)
+            If FILTRAR_POR_COMPANIA Then
+                SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
+                If OTROS_CAMP0S <> "" Then
+                    SQL &= Chr(13) & " AND " & CAMPO_FILTRAR & " = " & SCM(OTROS_CAMP0S)
+                End If
+            Else
+                If OTROS_CAMP0S <> "" Then
+                    SQL &= Chr(13) & " WHERE " & CAMPO_FILTRAR & " = " & SCM(OTROS_CAMP0S)
+                End If
             End If
             SQL &= Chr(13) & " ORDER BY " & DESCRIPCION & " ASC"
                 CONX.Coneccion_Abrir()

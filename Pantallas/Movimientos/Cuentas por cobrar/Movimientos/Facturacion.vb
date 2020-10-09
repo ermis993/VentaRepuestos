@@ -64,9 +64,9 @@ Public Class Facturacion
         If CMB_TIPO_FACT.SelectedIndex = 0 Then
             GRID.ColumnCount = 13
             GRID.Columns(0).HeaderText = "Documento"
-            GRID.Columns(0).Name = "NUMERO_DOC"
+            GRID.Columns(0).Name = "ENC.NUMERO_DOC"
             GRID.Columns(1).HeaderText = "Tipo"
-            GRID.Columns(1).Name = "TIPO_MOV"
+            GRID.Columns(1).Name = "ENC.TIPO_MOV"
             GRID.Columns(2).HeaderText = "Cédula"
             GRID.Columns(2).Name = "C.CEDULA"
             GRID.Columns(3).HeaderText = "Nombre"
@@ -296,6 +296,9 @@ Public Class Facturacion
             If Tipo_Mov = "FC" Or Tipo_Mov = "FA" Then
                 Dim imp As New Impresion()
                 imp.Imprimir(COD_CIA, COD_SUCUR, Numero_Doc, Tipo_Mov)
+            ElseIf Tipo_Mov = "RB" Then
+                Dim imp As New Impresion()
+                imp.ImprimirRecibo(COD_CIA, COD_SUCUR, Numero_Doc, Tipo_Mov)
             Else
                 MessageBox.Show(Me, "Solamente se pueden imprimir facturas", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If

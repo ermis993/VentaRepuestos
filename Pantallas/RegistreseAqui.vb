@@ -100,6 +100,7 @@ Public Class RegistreseAqui
     End Sub
 
     Public Sub LimpiarTodo()
+        TXT_CODIGO.Text = ""
         TXT_CONTRASENA.Text = ""
         TXT_CORREO.Text = ""
         TXT_DIRECCION.Text = ""

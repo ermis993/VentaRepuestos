@@ -234,6 +234,27 @@ Public Class Globales
         End Try
     End Function
 
+    Public Shared Function EXISTE_CAMPO(ByVal CAMPO As String, ByVal TABLA As String) As Boolean
+        Try
+            Dim EXISTE As Boolean = False
+            Dim SQL = "	SELECT *  "
+            SQL &= Chr(13) & "FROM INFORMATION_SCHEMA.COLUMNS"
+            SQL &= Chr(13) & "WHERE TABLE_NAME = " & SCM(TABLA)
+            SQL &= Chr(13) & "AND COLUMN_NAME = " & SCM(CAMPO)
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+            If DS.Tables(0).Rows.Count > 0 Then
+                EXISTE = True
+            End If
+            Return EXISTE
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            Return False
+        End Try
+    End Function
+
     Public Shared Function EXISTE_PROCEDIMIENTO(ByVal PROCEDIMIENTO As String, ByVal FECHA As String) As Boolean
         Try
             Dim EXISTE As Boolean = False

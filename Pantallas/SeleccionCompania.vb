@@ -1,6 +1,7 @@
 ﻿Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Globales
 Public Class SeleccionCompania
+
     Private Sub SeleccionCompania_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CARGAR_COMPANIAS()
     End Sub
@@ -68,15 +69,11 @@ Public Class SeleccionCompania
     End Sub
     Private Sub Actualizaciones()
         Try
-
-            LBL_ACTUALIZACIONES.Visible = True
+            LBL_MENSAJE.Visible = True
+            LBL_MENSAJE.Update()
             PG_ACTUALIZACIONES.Visible = True
-
             Dim Actualizar As New Actualizaciones
             Actualizar.ACTUALIZACIONES(PG_ACTUALIZACIONES)
-
-            LBL_ACTUALIZACIONES.Visible = False
-            PG_ACTUALIZACIONES.Visible = False
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

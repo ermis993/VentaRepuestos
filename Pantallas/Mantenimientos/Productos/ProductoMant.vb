@@ -87,6 +87,7 @@ Public Class ProductoMant
                     Buscador_Familia.VALOR = VALNULL(ITEM("COD_FAMILIA"))
                     Buscador_Familia.ACTUALIZAR_COMBO()
                     TXT_OBSERVACION.Text = VALNULL(ITEM("OBSERVACION"))
+                    CHK_MODIFICABLE.Checked = IIf(VALNULL(ITEM("IND_PRECIO_MODIFICABLE")) = "S", True, False)
                 Next
             End If
         Catch ex As Exception
@@ -167,6 +168,7 @@ Public Class ProductoMant
                 Sql &= Chr(13) & "	,@COD_BARRA = " & SCM(TXT_COD_BARRA.Text)
                 Sql &= Chr(13) & "	,@COD_FAMILIA = " & SCM(Buscador_Familia.VALOR)
                 Sql &= Chr(13) & "	,@OBSERVACION = " & SCM(TXT_OBSERVACION.Text)
+                Sql &= Chr(13) & "	,@IND_PRECIO_MODIFICABLE = " & SCM(IIf(CHK_MODIFICABLE.Checked, "S", "N"))
                 Sql &= Chr(13) & "	,@MODO = " & Val(Me.MODO)
 
                 CONX.Coneccion_Abrir()

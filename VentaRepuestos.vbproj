@@ -102,6 +102,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controles\BuscadorMini.Designer.vb">
+      <DependentUpon>BuscadorMini.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\BuscadorMini.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controles\Filtro.Designer.vb">
       <DependentUpon>Filtro.vb</DependentUpon>
     </Compile>
@@ -149,6 +155,13 @@
     <Compile Include="Pantallas\Mantenimientos\Productos\ProductoVerificacion.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pantallas\Mantenimientos\Productos\Reportes\ProductoProceso.vb" />
+    <Compile Include="Pantallas\Mantenimientos\Productos\Reportes\Reportes_Productos.Designer.vb">
+      <DependentUpon>Reportes_Productos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Mantenimientos\Productos\Reportes\Reportes_Productos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pantallas\Mantenimientos\Sucursales\DerechosSucursal.Designer.vb">
       <DependentUpon>DerechosSucursal.vb</DependentUpon>
     </Compile>
@@ -189,6 +202,19 @@
       <DependentUpon>CXP_Facturacion.vb</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\CXP_Facturacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\CXP_Pagos.Designer.vb">
+      <DependentUpon>CXP_Pagos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\CXP_Pagos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por pagar\Reportes\CXP_Proceso.vb" />
+    <Compile Include="Pantallas\Movimientos\Cuentas por pagar\Reportes\Reportes_CXP.Designer.vb">
+      <DependentUpon>Reportes_CXP.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por pagar\Reportes\Reportes_CXP.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\Movimientos\Encomiendas\Encomienda.Designer.vb">
@@ -419,6 +445,12 @@
       <DependentUpon>RPT_ENCOMIENDAS_POR_RANGO_FECHAS.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reportes\RPT_REPORTE_INVENTARIO.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RPT_REPORTE_INVENTARIO.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Web References\WS_CENTRAL\Reference.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -428,6 +460,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Controles\Buscador.resx">
       <DependentUpon>Buscador.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controles\BuscadorMini.resx">
+      <DependentUpon>BuscadorMini.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controles\Filtro.resx">
       <DependentUpon>Filtro.vb</DependentUpon>
@@ -443,6 +478,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Mantenimientos\Productos\ProductoVerificacion.resx">
       <DependentUpon>ProductoVerificacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Mantenimientos\Productos\Reportes\Reportes_Productos.resx">
+      <DependentUpon>Reportes_Productos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Mantenimientos\Sucursales\DerechosSucursal.resx">
       <DependentUpon>DerechosSucursal.vb</DependentUpon>
@@ -464,6 +502,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\CXP_Facturacion.resx">
       <DependentUpon>CXP_Facturacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\CXP_Pagos.resx">
+      <DependentUpon>CXP_Pagos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por pagar\Reportes\Reportes_CXP.resx">
+      <DependentUpon>Reportes_CXP.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Movimientos\Encomiendas\Encomienda.resx">
       <DependentUpon>Encomienda.vb</DependentUpon>
@@ -577,6 +621,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>RPT_ENCOMIENDAS_POR_RANGO_FECHAS.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\RPT_REPORTE_INVENTARIO.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RPT_REPORTE_INVENTARIO.vb</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\Application.myapp">
@@ -674,6 +722,7 @@
     <None Include="Resources\contrasena_login.png" />
     <None Include="Resources\entrar.png" />
     <None Include="Resources\salida.png" />
+    <None Include="Resources\Pagos.png" />
     <Content Include="umbrella-corp-icon.ico" />
     <None Include="Resources\transportar.png" />
     <None Include="Resources\ubicacion.png" />

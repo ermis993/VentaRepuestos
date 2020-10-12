@@ -21,10 +21,17 @@ Public Class Facturacion
             If Me.GRID.Rows.Count > 0 Then
                 Dim seleccionado = GRID.Rows(GRID.SelectedRows(0).Index)
                 If CMB_TIPO_FACT.SelectedIndex = 0 Then
-                    Numero_Doc = Val(seleccionado.Cells(0).Value.ToString)
-                    Codigo = ""
-                    Tipo_Mov = seleccionado.Cells(1).Value.ToString
-                    Respuesta = seleccionado.Cells(12).Value.ToString
+                    If IND_ENCOMIENDA = "S" Then
+                        Numero_Doc = Val(seleccionado.Cells(0).Value.ToString)
+                        Codigo = ""
+                        Tipo_Mov = seleccionado.Cells(2).Value.ToString
+                        Respuesta = seleccionado.Cells(13).Value.ToString
+                    Else
+                        Numero_Doc = Val(seleccionado.Cells(0).Value.ToString)
+                        Codigo = ""
+                        Tipo_Mov = seleccionado.Cells(1).Value.ToString
+                        Respuesta = seleccionado.Cells(12).Value.ToString
+                    End If
                 Else
                     Numero_Doc = 0
                     Codigo = seleccionado.Cells(0).Value.ToString
@@ -62,33 +69,62 @@ Public Class Facturacion
 
     Private Sub FORMATO_GRID()
         If CMB_TIPO_FACT.SelectedIndex = 0 Then
-            GRID.ColumnCount = 13
+            GRID.ColumnCount = IIf(IND_ENCOMIENDA = "S", 14, 13)
             GRID.Columns(0).HeaderText = "Documento"
             GRID.Columns(0).Name = "ENC.NUMERO_DOC"
-            GRID.Columns(1).HeaderText = "Tipo"
-            GRID.Columns(1).Name = "ENC.TIPO_MOV"
-            GRID.Columns(2).HeaderText = "Cédula"
-            GRID.Columns(2).Name = "C.CEDULA"
-            GRID.Columns(3).HeaderText = "Nombre"
-            GRID.Columns(3).Name = "C.NOMBRE"
-            GRID.Columns(4).HeaderText = "Descripción"
-            GRID.Columns(4).Name = "ENC.DESCRIPCION"
-            GRID.Columns(5).HeaderText = "Fecha"
-            GRID.Columns(5).Name = "CONVERT(VARCHAR(10), ENC.FECHA, 105)"
-            GRID.Columns(6).HeaderText = "Usuario"
-            GRID.Columns(6).Name = "COD_USUARIO"
-            GRID.Columns(7).HeaderText = "Moneda"
-            GRID.Columns(7).Name = "COD_MONEDA"
-            GRID.Columns(8).HeaderText = "Subtotal"
-            GRID.Columns(8).Name = "MONTO"
-            GRID.Columns(9).HeaderText = "Impuesto"
-            GRID.Columns(9).Name = "IMPUESTO"
-            GRID.Columns(10).HeaderText = "Total"
-            GRID.Columns(10).Name = "(MONTO + IMPUESTO)"
-            GRID.Columns(11).HeaderText = "Saldo"
-            GRID.Columns(11).Name = " ENC.SALDO"
-            GRID.Columns(12).HeaderText = "DGTD"
-            GRID.Columns(12).Name = " ISNULL(DE.RESPUESTA_DGTD, 'P')"
+            If IND_ENCOMIENDA = "S" Then
+                GRID.Columns(1).HeaderText = "Encomienda"
+                GRID.Columns(1).Name = " ISNULL(DG.NUMERO_GUIA, '0')"
+                GRID.Columns(2).HeaderText = "Tipo"
+                GRID.Columns(2).Name = "ENC.TIPO_MOV"
+                GRID.Columns(3).HeaderText = "Cédula"
+                GRID.Columns(3).Name = "C.CEDULA"
+                GRID.Columns(4).HeaderText = "Nombre"
+                GRID.Columns(4).Name = "C.NOMBRE"
+                GRID.Columns(5).HeaderText = "Descripción"
+                GRID.Columns(5).Name = "ENC.DESCRIPCION"
+                GRID.Columns(6).HeaderText = "Fecha"
+                GRID.Columns(6).Name = "CONVERT(VARCHAR(10), ENC.FECHA, 105)"
+                GRID.Columns(7).HeaderText = "Usuario"
+                GRID.Columns(7).Name = "ENC.COD_USUARIO"
+                GRID.Columns(8).HeaderText = "Moneda"
+                GRID.Columns(8).Name = "COD_MONEDA"
+                GRID.Columns(9).HeaderText = "Subtotal"
+                GRID.Columns(9).Name = "MONTO"
+                GRID.Columns(10).HeaderText = "Impuesto"
+                GRID.Columns(10).Name = "IMPUESTO"
+                GRID.Columns(11).HeaderText = "Total"
+                GRID.Columns(11).Name = "(MONTO + IMPUESTO)"
+                GRID.Columns(12).HeaderText = "Saldo"
+                GRID.Columns(12).Name = " ENC.SALDO"
+                GRID.Columns(13).HeaderText = "DGTD"
+                GRID.Columns(13).Name = " ISNULL(DE.RESPUESTA_DGTD, 'P')"
+            Else
+                GRID.Columns(1).HeaderText = "Tipo"
+                GRID.Columns(1).Name = "ENC.TIPO_MOV"
+                GRID.Columns(2).HeaderText = "Cédula"
+                GRID.Columns(2).Name = "C.CEDULA"
+                GRID.Columns(3).HeaderText = "Nombre"
+                GRID.Columns(3).Name = "C.NOMBRE"
+                GRID.Columns(4).HeaderText = "Descripción"
+                GRID.Columns(4).Name = "ENC.DESCRIPCION"
+                GRID.Columns(5).HeaderText = "Fecha"
+                GRID.Columns(5).Name = "CONVERT(VARCHAR(10), ENC.FECHA, 105)"
+                GRID.Columns(6).HeaderText = "Usuario"
+                GRID.Columns(6).Name = "ENC.COD_USUARIO"
+                GRID.Columns(7).HeaderText = "Moneda"
+                GRID.Columns(7).Name = "COD_MONEDA"
+                GRID.Columns(8).HeaderText = "Subtotal"
+                GRID.Columns(8).Name = "MONTO"
+                GRID.Columns(9).HeaderText = "Impuesto"
+                GRID.Columns(9).Name = "IMPUESTO"
+                GRID.Columns(10).HeaderText = "Total"
+                GRID.Columns(10).Name = "(MONTO + IMPUESTO)"
+                GRID.Columns(11).HeaderText = "Saldo"
+                GRID.Columns(11).Name = " ENC.SALDO"
+                GRID.Columns(12).HeaderText = "DGTD"
+                GRID.Columns(12).Name = " ISNULL(DE.RESPUESTA_DGTD, 'P')"
+            End If
             Filtro.FILTRO_CARGAR_COMBO(GRID)
         Else
             GRID.ColumnCount = 12
@@ -132,7 +168,10 @@ Public Class Facturacion
 
                 If CMB_TIPO_FACT.SelectedIndex = 0 Then
                     SQL &= Chr(13) & "	SELECT ENC.NUMERO_DOC AS Documento, ENC.TIPO_MOV as Tipo, C.CEDULA AS Cédula, C.NOMBRE AS Nombre, ENC.DESCRIPCION AS Descripción, CONVERT(VARCHAR(10), ENC.FECHA, 105) AS Fecha	"
-                    SQL &= Chr(13) & "	,COD_USUARIO AS Usuario, COD_MONEDA AS Moneda, MONTO AS Subtotal, IMPUESTO AS Impuesto, (MONTO + IMPUESTO) as Total, ENC.SALDO AS Saldo, ISNULL(DE.RESPUESTA_DGTD, 'P') AS Respuesta "
+                    SQL &= Chr(13) & "	,ENC.COD_USUARIO AS Usuario, COD_MONEDA AS Moneda, MONTO AS Subtotal, IMPUESTO AS Impuesto, (MONTO + IMPUESTO) as Total, ENC.SALDO AS Saldo, ISNULL(DE.RESPUESTA_DGTD, 'P') AS Respuesta "
+                    If IND_ENCOMIENDA = "S" Then
+                        SQL &= Chr(13) & "	,ISNULL(DG.NUMERO_GUIA, '0') AS Guia"
+                    End If
                     SQL &= Chr(13) & "	FROM " & IIf(CMB_VER.SelectedIndex = 0, "DOCUMENTO_ENC", "APARTADO_ENC") & " AS ENC	"
                     SQL &= Chr(13) & "	INNER JOIN CLIENTE As C	"
                     SQL &= Chr(13) & "		On C.COD_CIA = ENC.COD_CIA "
@@ -142,6 +181,13 @@ Public Class Facturacion
                     SQL &= Chr(13) & "      And ENC.COD_SUCUR = DE.COD_SUCUR "
                     SQL &= Chr(13) & "      And ENC.NUMERO_DOC = DE.NUMERO_DOC "
                     SQL &= Chr(13) & "      And ENC.TIPO_MOV = DE.TIPO_MOV "
+                    If IND_ENCOMIENDA = "S" Then
+                        SQL &= Chr(13) & "   LEFT JOIN DOCUMENTO_GUIA AS DG "
+                        SQL &= Chr(13) & "		ON ENC.COD_CIA = DG.COD_CIA "
+                        SQL &= Chr(13) & "      And ENC.COD_SUCUR = DG.COD_SUCUR "
+                        SQL &= Chr(13) & "      And ENC.NUMERO_DOC = DG.NUMERO_DOC "
+                        SQL &= Chr(13) & "      And ENC.TIPO_MOV = DG.TIPO_MOV "
+                    End If
                     SQL &= Chr(13) & " WHERE ENC.COD_CIA = " & SCM(COD_CIA)
                     SQL &= Chr(13) & " And ENC.COD_SUCUR = " & SCM(COD_SUCUR)
                     If RB_ACTIVOS.Checked = True Then
@@ -178,7 +224,13 @@ Public Class Facturacion
 
                 If DS.Tables(0).Rows.Count > 0 Then
                     For Each ITEM In DS.Tables(0).Rows
-                        Dim row As String() = New String() {ITEM("Documento"), ITEM("Tipo"), ITEM("Cédula"), ITEM("Nombre"), ITEM("Descripción"), ITEM("Fecha"), ITEM("Usuario"), ITEM("Moneda"), ITEM("Subtotal"), ITEM("Impuesto"), ITEM("Total"), ITEM("Saldo"), ITEM("Respuesta")}
+                        Dim row As String()
+                        If IND_ENCOMIENDA = "S" And CMB_TIPO_FACT.SelectedIndex = 0 Then
+                            row = New String() {ITEM("Documento"), ITEM("Guia"), ITEM("Tipo"), ITEM("Cédula"), ITEM("Nombre"), ITEM("Descripción"), ITEM("Fecha"), ITEM("Usuario"), ITEM("Moneda"), ITEM("Subtotal"), ITEM("Impuesto"), ITEM("Total"), ITEM("Saldo"), ITEM("Respuesta")}
+                        Else
+                            row = New String() {ITEM("Documento"), ITEM("Tipo"), ITEM("Cédula"), ITEM("Nombre"), ITEM("Descripción"), ITEM("Fecha"), ITEM("Usuario"), ITEM("Moneda"), ITEM("Subtotal"), ITEM("Impuesto"), ITEM("Total"), ITEM("Saldo"), ITEM("Respuesta")}
+                        End If
+
                         GRID.Rows.Add(row)
 
                         If ITEM("Tipo") = "NC" Then
@@ -208,13 +260,34 @@ Public Class Facturacion
             Dim dgv As DataGridView = Me.GRID
             If dgv.Rows.Count > 0 Then
                 For i As Integer = 0 To dgv.Rows.Count - 1
-                    If dgv.Rows(i).Cells(12).Value = "A" Then
-                        dgv.Rows(i).Cells(0).Style.BackColor = Color.ForestGreen
-                        dgv.Rows(i).Cells(1).Style.BackColor = Color.ForestGreen
-                    ElseIf dgv.Rows(i).Cells(12).Value = "R" Then
-                        dgv.Rows(i).Cells(0).Style.BackColor = Color.DarkRed
-                        dgv.Rows(i).Cells(1).Style.BackColor = Color.DarkRed
+                    If IND_ENCOMIENDA = "S" Then
+                        If dgv.Rows(i).Cells(13).Value = "A" Then
+                            dgv.Rows(i).Cells(0).Style.BackColor = Color.ForestGreen
+                            dgv.Rows(i).Cells(1).Style.BackColor = Color.ForestGreen
+                        ElseIf dgv.Rows(i).Cells(13).Value = "R" Then
+                            dgv.Rows(i).Cells(0).Style.BackColor = Color.DarkRed
+                            dgv.Rows(i).Cells(1).Style.BackColor = Color.DarkRed
+                        Else
+                            If (dgv.Rows(i).Cells(2).Value = "FA" Or dgv.Rows(i).Cells(2).Value = "FC" Or dgv.Rows(i).Cells(2).Value = "NC" Or dgv.Rows(i).Cells(2).Value = "ND") Then
+                                dgv.Rows(i).Cells(0).Style.BackColor = Color.Orange
+                                dgv.Rows(i).Cells(1).Style.BackColor = Color.Orange
+                            End If
+                        End If
+                    Else
+                        If dgv.Rows(i).Cells(12).Value = "A" Then
+                            dgv.Rows(i).Cells(0).Style.BackColor = Color.ForestGreen
+                            dgv.Rows(i).Cells(1).Style.BackColor = Color.ForestGreen
+                        ElseIf dgv.Rows(i).Cells(12).Value = "R" Then
+                            dgv.Rows(i).Cells(0).Style.BackColor = Color.DarkRed
+                            dgv.Rows(i).Cells(1).Style.BackColor = Color.DarkRed
+                        Else
+                            If (dgv.Rows(i).Cells(1).Value = "FA" Or dgv.Rows(i).Cells(1).Value = "FC" Or dgv.Rows(i).Cells(1).Value = "NC" Or dgv.Rows(i).Cells(1).Value = "ND") Then
+                                dgv.Rows(i).Cells(0).Style.BackColor = Color.Orange
+                                dgv.Rows(i).Cells(1).Style.BackColor = Color.Orange
+                            End If
+                        End If
                     End If
+
                 Next
             End If
         Catch ex As Exception

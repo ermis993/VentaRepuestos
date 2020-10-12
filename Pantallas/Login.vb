@@ -54,9 +54,11 @@ Public Class Login
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Sub INGRESAR(sender As Object, e As EventArgs) Handles BTN_INGRESAR.Click
         Ingreso()
     End Sub
+
     Private Function VALIDAR() As Boolean
         Try
             Dim ENTRAR As Boolean = True

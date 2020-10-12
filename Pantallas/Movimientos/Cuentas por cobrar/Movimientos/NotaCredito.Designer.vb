@@ -37,6 +37,7 @@ Partial Class NotaCredito
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TAB_ENC = New System.Windows.Forms.TabPage()
+        Me.Cliente = New VentaRepuestos.Buscador()
         Me.TXT_DESCRIPCION = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.CMB_MONEDA = New System.Windows.Forms.ComboBox()
@@ -55,12 +56,11 @@ Partial Class NotaCredito
         Me.Label23 = New System.Windows.Forms.Label()
         Me.TXT_M = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
-        Me.BTN_SALIR = New System.Windows.Forms.Button()
-        Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
         Me.CMS = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.IgualarMontoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.IngrearMontoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Cliente = New VentaRepuestos.Buscador()
+        Me.BTN_SALIR = New System.Windows.Forms.Button()
+        Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TAB_ENC.SuspendLayout()
@@ -232,6 +232,23 @@ Partial Class NotaCredito
         Me.TAB_ENC.TabIndex = 0
         Me.TAB_ENC.Text = "[ Encabezado ]"
         Me.TAB_ENC.UseVisualStyleBackColor = True
+        '
+        'Cliente
+        '
+        Me.Cliente.CAMPO_FILTRAR = Nothing
+        Me.Cliente.CODIGO = Nothing
+        Me.Cliente.DESCRIPCION = Nothing
+        Me.Cliente.FILTRAR_POR_COMPANIA = True
+        Me.Cliente.Location = New System.Drawing.Point(111, 10)
+        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
+        Me.Cliente.Name = "Cliente"
+        Me.Cliente.OTROS_CAMP0S = Nothing
+        Me.Cliente.PANTALLA = Nothing
+        Me.Cliente.Size = New System.Drawing.Size(451, 32)
+        Me.Cliente.TabIndex = 1
+        Me.Cliente.TABLA_BUSCAR = Nothing
+        Me.Cliente.VALOR = ""
+        Me.Cliente.VALOR_DESCRIPCION = Nothing
         '
         'TXT_DESCRIPCION
         '
@@ -473,6 +490,24 @@ Partial Class NotaCredito
         Me.Label16.TabIndex = 2
         Me.Label16.Text = "Monto :"
         '
+        'CMS
+        '
+        Me.CMS.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.IgualarMontoToolStripMenuItem, Me.IngrearMontoToolStripMenuItem})
+        Me.CMS.Name = "CMS"
+        Me.CMS.Size = New System.Drawing.Size(156, 48)
+        '
+        'IgualarMontoToolStripMenuItem
+        '
+        Me.IgualarMontoToolStripMenuItem.Name = "IgualarMontoToolStripMenuItem"
+        Me.IgualarMontoToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.IgualarMontoToolStripMenuItem.Text = "Igualar monto"
+        '
+        'IngrearMontoToolStripMenuItem
+        '
+        Me.IngrearMontoToolStripMenuItem.Name = "IngrearMontoToolStripMenuItem"
+        Me.IngrearMontoToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.IngrearMontoToolStripMenuItem.Text = "Ingresar monto"
+        '
         'BTN_SALIR
         '
         Me.BTN_SALIR.BackColor = System.Drawing.SystemColors.ButtonFace
@@ -500,39 +535,6 @@ Partial Class NotaCredito
         Me.BTN_ACEPTAR.Text = "Aceptar"
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
-        '
-        'CMS
-        '
-        Me.CMS.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.IgualarMontoToolStripMenuItem, Me.IngrearMontoToolStripMenuItem})
-        Me.CMS.Name = "CMS"
-        Me.CMS.Size = New System.Drawing.Size(156, 48)
-        '
-        'IgualarMontoToolStripMenuItem
-        '
-        Me.IgualarMontoToolStripMenuItem.Name = "IgualarMontoToolStripMenuItem"
-        Me.IgualarMontoToolStripMenuItem.Size = New System.Drawing.Size(150, 22)
-        Me.IgualarMontoToolStripMenuItem.Text = "Igualar monto"
-        '
-        'IngrearMontoToolStripMenuItem
-        '
-        Me.IngrearMontoToolStripMenuItem.Name = "IngrearMontoToolStripMenuItem"
-        Me.IngrearMontoToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.IngrearMontoToolStripMenuItem.Text = "Ingresar monto"
-        '
-        'Cliente
-        '
-        Me.Cliente.CODIGO = Nothing
-        Me.Cliente.DESCRIPCION = Nothing
-        Me.Cliente.Location = New System.Drawing.Point(111, 10)
-        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cliente.Name = "Cliente"
-        Me.Cliente.OTROS_CAMP0S = Nothing
-        Me.Cliente.PANTALLA = Nothing
-        Me.Cliente.Size = New System.Drawing.Size(451, 32)
-        Me.Cliente.TabIndex = 1
-        Me.Cliente.TABLA_BUSCAR = Nothing
-        Me.Cliente.VALOR = ""
-        Me.Cliente.VALOR_DESCRIPCION = Nothing
         '
         'NotaCredito
         '

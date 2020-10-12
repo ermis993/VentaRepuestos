@@ -222,4 +222,22 @@ Public Class CXP_Facturacion
             RELLENAR_GRID()
         End If
     End Sub
+
+    Private Sub BTN_PAGOS_Click(sender As Object, e As EventArgs) Handles BTN_PAGOS.Click
+        Try
+            Dim PANTALLA As New CXP_Pagos(CRF_Modos.Insertar, Me)
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_REPORTES_Click(sender As Object, e As EventArgs) Handles BTN_REPORTES.Click
+        Try
+            Dim PANTALLA As New Reportes_CXP()
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 End Class

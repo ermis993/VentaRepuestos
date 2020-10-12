@@ -34,7 +34,6 @@ Partial Class CXP_Factura
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TAB_ENC = New System.Windows.Forms.TabPage()
-        Me.Cliente = New VentaRepuestos.Buscador()
         Me.TXT_DESCRIPCION = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.CMB_MONEDA = New System.Windows.Forms.ComboBox()
@@ -87,6 +86,7 @@ Partial Class CXP_Factura
         Me.BTN_FACTURAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
+        Me.Cliente = New VentaRepuestos.Buscador()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TAB_ENC.SuspendLayout()
@@ -162,6 +162,7 @@ Partial Class CXP_Factura
         Me.TXT_NUMERO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.TXT_NUMERO.Location = New System.Drawing.Point(99, 18)
         Me.TXT_NUMERO.Margin = New System.Windows.Forms.Padding(2)
+        Me.TXT_NUMERO.MaxLength = 10
         Me.TXT_NUMERO.Name = "TXT_NUMERO"
         Me.TXT_NUMERO.Size = New System.Drawing.Size(171, 24)
         Me.TXT_NUMERO.TabIndex = 1
@@ -231,22 +232,6 @@ Partial Class CXP_Factura
         Me.TAB_ENC.Text = "[ Encabezado ]"
         Me.TAB_ENC.UseVisualStyleBackColor = True
         '
-        'Cliente
-        '
-        Me.Cliente.CAMPO_FILTRAR = Nothing
-        Me.Cliente.CODIGO = Nothing
-        Me.Cliente.DESCRIPCION = Nothing
-        Me.Cliente.Location = New System.Drawing.Point(111, 10)
-        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cliente.Name = "Cliente"
-        Me.Cliente.OTROS_CAMP0S = Nothing
-        Me.Cliente.PANTALLA = Nothing
-        Me.Cliente.Size = New System.Drawing.Size(451, 32)
-        Me.Cliente.TabIndex = 1
-        Me.Cliente.TABLA_BUSCAR = "CLIENTE"
-        Me.Cliente.VALOR = ""
-        Me.Cliente.VALOR_DESCRIPCION = Nothing
-        '
         'TXT_DESCRIPCION
         '
         Me.TXT_DESCRIPCION.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
@@ -309,7 +294,7 @@ Partial Class CXP_Factura
         Me.CMB_FORMAPAGO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.CMB_FORMAPAGO.FormattingEnabled = True
         Me.CMB_FORMAPAGO.Items.AddRange(New Object() {"EF-Efectivo", "TA-Tarjeta", "TR-Transferencia"})
-        Me.CMB_FORMAPAGO.Location = New System.Drawing.Point(111, 46)
+        Me.CMB_FORMAPAGO.Location = New System.Drawing.Point(111, 44)
         Me.CMB_FORMAPAGO.Margin = New System.Windows.Forms.Padding(2)
         Me.CMB_FORMAPAGO.Name = "CMB_FORMAPAGO"
         Me.CMB_FORMAPAGO.Size = New System.Drawing.Size(155, 26)
@@ -319,7 +304,7 @@ Partial Class CXP_Factura
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label5.Location = New System.Drawing.Point(8, 50)
+        Me.Label5.Location = New System.Drawing.Point(8, 48)
         Me.Label5.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(99, 18)
@@ -856,6 +841,23 @@ Partial Class CXP_Factura
         Me.BTN_ACEPTAR.Text = "Aceptar"
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
+        '
+        'Cliente
+        '
+        Me.Cliente.CAMPO_FILTRAR = Nothing
+        Me.Cliente.CODIGO = Nothing
+        Me.Cliente.DESCRIPCION = Nothing
+        Me.Cliente.FILTRAR_POR_COMPANIA = True
+        Me.Cliente.Location = New System.Drawing.Point(111, 10)
+        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
+        Me.Cliente.Name = "Cliente"
+        Me.Cliente.OTROS_CAMP0S = Nothing
+        Me.Cliente.PANTALLA = Nothing
+        Me.Cliente.Size = New System.Drawing.Size(451, 32)
+        Me.Cliente.TabIndex = 1
+        Me.Cliente.TABLA_BUSCAR = "CLIENTE"
+        Me.Cliente.VALOR = ""
+        Me.Cliente.VALOR_DESCRIPCION = Nothing
         '
         'CXP_Factura
         '

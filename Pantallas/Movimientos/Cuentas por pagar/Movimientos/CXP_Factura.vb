@@ -178,7 +178,6 @@ Public Class CXP_Factura
 
     Public Sub BloqueaControles()
         Try
-            TXT_NUMERO.Enabled = False
             CMB_DOCUMENTO.Enabled = IIf(Modo = CRF_Modos.Insertar, True, False)
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -598,19 +597,45 @@ Public Class CXP_Factura
             If GRID.Rows.Count <= 0 Then
                 MessageBox.Show(Me, "Debe ingresar al menos una linea del documento", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
-                Dim Sql = "	USP_CXP_FACTURACION_TMP_A_REAL	"
-                Sql &= Chr(13) & "	 @COD_CIA = " & SCM(COD_CIA)
-                Sql &= Chr(13) & "	,@COD_SUCUR = " & SCM(COD_SUCUR)
-                Sql &= Chr(13) & "	,@TIPO_MOV  = " & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
-                Sql &= Chr(13) & "	,@CODIGO = 	" & SCM(Codigo)
-                CONX.Coneccion_Abrir()
-                Dim DS = CONX.EJECUTE_DS(Sql)
-                CONX.Coneccion_Cerrar()
+                If Val(TXT_NUMERO.Text) > 0 Then
+                    Dim Sql = "	USP_CXP_FACTURACION_TMP_A_REAL	"
+                    Sql &= Chr(13) & "	 @COD_CIA = " & SCM(COD_CIA)
+                    Sql &= Chr(13) & "	,@COD_SUCUR = " & SCM(COD_SUCUR)
+                    Sql &= Chr(13) & "	,@TIPO_MOV  = " & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
+                    Sql &= Chr(13) & "	,@CODIGO = 	" & SCM(Codigo)
+                    Sql &= Chr(13) & "  ,@NUMERO_DOC_ENV = " & Val(TXT_NUMERO.Text)
+                    CONX.Coneccion_Abrir()
+                    Dim DS = CONX.EJECUTE_DS(Sql)
+                    CONX.Coneccion_Cerrar()
 
-                MessageBox.Show("Documento ingresado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Padre.Refrescar()
-                Me.Close()
-            End If
+                    MessageBox.Show("Documento ingresado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Padre.Refrescar()
+                    Me.Close()
+                Else
+                    Dim mensaje As String = "No ingresó el número de documento, el sistema le generará uno automaticamente" & vbNewLine
+                    mensaje &= "¿Esta de acuerdo?"
+
+                    Dim valor = MessageBox.Show(Me, mensaje, "Aviso", vbYesNo, MessageBoxIcon.Question)
+
+                    If valor = DialogResult.Yes Then
+                        Dim Sql = "	USP_CXP_FACTURACION_TMP_A_REAL	"
+                        Sql &= Chr(13) & "	 @COD_CIA = " & SCM(COD_CIA)
+                        Sql &= Chr(13) & "	,@COD_SUCUR = " & SCM(COD_SUCUR)
+                        Sql &= Chr(13) & "	,@TIPO_MOV  = " & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
+                        Sql &= Chr(13) & "	,@CODIGO = 	" & SCM(Codigo)
+
+                        CONX.Coneccion_Abrir()
+                        Dim DS = CONX.EJECUTE_DS(Sql)
+                        CONX.Coneccion_Cerrar()
+
+                        MessageBox.Show("Documento ingresado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Padre.Refrescar()
+                        Me.Close()
+                    Else
+                        TXT_NUMERO.Select()
+                    End If
+                End If
+                End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

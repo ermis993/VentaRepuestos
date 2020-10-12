@@ -267,7 +267,7 @@ Public Class Factura
 
     Private Sub RellenaProducto(ByVal estante As String, ByVal fila As String, ByVal columna As String)
         Try
-            Dim Sql = "	Select COD_UNIDAD, PRECIO, PRECIO_2, PRECIO_3, POR_IMPUESTO, U.ESTANTE, U.FILA, U.COLUMNA, ISNULL(OBSERVACION, '') AS MENSAJE	"
+            Dim Sql = "	Select COD_UNIDAD, PRECIO, PRECIO_2, PRECIO_3, POR_IMPUESTO, U.ESTANTE, U.FILA, U.COLUMNA, ISNULL(OBSERVACION, '') AS MENSAJE, ISNULL(P.IND_PRECIO_MODIFICABLE, 'N') AS MODIFICABLE	"
             Sql &= Chr(13) & "	FROM PRODUCTO AS P "
             Sql &= Chr(13) & "  INNER JOIN PRODUCTO_UBICACION  AS U"
             Sql &= Chr(13) & "      ON U.COD_PROD = P.COD_PROD"
@@ -293,10 +293,13 @@ Public Class Factura
                 Else
                     TXT_PRECIO.Text = DS.Tables(0).Rows(0).Item("PRECIO_3")
                 End If
+
                 TXT_IMPUESTO.Text = DS.Tables(0).Rows(0).Item("POR_IMPUESTO")
                 TXT_ESTANTE.Text = DS.Tables(0).Rows(0).Item("ESTANTE")
                 TXT_FILA.Text = DS.Tables(0).Rows(0).Item("FILA")
                 TXT_COLUMNA.Text = DS.Tables(0).Rows(0).Item("COLUMNA")
+
+                TXT_PRECIO.ReadOnly = IIf(DS.Tables(0).Rows(0).Item("MODIFICABLE") = "S", False, True)
 
                 If Not String.IsNullOrEmpty(DS.Tables(0).Rows(0).Item("MENSAJE")) Then
                     MessageBox.Show(Me, DS.Tables(0).Rows(0).Item("MENSAJE"), "Información", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -1044,5 +1047,9 @@ Public Class Factura
         If IND_ENCOMIENDA = "S" Then
             BTN_IMPRIMIR.Enabled = (Me.Modo = CRF_Modos.Modificar And TieneDerecho("DRIMPETI"))
         End If
+    End Sub
+
+    Private Sub TXT_PRECIO_Leave(sender As Object, e As EventArgs) Handles TXT_PRECIO.Leave
+        CalculoTotales()
     End Sub
 End Class

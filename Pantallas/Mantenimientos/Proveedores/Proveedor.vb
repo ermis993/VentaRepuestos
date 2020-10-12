@@ -3,10 +3,10 @@ Imports VentaRepuestos.Globales
 Public Class Proveedor
     Dim CEDULA_PROVEEDOR As String
     Dim MODO As CRF_Modos
-    Dim BS As New Buscador
+    Dim BS As New Object
     Dim CONSULTA_FILTRO As String = ""
 
-    Sub New(Optional ByVal MODO As CRF_Modos = CRF_Modos.Nada, Optional ByVal Bus As Buscador = Nothing)
+    Sub New(Optional ByVal MODO As CRF_Modos = CRF_Modos.Nada, Optional ByVal Bus As Object = Nothing)
         InitializeComponent()
         FORMATO_GRID()
         Me.MODO = MODO
@@ -103,7 +103,12 @@ Public Class Proveedor
             If Me.GRID.Rows.Count > 0 Then
                 Leer_indice()
                 If MODO = CRF_Modos.Seleccionar Then
-                    SETEO_CONTROL(BS, Me, CEDULA_PROVEEDOR)
+                    Dim Control = BS.ToString()
+                    If Control = "VentaRepuestos.BuscadorMini" Then
+                        SETEO_CONTROL_MINI(BS, Me, CEDULA_PROVEEDOR)
+                    Else
+                        SETEO_CONTROL(BS, Me, CEDULA_PROVEEDOR)
+                    End If
                 Else
                     Dim PANTALLA As New ProveedorMant(CRF_Modos.Modificar, Me, CEDULA_PROVEEDOR)
                     PANTALLA.ShowDialog()

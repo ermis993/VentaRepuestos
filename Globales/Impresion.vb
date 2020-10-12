@@ -62,10 +62,14 @@ Public Class Impresion
                 strPrint = strPrint & RELLENOCENTRO(DS.Tables(0).Rows(0).Item("Direccion").ToString, Ancho_Tiquete) & vbCrLf
                 strPrint = strPrint & RELLENOCENTRO(DS.Tables(0).Rows(0).Item("Correo").ToString, Ancho_Tiquete) & vbCrLf
                 strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-") & vbCrLf
-                strPrint = strPrint & DS.Tables(1).Rows(0).Item("TIPO").ToString & vbCrLf
-                strPrint = strPrint & DS.Tables(1).Rows(0).Item("Consec").ToString & vbCrLf
-                strPrint = strPrint & DS.Tables(1).Rows(0).Item("CLAVE_S").ToString & vbCrLf
-                strPrint = strPrint & DS.Tables(1).Rows(0).Item("Clave").ToString & vbCrLf
+
+                If DS.Tables(0).Rows(0).Item("FE").ToString.ToUpper = "S" Then
+                    strPrint = strPrint & DS.Tables(1).Rows(0).Item("TIPO").ToString & vbCrLf
+                    strPrint = strPrint & DS.Tables(1).Rows(0).Item("Consec").ToString & vbCrLf
+                    strPrint = strPrint & DS.Tables(1).Rows(0).Item("CLAVE_S").ToString & vbCrLf
+                    strPrint = strPrint & DS.Tables(1).Rows(0).Item("Clave").ToString & vbCrLf
+                End If
+
                 strPrint = strPrint & RELLENODERECHA("Doc #", 8) & ":" & RELLENO(DS.Tables(1).Rows(0).Item("Numero").ToString, 8, "0") & vbCrLf
                 strPrint = strPrint & RELLENODERECHA("Fecha", 8) & ":" & DMA(DS.Tables(1).Rows(0).Item("FECHA").ToString) & RELLENOIZQUIERDA("Moneda :", 10) & DS.Tables(1).Rows(0).Item("MONEDA").ToString & vbCrLf
                 strPrint = strPrint & RELLENODERECHA("Venta", 8) & ":" & DS.Tables(1).Rows(0).Item("VENTA").ToString & vbCrLf
@@ -117,12 +121,16 @@ Public Class Impresion
                 strPrint = strPrint & RELLENOIZQUIERDA(total, Ancho_Tiquete) & vbCrLf
 
                 strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-") & vbCrLf
-                strPrint = strPrint & RELLENOCENTRO("AUTORIZADA MEDIANTE RESOLUCION N#", Ancho_Tiquete) & vbCrLf
-                strPrint = strPrint & RELLENOCENTRO("DGTD-R-33-2019 DEL 20 DE JUNIO DEL 2019", Ancho_Tiquete) & vbCrLf
-                strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-")
+
+                If DS.Tables(0).Rows(0).Item("FE").ToString.ToUpper = "S" Then
+                    strPrint = strPrint & RELLENOCENTRO("AUTORIZADA MEDIANTE RESOLUCION N#", Ancho_Tiquete) & vbCrLf
+                    strPrint = strPrint & RELLENOCENTRO("DGTD-R-33-2019 DEL 20 DE JUNIO DEL 2019", Ancho_Tiquete) & vbCrLf
+                    strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-")
+                End If
+
                 Print(strPrint)
 
-            End If
+                End If
 
         Catch ex As Exception
             MessageBox.Show(ex.Message)

@@ -444,6 +444,17 @@ Public Class Globales
         End Try
     End Sub
 
+    Public Shared Sub SETEO_CONTROL_MINI(ByVal Buscador As BuscadorMini, ByVal Pantalla As Form, ByVal Valor As String)
+        Try
+            Buscador.refrescar()
+            Buscador.VALOR = Valor
+            Buscador.ACTUALIZAR_COMBO()
+            Pantalla.Close()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
     Public Shared Function RELLENOCENTRO(ByVal TEXTO As String, ByVal CANTIDAD As Integer) As String
         Try
             TEXTO = TEXTO.PadLeft((CANTIDAD + TEXTO.Length) \ 2).PadRight(CANTIDAD)

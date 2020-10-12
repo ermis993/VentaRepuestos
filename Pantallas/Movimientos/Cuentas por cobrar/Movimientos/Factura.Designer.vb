@@ -172,6 +172,7 @@ Partial Class Factura
         Me.Cliente.CAMPO_FILTRAR = Nothing
         Me.Cliente.CODIGO = Nothing
         Me.Cliente.DESCRIPCION = Nothing
+        Me.Cliente.FILTRAR_POR_COMPANIA = True
         Me.Cliente.Location = New System.Drawing.Point(111, 10)
         Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
         Me.Cliente.Name = "Cliente"

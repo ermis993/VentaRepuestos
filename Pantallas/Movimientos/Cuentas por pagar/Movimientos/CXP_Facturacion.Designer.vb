@@ -22,7 +22,6 @@ Partial Class CXP_Facturacion
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.DTPFINAL = New System.Windows.Forms.DateTimePicker()
         Me.DTPINICIO = New System.Windows.Forms.DateTimePicker()
@@ -32,31 +31,20 @@ Partial Class CXP_Facturacion
         Me.RB_TODOS = New System.Windows.Forms.RadioButton()
         Me.RB_INACTIVOS = New System.Windows.Forms.RadioButton()
         Me.RB_ACTIVOS = New System.Windows.Forms.RadioButton()
-        Me.BTN_FACTURAR = New System.Windows.Forms.Button()
         Me.Filtro = New VentaRepuestos.Filtro()
         Me.GRID = New System.Windows.Forms.DataGridView()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.CMB_TIPO_FACT = New System.Windows.Forms.ComboBox()
+        Me.BTN_PAGOS = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
+        Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
+        Me.BTN_FACTURAR = New System.Windows.Forms.Button()
+        Me.BTN_REPORTES = New System.Windows.Forms.Button()
         Me.GroupBox2.SuspendLayout()
         Me.Estado.SuspendLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'BTN_REFRESCAR
-        '
-        Me.BTN_REFRESCAR.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_REFRESCAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_REFRESCAR.Image = Global.VentaRepuestos.My.Resources.Resources.refrescar
-        Me.BTN_REFRESCAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_REFRESCAR.Location = New System.Drawing.Point(452, 9)
-        Me.BTN_REFRESCAR.Name = "BTN_REFRESCAR"
-        Me.BTN_REFRESCAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_REFRESCAR.TabIndex = 3
-        Me.BTN_REFRESCAR.Text = "Refrescar"
-        Me.BTN_REFRESCAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_REFRESCAR.UseVisualStyleBackColor = False
         '
         'GroupBox2
         '
@@ -150,19 +138,6 @@ Partial Class CXP_Facturacion
         Me.RB_ACTIVOS.Text = "Activos"
         Me.RB_ACTIVOS.UseVisualStyleBackColor = True
         '
-        'BTN_FACTURAR
-        '
-        Me.BTN_FACTURAR.Image = Global.VentaRepuestos.My.Resources.Resources.facturar
-        Me.BTN_FACTURAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_FACTURAR.Location = New System.Drawing.Point(1, 9)
-        Me.BTN_FACTURAR.Margin = New System.Windows.Forms.Padding(2)
-        Me.BTN_FACTURAR.Name = "BTN_FACTURAR"
-        Me.BTN_FACTURAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_FACTURAR.TabIndex = 0
-        Me.BTN_FACTURAR.Text = "Facturas"
-        Me.BTN_FACTURAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_FACTURAR.UseVisualStyleBackColor = True
-        '
         'Filtro
         '
         Me.Filtro.Location = New System.Drawing.Point(1, 57)
@@ -210,6 +185,19 @@ Partial Class CXP_Facturacion
         Me.CMB_TIPO_FACT.Size = New System.Drawing.Size(103, 21)
         Me.CMB_TIPO_FACT.TabIndex = 0
         '
+        'BTN_PAGOS
+        '
+        Me.BTN_PAGOS.Image = Global.VentaRepuestos.My.Resources.Resources.Pagos
+        Me.BTN_PAGOS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_PAGOS.Location = New System.Drawing.Point(100, 9)
+        Me.BTN_PAGOS.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_PAGOS.Name = "BTN_PAGOS"
+        Me.BTN_PAGOS.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_PAGOS.TabIndex = 10
+        Me.BTN_PAGOS.Text = "Pagos"
+        Me.BTN_PAGOS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_PAGOS.UseVisualStyleBackColor = True
+        '
         'BTN_SALIR
         '
         Me.BTN_SALIR.Anchor = System.Windows.Forms.AnchorStyles.None
@@ -224,6 +212,46 @@ Partial Class CXP_Facturacion
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = True
         '
+        'BTN_REFRESCAR
+        '
+        Me.BTN_REFRESCAR.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_REFRESCAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_REFRESCAR.Image = Global.VentaRepuestos.My.Resources.Resources.refrescar
+        Me.BTN_REFRESCAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_REFRESCAR.Location = New System.Drawing.Point(199, 9)
+        Me.BTN_REFRESCAR.Name = "BTN_REFRESCAR"
+        Me.BTN_REFRESCAR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_REFRESCAR.TabIndex = 3
+        Me.BTN_REFRESCAR.Text = "Refrescar"
+        Me.BTN_REFRESCAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_REFRESCAR.UseVisualStyleBackColor = False
+        '
+        'BTN_FACTURAR
+        '
+        Me.BTN_FACTURAR.Image = Global.VentaRepuestos.My.Resources.Resources.facturar
+        Me.BTN_FACTURAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_FACTURAR.Location = New System.Drawing.Point(1, 9)
+        Me.BTN_FACTURAR.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_FACTURAR.Name = "BTN_FACTURAR"
+        Me.BTN_FACTURAR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_FACTURAR.TabIndex = 0
+        Me.BTN_FACTURAR.Text = "Facturas"
+        Me.BTN_FACTURAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_FACTURAR.UseVisualStyleBackColor = True
+        '
+        'BTN_REPORTES
+        '
+        Me.BTN_REPORTES.Image = Global.VentaRepuestos.My.Resources.Resources.reportes
+        Me.BTN_REPORTES.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_REPORTES.Location = New System.Drawing.Point(453, 9)
+        Me.BTN_REPORTES.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_REPORTES.Name = "BTN_REPORTES"
+        Me.BTN_REPORTES.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_REPORTES.TabIndex = 11
+        Me.BTN_REPORTES.Text = "Reportes"
+        Me.BTN_REPORTES.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_REPORTES.UseVisualStyleBackColor = True
+        '
         'CXP_Facturacion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -231,6 +259,8 @@ Partial Class CXP_Facturacion
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(862, 518)
         Me.ControlBox = False
+        Me.Controls.Add(Me.BTN_REPORTES)
+        Me.Controls.Add(Me.BTN_PAGOS)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.GRID)
@@ -268,4 +298,6 @@ Partial Class CXP_Facturacion
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents CMB_TIPO_FACT As ComboBox
     Friend WithEvents BTN_SALIR As Button
+    Friend WithEvents BTN_PAGOS As Button
+    Friend WithEvents BTN_REPORTES As Button
 End Class

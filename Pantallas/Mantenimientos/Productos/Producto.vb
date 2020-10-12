@@ -161,4 +161,13 @@ Public Class Producto
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
+    Private Sub BTN_REPORTES_Click(sender As Object, e As EventArgs) Handles BTN_REPORTES.Click
+        Try
+            Dim PANTALLA As New Reportes_Productos()
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 End Class

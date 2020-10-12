@@ -247,7 +247,7 @@ Public Class NotaCredito
     End Sub
 
     Private Sub Cerrar()
-        EliminarTodoTemporal()
+        EliminarAfecTodo()
         Me.Close()
         Me.Padre.Refrescar()
     End Sub
@@ -341,21 +341,6 @@ Public Class NotaCredito
                 CMB_MONEDA.Enabled = True
                 Cliente.Enabled = True
             End If
-
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-        End Try
-    End Sub
-
-    Private Sub EliminarTodoTemporal()
-        Try
-            Dim SQL = " DELETE FROM DOCUMENTO_AFEC_DET_TMP WHERE CODIGO = " & SCM(Codigo)
-            Dim SQL2 = " DELETE FROM DOCUMENTO_AFEC_DET_PRODUCTOS_TMP WHERE CODIGO = " & SCM(Codigo)
-
-            CONX.Coneccion_Abrir()
-            CONX.EJECUTE(SQL)
-            CONX.EJECUTE(SQL2)
-            CONX.Coneccion_Cerrar()
 
         Catch ex As Exception
             MessageBox.Show(ex.Message)

@@ -22,6 +22,7 @@ Partial Class Login
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Login))
         Me.TXT_USUARIO = New System.Windows.Forms.TextBox()
         Me.TXT_CONTRASENA = New System.Windows.Forms.TextBox()
         Me.LBL_REGISTRARSE = New System.Windows.Forms.LinkLabel()
@@ -205,6 +206,7 @@ Partial Class Login
         Me.Controls.Add(Me.LBL_REGISTRARSE)
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "Login"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

@@ -1305,6 +1305,7 @@ Partial Class Factura
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.TabControl1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "Factura"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent

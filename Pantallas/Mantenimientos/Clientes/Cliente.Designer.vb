@@ -22,6 +22,7 @@ Partial Class Cliente
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Cliente))
         Me.GRID = New System.Windows.Forms.DataGridView()
         Me.BTN_AGREGAR = New System.Windows.Forms.Button()
         Me.BTN_MODIFICAR = New System.Windows.Forms.Button()
@@ -177,6 +178,7 @@ Partial Class Cliente
         Me.Controls.Add(Me.BTN_REFRESCAR)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Cliente"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Cliente"

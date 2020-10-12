@@ -42,12 +42,12 @@ Partial Class EncomiendaMant
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
-        Me.CMB_ORIGEN = New System.Windows.Forms.ComboBox()
-        Me.Label32 = New System.Windows.Forms.Label()
-        Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.CMB_SUCURSAL = New System.Windows.Forms.ComboBox()
         Me.Label6 = New System.Windows.Forms.Label()
+        Me.CMB_ORIGEN = New System.Windows.Forms.ComboBox()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
+        Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -232,19 +232,26 @@ Partial Class EncomiendaMant
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Aplicar ubicación"
         '
-        'BTN_ACEPTAR
+        'CMB_SUCURSAL
         '
-        Me.BTN_ACEPTAR.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_ACEPTAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_ACEPTAR.Image = CType(resources.GetObject("BTN_ACEPTAR.Image"), System.Drawing.Image)
-        Me.BTN_ACEPTAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(499, 325)
-        Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
-        Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_ACEPTAR.TabIndex = 2
-        Me.BTN_ACEPTAR.Text = "Aceptar"
-        Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
+        Me.CMB_SUCURSAL.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CMB_SUCURSAL.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.CMB_SUCURSAL.FormattingEnabled = True
+        Me.CMB_SUCURSAL.Location = New System.Drawing.Point(11, 94)
+        Me.CMB_SUCURSAL.Name = "CMB_SUCURSAL"
+        Me.CMB_SUCURSAL.Size = New System.Drawing.Size(434, 26)
+        Me.CMB_SUCURSAL.TabIndex = 4
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label6.Location = New System.Drawing.Point(10, 73)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(126, 18)
+        Me.Label6.TabIndex = 3
+        Me.Label6.Text = "Sucursal destino :"
         '
         'CMB_ORIGEN
         '
@@ -267,6 +274,20 @@ Partial Class EncomiendaMant
         Me.Label32.TabIndex = 0
         Me.Label32.Text = "Ubicación actual:"
         '
+        'BTN_ACEPTAR
+        '
+        Me.BTN_ACEPTAR.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_ACEPTAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_ACEPTAR.Image = CType(resources.GetObject("BTN_ACEPTAR.Image"), System.Drawing.Image)
+        Me.BTN_ACEPTAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(499, 325)
+        Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
+        Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_ACEPTAR.TabIndex = 2
+        Me.BTN_ACEPTAR.Text = "Aceptar"
+        Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
+        '
         'BTN_SALIR
         '
         Me.BTN_SALIR.BackColor = System.Drawing.SystemColors.ButtonFace
@@ -280,27 +301,6 @@ Partial Class EncomiendaMant
         Me.BTN_SALIR.Text = "Salir"
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
-        '
-        'CMB_SUCURSAL
-        '
-        Me.CMB_SUCURSAL.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CMB_SUCURSAL.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.CMB_SUCURSAL.FormattingEnabled = True
-        Me.CMB_SUCURSAL.Location = New System.Drawing.Point(11, 94)
-        Me.CMB_SUCURSAL.Name = "CMB_SUCURSAL"
-        Me.CMB_SUCURSAL.Size = New System.Drawing.Size(434, 26)
-        Me.CMB_SUCURSAL.TabIndex = 4
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label6.Location = New System.Drawing.Point(10, 73)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(126, 18)
-        Me.Label6.TabIndex = 3
-        Me.Label6.Text = "Sucursal destino :"
         '
         'EncomiendaMant
         '
@@ -316,6 +316,7 @@ Partial Class EncomiendaMant
         Me.Controls.Add(Me.TXT_GUIA)
         Me.Controls.Add(Me.Label8)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "EncomiendaMant"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Encomienda"

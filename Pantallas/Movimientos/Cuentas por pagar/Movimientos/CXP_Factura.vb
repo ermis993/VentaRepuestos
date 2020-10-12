@@ -613,7 +613,7 @@ Public Class CXP_Factura
                     Me.Close()
                 Else
                     Dim mensaje As String = "No ingresó el número de documento, el sistema le generará uno automaticamente" & vbNewLine
-                    mensaje &= "¿Esta de acuerdo?"
+                    mensaje &= "¿Esta de acuerdo en generar un número automático?"
 
                     Dim valor = MessageBox.Show(Me, mensaje, "Aviso", vbYesNo, MessageBoxIcon.Question)
 

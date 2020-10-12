@@ -22,6 +22,7 @@ Partial Class Compania
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Compania))
         Me.GRID = New System.Windows.Forms.DataGridView()
         Me.Estado = New System.Windows.Forms.GroupBox()
         Me.RB_TODAS = New System.Windows.Forms.RadioButton()
@@ -194,6 +195,7 @@ Partial Class Compania
         Me.Controls.Add(Me.BTN_DERECHO)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Compania"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Compania"

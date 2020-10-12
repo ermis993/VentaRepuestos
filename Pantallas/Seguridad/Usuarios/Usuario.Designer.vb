@@ -22,6 +22,7 @@ Partial Class Usuario
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Usuario))
         Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
         Me.BTN_DERECHO = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
@@ -100,6 +101,7 @@ Partial Class Usuario
         Me.Controls.Add(Me.BTN_DERECHO)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Usuario"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Derechos"

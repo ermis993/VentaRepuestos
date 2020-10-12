@@ -22,6 +22,7 @@ Partial Class DerechosSucursal
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DerechosSucursal))
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.LVCon = New System.Windows.Forms.ListView()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -141,6 +142,7 @@ Partial Class DerechosSucursal
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "DerechosSucursal"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Derechos sucursal"

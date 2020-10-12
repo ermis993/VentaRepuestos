@@ -22,6 +22,7 @@ Partial Class Reportes_CXC
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Reportes_CXC))
         Me.LBL_REPORTE_SELECCIONADO = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.DTP_FINAL = New System.Windows.Forms.DateTimePicker()
@@ -156,6 +157,7 @@ Partial Class Reportes_CXC
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Reportes_CXC"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Reportes"

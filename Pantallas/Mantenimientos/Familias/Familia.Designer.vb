@@ -22,6 +22,7 @@ Partial Class Familia
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Familia))
         Me.Estado = New System.Windows.Forms.GroupBox()
         Me.RB_TODOS = New System.Windows.Forms.RadioButton()
         Me.RB_INACTIVOS = New System.Windows.Forms.RadioButton()
@@ -177,6 +178,7 @@ Partial Class Familia
         Me.Controls.Add(Me.BTN_REFRESCAR)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Familia"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Familia"

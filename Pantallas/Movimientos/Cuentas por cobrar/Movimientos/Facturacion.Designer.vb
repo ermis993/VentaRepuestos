@@ -23,6 +23,7 @@ Partial Class Facturacion
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Facturacion))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.CMB_TIPO_FACT = New System.Windows.Forms.ComboBox()
         Me.GRID = New System.Windows.Forms.DataGridView()
@@ -397,6 +398,7 @@ Partial Class Facturacion
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.BTN_FACTURAR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "Facturacion"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent

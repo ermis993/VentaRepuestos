@@ -22,6 +22,7 @@ Partial Class CambioContrasena
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(CambioContrasena))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.TXT_CODIGO = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -43,9 +44,9 @@ Partial Class CambioContrasena
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.GroupBox1.Location = New System.Drawing.Point(9, 10)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Size = New System.Drawing.Size(437, 173)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
@@ -54,7 +55,7 @@ Partial Class CambioContrasena
         'TXT_CODIGO
         '
         Me.TXT_CODIGO.Location = New System.Drawing.Point(226, 44)
-        Me.TXT_CODIGO.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_CODIGO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_CODIGO.Name = "TXT_CODIGO"
         Me.TXT_CODIGO.Size = New System.Drawing.Size(196, 24)
         Me.TXT_CODIGO.TabIndex = 1
@@ -72,7 +73,7 @@ Partial Class CambioContrasena
         'TXT_DCONTRASENA
         '
         Me.TXT_DCONTRASENA.Location = New System.Drawing.Point(226, 124)
-        Me.TXT_DCONTRASENA.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_DCONTRASENA.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_DCONTRASENA.Name = "TXT_DCONTRASENA"
         Me.TXT_DCONTRASENA.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.TXT_DCONTRASENA.Size = New System.Drawing.Size(196, 24)
@@ -92,7 +93,7 @@ Partial Class CambioContrasena
         'TXT_NCONTRASENA
         '
         Me.TXT_NCONTRASENA.Location = New System.Drawing.Point(226, 80)
-        Me.TXT_NCONTRASENA.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_NCONTRASENA.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_NCONTRASENA.Name = "TXT_NCONTRASENA"
         Me.TXT_NCONTRASENA.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.TXT_NCONTRASENA.Size = New System.Drawing.Size(196, 24)
@@ -114,7 +115,7 @@ Partial Class CambioContrasena
         Me.BTN_ACEPTAR.Image = Global.VentaRepuestos.My.Resources.Resources.aceptar
         Me.BTN_ACEPTAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BTN_ACEPTAR.Location = New System.Drawing.Point(347, 199)
-        Me.BTN_ACEPTAR.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.BTN_ACEPTAR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
         Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_ACEPTAR.TabIndex = 1
@@ -132,7 +133,8 @@ Partial Class CambioContrasena
         Me.Controls.Add(Me.BTN_ACEPTAR)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "CambioContrasena"

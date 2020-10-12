@@ -39,10 +39,10 @@ Partial Class ProveedorMant
         Me.RB_INACTIVO = New System.Windows.Forms.RadioButton()
         Me.RB_ACTIVO = New System.Windows.Forms.RadioButton()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.BTN_SALIR = New System.Windows.Forms.Button()
-        Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
         Me.TXT_POR_VENTA = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.BTN_SALIR = New System.Windows.Forms.Button()
+        Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -225,6 +225,27 @@ Partial Class ProveedorMant
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Información General ]"
         '
+        'TXT_POR_VENTA
+        '
+        Me.TXT_POR_VENTA.BackColor = System.Drawing.SystemColors.Window
+        Me.TXT_POR_VENTA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TXT_POR_VENTA.Location = New System.Drawing.Point(130, 208)
+        Me.TXT_POR_VENTA.MaxLength = 2
+        Me.TXT_POR_VENTA.Multiline = True
+        Me.TXT_POR_VENTA.Name = "TXT_POR_VENTA"
+        Me.TXT_POR_VENTA.Size = New System.Drawing.Size(42, 24)
+        Me.TXT_POR_VENTA.TabIndex = 14
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(3, 211)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(126, 18)
+        Me.Label2.TabIndex = 13
+        Me.Label2.Text = "Porcentaje venta :"
+        '
         'BTN_SALIR
         '
         Me.BTN_SALIR.BackColor = System.Drawing.SystemColors.ButtonFace
@@ -253,27 +274,6 @@ Partial Class ProveedorMant
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
         '
-        'TXT_POR_VENTA
-        '
-        Me.TXT_POR_VENTA.BackColor = System.Drawing.SystemColors.Window
-        Me.TXT_POR_VENTA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_POR_VENTA.Location = New System.Drawing.Point(130, 208)
-        Me.TXT_POR_VENTA.MaxLength = 2
-        Me.TXT_POR_VENTA.Multiline = True
-        Me.TXT_POR_VENTA.Name = "TXT_POR_VENTA"
-        Me.TXT_POR_VENTA.Size = New System.Drawing.Size(42, 24)
-        Me.TXT_POR_VENTA.TabIndex = 14
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(3, 211)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(126, 18)
-        Me.Label2.TabIndex = 13
-        Me.Label2.Text = "Porcentaje venta :"
-        '
         'ProveedorMant
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -283,6 +283,8 @@ Partial Class ProveedorMant
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.BTN_ACEPTAR)
         Me.Controls.Add(Me.GroupBox1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "ProveedorMant"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Proveedor"

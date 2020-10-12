@@ -34,6 +34,7 @@ Partial Class CXP_Factura
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TAB_ENC = New System.Windows.Forms.TabPage()
+        Me.Cliente = New VentaRepuestos.Buscador()
         Me.TXT_DESCRIPCION = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.CMB_MONEDA = New System.Windows.Forms.ComboBox()
@@ -86,7 +87,6 @@ Partial Class CXP_Factura
         Me.BTN_FACTURAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
-        Me.Cliente = New VentaRepuestos.Buscador()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TAB_ENC.SuspendLayout()
@@ -231,6 +231,23 @@ Partial Class CXP_Factura
         Me.TAB_ENC.TabIndex = 0
         Me.TAB_ENC.Text = "[ Encabezado ]"
         Me.TAB_ENC.UseVisualStyleBackColor = True
+        '
+        'Cliente
+        '
+        Me.Cliente.CAMPO_FILTRAR = Nothing
+        Me.Cliente.CODIGO = Nothing
+        Me.Cliente.DESCRIPCION = Nothing
+        Me.Cliente.FILTRAR_POR_COMPANIA = True
+        Me.Cliente.Location = New System.Drawing.Point(111, 10)
+        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
+        Me.Cliente.Name = "Cliente"
+        Me.Cliente.OTROS_CAMP0S = Nothing
+        Me.Cliente.PANTALLA = Nothing
+        Me.Cliente.Size = New System.Drawing.Size(451, 32)
+        Me.Cliente.TabIndex = 1
+        Me.Cliente.TABLA_BUSCAR = "CLIENTE"
+        Me.Cliente.VALOR = ""
+        Me.Cliente.VALOR_DESCRIPCION = Nothing
         '
         'TXT_DESCRIPCION
         '
@@ -842,23 +859,6 @@ Partial Class CXP_Factura
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
         '
-        'Cliente
-        '
-        Me.Cliente.CAMPO_FILTRAR = Nothing
-        Me.Cliente.CODIGO = Nothing
-        Me.Cliente.DESCRIPCION = Nothing
-        Me.Cliente.FILTRAR_POR_COMPANIA = True
-        Me.Cliente.Location = New System.Drawing.Point(111, 10)
-        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cliente.Name = "Cliente"
-        Me.Cliente.OTROS_CAMP0S = Nothing
-        Me.Cliente.PANTALLA = Nothing
-        Me.Cliente.Size = New System.Drawing.Size(451, 32)
-        Me.Cliente.TabIndex = 1
-        Me.Cliente.TABLA_BUSCAR = "CLIENTE"
-        Me.Cliente.VALOR = ""
-        Me.Cliente.VALOR_DESCRIPCION = Nothing
-        '
         'CXP_Factura
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -880,6 +880,7 @@ Partial Class CXP_Factura
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "CXP_Factura"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "CXP Factura"

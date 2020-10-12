@@ -32,10 +32,10 @@ Partial Class ProductoEnlaze
         Me.LBL_PRODUCTO_SELECCIONADO = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.TXT_COD_PROD_HIJO = New System.Windows.Forms.TextBox()
         Me.TXT_DESC_PROD_HIJO = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.TXT_COD_PROD_HIJO = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -140,23 +140,6 @@ Partial Class ProductoEnlaze
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "[ Producto hijo ]"
         '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(24, 31)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(106, 13)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Código de producto :"
-        '
-        'TXT_COD_PROD_HIJO
-        '
-        Me.TXT_COD_PROD_HIJO.Location = New System.Drawing.Point(136, 28)
-        Me.TXT_COD_PROD_HIJO.Name = "TXT_COD_PROD_HIJO"
-        Me.TXT_COD_PROD_HIJO.ReadOnly = True
-        Me.TXT_COD_PROD_HIJO.Size = New System.Drawing.Size(213, 20)
-        Me.TXT_COD_PROD_HIJO.TabIndex = 1
-        '
         'TXT_DESC_PROD_HIJO
         '
         Me.TXT_DESC_PROD_HIJO.Location = New System.Drawing.Point(136, 54)
@@ -175,6 +158,23 @@ Partial Class ProductoEnlaze
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "Descripcion producto :"
         '
+        'TXT_COD_PROD_HIJO
+        '
+        Me.TXT_COD_PROD_HIJO.Location = New System.Drawing.Point(136, 28)
+        Me.TXT_COD_PROD_HIJO.Name = "TXT_COD_PROD_HIJO"
+        Me.TXT_COD_PROD_HIJO.ReadOnly = True
+        Me.TXT_COD_PROD_HIJO.Size = New System.Drawing.Size(213, 20)
+        Me.TXT_COD_PROD_HIJO.TabIndex = 1
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(24, 31)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(106, 13)
+        Me.Label1.TabIndex = 0
+        Me.Label1.Text = "Código de producto :"
+        '
         'ProductoEnlaze
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -190,6 +190,7 @@ Partial Class ProductoEnlaze
         Me.Controls.Add(Me.BTN_ACEPTAR)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "ProductoEnlaze"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Unificar códigos"

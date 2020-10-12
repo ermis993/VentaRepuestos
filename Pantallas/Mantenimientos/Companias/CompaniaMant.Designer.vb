@@ -728,6 +728,7 @@ Partial Class LBL_CANTON
         Me.Controls.Add(Me.BTN_ACEPTAR)
         Me.Controls.Add(Me.TAB_COMPANIA)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "LBL_CANTON"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Compania"

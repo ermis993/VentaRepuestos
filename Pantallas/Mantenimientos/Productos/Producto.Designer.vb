@@ -22,6 +22,7 @@ Partial Class Producto
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Producto))
         Me.Estado = New System.Windows.Forms.GroupBox()
         Me.RB_TODOS = New System.Windows.Forms.RadioButton()
         Me.RB_INACTIVOS = New System.Windows.Forms.RadioButton()
@@ -225,6 +226,7 @@ Partial Class Producto
         Me.Controls.Add(Me.BTN_REFRESCAR)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "Producto"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent

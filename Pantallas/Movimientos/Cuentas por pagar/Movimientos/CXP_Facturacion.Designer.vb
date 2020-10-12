@@ -22,6 +22,7 @@ Partial Class CXP_Facturacion
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(CXP_Facturacion))
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.DTPFINAL = New System.Windows.Forms.DateTimePicker()
         Me.DTPINICIO = New System.Windows.Forms.DateTimePicker()
@@ -270,6 +271,7 @@ Partial Class CXP_Facturacion
         Me.Controls.Add(Me.Estado)
         Me.Controls.Add(Me.BTN_FACTURAR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "CXP_Facturacion"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Facturación"

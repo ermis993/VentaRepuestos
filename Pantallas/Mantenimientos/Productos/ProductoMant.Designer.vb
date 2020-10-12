@@ -24,6 +24,7 @@ Partial Class ProductoMant
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ProductoMant))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.CHK_MODIFICABLE = New System.Windows.Forms.CheckBox()
         Me.TXT_OBSERVACION = New System.Windows.Forms.TextBox()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -67,7 +68,6 @@ Partial Class ProductoMant
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
-        Me.CHK_MODIFICABLE = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -125,6 +125,17 @@ Partial Class ProductoMant
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Información general ]"
+        '
+        'CHK_MODIFICABLE
+        '
+        Me.CHK_MODIFICABLE.AutoSize = True
+        Me.CHK_MODIFICABLE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CHK_MODIFICABLE.Location = New System.Drawing.Point(287, 24)
+        Me.CHK_MODIFICABLE.Name = "CHK_MODIFICABLE"
+        Me.CHK_MODIFICABLE.Size = New System.Drawing.Size(275, 20)
+        Me.CHK_MODIFICABLE.TabIndex = 2
+        Me.CHK_MODIFICABLE.Text = "El precio de este producto es modificable"
+        Me.CHK_MODIFICABLE.UseVisualStyleBackColor = True
         '
         'TXT_OBSERVACION
         '
@@ -612,17 +623,6 @@ Partial Class ProductoMant
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
         '
-        'CHK_MODIFICABLE
-        '
-        Me.CHK_MODIFICABLE.AutoSize = True
-        Me.CHK_MODIFICABLE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CHK_MODIFICABLE.Location = New System.Drawing.Point(287, 24)
-        Me.CHK_MODIFICABLE.Name = "CHK_MODIFICABLE"
-        Me.CHK_MODIFICABLE.Size = New System.Drawing.Size(275, 20)
-        Me.CHK_MODIFICABLE.TabIndex = 2
-        Me.CHK_MODIFICABLE.Text = "El precio de este producto es modificable"
-        Me.CHK_MODIFICABLE.UseVisualStyleBackColor = True
-        '
         'ProductoMant
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -634,6 +634,7 @@ Partial Class ProductoMant
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "ProductoMant"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent

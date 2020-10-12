@@ -54,8 +54,8 @@ Partial Class SucursalMant
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.CHK_VENTAS_NEGATIVAS = New System.Windows.Forms.CheckBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.CHK_VENTAS_NEGATIVAS = New System.Windows.Forms.CheckBox()
         Me.GroupBox2.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -411,6 +411,15 @@ Partial Class SucursalMant
         Me.TabPage3.Text = "Indicadores"
         Me.TabPage3.UseVisualStyleBackColor = True
         '
+        'Panel1
+        '
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.CHK_VENTAS_NEGATIVAS)
+        Me.Panel1.Location = New System.Drawing.Point(3, 3)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(462, 265)
+        Me.Panel1.TabIndex = 1
+        '
         'CHK_VENTAS_NEGATIVAS
         '
         Me.CHK_VENTAS_NEGATIVAS.AutoSize = True
@@ -422,15 +431,6 @@ Partial Class SucursalMant
         Me.CHK_VENTAS_NEGATIVAS.Text = "Permitir realizar ventas de productos sin inventario"
         Me.CHK_VENTAS_NEGATIVAS.UseVisualStyleBackColor = True
         '
-        'Panel1
-        '
-        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel1.Controls.Add(Me.CHK_VENTAS_NEGATIVAS)
-        Me.Panel1.Location = New System.Drawing.Point(3, 3)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(462, 265)
-        Me.Panel1.TabIndex = 1
-        '
         'SucursalMant
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -441,6 +441,8 @@ Partial Class SucursalMant
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.BTN_ACEPTAR)
         Me.Controls.Add(Me.BTN_SALIR)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "SucursalMant"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

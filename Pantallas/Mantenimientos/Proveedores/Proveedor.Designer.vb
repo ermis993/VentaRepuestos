@@ -22,6 +22,7 @@ Partial Class Proveedor
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Proveedor))
         Me.GRID = New System.Windows.Forms.DataGridView()
         Me.RB_ACTIVOS = New System.Windows.Forms.RadioButton()
         Me.RB_INACTIVOS = New System.Windows.Forms.RadioButton()
@@ -176,6 +177,8 @@ Partial Class Proveedor
         Me.Controls.Add(Me.BTN_MODIFICAR)
         Me.Controls.Add(Me.BTN_REFRESCAR)
         Me.Controls.Add(Me.BTN_SALIR)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Proveedor"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Proveedor"

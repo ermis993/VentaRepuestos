@@ -22,8 +22,11 @@ Partial Class Reportes_Productos
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Reportes_Productos))
         Me.LBL_REPORTE_SELECCIONADO = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.CMB_FAMILIA = New System.Windows.Forms.ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.DTP_FINAL = New System.Windows.Forms.DateTimePicker()
         Me.DTP_INICIO = New System.Windows.Forms.DateTimePicker()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -32,8 +35,6 @@ Partial Class Reportes_Productos
         Me.TV_REPORTES = New System.Windows.Forms.TreeView()
         Me.BTN_GENERAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.CMB_FAMILIA = New System.Windows.Forms.ComboBox()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -62,6 +63,24 @@ Partial Class Reportes_Productos
         Me.GroupBox2.TabIndex = 20
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "[ Parámetros ]"
+        '
+        'CMB_FAMILIA
+        '
+        Me.CMB_FAMILIA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CMB_FAMILIA.FormattingEnabled = True
+        Me.CMB_FAMILIA.Location = New System.Drawing.Point(250, 21)
+        Me.CMB_FAMILIA.Name = "CMB_FAMILIA"
+        Me.CMB_FAMILIA.Size = New System.Drawing.Size(227, 21)
+        Me.CMB_FAMILIA.TabIndex = 5
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(199, 25)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(45, 13)
+        Me.Label3.TabIndex = 4
+        Me.Label3.Text = "Familia :"
         '
         'DTP_FINAL
         '
@@ -148,24 +167,6 @@ Partial Class Reportes_Productos
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
         '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(199, 25)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(45, 13)
-        Me.Label3.TabIndex = 4
-        Me.Label3.Text = "Familia :"
-        '
-        'CMB_FAMILIA
-        '
-        Me.CMB_FAMILIA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CMB_FAMILIA.FormattingEnabled = True
-        Me.CMB_FAMILIA.Location = New System.Drawing.Point(250, 21)
-        Me.CMB_FAMILIA.Name = "CMB_FAMILIA"
-        Me.CMB_FAMILIA.Size = New System.Drawing.Size(227, 21)
-        Me.CMB_FAMILIA.TabIndex = 5
-        '
         'Reportes_Productos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -178,6 +179,7 @@ Partial Class Reportes_Productos
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Reportes_Productos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Reportes productos"

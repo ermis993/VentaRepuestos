@@ -22,6 +22,7 @@ Partial Class OlvidoContrasena
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(OlvidoContrasena))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.BTN_ENVIAR = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -39,9 +40,9 @@ Partial Class OlvidoContrasena
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.GroupBox1.Location = New System.Drawing.Point(9, 10)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Size = New System.Drawing.Size(582, 222)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
@@ -53,7 +54,7 @@ Partial Class OlvidoContrasena
         Me.BTN_ENVIAR.Image = Global.VentaRepuestos.My.Resources.Resources.enviar
         Me.BTN_ENVIAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BTN_ENVIAR.Location = New System.Drawing.Point(236, 78)
-        Me.BTN_ENVIAR.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.BTN_ENVIAR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_ENVIAR.Name = "BTN_ENVIAR"
         Me.BTN_ENVIAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_ENVIAR.TabIndex = 2
@@ -75,7 +76,7 @@ Partial Class OlvidoContrasena
         'TXT_DESTINATARIO
         '
         Me.TXT_DESTINATARIO.Location = New System.Drawing.Point(20, 87)
-        Me.TXT_DESTINATARIO.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_DESTINATARIO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_DESTINATARIO.Name = "TXT_DESTINATARIO"
         Me.TXT_DESTINATARIO.Size = New System.Drawing.Size(196, 24)
         Me.TXT_DESTINATARIO.TabIndex = 1
@@ -96,7 +97,7 @@ Partial Class OlvidoContrasena
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BTN_SALIR.Location = New System.Drawing.Point(492, 313)
-        Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 1
@@ -114,7 +115,8 @@ Partial Class OlvidoContrasena
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "OlvidoContrasena"

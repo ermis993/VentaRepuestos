@@ -22,6 +22,7 @@ Partial Class Encomienda
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Encomienda))
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.DTPFINAL = New System.Windows.Forms.DateTimePicker()
         Me.DTPINICIO = New System.Windows.Forms.DateTimePicker()
@@ -253,6 +254,7 @@ Partial Class Encomienda
         Me.Controls.Add(Me.BTN_RECEPCION)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Encomienda"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Encomienda"

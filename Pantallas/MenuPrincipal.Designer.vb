@@ -22,6 +22,7 @@ Partial Class MenuPrincipal
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MenuPrincipal))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.CMB_SUCURSAL = New System.Windows.Forms.ComboBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -369,6 +370,7 @@ Partial Class MenuPrincipal
         Me.Controls.Add(Me.BTN_SUCURSAL)
         Me.Controls.Add(Me.BTN_COMPANIA)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimumSize = New System.Drawing.Size(908, 530)
         Me.Name = "MenuPrincipal"

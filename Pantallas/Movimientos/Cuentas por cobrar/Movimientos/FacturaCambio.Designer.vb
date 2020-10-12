@@ -140,6 +140,7 @@ Partial Class FacturaCambio
         Me.Controls.Add(Me.TXT_PAGA_CON)
         Me.Controls.Add(Me.Label2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FacturaCambio"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Cambio al cliente"

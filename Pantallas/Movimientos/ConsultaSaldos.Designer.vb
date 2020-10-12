@@ -22,6 +22,7 @@ Partial Class ConsultaSaldos
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ConsultaSaldos))
         Me.TXT_BUSCADOR = New System.Windows.Forms.TextBox()
         Me.BTN_BUSCAR = New System.Windows.Forms.Button()
         Me.GRID = New System.Windows.Forms.DataGridView()
@@ -87,6 +88,7 @@ Partial Class ConsultaSaldos
         Me.Controls.Add(Me.BTN_BUSCAR)
         Me.Controls.Add(Me.TXT_BUSCADOR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "ConsultaSaldos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Consulta saldos"

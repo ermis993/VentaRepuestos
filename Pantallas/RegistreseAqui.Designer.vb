@@ -22,6 +22,7 @@ Partial Class RegistreseAqui
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(RegistreseAqui))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TXT_NOMUSUARIO = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -59,7 +60,7 @@ Partial Class RegistreseAqui
         '
         Me.TXT_NOMUSUARIO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
         Me.TXT_NOMUSUARIO.Location = New System.Drawing.Point(112, 46)
-        Me.TXT_NOMUSUARIO.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_NOMUSUARIO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_NOMUSUARIO.MaxLength = 50
         Me.TXT_NOMUSUARIO.Name = "TXT_NOMUSUARIO"
         Me.TXT_NOMUSUARIO.Size = New System.Drawing.Size(196, 24)
@@ -81,7 +82,7 @@ Partial Class RegistreseAqui
         '
         Me.TXT_TELEFONO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
         Me.TXT_TELEFONO.Location = New System.Drawing.Point(112, 126)
-        Me.TXT_TELEFONO.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_TELEFONO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_TELEFONO.MaxLength = 8
         Me.TXT_TELEFONO.Name = "TXT_TELEFONO"
         Me.TXT_TELEFONO.Size = New System.Drawing.Size(128, 24)
@@ -103,7 +104,7 @@ Partial Class RegistreseAqui
         '
         Me.TXT_DIRECCION.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
         Me.TXT_DIRECCION.Location = New System.Drawing.Point(112, 160)
-        Me.TXT_DIRECCION.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_DIRECCION.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_DIRECCION.MaxLength = 250
         Me.TXT_DIRECCION.Multiline = True
         Me.TXT_DIRECCION.Name = "TXT_DIRECCION"
@@ -126,7 +127,7 @@ Partial Class RegistreseAqui
         '
         Me.TXT_CORREO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
         Me.TXT_CORREO.Location = New System.Drawing.Point(112, 286)
-        Me.TXT_CORREO.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_CORREO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_CORREO.MaxLength = 150
         Me.TXT_CORREO.Name = "TXT_CORREO"
         Me.TXT_CORREO.Size = New System.Drawing.Size(196, 24)
@@ -148,7 +149,7 @@ Partial Class RegistreseAqui
         '
         Me.TXT_CONTRASENA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
         Me.TXT_CONTRASENA.Location = New System.Drawing.Point(112, 88)
-        Me.TXT_CONTRASENA.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_CONTRASENA.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_CONTRASENA.MaxLength = 100
         Me.TXT_CONTRASENA.Name = "TXT_CONTRASENA"
         Me.TXT_CONTRASENA.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -160,7 +161,7 @@ Partial Class RegistreseAqui
         '
         Me.BTN_SELECCIONAR.ForeColor = System.Drawing.Color.Black
         Me.BTN_SELECCIONAR.Location = New System.Drawing.Point(4, 262)
-        Me.BTN_SELECCIONAR.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.BTN_SELECCIONAR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_SELECCIONAR.Name = "BTN_SELECCIONAR"
         Me.BTN_SELECCIONAR.Size = New System.Drawing.Size(193, 33)
         Me.BTN_SELECCIONAR.TabIndex = 0
@@ -174,9 +175,9 @@ Partial Class RegistreseAqui
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
         Me.GroupBox1.Location = New System.Drawing.Point(324, 10)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Size = New System.Drawing.Size(202, 300)
         Me.GroupBox1.TabIndex = 12
         Me.GroupBox1.TabStop = False
@@ -185,7 +186,7 @@ Partial Class RegistreseAqui
         'PictureBox1
         '
         Me.PictureBox1.Location = New System.Drawing.Point(4, 23)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(193, 206)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -198,7 +199,7 @@ Partial Class RegistreseAqui
         Me.BtnSalir.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BtnSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BtnSalir.Location = New System.Drawing.Point(427, 331)
-        Me.BtnSalir.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.BtnSalir.Margin = New System.Windows.Forms.Padding(2)
         Me.BtnSalir.Name = "BtnSalir"
         Me.BtnSalir.Size = New System.Drawing.Size(99, 43)
         Me.BtnSalir.TabIndex = 14
@@ -212,7 +213,7 @@ Partial Class RegistreseAqui
         Me.BTN_GUARDAR.Image = Global.VentaRepuestos.My.Resources.Resources.aceptar
         Me.BTN_GUARDAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BTN_GUARDAR.Location = New System.Drawing.Point(323, 331)
-        Me.BTN_GUARDAR.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.BTN_GUARDAR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_GUARDAR.Name = "BTN_GUARDAR"
         Me.BTN_GUARDAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_GUARDAR.TabIndex = 13
@@ -224,7 +225,7 @@ Partial Class RegistreseAqui
         '
         Me.TXT_CODIGO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold)
         Me.TXT_CODIGO.Location = New System.Drawing.Point(112, 10)
-        Me.TXT_CODIGO.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TXT_CODIGO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_CODIGO.MaxLength = 50
         Me.TXT_CODIGO.Name = "TXT_CODIGO"
         Me.TXT_CODIGO.Size = New System.Drawing.Size(128, 24)
@@ -264,7 +265,8 @@ Partial Class RegistreseAqui
         Me.Controls.Add(Me.TXT_NOMUSUARIO)
         Me.Controls.Add(Me.Label1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "RegistreseAqui"

@@ -22,6 +22,7 @@ Partial Class EncomiendaReporte
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(EncomiendaReporte))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.TV_REPORTES = New System.Windows.Forms.TreeView()
         Me.BTN_GENERAR = New System.Windows.Forms.Button()
@@ -154,6 +155,7 @@ Partial Class EncomiendaReporte
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "EncomiendaReporte"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

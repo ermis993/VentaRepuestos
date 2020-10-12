@@ -22,6 +22,7 @@ Partial Class DocumentoElectronicoImp
     'No lo modifique con el editor de código.
         <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DocumentoElectronicoImp))
         Me.OFD = New System.Windows.Forms.OpenFileDialog()
         Me.BTN_ELIMINAR = New System.Windows.Forms.Button()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
@@ -491,7 +492,7 @@ Partial Class DocumentoElectronicoImp
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.UseVisualStyleBackColor = True
         '
-        'DocumentosElectronicos
+        'DocumentoElectronicoImp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -502,9 +503,10 @@ Partial Class DocumentoElectronicoImp
         Me.Controls.Add(Me.BTN_ACEPTAR)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "DocumentosElectronicos"
+        Me.Name = "DocumentoElectronicoImp"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Importación"
         Me.TabControl1.ResumeLayout(False)

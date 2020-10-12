@@ -22,6 +22,7 @@ Partial Class DerechosCompania
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DerechosCompania))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.CMB_COMPANIA = New System.Windows.Forms.ComboBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -170,6 +171,7 @@ Partial Class DerechosCompania
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "DerechosCompania"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

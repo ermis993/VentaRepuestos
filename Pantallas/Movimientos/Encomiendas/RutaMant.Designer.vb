@@ -176,6 +176,7 @@ Partial Class RutaMant
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.BTN_ACEPTAR)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "RutaMant"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Ruta"

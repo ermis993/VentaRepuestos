@@ -63,7 +63,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>umbrella-corp-icon.ico</ApplicationIcon>
+    <ApplicationIcon>icono.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
@@ -506,6 +506,9 @@
     <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\CXP_Pagos.resx">
       <DependentUpon>CXP_Pagos.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\DocumentoElectronicoImp.resx">
+      <DependentUpon>DocumentoElectronicoImp.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por pagar\Reportes\Reportes_CXP.resx">
       <DependentUpon>Reportes_CXP.vb</DependentUpon>
     </EmbeddedResource>
@@ -723,7 +726,7 @@
     <None Include="Resources\entrar.png" />
     <None Include="Resources\salida.png" />
     <None Include="Resources\Pagos.png" />
-    <Content Include="umbrella-corp-icon.ico" />
+    <Content Include="icono.ico" />
     <None Include="Resources\transportar.png" />
     <None Include="Resources\ubicacion.png" />
     <None Include="Resources\proveedor1.png" />

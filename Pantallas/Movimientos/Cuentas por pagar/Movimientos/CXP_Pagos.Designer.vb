@@ -460,18 +460,18 @@ Partial Class CXP_Pagos
         '
         Me.CMS.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.IgualarMontoToolStripMenuItem, Me.IngrearMontoToolStripMenuItem})
         Me.CMS.Name = "CMS"
-        Me.CMS.Size = New System.Drawing.Size(181, 70)
+        Me.CMS.Size = New System.Drawing.Size(156, 48)
         '
         'IgualarMontoToolStripMenuItem
         '
         Me.IgualarMontoToolStripMenuItem.Name = "IgualarMontoToolStripMenuItem"
-        Me.IgualarMontoToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.IgualarMontoToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
         Me.IgualarMontoToolStripMenuItem.Text = "Igualar monto"
         '
         'IngrearMontoToolStripMenuItem
         '
         Me.IngrearMontoToolStripMenuItem.Name = "IngrearMontoToolStripMenuItem"
-        Me.IngrearMontoToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.IngrearMontoToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
         Me.IngrearMontoToolStripMenuItem.Text = "Ingresar monto"
         '
         'CXP_Pagos
@@ -491,6 +491,7 @@ Partial Class CXP_Pagos
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "CXP_Pagos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Pagos"

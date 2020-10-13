@@ -111,7 +111,7 @@ Partial Class Login
         Me.BTN_SALIR.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_SALIR.ForeColor = System.Drawing.Color.Black
-        Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salida
+        Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.sistema_off
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BTN_SALIR.Location = New System.Drawing.Point(148, 130)
         Me.BTN_SALIR.Name = "BTN_SALIR"

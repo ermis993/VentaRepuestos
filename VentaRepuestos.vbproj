@@ -720,6 +720,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\sistema_off.png" />
     <None Include="Resources\apartado.png" />
     <None Include="Resources\anular.png" />
     <None Include="Resources\contrasena_login.png" />

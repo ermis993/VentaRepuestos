@@ -262,7 +262,7 @@ Public Class Globales
             SQL &= Chr(13) & "FROM sysobjects"
             SQL &= Chr(13) & "WHERE TYPE = 'P' "
             SQL &= Chr(13) & "AND NAME = " & SCM(PROCEDIMIENTO)
-            SQL &= Chr(13) & "AND CONVERT(VARCHAR(10), CRDATE, 126) >= " & SCM(YMD(FECHA))
+            SQL &= Chr(13) & "AND CONVERT(VARCHAR(10), CRDATE, 111) >= " & SCM(YMD(FECHA))
 
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)
@@ -294,7 +294,7 @@ Public Class Globales
             Dim SQL = "	SELECT *  "
             SQL &= Chr(13) & "FROM sys.triggers"
             SQL &= Chr(13) & "WHERE NAME = " & SCM(TRIGGER)
-            SQL &= Chr(13) & "AND CONVERT(VARCHAR(10), MODIFY_DATE, 126) >= " & SCM(YMD(FECHA))
+            SQL &= Chr(13) & "AND CONVERT(VARCHAR(10), MODIFY_DATE, 111) >= " & SCM(YMD(FECHA))
 
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)

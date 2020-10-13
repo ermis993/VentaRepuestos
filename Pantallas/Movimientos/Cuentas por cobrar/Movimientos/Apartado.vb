@@ -585,8 +585,14 @@ Public Class Apartado
         TXT_CODIGO.Text = codigo
 
         Dim Saldo_Producto As Decimal = Saldo_Actual(codigo)
+        Dim Minimo_Stock As Decimal = Min_Stock(codigo)
 
         If ((IND_VENTAS_NEGATIVAS = "S" And Saldo_Producto <= 0.0) Or Saldo_Producto > 0.0) Then
+
+            If IND_MIN_STOCK = "S" And (Saldo_Producto <= Minimo_Stock) Then
+                MessageBox.Show(Me, "El producto está llegando a su mínimo actualmente el saldo es: " & FMC(Saldo_Producto), "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            End If
+
             RellenaProducto(estante, fila, columna)
             Busca_Producto()
             TXT_CANTIDAD.Focus()
@@ -614,6 +620,31 @@ Public Class Apartado
 
             If DS.Tables(0).Rows.Count > 0 Then
                 Resultado = FMC(DS.Tables(0).Rows(0).Item("CANTIDAD"))
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+
+        Return Resultado
+
+    End Function
+
+    Private Function Min_Stock(ByVal COD_PROD As String) As Decimal
+        Dim Resultado As Decimal = 0.0
+        Try
+            Dim Sql = "	SELECT ISNULL(MINIMO, 0) AS MIN  "
+            Sql &= Chr(13) & "	FROM PRODUCTO"
+            Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+            Sql &= Chr(13) & "	AND COD_PROD = " & SCM(COD_PROD)
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(Sql)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                Resultado = FMC(DS.Tables(0).Rows(0).Item("MIN"))
             End If
 
         Catch ex As Exception

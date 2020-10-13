@@ -83,12 +83,14 @@ Public Class SucursalMant
                 SQL &= Chr(13) & " @COD_CIA=" & SCM(COD_CIA)
                 SQL &= Chr(13) & ",@COD_SUCUR=" & SCM(TXT_CODIGO.Text)
                 SQL &= Chr(13) & ",@IND_PERMITE_VENTAS_NEGATIVO=" & SCM(IIf(CHK_VENTAS_NEGATIVAS.Checked, "S", "N"))
+                SQL &= Chr(13) & ",@IND_AVISO_MIN_STOCK=" & SCM(IIf(CHK_AVISO_STOCK.Checked, "S", "N"))
                 SQL &= Chr(13) & ",@MODO=" & Val(Me.MODO)
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
 
-                IND_VENTAS_NEGATIVAS = VENTA_NEGATIVA(COD_CIA, TXT_CODIGO.Text)
+                INDICADORES_SUCURSAL(COD_CIA, TXT_CODIGO.Text)
+
                 LimpiarTodo()
                 If MODO = CRF_Modos.Insertar Then
                     MessageBox.Show("Sucursal ingresada correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -155,6 +157,7 @@ Public Class SucursalMant
             If DS.Tables(0).Rows.Count > 0 Then
                 For Each ITEM In DS.Tables(0).Rows
                     CHK_VENTAS_NEGATIVAS.Checked = IIf(ITEM("IND_PERMITE_VENTAS_NEGATIVO") = "S", True, False)
+                    CHK_AVISO_STOCK.Checked = IIf(ITEM("IND_AVISO_MIN_STOCK") = "S", True, False)
                 Next
             End If
         Catch ex As Exception

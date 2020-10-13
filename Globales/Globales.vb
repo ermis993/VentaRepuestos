@@ -15,6 +15,7 @@ Public Class Globales
     Public Shared COD_USUARIO As String
     Public Shared IND_ENCOMIENDA As String
     Public Shared IND_VENTAS_NEGATIVAS As String
+    Public Shared IND_MIN_STOCK As String
 
     Public Shared TC_COMPRA As Decimal
     Public Shared TC_VENTA As Decimal
@@ -341,25 +342,27 @@ Public Class Globales
         End Try
     End Function
 
-    Public Shared Function VENTA_NEGATIVA(ByVal COD_CIA As String, ByVal COD_SUCUR As String) As String
+    Public Shared Sub INDICADORES_SUCURSAL(ByVal COD_CIA As String, ByVal COD_SUCUR As String)
         Try
-            Dim RESULTADO As String = "N"
-            Dim SQL = "	SELECT ISNULL(IND_PERMITE_VENTAS_NEGATIVO, 'N') AS IND_VENTAS FROM SUCURSAL_INDICADORES WHERE COD_CIA = " & SCM(COD_CIA) & " AND COD_SUCUR = " & SCM(COD_SUCUR)
+            Dim SQL = "	SELECT ISNULL(IND_PERMITE_VENTAS_NEGATIVO, 'N') AS IND_VENTAS, ISNULL(IND_AVISO_MIN_STOCK, 'N') AS IND_AVISO_MIN_STOCK "
+            SQL &= Chr(13) & " FROM SUCURSAL_INDICADORES "
+            SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & " AND COD_SUCUR = " & SCM(COD_SUCUR)
+
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)
             CONX.Coneccion_Cerrar()
             If DS.Tables(0).Rows.Count > 0 Then
                 For Each ITEM In DS.Tables(0).Rows
-                    RESULTADO = ITEM("IND_VENTAS")
+                    IND_VENTAS_NEGATIVAS = ITEM("IND_VENTAS")
+                    IND_MIN_STOCK = ITEM("IND_AVISO_MIN_STOCK")
                     Exit For
                 Next
             End If
-            Return RESULTADO
         Catch ex As Exception
             MessageBox.Show(ex.Message)
-            Return False
         End Try
-    End Function
+    End Sub
 
     Public Shared Function FECHA_HOY() As String
         Try

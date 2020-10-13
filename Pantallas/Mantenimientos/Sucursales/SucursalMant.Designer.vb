@@ -56,6 +56,7 @@ Partial Class SucursalMant
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.CHK_VENTAS_NEGATIVAS = New System.Windows.Forms.CheckBox()
+        Me.CHK_AVISO_STOCK = New System.Windows.Forms.CheckBox()
         Me.GroupBox2.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -414,6 +415,7 @@ Partial Class SucursalMant
         'Panel1
         '
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.CHK_AVISO_STOCK)
         Me.Panel1.Controls.Add(Me.CHK_VENTAS_NEGATIVAS)
         Me.Panel1.Location = New System.Drawing.Point(3, 3)
         Me.Panel1.Name = "Panel1"
@@ -430,6 +432,17 @@ Partial Class SucursalMant
         Me.CHK_VENTAS_NEGATIVAS.TabIndex = 0
         Me.CHK_VENTAS_NEGATIVAS.Text = "Permitir realizar ventas de productos sin inventario"
         Me.CHK_VENTAS_NEGATIVAS.UseVisualStyleBackColor = True
+        '
+        'CHK_AVISO_STOCK
+        '
+        Me.CHK_AVISO_STOCK.AutoSize = True
+        Me.CHK_AVISO_STOCK.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CHK_AVISO_STOCK.Location = New System.Drawing.Point(6, 35)
+        Me.CHK_AVISO_STOCK.Name = "CHK_AVISO_STOCK"
+        Me.CHK_AVISO_STOCK.Size = New System.Drawing.Size(353, 17)
+        Me.CHK_AVISO_STOCK.TabIndex = 1
+        Me.CHK_AVISO_STOCK.Text = "Mostrar aviso cuando el producto esté cercano a su mínimo de stock"
+        Me.CHK_AVISO_STOCK.UseVisualStyleBackColor = True
         '
         'SucursalMant
         '
@@ -497,4 +510,5 @@ Partial Class SucursalMant
     Friend WithEvents TabPage3 As TabPage
     Friend WithEvents CHK_VENTAS_NEGATIVAS As CheckBox
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents CHK_AVISO_STOCK As CheckBox
 End Class

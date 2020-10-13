@@ -162,7 +162,7 @@ Public Class MenuPrincipal
             If Not CMB_SUCURSAL.DataSource Is Nothing Then
                 If Bandera_Sucursal = True Then
                     COD_SUCUR = CMB_SUCURSAL.SelectedItem().ToString.Substring(1, 3)
-                    IND_VENTAS_NEGATIVAS = VENTA_NEGATIVA(COD_CIA, COD_SUCUR)
+                    INDICADORES_SUCURSAL(COD_CIA, COD_SUCUR)
                 End If
             End If
         Catch ex As Exception

@@ -411,7 +411,7 @@ Public Class Actualizaciones
 
     Private Sub TG_INGRESA_INVENTARIO_APARTADO_DET()
         Try
-            If Not EXISTE_TRIGGER("TG_INGRESA_INVENTARIO_APARTADO_DET", "2020-10-13") Then
+            If Not EXISTE_TRIGGER("TG_INGRESA_INVENTARIO_APARTADO_DET", "2020-10-14") Then
                 ELIMINA_TRIGGER("TG_INGRESA_INVENTARIO_APARTADO_DET")
 
                 Dim SQL = "	CREATE TRIGGER [dbo].[TG_INGRESA_INVENTARIO_APARTADO_DET] 																						"
@@ -432,6 +432,7 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "			AND MOV.SISTEMA = 'CXC'																				"
                 SQL &= Chr(13) & "		INNER JOIN PRODUCTO AS PROD																					"
                 SQL &= Chr(13) & "			ON PROD.COD_CIA = I.COD_CIA																				"
+                SQL &= Chr(13) & "          AND PROD.COD_SUCUR = I.COD_SUCUR    "
                 SQL &= Chr(13) & "			AND PROD.COD_PROD = I.COD_PROD																				"
                 SQL &= Chr(13) & "	END																						"
 
@@ -467,6 +468,7 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "			AND MOV.SISTEMA = 'CXP'																				"
                 SQL &= Chr(13) & "		INNER JOIN PRODUCTO AS PROD																					"
                 SQL &= Chr(13) & "			ON PROD.COD_CIA = I.COD_CIA																				"
+                SQL &= Chr(13) & "          AND PROD.COD_SUCUR = I.COD_SUCUR    "
                 SQL &= Chr(13) & "			AND PROD.COD_PROD = I.COD_PROD																				"
                 SQL &= Chr(13) & "																							"
                 SQL &= Chr(13) & "																							"
@@ -579,7 +581,7 @@ Public Class Actualizaciones
 
     Private Sub TG_INGRESA_INVENTARIO_MOV_DET()
         Try
-            If Not EXISTE_TRIGGER("TG_INGRESA_INVENTARIO_MOV_DET", "2020-10-12") Then
+            If Not EXISTE_TRIGGER("TG_INGRESA_INVENTARIO_MOV_DET", "2020-10-14") Then
                 ELIMINA_TRIGGER("TG_INGRESA_INVENTARIO_MOV_DET")
 
                 Dim SQL = "	CREATE TRIGGER [dbo].[TG_INGRESA_INVENTARIO_MOV_DET] 																						"
@@ -600,6 +602,7 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "			AND MOV.SISTEMA = 'CXC'																				"
                 SQL &= Chr(13) & "		INNER JOIN PRODUCTO AS PROD																					"
                 SQL &= Chr(13) & "			ON PROD.COD_CIA = I.COD_CIA																				"
+                SQL &= Chr(13) & "          AND PROD.COD_SUCUR = I.COD_SUCUR"
                 SQL &= Chr(13) & "			AND PROD.COD_PROD = I.COD_PROD																				"
                 SQL &= Chr(13) & "	END																						"
                 CONX.Coneccion_Abrir()

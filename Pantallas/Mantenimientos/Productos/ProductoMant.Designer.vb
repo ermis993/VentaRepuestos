@@ -68,6 +68,8 @@ Partial Class ProductoMant
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
+        Me.TXT_COD_CABYS = New System.Windows.Forms.TextBox()
+        Me.Label21 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -76,6 +78,8 @@ Partial Class ProductoMant
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.TXT_COD_CABYS)
+        Me.GroupBox1.Controls.Add(Me.Label21)
         Me.GroupBox1.Controls.Add(Me.CHK_MODIFICABLE)
         Me.GroupBox1.Controls.Add(Me.TXT_OBSERVACION)
         Me.GroupBox1.Controls.Add(Me.Label20)
@@ -121,7 +125,7 @@ Partial Class ProductoMant
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox1.Size = New System.Drawing.Size(572, 398)
+        Me.GroupBox1.Size = New System.Drawing.Size(572, 428)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Información general ]"
@@ -140,33 +144,33 @@ Partial Class ProductoMant
         'TXT_OBSERVACION
         '
         Me.TXT_OBSERVACION.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_OBSERVACION.Location = New System.Drawing.Point(119, 346)
+        Me.TXT_OBSERVACION.Location = New System.Drawing.Point(119, 376)
         Me.TXT_OBSERVACION.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_OBSERVACION.MaxLength = 150
         Me.TXT_OBSERVACION.Multiline = True
         Me.TXT_OBSERVACION.Name = "TXT_OBSERVACION"
         Me.TXT_OBSERVACION.Size = New System.Drawing.Size(443, 48)
-        Me.TXT_OBSERVACION.TabIndex = 39
+        Me.TXT_OBSERVACION.TabIndex = 41
         '
         'Label20
         '
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label20.Location = New System.Drawing.Point(19, 346)
+        Me.Label20.Location = New System.Drawing.Point(19, 376)
         Me.Label20.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(96, 18)
-        Me.Label20.TabIndex = 38
+        Me.Label20.TabIndex = 40
         Me.Label20.Text = "Observación:"
         '
         'Panel1
         '
         Me.Panel1.Controls.Add(Me.RB_ACTIVO)
         Me.Panel1.Controls.Add(Me.RB_INACTIVO)
-        Me.Panel1.Location = New System.Drawing.Point(120, 317)
+        Me.Panel1.Location = New System.Drawing.Point(120, 347)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(153, 23)
-        Me.Panel1.TabIndex = 37
+        Me.Panel1.TabIndex = 39
         '
         'RB_ACTIVO
         '
@@ -195,11 +199,11 @@ Partial Class ProductoMant
         '
         Me.Label19.AutoSize = True
         Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label19.Location = New System.Drawing.Point(52, 319)
+        Me.Label19.Location = New System.Drawing.Point(52, 349)
         Me.Label19.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(63, 18)
-        Me.Label19.TabIndex = 36
+        Me.Label19.TabIndex = 38
         Me.Label19.Text = "Estado :"
         '
         'Buscador_Familia
@@ -208,13 +212,13 @@ Partial Class ProductoMant
         Me.Buscador_Familia.CODIGO = Nothing
         Me.Buscador_Familia.DESCRIPCION = Nothing
         Me.Buscador_Familia.FILTRAR_POR_COMPANIA = True
-        Me.Buscador_Familia.Location = New System.Drawing.Point(120, 87)
+        Me.Buscador_Familia.Location = New System.Drawing.Point(120, 117)
         Me.Buscador_Familia.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Buscador_Familia.Name = "Buscador_Familia"
         Me.Buscador_Familia.OTROS_CAMP0S = ""
         Me.Buscador_Familia.PANTALLA = Nothing
         Me.Buscador_Familia.Size = New System.Drawing.Size(451, 32)
-        Me.Buscador_Familia.TabIndex = 6
+        Me.Buscador_Familia.TabIndex = 8
         Me.Buscador_Familia.TABLA_BUSCAR = "FAMILIA"
         Me.Buscador_Familia.VALOR = ""
         Me.Buscador_Familia.VALOR_DESCRIPCION = Nothing
@@ -223,76 +227,76 @@ Partial Class ProductoMant
         '
         Me.Label18.AutoSize = True
         Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label18.Location = New System.Drawing.Point(56, 94)
+        Me.Label18.Location = New System.Drawing.Point(56, 124)
         Me.Label18.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(59, 18)
-        Me.Label18.TabIndex = 5
+        Me.Label18.TabIndex = 7
         Me.Label18.Text = "Familia:"
         '
         'TXT_PRECIO_3
         '
         Me.TXT_PRECIO_3.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_PRECIO_3.Location = New System.Drawing.Point(346, 316)
+        Me.TXT_PRECIO_3.Location = New System.Drawing.Point(346, 346)
         Me.TXT_PRECIO_3.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_PRECIO_3.MaxLength = 18
         Me.TXT_PRECIO_3.Name = "TXT_PRECIO_3"
         Me.TXT_PRECIO_3.Size = New System.Drawing.Size(87, 24)
-        Me.TXT_PRECIO_3.TabIndex = 27
+        Me.TXT_PRECIO_3.TabIndex = 29
         Me.TXT_PRECIO_3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label17
         '
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label17.Location = New System.Drawing.Point(275, 319)
+        Me.Label17.Location = New System.Drawing.Point(275, 349)
         Me.Label17.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(67, 18)
-        Me.Label17.TabIndex = 26
+        Me.Label17.TabIndex = 28
         Me.Label17.Text = "Precio 3:"
         '
         'TXT_PRECIO_2
         '
         Me.TXT_PRECIO_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_PRECIO_2.Location = New System.Drawing.Point(346, 288)
+        Me.TXT_PRECIO_2.Location = New System.Drawing.Point(346, 318)
         Me.TXT_PRECIO_2.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_PRECIO_2.MaxLength = 18
         Me.TXT_PRECIO_2.Name = "TXT_PRECIO_2"
         Me.TXT_PRECIO_2.Size = New System.Drawing.Size(87, 24)
-        Me.TXT_PRECIO_2.TabIndex = 25
+        Me.TXT_PRECIO_2.TabIndex = 27
         Me.TXT_PRECIO_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label16
         '
         Me.Label16.AutoSize = True
         Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label16.Location = New System.Drawing.Point(275, 291)
+        Me.Label16.Location = New System.Drawing.Point(275, 321)
         Me.Label16.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(67, 18)
-        Me.Label16.TabIndex = 24
+        Me.Label16.TabIndex = 26
         Me.Label16.Text = "Precio 2:"
         '
         'TXT_MINIMO
         '
         Me.TXT_MINIMO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_MINIMO.Location = New System.Drawing.Point(120, 288)
+        Me.TXT_MINIMO.Location = New System.Drawing.Point(120, 318)
         Me.TXT_MINIMO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_MINIMO.MaxLength = 18
         Me.TXT_MINIMO.Name = "TXT_MINIMO"
         Me.TXT_MINIMO.Size = New System.Drawing.Size(153, 24)
-        Me.TXT_MINIMO.TabIndex = 35
+        Me.TXT_MINIMO.TabIndex = 37
         '
         'Label15
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label15.Location = New System.Drawing.Point(13, 291)
+        Me.Label15.Location = New System.Drawing.Point(13, 321)
         Me.Label15.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(102, 18)
-        Me.Label15.TabIndex = 34
+        Me.Label15.TabIndex = 36
         Me.Label15.Text = "Minimo stock:"
         '
         'Buscador
@@ -301,13 +305,13 @@ Partial Class ProductoMant
         Me.Buscador.CODIGO = Nothing
         Me.Buscador.DESCRIPCION = Nothing
         Me.Buscador.FILTRAR_POR_COMPANIA = True
-        Me.Buscador.Location = New System.Drawing.Point(120, 119)
+        Me.Buscador.Location = New System.Drawing.Point(120, 149)
         Me.Buscador.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Buscador.Name = "Buscador"
         Me.Buscador.OTROS_CAMP0S = ""
         Me.Buscador.PANTALLA = Nothing
         Me.Buscador.Size = New System.Drawing.Size(451, 32)
-        Me.Buscador.TabIndex = 8
+        Me.Buscador.TabIndex = 10
         Me.Buscador.TABLA_BUSCAR = Nothing
         Me.Buscador.VALOR = ""
         Me.Buscador.VALOR_DESCRIPCION = Nothing
@@ -315,166 +319,166 @@ Partial Class ProductoMant
         'TXT_FILA
         '
         Me.TXT_FILA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_FILA.Location = New System.Drawing.Point(518, 288)
+        Me.TXT_FILA.Location = New System.Drawing.Point(518, 318)
         Me.TXT_FILA.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_FILA.MaxLength = 3
         Me.TXT_FILA.Name = "TXT_FILA"
         Me.TXT_FILA.Size = New System.Drawing.Size(44, 24)
-        Me.TXT_FILA.TabIndex = 31
+        Me.TXT_FILA.TabIndex = 33
         Me.TXT_FILA.Text = "1"
         '
         'Label14
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label14.Location = New System.Drawing.Point(437, 319)
+        Me.Label14.Location = New System.Drawing.Point(437, 349)
         Me.Label14.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(76, 18)
-        Me.Label14.TabIndex = 32
+        Me.Label14.TabIndex = 34
         Me.Label14.Text = "Columna :"
         '
         'TXT_ESTANTE
         '
         Me.TXT_ESTANTE.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_ESTANTE.Location = New System.Drawing.Point(518, 259)
+        Me.TXT_ESTANTE.Location = New System.Drawing.Point(518, 289)
         Me.TXT_ESTANTE.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_ESTANTE.MaxLength = 3
         Me.TXT_ESTANTE.Name = "TXT_ESTANTE"
         Me.TXT_ESTANTE.Size = New System.Drawing.Size(44, 24)
-        Me.TXT_ESTANTE.TabIndex = 29
+        Me.TXT_ESTANTE.TabIndex = 31
         Me.TXT_ESTANTE.Text = "1"
         '
         'Label13
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label13.Location = New System.Drawing.Point(474, 291)
+        Me.Label13.Location = New System.Drawing.Point(474, 321)
         Me.Label13.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(39, 18)
-        Me.Label13.TabIndex = 30
+        Me.Label13.TabIndex = 32
         Me.Label13.Text = "Fila :"
         '
         'TXT_COLUMNA
         '
         Me.TXT_COLUMNA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_COLUMNA.Location = New System.Drawing.Point(518, 316)
+        Me.TXT_COLUMNA.Location = New System.Drawing.Point(518, 346)
         Me.TXT_COLUMNA.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_COLUMNA.MaxLength = 3
         Me.TXT_COLUMNA.Name = "TXT_COLUMNA"
         Me.TXT_COLUMNA.Size = New System.Drawing.Size(44, 24)
-        Me.TXT_COLUMNA.TabIndex = 33
+        Me.TXT_COLUMNA.TabIndex = 35
         Me.TXT_COLUMNA.Text = "1"
         '
         'Label12
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label12.Location = New System.Drawing.Point(451, 262)
+        Me.Label12.Location = New System.Drawing.Point(451, 292)
         Me.Label12.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(62, 18)
-        Me.Label12.TabIndex = 28
+        Me.Label12.TabIndex = 30
         Me.Label12.Text = "Estante:"
         '
         'TXT_PRECIO
         '
         Me.TXT_PRECIO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_PRECIO.Location = New System.Drawing.Point(346, 259)
+        Me.TXT_PRECIO.Location = New System.Drawing.Point(346, 289)
         Me.TXT_PRECIO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_PRECIO.MaxLength = 18
         Me.TXT_PRECIO.Name = "TXT_PRECIO"
         Me.TXT_PRECIO.Size = New System.Drawing.Size(87, 24)
-        Me.TXT_PRECIO.TabIndex = 23
+        Me.TXT_PRECIO.TabIndex = 25
         Me.TXT_PRECIO.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'TXT_COSTO
         '
         Me.TXT_COSTO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_COSTO.Location = New System.Drawing.Point(120, 259)
+        Me.TXT_COSTO.Location = New System.Drawing.Point(120, 289)
         Me.TXT_COSTO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_COSTO.MaxLength = 18
         Me.TXT_COSTO.Name = "TXT_COSTO"
         Me.TXT_COSTO.Size = New System.Drawing.Size(152, 24)
-        Me.TXT_COSTO.TabIndex = 21
+        Me.TXT_COSTO.TabIndex = 23
         Me.TXT_COSTO.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label11
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label11.Location = New System.Drawing.Point(275, 262)
+        Me.Label11.Location = New System.Drawing.Point(275, 292)
         Me.Label11.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(67, 18)
-        Me.Label11.TabIndex = 22
+        Me.Label11.TabIndex = 24
         Me.Label11.Text = "Precio 1:"
         '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label10.Location = New System.Drawing.Point(18, 262)
+        Me.Label10.Location = New System.Drawing.Point(18, 292)
         Me.Label10.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(97, 18)
-        Me.Label10.TabIndex = 20
+        Me.Label10.TabIndex = 22
         Me.Label10.Text = "Precio costo:"
         '
         'Label9
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label9.Location = New System.Drawing.Point(427, 195)
+        Me.Label9.Location = New System.Drawing.Point(427, 225)
         Me.Label9.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(21, 18)
-        Me.Label9.TabIndex = 15
+        Me.Label9.TabIndex = 17
         Me.Label9.Text = "%"
         '
         'TXT_EXENTO
         '
         Me.TXT_EXENTO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_EXENTO.Location = New System.Drawing.Point(520, 192)
+        Me.TXT_EXENTO.Location = New System.Drawing.Point(520, 222)
         Me.TXT_EXENTO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_EXENTO.Name = "TXT_EXENTO"
         Me.TXT_EXENTO.ReadOnly = True
         Me.TXT_EXENTO.Size = New System.Drawing.Size(42, 24)
-        Me.TXT_EXENTO.TabIndex = 17
+        Me.TXT_EXENTO.TabIndex = 19
         Me.TXT_EXENTO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label8
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label8.Location = New System.Drawing.Point(454, 195)
+        Me.Label8.Location = New System.Drawing.Point(454, 225)
         Me.Label8.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(62, 18)
-        Me.Label8.TabIndex = 16
+        Me.Label8.TabIndex = 18
         Me.Label8.Text = "Exento :"
         '
         'TXT_IMPUESTO
         '
         Me.TXT_IMPUESTO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_IMPUESTO.Location = New System.Drawing.Point(355, 192)
+        Me.TXT_IMPUESTO.Location = New System.Drawing.Point(355, 222)
         Me.TXT_IMPUESTO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_IMPUESTO.Name = "TXT_IMPUESTO"
         Me.TXT_IMPUESTO.ReadOnly = True
         Me.TXT_IMPUESTO.Size = New System.Drawing.Size(68, 24)
-        Me.TXT_IMPUESTO.TabIndex = 14
+        Me.TXT_IMPUESTO.TabIndex = 16
         Me.TXT_IMPUESTO.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label7
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label7.Location = New System.Drawing.Point(277, 195)
+        Me.Label7.Location = New System.Drawing.Point(277, 225)
         Me.Label7.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(77, 18)
-        Me.Label7.TabIndex = 13
+        Me.Label7.TabIndex = 15
         Me.Label7.Text = "Impuesto :"
         '
         'CMB_IMPUESTO_DGTD
@@ -482,21 +486,21 @@ Partial Class ProductoMant
         Me.CMB_IMPUESTO_DGTD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CMB_IMPUESTO_DGTD.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Me.CMB_IMPUESTO_DGTD.FormattingEnabled = True
-        Me.CMB_IMPUESTO_DGTD.Location = New System.Drawing.Point(120, 225)
+        Me.CMB_IMPUESTO_DGTD.Location = New System.Drawing.Point(120, 255)
         Me.CMB_IMPUESTO_DGTD.Margin = New System.Windows.Forms.Padding(2)
         Me.CMB_IMPUESTO_DGTD.Name = "CMB_IMPUESTO_DGTD"
         Me.CMB_IMPUESTO_DGTD.Size = New System.Drawing.Size(442, 23)
-        Me.CMB_IMPUESTO_DGTD.TabIndex = 19
+        Me.CMB_IMPUESTO_DGTD.TabIndex = 21
         '
         'Label6
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label6.Location = New System.Drawing.Point(8, 227)
+        Me.Label6.Location = New System.Drawing.Point(8, 257)
         Me.Label6.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(107, 18)
-        Me.Label6.TabIndex = 18
+        Me.Label6.TabIndex = 20
         Me.Label6.Text = "Código DGTD:"
         '
         'CMB_UNIDADES
@@ -504,53 +508,53 @@ Partial Class ProductoMant
         Me.CMB_UNIDADES.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CMB_UNIDADES.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Me.CMB_UNIDADES.FormattingEnabled = True
-        Me.CMB_UNIDADES.Location = New System.Drawing.Point(120, 193)
+        Me.CMB_UNIDADES.Location = New System.Drawing.Point(120, 223)
         Me.CMB_UNIDADES.Margin = New System.Windows.Forms.Padding(2)
         Me.CMB_UNIDADES.Name = "CMB_UNIDADES"
         Me.CMB_UNIDADES.Size = New System.Drawing.Size(153, 23)
-        Me.CMB_UNIDADES.TabIndex = 12
+        Me.CMB_UNIDADES.TabIndex = 14
         '
         'Label5
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label5.Location = New System.Drawing.Point(5, 195)
+        Me.Label5.Location = New System.Drawing.Point(5, 225)
         Me.Label5.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(110, 18)
-        Me.Label5.TabIndex = 11
+        Me.Label5.TabIndex = 13
         Me.Label5.Text = "Unidad Medida:"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label4.Location = New System.Drawing.Point(34, 126)
+        Me.Label4.Location = New System.Drawing.Point(34, 156)
         Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(81, 18)
-        Me.Label4.TabIndex = 7
+        Me.Label4.TabIndex = 9
         Me.Label4.Text = "Proveedor:"
         '
         'TXT_DESC
         '
         Me.TXT_DESC.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_DESC.Location = New System.Drawing.Point(120, 158)
+        Me.TXT_DESC.Location = New System.Drawing.Point(120, 188)
         Me.TXT_DESC.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_DESC.MaxLength = 150
         Me.TXT_DESC.Name = "TXT_DESC"
         Me.TXT_DESC.Size = New System.Drawing.Size(442, 24)
-        Me.TXT_DESC.TabIndex = 10
+        Me.TXT_DESC.TabIndex = 12
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label3.Location = New System.Drawing.Point(24, 161)
+        Me.Label3.Location = New System.Drawing.Point(24, 191)
         Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(91, 18)
-        Me.Label3.TabIndex = 9
+        Me.Label3.TabIndex = 11
         Me.Label3.Text = "Descripción:"
         '
         'TXT_COD_BARRA
@@ -601,7 +605,7 @@ Partial Class ProductoMant
         Me.BTN_ACEPTAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_ACEPTAR.Image = CType(resources.GetObject("BTN_ACEPTAR.Image"), System.Drawing.Image)
         Me.BTN_ACEPTAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(377, 405)
+        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(381, 435)
         Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
         Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_ACEPTAR.TabIndex = 1
@@ -615,7 +619,7 @@ Partial Class ProductoMant
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(476, 405)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(480, 435)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 2
@@ -623,12 +627,33 @@ Partial Class ProductoMant
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
         '
+        'TXT_COD_CABYS
+        '
+        Me.TXT_COD_CABYS.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_COD_CABYS.Location = New System.Drawing.Point(120, 87)
+        Me.TXT_COD_CABYS.Margin = New System.Windows.Forms.Padding(2)
+        Me.TXT_COD_CABYS.MaxLength = 13
+        Me.TXT_COD_CABYS.Name = "TXT_COD_CABYS"
+        Me.TXT_COD_CABYS.Size = New System.Drawing.Size(222, 24)
+        Me.TXT_COD_CABYS.TabIndex = 6
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label21.Location = New System.Drawing.Point(2, 90)
+        Me.Label21.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(113, 18)
+        Me.Label21.TabIndex = 5
+        Me.Label21.Text = "Código CABYS:"
+        '
         'ProductoMant
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ClientSize = New System.Drawing.Size(584, 452)
+        Me.ClientSize = New System.Drawing.Size(584, 490)
         Me.ControlBox = False
         Me.Controls.Add(Me.BTN_ACEPTAR)
         Me.Controls.Add(Me.BTN_SALIR)
@@ -692,4 +717,6 @@ Partial Class ProductoMant
     Friend WithEvents Label20 As Label
     Friend WithEvents TXT_OBSERVACION As TextBox
     Friend WithEvents CHK_MODIFICABLE As CheckBox
+    Friend WithEvents TXT_COD_CABYS As TextBox
+    Friend WithEvents Label21 As Label
 End Class

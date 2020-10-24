@@ -22,6 +22,7 @@ Public Class Login
         Catch ex As Exception
         End Try
     End Sub
+
     Public Sub Ingreso()
         Try
             If VALIDAR() = True Then

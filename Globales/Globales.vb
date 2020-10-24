@@ -278,6 +278,26 @@ Public Class Globales
         End Try
     End Function
 
+    Public Shared Function EXISTE_CONSTRAINT(ByVal CONSTRAINT As String) As Boolean
+        Try
+            Dim EXISTE As Boolean = False
+            Dim SQL = "	SELECT *  "
+            SQL &= Chr(13) & " FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS "
+            SQL &= Chr(13) & " WHERE CONSTRAINT_NAME =" & SCM(CONSTRAINT)
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+            If DS.Tables(0).Rows.Count > 0 Then
+                EXISTE = True
+            End If
+            Return EXISTE
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            Return False
+        End Try
+    End Function
+
     Public Shared Sub ELIMINA_PROCEDIMIENTO(ByVal PROCEDIMIENTO As String)
         Try
             Dim SQL = "DROP PROCEDURE IF EXISTS " & PROCEDIMIENTO

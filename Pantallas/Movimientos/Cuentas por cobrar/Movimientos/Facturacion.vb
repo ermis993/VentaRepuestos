@@ -1,5 +1,6 @@
 ﻿Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Globales
+Imports VentaRepuestos.ReportesProcesos
 Public Class Facturacion
     Dim Numero_Doc As Integer
     Dim Codigo As String
@@ -372,6 +373,13 @@ Public Class Facturacion
             ElseIf Tipo_Mov = "RB" Then
                 Dim imp As New Impresion()
                 imp.ImprimirRecibo(COD_CIA, COD_SUCUR, Numero_Doc, Tipo_Mov)
+            ElseIf Tipo_Mov = "NC" Then
+                Dim f As FolderBrowserDialog = New FolderBrowserDialog
+                If f.ShowDialog() = DialogResult.OK Then
+                    Dim Ruta = f.SelectedPath
+                    Genera_RPT_NC(Tipo_Mov, Numero_Doc, "Nota_De_Credito_" & Numero_Doc, Ruta)
+                    MessageBox.Show(Me, "Reporte generado correctamente", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
             Else
                 MessageBox.Show(Me, "Solamente se pueden imprimir facturas", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If

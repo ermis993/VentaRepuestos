@@ -186,6 +186,7 @@
     <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\RespuestaDGTD.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Reportes\ReportesProcesos.vb" />
     <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Reportes\Reportes_CXC.Designer.vb">
       <DependentUpon>Reportes_CXC.vb</DependentUpon>
     </Compile>
@@ -439,6 +440,12 @@
     <Compile Include="Pantallas\SeleccionCompania.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Reportes\Imprime_NC.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Imprime_NC.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reportes\RPT_ENCOMIENDAS_POR_RANGO_FECHAS.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -619,6 +626,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\SeleccionCompania.resx">
       <DependentUpon>SeleccionCompania.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Imprime_NC.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Imprime_NC.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\RPT_ENCOMIENDAS_POR_RANGO_FECHAS.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

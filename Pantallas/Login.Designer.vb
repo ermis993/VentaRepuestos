@@ -84,7 +84,7 @@ Partial Class Login
         Me.LBL_OLVIDO.Location = New System.Drawing.Point(0, 101)
         Me.LBL_OLVIDO.Name = "LBL_OLVIDO"
         Me.LBL_OLVIDO.Size = New System.Drawing.Size(246, 18)
-        Me.LBL_OLVIDO.TabIndex = 2
+        Me.LBL_OLVIDO.TabIndex = 3
         Me.LBL_OLVIDO.Text = "He olvidado mi contraseña"
         Me.LBL_OLVIDO.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
@@ -116,7 +116,7 @@ Partial Class Login
         Me.BTN_SALIR.Location = New System.Drawing.Point(148, 130)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(94, 37)
-        Me.BTN_SALIR.TabIndex = 4
+        Me.BTN_SALIR.TabIndex = 5
         Me.BTN_SALIR.Text = "Apagar"
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
@@ -132,7 +132,7 @@ Partial Class Login
         Me.BTN_INGRESAR.Location = New System.Drawing.Point(3, 130)
         Me.BTN_INGRESAR.Name = "BTN_INGRESAR"
         Me.BTN_INGRESAR.Size = New System.Drawing.Size(94, 37)
-        Me.BTN_INGRESAR.TabIndex = 3
+        Me.BTN_INGRESAR.TabIndex = 4
         Me.BTN_INGRESAR.Text = "Ingresar"
         Me.BTN_INGRESAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_INGRESAR.UseVisualStyleBackColor = False
@@ -164,7 +164,7 @@ Partial Class Login
         Me.ShapeContainer1.Name = "ShapeContainer1"
         Me.ShapeContainer1.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.RectangleShape2, Me.RectangleShape1})
         Me.ShapeContainer1.Size = New System.Drawing.Size(246, 184)
-        Me.ShapeContainer1.TabIndex = 3
+        Me.ShapeContainer1.TabIndex = 2
         Me.ShapeContainer1.TabStop = False
         '
         'RectangleShape2

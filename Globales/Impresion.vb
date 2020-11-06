@@ -38,17 +38,32 @@ Public Class Impresion
         Printer.DoPrint()
     End Sub
 
-    Private Shared Sub PrintBarCode(ByVal img As Image)
-
+    Private Shared Sub PrintBarCode(ByVal img As Image, ByVal descripcion As String)
         Printer.PrintDefault()
-        Printer.Print(img)
+        Dim AnchoTiquete = ANCHO_IMPRESION_ETIQUETA()
+        If descripcion.Length > AnchoTiquete Then
+            Do
+                Dim palabra = descripcion.Substring(0, IIf(descripcion.Length >= AnchoTiquete, AnchoTiquete, descripcion.Length))
+                descripcion = descripcion.Substring(IIf(palabra.Length >= descripcion.Length, 0, palabra.Length), IIf(descripcion.Length >= AnchoTiquete, descripcion.Length - AnchoTiquete, descripcion.Length))
+
+                Printer.Print(palabra)
+
+                If descripcion.Length = palabra.Length Then
+                    Exit Do
+                End If
+            Loop
+        Else
+            Printer.Print(descripcion)
+        End If
+
+        Printer.Print(img, 325, 150)
 
         Printer.DoPrint()
     End Sub
 
-    Public Shared Sub ImprimirBarcode(ByVal img As Image)
+    Public Shared Sub ImprimirBarcode(ByVal img As Image, ByVal descripcion As String)
         Try
-            PrintBarCode(img)
+            PrintBarCode(img, descripcion)
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

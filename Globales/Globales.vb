@@ -597,7 +597,7 @@ Public Class Globales
             CONX.Coneccion_Cerrar()
 
             If DS.Tables(0).Rows.Count > 0 Then
-                respuesta = DS.Tables(0).Rows(0).Item("ANCHO_TIQUETE")
+                respuesta = DS.Tables(0).Rows(0).Item("ANCHO_ETIQUETA")
             End If
 
             Return respuesta

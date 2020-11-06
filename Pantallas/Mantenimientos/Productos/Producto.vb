@@ -208,7 +208,7 @@ Public Class Producto
 
                 If Not Imagen Is Nothing Then
                     Dim imp As New Impresion()
-                    imp.ImprimirBarcode(Imagen)
+                    imp.ImprimirBarcode(Imagen, DESCRIPCION)
                 Else
                     MessageBox.Show(Me, "El producto no tiene relacionado una imagen Barcode", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If

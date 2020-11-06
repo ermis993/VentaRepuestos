@@ -16,6 +16,8 @@ Public Class Globales
     Public Shared IND_ENCOMIENDA As String
     Public Shared IND_VENTAS_NEGATIVAS As String
     Public Shared IND_MIN_STOCK As String
+    Public Shared IND_RECIBO_AUTOMATICO As String
+    Public Shared IND_MENSAJE_FACTURA As String
 
     Public Shared TC_COMPRA As Decimal
     Public Shared TC_VENTA As Decimal
@@ -365,6 +367,7 @@ Public Class Globales
     Public Shared Sub INDICADORES_SUCURSAL(ByVal COD_CIA As String, ByVal COD_SUCUR As String)
         Try
             Dim SQL = "	SELECT ISNULL(IND_PERMITE_VENTAS_NEGATIVO, 'N') AS IND_VENTAS, ISNULL(IND_AVISO_MIN_STOCK, 'N') AS IND_AVISO_MIN_STOCK "
+            SQL &= Chr(13) & " ,ISNULL(IND_RECIBO_AUTOMATICO, 'N') AS IND_RECIBO_AUTOMATICO, ISNULL(IND_MENSAJE_FACTURACION, 'N') AS IND_MENSAJE_FACTURACION"
             SQL &= Chr(13) & " FROM SUCURSAL_INDICADORES "
             SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
             SQL &= Chr(13) & " AND COD_SUCUR = " & SCM(COD_SUCUR)
@@ -376,6 +379,8 @@ Public Class Globales
                 For Each ITEM In DS.Tables(0).Rows
                     IND_VENTAS_NEGATIVAS = ITEM("IND_VENTAS")
                     IND_MIN_STOCK = ITEM("IND_AVISO_MIN_STOCK")
+                    IND_RECIBO_AUTOMATICO = ITEM("IND_RECIBO_AUTOMATICO")
+                    IND_MENSAJE_FACTURA = ITEM("IND_MENSAJE_FACTURACION")
                     Exit For
                 Next
             End If

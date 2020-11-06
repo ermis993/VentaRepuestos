@@ -4,21 +4,24 @@ Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Public Class Login
     Private Sub LOGIN_LOAD(sender As Object, e As EventArgs) Handles MyBase.Load
         CONFIGURACION()
-        'Actualizaciones.ACTUALIZACIONES()
     End Sub
     Private Sub CONFIGURACION()
         Try
             'PRUEBAS
-            CONX.Inicializar_cadena_conexion("DESKTOP-42HEF7C,1433", "admin_sql", "1234", "VR")
+            CONX.Inicializar_cadena_conexion("DESKTOP-42HEF7C,1433", "sa", "1234", "VR")
             'AUTORESPUESTOS LA UNION
             'CONX.Inicializar_cadena_conexion("DESKTOP-OG4U60G\SQLEXPRESS,1433", "sa", "union1234", "VR")
             'CONX_SIC.ConexionSTR("DESKTOP-OG4U60G\SQLEXPRESS,1433", "sa", "union1234", "INFORMACION_SIC")
             'BIKE_RIDE'
             'CONX.Inicializar_cadena_conexion("DESKTOP-7F4Q844, 1433", "sa", "1234", "VR")
             'CONX_SIC.ConexionSTR("DESKTOP-7F4Q844, 1433", "sa", "1234", "INFORMACION_SIC")
-            'VEGA
+            'VEFESA
             'CONX.Inicializar_cadena_conexion("DESKTOP-4JGE226,1433", "sa", "1234", "VR")
             'CONX_SIC.ConexionSTR("DESKTOP-4JGE226,1433", "sa", "1234", "INFORMACION_SIC")
+            'VEGA SIQUIRRES
+            'CONX.Inicializar_cadena_conexion("DESKTOP-3SQLS3O,1433", "sa", "1234", "VR")
+            'CONX_SIC.ConexionSTR("DESKTOP-3SQLS3O,1433", "sa", "1234", "INFORMACION_SIC")
+
         Catch ex As Exception
         End Try
     End Sub
@@ -93,6 +96,7 @@ Public Class Login
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         Me.Close()
     End Sub
+
     Private Sub LBL_OLVIDO_Click(sender As Object, e As EventArgs) Handles LBL_OLVIDO.Click
         Try
             Me.Visible = False
@@ -101,6 +105,7 @@ Public Class Login
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Sub TXT_CONTRASENA_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TXT_CONTRASENA.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             Ingreso()

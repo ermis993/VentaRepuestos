@@ -28,14 +28,16 @@ Partial Class Producto
         Me.RB_INACTIVOS = New System.Windows.Forms.RadioButton()
         Me.RB_ACTIVOS = New System.Windows.Forms.RadioButton()
         Me.GRID = New System.Windows.Forms.DataGridView()
+        Me.BTN_BARCODE = New System.Windows.Forms.Button()
+        Me.BTN_REPORTES = New System.Windows.Forms.Button()
+        Me.BTN_VERIFICACION = New System.Windows.Forms.Button()
         Me.BTN_UBICACION = New System.Windows.Forms.Button()
         Me.BTN_AGREGAR = New System.Windows.Forms.Button()
         Me.BTN_MODIFICAR = New System.Windows.Forms.Button()
         Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
+        Me.BTN_IMPRIMIR = New System.Windows.Forms.Button()
         Me.Filtro = New VentaRepuestos.Filtro()
-        Me.BTN_VERIFICACION = New System.Windows.Forms.Button()
-        Me.BTN_REPORTES = New System.Windows.Forms.Button()
         Me.Estado.SuspendLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -48,7 +50,7 @@ Partial Class Producto
         Me.Estado.Location = New System.Drawing.Point(605, 2)
         Me.Estado.Name = "Estado"
         Me.Estado.Size = New System.Drawing.Size(146, 51)
-        Me.Estado.TabIndex = 5
+        Me.Estado.TabIndex = 9
         Me.Estado.TabStop = False
         Me.Estado.Text = "Estado"
         '
@@ -101,7 +103,49 @@ Partial Class Producto
         Me.GRID.RowHeadersWidth = 51
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.GRID.Size = New System.Drawing.Size(751, 418)
-        Me.GRID.TabIndex = 7
+        Me.GRID.TabIndex = 11
+        '
+        'BTN_BARCODE
+        '
+        Me.BTN_BARCODE.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_BARCODE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_BARCODE.Image = Global.VentaRepuestos.My.Resources.Resources.barcode
+        Me.BTN_BARCODE.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_BARCODE.Location = New System.Drawing.Point(101, 45)
+        Me.BTN_BARCODE.Name = "BTN_BARCODE"
+        Me.BTN_BARCODE.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_BARCODE.TabIndex = 7
+        Me.BTN_BARCODE.Text = "Barcode"
+        Me.BTN_BARCODE.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_BARCODE.UseVisualStyleBackColor = False
+        '
+        'BTN_REPORTES
+        '
+        Me.BTN_REPORTES.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_REPORTES.Image = Global.VentaRepuestos.My.Resources.Resources.reportes
+        Me.BTN_REPORTES.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_REPORTES.Location = New System.Drawing.Point(400, 2)
+        Me.BTN_REPORTES.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_REPORTES.Name = "BTN_REPORTES"
+        Me.BTN_REPORTES.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_REPORTES.TabIndex = 4
+        Me.BTN_REPORTES.Text = "Reportes"
+        Me.BTN_REPORTES.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_REPORTES.UseVisualStyleBackColor = False
+        '
+        'BTN_VERIFICACION
+        '
+        Me.BTN_VERIFICACION.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_VERIFICACION.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_VERIFICACION.Image = Global.VentaRepuestos.My.Resources.Resources.aceptar
+        Me.BTN_VERIFICACION.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_VERIFICACION.Location = New System.Drawing.Point(301, 2)
+        Me.BTN_VERIFICACION.Name = "BTN_VERIFICACION"
+        Me.BTN_VERIFICACION.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_VERIFICACION.TabIndex = 3
+        Me.BTN_VERIFICACION.Text = "Verificar"
+        Me.BTN_VERIFICACION.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_VERIFICACION.UseVisualStyleBackColor = False
         '
         'BTN_UBICACION
         '
@@ -112,7 +156,7 @@ Partial Class Producto
         Me.BTN_UBICACION.Location = New System.Drawing.Point(2, 45)
         Me.BTN_UBICACION.Name = "BTN_UBICACION"
         Me.BTN_UBICACION.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_UBICACION.TabIndex = 3
+        Me.BTN_UBICACION.TabIndex = 6
         Me.BTN_UBICACION.Text = "Ubicación"
         Me.BTN_UBICACION.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_UBICACION.UseVisualStyleBackColor = False
@@ -168,46 +212,32 @@ Partial Class Producto
         Me.BTN_SALIR.Location = New System.Drawing.Point(500, 2)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_SALIR.TabIndex = 4
+        Me.BTN_SALIR.TabIndex = 5
         Me.BTN_SALIR.Text = "Salir"
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
+        '
+        'BTN_IMPRIMIR
+        '
+        Me.BTN_IMPRIMIR.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_IMPRIMIR.Image = Global.VentaRepuestos.My.Resources.Resources.imprimir1
+        Me.BTN_IMPRIMIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_IMPRIMIR.Location = New System.Drawing.Point(201, 45)
+        Me.BTN_IMPRIMIR.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_IMPRIMIR.Name = "BTN_IMPRIMIR"
+        Me.BTN_IMPRIMIR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_IMPRIMIR.TabIndex = 8
+        Me.BTN_IMPRIMIR.Text = "Imprimir"
+        Me.BTN_IMPRIMIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_IMPRIMIR.UseVisualStyleBackColor = False
         '
         'Filtro
         '
         Me.Filtro.Location = New System.Drawing.Point(2, 93)
         Me.Filtro.Name = "Filtro"
         Me.Filtro.Size = New System.Drawing.Size(305, 29)
-        Me.Filtro.TabIndex = 6
+        Me.Filtro.TabIndex = 10
         Me.Filtro.VALOR = ""
-        '
-        'BTN_VERIFICACION
-        '
-        Me.BTN_VERIFICACION.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_VERIFICACION.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_VERIFICACION.Image = Global.VentaRepuestos.My.Resources.Resources.aceptar
-        Me.BTN_VERIFICACION.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_VERIFICACION.Location = New System.Drawing.Point(301, 2)
-        Me.BTN_VERIFICACION.Name = "BTN_VERIFICACION"
-        Me.BTN_VERIFICACION.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_VERIFICACION.TabIndex = 8
-        Me.BTN_VERIFICACION.Text = "Verificar"
-        Me.BTN_VERIFICACION.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_VERIFICACION.UseVisualStyleBackColor = False
-        '
-        'BTN_REPORTES
-        '
-        Me.BTN_REPORTES.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_REPORTES.Image = Global.VentaRepuestos.My.Resources.Resources.reportes
-        Me.BTN_REPORTES.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_REPORTES.Location = New System.Drawing.Point(400, 2)
-        Me.BTN_REPORTES.Margin = New System.Windows.Forms.Padding(2)
-        Me.BTN_REPORTES.Name = "BTN_REPORTES"
-        Me.BTN_REPORTES.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_REPORTES.TabIndex = 9
-        Me.BTN_REPORTES.Text = "Reportes"
-        Me.BTN_REPORTES.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_REPORTES.UseVisualStyleBackColor = False
         '
         'Producto
         '
@@ -215,6 +245,8 @@ Partial Class Producto
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(753, 548)
         Me.ControlBox = False
+        Me.Controls.Add(Me.BTN_IMPRIMIR)
+        Me.Controls.Add(Me.BTN_BARCODE)
         Me.Controls.Add(Me.BTN_REPORTES)
         Me.Controls.Add(Me.BTN_VERIFICACION)
         Me.Controls.Add(Me.BTN_UBICACION)
@@ -251,4 +283,6 @@ Partial Class Producto
     Friend WithEvents BTN_UBICACION As Button
     Friend WithEvents BTN_VERIFICACION As Button
     Friend WithEvents BTN_REPORTES As Button
+    Friend WithEvents BTN_BARCODE As Button
+    Friend WithEvents BTN_IMPRIMIR As Button
 End Class

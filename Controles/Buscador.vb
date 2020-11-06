@@ -10,6 +10,8 @@ Public Class Buscador
     Private Property DESC As String
     Public Property FILTRAR_POR_COMPANIA As Boolean = True
 
+    Public Event ValorSeleccionado(ByVal sender As Object, ByVal e As EventArgs)
+
     Public Property VALOR As String
         Get
             Return Me.TXT_BUSCADOR.Text
@@ -136,5 +138,13 @@ Public Class Buscador
         If IsNothing(Me.PANTALLA) = False Then
             Me.PANTALLA.ShowDialog()
         End If
+    End Sub
+
+    Private Sub TXT_BUSCADOR_TextChanged(sender As Object, e As EventArgs) Handles TXT_BUSCADOR.TextChanged
+        Try
+            RaiseEvent ValorSeleccionado(Nothing, New EventArgs)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 End Class

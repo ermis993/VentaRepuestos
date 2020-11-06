@@ -42,6 +42,10 @@ Partial Class Facturacion
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.LBL_TOTAL_FACTURADO = New System.Windows.Forms.Label()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.CMB_VER = New System.Windows.Forms.ComboBox()
+        Me.BTN_PROFORMAS = New System.Windows.Forms.Button()
+        Me.BTN_ANULAR = New System.Windows.Forms.Button()
         Me.BTN_APARTADO = New System.Windows.Forms.Button()
         Me.BTN_REPORTES = New System.Windows.Forms.Button()
         Me.BTN_IMPRIMIR = New System.Windows.Forms.Button()
@@ -49,9 +53,6 @@ Partial Class Facturacion
         Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_FACTURAR = New System.Windows.Forms.Button()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.CMB_VER = New System.Windows.Forms.ComboBox()
-        Me.BTN_ANULAR = New System.Windows.Forms.Button()
         Me.Filtro = New VentaRepuestos.Filtro()
         Me.GroupBox1.SuspendLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -98,7 +99,7 @@ Partial Class Facturacion
         Me.GRID.RowHeadersVisible = False
         Me.GRID.RowHeadersWidth = 51
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRID.Size = New System.Drawing.Size(857, 390)
+        Me.GRID.Size = New System.Drawing.Size(860, 390)
         Me.GRID.TabIndex = 11
         '
         'CMS_OPCIONES
@@ -133,7 +134,7 @@ Partial Class Facturacion
         Me.Estado.Controls.Add(Me.RB_ACTIVOS)
         Me.Estado.Location = New System.Drawing.Point(713, 61)
         Me.Estado.Name = "Estado"
-        Me.Estado.Size = New System.Drawing.Size(146, 54)
+        Me.Estado.Size = New System.Drawing.Size(149, 54)
         Me.Estado.TabIndex = 9
         Me.Estado.TabStop = False
         Me.Estado.Text = "Estado"
@@ -238,57 +239,109 @@ Partial Class Facturacion
         Me.LBL_TOTAL_FACTURADO.TabIndex = 14
         Me.LBL_TOTAL_FACTURADO.Text = "0.00"
         '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.CMB_VER)
+        Me.GroupBox3.Location = New System.Drawing.Point(503, 2)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(204, 48)
+        Me.GroupBox3.TabIndex = 7
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Filtar por"
+        '
+        'CMB_VER
+        '
+        Me.CMB_VER.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CMB_VER.FormattingEnabled = True
+        Me.CMB_VER.Items.AddRange(New Object() {"Facturas", "Apartados", "Proformas"})
+        Me.CMB_VER.Location = New System.Drawing.Point(6, 18)
+        Me.CMB_VER.Name = "CMB_VER"
+        Me.CMB_VER.Size = New System.Drawing.Size(192, 21)
+        Me.CMB_VER.TabIndex = 0
+        '
+        'BTN_PROFORMAS
+        '
+        Me.BTN_PROFORMAS.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_PROFORMAS.Image = Global.VentaRepuestos.My.Resources.Resources.proforma
+        Me.BTN_PROFORMAS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_PROFORMAS.Location = New System.Drawing.Point(101, 7)
+        Me.BTN_PROFORMAS.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_PROFORMAS.Name = "BTN_PROFORMAS"
+        Me.BTN_PROFORMAS.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_PROFORMAS.TabIndex = 16
+        Me.BTN_PROFORMAS.Text = "Proformas"
+        Me.BTN_PROFORMAS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_PROFORMAS.UseVisualStyleBackColor = False
+        '
+        'BTN_ANULAR
+        '
+        Me.BTN_ANULAR.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_ANULAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_ANULAR.Image = Global.VentaRepuestos.My.Resources.Resources.anular
+        Me.BTN_ANULAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_ANULAR.Location = New System.Drawing.Point(101, 51)
+        Me.BTN_ANULAR.Name = "BTN_ANULAR"
+        Me.BTN_ANULAR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_ANULAR.TabIndex = 6
+        Me.BTN_ANULAR.Text = "Anular"
+        Me.BTN_ANULAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_ANULAR.UseVisualStyleBackColor = False
+        '
         'BTN_APARTADO
         '
+        Me.BTN_APARTADO.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.BTN_APARTADO.Image = Global.VentaRepuestos.My.Resources.Resources.apartado
         Me.BTN_APARTADO.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_APARTADO.Location = New System.Drawing.Point(200, 7)
+        Me.BTN_APARTADO.Location = New System.Drawing.Point(299, 7)
         Me.BTN_APARTADO.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_APARTADO.Name = "BTN_APARTADO"
         Me.BTN_APARTADO.Size = New System.Drawing.Size(99, 43)
         Me.BTN_APARTADO.TabIndex = 2
         Me.BTN_APARTADO.Text = "Apartados"
         Me.BTN_APARTADO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_APARTADO.UseVisualStyleBackColor = True
+        Me.BTN_APARTADO.UseVisualStyleBackColor = False
         '
         'BTN_REPORTES
         '
+        Me.BTN_REPORTES.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.BTN_REPORTES.Image = Global.VentaRepuestos.My.Resources.Resources.reportes
         Me.BTN_REPORTES.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_REPORTES.Location = New System.Drawing.Point(399, 7)
+        Me.BTN_REPORTES.Location = New System.Drawing.Point(398, 7)
         Me.BTN_REPORTES.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_REPORTES.Name = "BTN_REPORTES"
         Me.BTN_REPORTES.Size = New System.Drawing.Size(99, 43)
         Me.BTN_REPORTES.TabIndex = 4
         Me.BTN_REPORTES.Text = "Reportes"
         Me.BTN_REPORTES.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_REPORTES.UseVisualStyleBackColor = True
+        Me.BTN_REPORTES.UseVisualStyleBackColor = False
         '
         'BTN_IMPRIMIR
         '
+        Me.BTN_IMPRIMIR.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.BTN_IMPRIMIR.Image = Global.VentaRepuestos.My.Resources.Resources.imprimir1
         Me.BTN_IMPRIMIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_IMPRIMIR.Location = New System.Drawing.Point(299, 7)
+        Me.BTN_IMPRIMIR.Location = New System.Drawing.Point(200, 51)
         Me.BTN_IMPRIMIR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_IMPRIMIR.Name = "BTN_IMPRIMIR"
         Me.BTN_IMPRIMIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_IMPRIMIR.TabIndex = 3
         Me.BTN_IMPRIMIR.Text = "Imprimir"
         Me.BTN_IMPRIMIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_IMPRIMIR.UseVisualStyleBackColor = True
+        Me.BTN_IMPRIMIR.UseVisualStyleBackColor = False
         '
         'BTN_RECIBO
         '
+        Me.BTN_RECIBO.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.BTN_RECIBO.Image = Global.VentaRepuestos.My.Resources.Resources.pago
         Me.BTN_RECIBO.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_RECIBO.Location = New System.Drawing.Point(101, 7)
+        Me.BTN_RECIBO.Location = New System.Drawing.Point(200, 7)
         Me.BTN_RECIBO.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_RECIBO.Name = "BTN_RECIBO"
         Me.BTN_RECIBO.Size = New System.Drawing.Size(99, 43)
         Me.BTN_RECIBO.TabIndex = 1
         Me.BTN_RECIBO.Text = "Recibos/" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "NC"
         Me.BTN_RECIBO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_RECIBO.UseVisualStyleBackColor = True
+        Me.BTN_RECIBO.UseVisualStyleBackColor = False
         '
         'BTN_REFRESCAR
         '
@@ -320,6 +373,7 @@ Partial Class Facturacion
         '
         'BTN_FACTURAR
         '
+        Me.BTN_FACTURAR.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.BTN_FACTURAR.Image = Global.VentaRepuestos.My.Resources.Resources.facturar
         Me.BTN_FACTURAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BTN_FACTURAR.Location = New System.Drawing.Point(2, 7)
@@ -329,41 +383,7 @@ Partial Class Facturacion
         Me.BTN_FACTURAR.TabIndex = 0
         Me.BTN_FACTURAR.Text = "Facturas/" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "ND"
         Me.BTN_FACTURAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_FACTURAR.UseVisualStyleBackColor = True
-        '
-        'GroupBox3
-        '
-        Me.GroupBox3.Controls.Add(Me.CMB_VER)
-        Me.GroupBox3.Location = New System.Drawing.Point(503, 2)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(204, 48)
-        Me.GroupBox3.TabIndex = 7
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Filtar por"
-        '
-        'CMB_VER
-        '
-        Me.CMB_VER.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CMB_VER.FormattingEnabled = True
-        Me.CMB_VER.Items.AddRange(New Object() {"Facturas", "Apartados"})
-        Me.CMB_VER.Location = New System.Drawing.Point(6, 14)
-        Me.CMB_VER.Name = "CMB_VER"
-        Me.CMB_VER.Size = New System.Drawing.Size(192, 21)
-        Me.CMB_VER.TabIndex = 0
-        '
-        'BTN_ANULAR
-        '
-        Me.BTN_ANULAR.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_ANULAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_ANULAR.Image = Global.VentaRepuestos.My.Resources.Resources.anular
-        Me.BTN_ANULAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_ANULAR.Location = New System.Drawing.Point(101, 51)
-        Me.BTN_ANULAR.Name = "BTN_ANULAR"
-        Me.BTN_ANULAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_ANULAR.TabIndex = 6
-        Me.BTN_ANULAR.Text = "Anular"
-        Me.BTN_ANULAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_ANULAR.UseVisualStyleBackColor = False
+        Me.BTN_FACTURAR.UseVisualStyleBackColor = False
         '
         'Filtro
         '
@@ -381,6 +401,7 @@ Partial Class Facturacion
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(864, 567)
         Me.ControlBox = False
+        Me.Controls.Add(Me.BTN_PROFORMAS)
         Me.Controls.Add(Me.BTN_ANULAR)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.BTN_APARTADO)
@@ -445,4 +466,5 @@ Partial Class Facturacion
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents CMB_VER As ComboBox
     Friend WithEvents BTN_ANULAR As Button
+    Friend WithEvents BTN_PROFORMAS As Button
 End Class

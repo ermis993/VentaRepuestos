@@ -1,15 +1,13 @@
 ﻿Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Globales
-Public Class Apartado
+
+Public Class Proforma
     Dim Modo As CRF_Modos
     Dim Codigo As String
     Dim Padre As Facturacion
     Dim Numero_Doc As Integer
     Dim Tipo_Mov As String
-
-    Private Sub Apartado_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
+    Dim Cantidad_Global As Double = 0
 
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         EliminaTodoTemporal()
@@ -21,10 +19,31 @@ Public Class Apartado
         Me.Close()
     End Sub
 
+    Private Sub Buscador_Valor_Seleccionado(sender As Object, e As EventArgs) Handles Cliente.ValorSeleccionado
+        Try
+            If Cliente.VALOR <> "" Then
+                Dim Sql = "	SELECT PRECIO_DEFECTO  "
+                Sql &= Chr(13) & "	FROM CLIENTE"
+                Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+                Sql &= Chr(13) & "	AND CEDULA = " & SCM(Cliente.VALOR)
+
+                CONX.Coneccion_Abrir()
+                Dim DS = CONX.EJECUTE_DS(Sql)
+                CONX.Coneccion_Cerrar()
+
+                If DS.Tables(0).Rows.Count > 0 Then
+                    CMB_PRECIO.SelectedIndex = Val(DS.Tables(0).Rows(0).Item("PRECIO_DEFECTO"))
+                End If
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
     Private Sub EliminaTodoTemporal()
         Try
-            Dim Sql = "	DELETE FROM APARTADO_ENC_TMP WHERE CODIGO =  " & SCM(Codigo)
-            Sql &= Chr(13) & "	DELETE FROM APARTADO_DET_TMP WHERE CODIGO =  " & SCM(Codigo)
+            Dim Sql = "	DELETE FROM PROFORMA_ENC_TMP WHERE CODIGO =  " & SCM(Codigo)
+            Sql &= Chr(13) & "	DELETE FROM PROFORMA_DET_TMP WHERE CODIGO =  " & SCM(Codigo)
             CONX.Coneccion_Abrir()
             CONX.EJECUTE(Sql)
             CONX.Coneccion_Cerrar()
@@ -55,6 +74,7 @@ Public Class Apartado
             CMB_DOCUMENTO.SelectedIndex = 0
             CMB_FORMAPAGO.SelectedIndex = 0
             CMB_MONEDA.SelectedIndex = 0
+            BTN_FACTURAR.Enabled = False
         ElseIf Me.Modo = CRF_Modos.Modificar Then
 
             Me.Codigo = CODIGO
@@ -74,6 +94,7 @@ Public Class Apartado
         End If
 
         CMB_PRECIO.SelectedIndex = 0
+
     End Sub
 
     Private Sub RellenaDatos()
@@ -81,7 +102,7 @@ Public Class Apartado
             Dim Sql As String = ""
             If String.IsNullOrEmpty(Codigo) Then
                 Sql = "	SELECT CEDULA, TIPO_MOV, FECHA, COD_MONEDA, TIPO_CAMBIO, PLAZO, FORMA_PAGO, ISNULL(DESCRIPCION, '') AS DESCRIPCION"
-                Sql &= Chr(13) & "	FROM APARTADO_ENC"
+                Sql &= Chr(13) & "	FROM PROFORMA_ENC"
                 Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
                 Sql &= Chr(13) & "  And COD_SUCUR = " & SCM(COD_SUCUR)
                 Sql &= Chr(13) & "	AND NUMERO_DOC = " & Val(Numero_Doc)
@@ -94,7 +115,7 @@ Public Class Apartado
                     For Each ITEM In DS.Tables(0).Rows
                         DTPFECHA.Value = DMA(ITEM("FECHA"))
 
-                        If ITEM("TIPO_MOV") = "AC" Then
+                        If ITEM("TIPO_MOV") = "FC" Then
                             CMB_DOCUMENTO.SelectedIndex = 0
                         Else
                             CMB_DOCUMENTO.SelectedIndex = 1
@@ -124,7 +145,7 @@ Public Class Apartado
                 End If
             Else
                 Sql = "	SELECT CEDULA, TIPO_MOV, FECHA, COD_MONEDA, TIPO_CAMBIO, PLAZO, FORMA_PAGO, ISNULL(DESCRIPCION, '') AS DESCRIPCION"
-                Sql &= Chr(13) & "	FROM APARTADO_ENC_TMP"
+                Sql &= Chr(13) & "	FROM PROFORMA_ENC_TMP"
                 Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
                 Sql &= Chr(13) & "  AND COD_SUCUR = " & SCM(COD_SUCUR)
                 Sql &= Chr(13) & "	AND CODIGO = " & SCM(Codigo)
@@ -136,7 +157,7 @@ Public Class Apartado
                     For Each ITEM In DS.Tables(0).Rows
                         DTPFECHA.Value = DMA(ITEM("FECHA"))
 
-                        If ITEM("TIPO_MOV") = "AC" Then
+                        If ITEM("TIPO_MOV") = "FC" Then
                             CMB_DOCUMENTO.SelectedIndex = 0
                         Else
                             CMB_DOCUMENTO.SelectedIndex = 1
@@ -208,6 +229,7 @@ Public Class Apartado
     Private Sub CalculoTotales()
         Try
             If Not String.IsNullOrEmpty(TXT_CODIGO.Text) Then
+
                 Dim Cantidad As Decimal
                 Dim Precio_Unitario As Decimal
                 Dim Descuento As Decimal
@@ -216,21 +238,29 @@ Public Class Apartado
                 Dim Impuesto_Total As Decimal
                 Dim Subtotal As Decimal
                 Dim Total As Decimal
+                Dim Exoneracion As Decimal
+                Dim Exoneracion_Total As Decimal
 
                 Cantidad = FMC(TXT_CANTIDAD.Text)
                 Precio_Unitario = FMC(TXT_PRECIO.Text)
                 Descuento = FMC(TXT_DESCUENTO.Text)
                 Impuesto = FMC(TXT_IMPUESTO.Text)
+                Exoneracion = FMC(TXT_EXONERACION.Text)
+
+                'Se saca la exoneración
+                Impuesto = Impuesto - Exoneracion
 
                 Descuento_Total = FMC(((Precio_Unitario * Cantidad) * Descuento) / 100)
                 Impuesto_Total = FMC((((Precio_Unitario * Cantidad) - Descuento_Total) * Impuesto) / 100)
                 Subtotal = FMC(((Precio_Unitario * Cantidad) - Descuento_Total))
                 Total = FMC(Subtotal + Impuesto_Total)
+                Exoneracion_Total = FMC((((Precio_Unitario * Cantidad) - Descuento_Total) * Exoneracion) / 100)
 
                 TXT_DESCUENTOTOTAL.Text = FMCP(Descuento_Total)
                 TXT_IMPUESTOTOTAL.Text = FMCP(Impuesto_Total)
                 TXT_SUBTOTAL.Text = FMCP(Subtotal)
                 TXT_TOTAL.Text = FMCP(Total)
+                TXT_MONTO_EXONERACION.Text = FMCP(Exoneracion_Total)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -277,6 +307,7 @@ Public Class Apartado
                 Else
                     TXT_PRECIO.Text = DS.Tables(0).Rows(0).Item("PRECIO_3")
                 End If
+
                 TXT_IMPUESTO.Text = DS.Tables(0).Rows(0).Item("POR_IMPUESTO")
                 TXT_ESTANTE.Text = DS.Tables(0).Rows(0).Item("ESTANTE")
                 TXT_FILA.Text = DS.Tables(0).Rows(0).Item("FILA")
@@ -298,19 +329,18 @@ Public Class Apartado
         End Try
     End Sub
 
-    Private Sub BTN_INGRESAR_Click(sender As Object, e As EventArgs) Handles BTN_INGRESAR.Click
-        IngresarDetalle()
-    End Sub
-
     Private Sub IngresarDetalle()
         Try
-            If String.IsNullOrEmpty(TXT_ESTANTE.Text) Or String.IsNullOrEmpty(TXT_FILA.Text) Or String.IsNullOrEmpty(TXT_COLUMNA.Text) Then
+            If FMC(TXT_CANTIDAD.Text) <= 0 Then
+                TXT_CANTIDAD.Select()
+                MessageBox.Show(Me, "La cantidad del producto no puede ser menor o igual a cero (0)", "Mensaje cantidad", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            ElseIf String.IsNullOrEmpty(TXT_ESTANTE.Text) Or String.IsNullOrEmpty(TXT_FILA.Text) Or String.IsNullOrEmpty(TXT_COLUMNA.Text) Then
                 MessageBox.Show(Me, "La ubicación del producto es inválida, vuelva a seleccionar el producto", "Mensaje ubicación", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf String.IsNullOrEmpty(Cliente.VALOR) Then
                 MessageBox.Show(Me, "El cliente no ha sido seleccionado", "Mensaje cliente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
                 If FMC(TXT_TOTAL.Text) > 0 Then
-                    Dim SQL = "	EXECUTE USP_MANT_APARTADO_TMP "
+                    Dim SQL = "	EXECUTE USP_MANT_PROFORMA_TMP "
                     SQL &= Chr(13) & "	 @COD_CIA = " & SCM(COD_CIA)
                     SQL &= Chr(13) & "	,@COD_SUCUR = " & SCM(COD_SUCUR)
                     SQL &= Chr(13) & "	,@CODIGO = " & SCM(Codigo)
@@ -331,6 +361,8 @@ Public Class Apartado
                     SQL &= Chr(13) & "	,@DESCUENTO = " & FMC(TXT_DESCUENTOTOTAL.Text)
                     SQL &= Chr(13) & "	,@POR_IMPUESTO = " & Val(TXT_IMPUESTO.Text)
                     SQL &= Chr(13) & "	,@IMPUESTO = " & FMC(TXT_IMPUESTOTOTAL.Text)
+                    SQL &= Chr(13) & "	,@POR_EXO = " & Val(TXT_EXONERACION.Text)
+                    SQL &= Chr(13) & "	,@EXONERACION = " & FMC(TXT_MONTO_EXONERACION.Text)
                     SQL &= Chr(13) & "	,@SUBTOTAL = " & FMC(TXT_SUBTOTAL.Text)
                     SQL &= Chr(13) & "	,@TOTAL = " & FMC(TXT_TOTAL.Text)
                     SQL &= Chr(13) & "	,@ESTANTE = " & SCM(TXT_ESTANTE.Text)
@@ -352,6 +384,10 @@ Public Class Apartado
         End Try
     End Sub
 
+    Private Sub BTN_INGRESAR_Click(sender As Object, e As EventArgs) Handles BTN_INGRESAR.Click
+        IngresarDetalle()
+    End Sub
+
     Private Sub LimpiarControles()
         TXT_CANTIDAD.Text = ""
         TXT_DESCUENTO.Text = ""
@@ -366,6 +402,8 @@ Public Class Apartado
         TXT_FILA.Text = ""
         TXT_COLUMNA.Text = ""
         TXT_ESTANTE.Text = ""
+        TXT_EXONERACION.Text = ""
+        TXT_MONTO_EXONERACION.Text = ""
         LVResultados.Clear()
     End Sub
 
@@ -390,14 +428,14 @@ Public Class Apartado
             If modo = 0 Then
                 Dim SQL = "	Select TMP.LINEA , PROD.COD_PROD , PROD.DESCRIPCION , TMP.CANTIDAD, TMP.PRECIO "
                 SQL &= Chr(13) & "	, TMP.POR_DESCUENTO , TMP.IMPUESTO, TMP.TOTAL, TMP.ESTANTE, TMP.FILA, TMP.COLUMNA"
-                SQL &= Chr(13) & "	FROM APARTADO_DET_TMP AS TMP	"
+                SQL &= Chr(13) & "	FROM PROFORMA_DET_TMP AS TMP	"
                 SQL &= Chr(13) & "	INNER JOIN PRODUCTO AS PROD		"
                 SQL &= Chr(13) & "		ON PROD.COD_CIA = TMP.COD_CIA	"
-                SQL &= Chr(13) & "      AND PROD.COD_SUCUR = TMP.COD_SUCUR "
+                SQL &= Chr(13) & " And PROD.COD_SUCUR = TMP.COD_SUCUR "
                 SQL &= Chr(13) & "		AND PROD.COD_PROD = TMP.COD_PROD	"
                 SQL &= Chr(13) & "	WHERE TMP.COD_CIA = " & SCM(COD_CIA)
                 SQL &= Chr(13) & "	AND TMP.COD_SUCUR = " & SCM(COD_SUCUR)
-                SQL &= Chr(13) & "  AND TMP.CODIGO =  " & SCM(Codigo)
+                SQL &= Chr(13) & " And TMP.CODIGO =  " & SCM(Codigo)
 
                 CONX.Coneccion_Abrir()
                 Dim DS = CONX.EJECUTE_DS(SQL)
@@ -423,7 +461,7 @@ Public Class Apartado
             Else
                 Dim SQL = "	Select TMP.LINEA , PROD.COD_PROD , PROD.DESCRIPCION , TMP.CANTIDAD, TMP.PRECIO "
                 SQL &= Chr(13) & "	, TMP.POR_DESCUENTO , TMP.IMPUESTO, TMP.TOTAL, TMP.ESTANTE, TMP.FILA, TMP.COLUMNA"
-                SQL &= Chr(13) & "	FROM APARTADO_DET AS TMP	"
+                SQL &= Chr(13) & "	FROM PROFORMA_DET AS TMP	"
                 SQL &= Chr(13) & "	INNER JOIN PRODUCTO AS PROD		"
                 SQL &= Chr(13) & "		ON PROD.COD_CIA = TMP.COD_CIA	"
                 SQL &= Chr(13) & " And PROD.COD_SUCUR = TMP.COD_SUCUR "
@@ -474,6 +512,7 @@ Public Class Apartado
                 TXT_DESCUENTO.Text = seleccionado.Cells(8).Value.ToString
                 TXT_CODIGO.Text = seleccionado.Cells(1).Value.ToString
                 RellenaProducto(seleccionado.Cells(3).Value.ToString, seleccionado.Cells(4).Value.ToString, seleccionado.Cells(5).Value.ToString)
+                RellenaExoneracion()
                 CalculoTotales()
                 TabControl1.SelectedIndex = 1
                 TXT_CANTIDAD.Focus()
@@ -504,23 +543,27 @@ Public Class Apartado
     End Sub
 
     Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
+        Try
+            Accion_Facturar()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
 
-        If Modo = CRF_Modos.Modificar Then
-            Dim Sql = "	UPDATE APARTADO_ENC_TMP	"
-            Sql &= Chr(13) & "				SET CEDULA = " & SCM(Cliente.VALOR)
-            Sql &= Chr(13) & "				,COD_USUARIO = " & SCM(COD_USUARIO)
-            Sql &= Chr(13) & "				,COD_MONEDA = " & SCM(CMB_MONEDA.SelectedItem.ToString.Substring(0, 1))
-            Sql &= Chr(13) & "				,PLAZO = " & Val(TXT_PLAZO.Text)
-            Sql &= Chr(13) & "				,FORMA_PAGO = " & SCM(CMB_FORMAPAGO.SelectedItem.ToString.Substring(0, 2))
-            Sql &= Chr(13) & "				,DESCRIPCION = " & SCM(TXT_DESCRIPCION.Text)
-            Sql &= Chr(13) & "				WHERE COD_CIA = " & SCM(COD_CIA)
-            Sql &= Chr(13) & "				AND COD_SUCUR = " & SCM(COD_SUCUR)
-            Sql &= Chr(13) & "				AND CODIGO = " & SCM(Codigo)
-            CONX.Coneccion_Abrir()
-            CONX.EJECUTE(Sql)
-            CONX.Coneccion_Cerrar()
-        End If
-
+        'If Modo = CRF_Modos.Modificar Then
+        '    Dim Sql = "	UPDATE PROFORMA_ENC_TMP	"
+        '    Sql &= Chr(13) & "				SET CEDULA = " & SCM(Cliente.VALOR)
+        '    Sql &= Chr(13) & "				,COD_USUARIO = " & SCM(COD_USUARIO)
+        '    Sql &= Chr(13) & "				,COD_MONEDA = " & SCM(CMB_MONEDA.SelectedItem.ToString.Substring(0, 1))
+        '    Sql &= Chr(13) & "				,PLAZO = " & Val(TXT_PLAZO.Text)
+        '    Sql &= Chr(13) & "				,FORMA_PAGO = " & SCM(CMB_FORMAPAGO.SelectedItem.ToString.Substring(0, 2))
+        '    Sql &= Chr(13) & "				,DESCRIPCION = " & SCM(TXT_DESCRIPCION.Text)
+        '    Sql &= Chr(13) & "				WHERE COD_CIA = " & SCM(COD_CIA)
+        '    Sql &= Chr(13) & "				AND COD_SUCUR = " & SCM(COD_SUCUR)
+        '    Sql &= Chr(13) & "				AND CODIGO = " & SCM(Codigo)
+        '    CONX.Coneccion_Abrir()
+        '    CONX.EJECUTE(Sql)
+        '    CONX.Coneccion_Cerrar()
+        'End If
         Cerrar()
     End Sub
 
@@ -597,6 +640,7 @@ Public Class Apartado
             End If
 
             RellenaProducto(estante, fila, columna)
+            RellenaExoneracion()
             Busca_Producto()
             TXT_CANTIDAD.Focus()
         Else
@@ -667,7 +711,7 @@ Public Class Apartado
 
                     If valor = DialogResult.Yes Then
 
-                        Dim SQL = "	DELETE FROM APARTADO_DET_TMP	"
+                        Dim SQL = "	DELETE FROM PROFORMA_DET_TMP	"
                         SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
                         SQL &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
                         SQL &= Chr(13) & "	AND CODIGO = " & SCM(Codigo)
@@ -690,28 +734,18 @@ Public Class Apartado
 
     Private Sub BTN_FACTURAR_Click(sender As Object, e As EventArgs) Handles BTN_FACTURAR.Click
         Try
-            Dim valor = MessageBox.Show(Me, "¿Seguro que desea facturar el apartado?", "Facturacion", vbYesNo, MessageBoxIcon.Question)
-            If valor = DialogResult.Yes Then
-                If GRID.Rows.Count <= 0 Then
-                    MessageBox.Show(Me, "Debe ingresar al menos una linea del apartado", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                Else
-                    Dim Pantalla As New FacturaCambio(FMC(TXT_T.Text))
-                    AddHandler Pantalla.FormClosed, AddressOf Accion_Facturar
-                    Pantalla.ShowDialog()
-                End If
-            End If
+
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
     End Sub
 
-    Private Sub Accion_Facturar(ByVal sender As Form, ByVal e As EventArgs)
+    Private Sub Accion_Facturar()
         Try
-            Dim imp As New Impresion()
             If GRID.Rows.Count <= 0 Then
-                MessageBox.Show(Me, "Debe ingresar al menos una linea del apartado", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                MessageBox.Show(Me, "Debe ingresar al menos una linea del documento", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
-                Dim Sql = "	USP_APARTADO_TMP_A_REAL	"
+                Dim Sql = "	USP_FACTURACION_TMP_A_REAL	"
                 Sql &= Chr(13) & "	 @COD_CIA = " & SCM(COD_CIA)
                 Sql &= Chr(13) & "	,@COD_SUCUR = " & SCM(COD_SUCUR)
                 Sql &= Chr(13) & "	,@TIPO_MOV  = " & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
@@ -720,41 +754,35 @@ Public Class Apartado
                 Dim DS = CONX.EJECUTE_DS(Sql)
                 CONX.Coneccion_Cerrar()
 
-                Dim pregunta = MessageBox.Show(Me, "Apartado ingresado correctamente, ¿desea imprimir el apartado?", Me.Text, vbYesNo, MessageBoxIcon.Question)
-                If pregunta = DialogResult.Yes Then
-                    'imp.Imprimir(COD_CIA, COD_SUCUR, DS.Tables(0).Rows(0).Item(0), CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
-                    Me.Close()
-                    Padre.Refrescar()
-                Else
-                    Me.Close()
-                    Padre.Refrescar()
-                End If
+                Me.Close()
+                Padre.Refrescar()
             End If
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
+
     Private Sub SumatoriaIngreso()
         Try
             Dim sql As String = ""
             If Modo = CRF_Modos.Insertar Then
-                sql = "	SELECT SUM(DESCUENTO) AS DESCUENTO, SUM(IMPUESTO) AS IMPUESTO, SUM(SUBTOTAL) AS SUBTOTAL, SUM(TOTAL) AS TOTAL "
-                sql &= Chr(13) & "	FROM APARTADO_DET_TMP"
+                sql = "	SELECT SUM(DESCUENTO) AS DESCUENTO, SUM(IMPUESTO) AS IMPUESTO, SUM(EXONERACION) AS EXONERACION , SUM(SUBTOTAL) AS SUBTOTAL, SUM(TOTAL) AS TOTAL "
+                sql &= Chr(13) & "	FROM PROFORMA_DET_TMP"
                 sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
                 sql &= Chr(13) & "  AND COD_SUCUR = " & SCM(COD_SUCUR)
                 sql &= Chr(13) & "	AND TIPO_MOV = " & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
                 sql &= Chr(13) & "	AND CODIGO = " & SCM(Codigo)
             Else
                 If String.IsNullOrEmpty(Codigo) Then
-                    sql = "	SELECT SUM(DESCUENTO) AS DESCUENTO, SUM(IMPUESTO) AS IMPUESTO, SUM(SUBTOTAL) AS SUBTOTAL, SUM(TOTAL) AS TOTAL "
-                    sql &= Chr(13) & "	FROM APARTADO_DET"
+                    sql = "	SELECT SUM(DESCUENTO) AS DESCUENTO, SUM(IMPUESTO) AS IMPUESTO, SUM(EXONERACION) AS EXONERACION, SUM(SUBTOTAL) AS SUBTOTAL, SUM(TOTAL) AS TOTAL "
+                    sql &= Chr(13) & "	FROM PROFORMA_DET"
                     sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
                     sql &= Chr(13) & "  AND COD_SUCUR = " & SCM(COD_SUCUR)
                     sql &= Chr(13) & "	AND TIPO_MOV = " & SCM(Tipo_Mov)
                     sql &= Chr(13) & "	AND NUMERO_DOC = " & Val(Numero_Doc)
                 Else
-                    sql = "	SELECT SUM(DESCUENTO) AS DESCUENTO, SUM(IMPUESTO) AS IMPUESTO, SUM(SUBTOTAL) AS SUBTOTAL, SUM(TOTAL) AS TOTAL "
-                    sql &= Chr(13) & "	FROM APARTADO_DET_TMP"
+                    sql = "	SELECT SUM(DESCUENTO) AS DESCUENTO, SUM(IMPUESTO) AS IMPUESTO, SUM(EXONERACION) AS EXONERACION, SUM(SUBTOTAL) AS SUBTOTAL, SUM(TOTAL) AS TOTAL "
+                    sql &= Chr(13) & "	FROM PROFORMA_DET_TMP"
                     sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
                     sql &= Chr(13) & "  AND COD_SUCUR = " & SCM(COD_SUCUR)
                     sql &= Chr(13) & "	AND TIPO_MOV = " & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
@@ -770,6 +798,7 @@ Public Class Apartado
                 TXT_S.Text = FMCP(DS.Tables(0).Rows(0).Item("SUBTOTAL"))
                 TXT_I.Text = FMCP(DS.Tables(0).Rows(0).Item("IMPUESTO"))
                 TXT_D.Text = FMCP(DS.Tables(0).Rows(0).Item("DESCUENTO"))
+                TXT_E.Text = FMCP(DS.Tables(0).Rows(0).Item("EXONERACION"))
                 TXT_T.Text = FMCP(DS.Tables(0).Rows(0).Item("TOTAL"))
             End If
 
@@ -826,6 +855,26 @@ Public Class Apartado
             e.Handled = True
             e.SuppressKeyPress = True
         End If
+    End Sub
+
+    Private Sub RellenaExoneracion()
+        Try
+            Dim SQL = "	SELECT PORCENTAJE"
+            SQL &= Chr(13) & "	FROM CLIENTE_EXONERACION"
+            SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & " And CEDULA = " & SCM(Cliente.VALOR)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                TXT_EXONERACION.Text = Val(DS.Tables(0).Rows(0).Item("PORCENTAJE"))
+            Else
+                TXT_EXONERACION.Text = "0"
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 
     Private Sub TXT_PRECIO_Leave(sender As Object, e As EventArgs) Handles TXT_PRECIO.Leave

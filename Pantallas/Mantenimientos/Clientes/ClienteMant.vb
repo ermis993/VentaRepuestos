@@ -121,6 +121,7 @@ Public Class ClienteMant
             SQL &= Chr(13) & ",@CANTON = " & SCM(CMB_CANTON.Text)
             SQL &= Chr(13) & ",@COD_DISTRITO = " & SCM(CMB_DISTRITO.SelectedValue)
             SQL &= Chr(13) & ",@DISTRITO = " & SCM(CMB_DISTRITO.Text)
+            SQL &= Chr(13) & ",@PRECIO_DEFECTO = " & Val(CMB_PRECIO.SelectedIndex)
 
             CONX.Coneccion_Abrir()
             CONX.EJECUTE(SQL)
@@ -211,6 +212,7 @@ Public Class ClienteMant
 
         If MODO = CRF_Modos.Insertar Then
             CMB_TIPO_CEDULA.SelectedIndex = 0
+            CMB_PRECIO.SelectedIndex = 0
             TXT_CEDULA.Select()
         Else
             CMB_TIPO_CEDULA.Enabled = False
@@ -295,6 +297,7 @@ Public Class ClienteMant
                     CMB_PROVINCIA.SelectedValue = ITEM("COD_PROVINCIA")
                     CMB_CANTON.SelectedValue = ITEM("COD_CANTON")
                     CMB_DISTRITO.SelectedValue = ITEM("COD_DISTRITO")
+                    CMB_PRECIO.SelectedIndex = Val(ITEM("PRECIO_DEFECTO"))
                 Next
             End If
         Catch ex As Exception

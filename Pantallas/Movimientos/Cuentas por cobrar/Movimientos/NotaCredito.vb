@@ -19,9 +19,13 @@ Public Class NotaCredito
 
         Me.Tipo = Tipo_Proceso
         Me.Padre = PADRE
+
         Cliente.TABLA_BUSCAR = "CLIENTE"
         Cliente.CODIGO = "CEDULA"
-        Cliente.DESCRIPCION = "NOMBRE"
+        Cliente.DESCRIPCION = "NOMBRE+ ' ' + APELLIDO1"
+        Cliente.PANTALLA = New Cliente(CRF_Modos.Seleccionar, Cliente)
+        Cliente.CAMPO_FILTRAR = "ESTADO"
+        Cliente.OTROS_CAMP0S = "A"
         Cliente.refrescar()
 
         Codigo = GenerarCodigo()
@@ -252,7 +256,7 @@ Public Class NotaCredito
         Me.Padre.Refrescar()
     End Sub
 
-    Private Sub GRID_DoubleClick(sender As Object, e As EventArgs) Handles GRID.DoubleClick
+    Private Sub GRID_DoubleClick(sender As Object, e As EventArgs) Handles GRID.DoubleClick, TabControl1.DoubleClick
         Try
             Leer_indice(1)
 
@@ -303,6 +307,15 @@ Public Class NotaCredito
             CONX.EJECUTE(SQL)
             CONX.EJECUTE(SQL2)
             CONX.Coneccion_Cerrar()
+
+            RellenaFacturas()
+            RellenaFacturasAfec()
+            CalculoTotales()
+
+            If CMB_TIPO.SelectedIndex = 0 Then
+                RellenaProductos()
+            End If
+
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -317,31 +330,6 @@ Public Class NotaCredito
             CONX.EJECUTE(SQL)
             CONX.EJECUTE(SQL2)
             CONX.Coneccion_Cerrar()
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-        End Try
-    End Sub
-
-    Private Sub GRID2_DoubleClick(sender As Object, e As EventArgs) Handles GRID2.DoubleClick
-        Try
-            Leer_indice(2)
-
-            EliminarAfec()
-
-            RellenaFacturas()
-            RellenaFacturasAfec()
-            CalculoTotales()
-
-            If CMB_TIPO.SelectedIndex = 0 Then
-                RellenaProductosAfec()
-                RellenaProductos()
-            End If
-
-            If GRID2.Rows.Count <= 0 Then
-                CMB_MONEDA.Enabled = True
-                Cliente.Enabled = True
-            End If
-
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -646,5 +634,14 @@ Public Class NotaCredito
                 CMS.Hide()
             End If
         End If
+    End Sub
+
+    Private Sub GRID2_DoubleClick(sender As Object, e As EventArgs) Handles GRID2.DoubleClick
+        Try
+            Leer_indice(2)
+            EliminarAfec()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 End Class

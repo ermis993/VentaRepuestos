@@ -26,6 +26,8 @@ Public Class ProductoMant
         Buscador_Familia.DESCRIPCION = "DESCRIPCION"
         Buscador_Familia.PANTALLA = New Familia(CRF_Modos.Seleccionar, Buscador_Familia)
         Buscador_Familia.FILTRAR_POR_COMPANIA = False
+        Buscador_Familia.CAMPO_FILTRAR = "ESTADO"
+        Buscador_Familia.OTROS_CAMP0S = "A"
         Buscador_Familia.refrescar()
 
         CARGAR_UNIDAD_MEDIDA()

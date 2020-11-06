@@ -24,23 +24,52 @@ Public Class FamiliaMant
                 MessageBox.Show("¡Debe de ingresar la descripción de la familia!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_DESCRIPCION.Select()
             Else
-                Dim SQL As String = "EXEC USP_FAMILIA_MANT"
-                SQL &= Chr(13) & " @CODIGO = " & SCM(TXT_CODIGO.Text)
-                SQL &= Chr(13) & ",@DESCRIPCION = " & SCM(TXT_DESCRIPCION.Text)
-                SQL &= Chr(13) & ",@ESTADO = " & SCM(IIf(RB_ACTIVO.Checked = True, "A", "I"))
-                SQL &= Chr(13) & ",@MODO = " & Val(MODO)
-                CONX.Coneccion_Abrir()
-                CONX.EJECUTE(SQL)
-                CONX.Coneccion_Cerrar()
+                If Not RB_ACTIVO.Checked Then
+                    Dim mensaje As String = ""
+                    mensaje &= "Al inactivar una familia todos los productos ligados a ella se inactivarán automáticamente" & vbNewLine
+                    mensaje &= "¿Seguro que desea inactivar la familia?" & vbNewLine
 
-                If MODO = CRF_Modos.Insertar Then
-                    LIMPIAR_TODO()
-                    MessageBox.Show("¡Familia agregada correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                ElseIf MODO = CRF_Modos.Modificar Then
-                    Cerrar()
-                    MessageBox.Show("¡Familia modificada correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Dim valor = MessageBox.Show(Me, mensaje, "Famlia", vbYesNo, MessageBoxIcon.Question)
+                    If valor = DialogResult.Yes Then
+                        Dim SQL As String = "EXEC USP_FAMILIA_MANT"
+                        SQL &= Chr(13) & " @CODIGO = " & SCM(TXT_CODIGO.Text)
+                        SQL &= Chr(13) & ",@DESCRIPCION = " & SCM(TXT_DESCRIPCION.Text)
+                        SQL &= Chr(13) & ",@ESTADO = " & SCM(IIf(RB_ACTIVO.Checked = True, "A", "I"))
+                        SQL &= Chr(13) & ",@COD_CIA = " & SCM(COD_CIA)
+                        SQL &= Chr(13) & ",@COD_SUCUR = " & SCM(COD_SUCUR)
+                        SQL &= Chr(13) & ",@MODO = " & Val(MODO)
+                        CONX.Coneccion_Abrir()
+                        CONX.EJECUTE(SQL)
+                        CONX.Coneccion_Cerrar()
+
+                        If MODO = CRF_Modos.Insertar Then
+                            LIMPIAR_TODO()
+                            MessageBox.Show("¡Familia agregada correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        ElseIf MODO = CRF_Modos.Modificar Then
+                            Cerrar()
+                            MessageBox.Show("¡Familia modificada correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        End If
+                    End If
+                Else
+                    Dim SQL As String = "EXEC USP_FAMILIA_MANT"
+                    SQL &= Chr(13) & " @CODIGO = " & SCM(TXT_CODIGO.Text)
+                    SQL &= Chr(13) & ",@DESCRIPCION = " & SCM(TXT_DESCRIPCION.Text)
+                    SQL &= Chr(13) & ",@ESTADO = " & SCM(IIf(RB_ACTIVO.Checked = True, "A", "I"))
+                    SQL &= Chr(13) & ",@COD_CIA = " & SCM(COD_CIA)
+                    SQL &= Chr(13) & ",@COD_SUCUR = " & SCM(COD_SUCUR)
+                    SQL &= Chr(13) & ",@MODO = " & Val(MODO)
+                    CONX.Coneccion_Abrir()
+                    CONX.EJECUTE(SQL)
+                    CONX.Coneccion_Cerrar()
+
+                    If MODO = CRF_Modos.Insertar Then
+                        LIMPIAR_TODO()
+                        MessageBox.Show("¡Familia agregada correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    ElseIf MODO = CRF_Modos.Modificar Then
+                        Cerrar()
+                        MessageBox.Show("¡Familia modificada correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    End If
                 End If
-
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

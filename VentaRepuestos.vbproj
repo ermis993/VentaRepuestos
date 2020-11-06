@@ -87,6 +87,12 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="zxing, Version=0.16.6.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>packages\ZXing.Net.0.16.6\lib\net47\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.6.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>packages\ZXing.Net.0.16.6\lib\net47\zxing.presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -143,6 +149,18 @@
     <Compile Include="Pantallas\Generador reportes\Reportes.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pantallas\Mantenimientos\Productos\ProductoBarcode.Designer.vb">
+      <DependentUpon>ProductoBarcode.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Mantenimientos\Productos\ProductoBarcode.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Mantenimientos\Productos\ProductoBarcodeRelacion.Designer.vb">
+      <DependentUpon>ProductoBarcodeRelacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Mantenimientos\Productos\ProductoBarcodeRelacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pantallas\Mantenimientos\Productos\ProductoEnlaze.Designer.vb">
       <DependentUpon>ProductoEnlaze.vb</DependentUpon>
     </Compile>
@@ -178,6 +196,12 @@
       <DependentUpon>FacturaCambio.vb</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\FacturaCambio.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\Proforma.Designer.vb">
+      <DependentUpon>Proforma.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\Proforma.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\RespuestaDGTD.Designer.vb">
@@ -480,6 +504,12 @@
     <EmbeddedResource Include="Pantallas\Generador reportes\Reportes.resx">
       <DependentUpon>Reportes.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Mantenimientos\Productos\ProductoBarcode.resx">
+      <DependentUpon>ProductoBarcode.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Mantenimientos\Productos\ProductoBarcodeRelacion.resx">
+      <DependentUpon>ProductoBarcodeRelacion.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Mantenimientos\Productos\ProductoEnlaze.resx">
       <DependentUpon>ProductoEnlaze.vb</DependentUpon>
     </EmbeddedResource>
@@ -497,6 +527,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\FacturaCambio.resx">
       <DependentUpon>FacturaCambio.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\Proforma.resx">
+      <DependentUpon>Proforma.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\RespuestaDGTD.resx">
       <DependentUpon>RespuestaDGTD.vb</DependentUpon>
@@ -763,11 +796,14 @@
     <None Include="Resources\compras.png" />
     <None Include="Resources\backup.png" />
     <None Include="Resources\generar1.png" />
+    <None Include="Resources\barcode.png" />
+    <None Include="Resources\proforma.png" />
     <Content Include="Resources\quitar.png" />
     <None Include="Resources\Right.png" />
     <None Include="Resources\reportes.png" />
     <None Include="Resources\recibir.png" />
     <None Include="Resources\ruta.png" />
+    <None Include="Resources\relacionar.png" />
     <Content Include="Resources\salir.png" />
   </ItemGroup>
   <ItemGroup>

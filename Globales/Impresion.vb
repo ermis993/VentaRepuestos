@@ -38,6 +38,23 @@ Public Class Impresion
         Printer.DoPrint()
     End Sub
 
+    Private Shared Sub PrintBarCode(ByVal img As Image)
+
+        Printer.PrintDefault()
+        Printer.Print(img)
+
+        Printer.DoPrint()
+    End Sub
+
+    Public Shared Sub ImprimirBarcode(ByVal img As Image)
+        Try
+            PrintBarCode(img)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+
     Public Shared Sub Imprimir(ByVal COD_CIA As String, ByVal COD_SUCUR As String, ByVal NUMERO_DOC As Integer, ByVal TIPO_MOV As String)
         Try
             Dim strPrint As String
@@ -204,21 +221,16 @@ Public Class Impresion
             Dim strPrint As String
             Dim Ancho_Tiquete As Integer = ANCHO_IMPRESION()
 
-            Dim Sql = "	SELECT SUM(CASE WHEN FORMA_PAGO = 'EF' THEN ((MONTO + IMPUESTO)-ISNULL(AFEC.MONTO_AFEC, 0)) * CASE WHEN ENC.TIPO_MOV = 'NC' THEN -1 ELSE 1 END ELSE 0 END) AS EFECTIVO "
-            Sql &= Chr(13) & "	,SUM(CASE WHEN FORMA_PAGO = 'TR' THEN ((MONTO + IMPUESTO)-ISNULL(AFEC.MONTO_AFEC, 0)) * CASE WHEN ENC.TIPO_MOV = 'NC' THEN -1 ELSE 1 END ELSE 0 END) AS TRANSFERENCIA"
-            Sql &= Chr(13) & "	,SUM(CASE WHEN FORMA_PAGO = 'TA' THEN ((MONTO + IMPUESTO)-ISNULL(AFEC.MONTO_AFEC, 0)) * CASE WHEN ENC.TIPO_MOV = 'NC' THEN -1 ELSE 1 END ELSE 0 END) AS TARJETA"
-            Sql &= Chr(13) & "	,GETDATE() AS FECHA, SUM(((MONTO + IMPUESTO)-ISNULL(AFEC.MONTO_AFEC, 0)) * CASE WHEN ENC.TIPO_MOV = 'NC' THEN -1 ELSE 1 END) AS TOTAL"
-            Sql &= Chr(13) & "  FROM DOCUMENTO_ENC AS ENC"
-            Sql &= Chr(13) & "  LEFT JOIN  DOCUMENTO_AFEC AS AFEC"
-            Sql &= Chr(13) & "  	ON AFEC.COD_CIA = ENC.COD_CIA"
-            Sql &= Chr(13) & "  	AND AFEC.COD_SUCUR = ENC.COD_SUCUR"
-            Sql &= Chr(13) & "  	AND AFEC.NUMERO_DOC = ENC.NUMERO_DOC"
-            Sql &= Chr(13) & "  	AND AFEC.TIPO_MOV_AFEC = 'FA'"
-            Sql &= Chr(13) & "  	AND AFEC.TIPO_MOV IN ('NC', 'RB')"
-            Sql &= Chr(13) & "  WHERE ENC.COD_CIA = " & SCM(COD_CIA)
-            Sql &= Chr(13) & "  AND ENC.COD_SUCUR =" & SCM(COD_SUCUR)
-            Sql &= Chr(13) & "  AND ENC.FECHA BETWEEN " & SCM(YMD(DESDE)) & " AND " & SCM(YMD(HASTA))
-            Sql &= Chr(13) & "  AND ENC.TIPO_MOV IN ('RB', 'FC', 'NC')"
+            Dim SQL = "	SELECT SUM(CASE WHEN FORMA_PAGO = 'EF' THEN (MONTO + IMPUESTO) * CASE WHEN TIPO_MOV = 'NC' THEN -1 ELSE 1 END ELSE 0 END) AS EFECTIVO 																						"
+            SQL &= Chr(13) & "	,SUM(CASE WHEN FORMA_PAGO = 'TR' THEN (MONTO + IMPUESTO) * CASE WHEN TIPO_MOV = 'NC' THEN -1 ELSE 1 END ELSE 0 END) AS TRANSFERENCIA																					"
+            SQL &= Chr(13) & "	,SUM(CASE WHEN FORMA_PAGO = 'TA' THEN (MONTO + IMPUESTO) * CASE WHEN TIPO_MOV = 'NC' THEN -1 ELSE 1 END ELSE 0 END) AS TARJETA																					"
+            SQL &= Chr(13) & "	,GETDATE() AS FECHA, SUM((MONTO + IMPUESTO) * CASE WHEN TIPO_MOV = 'NC' THEN -1 ELSE 1 END) AS TOTAL																					"
+            SQL &= Chr(13) & "	FROM DOCUMENTO_ENC	"
+            SQL &= Chr(13) & "  WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & "  AND COD_SUCUR =" & SCM(COD_SUCUR)
+            SQL &= Chr(13) & "  AND FECHA BETWEEN " & SCM(YMD(DESDE)) & " AND " & SCM(YMD(HASTA))
+            SQL &= Chr(13) & "  AND ESTADO = 'A'"
+            SQL &= Chr(13) & "  AND TIPO_MOV IN ('RB', 'NC')"
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(Sql)
             CONX.Coneccion_Cerrar()

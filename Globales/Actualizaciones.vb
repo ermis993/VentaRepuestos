@@ -8,7 +8,7 @@ Public Class Actualizaciones
         'CANTIDAD_PROCESOS: CANTIDAD DE MÉTODOS A EJECUTAR
         'CANTIDAD ACTUAL: ACTUALIZAR SIEMPRE CON LA CANTIDAD DE MÉTODOS QUE SE EJECUTARON
 
-        Dim Cantidad_Procesos As Integer = 41
+        Dim Cantidad_Procesos As Integer = 48
         Dim Cantidad_Actual As Integer = 0
         ProgressBar.Value = 0
 
@@ -35,8 +35,12 @@ Public Class Actualizaciones
         Call INVENTARIO_MOV_DET_SISTEMA()
         Call SUCURSAL_IND_AVISO_MIN_STOCK()
         Call COD_CABYS_PRODUCTO()
+        Call PROVEEDOR_PORCENTAJE_VENTA()
+        Call SUCURSAL_INDICADORES_CAMPOS()
+        Call CLIENTE_PRECIO_DEFECTO()
+        Call PRODUCTO_IMG_BARRA()
 
-        Cantidad_Actual += 9
+        Cantidad_Actual += 13
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
         'CONSTRAINTS
@@ -73,8 +77,11 @@ Public Class Actualizaciones
         Call USP_IMPRIME_FACTURA()
         Call USP_IMPRIME_NOTA_CREDITO()
         Call USP_DATOS_FACTURA_ENCOMIENDA()
+        Call USP_PROVEEDOR_MANT()
+        Call USP_FAMILIA_MANT()
+        Call USP_CLIENTE_MANT()
 
-        Cantidad_Actual += 16
+        Cantidad_Actual += 19
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
     End Sub
 
@@ -785,6 +792,7 @@ Public Class Actualizaciones
 #End Region
 
 #Region "Campos"
+
     Private Sub PRODUCTO_COD_FAMILIA()
         Try
             If Not EXISTE_CAMPO("COD_FAMILIA", "PRODUCTO") Then
@@ -992,6 +1000,82 @@ Public Class Actualizaciones
         End Try
     End Sub
 
+    Private Sub PROVEEDOR_PORCENTAJE_VENTA()
+        Try
+            If Not EXISTE_CAMPO("PORCENTAJE_VENTA", "PROVEEDOR") Then
+
+                Dim SQL = "	ALTER TABLE PROVEEDOR	"
+                SQL &= Chr(13) & "	ADD PORCENTAJE_VENTA INT NOT NULL DEFAULT(0) "
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub SUCURSAL_INDICADORES_CAMPOS()
+        Try
+            If Not EXISTE_CAMPO("IND_RECIBO_AUTOMATICO", "SUCURSAL_INDICADORES") Then
+
+                Dim SQL = "	ALTER TABLE SUCURSAL_INDICADORES	"
+                SQL &= Chr(13) & "	ADD IND_RECIBO_AUTOMATICO CHAR(1) NOT NULL DEFAULT('N') "
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+
+            If Not EXISTE_CAMPO("IND_MENSAJE_FACTURACION", "SUCURSAL_INDICADORES") Then
+
+                Dim SQL = "	ALTER TABLE SUCURSAL_INDICADORES	"
+                SQL &= Chr(13) & "	ADD IND_MENSAJE_FACTURACION CHAR(1) NOT NULL DEFAULT('N') "
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub CLIENTE_PRECIO_DEFECTO()
+        Try
+            If Not EXISTE_CAMPO("PRECIO_DEFECTO", "CLIENTE") Then
+
+                Dim SQL = "	ALTER TABLE CLIENTE	"
+                SQL &= Chr(13) & "	ADD PRECIO_DEFECTO INT NOT NULL DEFAULT(0) "
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub PRODUCTO_IMG_BARRA()
+        Try
+            If Not EXISTE_CAMPO("IMG_BARRA", "PRODUCTO") Then
+
+                Dim SQL = "	ALTER TABLE PRODUCTO "
+                SQL &= Chr(13) & "	ADD IMG_BARRA IMAGE NULL "
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
 #End Region
 
 #Region "Procedimientos"
@@ -1156,7 +1240,7 @@ Public Class Actualizaciones
 
     Private Sub USP_FACTURACION_TMP_A_REAL()
         Try
-            If Not EXISTE_PROCEDIMIENTO("USP_FACTURACION_TMP_A_REAL", "2020-10-23") Then
+            If Not EXISTE_PROCEDIMIENTO("USP_FACTURACION_TMP_A_REAL", "2020-10-31") Then
                 ELIMINA_PROCEDIMIENTO("USP_FACTURACION_TMP_A_REAL")
 
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_FACTURACION_TMP_A_REAL] 																						"
@@ -1217,7 +1301,7 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "			BEGIN																				"
                 SQL &= Chr(13) & "			/*INGRESA EL ENCABEZADO*/																				"
                 SQL &= Chr(13) & "			INSERT INTO DOCUMENTO_ENC(COD_CIA,COD_SUCUR,NUMERO_DOC,TIPO_MOV,CEDULA,FECHA,FECHA_INC,COD_USUARIO,MONTO,IMPUESTO,SALDO,COD_MONEDA,TIPO_CAMBIO,PLAZO,FORMA_PAGO,ESTADO,DESCRIPCION,TIPO_NOTA)																				"
-                SQL &= Chr(13) & "			SELECT TMP.COD_CIA,TMP.COD_SUCUR,@NUMERO_DOC,TMP.TIPO_MOV,TMP.CEDULA,TMP.FECHA,TMP.FECHA_INC,TMP.COD_USUARIO, SUM(DET.SUBTOTAL), SUM(DET.IMPUESTO), CASE WHEN @TIPO_MOV = 'FA' THEN SUM(DET.TOTAL) ELSE 0 END,TMP.COD_MONEDA																				"
+                SQL &= Chr(13) & "			SELECT TMP.COD_CIA,TMP.COD_SUCUR,@NUMERO_DOC,TMP.TIPO_MOV,TMP.CEDULA,TMP.FECHA,TMP.FECHA_INC,TMP.COD_USUARIO, SUM(DET.SUBTOTAL), SUM(DET.IMPUESTO), SUM(DET.TOTAL) ,TMP.COD_MONEDA																				"
                 SQL &= Chr(13) & "			,TMP.TIPO_CAMBIO,TMP.PLAZO,TMP.FORMA_PAGO, 'A' AS ESTADO,TMP.DESCRIPCION,TMP.TIPO_NOTA																				"
                 SQL &= Chr(13) & "			FROM DOCUMENTO_ENC_TMP AS TMP																				"
                 SQL &= Chr(13) & "			INNER JOIN DOCUMENTO_DET_TMP AS DET	 																			"
@@ -1698,7 +1782,7 @@ Public Class Actualizaciones
 
     Private Sub USP_SUCURSAL_INDICADORES_MANT()
         Try
-            If Not EXISTE_PROCEDIMIENTO("USP_SUCURSAL_INDICADORES_MANT", "2020-10-13") Then
+            If Not EXISTE_PROCEDIMIENTO("USP_SUCURSAL_INDICADORES_MANT", "2020-10-31") Then
                 ELIMINA_PROCEDIMIENTO("USP_SUCURSAL_INDICADORES_MANT")
 
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_SUCURSAL_INDICADORES_MANT]																						"
@@ -1706,6 +1790,8 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "		,@COD_SUCUR VARCHAR(3)																					"
                 SQL &= Chr(13) & "		,@IND_PERMITE_VENTAS_NEGATIVO CHAR(1) = 'N'																					"
                 SQL &= Chr(13) & "		,@IND_AVISO_MIN_STOCK CHAR(1) = 'N'																					"
+                SQL &= Chr(13) & "		,@IND_RECIBO_AUTOMATICO CHAR(1) = 'N'																					"
+                SQL &= Chr(13) & "		,@IND_MENSAJE_FACTURACION CHAR(1) = 'N'																					"
                 SQL &= Chr(13) & "		,@MODO INT = 0																					"
                 SQL &= Chr(13) & "		AS																					"
                 SQL &= Chr(13) & "		BEGIN																					"
@@ -1716,14 +1802,15 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "					  WHERE COD_CIA = @COD_CIA																		"
                 SQL &= Chr(13) & "					  AND COD_SUCUR = @COD_SUCUR)																		"
                 SQL &= Chr(13) & "			BEGIN																				"
-                SQL &= Chr(13) & "					INSERT INTO SUCURSAL_INDICADORES(COD_CIA,COD_SUCUR,IND_PERMITE_VENTAS_NEGATIVO,IND_AVISO_MIN_STOCK)																		"
-                SQL &= Chr(13) & "					SELECT @COD_CIA, @COD_SUCUR, @IND_PERMITE_VENTAS_NEGATIVO, @IND_AVISO_MIN_STOCK																		"
+                SQL &= Chr(13) & "					INSERT INTO SUCURSAL_INDICADORES(COD_CIA,COD_SUCUR,IND_PERMITE_VENTAS_NEGATIVO,IND_AVISO_MIN_STOCK,IND_RECIBO_AUTOMATICO,IND_MENSAJE_FACTURACION)																		"
+                SQL &= Chr(13) & "					SELECT @COD_CIA, @COD_SUCUR, @IND_PERMITE_VENTAS_NEGATIVO, @IND_AVISO_MIN_STOCK, @IND_RECIBO_AUTOMATICO, @IND_MENSAJE_FACTURACION																		"
                 SQL &= Chr(13) & "			END																				"
                 SQL &= Chr(13) & "																							"
                 SQL &= Chr(13) & "			ELSE																				"
                 SQL &= Chr(13) & "			BEGIN																				"
                 SQL &= Chr(13) & "					UPDATE SUCURSAL_INDICADORES																		"
                 SQL &= Chr(13) & "					SET IND_PERMITE_VENTAS_NEGATIVO = @IND_PERMITE_VENTAS_NEGATIVO, IND_AVISO_MIN_STOCK = @IND_AVISO_MIN_STOCK																	"
+                SQL &= Chr(13) & "					,IND_RECIBO_AUTOMATICO = @IND_RECIBO_AUTOMATICO, IND_MENSAJE_FACTURACION = @IND_MENSAJE_FACTURACION "
                 SQL &= Chr(13) & "					WHERE COD_CIA = @COD_CIA																		"
                 SQL &= Chr(13) & "					AND COD_SUCUR = @COD_SUCUR																		"
                 SQL &= Chr(13) & "			END																				"
@@ -1984,7 +2071,7 @@ Public Class Actualizaciones
 
     Private Sub USP_DATOS_FACTURA_IMPRESION()
         Try
-            If Not EXISTE_PROCEDIMIENTO("USP_DATOS_FACTURA_IMPRESION", "2020-10-12") Then
+            If Not EXISTE_PROCEDIMIENTO("USP_DATOS_FACTURA_IMPRESION", "2020-10-29") Then
                 ELIMINA_PROCEDIMIENTO("USP_DATOS_FACTURA_IMPRESION")
 
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_DATOS_FACTURA_IMPRESION] 																						"
@@ -2005,25 +2092,26 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "			AND SUC.COD_SUCUR = @COD_SUCUR																				"
                 SQL &= Chr(13) & "																							"
                 SQL &= Chr(13) & "																							"
-                SQL &= Chr(13) & "			SELECT CASE DE.TIPO_COMPROBANTE WHEN '01' THEN 'FACTURA ELECTRONICA' WHEN '04' THEN 'TIQUETE ELECTRONICO' END AS TIPO, DE.CONSECUTIVO AS Consec,																				"
-                SQL &= Chr(13) & "			DE.NUMERO_DOC AS Numero, 'CLAVE NUMERICA' AS CLAVE_S, DE.CLAVE AS Clave, ENC.FECHA, CASE WHEN ENC.TIPO_MOV = 'FC' THEN 'CONTADO' ELSE 'CREDITO' END AS VENTA,																				"
-                SQL &= Chr(13) & "			(CLI.NOMBRE + ' ' + CLI.APELLIDO1 + ' ' + CLI.APELLIDO2) AS Nombre, U.NOMBRE AS Usuario, CASE WHEN ENC.COD_MONEDA = 'L' THEN 'COLONES' ELSE 'DOLARES' END AS MONEDA,																				"
-                SQL &= Chr(13) & "			ENC.DESCRIPCION AS DETALLE																				"
-                SQL &= Chr(13) & "			FROM DOCUMENTO_ELECTRONICO AS DE																				"
-                SQL &= Chr(13) & "			INNER JOIN DOCUMENTO_ENC AS ENC																				"
-                SQL &= Chr(13) & "				ON ENC.COD_CIA = DE.COD_CIA																			"
-                SQL &= Chr(13) & "				AND ENC.COD_SUCUR = DE.COD_SUCUR																			"
-                SQL &= Chr(13) & "				AND ENC.TIPO_MOV = DE.TIPO_MOV 																			"
-                SQL &= Chr(13) & "				AND ENC.NUMERO_DOC = DE.NUMERO_DOC																			"
-                SQL &= Chr(13) & "			INNER JOIN CLIENTE AS CLI																				"
-                SQL &= Chr(13) & "				ON CLI.COD_CIA = ENC.COD_CIA																			"
-                SQL &= Chr(13) & "				AND CLI.CEDULA = ENC.CEDULA																			"
-                SQL &= Chr(13) & "			INNER JOIN USUARIO AS U																				"
-                SQL &= Chr(13) & "				ON U.COD_USUARIO = ENC.COD_USUARIO																			"
-                SQL &= Chr(13) & "			WHERE DE.COD_CIA = @COD_CIA																				"
-                SQL &= Chr(13) & "			AND DE.COD_SUCUR = @COD_SUCUR																				"
-                SQL &= Chr(13) & "			AND DE.TIPO_MOV = @TIPO_MOV																				"
-                SQL &= Chr(13) & "			AND DE.NUMERO_DOC = @NUMERO_DOC																				"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "	SELECT CASE DE.TIPO_COMPROBANTE WHEN '01' THEN 'FACTURA ELECTRONICA' WHEN '04' THEN 'TIQUETE ELECTRONICO' ELSE 'FACTURA' END AS TIPO, DE.CONSECUTIVO AS Consec,																						"
+                SQL &= Chr(13) & "				ENC.NUMERO_DOC AS Numero, 'CLAVE NUMERICA' AS CLAVE_S, DE.CLAVE AS Clave, ENC.FECHA, CASE WHEN ENC.TIPO_MOV = 'FC' THEN 'CONTADO' ELSE 'CREDITO' END AS VENTA,																			"
+                SQL &= Chr(13) & "				(CLI.NOMBRE + ' ' + CLI.APELLIDO1 + ' ' + CLI.APELLIDO2) AS Nombre, U.NOMBRE AS Usuario, CASE WHEN ENC.COD_MONEDA = 'L' THEN 'COLONES' ELSE 'DOLARES' END AS MONEDA,																			"
+                SQL &= Chr(13) & "				ENC.DESCRIPCION AS DETALLE																			"
+                SQL &= Chr(13) & "				FROM DOCUMENTO_ENC AS ENC																			"
+                SQL &= Chr(13) & "				LEFT JOIN DOCUMENTO_ELECTRONICO AS DE																			"
+                SQL &= Chr(13) & "					ON ENC.COD_CIA = DE.COD_CIA																		"
+                SQL &= Chr(13) & "					AND ENC.COD_SUCUR = DE.COD_SUCUR																		"
+                SQL &= Chr(13) & "					AND ENC.TIPO_MOV = DE.TIPO_MOV 																		"
+                SQL &= Chr(13) & "					AND ENC.NUMERO_DOC = DE.NUMERO_DOC																		"
+                SQL &= Chr(13) & "				INNER JOIN CLIENTE AS CLI																			"
+                SQL &= Chr(13) & "					ON CLI.COD_CIA = ENC.COD_CIA																		"
+                SQL &= Chr(13) & "					AND CLI.CEDULA = ENC.CEDULA																		"
+                SQL &= Chr(13) & "				INNER JOIN USUARIO AS U																			"
+                SQL &= Chr(13) & "					ON U.COD_USUARIO = ENC.COD_USUARIO																		"
+                SQL &= Chr(13) & "				WHERE ENC.COD_CIA = @COD_CIA																			"
+                SQL &= Chr(13) & "				AND ENC.COD_SUCUR = @COD_SUCUR																			"
+                SQL &= Chr(13) & "				AND ENC.TIPO_MOV = @TIPO_MOV																			"
+                SQL &= Chr(13) & "				AND ENC.NUMERO_DOC = @NUMERO_DOC																			"
                 SQL &= Chr(13) & "																							"
                 SQL &= Chr(13) & "																							"
                 SQL &= Chr(13) & "			SELECT DET.LINEA, P.COD_PROD,  P.DESCRIPCION, DET.PRECIO, DET.CANTIDAD, DET.IMPUESTO, DET.DESCUENTO, DET.SUBTOTAL, DET.TOTAL																				"
@@ -2359,7 +2447,7 @@ Public Class Actualizaciones
 
     Private Sub USP_IMPRIME_NOTA_CREDITO()
         Try
-            If Not EXISTE_PROCEDIMIENTO("USP_IMPRIME_NOTA_CREDITO", "2020-10-23") Then
+            If Not EXISTE_PROCEDIMIENTO("USP_IMPRIME_NOTA_CREDITO", "2020-10-29") Then
                 ELIMINA_PROCEDIMIENTO("USP_IMPRIME_NOTA_CREDITO")
 
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_IMPRIME_NOTA_CREDITO] 																						"
@@ -2377,7 +2465,7 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "		/*INFORMACIÓN GENERAL CLIENTE*/																					"
                 SQL &= Chr(13) & "		CLI.NOMBRE+' '+CLI.APELLIDO1+' '+CLI.APELLIDO2 AS NOMBRE,CLI.CEDULA AS CEDULA_CLIENTE,CLI.CORREO,																					"
                 SQL &= Chr(13) & "		/*INFORMACIÓN DEL ENCABEZADO DEL DOCUMENTO*/																					"
-                SQL &= Chr(13) & "		ELEC.CONSECUTIVO,ELEC.CLAVE,ELEC.NUMERO_DOC,																					"
+                SQL &= Chr(13) & "		ISNULL(ELEC.CONSECUTIVO, '0') AS CONSECUTIVO,ISNULL(ELEC.CLAVE, '0') AS CLAVE, ENC.NUMERO_DOC,																					"
                 SQL &= Chr(13) & "		CASE WHEN ENC.COD_MONEDA='L' THEN 'Local' WHEN ENC.COD_MONEDA='D' THEN 'Dólares' END AS COD_MONEDA ,																					"
                 SQL &= Chr(13) & "		CASE WHEN ENC.COD_MONEDA='L' THEN '₡' WHEN ENC.COD_MONEDA='D' THEN '$' END AS SIMBOLO ,																					"
                 SQL &= Chr(13) & "		CASE WHEN ENC.FORMA_PAGO ='EF' THEN 'Efectivo' WHEN ENC.FORMA_PAGO ='T' THEN 'Tarjeta' END AS FORMA_PAGO,																					"
@@ -2387,7 +2475,7 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "		/*INFORMACIÓN DEL ENCABEZADO DEL DETALLE*/																					"
                 SQL &= Chr(13) & "		DOC.NUMERO_DOC, DOC.TIPO_MOV, DOC.MONTO, DOC.IMPUESTO, AFEC.MONTO_AFEC, FORMAT(DOC.FECHA_INC,'dd/MM/yyyy hh:mm:ss') AS 'FECHA DET'																					"
                 SQL &= Chr(13) & "		FROM DOCUMENTO_ENC AS ENC																					"
-                SQL &= Chr(13) & "		INNER JOIN DOCUMENTO_ELECTRONICO AS ELEC																					"
+                SQL &= Chr(13) & "		LEFT JOIN DOCUMENTO_ELECTRONICO AS ELEC																					"
                 SQL &= Chr(13) & "			ON ENC.COD_CIA = ELEC.COD_CIA																				"
                 SQL &= Chr(13) & "			AND ENC.COD_SUCUR = ELEC.COD_SUCUR																				"
                 SQL &= Chr(13) & "			AND ENC.NUMERO_DOC = ELEC.NUMERO_DOC																				"
@@ -2452,6 +2540,202 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "			AND GUIA.NUMERO_DOC = @NUMERO_DOC																				"
                 SQL &= Chr(13) & "			AND GUIA.TIPO_MOV = @TIPO_MOV																				"
                 SQL &= Chr(13) & "	END																						"
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub USP_PROVEEDOR_MANT()
+        Try
+            If Not EXISTE_PROCEDIMIENTO("USP_PROVEEDOR_MANT", "2020-10-24") Then
+                ELIMINA_PROCEDIMIENTO("USP_PROVEEDOR_MANT")
+
+                Dim SQL = "	CREATE PROCEDURE [dbo].[USP_PROVEEDOR_MANT] 																						"
+                SQL &= Chr(13) & "		    @COD_CIA VARCHAR(3),																					"
+                SQL &= Chr(13) & "			@COD_SUCUR VARCHAR(3),																				"
+                SQL &= Chr(13) & "			@MODO INTEGER,																				"
+                SQL &= Chr(13) & "			@CEDULA VARCHAR(25),																				"
+                SQL &= Chr(13) & "			@TIPO_CEDULA CHAR(2) = NULL,																				"
+                SQL &= Chr(13) & "			@NOMBRE VARCHAR(250) = NULL,																				"
+                SQL &= Chr(13) & "			@DIRECCION VARCHAR(250) = NULL,																				"
+                SQL &= Chr(13) & "			@TELEFONO VARCHAR(8) = NULL,																				"
+                SQL &= Chr(13) & "			@CORREO VARCHAR(150) = NULL,																				"
+                SQL &= Chr(13) & "			@ESTADO CHAR(1) = NULL,																				"
+                SQL &= Chr(13) & "			@PORCENTAJE INTEGER = 0																				"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "		AS   																					"
+                SQL &= Chr(13) & "		BEGIN																					"
+                SQL &= Chr(13) & "			IF @MODO = 1																				"
+                SQL &= Chr(13) & "			BEGIN																				"
+                SQL &= Chr(13) & "				INSERT INTO PROVEEDOR(COD_CIA,COD_SUCUR,TIPO_CEDULA,CEDULA,NOMBRE,DIRECCION,TELEFONO,CORREO,ESTADO,FECHA_INC,PORCENTAJE_VENTA) VALUES																			"
+                SQL &= Chr(13) & "				(@COD_CIA,@COD_SUCUR,@TIPO_CEDULA,@CEDULA,@NOMBRE,@DIRECCION,@TELEFONO,@CORREO,@ESTADO, GETDATE(), @PORCENTAJE)																			"
+                SQL &= Chr(13) & "			END																				"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "			IF @MODO = 3																				"
+                SQL &= Chr(13) & "			BEGIN																				"
+                SQL &= Chr(13) & "				UPDATE PROVEEDOR SET																			"
+                SQL &= Chr(13) & "					NOMBRE = @NOMBRE,																		"
+                SQL &= Chr(13) & "					DIRECCION = @DIRECCION,																		"
+                SQL &= Chr(13) & "					TELEFONO = @TELEFONO,																		"
+                SQL &= Chr(13) & "					CORREO = @CORREO,																		"
+                SQL &= Chr(13) & "					ESTADO = @ESTADO,																		"
+                SQL &= Chr(13) & "					PORCENTAJE_VENTA = @PORCENTAJE																		"
+                SQL &= Chr(13) & "				WHERE COD_CIA = @COD_CIA																			"
+                SQL &= Chr(13) & "				AND CEDULA = @CEDULA																			"
+                SQL &= Chr(13) & "				AND COD_SUCUR = @COD_SUCUR																			"
+                SQL &= Chr(13) & "			END																				"
+                SQL &= Chr(13) & "			IF @MODO = 5																				"
+                SQL &= Chr(13) & "			BEGIN																				"
+                SQL &= Chr(13) & "				SELECT *																			"
+                SQL &= Chr(13) & "				FROM PROVEEDOR																			"
+                SQL &= Chr(13) & "				WHERE COD_CIA = @COD_CIA																			"
+                SQL &= Chr(13) & "				AND CEDULA = @CEDULA																			"
+                SQL &= Chr(13) & "				AND COD_SUCUR = @COD_SUCUR																			"
+                SQL &= Chr(13) & "			END																				"
+                SQL &= Chr(13) & "		END																					"
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub USP_FAMILIA_MANT()
+        Try
+            If Not EXISTE_PROCEDIMIENTO("USP_FAMILIA_MANT", "2020-10-31") Then
+                ELIMINA_PROCEDIMIENTO("USP_FAMILIA_MANT")
+
+                Dim SQL = "	CREATE PROCEDURE [dbo].[USP_FAMILIA_MANT] 																						"
+                SQL &= Chr(13) & "		    @CODIGO VARCHAR(3),																					"
+                SQL &= Chr(13) & "			@DESCRIPCION VARCHAR(200) = NULL,																				"
+                SQL &= Chr(13) & "			@ESTADO CHAR(1) = 'A',																				"
+                SQL &= Chr(13) & "			@COD_CIA VARCHAR(3) = '',																				"
+                SQL &= Chr(13) & "			@COD_SUCUR VARCHAR(3) = '',																				"
+                SQL &= Chr(13) & "			@MODO AS INTEGER																				"
+                SQL &= Chr(13) & "		AS   																					"
+                SQL &= Chr(13) & "		BEGIN																					"
+                SQL &= Chr(13) & "			BEGIN TRY																				"
+                SQL &= Chr(13) & "			BEGIN TRAN TSN_FAMILIA_MANT																				"
+                SQL &= Chr(13) & "			IF @MODO = 1																				"
+                SQL &= Chr(13) & "			BEGIN																				"
+                SQL &= Chr(13) & "				IF NOT EXISTS(SELECT * FROM FAMILIA WHERE CODIGO = @CODIGO)																			"
+                SQL &= Chr(13) & "				BEGIN																			"
+                SQL &= Chr(13) & "					INSERT INTO FAMILIA(CODIGO, DESCRIPCION, ESTADO) VALUES																		"
+                SQL &= Chr(13) & "					(@CODIGO,@DESCRIPCION,@ESTADO)																		"
+                SQL &= Chr(13) & "				END																			"
+                SQL &= Chr(13) & "				ELSE																			"
+                SQL &= Chr(13) & "				BEGIN																			"
+                SQL &= Chr(13) & "					RAISERROR('El codigo ingresado ya existe en la base de datos', 17, 1)																		"
+                SQL &= Chr(13) & "				END																			"
+                SQL &= Chr(13) & "			END																				"
+                SQL &= Chr(13) & "			IF @MODO = 3																				"
+                SQL &= Chr(13) & "			BEGIN																				"
+                SQL &= Chr(13) & "				UPDATE FAMILIA 																			"
+                SQL &= Chr(13) & "				SET	DESCRIPCION = @DESCRIPCION, ESTADO = @ESTADO																		"
+                SQL &= Chr(13) & "				WHERE CODIGO = @CODIGO																			"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "				UPDATE PRODUCTO																			"
+                SQL &= Chr(13) & "				SET ESTADO = @ESTADO																			"
+                SQL &= Chr(13) & "				WHERE COD_CIA = @COD_CIA																			"
+                SQL &= Chr(13) & "				AND COD_SUCUR = @COD_SUCUR																			"
+                SQL &= Chr(13) & "				AND COD_FAMILIA = @CODIGO																			"
+                SQL &= Chr(13) & "			END																				"
+                SQL &= Chr(13) & "			IF @MODO = 5																				"
+                SQL &= Chr(13) & "			BEGIN																				"
+                SQL &= Chr(13) & "				SELECT *																			"
+                SQL &= Chr(13) & "				FROM FAMILIA																			"
+                SQL &= Chr(13) & "				WHERE CODIGO = @CODIGO																			"
+                SQL &= Chr(13) & "			END																				"
+                SQL &= Chr(13) & "		COMMIT TRAN TSN_FAMILIA_MANT 																					"
+                SQL &= Chr(13) & "		END TRY																					"
+                SQL &= Chr(13) & "		BEGIN CATCH 																					"
+                SQL &= Chr(13) & "		 	ROLLBACK TRAN																				"
+                SQL &= Chr(13) & "		 	DECLARE @MENSAJE VARCHAR(500)																				"
+                SQL &= Chr(13) & "		 	SET @MENSAJE =( SELECT ERROR_MESSAGE())																				"
+                SQL &= Chr(13) & "		 	RAISERROR( @MENSAJE, 16, 1)																				"
+                SQL &= Chr(13) & "		END CATCH																					"
+                SQL &= Chr(13) & "		END																					"
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub USP_CLIENTE_MANT()
+        Try
+            If Not EXISTE_PROCEDIMIENTO("USP_CLIENTE_MANT", "2020-10-31") Then
+                ELIMINA_PROCEDIMIENTO("USP_CLIENTE_MANT")
+
+                Dim SQL = "	CREATE PROCEDURE [dbo].[USP_CLIENTE_MANT] 																						"
+                SQL &= Chr(13) & "		    @COD_CIA VARCHAR(3),																					"
+                SQL &= Chr(13) & "			@MODO INTEGER,																				"
+                SQL &= Chr(13) & "			@CEDULA VARCHAR(25),																				"
+                SQL &= Chr(13) & "			@TIPO_CEDULA CHAR(2) = NULL,																				"
+                SQL &= Chr(13) & "			@NOMBRE VARCHAR(50) = NULL,																				"
+                SQL &= Chr(13) & "			@APELLIDO1 VARCHAR(50) = NULL,																				"
+                SQL &= Chr(13) & "			@APELLIDO2 VARCHAR(50) = NULL,																				"
+                SQL &= Chr(13) & "			@TELEFONO VARCHAR(8) = NULL,																				"
+                SQL &= Chr(13) & "			@DIRECCION VARCHAR(250) = NULL,																				"
+                SQL &= Chr(13) & "			@CORREO VARCHAR(150) = NULL,																				"
+                SQL &= Chr(13) & "			@SALDO MONEY = NULL,																				"
+                SQL &= Chr(13) & "			@MONEDA VARCHAR(3) = NULL,																				"
+                SQL &= Chr(13) & "			@FE CHAR(1) = NULL,																				"
+                SQL &= Chr(13) & "			@ESTADO CHAR(1) = NULL,																				"
+                SQL &= Chr(13) & "			@PROVINCIA VARCHAR(100) = NULL,																				"
+                SQL &= Chr(13) & "			@CANTON VARCHAR(100) = NULL,																				"
+                SQL &= Chr(13) & "			@DISTRITO VARCHAR(100) = NULL,																				"
+                SQL &= Chr(13) & "			@COD_PROVINCIA VARCHAR(10) = NULL,																				"
+                SQL &= Chr(13) & "			@COD_DISTRITO VARCHAR(10) = NULL,																				"
+                SQL &= Chr(13) & "			@COD_CANTON VARCHAR(10) = NULL,																				"
+                SQL &= Chr(13) & "			@PRECIO_DEFECTO INT = 0																				"
+                SQL &= Chr(13) & "		AS   																					"
+                SQL &= Chr(13) & "		BEGIN																					"
+                SQL &= Chr(13) & "			IF @MODO = 1																				"
+                SQL &= Chr(13) & "			BEGIN																				"
+                SQL &= Chr(13) & "				INSERT INTO CLIENTE(COD_CIA,TIPO_CEDULA,CEDULA,NOMBRE,APELLIDO1,APELLIDO2,TELEFONO,DIRECCION,CORREO,SALDO,MONEDA,FE,ESTADO,FECHA_INC,COD_PROVINCIA,PROVINCIA,COD_CANTON,CANTON,COD_DISTRITO,DISTRITO,PRECIO_DEFECTO) VALUES																			"
+                SQL &= Chr(13) & "				(@COD_CIA,@TIPO_CEDULA,@CEDULA,@NOMBRE,@APELLIDO1,@APELLIDO2,@TELEFONO,@DIRECCION,@CORREO,@SALDO,@MONEDA,@FE,@ESTADO,GETDATE(),@COD_PROVINCIA,@PROVINCIA,@COD_CANTON,@CANTON,@COD_DISTRITO,@DISTRITO,@PRECIO_DEFECTO)																			"
+                SQL &= Chr(13) & "			END																				"
+                SQL &= Chr(13) & "			IF @MODO = 3																				"
+                SQL &= Chr(13) & "			BEGIN																				"
+                SQL &= Chr(13) & "				UPDATE CLIENTE SET																			"
+                SQL &= Chr(13) & "					NOMBRE = @NOMBRE,																		"
+                SQL &= Chr(13) & "					APELLIDO1 = @APELLIDO1,																		"
+                SQL &= Chr(13) & "					APELLIDO2 = @APELLIDO2,																		"
+                SQL &= Chr(13) & "					TELEFONO = @TELEFONO,																		"
+                SQL &= Chr(13) & "					DIRECCION = @DIRECCION,																		"
+                SQL &= Chr(13) & "					CORREO = @CORREO,																		"
+                SQL &= Chr(13) & "					SALDO = @SALDO,																		"
+                SQL &= Chr(13) & "					MONEDA = @MONEDA,																		"
+                SQL &= Chr(13) & "					FE = @FE,																		"
+                SQL &= Chr(13) & "					ESTADO = @ESTADO,																		"
+                SQL &= Chr(13) & "					PROVINCIA = @PROVINCIA,																		"
+                SQL &= Chr(13) & "					COD_PROVINCIA = @COD_PROVINCIA,																		"
+                SQL &= Chr(13) & "					CANTON = @CANTON,																		"
+                SQL &= Chr(13) & "					COD_CANTON = @COD_CANTON,																		"
+                SQL &= Chr(13) & "					DISTRITO  = @DISTRITO,																		"
+                SQL &= Chr(13) & "					COD_DISTRITO = @COD_DISTRITO,																		"
+                SQL &= Chr(13) & "					PRECIO_DEFECTO = @PRECIO_DEFECTO																		"
+                SQL &= Chr(13) & "				WHERE COD_CIA = @COD_CIA																			"
+                SQL &= Chr(13) & "				 AND CEDULA = @CEDULA																			"
+                SQL &= Chr(13) & "			END																				"
+                SQL &= Chr(13) & "			IF @MODO = 5																				"
+                SQL &= Chr(13) & "			BEGIN																				"
+                SQL &= Chr(13) & "				SELECT *																			"
+                SQL &= Chr(13) & "				FROM CLIENTE																			"
+                SQL &= Chr(13) & "				WHERE COD_CIA = @COD_CIA																			"
+                SQL &= Chr(13) & "				AND CEDULA = @CEDULA																			"
+                SQL &= Chr(13) & "			END																				"
+                SQL &= Chr(13) & "		END																					"
+
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()

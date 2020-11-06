@@ -61,6 +61,7 @@ Public Class Facturacion
         BTN_REPORTES.Enabled = TieneDerecho("DREPT")
         BTN_APARTADO.Enabled = TieneDerecho("DAPAR")
         BTN_ANULAR.Enabled = TieneDerecho("APART")
+        BTN_PROFORMAS.Enabled = TieneDerecho("DPROFOR")
         CMB_VER.Enabled = TieneDerecho("DAPAR")
     End Sub
 
@@ -236,7 +237,7 @@ Public Class Facturacion
 
                         If ITEM("Tipo") = "NC" Then
                             Total_Facturado -= FMC(ITEM("Total"))
-                        ElseIf ITEM("Tipo") = "FA" Or ITEM("Tipo") = "FC" Or ITEM("Tipo") = "ND" Then
+                        ElseIf ITEM("Tipo") = "RB" Or ITEM("Tipo") = "ND" Then
                             Total_Facturado += FMC(ITEM("Total"))
                         ElseIf ITEM("Tipo") = "AA" Or ITEM("Tipo") = "AC" Then
                             Total_Facturado += FMC(ITEM("Total"))
@@ -485,7 +486,7 @@ Public Class Facturacion
                 Dim valor = MessageBox.Show(Me, mensaje, "Facturacion", vbYesNo, MessageBoxIcon.Question)
                 If valor = DialogResult.Yes Then
                     Dim SQL = "	UPDATE APARTADO_ENC"
-                    SQL &= Chr(13) & "	SET ESTADO = 'N', SALDO = 0"
+                    SQL &= Chr(13) & "	SET ESTADO = 'I', SALDO = 0"
                     SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
                     SQL &= Chr(13) & "  AND COD_SUCUR =" & SCM(COD_SUCUR)
                     SQL &= Chr(13) & "  AND NUMERO_DOC = " & Val(Numero_Doc)
@@ -497,9 +498,56 @@ Public Class Facturacion
                     RELLENAR_GRID()
                     MessageBox.Show(Me, "Apartado anulado correctamente", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
+            ElseIf Numero_Doc > 0 And Tipo_Mov = "RB" Then
+                Dim mensaje As String = ""
+                mensaje &= "¿Seguro que desea anular el recibo # " & Numero_Doc & " ?" & vbNewLine
+                mensaje &= "Si realiza este proceso es imposible recuperar el saldo y estado del documento"
+
+                Dim valor = MessageBox.Show(Me, mensaje, "Facturacion", vbYesNo, MessageBoxIcon.Question)
+                If valor = DialogResult.Yes Then
+                    CONX.Coneccion_Abrir()
+
+                    Dim SQL = "	UPDATE DOCUMENTO_ENC																						"
+                    SQL &= Chr(13) & "	SET SALDO = SALDO + T1.MONTO_AFEC																						"
+                    SQL &= Chr(13) & "	FROM(																						"
+                    SQL &= Chr(13) & "	SELECT COD_CIA, COD_SUCUR, NUMERO_DOC_AFEC, TIPO_MOV_AFEC, MONTO_AFEC																						"
+                    SQL &= Chr(13) & "	FROM DOCUMENTO_AFEC																						"
+                    SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+                    SQL &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+                    SQL &= Chr(13) & "	AND NUMERO_DOC  = " & Val(Numero_Doc)
+                    SQL &= Chr(13) & "	AND TIPO_MOV = " & SCM(Tipo_Mov)
+                    SQL &= Chr(13) & "	) AS T1																						"
+                    SQL &= Chr(13) & "	WHERE DOCUMENTO_ENC.COD_CIA = T1.COD_CIA																						"
+                    SQL &= Chr(13) & "	AND DOCUMENTO_ENC.COD_SUCUR = T1.COD_SUCUR																						"
+                    SQL &= Chr(13) & "	AND DOCUMENTO_ENC.NUMERO_DOC = T1.NUMERO_DOC_AFEC																						"
+                    SQL &= Chr(13) & "	AND DOCUMENTO_ENC.TIPO_MOV = T1.TIPO_MOV_AFEC	"
+                    CONX.EJECUTE(SQL)
+
+                    SQL = "	UPDATE DOCUMENTO_ENC	"
+                    SQL &= Chr(13) & "	Set ESTADO = 'I', SALDO = 0"
+                    SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+                    SQL &= Chr(13) & "  AND COD_SUCUR =" & SCM(COD_SUCUR)
+                    SQL &= Chr(13) & "  AND NUMERO_DOC = " & Val(Numero_Doc)
+                    SQL &= Chr(13) & "  AND TIPO_MOV = " & SCM(Tipo_Mov)
+                    CONX.EJECUTE(SQL)
+
+                    CONX.Coneccion_Cerrar()
+                    CONSULTA_FILTRO = ""
+                    RELLENAR_GRID()
+                    MessageBox.Show(Me, "Recibo anulado correctamente", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
             Else
-                MessageBox.Show(Me, "Solamente se pueden anular apartados", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                MessageBox.Show(Me, "Solamente se pueden anular Apartados y Recibos de Dinero", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_PROFORMAS_Click(sender As Object, e As EventArgs) Handles BTN_PROFORMAS.Click
+        Try
+            Dim PANTALLA As New Proforma(CRF_Modos.Insertar, Me)
+            PANTALLA.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

@@ -55,8 +55,10 @@ Partial Class SucursalMant
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.CHK_VENTAS_NEGATIVAS = New System.Windows.Forms.CheckBox()
         Me.CHK_AVISO_STOCK = New System.Windows.Forms.CheckBox()
+        Me.CHK_VENTAS_NEGATIVAS = New System.Windows.Forms.CheckBox()
+        Me.CHK_RECIBO = New System.Windows.Forms.CheckBox()
+        Me.CHK_MENSAJE_FACTURA = New System.Windows.Forms.CheckBox()
         Me.GroupBox2.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -415,6 +417,8 @@ Partial Class SucursalMant
         'Panel1
         '
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.CHK_MENSAJE_FACTURA)
+        Me.Panel1.Controls.Add(Me.CHK_RECIBO)
         Me.Panel1.Controls.Add(Me.CHK_AVISO_STOCK)
         Me.Panel1.Controls.Add(Me.CHK_VENTAS_NEGATIVAS)
         Me.Panel1.Location = New System.Drawing.Point(3, 3)
@@ -422,10 +426,21 @@ Partial Class SucursalMant
         Me.Panel1.Size = New System.Drawing.Size(462, 265)
         Me.Panel1.TabIndex = 1
         '
+        'CHK_AVISO_STOCK
+        '
+        Me.CHK_AVISO_STOCK.AutoSize = True
+        Me.CHK_AVISO_STOCK.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CHK_AVISO_STOCK.Location = New System.Drawing.Point(6, 35)
+        Me.CHK_AVISO_STOCK.Name = "CHK_AVISO_STOCK"
+        Me.CHK_AVISO_STOCK.Size = New System.Drawing.Size(353, 17)
+        Me.CHK_AVISO_STOCK.TabIndex = 1
+        Me.CHK_AVISO_STOCK.Text = "Mostrar aviso cuando el producto esté cercano a su mínimo de stock"
+        Me.CHK_AVISO_STOCK.UseVisualStyleBackColor = True
+        '
         'CHK_VENTAS_NEGATIVAS
         '
         Me.CHK_VENTAS_NEGATIVAS.AutoSize = True
-        Me.CHK_VENTAS_NEGATIVAS.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CHK_VENTAS_NEGATIVAS.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CHK_VENTAS_NEGATIVAS.Location = New System.Drawing.Point(6, 12)
         Me.CHK_VENTAS_NEGATIVAS.Name = "CHK_VENTAS_NEGATIVAS"
         Me.CHK_VENTAS_NEGATIVAS.Size = New System.Drawing.Size(261, 17)
@@ -433,16 +448,27 @@ Partial Class SucursalMant
         Me.CHK_VENTAS_NEGATIVAS.Text = "Permitir realizar ventas de productos sin inventario"
         Me.CHK_VENTAS_NEGATIVAS.UseVisualStyleBackColor = True
         '
-        'CHK_AVISO_STOCK
+        'CHK_RECIBO
         '
-        Me.CHK_AVISO_STOCK.AutoSize = True
-        Me.CHK_AVISO_STOCK.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CHK_AVISO_STOCK.Location = New System.Drawing.Point(6, 35)
-        Me.CHK_AVISO_STOCK.Name = "CHK_AVISO_STOCK"
-        Me.CHK_AVISO_STOCK.Size = New System.Drawing.Size(353, 17)
-        Me.CHK_AVISO_STOCK.TabIndex = 1
-        Me.CHK_AVISO_STOCK.Text = "Mostrar aviso cuando el producto esté cercano a su mínimo de stock"
-        Me.CHK_AVISO_STOCK.UseVisualStyleBackColor = True
+        Me.CHK_RECIBO.AutoSize = True
+        Me.CHK_RECIBO.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CHK_RECIBO.Location = New System.Drawing.Point(6, 58)
+        Me.CHK_RECIBO.Name = "CHK_RECIBO"
+        Me.CHK_RECIBO.Size = New System.Drawing.Size(333, 17)
+        Me.CHK_RECIBO.TabIndex = 2
+        Me.CHK_RECIBO.Text = "Ingresar recibo de dinero una vez realizada la factura de contado"
+        Me.CHK_RECIBO.UseVisualStyleBackColor = True
+        '
+        'CHK_MENSAJE_FACTURA
+        '
+        Me.CHK_MENSAJE_FACTURA.AutoSize = True
+        Me.CHK_MENSAJE_FACTURA.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CHK_MENSAJE_FACTURA.Location = New System.Drawing.Point(6, 81)
+        Me.CHK_MENSAJE_FACTURA.Name = "CHK_MENSAJE_FACTURA"
+        Me.CHK_MENSAJE_FACTURA.Size = New System.Drawing.Size(300, 17)
+        Me.CHK_MENSAJE_FACTURA.TabIndex = 3
+        Me.CHK_MENSAJE_FACTURA.Text = "Mostrar mensaje de confirmación para facturar documento"
+        Me.CHK_MENSAJE_FACTURA.UseVisualStyleBackColor = True
         '
         'SucursalMant
         '
@@ -511,4 +537,6 @@ Partial Class SucursalMant
     Friend WithEvents CHK_VENTAS_NEGATIVAS As CheckBox
     Friend WithEvents Panel1 As Panel
     Friend WithEvents CHK_AVISO_STOCK As CheckBox
+    Friend WithEvents CHK_RECIBO As CheckBox
+    Friend WithEvents CHK_MENSAJE_FACTURA As CheckBox
 End Class

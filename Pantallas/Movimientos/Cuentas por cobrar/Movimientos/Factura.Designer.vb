@@ -25,6 +25,7 @@ Partial Class Factura
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Factura))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TAB_ENC = New System.Windows.Forms.TabPage()
+        Me.Label41 = New System.Windows.Forms.Label()
         Me.Cliente = New VentaRepuestos.Buscador()
         Me.TXT_DESCRIPCION = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
@@ -147,6 +148,7 @@ Partial Class Factura
         '
         'TAB_ENC
         '
+        Me.TAB_ENC.Controls.Add(Me.Label41)
         Me.TAB_ENC.Controls.Add(Me.Cliente)
         Me.TAB_ENC.Controls.Add(Me.TXT_DESCRIPCION)
         Me.TAB_ENC.Controls.Add(Me.Label10)
@@ -166,6 +168,17 @@ Partial Class Factura
         Me.TAB_ENC.TabIndex = 0
         Me.TAB_ENC.Text = "[ Encabezado ]"
         Me.TAB_ENC.UseVisualStyleBackColor = True
+        '
+        'Label41
+        '
+        Me.Label41.AutoSize = True
+        Me.Label41.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label41.ForeColor = System.Drawing.Color.Navy
+        Me.Label41.Location = New System.Drawing.Point(567, 155)
+        Me.Label41.Name = "Label41"
+        Me.Label41.Size = New System.Drawing.Size(264, 52)
+        Me.Label41.TabIndex = 11
+        Me.Label41.Text = resources.GetString("Label41.Text")
         '
         'Cliente
         '
@@ -878,7 +891,7 @@ Partial Class Factura
         Me.TXT_TELEFONO_RETIRA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.TXT_TELEFONO_RETIRA.Location = New System.Drawing.Point(123, 71)
         Me.TXT_TELEFONO_RETIRA.Margin = New System.Windows.Forms.Padding(2)
-        Me.TXT_TELEFONO_RETIRA.MaxLength = 10
+        Me.TXT_TELEFONO_RETIRA.MaxLength = 9
         Me.TXT_TELEFONO_RETIRA.Name = "TXT_TELEFONO_RETIRA"
         Me.TXT_TELEFONO_RETIRA.Size = New System.Drawing.Size(102, 24)
         Me.TXT_TELEFONO_RETIRA.TabIndex = 5
@@ -1429,4 +1442,5 @@ Partial Class Factura
     Friend WithEvents TXT_VALOR As TextBox
     Friend WithEvents Label40 As Label
     Friend WithEvents BTN_IMPRIMIR As Button
+    Friend WithEvents Label41 As Label
 End Class

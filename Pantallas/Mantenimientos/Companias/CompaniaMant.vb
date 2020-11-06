@@ -8,7 +8,7 @@ Public Class LBL_CANTON
     Dim COD_C As String = ""
     Dim Respuesta As New DialogResult
     Dim RUTA As String = ""
-    Dim CERTIFICADO As String = ""
+    Dim CERTIFICADO As Byte()
     Dim MODO As New CRF_Modos
     Dim PADRE As New Compania
     Dim COD_ACT As String = ""
@@ -164,7 +164,8 @@ Public Class LBL_CANTON
     End Sub
     Private Sub BTN_SELECCIONAR_Click(sender As Object, e As EventArgs) Handles BTN_SELECCIONAR.Click
         Try
-            Dim CERT As STRING
+            Dim CERT As Byte() = Nothing
+
             Dim SQL = "	SELECT ISNULL(CERTIFICADO,0) AS CERTIFICADO "
             SQL &= Chr(13) & "	FROM COMPANIA"
             SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(TXT_CODIGO.Text)
@@ -177,7 +178,7 @@ Public Class LBL_CANTON
                     CERT = ITEM("CERTIFICADO")
                 Next
             End If
-            If CERT.Length <> 4 Then
+            If CERT IsNot Nothing AndAlso CERT.Length > 4 Then
                 Respuesta = MessageBox.Show(Me, "¡Actualmente existe un certificado importado!" & vbNewLine & "¿Desea importar uno nuevo y eliminar el actual?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
             Else
                 Respuesta = MessageBox.Show(Me, "¿Desea abrir el explorador de archivos?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
@@ -211,13 +212,12 @@ Public Class LBL_CANTON
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-    Private Function Bytes(ByVal PATH As String) As String
+    Private Function Bytes(ByVal PATH As String) As Byte()
         Try
-            Dim cert As New X509Certificate2(PATH, TXT_PIN.Text, X509KeyStorageFlags.PersistKeySet)
-            Dim stringOfCertWithPrivateKey = Convert.ToBase64String(cert.Export(X509ContentType.Cert))
+            'Dim cert As New X509Certificate2(PATH, TXT_PIN.Text, X509KeyStorageFlags.PersistKeySet)
+            'Dim stringOfCertWithPrivateKey = Convert.ToBase64String(cert.Export(X509ContentType.Cert))
 
-            Return stringOfCertWithPrivateKey
-
+            'Return stringOfCertWithPrivateKey
 
             'Dim FS As FileStream = File.Open(PATH, FileMode.Open, FileAccess.Read)
             'Dim Archivo(FS.Length) As Byte
@@ -227,6 +227,11 @@ Public Class LBL_CANTON
             'End If
             'Return Archivo
 
+            Dim cert = New X509Certificate2(PATH, TXT_PIN.Text, X509KeyStorageFlags.PersistKeySet)
+            Dim Data = cert.RawData
+
+            Return Data
+
         Catch ex As Exception
             Return Nothing
             MessageBox.Show(ex.Message)
@@ -234,12 +239,12 @@ Public Class LBL_CANTON
     End Function
     Private Sub GUARDAR_CERTIFICADO()
         Try
-            If String.IsNullOrEmpty(CERTIFICADO) = False And TXT_PIN.Text <> "" Then
+            If (CERTIFICADO IsNot Nothing AndAlso CERTIFICADO.Length > 4) And TXT_PIN.Text <> "" Then
                 Dim COMANDO As New SqlCommand()
                 COMANDO.CommandType = CommandType.StoredProcedure
                 Dim PIN As New SqlParameter("@PIN", SqlDbType.VarChar)
                 PIN.Value = TXT_PIN.Text
-                Dim CERT As New SqlParameter("@CERTIFICADO", SqlDbType.VarChar)
+                Dim CERT As New SqlParameter("@CERTIFICADO", SqlDbType.VarBinary)
                 CERT.Value = CERTIFICADO
                 Dim COD_CIA As New SqlParameter("@COD_CIA", SqlDbType.VarChar)
                 COD_CIA.Value = TXT_CODIGO.Text

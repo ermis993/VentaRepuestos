@@ -1,4 +1,6 @@
-﻿Imports FUN_CRFUSION.FUNCIONES_GENERALES
+﻿Imports System.Data.SqlClient
+Imports System.IO
+Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Globales
 
 Public Class Producto
@@ -85,7 +87,7 @@ Public Class Producto
         Refrescar()
     End Sub
 
-    Private Sub Producto_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub Producto_Load(sender As Object, e As EventArgs) Handles Me.Load
         Refrescar()
     End Sub
 
@@ -122,7 +124,7 @@ Public Class Producto
         End Try
     End Sub
 
-    Private Sub RB_ACTIVOS_CheckedChanged(sender As Object, e As EventArgs) Handles RB_ACTIVOS.CheckedChanged, RB_INACTIVOS.CheckedChanged, RB_TODOS.CheckedChanged
+    Private Sub RB_ACTIVOS_CheckedChanged(sender As Object, e As EventArgs) Handles RB_ACTIVOS.CheckedChanged
         Refrescar()
     End Sub
 
@@ -166,6 +168,51 @@ Public Class Producto
         Try
             Dim PANTALLA As New Reportes_Productos()
             PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_BARCODE_Click(sender As Object, e As EventArgs) Handles BTN_BARCODE.Click
+        Try
+            Dim PANTALLA As New ProductoBarcode()
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_IMPRIMIR_Click(sender As Object, e As EventArgs) Handles BTN_IMPRIMIR.Click
+        Try
+            If Me.GRID.Rows.Count > 0 Then
+                Leer_indice()
+                Dim Imagen As Image = Nothing
+
+                Dim COMANDO As New SqlCommand With {
+               .CommandType = CommandType.Text,
+               .CommandText = "SELECT IMG_BARRA FROM PRODUCTO WHERE COD_CIA = " & SCM(COD_CIA) & " AND COD_SUCUR = " & SCM(COD_SUCUR) & " AND COD_PROD = " & SCM(COD_PROD) & " AND IMG_BARRA IS NOT NULL"}
+                CONX.Coneccion_Abrir()
+                COMANDO.Connection = CONX.Connection
+
+                Dim da As New SqlDataAdapter(COMANDO)
+                Dim ds As New DataSet()
+                da.Fill(ds, "PRODUCTO")
+                Dim c As Integer = ds.Tables(0).Rows.Count
+                If c > 0 Then
+                    Dim bytBLOBData() As Byte =
+                    ds.Tables(0).Rows(c - 1)("IMG_BARRA")
+                    Dim stmBLOBData As New MemoryStream(bytBLOBData)
+                    Imagen = Image.FromStream(stmBLOBData)
+                End If
+                CONX.Coneccion_Cerrar()
+
+                If Not Imagen Is Nothing Then
+                    Dim imp As New Impresion()
+                    imp.ImprimirBarcode(Imagen)
+                Else
+                    MessageBox.Show(Me, "El producto no tiene relacionado una imagen Barcode", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                End If
+            End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

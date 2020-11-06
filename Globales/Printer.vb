@@ -191,7 +191,7 @@ End Class
 Public Class Printer
     Private Shared Lines As New Queue(Of String)
     Private Shared _myfont As Font
-    Private Shared prn As Printing.PrintDocument
+    Private Shared prn As PrintDocument
     Private Shared PrintDatalist As New PrintDatalist
     Private Shared c As New PrintingFormat
     Private Shared row As Long = 0
@@ -199,24 +199,37 @@ Public Class Printer
     Shared Sub New()
         PrintDatalist = New PrintDatalist
         _myfont = New Font("Courier New", 8, FontStyle.Regular, GraphicsUnit.Point) 'Default
-        prn = New Printing.PrintDocument
+        prn = New PrintDocument
         row = 0
         AddHandler prn.PrintPage, AddressOf Document_PrintPage
-
     End Sub
 
-    Public Shared Sub NewPrintTiquet()
+    Public Shared Sub PrintDefault()
         Dim Direccion As String = DIRECCION_ETIQUETA()
         PrintDatalist = New PrintDatalist
-        _myfont = New Font("Courier New", 15, FontStyle.Regular, GraphicsUnit.Point) 'Default
-        prn = New Printing.PrintDocument
+        _myfont = New Font("Courier New", 8, FontStyle.Regular, GraphicsUnit.Point) 'Default
+        prn = New PrintDocument
 
         If Direccion <> "" Then
             prn.PrinterSettings.PrinterName = Direccion
         End If
 
         row = 0
-        Dim PS1 As New System.Drawing.Printing.PageSettings
+        AddHandler prn.PrintPage, AddressOf Document_PrintPage
+    End Sub
+
+    Public Shared Sub NewPrintTiquet()
+        Dim Direccion As String = DIRECCION_ETIQUETA()
+        PrintDatalist = New PrintDatalist
+        _myfont = New Font("Courier New", 15, FontStyle.Regular, GraphicsUnit.Point) 'Default
+        prn = New PrintDocument
+
+        If Direccion <> "" Then
+            prn.PrinterSettings.PrinterName = Direccion
+        End If
+
+        row = 0
+        Dim PS1 As New PageSettings
         With PS1
             .PaperSize = (From s As PaperSize In prn.PrinterSettings.PaperSizes.Cast(Of PaperSize)()).FirstOrDefault
             .Margins.Left = 0
@@ -233,14 +246,14 @@ Public Class Printer
         Dim Direccion As String = DIRECCION_IMPRESION()
         PrintDatalist = New PrintDatalist
         _myfont = New Font("Courier New", 8, FontStyle.Regular, GraphicsUnit.Point) 'Default
-        prn = New Printing.PrintDocument
+        prn = New PrintDocument
 
         If Direccion <> "" Then
             prn.PrinterSettings.PrinterName = Direccion
         End If
 
         row = 0
-        Dim PS1 As New System.Drawing.Printing.PageSettings
+        Dim PS1 As New PageSettings
         With PS1
             .PaperSize = (From s As PaperSize In prn.PrinterSettings.PaperSizes.Cast(Of PaperSize)()).FirstOrDefault
             .Margins.Left = 0
@@ -286,7 +299,7 @@ Public Class Printer
     End Sub
 
     Private Shared Sub Document_PrintPage(ByVal sender As Object,
-        ByVal e As Printing.PrintPageEventArgs)
+        ByVal e As PrintPageEventArgs)
         Dim curY As Integer = e.PageSettings.HardMarginY
         Dim xZero As Integer = 0
         Dim data As PrintData = Nothing

@@ -74,7 +74,6 @@ Public Class RutaMant
         Try
             Dim SQL As String = "EXEC USP_RUTA_MANT"
             SQL &= Chr(13) & " @COD_CIA = " & SCM(COD_CIA)
-            SQL &= Chr(13) & ",@COD_SUCUR = " & SCM(COD_SUCUR)
             SQL &= Chr(13) & ",@CODIGO = " & SCM(Me.CODIGO)
             SQL &= Chr(13) & ",@MODO = " & Val(CRF_Modos.Seleccionar)
 

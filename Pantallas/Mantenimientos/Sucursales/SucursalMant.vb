@@ -84,6 +84,8 @@ Public Class SucursalMant
                 SQL &= Chr(13) & ",@COD_SUCUR=" & SCM(TXT_CODIGO.Text)
                 SQL &= Chr(13) & ",@IND_PERMITE_VENTAS_NEGATIVO=" & SCM(IIf(CHK_VENTAS_NEGATIVAS.Checked, "S", "N"))
                 SQL &= Chr(13) & ",@IND_AVISO_MIN_STOCK=" & SCM(IIf(CHK_AVISO_STOCK.Checked, "S", "N"))
+                SQL &= Chr(13) & ",@IND_RECIBO_AUTOMATICO=" & SCM(IIf(CHK_RECIBO.Checked, "S", "N"))
+                SQL &= Chr(13) & ",@IND_MENSAJE_FACTURACION=" & SCM(IIf(CHK_MENSAJE_FACTURA.Checked, "S", "N"))
                 SQL &= Chr(13) & ",@MODO=" & Val(Me.MODO)
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
@@ -158,6 +160,8 @@ Public Class SucursalMant
                 For Each ITEM In DS.Tables(0).Rows
                     CHK_VENTAS_NEGATIVAS.Checked = IIf(ITEM("IND_PERMITE_VENTAS_NEGATIVO") = "S", True, False)
                     CHK_AVISO_STOCK.Checked = IIf(ITEM("IND_AVISO_MIN_STOCK") = "S", True, False)
+                    CHK_MENSAJE_FACTURA.Checked = IIf(ITEM("IND_MENSAJE_FACTURACION") = "S", True, False)
+                    CHK_RECIBO.Checked = IIf(ITEM("IND_RECIBO_AUTOMATICO") = "S", True, False)
                 Next
             End If
         Catch ex As Exception

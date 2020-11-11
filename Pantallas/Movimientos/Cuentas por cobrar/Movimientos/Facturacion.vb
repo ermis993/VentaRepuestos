@@ -7,6 +7,7 @@ Public Class Facturacion
     Dim CONSULTA_FILTRO As String = ""
     Dim Respuesta As String = ""
     Dim Tipo_Mov As String
+    Dim Descripcion As String
 
     Private Sub BTN_FACTURAR_Click(sender As Object, e As EventArgs) Handles BTN_FACTURAR.Click
         Try
@@ -162,11 +163,20 @@ Public Class Facturacion
     Private Sub RELLENAR_GRID()
         Try
             Dim Total_Facturado As Decimal = 0
+            Dim TABLA As String
 
             If GRID.Columns.Count > 0 Then
                 GRID.Rows.Clear()
                 GRID.DataSource = Nothing
                 Dim SQL As String = ""
+
+                If CMB_VER.SelectedIndex = 0 Then
+                    TABLA = "DOCUMENTO_ENC"
+                ElseIf CMB_VER.SelectedIndex = 1 Then
+                    TABLA = "APARTADO_ENC"
+                Else
+                    TABLA = "PROFORMA_ENC"
+                End If
 
                 If CMB_TIPO_FACT.SelectedIndex = 0 Then
                     SQL &= Chr(13) & "	SELECT ENC.NUMERO_DOC AS Documento, ENC.TIPO_MOV as Tipo, C.CEDULA AS Cédula, C.NOMBRE AS Nombre, ENC.DESCRIPCION AS Descripción, CONVERT(VARCHAR(10), ENC.FECHA, 105) AS Fecha	"
@@ -174,7 +184,7 @@ Public Class Facturacion
                     If IND_ENCOMIENDA = "S" Then
                         SQL &= Chr(13) & "	,ISNULL(DG.NUMERO_GUIA, '0') AS Guia"
                     End If
-                    SQL &= Chr(13) & "	FROM " & IIf(CMB_VER.SelectedIndex = 0, "DOCUMENTO_ENC", "APARTADO_ENC") & " AS ENC	"
+                    SQL &= Chr(13) & "	FROM " & TABLA & " AS ENC	"
                     SQL &= Chr(13) & "	INNER JOIN CLIENTE As C	"
                     SQL &= Chr(13) & "		On C.COD_CIA = ENC.COD_CIA "
                     SQL &= Chr(13) & "      And C.CEDULA = ENC.CEDULA "
@@ -321,8 +331,11 @@ Public Class Facturacion
             If CMB_VER.SelectedIndex = 0 Then
                 Dim PANTALLA As New Factura(CRF_Modos.Modificar, Me, Numero_Doc, Codigo, Tipo_Mov)
                 PANTALLA.ShowDialog()
-            Else
+            ElseIf CMB_VER.SelectedIndex = 1 Then
                 Dim PANTALLA As New Apartado(CRF_Modos.Modificar, Me, Numero_Doc, Codigo, Tipo_Mov)
+                PANTALLA.ShowDialog()
+            Else
+                Dim PANTALLA As New Proforma(CRF_Modos.Modificar, Me, Numero_Doc, Codigo, Tipo_Mov)
                 PANTALLA.ShowDialog()
             End If
 
@@ -501,7 +514,7 @@ Public Class Facturacion
             ElseIf Numero_Doc > 0 And Tipo_Mov = "RB" Then
                 Dim mensaje As String = ""
                 mensaje &= "¿Seguro que desea anular el recibo # " & Numero_Doc & " ?" & vbNewLine
-                mensaje &= "Si realiza este proceso es imposible recuperar el saldo y estado del documento"
+                mensaje &= "Si realiza este proceso el documento afectado recobrará el saldo"
 
                 Dim valor = MessageBox.Show(Me, mensaje, "Facturacion", vbYesNo, MessageBoxIcon.Question)
                 If valor = DialogResult.Yes Then
@@ -524,7 +537,7 @@ Public Class Facturacion
                     CONX.EJECUTE(SQL)
 
                     SQL = "	UPDATE DOCUMENTO_ENC	"
-                    SQL &= Chr(13) & "	Set ESTADO = 'I', SALDO = 0"
+                    SQL &= Chr(13) & "	Set SALDO = 0, DESCRIPCION = " & SCM("Recibo anulado por: " & COD_USUARIO)
                     SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
                     SQL &= Chr(13) & "  AND COD_SUCUR =" & SCM(COD_SUCUR)
                     SQL &= Chr(13) & "  AND NUMERO_DOC = " & Val(Numero_Doc)

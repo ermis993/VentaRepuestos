@@ -8,7 +8,7 @@ Public Class Actualizaciones
         'CANTIDAD_PROCESOS: CANTIDAD DE MÉTODOS A EJECUTAR
         'CANTIDAD ACTUAL: ACTUALIZAR SIEMPRE CON LA CANTIDAD DE MÉTODOS QUE SE EJECUTARON
 
-        Dim Cantidad_Procesos As Integer = 48
+        Dim Cantidad_Procesos As Integer = 55
         Dim Cantidad_Actual As Integer = 0
         ProgressBar.Value = 0
 
@@ -21,8 +21,13 @@ Public Class Actualizaciones
         Call PRODUCTO_RELACION()
         Call CXP_DOCUMENTO_AFEC()
         Call CXP_DOCUMENTO_AFEC_DET_TMP()
+        Call COMPANIA_CODIGOS_BARRAS()
+        Call PROFORMA_ENC_TMP()
+        Call PROFORMA_DET_TMP()
+        Call PROFORMA_ENC()
+        Call PROFORMA_DET()
 
-        Cantidad_Actual += 8
+        Cantidad_Actual += 13
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
         'CAMPOS EN TABLAS
@@ -80,8 +85,10 @@ Public Class Actualizaciones
         Call USP_PROVEEDOR_MANT()
         Call USP_FAMILIA_MANT()
         Call USP_CLIENTE_MANT()
+        Call USP_MANT_PROFORMA_TMP()
+        Call USP_PROFORMA_TMP_A_REAL()
 
-        Cantidad_Actual += 19
+        Cantidad_Actual += 21
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
     End Sub
 
@@ -412,6 +419,235 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "		[TIPO_MOV] ASC																					"
                 SQL &= Chr(13) & "	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]																						"
                 SQL &= Chr(13) & "	) ON [PRIMARY]		"
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub COMPANIA_CODIGOS_BARRAS()
+        Try
+            If Not EXISTE_TABLA("COMPANIA_CODIGOS_BARRAS") Then
+
+                Dim SQL = "	CREATE TABLE [dbo].[COMPANIA_CODIGOS_BARRAS](																						"
+                SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,																					"
+                SQL &= Chr(13) & "		[CODIGO_BARRAS] [varchar](25) NOT NULL,																					"
+                SQL &= Chr(13) & "		[IMAGEN] [image] NULL,																					"
+                SQL &= Chr(13) & "	 CONSTRAINT [PK_COMPANIA_CODIGOS_BARRAS] PRIMARY KEY CLUSTERED 																						"
+                SQL &= Chr(13) & "	(																						"
+                SQL &= Chr(13) & "		[COD_CIA] ASC,																					"
+                SQL &= Chr(13) & "		[CODIGO_BARRAS] ASC																					"
+                SQL &= Chr(13) & "	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]																						"
+                SQL &= Chr(13) & "	) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]																						"
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub PROFORMA_ENC_TMP()
+        Try
+            If Not EXISTE_TABLA("PROFORMA_ENC_TMP") Then
+
+                Dim SQL = "	CREATE TABLE [dbo].[PROFORMA_ENC_TMP](																						"
+                SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,																					"
+                SQL &= Chr(13) & "		[COD_SUCUR] [varchar](3) NOT NULL,																					"
+                SQL &= Chr(13) & "		[CODIGO] [varchar](20) NOT NULL,																					"
+                SQL &= Chr(13) & "		[TIPO_MOV] [char](2) NOT NULL,																					"
+                SQL &= Chr(13) & "		[CEDULA] [varchar](25) NOT NULL,																					"
+                SQL &= Chr(13) & "		[FECHA] [datetime] NOT NULL,																					"
+                SQL &= Chr(13) & "		[FECHA_INC] [datetime] NOT NULL,																					"
+                SQL &= Chr(13) & "		[COD_USUARIO] [varchar](8) NOT NULL,																					"
+                SQL &= Chr(13) & "		[COD_MONEDA] [char](1) NOT NULL,																					"
+                SQL &= Chr(13) & "		[TIPO_CAMBIO] [money] NOT NULL,																					"
+                SQL &= Chr(13) & "		[PLAZO] [int] NOT NULL,																					"
+                SQL &= Chr(13) & "		[FORMA_PAGO] [char](2) NOT NULL,																					"
+                SQL &= Chr(13) & "		[DESCRIPCION] [varchar](250) NOT NULL,																					"
+                SQL &= Chr(13) & "		[TIPO_NOTA] [varchar](2) NULL,																					"
+                SQL &= Chr(13) & "	 CONSTRAINT [PK_PROFORMA_ENC_TMP] PRIMARY KEY CLUSTERED 																						"
+                SQL &= Chr(13) & "	(																						"
+                SQL &= Chr(13) & "		[COD_CIA] ASC,																					"
+                SQL &= Chr(13) & "		[COD_SUCUR] ASC,																					"
+                SQL &= Chr(13) & "		[CODIGO] ASC,																					"
+                SQL &= Chr(13) & "		[TIPO_MOV] ASC																					"
+                SQL &= Chr(13) & "	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]																						"
+                SQL &= Chr(13) & "	) ON [PRIMARY]																						"
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub PROFORMA_DET_TMP()
+        Try
+            If Not EXISTE_TABLA("PROFORMA_DET_TMP") Then
+                Dim SQL = "	CREATE TABLE [dbo].[PROFORMA_DET_TMP](																						"
+                SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,																					"
+                SQL &= Chr(13) & "		[COD_SUCUR] [varchar](3) NOT NULL,																					"
+                SQL &= Chr(13) & "		[CODIGO] [varchar](20) NOT NULL,																					"
+                SQL &= Chr(13) & "		[TIPO_MOV] [char](2) NOT NULL,																					"
+                SQL &= Chr(13) & "		[LINEA] [int] NOT NULL,																					"
+                SQL &= Chr(13) & "		[COD_PROD] [varchar](20) NOT NULL,																					"
+                SQL &= Chr(13) & "		[COD_UNIDAD] [varchar](10) NOT NULL,																					"
+                SQL &= Chr(13) & "		[CANTIDAD] [money] NOT NULL,																					"
+                SQL &= Chr(13) & "		[PRECIO] [money] NOT NULL,																					"
+                SQL &= Chr(13) & "		[POR_DESCUENTO] [int] NOT NULL,																					"
+                SQL &= Chr(13) & "		[DESCUENTO] [money] NOT NULL,																					"
+                SQL &= Chr(13) & "		[POR_IMPUESTO] [int] NOT NULL,																					"
+                SQL &= Chr(13) & "		[IMPUESTO] [money] NOT NULL,																					"
+                SQL &= Chr(13) & "		[SUBTOTAL] [money] NOT NULL,																					"
+                SQL &= Chr(13) & "		[TOTAL] [money] NOT NULL,																					"
+                SQL &= Chr(13) & "		[ESTANTE] [varchar](3) NULL,																					"
+                SQL &= Chr(13) & "		[FILA] [varchar](3) NULL,																					"
+                SQL &= Chr(13) & "		[COLUMNA] [varchar](3) NULL,																					"
+                SQL &= Chr(13) & "		[POR_EXONERACION] [int] NULL,																					"
+                SQL &= Chr(13) & "		[EXONERACION] [money] NULL,																					"
+                SQL &= Chr(13) & "	 CONSTRAINT [PK_PROFORMA_DET_TMP] PRIMARY KEY CLUSTERED 																						"
+                SQL &= Chr(13) & "	(																						"
+                SQL &= Chr(13) & "		[COD_CIA] ASC,																					"
+                SQL &= Chr(13) & "		[COD_SUCUR] ASC,																					"
+                SQL &= Chr(13) & "		[CODIGO] ASC,																					"
+                SQL &= Chr(13) & "		[TIPO_MOV] ASC,																					"
+                SQL &= Chr(13) & "		[LINEA] ASC																					"
+                SQL &= Chr(13) & "	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]																						"
+                SQL &= Chr(13) & "	) ON [PRIMARY]																					"
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub PROFORMA_ENC()
+        Try
+            If Not EXISTE_TABLA("PROFORMA_ENC") Then
+                Dim SQL = "	CREATE TABLE [dbo].[PROFORMA_ENC](																						"
+                SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,																					"
+                SQL &= Chr(13) & "		[COD_SUCUR] [varchar](3) NOT NULL,																					"
+                SQL &= Chr(13) & "		[NUMERO_DOC] [int] NOT NULL,																					"
+                SQL &= Chr(13) & "		[TIPO_MOV] [char](2) NOT NULL,																					"
+                SQL &= Chr(13) & "		[CEDULA] [varchar](25) NOT NULL,																					"
+                SQL &= Chr(13) & "		[FECHA] [datetime] NOT NULL,																					"
+                SQL &= Chr(13) & "		[FECHA_INC] [datetime] NOT NULL,																					"
+                SQL &= Chr(13) & "		[COD_USUARIO] [varchar](8) NOT NULL,																					"
+                SQL &= Chr(13) & "		[MONTO] [money] NOT NULL,																					"
+                SQL &= Chr(13) & "		[IMPUESTO] [money] NOT NULL,																					"
+                SQL &= Chr(13) & "		[SALDO] [money] NOT NULL,																					"
+                SQL &= Chr(13) & "		[COD_MONEDA] [char](1) NOT NULL,																					"
+                SQL &= Chr(13) & "		[TIPO_CAMBIO] [money] NOT NULL,																					"
+                SQL &= Chr(13) & "		[PLAZO] [int] NOT NULL,																					"
+                SQL &= Chr(13) & "		[FORMA_PAGO] [char](2) NOT NULL,																					"
+                SQL &= Chr(13) & "		[ESTADO] [char](1) NOT NULL,																					"
+                SQL &= Chr(13) & "		[DESCRIPCION] [varchar](250) NULL,																					"
+                SQL &= Chr(13) & "		[TIPO_NOTA] [varchar](2) NULL,																					"
+                SQL &= Chr(13) & "		[NUM_FACTURA] [int] NULL,																					"
+                SQL &= Chr(13) & "	 CONSTRAINT [PK_PROFORMA_ENC] PRIMARY KEY CLUSTERED 																						"
+                SQL &= Chr(13) & "	(																						"
+                SQL &= Chr(13) & "		[COD_CIA] ASC,																					"
+                SQL &= Chr(13) & "		[COD_SUCUR] ASC,																					"
+                SQL &= Chr(13) & "		[NUMERO_DOC] ASC,																					"
+                SQL &= Chr(13) & "		[TIPO_MOV] ASC																					"
+                SQL &= Chr(13) & "	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]																						"
+                SQL &= Chr(13) & "	) ON [PRIMARY]																						"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[PROFORMA_ENC]  WITH CHECK ADD  CONSTRAINT [FK_PROFORMA_ENC_CLIENTE1] FOREIGN KEY([COD_CIA], [CEDULA])																						"
+                SQL &= Chr(13) & "	REFERENCES [dbo].[CLIENTE] ([COD_CIA], [CEDULA])																						"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[PROFORMA_ENC] CHECK CONSTRAINT [FK_PROFORMA_ENC_CLIENTE1]																						"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[PROFORMA_ENC]  WITH CHECK ADD  CONSTRAINT [FK_PROFORMA_ENC_COMPANIA1] FOREIGN KEY([COD_CIA])																						"
+                SQL &= Chr(13) & "	REFERENCES [dbo].[COMPANIA] ([COD_CIA])																						"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[PROFORMA_ENC] CHECK CONSTRAINT [FK_PROFORMA_ENC_COMPANIA1]																						"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[PROFORMA_ENC]  WITH CHECK ADD  CONSTRAINT [FK_PROFORMA_ENC_SUCURSAL1] FOREIGN KEY([COD_CIA], [COD_SUCUR])																						"
+                SQL &= Chr(13) & "	REFERENCES [dbo].[SUCURSAL] ([COD_CIA], [COD_SUCUR])																						"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[PROFORMA_ENC] CHECK CONSTRAINT [FK_PROFORMA_ENC_SUCURSAL1]																						"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[PROFORMA_ENC]  WITH CHECK ADD  CONSTRAINT [FK_PROFORMA_ENC_USUARIO1] FOREIGN KEY([COD_USUARIO])																						"
+                SQL &= Chr(13) & "	REFERENCES [dbo].[USUARIO] ([COD_USUARIO])																						"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[PROFORMA_ENC] CHECK CONSTRAINT [FK_PROFORMA_ENC_USUARIO1]				"
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub PROFORMA_DET()
+        Try
+            If Not EXISTE_TABLA("PROFORMA_DET") Then
+                Dim SQL = "	CREATE TABLE [dbo].[PROFORMA_DET](																						"
+                SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,																					"
+                SQL &= Chr(13) & "		[COD_SUCUR] [varchar](3) NOT NULL,																					"
+                SQL &= Chr(13) & "		[NUMERO_DOC] [int] NOT NULL,																					"
+                SQL &= Chr(13) & "		[TIPO_MOV] [char](2) NOT NULL,																					"
+                SQL &= Chr(13) & "		[LINEA] [int] NOT NULL,																					"
+                SQL &= Chr(13) & "		[COD_PROD] [varchar](20) NOT NULL,																					"
+                SQL &= Chr(13) & "		[COD_UNIDAD] [varchar](10) NOT NULL,																					"
+                SQL &= Chr(13) & "		[CANTIDAD] [money] NOT NULL,																					"
+                SQL &= Chr(13) & "		[PRECIO] [money] NOT NULL,																					"
+                SQL &= Chr(13) & "		[POR_DESCUENTO] [int] NOT NULL,																					"
+                SQL &= Chr(13) & "		[DESCUENTO] [money] NOT NULL,																					"
+                SQL &= Chr(13) & "		[POR_IMPUESTO] [int] NOT NULL,																					"
+                SQL &= Chr(13) & "		[IMPUESTO] [money] NOT NULL,																					"
+                SQL &= Chr(13) & "		[SUBTOTAL] [money] NOT NULL,																					"
+                SQL &= Chr(13) & "		[TOTAL] [money] NOT NULL,																					"
+                SQL &= Chr(13) & "		[ESTANTE] [varchar](3) NULL,																					"
+                SQL &= Chr(13) & "		[FILA] [varchar](3) NULL,																					"
+                SQL &= Chr(13) & "		[COLUMNA] [varchar](3) NULL,																					"
+                SQL &= Chr(13) & "		[POR_EXONERACION] [int] NULL,																					"
+                SQL &= Chr(13) & "		[EXONERACION] [money] NULL,																					"
+                SQL &= Chr(13) & "	 CONSTRAINT [PK_PROFORMA_DET] PRIMARY KEY CLUSTERED 																						"
+                SQL &= Chr(13) & "	(																						"
+                SQL &= Chr(13) & "		[COD_CIA] ASC,																					"
+                SQL &= Chr(13) & "		[COD_SUCUR] ASC,																					"
+                SQL &= Chr(13) & "		[NUMERO_DOC] ASC,																					"
+                SQL &= Chr(13) & "		[TIPO_MOV] ASC,																					"
+                SQL &= Chr(13) & "		[LINEA] ASC																					"
+                SQL &= Chr(13) & "	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]																						"
+                SQL &= Chr(13) & "	) ON [PRIMARY]																						"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[PROFORMA_DET]  WITH CHECK ADD  CONSTRAINT [FK_PROFORMA_DET_COMPANIA] FOREIGN KEY([COD_CIA])																						"
+                SQL &= Chr(13) & "	REFERENCES [dbo].[COMPANIA] ([COD_CIA])																						"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[PROFORMA_DET] CHECK CONSTRAINT [FK_PROFORMA_DET_COMPANIA]																						"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[PROFORMA_DET]  WITH CHECK ADD  CONSTRAINT [FK_PROFORMA_DET_DOCUMENTO_ENC] FOREIGN KEY([COD_CIA], [COD_SUCUR], [NUMERO_DOC], [TIPO_MOV])																						"
+                SQL &= Chr(13) & "	REFERENCES [dbo].[DOCUMENTO_ENC] ([COD_CIA], [COD_SUCUR], [NUMERO_DOC], [TIPO_MOV])																						"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[PROFORMA_DET] CHECK CONSTRAINT [FK_PROFORMA_DET_DOCUMENTO_ENC]																						"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[PROFORMA_DET]  WITH CHECK ADD  CONSTRAINT [FK_PROFORMA_DET_PRODUCTO] FOREIGN KEY([COD_CIA], [COD_SUCUR], [COD_PROD])																						"
+                SQL &= Chr(13) & "	REFERENCES [dbo].[PRODUCTO] ([COD_CIA], [COD_SUCUR], [COD_PROD])																						"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[PROFORMA_DET] CHECK CONSTRAINT [FK_PROFORMA_DET_PRODUCTO]																						"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[PROFORMA_DET]  WITH CHECK ADD  CONSTRAINT [FK_PROFORMA_DET_SUCURSAL] FOREIGN KEY([COD_CIA], [COD_SUCUR])																						"
+                SQL &= Chr(13) & "	REFERENCES [dbo].[SUCURSAL] ([COD_CIA], [COD_SUCUR])																						"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[PROFORMA_DET] CHECK CONSTRAINT [FK_PROFORMA_DET_SUCURSAL] "
 
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
@@ -1240,7 +1476,7 @@ Public Class Actualizaciones
 
     Private Sub USP_FACTURACION_TMP_A_REAL()
         Try
-            If Not EXISTE_PROCEDIMIENTO("USP_FACTURACION_TMP_A_REAL", "2020-10-31") Then
+            If Not EXISTE_PROCEDIMIENTO("USP_FACTURACION_TMP_A_REAL", "2020-11-10") Then
                 ELIMINA_PROCEDIMIENTO("USP_FACTURACION_TMP_A_REAL")
 
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_FACTURACION_TMP_A_REAL] 																						"
@@ -1349,19 +1585,25 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "				IF @TIPO_MOV = 'NC'																			"
                 SQL &= Chr(13) & "					BEGIN																		"
                 SQL &= Chr(13) & "						/*INGRESA ENCABEZADO*/																	"
-                SQL &= Chr(13) & "						INSERT INTO DOCUMENTO_ENC(COD_CIA,COD_SUCUR,NUMERO_DOC,TIPO_MOV,CEDULA,FECHA,FECHA_INC,COD_USUARIO,MONTO,IMPUESTO,SALDO,COD_MONEDA,TIPO_CAMBIO,PLAZO,FORMA_PAGO,ESTADO,DESCRIPCION,TIPO_NOTA)																	"
-                SQL &= Chr(13) & "						SELECT TMP.COD_CIA,TMP.COD_SUCUR,@NUMERO_DOC,TMP.TIPO_MOV,TMP.CEDULA,TMP.FECHA,TMP.FECHA_INC,TMP.COD_USUARIO, SUM(DET.MONTO_DOC), 0, SUM(DET.MONTO_DOC) - SUM(DET.MONTO_AFEC),TMP.COD_MONEDA																	"
-                SQL &= Chr(13) & "						,TMP.TIPO_CAMBIO,TMP.PLAZO,TMP.FORMA_PAGO, 'A' AS ESTADO,TMP.DESCRIPCION,TMP.TIPO_NOTA																	"
-                SQL &= Chr(13) & "						FROM DOCUMENTO_ENC_TMP AS TMP																	"
-                SQL &= Chr(13) & "						INNER JOIN DOCUMENTO_AFEC_DET_TMP AS DET	 																"
-                SQL &= Chr(13) & "							ON DET.COD_CIA = TMP.COD_CIA 																"
-                SQL &= Chr(13) & "							AND DET.COD_SUCUR = TMP.COD_SUCUR 																"
-                SQL &= Chr(13) & "							AND DET.CODIGO = TMP.CODIGO 																"
-                SQL &= Chr(13) & "						WHERE TMP.COD_CIA = @COD_CIA																	"
-                SQL &= Chr(13) & "						AND TMP.COD_SUCUR = @COD_SUCUR																	"
-                SQL &= Chr(13) & "						AND TMP.TIPO_MOV = 	@TIPO_MOV																"
-                SQL &= Chr(13) & "						AND TMP.CODIGO = @CODIGO																	"
-                SQL &= Chr(13) & "						GROUP BY TMP.COD_CIA,TMP.COD_SUCUR,TMP.TIPO_MOV,TMP.CEDULA,TMP.FECHA,TMP.FECHA_INC,TMP.COD_USUARIO,TMP.COD_MONEDA,TMP.TIPO_CAMBIO,TMP.PLAZO,TMP.FORMA_PAGO,TMP.DESCRIPCION,TMP.TIPO_NOTA																	"
+                SQL &= Chr(13) & "	                        INSERT INTO DOCUMENTO_ENC(COD_CIA,COD_SUCUR,NUMERO_DOC,TIPO_MOV,CEDULA,FECHA,FECHA_INC,COD_USUARIO,MONTO,IMPUESTO,SALDO,COD_MONEDA,TIPO_CAMBIO,PLAZO,FORMA_PAGO,ESTADO,DESCRIPCION,TIPO_NOTA)	"
+                SQL &= Chr(13) & "							SELECT TMP.COD_CIA,TMP.COD_SUCUR,@NUMERO_DOC,TMP.TIPO_MOV,TMP.CEDULA,TMP.FECHA,TMP.FECHA_INC,TMP.COD_USUARIO, SUM(DET.MONTO_DOC) - ((SUM(DET.MONTO_DOC) * (SUM(DOC_DET.POR_IMPUESTO) / COUNT(DOC_DET.COD_CIA))) / 100)	"
+                SQL &= Chr(13) & "							, (SUM(DET.MONTO_DOC) * (SUM(DOC_DET.POR_IMPUESTO) / COUNT(DOC_DET.COD_CIA))) / 100, SUM(DET.MONTO_DOC) - SUM(DET.MONTO_AFEC),TMP.COD_MONEDA	"
+                SQL &= Chr(13) & "							,TMP.TIPO_CAMBIO,TMP.PLAZO,TMP.FORMA_PAGO, 'A' AS ESTADO,TMP.DESCRIPCION,TMP.TIPO_NOTA	"
+                SQL &= Chr(13) & "							FROM DOCUMENTO_ENC_TMP AS TMP	"
+                SQL &= Chr(13) & "							INNER JOIN DOCUMENTO_AFEC_DET_TMP AS DET	"
+                SQL &= Chr(13) & "								ON DET.COD_CIA = TMP.COD_CIA 	"
+                SQL &= Chr(13) & "                              AND DET.COD_SUCUR = TMP.COD_SUCUR"
+                SQL &= Chr(13) & "								AND DET.CODIGO = TMP.CODIGO	"
+                SQL &= Chr(13) & "							INNER JOIN DOCUMENTO_DET AS DOC_DET	"
+                SQL &= Chr(13) & "								ON DOC_DET.COD_CIA = DET.COD_CIA	"
+                SQL &= Chr(13) & "                              AND DOC_DET.COD_SUCUR = DET.COD_SUCUR"
+                SQL &= Chr(13) & "								AND DOC_DET.NUMERO_DOC = DET.NUMERO_DOC	"
+                SQL &= Chr(13) & "                              AND DOC_DET.TIPO_MOV = DET.TIPO_MOV"
+                SQL &= Chr(13) & "							WHERE TMP.COD_CIA = @COD_CIA	"
+                SQL &= Chr(13) & "                          AND TMP.COD_SUCUR = @COD_SUCUR	"
+                SQL &= Chr(13) & "							AND TMP.TIPO_MOV = 	@TIPO_MOV	"
+                SQL &= Chr(13) & "                          AND TMP.CODIGO = @CODIGO"
+                SQL &= Chr(13) & "							GROUP BY TMP.COD_CIA,TMP.COD_SUCUR,TMP.TIPO_MOV,TMP.CEDULA,TMP.FECHA,TMP.FECHA_INC,TMP.COD_USUARIO,TMP.COD_MONEDA,TMP.TIPO_CAMBIO,TMP.PLAZO,TMP.FORMA_PAGO,TMP.DESCRIPCION,TMP.TIPO_NOTA	"
                 SQL &= Chr(13) & "																							"
                 SQL &= Chr(13) & "						/*INGRESA DOCUMENTOS AFECTADOS*/																	"
                 SQL &= Chr(13) & "						INSERT INTO DOCUMENTO_AFEC(COD_CIA,COD_SUCUR,NUMERO_DOC,TIPO_MOV,FECHA,NUMERO_DOC_AFEC,TIPO_MOV_AFEC,MONTO_AFEC,FECHA_INC)																	"
@@ -2734,6 +2976,287 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "				WHERE COD_CIA = @COD_CIA																			"
                 SQL &= Chr(13) & "				AND CEDULA = @CEDULA																			"
                 SQL &= Chr(13) & "			END																				"
+                SQL &= Chr(13) & "		END																					"
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub USP_MANT_PROFORMA_TMP()
+        Try
+            If Not EXISTE_PROCEDIMIENTO("USP_MANT_PROFORMA_TMP", "2020-11-10") Then
+                ELIMINA_PROCEDIMIENTO("USP_MANT_PROFORMA_TMP")
+
+                Dim SQL = "	CREATE PROCEDURE [dbo].[USP_MANT_PROFORMA_TMP] 																						"
+                SQL &= Chr(13) & "	                	 @COD_CIA VARCHAR(3)																					"
+                SQL &= Chr(13) & "	                	,@COD_SUCUR VARCHAR(3)																					"
+                SQL &= Chr(13) & "	                	,@CODIGO VARCHAR(20) 																					"
+                SQL &= Chr(13) & "	                	,@TIPO_MOV VARCHAR(2) 																					"
+                SQL &= Chr(13) & "	                	,@CEDULA VARCHAR(25) 																					"
+                SQL &= Chr(13) & "	                	,@FECHA DATETIME 																					"
+                SQL &= Chr(13) & "	                	,@COD_USUARIO VARCHAR(8) 																					"
+                SQL &= Chr(13) & "	                	,@COD_MONEDA CHAR(1) 																					"
+                SQL &= Chr(13) & "	                	,@TIPO_CAMBIO MONEY																					"
+                SQL &= Chr(13) & "	                	,@PLAZO INT																					"
+                SQL &= Chr(13) & "	                	,@FORMA_PAGO CHAR(2)																					"
+                SQL &= Chr(13) & "	                	,@DESCRIPCION VARCHAR(250)																					"
+                SQL &= Chr(13) & "	                	,@COD_PROD VARCHAR(20)																					"
+                SQL &= Chr(13) & "	                	,@COD_UNIDAD VARCHAR(10)																					"
+                SQL &= Chr(13) & "	                	,@CANTIDAD MONEY																					"
+                SQL &= Chr(13) & "	                	,@PRECIO MONEY																					"
+                SQL &= Chr(13) & "	                	,@POR_DESCUENTO INT																					"
+                SQL &= Chr(13) & "	                	,@DESCUENTO MONEY																					"
+                SQL &= Chr(13) & "	                	,@POR_IMPUESTO INT																					"
+                SQL &= Chr(13) & "	                	,@IMPUESTO MONEY																					"
+                SQL &= Chr(13) & "						,@POR_EXO INT																	"
+                SQL &= Chr(13) & "	                	,@EXONERACION MONEY																					"
+                SQL &= Chr(13) & "	                	,@SUBTOTAL MONEY																					"
+                SQL &= Chr(13) & "	                	,@TOTAL MONEY																					"
+                SQL &= Chr(13) & "						,@ESTANTE VARCHAR(3)																	"
+                SQL &= Chr(13) & "						,@FILA VARCHAR(3)																	"
+                SQL &= Chr(13) & "						,@COLUMNA VARCHAR(3)																	"
+                SQL &= Chr(13) & "	                	,@MODO INT																					"
+                SQL &= Chr(13) & "	                	AS																					"
+                SQL &= Chr(13) & "	                	BEGIN																					"
+                SQL &= Chr(13) & "	                		SET NOCOUNT ON;																				"
+                SQL &= Chr(13) & "	                		BEGIN TRY																				"
+                SQL &= Chr(13) & "	                		BEGIN TRAN TR_MANT_PROFORMA																				"
+                SQL &= Chr(13) & "	                																						"
+                SQL &= Chr(13) & "	                		IF	@MODO = 1																			"
+                SQL &= Chr(13) & "	                		BEGIN																				"
+                SQL &= Chr(13) & "	                			IF NOT EXISTS(SELECT *																			"
+                SQL &= Chr(13) & "	                						  FROM PROFORMA_ENC_TMP																"
+                SQL &= Chr(13) & "	                						  WHERE COD_CIA = @COD_CIA																"
+                SQL &= Chr(13) & "	                                          AND COD_SUCUR = @COD_SUCUR																						"
+                SQL &= Chr(13) & "	                						  AND CODIGO = @CODIGO)																"
+                SQL &= Chr(13) & "	                			BEGIN																			"
+                SQL &= Chr(13) & "	                				INSERT INTO PROFORMA_ENC_TMP(COD_CIA,COD_SUCUR,CODIGO,TIPO_MOV,CEDULA,FECHA,FECHA_INC,COD_USUARIO,COD_MONEDA,TIPO_CAMBIO,PLAZO,FORMA_PAGO,DESCRIPCION)																		"
+                SQL &= Chr(13) & "	                				SELECT @COD_CIA, @COD_SUCUR, @CODIGO, @TIPO_MOV, @CEDULA, @FECHA, GETDATE(), @COD_USUARIO, @COD_MONEDA, @TIPO_CAMBIO, @PLAZO, @FORMA_PAGO,@DESCRIPCION																		"
+                SQL &= Chr(13) & "	                																						"
+                SQL &= Chr(13) & "	                				INSERT INTO PROFORMA_DET_TMP(COD_CIA,COD_SUCUR,CODIGO,TIPO_MOV,LINEA,COD_PROD,COD_UNIDAD,CANTIDAD,PRECIO,POR_DESCUENTO,DESCUENTO,POR_IMPUESTO,IMPUESTO,SUBTOTAL,TOTAL,ESTANTE,FILA,COLUMNA,POR_EXONERACION,EXONERACION)																		"
+                SQL &= Chr(13) & "	                				SELECT @COD_CIA, @COD_SUCUR, @CODIGO, @TIPO_MOV, ISNULL(MAX(LINEA), 0) + 1, @COD_PROD, @COD_UNIDAD, @CANTIDAD, @PRECIO, @POR_DESCUENTO, @DESCUENTO, @POR_IMPUESTO, @IMPUESTO, @SUBTOTAL, @TOTAL, @ESTANTE, @FILA, @COLUMNA, @POR_EXO, @EXONERACION																		"
+                SQL &= Chr(13) & "	                				FROM PROFORMA_DET_TMP																		"
+                SQL &= Chr(13) & "	                				WHERE COD_CIA = @COD_CIA																		"
+                SQL &= Chr(13) & "	                              And COD_SUCUR = @COD_SUCUR																						"
+                SQL &= Chr(13) & "	                				AND CODIGO = @CODIGO 																		"
+                SQL &= Chr(13) & "	                			END																			"
+                SQL &= Chr(13) & "	                			ELSE																			"
+                SQL &= Chr(13) & "	                			BEGIN																			"
+                SQL &= Chr(13) & "	                				IF EXISTS(SELECT COD_PROD FROM PROFORMA_DET_TMP WHERE COD_CIA = @COD_CIA AND COD_SUCUR = @COD_SUCUR AND CODIGO = @CODIGO AND COD_PROD = @COD_PROD)																		"
+                SQL &= Chr(13) & "	                				BEGIN																		"
+                SQL &= Chr(13) & "	                					UPDATE PROFORMA_DET_TMP																	"
+                SQL &= Chr(13) & "	                					SET CANTIDAD = @CANTIDAD, PRECIO = @PRECIO, POR_DESCUENTO = @POR_DESCUENTO, DESCUENTO = @DESCUENTO																	"
+                SQL &= Chr(13) & "	                					   ,POR_IMPUESTO = @POR_IMPUESTO, IMPUESTO = @IMPUESTO, SUBTOTAL = @SUBTOTAL, TOTAL = @TOTAL																	"
+                SQL &= Chr(13) & "										   ,POR_EXONERACION = @POR_EXO, EXONERACION = @EXONERACION													"
+                SQL &= Chr(13) & "	                					WHERE COD_CIA = @COD_CIA																	"
+                SQL &= Chr(13) & "	                					AND COD_SUCUR = @COD_SUCUR																	"
+                SQL &= Chr(13) & "										AND CODIGO = @CODIGO													"
+                SQL &= Chr(13) & "	                					AND COD_PROD = @COD_PROD																	"
+                SQL &= Chr(13) & "	                				END																		"
+                SQL &= Chr(13) & "	                				ELSE																		"
+                SQL &= Chr(13) & "	                				BEGIN																		"
+                SQL &= Chr(13) & "	                					INSERT INTO PROFORMA_DET_TMP(COD_CIA,COD_SUCUR,CODIGO,TIPO_MOV,LINEA,COD_PROD,COD_UNIDAD,CANTIDAD,PRECIO,POR_DESCUENTO,DESCUENTO,POR_IMPUESTO,IMPUESTO,SUBTOTAL,TOTAL,ESTANTE,FILA,COLUMNA,POR_EXONERACION,EXONERACION)																	"
+                SQL &= Chr(13) & "	                					SELECT @COD_CIA, @COD_SUCUR, @CODIGO, @TIPO_MOV, ISNULL(MAX(LINEA), 0) + 1, @COD_PROD, @COD_UNIDAD, @CANTIDAD, @PRECIO, @POR_DESCUENTO, @DESCUENTO, @POR_IMPUESTO, @IMPUESTO, @SUBTOTAL, @TOTAL, @ESTANTE, @FILA, @COLUMNA, @POR_EXO, @EXONERACION																	"
+                SQL &= Chr(13) & "	                					FROM PROFORMA_DET_TMP																	"
+                SQL &= Chr(13) & "	                					WHERE COD_CIA = @COD_CIA																	"
+                SQL &= Chr(13) & "	                					AND COD_SUCUR = @COD_SUCUR																	"
+                SQL &= Chr(13) & "	                                  And CODIGO = @CODIGO																						"
+                SQL &= Chr(13) & "	                				END																		"
+                SQL &= Chr(13) & "	                			END																			"
+                SQL &= Chr(13) & "	                		END																				"
+                SQL &= Chr(13) & "	                		ELSE IF @MODO = 3																				"
+                SQL &= Chr(13) & "	                		BEGIN																				"
+                SQL &= Chr(13) & "	                				IF EXISTS(SELECT COD_PROD FROM PROFORMA_DET_TMP WHERE COD_CIA = @COD_CIA AND COD_SUCUR = @COD_SUCUR AND CODIGO = @CODIGO AND COD_PROD = @COD_PROD)																		"
+                SQL &= Chr(13) & "	                				BEGIN																		"
+                SQL &= Chr(13) & "	                					UPDATE PROFORMA_DET_TMP																	"
+                SQL &= Chr(13) & "	                					SET CANTIDAD = @CANTIDAD, PRECIO = @PRECIO, POR_DESCUENTO = @POR_DESCUENTO, DESCUENTO = @DESCUENTO																	"
+                SQL &= Chr(13) & "	                					   ,POR_IMPUESTO = @POR_IMPUESTO, IMPUESTO = @IMPUESTO, SUBTOTAL = @SUBTOTAL, TOTAL = @TOTAL																	"
+                SQL &= Chr(13) & "										   ,POR_EXONERACION = @POR_EXO, EXONERACION = @EXONERACION													"
+                SQL &= Chr(13) & "	                					WHERE COD_CIA = @COD_CIA 																	"
+                SQL &= Chr(13) & "										AND COD_SUCUR = @COD_SUCUR													"
+                SQL &= Chr(13) & "	                					AND CODIGO = @CODIGO 																	"
+                SQL &= Chr(13) & "										AND COD_PROD = @COD_PROD													"
+                SQL &= Chr(13) & "	                				END																		"
+                SQL &= Chr(13) & "	                				ELSE 																		"
+                SQL &= Chr(13) & "	                				BEGIN																		"
+                SQL &= Chr(13) & "	                					INSERT INTO PROFORMA_DET_TMP(COD_CIA,COD_SUCUR,CODIGO,TIPO_MOV,LINEA,COD_PROD,COD_UNIDAD,CANTIDAD,PRECIO,POR_DESCUENTO,DESCUENTO,POR_IMPUESTO,IMPUESTO,SUBTOTAL,TOTAL,ESTANTE,FILA,COLUMNA,POR_EXONERACION,EXONERACION)																	"
+                SQL &= Chr(13) & "	                					SELECT @COD_CIA, @COD_SUCUR, @CODIGO, @TIPO_MOV, ISNULL(MAX(LINEA), 0) + 1, @COD_PROD, @COD_UNIDAD, @CANTIDAD, @PRECIO, @POR_DESCUENTO, @DESCUENTO, @POR_IMPUESTO, @IMPUESTO, @SUBTOTAL, @TOTAL, @ESTANTE, @FILA, @COLUMNA, @POR_EXO, @EXONERACION																	"
+                SQL &= Chr(13) & "	                					FROM PROFORMA_DET_TMP																	"
+                SQL &= Chr(13) & "	                					WHERE COD_CIA = @COD_CIA																	"
+                SQL &= Chr(13) & "	                                  And COD_SUCUR = @COD_SUCUR																						"
+                SQL &= Chr(13) & "	                					AND CODIGO = @CODIGO																	"
+                SQL &= Chr(13) & "	                				END																		"
+                SQL &= Chr(13) & "	                		END																				"
+                SQL &= Chr(13) & "	                		COMMIT TRAN TR_MANT_PROFORMA	 																			"
+                SQL &= Chr(13) & "	                		END TRY																				"
+                SQL &= Chr(13) & "	                		BEGIN CATCH 																				"
+                SQL &= Chr(13) & "	                	 		ROLLBACK TRAN																			"
+                SQL &= Chr(13) & "	                	 		DECLARE @MENSAJE VARCHAR(500)																			"
+                SQL &= Chr(13) & "	                	 		SET @MENSAJE =( SELECT ERROR_MESSAGE())																			"
+                SQL &= Chr(13) & "	                	 		RAISERROR( @MENSAJE, 16, 1)																			"
+                SQL &= Chr(13) & "	                		END CATCH																				"
+                SQL &= Chr(13) & "	                	END																					"
+
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub USP_PROFORMA_TMP_A_REAL()
+        Try
+            If Not EXISTE_PROCEDIMIENTO("USP_PROFORMA_TMP_A_REAL", "2020-11-10") Then
+                ELIMINA_PROCEDIMIENTO("USP_PROFORMA_TMP_A_REAL")
+
+                Dim SQL = "	CREATE PROCEDURE [dbo].[USP_PROFORMA_TMP_A_REAL] 		"
+                SQL &= Chr(13) & "		 @COD_CIA VARCHAR(3)		"
+                SQL &= Chr(13) & "		,@COD_SUCUR VARCHAR(3)						"
+                SQL &= Chr(13) & "		,@TIPO_MOV VARCHAR(2)						"
+                SQL &= Chr(13) & "		,@CODIGO VARCHAR(20)										"
+                SQL &= Chr(13) & "		,@NUMERO_DOC INTEGER = 0									"
+                SQL &= Chr(13) & "		AS																			"
+                SQL &= Chr(13) & "		BEGIN																		"
+                SQL &= Chr(13) & "			SET NOCOUNT ON;																			"
+                SQL &= Chr(13) & "			BEGIN TRY																				"
+                SQL &= Chr(13) & "			BEGIN TRAN TR_PROFORMA_TMP_A_REAL																		"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "			DECLARE @CEDULA VARCHAR(25)																		"
+                SQL &= Chr(13) & "			DECLARE @FECHA_DOC AS DATETIME																	"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "			IF NOT EXISTS(SELECT TMP.*														"
+                SQL &= Chr(13) & "				FROM PROFORMA_ENC_TMP AS TMP																"
+                SQL &= Chr(13) & "				INNER JOIN PROFORMA_DET_TMP AS DET	 														"
+                SQL &= Chr(13) & "		            ON DET.COD_CIA = TMP.COD_CIA 																			"
+                SQL &= Chr(13) & "		            AND DET.COD_SUCUR = TMP.COD_SUCUR 																		"
+                SQL &= Chr(13) & "		            AND DET.CODIGO = TMP.CODIGO 																					"
+                SQL &= Chr(13) & "		            AND DET.TIPO_MOV = TMP.TIPO_MOV																					"
+                SQL &= Chr(13) & "				WHERE TMP.COD_CIA = @COD_CIA																			"
+                SQL &= Chr(13) & "				AND TMP.COD_SUCUR = @COD_SUCUR																			"
+                SQL &= Chr(13) & "				AND TMP.TIPO_MOV = 	@TIPO_MOV																		"
+                SQL &= Chr(13) & "				AND TMP.CODIGO = @CODIGO) AND @TIPO_MOV IN ('FA', 'FC')												"
+                SQL &= Chr(13) & "				BEGIN																			"
+                SQL &= Chr(13) & "					RAISERROR('El código de factura no existe en los temporales', 17, 1)		"
+                SQL &= Chr(13) & "				END																			"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "			IF @NUMERO_DOC > 0																				"
+                SQL &= Chr(13) & "			BEGIN																				"
+                SQL &= Chr(13) & "				UPDATE PROFORMA_ENC																			"
+                SQL &= Chr(13) & "				SET MONTO = T1.SUBTOTAL																		"
+                SQL &= Chr(13) & "				,IMPUESTO = T1.IMPUESTO																			"
+                SQL &= Chr(13) & "				,SALDO = T1.SALDO																			"
+                SQL &= Chr(13) & "				,COD_MONEDA = T1.COD_MONEDA																			"
+                SQL &= Chr(13) & "				,TIPO_CAMBIO = T1.TIPO_CAMBIO																		"
+                SQL &= Chr(13) & "				,PLAZO = T1.PLAZO																			"
+                SQL &= Chr(13) & "				,FORMA_PAGO = T1.FORMA_PAGO																	"
+                SQL &= Chr(13) & "				,DESCRIPCION = T1.DESCRIPCION																			"
+                SQL &= Chr(13) & "				,TIPO_NOTA = T1.TIPO_NOTA																			"
+                SQL &= Chr(13) & "				FROM( 																			"
+                SQL &= Chr(13) & "				SELECT SUM(DET.SUBTOTAL) AS SUBTOTAL											"
+                SQL &= Chr(13) & "				,SUM(DET.IMPUESTO) AS IMPUESTO																	"
+                SQL &= Chr(13) & "				,SUM(DET.TOTAL) AS SALDO																		"
+                SQL &= Chr(13) & "				,COD_MONEDA																			"
+                SQL &= Chr(13) & "				,TIPO_CAMBIO																		"
+                SQL &= Chr(13) & "				,PLAZO																			"
+                SQL &= Chr(13) & "				,FORMA_PAGO																		"
+                SQL &= Chr(13) & "				,DESCRIPCION																			"
+                SQL &= Chr(13) & "				,TIPO_NOTA																			"
+                SQL &= Chr(13) & "				FROM PROFORMA_ENC_TMP AS TMP																		"
+                SQL &= Chr(13) & "				INNER JOIN PROFORMA_DET_TMP AS DET	 																"
+                SQL &= Chr(13) & "		            ON DET.COD_CIA = TMP.COD_CIA 																					"
+                SQL &= Chr(13) & "		            AND DET.COD_SUCUR = TMP.COD_SUCUR 																				"
+                SQL &= Chr(13) & "		            AND DET.CODIGO = TMP.CODIGO 																					"
+                SQL &= Chr(13) & "		            AND DET.TIPO_MOV = TMP.TIPO_MOV																					"
+                SQL &= Chr(13) & "				WHERE TMP.COD_CIA = @COD_CIA																			"
+                SQL &= Chr(13) & "				AND TMP.COD_SUCUR = @COD_SUCUR																			"
+                SQL &= Chr(13) & "				AND TMP.TIPO_MOV = @TIPO_MOV																			"
+                SQL &= Chr(13) & "				AND TMP.CODIGO = @CODIGO																			"
+                SQL &= Chr(13) & "				GROUP BY COD_MONEDA,TIPO_CAMBIO,PLAZO,FORMA_PAGO,DESCRIPCION,TIPO_NOTA												"
+                SQL &= Chr(13) & "				) AS T1																			"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "				DELETE FROM PROFORMA_DET													"
+                SQL &= Chr(13) & "				WHERE COD_CIA = @COD_CIA																	"
+                SQL &= Chr(13) & "				AND COD_SUCUR = @COD_SUCUR																	"
+                SQL &= Chr(13) & "				AND TIPO_MOV = @TIPO_MOV																			"
+                SQL &= Chr(13) & "				AND NUMERO_DOC = @NUMERO_DOC																		"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "				INSERT INTO PROFORMA_DET(COD_CIA,COD_SUCUR,NUMERO_DOC,TIPO_MOV,LINEA,COD_PROD,COD_UNIDAD,CANTIDAD,PRECIO,POR_DESCUENTO,DESCUENTO,POR_IMPUESTO,IMPUESTO,SUBTOTAL,TOTAL,ESTANTE,FILA,COLUMNA,POR_EXONERACION,EXONERACION)					"
+                SQL &= Chr(13) & "				SELECT COD_CIA,COD_SUCUR,@NUMERO_DOC,TIPO_MOV,ROW_NUMBER() OVER(ORDER BY LINEA ASC) AS LINEA,COD_PROD,COD_UNIDAD,CANTIDAD,PRECIO,POR_DESCUENTO,DESCUENTO,POR_IMPUESTO,IMPUESTO,SUBTOTAL,TOTAL,ESTANTE,FILA,COLUMNA,POR_EXONERACION,EXONERACION			"
+                SQL &= Chr(13) & "				FROM PROFORMA_DET_TMP																			"
+                SQL &= Chr(13) & "				WHERE COD_CIA = @COD_CIA																			"
+                SQL &= Chr(13) & "				AND COD_SUCUR = @COD_SUCUR																			"
+                SQL &= Chr(13) & "				AND CODIGO = @CODIGO																			"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "				DELETE FROM PROFORMA_ENC_TMP WHERE CODIGO = @CODIGO											"
+                SQL &= Chr(13) & "		        DELETE FROM PROFORMA_DET_TMP WHERE CODIGO = @CODIGO											"
+                SQL &= Chr(13) & "			END 																				"
+                SQL &= Chr(13) & "			ELSE																				"
+                SQL &= Chr(13) & "			BEGIN																				"
+                SQL &= Chr(13) & "			IF @TIPO_MOV = 'FA' OR @TIPO_MOV = 'FC'												"
+                SQL &= Chr(13) & "				BEGIN																			"
+                SQL &= Chr(13) & "					SELECT @NUMERO_DOC =  ISNULL(MAX(NUMERO_DOC), 0) + 1 						"
+                SQL &= Chr(13) & "					FROM PROFORMA_ENC																		"
+                SQL &= Chr(13) & "					WHERE COD_CIA = @COD_CIA																"
+                SQL &= Chr(13) & "					AND COD_SUCUR = @COD_SUCUR																		"
+                SQL &= Chr(13) & "					AND TIPO_MOV <> 'NC' 																		"
+                SQL &= Chr(13) & "				END																			"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "				IF @TIPO_MOV = 'FA' OR @TIPO_MOV = 'FC'														"
+                SQL &= Chr(13) & "				BEGIN																			"
+                SQL &= Chr(13) & "				/*INGRESA EL ENCABEZADO*/																		"
+                SQL &= Chr(13) & "				INSERT INTO PROFORMA_ENC(COD_CIA,COD_SUCUR,NUMERO_DOC,TIPO_MOV,CEDULA,FECHA,FECHA_INC,COD_USUARIO,MONTO,IMPUESTO,SALDO,COD_MONEDA,TIPO_CAMBIO,PLAZO,FORMA_PAGO,ESTADO,DESCRIPCION,TIPO_NOTA)		"
+                SQL &= Chr(13) & "				SELECT TMP.COD_CIA,TMP.COD_SUCUR,@NUMERO_DOC,TMP.TIPO_MOV,TMP.CEDULA,TMP.FECHA,TMP.FECHA_INC,TMP.COD_USUARIO, SUM(DET.SUBTOTAL), SUM(DET.IMPUESTO), SUM(DET.TOTAL) ,TMP.COD_MONEDA									"
+                SQL &= Chr(13) & "				,TMP.TIPO_CAMBIO,TMP.PLAZO,TMP.FORMA_PAGO, 'A' AS ESTADO,TMP.DESCRIPCION,TMP.TIPO_NOTA																			"
+                SQL &= Chr(13) & "				FROM PROFORMA_ENC_TMP AS TMP																			"
+                SQL &= Chr(13) & "				INNER JOIN PROFORMA_DET_TMP AS DET	 																	"
+                SQL &= Chr(13) & "		            ON DET.COD_CIA = TMP.COD_CIA 																					"
+                SQL &= Chr(13) & "		            AND DET.COD_SUCUR = TMP.COD_SUCUR 																				"
+                SQL &= Chr(13) & "		            AND DET.CODIGO = TMP.CODIGO 																					"
+                SQL &= Chr(13) & "		            AND DET.TIPO_MOV = TMP.TIPO_MOV																					"
+                SQL &= Chr(13) & "				WHERE TMP.COD_CIA = @COD_CIA																			"
+                SQL &= Chr(13) & "				AND TMP.COD_SUCUR = @COD_SUCUR																			"
+                SQL &= Chr(13) & "				AND TMP.TIPO_MOV = 	@TIPO_MOV																		"
+                SQL &= Chr(13) & "				AND TMP.CODIGO = @CODIGO																			"
+                SQL &= Chr(13) & "				GROUP BY TMP.COD_CIA,TMP.COD_SUCUR,TMP.TIPO_MOV,TMP.CEDULA,TMP.FECHA,TMP.FECHA_INC,TMP.COD_USUARIO,TMP.COD_MONEDA,TMP.TIPO_CAMBIO,TMP.PLAZO,TMP.FORMA_PAGO,TMP.DESCRIPCION,TMP.TIPO_NOTA	"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "				/*INGRESA EL DETALLE*/																		"
+                SQL &= Chr(13) & "				INSERT INTO PROFORMA_DET(COD_CIA,COD_SUCUR,NUMERO_DOC,TIPO_MOV,LINEA,COD_PROD,COD_UNIDAD,CANTIDAD,PRECIO,POR_DESCUENTO,DESCUENTO,POR_IMPUESTO,IMPUESTO,SUBTOTAL,TOTAL,ESTANTE,FILA,COLUMNA,POR_EXONERACION,EXONERACION)	 "
+                SQL &= Chr(13) & "				SELECT COD_CIA,COD_SUCUR,@NUMERO_DOC,TIPO_MOV,ROW_NUMBER() OVER(ORDER BY LINEA ASC) AS LINEA,COD_PROD,COD_UNIDAD,CANTIDAD,PRECIO,POR_DESCUENTO,DESCUENTO,POR_IMPUESTO,IMPUESTO,SUBTOTAL,TOTAL,ESTANTE,FILA,COLUMNA,POR_EXONERACION,EXONERACION"
+                SQL &= Chr(13) & "				FROM PROFORMA_DET_TMP																			"
+                SQL &= Chr(13) & "				WHERE COD_CIA = @COD_CIA																			"
+                SQL &= Chr(13) & "				AND COD_SUCUR = @COD_SUCUR																			"
+                SQL &= Chr(13) & "				AND CODIGO = @CODIGO																			"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "				DELETE FROM PROFORMA_ENC_TMP WHERE CODIGO = @CODIGO											"
+                SQL &= Chr(13) & "		        DELETE FROM PROFORMA_DET_TMP WHERE CODIGO = @CODIGO											"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "				SELECT @FECHA_DOC = FECHA, @CEDULA = CEDULA									"
+                SQL &= Chr(13) & "				FROM PROFORMA_ENC																			"
+                SQL &= Chr(13) & "				WHERE COD_CIA = @COD_CIA																	"
+                SQL &= Chr(13) & "				AND COD_SUCUR = @COD_SUCUR																			"
+                SQL &= Chr(13) & "				AND TIPO_MOV = 	@TIPO_MOV 																		"
+                SQL &= Chr(13) & "				AND NUMERO_DOC = @NUMERO_DOC																			"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "				SELECT @NUMERO_DOC AS Documento																"
+                SQL &= Chr(13) & "																							"
+                SQL &= Chr(13) & "				END																			"
+                SQL &= Chr(13) & "			END																				"
+                SQL &= Chr(13) & "			COMMIT TRAN TR_PROFORMA_TMP_A_REAL																"
+                SQL &= Chr(13) & "			END TRY																				"
+                SQL &= Chr(13) & "			BEGIN CATCH 																				"
+                SQL &= Chr(13) & "		 		ROLLBACK TRAN																			"
+                SQL &= Chr(13) & "		 		DECLARE @MENSAJE VARCHAR(500)																			"
+                SQL &= Chr(13) & "		 		SET @MENSAJE =( SELECT ERROR_MESSAGE())																	"
+                SQL &= Chr(13) & "		 		RAISERROR( @MENSAJE, 16, 1)																			"
+                SQL &= Chr(13) & "			END CATCH																				"
                 SQL &= Chr(13) & "		END																					"
 
                 CONX.Coneccion_Abrir()

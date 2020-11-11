@@ -40,6 +40,7 @@ Public Class NotaCredito
 
         CMB_DOCUMENTO.SelectedIndex = 0
         CMB_MONEDA.SelectedIndex = 0
+        CMB_FORMAPAGO.SelectedIndex = 0
 
         TXT_TIPO_CAMBIO.Text = FMCP(TC_VENTA)
 
@@ -534,13 +535,13 @@ Public Class NotaCredito
                 SQL = "	INSERT INTO DOCUMENTO_ENC_TMP(COD_CIA,COD_SUCUR,CODIGO,TIPO_MOV,CEDULA,FECHA,FECHA_INC,COD_USUARIO,COD_MONEDA,TIPO_CAMBIO,PLAZO,FORMA_PAGO,DESCRIPCION,TIPO_NOTA)"
                 SQL &= Chr(13) & "	SELECT " & SCM(COD_CIA) & "," & SCM(COD_SUCUR) & "," & SCM(Codigo) & "," & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2)) & "," & SCM(Cliente.VALOR)
                 Sql &= Chr(13) & "," & SCM(YMD(DTPFECHA.Value)) & ", GETDATE()," & SCM(COD_USUARIO) & "," & SCM(CMB_MONEDA.SelectedItem.ToString.Substring(0, 1))
-                SQL &= Chr(13) & "," & FMC(TXT_TIPO_CAMBIO.Text) & ", 0,'EF'," & SCM(TXT_DESCRIPCION.Text) & "," & SCM(CMB_TIPO.SelectedItem.ToString.Substring(0, 2))
+                SQL &= Chr(13) & "," & FMC(TXT_TIPO_CAMBIO.Text) & ", 0," & SCM(CMB_FORMAPAGO.SelectedItem.ToString.Substring(0, 2)) & "," & SCM(TXT_DESCRIPCION.Text) & "," & SCM(CMB_TIPO.SelectedItem.ToString.Substring(0, 2))
 
             Else
                 SQL = "	INSERT INTO DOCUMENTO_ENC_TMP(COD_CIA,COD_SUCUR,CODIGO,TIPO_MOV,CEDULA,FECHA,FECHA_INC,COD_USUARIO,COD_MONEDA,TIPO_CAMBIO,PLAZO,FORMA_PAGO,DESCRIPCION,TIPO_NOTA)"
                 SQL &= Chr(13) & "	SELECT " & SCM(COD_CIA) & "," & SCM(COD_SUCUR) & "," & SCM(Codigo) & "," & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2)) & "," & SCM(Cliente.VALOR)
                 SQL &= Chr(13) & "," & SCM(YMD(DTPFECHA.Value)) & ", GETDATE()," & SCM(COD_USUARIO) & "," & SCM(CMB_MONEDA.SelectedItem.ToString.Substring(0, 1))
-                SQL &= Chr(13) & "," & FMC(TXT_TIPO_CAMBIO.Text) & ", 0,'EF'," & SCM(TXT_DESCRIPCION.Text) & ", NULL"
+                SQL &= Chr(13) & "," & FMC(TXT_TIPO_CAMBIO.Text) & ", 0," & SCM(CMB_FORMAPAGO.SelectedItem.ToString.Substring(0, 2)) & "," & SCM(TXT_DESCRIPCION.Text) & ", NULL"
             End If
 
             CONX.Coneccion_Abrir()

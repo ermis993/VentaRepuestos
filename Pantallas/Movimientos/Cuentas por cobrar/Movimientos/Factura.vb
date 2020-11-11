@@ -347,6 +347,8 @@ Public Class Factura
                 MessageBox.Show(Me, "La ubicación del producto es inválida, vuelva a seleccionar el producto", "Mensaje ubicación", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf String.IsNullOrEmpty(Cliente.VALOR) Then
                 MessageBox.Show(Me, "El cliente no ha sido seleccionado", "Mensaje cliente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            ElseIf ((Saldo_Actual(TXT_CODIGO.Text) - FMC(TXT_CANTIDAD.Text)) < 0) And IND_VENTAS_NEGATIVAS = "N" Then
+                MessageBox.Show(Me, "La sucursal está configurada para no realizar ventas en negativo, actualmente el inventario quedaría en: " & FMCP((Saldo_Actual(TXT_CODIGO.Text) - FMC(TXT_CANTIDAD.Text))), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
                 If FMC(TXT_TOTAL.Text) > 0 Then
                     Dim SQL = "	EXECUTE USP_MANT_FACTURACION_TMP "
@@ -599,6 +601,7 @@ Public Class Factura
                 Sql &= Chr(13) & "	AND PROD.COD_SUCUR = " & SCM(COD_SUCUR)
                 Sql &= Chr(13) & "	AND (DESCRIPCION LIKE " & SCM("%" + TXT_CODIGO.Text + "%") & " Or COD_PROD = " & SCM(TXT_CODIGO.Text) & " Or COD_BARRA = " & SCM(TXT_CODIGO.Text) & " Or REL.COD_PROD_HIJO = " & SCM(TXT_CODIGO.Text) & ")"
                 Sql &= Chr(13) & "	AND PROD.ESTADO = 'A'"
+                Sql &= Chr(13) & "  GROUP BY COD_PROD, DESCRIPCION "
                 Sql &= Chr(13) & "  ORDER BY DESCRIPCION ASC"
 
                 CONX.Coneccion_Abrir()

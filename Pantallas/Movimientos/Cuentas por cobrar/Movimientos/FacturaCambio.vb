@@ -36,7 +36,7 @@ Public Class FacturaCambio
 
     Private Sub Valida()
         Try
-            If FMC(LBL_CAMBIO.Text) >= 0 Then
+            If FMC(LBL_CAMBIO.Text) >= 0 And Not String.IsNullOrEmpty(LBL_CAMBIO.Text) Then
                 Me.Close()
             Else
                 MessageBox.Show(Me, "El cambio no puede ser menor a cero (0), por favor verifique los montos", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)

@@ -61,6 +61,8 @@ Partial Class NotaCredito
         Me.IngrearMontoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
+        Me.CMB_FORMAPAGO = New System.Windows.Forms.ComboBox()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TAB_ENC.SuspendLayout()
@@ -218,6 +220,8 @@ Partial Class NotaCredito
         '
         'TAB_ENC
         '
+        Me.TAB_ENC.Controls.Add(Me.CMB_FORMAPAGO)
+        Me.TAB_ENC.Controls.Add(Me.Label5)
         Me.TAB_ENC.Controls.Add(Me.Cliente)
         Me.TAB_ENC.Controls.Add(Me.TXT_DESCRIPCION)
         Me.TAB_ENC.Controls.Add(Me.Label10)
@@ -253,23 +257,23 @@ Partial Class NotaCredito
         'TXT_DESCRIPCION
         '
         Me.TXT_DESCRIPCION.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_DESCRIPCION.Location = New System.Drawing.Point(110, 75)
+        Me.TXT_DESCRIPCION.Location = New System.Drawing.Point(111, 107)
         Me.TXT_DESCRIPCION.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_DESCRIPCION.MaxLength = 250
         Me.TXT_DESCRIPCION.Multiline = True
         Me.TXT_DESCRIPCION.Name = "TXT_DESCRIPCION"
         Me.TXT_DESCRIPCION.Size = New System.Drawing.Size(451, 62)
-        Me.TXT_DESCRIPCION.TabIndex = 10
+        Me.TXT_DESCRIPCION.TabIndex = 7
         '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label10.Location = New System.Drawing.Point(9, 75)
+        Me.Label10.Location = New System.Drawing.Point(8, 107)
         Me.Label10.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(95, 18)
-        Me.Label10.TabIndex = 9
+        Me.Label10.TabIndex = 6
         Me.Label10.Text = "Descripción :"
         '
         'CMB_MONEDA
@@ -278,7 +282,7 @@ Partial Class NotaCredito
         Me.CMB_MONEDA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.CMB_MONEDA.FormattingEnabled = True
         Me.CMB_MONEDA.Items.AddRange(New Object() {"LOC-Colones", "DOL-Dólares"})
-        Me.CMB_MONEDA.Location = New System.Drawing.Point(111, 42)
+        Me.CMB_MONEDA.Location = New System.Drawing.Point(112, 75)
         Me.CMB_MONEDA.Margin = New System.Windows.Forms.Padding(2)
         Me.CMB_MONEDA.Name = "CMB_MONEDA"
         Me.CMB_MONEDA.Size = New System.Drawing.Size(155, 26)
@@ -288,7 +292,7 @@ Partial Class NotaCredito
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label7.Location = New System.Drawing.Point(33, 46)
+        Me.Label7.Location = New System.Drawing.Point(33, 79)
         Me.Label7.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(70, 18)
@@ -536,6 +540,29 @@ Partial Class NotaCredito
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
         '
+        'CMB_FORMAPAGO
+        '
+        Me.CMB_FORMAPAGO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CMB_FORMAPAGO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.CMB_FORMAPAGO.FormattingEnabled = True
+        Me.CMB_FORMAPAGO.Items.AddRange(New Object() {"EF-Efectivo", "TA-Tarjeta", "TR-Transferencia"})
+        Me.CMB_FORMAPAGO.Location = New System.Drawing.Point(111, 44)
+        Me.CMB_FORMAPAGO.Margin = New System.Windows.Forms.Padding(2)
+        Me.CMB_FORMAPAGO.Name = "CMB_FORMAPAGO"
+        Me.CMB_FORMAPAGO.Size = New System.Drawing.Size(155, 26)
+        Me.CMB_FORMAPAGO.TabIndex = 3
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label5.Location = New System.Drawing.Point(4, 48)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(99, 18)
+        Me.Label5.TabIndex = 2
+        Me.Label5.Text = "Forma Pago :"
+        '
         'NotaCredito
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -612,4 +639,6 @@ Partial Class NotaCredito
     Friend WithEvents CMS As ContextMenuStrip
     Friend WithEvents IgualarMontoToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents IngrearMontoToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents CMB_FORMAPAGO As ComboBox
+    Friend WithEvents Label5 As Label
 End Class

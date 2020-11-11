@@ -3,7 +3,7 @@ Imports VentaRepuestos.Globales
 
 Public Class Proforma
     Dim Modo As CRF_Modos
-    Dim Codigo As String
+    Dim Codigo As String = ""
     Dim Padre As Facturacion
     Dim Numero_Doc As Integer
     Dim Tipo_Mov As String
@@ -76,21 +76,17 @@ Public Class Proforma
             CMB_MONEDA.SelectedIndex = 0
             BTN_FACTURAR.Enabled = False
         ElseIf Me.Modo = CRF_Modos.Modificar Then
-
-            Me.Codigo = CODIGO
             Me.Numero_Doc = Val(NUMERO_DOC)
+            TXT_NUMERO.Text = Me.Numero_Doc
             BloqueaControles()
             RellenaDatos()
+            Me.Codigo = IIf(CODIGO <> "", CODIGO, GenerarCodigo())
+            RellenaTemporales()
 
-            If Me.Numero_Doc > 0 Then
-                TXT_NUMERO.Text = Me.Numero_Doc
-                BTN_ACEPTAR.Enabled = False
-                BTN_FACTURAR.Enabled = False
-                BTN_INGRESAR.Enabled = False
-                RELLENAR_GRID(1)
-            Else
-                RELLENAR_GRID()
-            End If
+            BTN_ACEPTAR.Enabled = True
+            BTN_FACTURAR.Enabled = True
+            BTN_INGRESAR.Enabled = True
+            RELLENAR_GRID()
         End If
 
         CMB_PRECIO.SelectedIndex = 0
@@ -476,7 +472,6 @@ Public Class Proforma
                 CONX.Coneccion_Cerrar()
 
                 If DS.Tables(0).Rows.Count > 0 Then
-
                     For Each ITEM In DS.Tables(0).Rows
                         Dim row As String() = New String() {ITEM("LINEA"), ITEM("COD_PROD"), ITEM("DESCRIPCION"), ITEM("ESTANTE"), ITEM("FILA"), ITEM("COLUMNA"), ITEM("CANTIDAD"), ITEM("PRECIO"), ITEM("POR_DESCUENTO"), ITEM("IMPUESTO"), ITEM("TOTAL")}
                         GRID.Rows.Add(row)
@@ -544,26 +539,28 @@ Public Class Proforma
 
     Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
         Try
+            If Modo = CRF_Modos.Modificar Then
+                Dim Sql = "	UPDATE PROFORMA_ENC_TMP	"
+                Sql &= Chr(13) & "				SET CEDULA = " & SCM(Cliente.VALOR)
+                Sql &= Chr(13) & "				,COD_USUARIO = " & SCM(COD_USUARIO)
+                Sql &= Chr(13) & "				,COD_MONEDA = " & SCM(CMB_MONEDA.SelectedItem.ToString.Substring(0, 1))
+                Sql &= Chr(13) & "				,PLAZO = " & Val(TXT_PLAZO.Text)
+                Sql &= Chr(13) & "				,FORMA_PAGO = " & SCM(CMB_FORMAPAGO.SelectedItem.ToString.Substring(0, 2))
+                Sql &= Chr(13) & "				,DESCRIPCION = " & SCM(TXT_DESCRIPCION.Text)
+                Sql &= Chr(13) & "				WHERE COD_CIA = " & SCM(COD_CIA)
+                Sql &= Chr(13) & "				AND COD_SUCUR = " & SCM(COD_SUCUR)
+                Sql &= Chr(13) & "				AND CODIGO = " & SCM(Codigo)
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(Sql)
+                CONX.Coneccion_Cerrar()
+            End If
+
             Accion_Facturar()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
 
-        'If Modo = CRF_Modos.Modificar Then
-        '    Dim Sql = "	UPDATE PROFORMA_ENC_TMP	"
-        '    Sql &= Chr(13) & "				SET CEDULA = " & SCM(Cliente.VALOR)
-        '    Sql &= Chr(13) & "				,COD_USUARIO = " & SCM(COD_USUARIO)
-        '    Sql &= Chr(13) & "				,COD_MONEDA = " & SCM(CMB_MONEDA.SelectedItem.ToString.Substring(0, 1))
-        '    Sql &= Chr(13) & "				,PLAZO = " & Val(TXT_PLAZO.Text)
-        '    Sql &= Chr(13) & "				,FORMA_PAGO = " & SCM(CMB_FORMAPAGO.SelectedItem.ToString.Substring(0, 2))
-        '    Sql &= Chr(13) & "				,DESCRIPCION = " & SCM(TXT_DESCRIPCION.Text)
-        '    Sql &= Chr(13) & "				WHERE COD_CIA = " & SCM(COD_CIA)
-        '    Sql &= Chr(13) & "				AND COD_SUCUR = " & SCM(COD_SUCUR)
-        '    Sql &= Chr(13) & "				AND CODIGO = " & SCM(Codigo)
-        '    CONX.Coneccion_Abrir()
-        '    CONX.EJECUTE(Sql)
-        '    CONX.Coneccion_Cerrar()
-        'End If
+
         Cerrar()
     End Sub
 
@@ -583,6 +580,7 @@ Public Class Proforma
                 Sql &= Chr(13) & "	AND PROD.COD_SUCUR = " & SCM(COD_SUCUR)
                 Sql &= Chr(13) & "	AND (DESCRIPCION LIKE " & SCM("%" + TXT_CODIGO.Text + "%") & " Or COD_PROD = " & SCM(TXT_CODIGO.Text) & " Or COD_BARRA = " & SCM(TXT_CODIGO.Text) & " Or REL.COD_PROD_HIJO = " & SCM(TXT_CODIGO.Text) & ")"
                 Sql &= Chr(13) & "	AND PROD.ESTADO = 'A'"
+                Sql &= Chr(13) & "  GROUP BY COD_PROD, DESCRIPCION "
                 Sql &= Chr(13) & "  ORDER BY DESCRIPCION ASC"
 
                 CONX.Coneccion_Abrir()
@@ -745,11 +743,12 @@ Public Class Proforma
             If GRID.Rows.Count <= 0 Then
                 MessageBox.Show(Me, "Debe ingresar al menos una linea del documento", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
-                Dim Sql = "	USP_FACTURACION_TMP_A_REAL	"
+                Dim Sql = "	USP_PROFORMA_TMP_A_REAL	"
                 Sql &= Chr(13) & "	 @COD_CIA = " & SCM(COD_CIA)
                 Sql &= Chr(13) & "	,@COD_SUCUR = " & SCM(COD_SUCUR)
                 Sql &= Chr(13) & "	,@TIPO_MOV  = " & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
                 Sql &= Chr(13) & "	,@CODIGO = 	" & SCM(Codigo)
+                Sql &= Chr(13) & "	,@NUMERO_DOC = 	" & Val(TXT_NUMERO.Text)
                 CONX.Coneccion_Abrir()
                 Dim DS = CONX.EJECUTE_DS(Sql)
                 CONX.Coneccion_Cerrar()
@@ -880,4 +879,34 @@ Public Class Proforma
     Private Sub TXT_PRECIO_Leave(sender As Object, e As EventArgs) Handles TXT_PRECIO.Leave
         CalculoTotales()
     End Sub
+
+    Private Sub RellenaTemporales()
+        Try
+            Dim SQL = "INSERT INTO PROFORMA_ENC_TMP"
+            SQL &= Chr(13) & " SELECT COD_CIA,COD_SUCUR," & SCM(Me.Codigo) & ",TIPO_MOV,CEDULA,FECHA,FECHA_INC,COD_USUARIO,COD_MONEDA,TIPO_CAMBIO,PLAZO,FORMA_PAGO,DESCRIPCION,TIPO_NOTA																						"
+            SQL &= Chr(13) & "	FROM PROFORMA_ENC "
+            SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+            SQL &= Chr(13) & "	AND NUMERO_DOC = " & Val(TXT_NUMERO.Text)
+            SQL &= Chr(13) & "	AND TIPO_MOV = 	" & SCM(IIf(CMB_DOCUMENTO.SelectedIndex = 0, "FC", "FA"))
+            CONX.Coneccion_Abrir()
+            CONX.EJECUTE(SQL)
+            CONX.Coneccion_Cerrar()
+
+            SQL = "INSERT INTO PROFORMA_DET_TMP "
+            SQL &= Chr(13) & "	SELECT COD_CIA,COD_SUCUR," & SCM(Me.Codigo) & ",TIPO_MOV,LINEA,COD_PROD,COD_UNIDAD,CANTIDAD,PRECIO,POR_DESCUENTO,DESCUENTO,POR_IMPUESTO,IMPUESTO	"
+            SQL &= Chr(13) & "	,SUBTOTAL,TOTAL,ESTANTE,FILA,COLUMNA,POR_EXONERACION,EXONERACION	"
+            SQL &= Chr(13) & "	FROM PROFORMA_DET "
+            SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+            SQL &= Chr(13) & "	AND NUMERO_DOC = " & Val(TXT_NUMERO.Text)
+            SQL &= Chr(13) & "	AND TIPO_MOV = 	" & SCM(IIf(CMB_DOCUMENTO.SelectedIndex = 0, "FC", "FA"))
+            CONX.Coneccion_Abrir()
+            CONX.EJECUTE(SQL)
+            CONX.Coneccion_Cerrar()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
 End Class

@@ -3443,7 +3443,7 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "		 		DECLARE @MENSAJE VARCHAR(500)																						"
                 SQL &= Chr(13) & "		 		SET @MENSAJE =( SELECT ERROR_MESSAGE())																						"
                 SQL &= Chr(13) & "		 		RAISERROR( @MENSAJE, 16, 1)																						"
-                SQL &= Chr(13) & "			END CATCH																							"
+                SQL &= Chr(13) & "			END CATCH		 																					"
                 SQL &= Chr(13) & "		END																								"
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)

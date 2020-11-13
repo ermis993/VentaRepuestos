@@ -78,14 +78,14 @@ Public Class Proforma
         ElseIf Me.Modo = CRF_Modos.Modificar Then
             Me.Numero_Doc = Val(NUMERO_DOC)
             TXT_NUMERO.Text = Me.Numero_Doc
-            BloqueaControles()
             RellenaDatos()
+            BloqueaControles()
             Me.Codigo = IIf(CODIGO <> "", CODIGO, GenerarCodigo())
             RellenaTemporales()
 
-            BTN_ACEPTAR.Enabled = True
-            BTN_FACTURAR.Enabled = True
-            BTN_INGRESAR.Enabled = True
+            'BTN_ACEPTAR.Enabled = True
+            'BTN_FACTURAR.Enabled = True
+            'BTN_INGRESAR.Enabled = True
             RELLENAR_GRID()
         End If
 
@@ -97,7 +97,7 @@ Public Class Proforma
         Try
             Dim Sql As String = ""
             If String.IsNullOrEmpty(Codigo) Then
-                Sql = "	SELECT CEDULA, TIPO_MOV, FECHA, COD_MONEDA, TIPO_CAMBIO, PLAZO, FORMA_PAGO, ISNULL(DESCRIPCION, '') AS DESCRIPCION"
+                Sql = "	SELECT CEDULA, TIPO_MOV, FECHA, COD_MONEDA, TIPO_CAMBIO, PLAZO, FORMA_PAGO, ISNULL(DESCRIPCION, '') AS DESCRIPCION, ISNULL(NUM_FACTURA, 0) AS NUM_FACT"
                 Sql &= Chr(13) & "	FROM PROFORMA_ENC"
                 Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
                 Sql &= Chr(13) & "  And COD_SUCUR = " & SCM(COD_SUCUR)
@@ -134,6 +134,8 @@ Public Class Proforma
                         TXT_TIPO_CAMBIO.Text = FMCP(ITEM("TIPO_CAMBIO"))
                         TXT_PLAZO.Text = Val(ITEM("PLAZO"))
                         TXT_DESCRIPCION.Text = ITEM("DESCRIPCION")
+
+                        TXT_FACTURA.Text = Val(ITEM("NUM_FACT"))
 
                         Cliente.VALOR = ITEM("CEDULA")
                         Cliente.ACTUALIZAR_COMBO()
@@ -208,6 +210,9 @@ Public Class Proforma
             TXT_TIPO_CAMBIO.Enabled = False
             DTPFECHA.Enabled = False
             CMB_DOCUMENTO.Enabled = IIf(Modo = CRF_Modos.Insertar, True, False)
+            BTN_FACTURAR.Enabled = IIf(Val(TXT_FACTURA.Text) <= 0 And Modo = CRF_Modos.Modificar, True, False)
+            BTN_INGRESAR.Enabled = IIf(Val(TXT_FACTURA.Text) <= 0, True, False)
+            BTN_ACEPTAR.Enabled = IIf(Val(TXT_FACTURA.Text) <= 0, True, False)
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -554,13 +559,10 @@ Public Class Proforma
                 CONX.EJECUTE(Sql)
                 CONX.Coneccion_Cerrar()
             End If
-
             Accion_Facturar()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
-
-
         Cerrar()
     End Sub
 
@@ -732,7 +734,37 @@ Public Class Proforma
 
     Private Sub BTN_FACTURAR_Click(sender As Object, e As EventArgs) Handles BTN_FACTURAR.Click
         Try
+            If GRID.Rows.Count <= 0 Then
+                MessageBox.Show(Me, "Debe ingresar al menos una linea del documento", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Else
+                Dim valor = MessageBox.Show(Me, "¿Seguro que desea facturar el documento?", "Proforma", vbYesNo, MessageBoxIcon.Question)
+                If valor = DialogResult.Yes Then
+                    Dim Sql = "	USP_PROFORMA_TMP_A_REAL	"
+                    Sql &= Chr(13) & "	 @COD_CIA = " & SCM(COD_CIA)
+                    Sql &= Chr(13) & "	,@COD_SUCUR = " & SCM(COD_SUCUR)
+                    Sql &= Chr(13) & "	,@TIPO_MOV  = " & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
+                    Sql &= Chr(13) & "	,@CODIGO = 	" & SCM(Codigo)
+                    Sql &= Chr(13) & "	,@NUMERO_DOC = 	" & Val(TXT_NUMERO.Text)
+                    CONX.Coneccion_Abrir()
+                    CONX.EJECUTE(Sql)
+                    CONX.Coneccion_Cerrar()
 
+                    Sql = "	USP_PROFORMA_A_FACTURA	"
+                    Sql &= Chr(13) & "	 @COD_CIA = " & SCM(COD_CIA)
+                    Sql &= Chr(13) & "	,@COD_SUCUR = " & SCM(COD_SUCUR)
+                    Sql &= Chr(13) & "	,@TIPO_MOV  = " & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
+                    Sql &= Chr(13) & "	,@NUMERO_DOC_PROF = " & Val(TXT_NUMERO.Text)
+                    CONX.Coneccion_Abrir()
+                    Dim DS = CONX.EJECUTE_DS(Sql)
+                    CONX.Coneccion_Cerrar()
+
+                    If DS.Tables(0).Rows.Count > 0 Then
+                        MessageBox.Show(Me, "Se ha generado la factura #: " & DS.Tables(0).Rows(0).Item(0) & " satisfactoriamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Me.Close()
+                        Padre.Refrescar()
+                    End If
+                End If
+            End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

@@ -245,9 +245,7 @@ Public Class Facturacion
 
                         GRID.Rows.Add(row)
 
-                        If ITEM("Tipo") = "NC" Then
-                            Total_Facturado -= FMC(ITEM("Total"))
-                        ElseIf ITEM("Tipo") = "RB" Or ITEM("Tipo") = "ND" Then
+                        If ITEM("Tipo") = "RB" Then
                             Total_Facturado += FMC(ITEM("Total"))
                         ElseIf ITEM("Tipo") = "AA" Or ITEM("Tipo") = "AC" Then
                             Total_Facturado += FMC(ITEM("Total"))
@@ -382,8 +380,17 @@ Public Class Facturacion
         Try
             Leer_indice()
             If Tipo_Mov = "FC" Or Tipo_Mov = "FA" Then
-                Dim imp As New Impresion()
-                imp.Imprimir(COD_CIA, COD_SUCUR, Numero_Doc, Tipo_Mov)
+                If CMB_VER.SelectedIndex = 0 Then
+                    Dim imp As New Impresion()
+                    imp.Imprimir(COD_CIA, COD_SUCUR, Numero_Doc, Tipo_Mov)
+                ElseIf CMB_VER.SelectedIndex = 2 Then
+                    Dim f As FolderBrowserDialog = New FolderBrowserDialog
+                    If f.ShowDialog() = DialogResult.OK Then
+                        Dim Ruta = f.SelectedPath
+                        Genera_RPT_PROFORMA(Tipo_Mov, Numero_Doc, "Proforma_" & Numero_Doc, Ruta)
+                        MessageBox.Show(Me, "Reporte generado correctamente", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    End If
+                End If
             ElseIf Tipo_Mov = "RB" Then
                 Dim imp As New Impresion()
                 imp.ImprimirRecibo(COD_CIA, COD_SUCUR, Numero_Doc, Tipo_Mov)
@@ -537,7 +544,7 @@ Public Class Facturacion
                     CONX.EJECUTE(SQL)
 
                     SQL = "	UPDATE DOCUMENTO_ENC	"
-                    SQL &= Chr(13) & "	Set SALDO = 0, DESCRIPCION = " & SCM("Recibo anulado por: " & COD_USUARIO)
+                    SQL &= Chr(13) & "	Set SALDO = 0, DESCRIPCION = " & SCM("Recibo anulado por: " & COD_USUARIO) & ", ESTADO = 'I'"
                     SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
                     SQL &= Chr(13) & "  AND COD_SUCUR =" & SCM(COD_SUCUR)
                     SQL &= Chr(13) & "  AND NUMERO_DOC = " & Val(Numero_Doc)

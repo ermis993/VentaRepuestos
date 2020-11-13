@@ -1043,7 +1043,7 @@ Public Class Factura
         Try
             Dim NUM_GUIA As String = ""
 
-            Dim Sql = "	SELECT ISNULL(MAX(SUBSTRING(NUMERO_GUIA,4,3)),0) + 1 AS GUIA "
+            Dim Sql = "	SELECT ISNULL(MAX(CONVERT(INT, SUBSTRING(NUMERO_GUIA,4,4))),0) + 1 AS GUIA "
             Sql &= Chr(13) & "	FROM DOCUMENTO_GUIA	"
             Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
             'Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
@@ -1054,7 +1054,7 @@ Public Class Factura
             CONX.Coneccion_Cerrar()
 
             If DS.Tables(0).Rows.Count > 0 Then
-                NUM_GUIA = Origen & RellenaEspacioIzquierda(3, "0", DS.Tables(0).Rows(0).Item("GUIA"))
+                NUM_GUIA = Origen & RellenaEspacioIzquierda(4, "0", DS.Tables(0).Rows(0).Item("GUIA"))
             End If
 
             Return NUM_GUIA

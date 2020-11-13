@@ -245,7 +245,7 @@ Public Class Impresion
             SQL &= Chr(13) & "  AND COD_SUCUR =" & SCM(COD_SUCUR)
             SQL &= Chr(13) & "  AND FECHA BETWEEN " & SCM(YMD(DESDE)) & " AND " & SCM(YMD(HASTA))
             SQL &= Chr(13) & "  AND ESTADO = 'A'"
-            SQL &= Chr(13) & "  AND TIPO_MOV IN ('RB', 'NC')"
+            SQL &= Chr(13) & "  AND TIPO_MOV IN ('RB')"
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(Sql)
             CONX.Coneccion_Cerrar()
@@ -350,17 +350,17 @@ Public Class Impresion
                 For Each ITEM In DS.Tables(0).Rows
                     strPrint = ""
                     strPrint = strPrint & RELLENODERECHA("GUIA", 8) & ": " & ITEM("NUMERO_GUIA") & vbCrLf
-                    strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                    'strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
                     strPrint = strPrint & RELLENODERECHA("ENVIA", 8) & ": " & ITEM("ENVIA").ToString.ToUpper & vbCrLf
-                    strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                    'strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
                     strPrint = strPrint & RELLENODERECHA("RETIRA", 8) & ": " & ITEM("RETIRA").ToString.ToUpper & vbCrLf
-                    strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                    'strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
                     strPrint = strPrint & RELLENODERECHA("TELEFONO", 8) & ": " & ITEM("TELEFONO") & vbCrLf
-                    strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                    'strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
                     strPrint = strPrint & RELLENODERECHA("BULTOS", 8) & ": " & ITEM("CONTADOR") & " DE " & ITEM("CANT_BULTOS") & vbCrLf
-                    strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                    'strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
                     strPrint = strPrint & RELLENODERECHA("DESTINO", 8) & ": " & ITEM("DESC_UBICACION").ToString.ToUpper & vbCrLf
-                    strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
+                    'strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
                     strPrint = strPrint & "                               " & ITEM("LETRA").ToString.ToUpper.Substring(0, 1) & vbCrLf
                     strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
 

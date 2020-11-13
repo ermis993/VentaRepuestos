@@ -47,7 +47,6 @@ Partial Class Proforma
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TAB_ENC = New System.Windows.Forms.TabPage()
-        Me.Cliente = New VentaRepuestos.Buscador()
         Me.TXT_DESCRIPCION = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -98,6 +97,9 @@ Partial Class Proforma
         Me.BTN_CALCULAR = New System.Windows.Forms.Button()
         Me.TAB_LINEAS = New System.Windows.Forms.TabPage()
         Me.GRID = New System.Windows.Forms.DataGridView()
+        Me.TXT_FACTURA = New System.Windows.Forms.TextBox()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.Cliente = New VentaRepuestos.Buscador()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TAB_ENC.SuspendLayout()
@@ -251,6 +253,8 @@ Partial Class Proforma
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.TXT_FACTURA)
+        Me.GroupBox1.Controls.Add(Me.Label30)
         Me.GroupBox1.Controls.Add(Me.TXT_TIPO_CAMBIO)
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.Label3)
@@ -386,23 +390,6 @@ Partial Class Proforma
         Me.TAB_ENC.TabIndex = 0
         Me.TAB_ENC.Text = "[ Encabezado ]"
         Me.TAB_ENC.UseVisualStyleBackColor = True
-        '
-        'Cliente
-        '
-        Me.Cliente.CAMPO_FILTRAR = Nothing
-        Me.Cliente.CODIGO = Nothing
-        Me.Cliente.DESCRIPCION = Nothing
-        Me.Cliente.FILTRAR_POR_COMPANIA = True
-        Me.Cliente.Location = New System.Drawing.Point(111, 10)
-        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cliente.Name = "Cliente"
-        Me.Cliente.OTROS_CAMP0S = Nothing
-        Me.Cliente.PANTALLA = Nothing
-        Me.Cliente.Size = New System.Drawing.Size(451, 32)
-        Me.Cliente.TabIndex = 1
-        Me.Cliente.TABLA_BUSCAR = "CLIENTE"
-        Me.Cliente.VALOR = ""
-        Me.Cliente.VALOR_DESCRIPCION = Nothing
         '
         'TXT_DESCRIPCION
         '
@@ -999,6 +986,45 @@ Partial Class Proforma
         Me.GRID.Size = New System.Drawing.Size(842, 227)
         Me.GRID.TabIndex = 0
         '
+        'TXT_FACTURA
+        '
+        Me.TXT_FACTURA.Enabled = False
+        Me.TXT_FACTURA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_FACTURA.Location = New System.Drawing.Point(367, 16)
+        Me.TXT_FACTURA.Margin = New System.Windows.Forms.Padding(2)
+        Me.TXT_FACTURA.Name = "TXT_FACTURA"
+        Me.TXT_FACTURA.Size = New System.Drawing.Size(171, 24)
+        Me.TXT_FACTURA.TabIndex = 9
+        Me.TXT_FACTURA.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label30.Location = New System.Drawing.Point(297, 19)
+        Me.Label30.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(66, 18)
+        Me.Label30.TabIndex = 8
+        Me.Label30.Text = "Factura :"
+        '
+        'Cliente
+        '
+        Me.Cliente.CAMPO_FILTRAR = Nothing
+        Me.Cliente.CODIGO = Nothing
+        Me.Cliente.DESCRIPCION = Nothing
+        Me.Cliente.FILTRAR_POR_COMPANIA = True
+        Me.Cliente.Location = New System.Drawing.Point(111, 10)
+        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
+        Me.Cliente.Name = "Cliente"
+        Me.Cliente.OTROS_CAMP0S = Nothing
+        Me.Cliente.PANTALLA = Nothing
+        Me.Cliente.Size = New System.Drawing.Size(451, 32)
+        Me.Cliente.TabIndex = 1
+        Me.Cliente.TABLA_BUSCAR = "CLIENTE"
+        Me.Cliente.VALOR = ""
+        Me.Cliente.VALOR_DESCRIPCION = Nothing
+        '
         'Proforma
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1116,4 +1142,6 @@ Partial Class Proforma
     Friend WithEvents BTN_CALCULAR As Button
     Friend WithEvents TAB_LINEAS As TabPage
     Friend WithEvents GRID As DataGridView
+    Friend WithEvents TXT_FACTURA As TextBox
+    Friend WithEvents Label30 As Label
 End Class

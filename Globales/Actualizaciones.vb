@@ -1,4 +1,5 @@
-﻿Imports FUN_CRFUSION.FUNCIONES_GENERALES
+﻿Imports System.IO
+Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Globales
 Public Class Actualizaciones
     Public Sub ACTUALIZACIONES(ByRef ProgressBar As ProgressBar)
@@ -7,6 +8,17 @@ Public Class Actualizaciones
         'ESTO POR SI SE AGREGA UNA CREACION DE TABLA, PROCEDIMIENTO, TRIGGER, O CAMPO EN UN TABLA
         'CANTIDAD_PROCESOS: CANTIDAD DE MÉTODOS A EJECUTAR
         'CANTIDAD ACTUAL: ACTUALIZAR SIEMPRE CON LA CANTIDAD DE MÉTODOS QUE SE EJECUTARON
+
+        If (Not Directory.Exists("C:\ENVIOS")) Then
+            Directory.CreateDirectory("C:\ENVIOS")
+        End If
+
+        If (Not Directory.Exists("C:\BACKUPS")) Then
+            Directory.CreateDirectory("C:\BACKUPS")
+        End If
+
+        RUTA_ADJUNTOS = "C:\ENVIOS"
+        RUTA_BACKUP = "C:\BACKUPS"
 
         Dim Cantidad_Procesos As Integer = 58
         Dim Cantidad_Actual As Integer = 0
@@ -760,7 +772,7 @@ Public Class Actualizaciones
 
     Private Sub TG_INGRESA_INVENTARIO_MOV_CXP_DET()
         Try
-            If Not EXISTE_TRIGGER("TG_INGRESA_INVENTARIO_MOV_CXP_DET", "2020-10-18") Then
+            If Not EXISTE_TRIGGER("TG_INGRESA_INVENTARIO_MOV_CXP_DET", "2020-11-17") Then
                 ELIMINA_TRIGGER("TG_INGRESA_INVENTARIO_MOV_CXP_DET")
 
                 Dim SQL = "	CREATE TRIGGER [dbo].[TG_INGRESA_INVENTARIO_MOV_CXP_DET] 																						"
@@ -814,7 +826,7 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "					ON PROV.COD_CIA = P.COD_CIA																		"
                 SQL &= Chr(13) & "					AND PROV.COD_SUCUR = P.COD_SUCUR																		"
                 SQL &= Chr(13) & "					AND PROV.CEDULA = P.CEDULA																		"
-                SQL &= Chr(13) & "				WHERE P.COSTO <> D.PRECIO																			"
+                SQL &= Chr(13) & "				WHERE P.COSTO < D.PRECIO																			"
                 SQL &= Chr(13) & "			) AS T1																				"
                 SQL &= Chr(13) & "			WHERE T1.COD_CIA = PRODUCTO.COD_CIA																				"
                 SQL &= Chr(13) & "			AND T1.COD_SUCUR = PRODUCTO.COD_SUCUR																				"
@@ -831,7 +843,7 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "					ON P.COD_CIA = D.COD_CIA																		"
                 SQL &= Chr(13) & "					AND P.COD_SUCUR = D.COD_SUCUR																		"
                 SQL &= Chr(13) & "					AND P.COD_PROD = D.COD_PROD																		"
-                SQL &= Chr(13) & "				WHERE P.COSTO <> D.PRECIO																			"
+                SQL &= Chr(13) & "				WHERE P.COSTO < D.PRECIO																			"
                 SQL &= Chr(13) & "			) AS T1																				"
                 SQL &= Chr(13) & "			WHERE T1.COD_CIA = PRODUCTO.COD_CIA																				"
                 SQL &= Chr(13) & "			AND T1.COD_SUCUR = PRODUCTO.COD_SUCUR																				"
@@ -1500,7 +1512,7 @@ Public Class Actualizaciones
 
     Private Sub USP_FACTURACION_TMP_A_REAL()
         Try
-            If Not EXISTE_PROCEDIMIENTO("USP_FACTURACION_TMP_A_REAL", "2020-11-10") Then
+            If Not EXISTE_PROCEDIMIENTO("USP_FACTURACION_TMP_A_REAL", "2020-11-19") Then
                 ELIMINA_PROCEDIMIENTO("USP_FACTURACION_TMP_A_REAL")
 
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_FACTURACION_TMP_A_REAL] 																						"
@@ -1609,25 +1621,27 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "				IF @TIPO_MOV = 'NC'																			"
                 SQL &= Chr(13) & "					BEGIN																		"
                 SQL &= Chr(13) & "						/*INGRESA ENCABEZADO*/																	"
-                SQL &= Chr(13) & "	                        INSERT INTO DOCUMENTO_ENC(COD_CIA,COD_SUCUR,NUMERO_DOC,TIPO_MOV,CEDULA,FECHA,FECHA_INC,COD_USUARIO,MONTO,IMPUESTO,SALDO,COD_MONEDA,TIPO_CAMBIO,PLAZO,FORMA_PAGO,ESTADO,DESCRIPCION,TIPO_NOTA)	"
-                SQL &= Chr(13) & "							SELECT TMP.COD_CIA,TMP.COD_SUCUR,@NUMERO_DOC,TMP.TIPO_MOV,TMP.CEDULA,TMP.FECHA,TMP.FECHA_INC,TMP.COD_USUARIO, SUM(DET.MONTO_DOC) - ((SUM(DET.MONTO_DOC) * (SUM(DOC_DET.POR_IMPUESTO) / COUNT(DOC_DET.COD_CIA))) / 100)	"
-                SQL &= Chr(13) & "							, (SUM(DET.MONTO_DOC) * (SUM(DOC_DET.POR_IMPUESTO) / COUNT(DOC_DET.COD_CIA))) / 100, SUM(DET.MONTO_DOC) - SUM(DET.MONTO_AFEC),TMP.COD_MONEDA	"
-                SQL &= Chr(13) & "							,TMP.TIPO_CAMBIO,TMP.PLAZO,TMP.FORMA_PAGO, 'A' AS ESTADO,TMP.DESCRIPCION,TMP.TIPO_NOTA	"
-                SQL &= Chr(13) & "							FROM DOCUMENTO_ENC_TMP AS TMP	"
-                SQL &= Chr(13) & "							INNER JOIN DOCUMENTO_AFEC_DET_TMP AS DET	"
-                SQL &= Chr(13) & "								ON DET.COD_CIA = TMP.COD_CIA 	"
-                SQL &= Chr(13) & "                              AND DET.COD_SUCUR = TMP.COD_SUCUR"
-                SQL &= Chr(13) & "								AND DET.CODIGO = TMP.CODIGO	"
-                SQL &= Chr(13) & "							INNER JOIN DOCUMENTO_DET AS DOC_DET	"
-                SQL &= Chr(13) & "								ON DOC_DET.COD_CIA = DET.COD_CIA	"
-                SQL &= Chr(13) & "                              AND DOC_DET.COD_SUCUR = DET.COD_SUCUR"
-                SQL &= Chr(13) & "								AND DOC_DET.NUMERO_DOC = DET.NUMERO_DOC	"
-                SQL &= Chr(13) & "                              AND DOC_DET.TIPO_MOV = DET.TIPO_MOV"
-                SQL &= Chr(13) & "							WHERE TMP.COD_CIA = @COD_CIA	"
-                SQL &= Chr(13) & "                          AND TMP.COD_SUCUR = @COD_SUCUR	"
-                SQL &= Chr(13) & "							AND TMP.TIPO_MOV = 	@TIPO_MOV	"
-                SQL &= Chr(13) & "                          AND TMP.CODIGO = @CODIGO"
-                SQL &= Chr(13) & "							GROUP BY TMP.COD_CIA,TMP.COD_SUCUR,TMP.TIPO_MOV,TMP.CEDULA,TMP.FECHA,TMP.FECHA_INC,TMP.COD_USUARIO,TMP.COD_MONEDA,TMP.TIPO_CAMBIO,TMP.PLAZO,TMP.FORMA_PAGO,TMP.DESCRIPCION,TMP.TIPO_NOTA	"
+                SQL &= Chr(13) & "	                            INSERT INTO DOCUMENTO_ENC(COD_CIA,COD_SUCUR,NUMERO_DOC,TIPO_MOV,CEDULA,FECHA,FECHA_INC,COD_USUARIO,MONTO,IMPUESTO,SALDO,COD_MONEDA,TIPO_CAMBIO,PLAZO,FORMA_PAGO,ESTADO,DESCRIPCION,TIPO_NOTA)																									"
+                SQL &= Chr(13) & "								SELECT TMP.COD_CIA,TMP.COD_SUCUR,@NUMERO_DOC,TMP.TIPO_MOV,TMP.CEDULA,TMP.FECHA,TMP.FECHA_INC,TMP.COD_USUARIO																		"
+                SQL &= Chr(13) & "								, SUM(DET.MONTO_DOC) - ROUND(SUM(DET.MONTO_DOC) - (SUM(DET.MONTO_DOC) / (((SUM(DOC_DET.POR_IMPUESTO) / COUNT(DOC_DET.COD_CIA)) / 100.00) + 1)),2)																		"
+                SQL &= Chr(13) & "								, ROUND(SUM(DET.MONTO_DOC) - (SUM(DET.MONTO_DOC) / (((SUM(DOC_DET.POR_IMPUESTO) / COUNT(DOC_DET.COD_CIA)) / 100.00) + 1)),2)																		"
+                SQL &= Chr(13) & "								, SUM(DET.MONTO_DOC) - SUM(DET.MONTO_AFEC),TMP.COD_MONEDA																		"
+                SQL &= Chr(13) & "								, TMP.TIPO_CAMBIO,TMP.PLAZO,TMP.FORMA_PAGO, 'A' AS ESTADO,TMP.DESCRIPCION,TMP.TIPO_NOTA																		"
+                SQL &= Chr(13) & "								FROM DOCUMENTO_ENC_TMP AS TMP																		"
+                SQL &= Chr(13) & "								INNER JOIN DOCUMENTO_AFEC_DET_TMP AS DET																		"
+                SQL &= Chr(13) & "									ON DET.COD_CIA = TMP.COD_CIA 																	"
+                SQL &= Chr(13) & "	                                AND DET.COD_SUCUR = TMP.COD_SUCUR																									"
+                SQL &= Chr(13) & "									AND DET.CODIGO = TMP.CODIGO																	"
+                SQL &= Chr(13) & "								INNER JOIN DOCUMENTO_DET AS DOC_DET																		"
+                SQL &= Chr(13) & "									ON DOC_DET.COD_CIA = DET.COD_CIA																	"
+                SQL &= Chr(13) & "	                                AND DOC_DET.COD_SUCUR = DET.COD_SUCUR																									"
+                SQL &= Chr(13) & "									AND DOC_DET.NUMERO_DOC = DET.NUMERO_DOC																	"
+                SQL &= Chr(13) & "	                                AND DOC_DET.TIPO_MOV = DET.TIPO_MOV																									"
+                SQL &= Chr(13) & "							    WHERE TMP.COD_CIA = @COD_CIA																		"
+                SQL &= Chr(13) & "	                            AND TMP.COD_SUCUR = @COD_SUCUR																									"
+                SQL &= Chr(13) & "							    AND TMP.TIPO_MOV = 	@TIPO_MOV																		"
+                SQL &= Chr(13) & "	                            AND TMP.CODIGO = @CODIGO																									"
+                SQL &= Chr(13) & "							    GROUP BY TMP.COD_CIA,TMP.COD_SUCUR,TMP.TIPO_MOV,TMP.CEDULA,TMP.FECHA,TMP.FECHA_INC,TMP.COD_USUARIO,TMP.COD_MONEDA,TMP.TIPO_CAMBIO,TMP.PLAZO,TMP.FORMA_PAGO,TMP.DESCRIPCION,TMP.TIPO_NOTA	"
                 SQL &= Chr(13) & "																							"
                 SQL &= Chr(13) & "						/*INGRESA DOCUMENTOS AFECTADOS*/																	"
                 SQL &= Chr(13) & "						INSERT INTO DOCUMENTO_AFEC(COD_CIA,COD_SUCUR,NUMERO_DOC,TIPO_MOV,FECHA,NUMERO_DOC_AFEC,TIPO_MOV_AFEC,MONTO_AFEC,FECHA_INC)																	"
@@ -2646,7 +2660,7 @@ Public Class Actualizaciones
 
     Private Sub USP_IMPRIME_FACTURA()
         Try
-            If Not EXISTE_PROCEDIMIENTO("USP_IMPRIME_FACTURA", "2020-10-23") Then
+            If Not EXISTE_PROCEDIMIENTO("USP_IMPRIME_FACTURA", "2020-11-18") Then
                 ELIMINA_PROCEDIMIENTO("USP_IMPRIME_FACTURA")
 
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_IMPRIME_FACTURA] 																						"
@@ -2660,7 +2674,7 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "				/*INFORMACIÓN GENERAL SUCURSAL*/																			"
                 SQL &= Chr(13) & "				SUCUR.COD_CIA,CIA.CEDULA,CIA.OBSERVA_TRIBUTARIA,CONVERT(IMAGE,CIA.LOGO) AS LOGO,																			"
                 SQL &= Chr(13) & "				CASE WHEN CIA.TIPO_CEDULA='F' THEN 'Física' WHEN CIA.TIPO_CEDULA='F' THEN 'Jurídica' WHEN CIA.TIPO_CEDULA='D' THEN 'Dimex'WHEN CIA.TIPO_CEDULA='D' THEN 'Nite' END AS TIPO_CEDULA,																			"
-                SQL &= Chr(13) & "				SUCUR.COD_SUCUR,SUCUR.NOMBRE,SUCUR.DIRECCION,SUCUR.CORREO,SUCUR.TELEFONO,																			"
+                SQL &= Chr(13) & "				SUCUR.COD_SUCUR,CIA.NOMBRE,SUCUR.DIRECCION,SUCUR.CORREO,SUCUR.TELEFONO,																			"
                 SQL &= Chr(13) & "				/*INFORMACIÓN GENERAL CLIENTE*/																			"
                 SQL &= Chr(13) & "				CLI.NOMBRE+' '+CLI.APELLIDO1+' '+CLI.APELLIDO2 AS NOMBRE,CLI.CEDULA AS CEDULA_CLIENTE,CLI.CORREO,																			"
                 SQL &= Chr(13) & "				/*INFORMACIÓN DEL ENCABEZADO DEL DOCUMENTO*/																			"
@@ -3200,7 +3214,7 @@ Public Class Actualizaciones
 
     Private Sub USP_PROFORMA_TMP_A_REAL()
         Try
-            If Not EXISTE_PROCEDIMIENTO("USP_PROFORMA_TMP_A_REAL", "2020-11-10") Then
+            If Not EXISTE_PROCEDIMIENTO("USP_PROFORMA_TMP_A_REAL", "2020-11-14") Then
                 ELIMINA_PROCEDIMIENTO("USP_PROFORMA_TMP_A_REAL")
 
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_PROFORMA_TMP_A_REAL] 		"
@@ -3283,6 +3297,8 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "																							"
                 SQL &= Chr(13) & "				DELETE FROM PROFORMA_ENC_TMP WHERE CODIGO = @CODIGO											"
                 SQL &= Chr(13) & "		        DELETE FROM PROFORMA_DET_TMP WHERE CODIGO = @CODIGO											"
+                SQL &= Chr(13) & ""
+                SQL &= Chr(13) & "				SELECT @NUMERO_DOC AS Documento "
                 SQL &= Chr(13) & "			END 																				"
                 SQL &= Chr(13) & "			ELSE																				"
                 SQL &= Chr(13) & "			BEGIN																				"

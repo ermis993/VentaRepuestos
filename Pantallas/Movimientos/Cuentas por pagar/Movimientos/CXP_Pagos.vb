@@ -69,7 +69,7 @@ Public Class CXP_Pagos
                 Dim SQL As String = ""
                 GRID.DataSource = Nothing
 
-                SQL = "	SELECT ENC.TIPO_MOV AS Tipo, ENC.NUMERO_DOC AS Número, CONVERT(VARCHAR(10),ENC.FECHA, 105) AS Fecha, MONTO AS Subtotal		"
+                SQL = "	SELECT ENC.TIPO_MOV AS Tipo, ENC.NUMERO_DOC AS Número, CONVERT(VARCHAR(10),ENC.FECHA, 103) AS Fecha, MONTO AS Subtotal		"
                 SQL &= Chr(13) & "	, IMPUESTO as Impuesto, (MONTO+IMPUESTO) AS Total, SALDO as Saldo"
                 SQL &= Chr(13) & "	FROM CXP_DOCUMENTO_ENC AS ENC"
                 SQL &= Chr(13) & "  LEFT JOIN CXP_DOCUMENTO_AFEC_DET_TMP AS AFEC"

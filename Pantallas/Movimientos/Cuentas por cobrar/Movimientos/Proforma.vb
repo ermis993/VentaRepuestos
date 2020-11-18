@@ -1,5 +1,6 @@
 ﻿Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Globales
+Imports VentaRepuestos.EnvioCorreo
 
 Public Class Proforma
     Dim Modo As CRF_Modos
@@ -563,7 +564,6 @@ Public Class Proforma
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
-        Cerrar()
     End Sub
 
     Private Sub Busca_Producto()
@@ -772,6 +772,8 @@ Public Class Proforma
 
     Private Sub Accion_Facturar()
         Try
+            Dim NOM_COMPANIA As String = "", DESTINATARIO As String = "", CLIENTE As String = ""
+
             If GRID.Rows.Count <= 0 Then
                 MessageBox.Show(Me, "Debe ingresar al menos una linea del documento", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
@@ -785,8 +787,25 @@ Public Class Proforma
                 Dim DS = CONX.EJECUTE_DS(Sql)
                 CONX.Coneccion_Cerrar()
 
-                Me.Close()
-                Padre.Refrescar()
+                Dim pregunta = MessageBox.Show(Me, "¿Desea envíar la proforma por correo?", "Envío proforma", vbYesNo, MessageBoxIcon.Question)
+                If pregunta = DialogResult.Yes Then
+
+                    ObtieneDatosProforma(Val(DS.Tables(0).Rows(0).Item(0)), NOM_COMPANIA, DESTINATARIO, CLIENTE)
+
+                    If Not String.IsNullOrEmpty(DESTINATARIO) And Not String.IsNullOrEmpty(CLIENTE) Then
+                        Dim mensaje = Enviar_Proforma(COD_CIA, COD_SUCUR, Val(DS.Tables(0).Rows(0).Item(0)), CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2), DESTINATARIO, CLIENTE, NOM_COMPANIA)
+                        MessageBox.Show(Me, mensaje, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Else
+                        MessageBox.Show(Me, "No se pudo obtener la información del cliente", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                        Cerrar()
+                        Padre.Refrescar()
+                    End If
+                Else
+                    Cerrar()
+                    Padre.Refrescar()
+                End If
+
+
             End If
         Catch ex As Exception
             Throw ex
@@ -936,6 +955,33 @@ Public Class Proforma
             CONX.Coneccion_Abrir()
             CONX.EJECUTE(SQL)
             CONX.Coneccion_Cerrar()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Public Sub ObtieneDatosProforma(ByVal NUMERO_DOC As Integer, ByRef NOM_COMPANIA As String, ByRef DESTINATARIO As String, ByRef CLIENTE As String)
+        Try
+            Dim SQL = "	SELECT COMP.NOMBRE, CLI.NOMBRE + ' ' + CLI.APELLIDO1 + ' ' + CLI.APELLIDO2 AS CLIENTE, CLI.CORREO																									"
+            SQL &= Chr(13) & "	FROM PROFORMA_ENC AS ENC																									"
+            SQL &= Chr(13) & "	INNER JOIN CLIENTE AS CLI 																									"
+            SQL &= Chr(13) & "		ON CLI.COD_CIA = ENC.COD_CIA																								"
+            SQL &= Chr(13) & "		AND CLI.CEDULA = ENC.CEDULA																								"
+            SQL &= Chr(13) & "	INNER JOIN COMPANIA AS COMP																									"
+            SQL &= Chr(13) & "		ON COMP.COD_CIA = ENC.COD_CIA																								"
+            SQL &= Chr(13) & "	WHERE ENC.COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & "	AND ENC.COD_SUCUR = " & SCM(COD_SUCUR)
+            SQL &= Chr(13) & "	AND ENC.NUMERO_DOC = " & Val(NUMERO_DOC)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                NOM_COMPANIA = DS.Tables(0).Rows(0).Item("NOMBRE")
+                DESTINATARIO = DS.Tables(0).Rows(0).Item("CORREO")
+                CLIENTE = DS.Tables(0).Rows(0).Item("CLIENTE")
+            End If
+
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

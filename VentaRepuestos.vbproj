@@ -127,6 +127,7 @@
     <Compile Include="Controles\Buscador.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Globales\EnvioCorreo.vb" />
     <Compile Include="Globales\Globales.vb" />
     <Compile Include="Globales\Impresion.vb" />
     <Compile Include="Globales\Printer.vb" />
@@ -820,6 +821,10 @@
     <ProjectReference Include="..\..\LIBRERIAS_GENERALES\CRF_CONEXIONES\CRF_CONEXIONES.vbproj">
       <Project>{bdddff94-3947-49d0-a098-f2e3fe3e909b}</Project>
       <Name>CRF_CONEXIONES</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\LIBRERIAS_GENERALES\CRF_EMAIL\CRF_EMAIL.vbproj">
+      <Project>{c89c6939-8137-4f88-acd6-372726d53ed4}</Project>
+      <Name>CRF_EMAIL</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\LIBRERIAS_GENERALES\FUN_CRFUSION\FUN_CRFUSION.vbproj">
       <Project>{8fde4698-2b47-4e08-9d9a-09c2d6d754d4}</Project>

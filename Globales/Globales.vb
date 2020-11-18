@@ -10,6 +10,8 @@ Public Class Globales
 
     Public Shared CONX As New SQLCON
     Public Shared CONX_SIC As New SQLCON
+    Public Shared RUTA_ADJUNTOS As String
+    Public Shared RUTA_BACKUP As String
     Public Shared COD_CIA As String
     Public Shared COD_SUCUR As String
     Public Shared COD_USUARIO As String
@@ -754,17 +756,6 @@ Public Class Globales
         End Try
     End Sub
 
-    Public Shared Function ConsultaSaldoProducto(ByVal COD_PROD As String) As Decimal
-        Try
-            Dim Resultado As Decimal = 0.0
-
-
-
-
-        Catch ex As Exception
-            Return 0.0
-        End Try
-    End Function
     Public Shared Function TieneDerecho(ByVal COD_DERECHO As String) As Boolean
         Try
             Dim BANDERA As Boolean = False
@@ -787,5 +778,100 @@ Public Class Globales
             Return False
         End Try
     End Function
+
+    Public Shared Function QUITAR_TILDES(ByVal STR As String) As String
+        STR = STR.Replace("á", "a")
+        STR = STR.Replace("é", "e")
+        STR = STR.Replace("í", "i")
+        STR = STR.Replace("ó", "o")
+        STR = STR.Replace("ú", "u")
+        STR = STR.Replace("à", "a")
+        STR = STR.Replace("è", "e")
+        STR = STR.Replace("ì", "i")
+        STR = STR.Replace("ò", "o")
+        STR = STR.Replace("ù", "u")
+        Return STR
+    End Function
+    Public Shared Function FormatoCorreo(ByVal correo As String) As Boolean
+        Try
+            FormatoCorreo = False
+            Dim strMessage As String = ""
+            Dim regex As Regex = New Regex("([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\." +
+                                           ")|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})",
+                                           RegexOptions.IgnoreCase _
+                                           Or RegexOptions.CultureInvariant _
+                                           Or RegexOptions.IgnorePatternWhitespace _
+                                           Or RegexOptions.Compiled
+                                           )
+            Dim IsMatch As Boolean = regex.IsMatch(correo)
+
+            If IsMatch Then
+                If correo.Equals(regex.Match(correo).ToString) Then
+                    FormatoCorreo = True
+                End If
+            End If
+        Catch
+            FormatoCorreo = False
+        End Try
+    End Function
+
+    Public Shared Function Destinatarios_a_lista(ByVal GDestinatarios As String) As List(Of String)
+        Dim inicio As Integer = 0
+        Dim final As Integer = 0
+        Dim nueva_dir As String = ""
+        Dim Lst_destinatarios As New List(Of String)
+        GDestinatarios += ";"
+        GDestinatarios = Replace(GDestinatarios, ",", ";")
+        For i = 1 To GDestinatarios.Length
+            If Mid(GDestinatarios, i, 1) <> ";" Then
+                nueva_dir += Mid(GDestinatarios, i, 1)
+            Else
+                If Trim(nueva_dir) <> "" Then
+                    Lst_destinatarios.Add(nueva_dir)
+                    nueva_dir = ""
+                End If
+            End If
+        Next
+        Return Lst_destinatarios
+    End Function
+
+    Public Shared Sub ObtieneInfoSMTP(ByRef SERVIDOR_SMTP As String, ByRef PUERTO_SMTP As Integer, ByRef USUARIO_SMTP As String, ByRef CLAVE_SMTP As String)
+        Try
+            Dim Sql = "	SELECT COD_CIA,SERVIDOR,USUARIO,CONTRASENA AS CLAVE,PUERTO 					"
+            Sql &= Chr(13) & "	FROM SMTP_CONFIG					"
+            Sql &= Chr(13) & "	WHERE COD_CIA =	" & SCM(COD_CIA)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(Sql)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                SERVIDOR_SMTP = DS.Tables(0).Rows(0).Item("SERVIDOR")
+                USUARIO_SMTP = DS.Tables(0).Rows(0).Item("USUARIO")
+                CLAVE_SMTP = DS.Tables(0).Rows(0).Item("CLAVE")
+                PUERTO_SMTP = DS.Tables(0).Rows(0).Item("PUERTO")
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Structure SMTP_CONFIG
+        Public SERVIDOR_SMTP As String
+        Public USUARIO As String
+        Public CLAVE As String
+        Public NOMBRE_VISIBLE As String
+        Public PUERTO As Integer
+        Public REVISION_MINUTOS As Integer
+        Public IND_PIE_MENSAJES As Integer
+        Public PIE_MENSAJE As String
+        Public COLOR_PRIMARIO As String
+        Public COLOR_SECUNDARIO As String
+        Public TIPO_LETRA As String
+        Public TAMANO_LETRA As String
+        Public HIPER_TEXTO As String
+        Public HIPER_LINK As String
+        Public SSL As String
+    End Structure
 
 End Class

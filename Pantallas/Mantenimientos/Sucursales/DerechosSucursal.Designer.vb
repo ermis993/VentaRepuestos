@@ -38,7 +38,7 @@ Partial Class DerechosSucursal
         '
         Me.GroupBox3.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GroupBox3.Controls.Add(Me.LVCon)
-        Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Me.GroupBox3.ForeColor = System.Drawing.SystemColors.ControlText
         Me.GroupBox3.Location = New System.Drawing.Point(342, 11)
         Me.GroupBox3.Margin = New System.Windows.Forms.Padding(2)
@@ -65,7 +65,7 @@ Partial Class DerechosSucursal
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.LVSin)
-        Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Me.GroupBox2.ForeColor = System.Drawing.SystemColors.ControlText
         Me.GroupBox2.Location = New System.Drawing.Point(8, 11)
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2)
@@ -106,7 +106,7 @@ Partial Class DerechosSucursal
         '
         'BTN_QUITAR
         '
-        Me.BTN_QUITAR.Image = Global.VentaRepuestos.My.Resources.Resources.quitar
+        Me.BTN_QUITAR.Image = Global.VentaRepuestos.My.Resources.Resources.Left
         Me.BTN_QUITAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BTN_QUITAR.Location = New System.Drawing.Point(239, 81)
         Me.BTN_QUITAR.Margin = New System.Windows.Forms.Padding(2)
@@ -119,7 +119,7 @@ Partial Class DerechosSucursal
         '
         'BTN_AGREGAR
         '
-        Me.BTN_AGREGAR.Image = Global.VentaRepuestos.My.Resources.Resources.agregar
+        Me.BTN_AGREGAR.Image = Global.VentaRepuestos.My.Resources.Resources.Right
         Me.BTN_AGREGAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BTN_AGREGAR.Location = New System.Drawing.Point(239, 34)
         Me.BTN_AGREGAR.Margin = New System.Windows.Forms.Padding(2)

@@ -206,7 +206,7 @@ Public Class Producto
                 End If
                 CONX.Coneccion_Cerrar()
 
-                If Not Imagen Is Nothing Then
+                If Imagen IsNot Nothing Then
                     Dim imp As New Impresion()
                     imp.ImprimirBarcode(Imagen, DESCRIPCION)
                 Else

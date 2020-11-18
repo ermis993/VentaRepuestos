@@ -281,7 +281,7 @@ Partial Class LBL_CANTON
         '
         Me.GroupBox5.Controls.Add(Me.PictureBox1)
         Me.GroupBox5.Controls.Add(Me.Button1)
-        Me.GroupBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.GroupBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Me.GroupBox5.ForeColor = System.Drawing.Color.Black
         Me.GroupBox5.Location = New System.Drawing.Point(298, 69)
         Me.GroupBox5.Margin = New System.Windows.Forms.Padding(2)

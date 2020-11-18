@@ -280,19 +280,26 @@ Public Class MenuPrincipal
 
     Private Sub BTN_BACKUP_Click(sender As Object, e As EventArgs) Handles BTN_BACKUP.Click
         Try
-            Dim Ruta As New SaveFileDialog With {
-                .FileName = "BackUp_" + DMA(FECHA_HOY()).Replace("/", "-"),
-                .Filter = "SQL Server database backup files |*.bak"
-            }
+            'Dim Ruta As New SaveFileDialog With {
+            '    .FileName = "BackUp_" + DMA(FECHA_HOY()).Replace("/", "-"),
+            '    .Filter = "SQL Server database backup files |*.bak"
+            '}
 
-            If Ruta.ShowDialog() = DialogResult.OK Then
-                Dim SQL As String = "BACKUP DATABASE VR TO disk=" & SCM(Ruta.FileName)
-                CONX.Coneccion_Abrir()
-                CONX.EJECUTE(SQL)
-                CONX.Coneccion_Cerrar()
+            'If Ruta.ShowDialog() = DialogResult.OK Then
+            '    Dim SQL As String = "BACKUP DATABASE VR TO disk=" & SCM(Ruta.FileName)
+            '    CONX.Coneccion_Abrir()
+            '    CONX.EJECUTE(SQL)
+            '    CONX.Coneccion_Cerrar()
 
-                MessageBox.Show("BackUp generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-            End If
+            '    MessageBox.Show("BackUp generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            'End If
+
+            Dim SQL As String = "BACKUP DATABASE VR TO disk=" & SCM(RUTA_BACKUP & "\" & "BackUp_" + DMA(FECHA_HOY()).Replace("/", "-"))
+            CONX.Coneccion_Abrir()
+            CONX.EJECUTE(SQL)
+            CONX.Coneccion_Cerrar()
+
+            MessageBox.Show("BackUp generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         Catch ex As Exception
             MessageBox.Show(ex.Message)

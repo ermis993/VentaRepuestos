@@ -63,7 +63,7 @@ Public Class Facturacion
         BTN_APARTADO.Enabled = TieneDerecho("DAPAR")
         BTN_ANULAR.Enabled = TieneDerecho("APART")
         BTN_PROFORMAS.Enabled = TieneDerecho("DPROFOR")
-        CMB_VER.Enabled = TieneDerecho("DAPAR")
+        CMB_VER.Enabled = (TieneDerecho("DAPAR") Or TieneDerecho("DPROFOR"))
     End Sub
 
     Public Sub Refrescar()
@@ -255,7 +255,7 @@ Public Class Facturacion
 
                 LBL_TOTAL_FACTURADO.Text = FMCP(Total_Facturado)
 
-                If CMB_TIPO_FACT.SelectedIndex = 0 Then
+                If CMB_TIPO_FACT.SelectedIndex = 0 And CMB_VER.SelectedIndex <> 2 Then
                     PintarEstados()
                 End If
 

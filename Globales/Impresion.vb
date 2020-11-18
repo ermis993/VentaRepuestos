@@ -56,7 +56,7 @@ Public Class Impresion
             Printer.Print(descripcion)
         End If
 
-        Printer.Print(img, 325, 150)
+        Printer.Print(img)
 
         Printer.DoPrint()
     End Sub

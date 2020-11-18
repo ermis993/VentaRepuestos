@@ -85,7 +85,7 @@ Public Class NotaCredito
                 GRID.DataSource = Nothing
 
                 If Tipo = "F" Then
-                    SQL = "	SELECT ENC.TIPO_MOV AS Tipo, ENC.NUMERO_DOC AS Número, CONVERT(VARCHAR(10),ENC.FECHA, 105) AS Fecha, MONTO AS Subtotal		"
+                    SQL = "	SELECT ENC.TIPO_MOV AS Tipo, ENC.NUMERO_DOC AS Número, CONVERT(VARCHAR(10),ENC.FECHA, 103) AS Fecha, MONTO AS Subtotal		"
                     SQL &= Chr(13) & "	, IMPUESTO as Impuesto, (MONTO+IMPUESTO) AS Total, SALDO as Saldo"
                     SQL &= Chr(13) & "	FROM DOCUMENTO_ENC AS ENC"
                     SQL &= Chr(13) & "  LEFT JOIN DOCUMENTO_AFEC_DET_TMP AS AFEC"
@@ -99,7 +99,7 @@ Public Class NotaCredito
                     SQL &= Chr(13) & "  AND ENC.TIPO_MOV In ('FA', 'FC')"
                     SQL &= Chr(13) & "  AND AFEC.NUMERO_DOC IS NULL"
                 Else
-                    SQL = "	SELECT ENC.TIPO_MOV AS Tipo, ENC.NUMERO_DOC AS Número, CONVERT(VARCHAR(10),ENC.FECHA, 105) AS Fecha, MONTO AS Subtotal		"
+                    SQL = "	SELECT ENC.TIPO_MOV AS Tipo, ENC.NUMERO_DOC AS Número, CONVERT(VARCHAR(10),ENC.FECHA, 103) AS Fecha, MONTO AS Subtotal		"
                     SQL &= Chr(13) & "	, IMPUESTO as Impuesto, (MONTO+IMPUESTO) AS Total, SALDO as Saldo"
                     SQL &= Chr(13) & "	FROM APARTADO_ENC AS ENC"
                     SQL &= Chr(13) & "  LEFT JOIN DOCUMENTO_AFEC_DET_TMP AS AFEC"

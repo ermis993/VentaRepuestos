@@ -37,7 +37,8 @@ Partial Class NotaCredito
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TAB_ENC = New System.Windows.Forms.TabPage()
-        Me.Cliente = New VentaRepuestos.Buscador()
+        Me.CMB_FORMAPAGO = New System.Windows.Forms.ComboBox()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.TXT_DESCRIPCION = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.CMB_MONEDA = New System.Windows.Forms.ComboBox()
@@ -61,8 +62,7 @@ Partial Class NotaCredito
         Me.IngrearMontoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
-        Me.CMB_FORMAPAGO = New System.Windows.Forms.ComboBox()
-        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Cliente = New VentaRepuestos.Buscador()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TAB_ENC.SuspendLayout()
@@ -237,22 +237,28 @@ Partial Class NotaCredito
         Me.TAB_ENC.Text = "[ Encabezado ]"
         Me.TAB_ENC.UseVisualStyleBackColor = True
         '
-        'Cliente
+        'CMB_FORMAPAGO
         '
-        Me.Cliente.CAMPO_FILTRAR = Nothing
-        Me.Cliente.CODIGO = Nothing
-        Me.Cliente.DESCRIPCION = Nothing
-        Me.Cliente.FILTRAR_POR_COMPANIA = True
-        Me.Cliente.Location = New System.Drawing.Point(111, 10)
-        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cliente.Name = "Cliente"
-        Me.Cliente.OTROS_CAMP0S = Nothing
-        Me.Cliente.PANTALLA = Nothing
-        Me.Cliente.Size = New System.Drawing.Size(451, 32)
-        Me.Cliente.TabIndex = 1
-        Me.Cliente.TABLA_BUSCAR = Nothing
-        Me.Cliente.VALOR = ""
-        Me.Cliente.VALOR_DESCRIPCION = Nothing
+        Me.CMB_FORMAPAGO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CMB_FORMAPAGO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.CMB_FORMAPAGO.FormattingEnabled = True
+        Me.CMB_FORMAPAGO.Items.AddRange(New Object() {"EF-Efectivo", "TA-Tarjeta", "TR-Transferencia"})
+        Me.CMB_FORMAPAGO.Location = New System.Drawing.Point(111, 44)
+        Me.CMB_FORMAPAGO.Margin = New System.Windows.Forms.Padding(2)
+        Me.CMB_FORMAPAGO.Name = "CMB_FORMAPAGO"
+        Me.CMB_FORMAPAGO.Size = New System.Drawing.Size(155, 26)
+        Me.CMB_FORMAPAGO.TabIndex = 3
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label5.Location = New System.Drawing.Point(4, 48)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(99, 18)
+        Me.Label5.TabIndex = 2
+        Me.Label5.Text = "Forma Pago :"
         '
         'TXT_DESCRIPCION
         '
@@ -540,28 +546,22 @@ Partial Class NotaCredito
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
         '
-        'CMB_FORMAPAGO
+        'Cliente
         '
-        Me.CMB_FORMAPAGO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CMB_FORMAPAGO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.CMB_FORMAPAGO.FormattingEnabled = True
-        Me.CMB_FORMAPAGO.Items.AddRange(New Object() {"EF-Efectivo", "TA-Tarjeta", "TR-Transferencia"})
-        Me.CMB_FORMAPAGO.Location = New System.Drawing.Point(111, 44)
-        Me.CMB_FORMAPAGO.Margin = New System.Windows.Forms.Padding(2)
-        Me.CMB_FORMAPAGO.Name = "CMB_FORMAPAGO"
-        Me.CMB_FORMAPAGO.Size = New System.Drawing.Size(155, 26)
-        Me.CMB_FORMAPAGO.TabIndex = 3
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label5.Location = New System.Drawing.Point(4, 48)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(99, 18)
-        Me.Label5.TabIndex = 2
-        Me.Label5.Text = "Forma Pago :"
+        Me.Cliente.CAMPO_FILTRAR = Nothing
+        Me.Cliente.CODIGO = Nothing
+        Me.Cliente.DESCRIPCION = Nothing
+        Me.Cliente.FILTRAR_POR_COMPANIA = True
+        Me.Cliente.Location = New System.Drawing.Point(111, 10)
+        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
+        Me.Cliente.Name = "Cliente"
+        Me.Cliente.OTROS_CAMP0S = Nothing
+        Me.Cliente.PANTALLA = Nothing
+        Me.Cliente.Size = New System.Drawing.Size(451, 32)
+        Me.Cliente.TabIndex = 1
+        Me.Cliente.TABLA_BUSCAR = Nothing
+        Me.Cliente.VALOR = ""
+        Me.Cliente.VALOR_DESCRIPCION = Nothing
         '
         'NotaCredito
         '

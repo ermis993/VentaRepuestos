@@ -12,6 +12,7 @@ Public Class LBL_CANTON
     Dim MODO As New CRF_Modos
     Dim PADRE As New Compania
     Dim COD_ACT As String = ""
+
     Sub New(ByVal MODO As CRF_Modos, ByVal PADRE As Compania, Optional ByVal COD_CIA As String = "")
         InitializeComponent()
         Me.MODO = MODO
@@ -48,7 +49,9 @@ Public Class LBL_CANTON
             CMB_TIPO_CEDULA.Enabled = False
             TXT_CEDULA.Enabled = False
             LEER()
+            LEER_SMTP()
             REFRESCAR_ACTIVIDADES()
+            RellenaImagen(PictureBox1)
         End If
     End Sub
     Private Sub CARGAR_PROVINCIAS()
@@ -402,6 +405,55 @@ Public Class LBL_CANTON
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
+    Public Shared Sub RellenaImagen(ByRef Panel As PictureBox)
+        Try
+            Dim COMANDO As New SqlCommand With {
+                .CommandType = CommandType.Text,
+                .CommandText = "SELECT LOGO FROM COMPANIA WHERE COD_CIA = " & SCM(COD_CIA)
+            }
+
+            CONX.Coneccion_Abrir()
+            COMANDO.Connection = CONX.Connection
+
+            Dim da As New SqlDataAdapter(COMANDO)
+            Dim ds As New DataSet()
+            da.Fill(ds, "COMPANIA")
+            Dim c As Integer = ds.Tables(0).Rows.Count
+            If c > 0 Then
+                Dim bytBLOBData() As Byte =
+                    ds.Tables(0).Rows(c - 1)("LOGO")
+                Dim stmBLOBData As New MemoryStream(bytBLOBData)
+                Panel.Image = Image.FromStream(stmBLOBData)
+
+            End If
+            CONX.Coneccion_Cerrar()
+
+        Catch ex As Exception
+            CONX.Coneccion_Cerrar()
+        End Try
+    End Sub
+
+    Private Sub LEER_SMTP()
+        Try
+            Dim SQL = "	SELECT *	"
+            SQL &= Chr(13) & "	FROM SMTP_CONFIG "
+            SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                TXT_PUERTO.Text = Val(DS.Tables(0).Rows(0).Item("PUERTO"))
+                TXT_SERVIDOR.Text = DS.Tables(0).Rows(0).Item("SERVIDOR")
+                TXT_USUARIO.Text = DS.Tables(0).Rows(0).Item("USUARIO")
+                TXT_CONTRASENA.Text = DS.Tables(0).Rows(0).Item("CONTRASENA")
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
     Private Sub EJECUTAR()
         Try
             Dim SQL As String = "EXEC USP_COMPANIA_MANT"
@@ -593,4 +645,99 @@ Public Class LBL_CANTON
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
+    Private Sub BTN_PROBAR_Click(sender As Object, e As EventArgs) Handles BTN_PROBAR.Click
+        Try
+            LBL_RESULTADO.Text = ""
+
+            If String.IsNullOrEmpty(TXT_SERVIDOR.Text) Then
+                MessageBox.Show("¡Se debe ingresar la información del servidor SMTP!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                TXT_SERVIDOR.Select()
+            ElseIf String.IsNullOrEmpty(TXT_USUARIO.Text) Then
+                MessageBox.Show("¡Se debe ingresar el correo a configurar!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                TXT_USUARIO.Select()
+            ElseIf String.IsNullOrEmpty(TXT_CONTRASENA.Text) Then
+                MessageBox.Show("¡Se debe ingresar la contraseña del correo ingresado!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                TXT_CONTRASENA.Select()
+            ElseIf String.IsNullOrEmpty(TXT_PUERTO.Text) Or Val(TXT_PUERTO.Text) <= 0 Then
+                MessageBox.Show("¡Los puertos recomendados son 25, 465, 587 y 2525!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                TXT_PUERTO.Select()
+            Else
+                Dim Valor As String = InputBox("Por favor, ingrese un correo destinatario al cual llegará el mensaje de confirmación", "Ingrese el destinatario")
+
+                If FormatoCorreo(Valor.Trim) Then
+                    RealizarPruebaSMTP(Valor.Trim)
+                Else
+                    Dim respuesta = MessageBox.Show(Me, "Parece que el correo: [" & Valor.Trim & "] tiene un formato incorrecto, ¿Desea continuar con la prueba?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                    If respuesta = DialogResult.Yes Then
+                        RealizarPruebaSMTP(Valor.Trim)
+                    End If
+                End If
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+
+    Private Sub RealizarPruebaSMTP(Destinatario As String)
+        Try
+
+            Dim mensaje As String = "<p style='text-align: justify;'>Este correo tiene la finalidad de corroborar la informaci&oacute;n ingresada en el mantenimiento del servidor SMTP. Al recibir este correo es la confirmaci&oacute;n de la correcta configuraci&oacute;n en dicho mantenimiento.</p>"
+            mensaje += "<p style='text-align: justify;'><strong>Nota importante</strong>: Recuerde que si realiza una actualizaci&oacute;n de contrase&ntilde;a, es necesario realizar la actualizaci&oacute;n en el mantenimiento del servidor SMTP en el sistema, ya que presentar&iacute;a problemas en el env&iacute;o de documentos.</p>"
+            mensaje += "<p style='text-align: Left;'><strong>-Este mensaje fue realizado por un sistema automatizado, no es necesario responder el mismo-</strong></p>"
+
+            Dim CREMISARIO_CONFIG = New SMTP_CONFIG With {
+                .SERVIDOR_SMTP = TXT_SERVIDOR.Text.Trim,
+                .PUERTO = Val(TXT_PUERTO.Text),
+                .USUARIO = TXT_USUARIO.Text.Trim,
+                .CLAVE = TXT_CONTRASENA.Text.Trim,
+                .NOMBRE_VISIBLE = "",
+                .SSL = "S"
+            }
+
+            Dim Correo As New CRF_EMAIL.CRF_EMAIL With {
+                          .ServidorSmtp = CREMISARIO_CONFIG.SERVIDOR_SMTP,
+                          .Puerto = CREMISARIO_CONFIG.PUERTO,
+                          .Usuario = CREMISARIO_CONFIG.USUARIO,
+                          .Clave = CREMISARIO_CONFIG.CLAVE,
+                          .Emisor = New Net.Mail.MailAddress(CREMISARIO_CONFIG.USUARIO, CREMISARIO_CONFIG.NOMBRE_VISIBLE),
+                          .OpcionSSL = CREMISARIO_CONFIG.SSL,
+                          .Asunto = "Envío configuración SMTP",
+                          .Prioridad = Net.Mail.MailPriority.Normal
+                      }
+
+            Correo.EsMensajeHTML = True
+            Correo.Mensaje = Trim(mensaje)
+            Correo.Agregar_destinatario(Destinatario.ToLower)
+            If Correo.Enviar() Then
+                LBL_RESULTADO.Text = "¡Configuración realizada exitosamente, en un momento recibirá un correo el destinatario ingresado!"
+                LBL_RESULTADO.ForeColor = Color.Navy
+
+                Dim respuesta = MessageBox.Show(Me, "La configuración se realizó correctamente, ¿Desea ingresar los datos?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                If respuesta = DialogResult.Yes Then
+
+                    CONX.Coneccion_Abrir()
+                    Dim SQL = "	DELETE FROM SMTP_CONFIG WHERE COD_CIA = " & SCM(COD_CIA)
+                    CONX.EJECUTE(SQL)
+
+                    SQL &= Chr(13) & "	INSERT INTO SMTP_CONFIG(COD_CIA,SERVIDOR,USUARIO,CONTRASENA,PUERTO)			"
+                    SQL &= Chr(13) & "	SELECT " & SCM(COD_CIA) & "," & SCM(TXT_SERVIDOR.Text.Trim) & "," & SCM(TXT_USUARIO.Text.Trim)
+                    SQL &= Chr(13) & "," & SCM(TXT_CONTRASENA.Text.Trim) & "," & Val(TXT_PUERTO.Text)
+                    CONX.EJECUTE(SQL)
+                    CONX.Coneccion_Cerrar()
+
+                    MessageBox.Show("¡Datos configurados correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            Else
+                LBL_RESULTADO.Text = "¡No fue posible envíar la prueba!"
+                LBL_RESULTADO.ForeColor = Color.Red
+            End If
+
+        Catch ex As Exception
+            LBL_RESULTADO.Text = ex.Message
+            LBL_RESULTADO.ForeColor = Color.Red
+        End Try
+    End Sub
+
 End Class

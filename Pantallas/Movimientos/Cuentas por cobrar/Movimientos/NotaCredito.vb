@@ -12,13 +12,19 @@ Public Class NotaCredito
     Dim Padre As Facturacion
     Dim Tipo As String
 
+    Dim TIPO_MOV_P As String
+    Dim NUMERO_DOC_P As Integer
+    Dim MODO_USAR As CRF_Modos
+
+
     Private PaginaEscondidas As New List(Of TabPage)
 
-    Sub New(ByVal PADRE As Facturacion, ByVal Tipo_Proceso As String)
+    Sub New(ByVal PADRE As Facturacion, ByVal Tipo_Proceso As String, ByVal Modo As CRF_Modos, Optional ByVal TIPO_MOV_E As String = "", Optional ByVal NUMERO_DOC_E As Integer = 0)
         InitializeComponent()
 
         Me.Tipo = Tipo_Proceso
         Me.Padre = PADRE
+        MODO_USAR = Modo
 
         Cliente.TABLA_BUSCAR = "CLIENTE"
         Cliente.CODIGO = "CEDULA"
@@ -28,23 +34,64 @@ Public Class NotaCredito
         Cliente.OTROS_CAMP0S = "A"
         Cliente.refrescar()
 
-        Codigo = GenerarCodigo()
+        TIPO_MOV_P = TIPO_MOV_E
+        NUMERO_DOC_P = NUMERO_DOC_E
+    End Sub
 
-        If Tipo = "A" Then
-            TAB_FACTURAS.Text = "[ Apartados ]"
-            CMB_DOCUMENTO.Enabled = False
-        End If
+    Private Sub RELLENA_DATOS()
+        Try
+            Dim SQL = "	SELECT TIPO_MOV, ISNULL(TIPO_NOTA, 'A') AS TIPO_NOTA, FECHA, TIPO_CAMBIO, CEDULA, FORMA_PAGO, COD_MONEDA,				"
+            SQL &= Chr(13) & "	DESCRIPCION, (MONTO+IMPUESTO) AS TOTAL			"
+            SQL &= Chr(13) & "	FROM DOCUMENTO_ENC		"
+            SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & "  And COD_SUCUR = " & SCM(COD_SUCUR)
+            SQL &= Chr(13) & "	AND NUMERO_DOC = " & Val(NUMERO_DOC_P)
+            SQL &= Chr(13) & "  AND TIPO_MOV = " & SCM(TIPO_MOV_P)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
 
-        TabProducto = TabControl1.TabPages(3)
-        EscondeTab(TabProducto, False)
+            If DS.Tables(0).Rows.Count > 0 Then
+                For Each ITEM In DS.Tables(0).Rows
+                    DTPFECHA.Value = DMA(ITEM("FECHA"))
 
-        CMB_DOCUMENTO.SelectedIndex = 0
-        CMB_MONEDA.SelectedIndex = 0
-        CMB_FORMAPAGO.SelectedIndex = 0
+                    If ITEM("TIPO_MOV") = "NC" Then
+                        CMB_DOCUMENTO.SelectedIndex = 1
+                    Else
+                        CMB_DOCUMENTO.SelectedIndex = 0
+                    End If
 
-        TXT_TIPO_CAMBIO.Text = FMCP(TC_VENTA)
+                    If ITEM("TIPO_NOTA") = "A" Then
+                        CMB_TIPO.SelectedIndex = 1
+                    Else
+                        CMB_TIPO.SelectedIndex = 0
+                    End If
 
-        BloqueaControles()
+                    If ITEM("FORMA_PAGO") = "EF" Then
+                        CMB_FORMAPAGO.SelectedIndex = 0
+                    ElseIf ITEM("FORMA_PAGO") = "TA" Then
+                        CMB_FORMAPAGO.SelectedIndex = 1
+                    Else
+                        CMB_FORMAPAGO.SelectedIndex = 2
+                    End If
+
+                    If ITEM("COD_MONEDA") = "L" Then
+                        CMB_MONEDA.SelectedIndex = 0
+                    Else
+                        CMB_MONEDA.SelectedIndex = 1
+                    End If
+
+                    TXT_TIPO_CAMBIO.Text = FMCP(ITEM("TIPO_CAMBIO"))
+                    TXT_DESCRIPCION.Text = ITEM("DESCRIPCION")
+
+                    Cliente.VALOR = ITEM("CEDULA")
+                    Cliente.ACTUALIZAR_COMBO()
+                Next
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 
     Public Sub BloqueaControles()
@@ -52,7 +99,9 @@ Public Class NotaCredito
             TXT_NUMERO.Enabled = False
             TXT_TIPO_CAMBIO.Enabled = False
             DTPFECHA.Enabled = False
-            'CMB_DOCUMENTO.Enabled = IIf(Modo = CRF_Modos.Insertar, True, False)
+            CMB_DOCUMENTO.Enabled = IIf(MODO_USAR = CRF_Modos.Insertar, True, False)
+            BTN_ACEPTAR.Enabled = IIf(MODO_USAR = CRF_Modos.Insertar, True, False)
+            CMB_TIPO.Enabled = IIf(MODO_USAR = CRF_Modos.Insertar, True, False)
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -80,7 +129,7 @@ Public Class NotaCredito
 
     Private Sub RellenaFacturas()
         Try
-            If Not CMB_MONEDA.SelectedIndex <= -1 And String.IsNullOrEmpty(Cliente.VALOR) = False Then
+            If Not CMB_MONEDA.SelectedIndex <= -1 And String.IsNullOrEmpty(Cliente.VALOR) = False And MODO_USAR = CRF_Modos.Insertar Then
                 Dim SQL As String = ""
                 GRID.DataSource = Nothing
 
@@ -132,9 +181,25 @@ Public Class NotaCredito
     Private Sub RellenaFacturasAfec()
         Try
             GRID2.DataSource = Nothing
-            Dim SQL = "	SELECT CODIGO AS Código, NUMERO_DOC AS Número, TIPO_MOV AS Tipo, FECHA AS Fecha, MONTO_DOC AS Monto, (MONTO_DOC - MONTO_AFEC) as Saldo"
-            SQL &= Chr(13) & " FROM DOCUMENTO_AFEC_DET_TMP"
-            SQL &= Chr(13) & " WHERE CODIGO = 	" & SCM(Codigo)
+            Dim SQL As String = ""
+
+            If MODO_USAR = CRF_Modos.Insertar Then
+                SQL = "	SELECT CODIGO AS Código, NUMERO_DOC AS Número, TIPO_MOV AS Tipo, FECHA AS Fecha, MONTO_DOC AS Monto, (MONTO_DOC - MONTO_AFEC) AS Saldo"
+                SQL &= Chr(13) & " FROM DOCUMENTO_AFEC_DET_TMP"
+                SQL &= Chr(13) & " WHERE CODIGO = 	" & SCM(Codigo)
+            Else
+                SQL = "	SELECT 'AXS' AS Código, NUMERO_DOC_AFEC AS Número, TIPO_MOV_AFEC AS Tipo, ENC.FECHA AS Fecha, MONTO_AFEC AS Monto, 0 AS Saldo																									"
+                SQL &= Chr(13) & "	FROM DOCUMENTO_AFEC AS AFEC																									"
+                SQL &= Chr(13) & "	INNER JOIN DOCUMENTO_ENC AS ENC																									"
+                SQL &= Chr(13) & "		ON ENC.COD_CIA = AFEC.COD_CIA																								"
+                SQL &= Chr(13) & "		AND ENC.COD_SUCUR = AFEC.COD_SUCUR																								"
+                SQL &= Chr(13) & "		AND ENC.TIPO_MOV = AFEC.TIPO_MOV_AFEC																								"
+                SQL &= Chr(13) & "		AND ENC.NUMERO_DOC = AFEC.NUMERO_DOC_AFEC																								"
+                SQL &= Chr(13) & "	WHERE AFEC.COD_CIA = " & SCM(COD_CIA)
+                SQL &= Chr(13) & "	AND AFEC.COD_SUCUR = " & SCM(COD_SUCUR)
+                SQL &= Chr(13) & "	AND AFEC.TIPO_MOV = " & SCM(TIPO_MOV_P)
+                SQL &= Chr(13) & "	AND AFEC.NUMERO_DOC = " & Val(NUMERO_DOC_P)
+            End If
 
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)
@@ -186,10 +251,22 @@ Public Class NotaCredito
     Private Sub RellenaProductosAfec()
         Try
             GRIDPRODS2.DataSource = Nothing
-            Dim SQL = "	SELECT CODIGO AS Código, NUMERO_DOC AS Número, TIPO_MOV AS Tipo, LINEA as Linea, COD_PROD AS Código, PRECIO_UNITARIO AS 'P/U', POR_DESCUENTO AS Descuento, POR_IMPUESTO AS Impuesto, CANTIDAD AS Cantidad,	"
-            SQL &= Chr(13) & "	ESTANTE AS Estante, FILA as Fila, COLUMNA AS Columna"
-            SQL &= Chr(13) & "	FROM DOCUMENTO_AFEC_DET_PRODUCTOS_TMP	"
-            SQL &= Chr(13) & "	WHERE CODIGO = 	" & SCM(Codigo)
+            Dim SQL As String = ""
+
+            If MODO_USAR = CRF_Modos.Insertar Then
+                SQL = "	SELECT CODIGO AS Código, NUMERO_DOC AS Número, TIPO_MOV AS Tipo, LINEA as Linea, COD_PROD AS Producto, PRECIO_UNITARIO AS 'P/U', POR_DESCUENTO AS Descuento, POR_IMPUESTO AS Impuesto, CANTIDAD AS Cantidad,	"
+                SQL &= Chr(13) & "	ESTANTE AS Estante, FILA as Fila, COLUMNA AS Columna"
+                SQL &= Chr(13) & "	FROM DOCUMENTO_AFEC_DET_PRODUCTOS_TMP	"
+                SQL &= Chr(13) & "	WHERE CODIGO = 	" & SCM(Codigo)
+            Else
+                SQL = "	SELECT 'AXS' AS Código, NUMERO_DOC AS Número, TIPO_MOV AS Tipo, LINEA as Linea, COD_PROD AS Producto, PRECIO_UNITARIO AS 'P/U', POR_DESCUENTO AS Descuento, POR_IMPUESTO AS Impuesto, CANTIDAD AS Cantidad,																									"
+                SQL &= Chr(13) & "	ESTANTE AS Estante, FILA as Fila, COLUMNA AS Columna																									"
+                SQL &= Chr(13) & "	FROM DOCUMENTO_AFEC_DET_PRODUCTOS																									"
+                SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+                SQL &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+                SQL &= Chr(13) & "	AND TIPO_MOV = " & SCM(TIPO_MOV_P)
+                SQL &= Chr(13) & "	AND NUMERO_DOC = " & Val(NUMERO_DOC_P)
+            End If
 
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)
@@ -261,24 +338,25 @@ Public Class NotaCredito
         Try
             Leer_indice(1)
 
-            Dim SQL = " INSERT INTO DOCUMENTO_AFEC_DET_TMP(COD_CIA,COD_SUCUR,CODIGO,NUMERO_DOC,TIPO_MOV,FECHA,MONTO_DOC,MONTO_AFEC)"
-            SQL &= Chr(13) & " SELECT " & SCM(COD_CIA) & "," & SCM(COD_SUCUR) & "," & SCM(Codigo) & "," & Val(NUMERO_DOC) & "," & SCM(TIPO_MOV) & "," & SCM(YMD(FECHA)) & "," & FMC(MONTO_DOC) & ", 0"
+            If NUMERO_DOC > 0 Then
+                Dim SQL = " INSERT INTO DOCUMENTO_AFEC_DET_TMP(COD_CIA,COD_SUCUR,CODIGO,NUMERO_DOC,TIPO_MOV,FECHA,MONTO_DOC,MONTO_AFEC)"
+                SQL &= Chr(13) & " SELECT " & SCM(COD_CIA) & "," & SCM(COD_SUCUR) & "," & SCM(Codigo) & "," & Val(NUMERO_DOC) & "," & SCM(TIPO_MOV) & "," & SCM(YMD(FECHA)) & "," & FMC(MONTO_DOC) & ", 0"
 
-            CONX.Coneccion_Abrir()
-            CONX.EJECUTE(SQL)
-            CONX.Coneccion_Cerrar()
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
 
-            RellenaFacturas()
-            RellenaFacturasAfec()
-            CalculoTotales()
+                RellenaFacturas()
+                RellenaFacturasAfec()
+                CalculoTotales()
 
-            If CMB_TIPO.SelectedIndex = 0 Then
-                RellenaProductos()
+                If CMB_TIPO.SelectedIndex = 0 Then
+                    RellenaProductos()
+                End If
+
+                CMB_MONEDA.Enabled = False
+                Cliente.Enabled = False
             End If
-
-            CMB_MONEDA.Enabled = False
-            Cliente.Enabled = False
-
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -338,11 +416,22 @@ Public Class NotaCredito
 
     Private Sub CalculoTotales()
         Try
-            Dim SQL = "	SELECT ISNULL(SUM(MONTO_DOC), 0) AS MONTO, ISNULL(SUM(MONTO_AFEC), 0) AS MONTO_AFEC	"
-            SQL &= Chr(13) & "	FROM DOCUMENTO_AFEC_DET_TMP		"
-            SQL &= Chr(13) & "	WHERE CODIGO= " & SCM(Codigo)
+            Dim SQL As String = ""
+            If MODO_USAR = CRF_Modos.Insertar Then
+                SQL = "	SELECT ISNULL(SUM(MONTO_DOC), 0) AS MONTO, ISNULL(SUM(MONTO_AFEC), 0) AS MONTO_AFEC	"
+                SQL &= Chr(13) & "	FROM DOCUMENTO_AFEC_DET_TMP		"
+                SQL &= Chr(13) & "	WHERE CODIGO= " & SCM(Codigo)
+            Else
+                SQL = "	SELECT ISNULL(SUM(MONTO_AFEC), 0) AS MONTO, ISNULL(SUM(MONTO_AFEC), 0) AS MONTO_AFEC "
+                SQL &= Chr(13) & "	FROM DOCUMENTO_AFEC	"
+                SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+                SQL &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+                SQL &= Chr(13) & "	AND TIPO_MOV = " & SCM(TIPO_MOV_P)
+                SQL &= Chr(13) & "	AND NUMERO_DOC = " & Val(NUMERO_DOC_P)
+            End If
+
             CONX.Coneccion_Abrir()
-            Dim DS = CONX.EJECUTE_DS(SQL)
+            Dim DS = CONX.EJECUTE_DS(Sql)
             CONX.Coneccion_Cerrar()
 
             TXT_M.Text = FMCP(DS.Tables(0).Rows(0).Item("MONTO"), 4)
@@ -534,7 +623,7 @@ Public Class NotaCredito
             If CMB_TIPO.SelectedIndex = 0 Then
                 SQL = "	INSERT INTO DOCUMENTO_ENC_TMP(COD_CIA,COD_SUCUR,CODIGO,TIPO_MOV,CEDULA,FECHA,FECHA_INC,COD_USUARIO,COD_MONEDA,TIPO_CAMBIO,PLAZO,FORMA_PAGO,DESCRIPCION,TIPO_NOTA)"
                 SQL &= Chr(13) & "	SELECT " & SCM(COD_CIA) & "," & SCM(COD_SUCUR) & "," & SCM(Codigo) & "," & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2)) & "," & SCM(Cliente.VALOR)
-                Sql &= Chr(13) & "," & SCM(YMD(DTPFECHA.Value)) & ", GETDATE()," & SCM(COD_USUARIO) & "," & SCM(CMB_MONEDA.SelectedItem.ToString.Substring(0, 1))
+                SQL &= Chr(13) & "," & SCM(YMD(DTPFECHA.Value)) & ", GETDATE()," & SCM(COD_USUARIO) & "," & SCM(CMB_MONEDA.SelectedItem.ToString.Substring(0, 1))
                 SQL &= Chr(13) & "," & FMC(TXT_TIPO_CAMBIO.Text) & ", 0," & SCM(CMB_FORMAPAGO.SelectedItem.ToString.Substring(0, 2)) & "," & SCM(TXT_DESCRIPCION.Text) & "," & SCM(CMB_TIPO.SelectedItem.ToString.Substring(0, 2))
 
             Else
@@ -545,7 +634,7 @@ Public Class NotaCredito
             End If
 
             CONX.Coneccion_Abrir()
-            CONX.EJECUTE(Sql)
+            CONX.EJECUTE(SQL)
             CONX.Coneccion_Cerrar()
 
         Catch ex As Exception
@@ -628,7 +717,7 @@ Public Class NotaCredito
     End Sub
 
     Private Sub GRID2_Click(sender As Object, e As MouseEventArgs) Handles GRID2.Click
-        If e.Button = MouseButtons.Right Then
+        If e.Button = MouseButtons.Right And MODO_USAR = CRF_Modos.Insertar Then
             If CMB_TIPO.SelectedIndex <> 0 Then
                 CMS.Show(GRID2, GRID2.PointToClient(Cursor.Position))
             Else
@@ -641,6 +730,41 @@ Public Class NotaCredito
         Try
             Leer_indice(2)
             EliminarAfec()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub NotaCredito_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Try
+            If MODO_USAR = CRF_Modos.Insertar Then
+                Codigo = GenerarCodigo()
+
+                If Tipo = "A" Then
+                    TAB_FACTURAS.Text = "[ Apartados ]"
+                    CMB_DOCUMENTO.Enabled = False
+                End If
+
+                TabProducto = TabControl1.TabPages(3)
+                EscondeTab(TabProducto, False)
+
+                CMB_DOCUMENTO.SelectedIndex = 0
+                CMB_MONEDA.SelectedIndex = 0
+                CMB_FORMAPAGO.SelectedIndex = 0
+
+                TXT_TIPO_CAMBIO.Text = FMCP(TC_VENTA)
+            ElseIf MODO_USAR = CRF_Modos.Seleccionar Then
+                TabProducto = TabControl1.TabPages(3)
+                EscondeTab(TabProducto, False)
+
+                TXT_NUMERO.Text = NUMERO_DOC_P
+                RELLENA_DATOS()
+                RellenaFacturasAfec()
+                RellenaProductosAfec()
+                CalculoTotales()
+            End If
+
+            BloqueaControles()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

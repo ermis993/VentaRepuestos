@@ -73,9 +73,23 @@ Partial Class LBL_CANTON
         Me.TXT_CLAVE_ATV = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TXT_USUARIO_ATV = New System.Windows.Forms.TextBox()
+        Me.TAB_SMTP = New System.Windows.Forms.TabPage()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.lbl_mensaje = New System.Windows.Forms.Label()
+        Me.TXT_PUERTO = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.TXT_CONTRASENA = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.TXT_USUARIO = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.TXT_SERVIDOR = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.OPD_Llave = New System.Windows.Forms.OpenFileDialog()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
+        Me.BTN_PROBAR = New System.Windows.Forms.Button()
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.LBL_RESULTADO = New System.Windows.Forms.Label()
         Me.TAB_COMPANIA.SuspendLayout()
         Me.TAB_INFO.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -87,6 +101,9 @@ Partial Class LBL_CANTON
         CType(Me.GRID_ACTIVIDADES, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        Me.TAB_SMTP.SuspendLayout()
+        Me.GroupBox6.SuspendLayout()
+        Me.GroupBox7.SuspendLayout()
         Me.SuspendLayout()
         '
         'LBL_CODIGO
@@ -239,6 +256,7 @@ Partial Class LBL_CANTON
         '
         Me.TAB_COMPANIA.Controls.Add(Me.TAB_INFO)
         Me.TAB_COMPANIA.Controls.Add(Me.TAB_FE)
+        Me.TAB_COMPANIA.Controls.Add(Me.TAB_SMTP)
         Me.TAB_COMPANIA.Location = New System.Drawing.Point(3, 3)
         Me.TAB_COMPANIA.Name = "TAB_COMPANIA"
         Me.TAB_COMPANIA.SelectedIndex = 0
@@ -686,6 +704,119 @@ Partial Class LBL_CANTON
         Me.TXT_USUARIO_ATV.Size = New System.Drawing.Size(255, 22)
         Me.TXT_USUARIO_ATV.TabIndex = 0
         '
+        'TAB_SMTP
+        '
+        Me.TAB_SMTP.Controls.Add(Me.GroupBox6)
+        Me.TAB_SMTP.Location = New System.Drawing.Point(4, 22)
+        Me.TAB_SMTP.Name = "TAB_SMTP"
+        Me.TAB_SMTP.Size = New System.Drawing.Size(557, 397)
+        Me.TAB_SMTP.TabIndex = 2
+        Me.TAB_SMTP.Text = "Servidores"
+        Me.TAB_SMTP.UseVisualStyleBackColor = True
+        '
+        'GroupBox6
+        '
+        Me.GroupBox6.Controls.Add(Me.GroupBox7)
+        Me.GroupBox6.Controls.Add(Me.BTN_PROBAR)
+        Me.GroupBox6.Controls.Add(Me.lbl_mensaje)
+        Me.GroupBox6.Controls.Add(Me.TXT_PUERTO)
+        Me.GroupBox6.Controls.Add(Me.Label10)
+        Me.GroupBox6.Controls.Add(Me.TXT_CONTRASENA)
+        Me.GroupBox6.Controls.Add(Me.Label9)
+        Me.GroupBox6.Controls.Add(Me.TXT_USUARIO)
+        Me.GroupBox6.Controls.Add(Me.Label8)
+        Me.GroupBox6.Controls.Add(Me.TXT_SERVIDOR)
+        Me.GroupBox6.Controls.Add(Me.Label7)
+        Me.GroupBox6.Location = New System.Drawing.Point(5, 12)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(545, 179)
+        Me.GroupBox6.TabIndex = 0
+        Me.GroupBox6.TabStop = False
+        Me.GroupBox6.Text = "[ SMTP ]"
+        '
+        'lbl_mensaje
+        '
+        Me.lbl_mensaje.AutoSize = True
+        Me.lbl_mensaje.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_mensaje.ForeColor = System.Drawing.Color.Navy
+        Me.lbl_mensaje.Location = New System.Drawing.Point(6, 131)
+        Me.lbl_mensaje.Name = "lbl_mensaje"
+        Me.lbl_mensaje.Size = New System.Drawing.Size(354, 39)
+        Me.lbl_mensaje.TabIndex = 8
+        Me.lbl_mensaje.Text = "[ Nota importante: Esta configuración se utiliza para todo lo relacionado a " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "env" &
+    "íos electrónicamente, en caso no de existir ninguna configuración, " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "estos proce" &
+    "sos no se llevarán acabo. ]"
+        '
+        'TXT_PUERTO
+        '
+        Me.TXT_PUERTO.Location = New System.Drawing.Point(74, 96)
+        Me.TXT_PUERTO.MaxLength = 4
+        Me.TXT_PUERTO.Name = "TXT_PUERTO"
+        Me.TXT_PUERTO.Size = New System.Drawing.Size(46, 20)
+        Me.TXT_PUERTO.TabIndex = 7
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(24, 100)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(44, 13)
+        Me.Label10.TabIndex = 6
+        Me.Label10.Text = "Puerto :"
+        '
+        'TXT_CONTRASENA
+        '
+        Me.TXT_CONTRASENA.Location = New System.Drawing.Point(74, 70)
+        Me.TXT_CONTRASENA.MaxLength = 100
+        Me.TXT_CONTRASENA.Name = "TXT_CONTRASENA"
+        Me.TXT_CONTRASENA.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.TXT_CONTRASENA.Size = New System.Drawing.Size(219, 20)
+        Me.TXT_CONTRASENA.TabIndex = 5
+        Me.TXT_CONTRASENA.UseSystemPasswordChar = True
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(1, 74)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(67, 13)
+        Me.Label9.TabIndex = 4
+        Me.Label9.Text = "Contraseña :"
+        '
+        'TXT_USUARIO
+        '
+        Me.TXT_USUARIO.Location = New System.Drawing.Point(74, 44)
+        Me.TXT_USUARIO.MaxLength = 100
+        Me.TXT_USUARIO.Name = "TXT_USUARIO"
+        Me.TXT_USUARIO.Size = New System.Drawing.Size(219, 20)
+        Me.TXT_USUARIO.TabIndex = 3
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(19, 48)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(49, 13)
+        Me.Label8.TabIndex = 2
+        Me.Label8.Text = "Usuario :"
+        '
+        'TXT_SERVIDOR
+        '
+        Me.TXT_SERVIDOR.Location = New System.Drawing.Point(74, 18)
+        Me.TXT_SERVIDOR.MaxLength = 100
+        Me.TXT_SERVIDOR.Name = "TXT_SERVIDOR"
+        Me.TXT_SERVIDOR.Size = New System.Drawing.Size(219, 20)
+        Me.TXT_SERVIDOR.TabIndex = 1
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(16, 22)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(52, 13)
+        Me.Label7.TabIndex = 0
+        Me.Label7.Text = "Servidor :"
+        '
         'OPD_Llave
         '
         '
@@ -698,7 +829,7 @@ Partial Class LBL_CANTON
         Me.BTN_SALIR.Location = New System.Drawing.Point(469, 432)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_SALIR.TabIndex = 1
+        Me.BTN_SALIR.TabIndex = 2
         Me.BTN_SALIR.Text = "Salir"
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
@@ -712,10 +843,41 @@ Partial Class LBL_CANTON
         Me.BTN_ACEPTAR.Location = New System.Drawing.Point(370, 432)
         Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
         Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_ACEPTAR.TabIndex = 0
+        Me.BTN_ACEPTAR.TabIndex = 1
         Me.BTN_ACEPTAR.Text = "Aceptar"
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
+        '
+        'BTN_PROBAR
+        '
+        Me.BTN_PROBAR.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_PROBAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_PROBAR.Image = CType(resources.GetObject("BTN_PROBAR.Image"), System.Drawing.Image)
+        Me.BTN_PROBAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_PROBAR.Location = New System.Drawing.Point(440, 131)
+        Me.BTN_PROBAR.Name = "BTN_PROBAR"
+        Me.BTN_PROBAR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_PROBAR.TabIndex = 9
+        Me.BTN_PROBAR.Text = "Probar"
+        Me.BTN_PROBAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_PROBAR.UseVisualStyleBackColor = False
+        '
+        'GroupBox7
+        '
+        Me.GroupBox7.Controls.Add(Me.LBL_RESULTADO)
+        Me.GroupBox7.Location = New System.Drawing.Point(299, 13)
+        Me.GroupBox7.Name = "GroupBox7"
+        Me.GroupBox7.Size = New System.Drawing.Size(240, 112)
+        Me.GroupBox7.TabIndex = 10
+        Me.GroupBox7.TabStop = False
+        Me.GroupBox7.Text = "[ Resultado ]"
+        '
+        'LBL_RESULTADO
+        '
+        Me.LBL_RESULTADO.Location = New System.Drawing.Point(6, 16)
+        Me.LBL_RESULTADO.Name = "LBL_RESULTADO"
+        Me.LBL_RESULTADO.Size = New System.Drawing.Size(228, 93)
+        Me.LBL_RESULTADO.TabIndex = 0
         '
         'LBL_CANTON
         '
@@ -749,6 +911,10 @@ Partial Class LBL_CANTON
         Me.GroupBox3.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.TAB_SMTP.ResumeLayout(False)
+        Me.GroupBox6.ResumeLayout(False)
+        Me.GroupBox6.PerformLayout()
+        Me.GroupBox7.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -806,4 +972,18 @@ Partial Class LBL_CANTON
     Friend WithEvents GroupBox5 As GroupBox
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Button1 As Button
+    Friend WithEvents TAB_SMTP As TabPage
+    Friend WithEvents GroupBox6 As GroupBox
+    Friend WithEvents Label7 As Label
+    Friend WithEvents TXT_SERVIDOR As TextBox
+    Friend WithEvents TXT_USUARIO As TextBox
+    Friend WithEvents Label8 As Label
+    Friend WithEvents TXT_CONTRASENA As TextBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents TXT_PUERTO As TextBox
+    Friend WithEvents Label10 As Label
+    Friend WithEvents lbl_mensaje As Label
+    Friend WithEvents BTN_PROBAR As Button
+    Friend WithEvents GroupBox7 As GroupBox
+    Friend WithEvents LBL_RESULTADO As Label
 End Class

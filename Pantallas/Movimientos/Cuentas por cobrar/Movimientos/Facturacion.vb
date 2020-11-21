@@ -327,8 +327,13 @@ Public Class Facturacion
         Try
             Leer_indice()
             If CMB_VER.SelectedIndex = 0 Then
-                Dim PANTALLA As New Factura(CRF_Modos.Modificar, Me, Numero_Doc, Codigo, Tipo_Mov)
-                PANTALLA.ShowDialog()
+                If Tipo_Mov = "FA" Or Tipo_Mov = "FC" Then
+                    Dim PANTALLA As New Factura(CRF_Modos.Modificar, Me, Numero_Doc, Codigo, Tipo_Mov)
+                    PANTALLA.ShowDialog()
+                Else
+                    Dim PANTALLA As New NotaCredito(Me, IIf(CMB_VER.SelectedIndex = 0, "F", "A"), CRF_Modos.Seleccionar, Tipo_Mov, Numero_Doc)
+                    PANTALLA.ShowDialog()
+                End If
             ElseIf CMB_VER.SelectedIndex = 1 Then
                 Dim PANTALLA As New Apartado(CRF_Modos.Modificar, Me, Numero_Doc, Codigo, Tipo_Mov)
                 PANTALLA.ShowDialog()
@@ -369,7 +374,7 @@ Public Class Facturacion
 
     Private Sub BTN_RECIBO_Click(sender As Object, e As EventArgs) Handles BTN_RECIBO.Click
         Try
-            Dim PANTALLA As New NotaCredito(Me, IIf(CMB_VER.SelectedIndex = 0, "F", "A"))
+            Dim PANTALLA As New NotaCredito(Me, IIf(CMB_VER.SelectedIndex = 0, "F", "A"), CRF_Modos.Insertar)
             PANTALLA.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)

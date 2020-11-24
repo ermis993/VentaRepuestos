@@ -39,22 +39,23 @@ Public Class Impresion
     End Sub
 
     Private Shared Sub PrintBarCode(ByVal img As Image, ByVal descripcion As String)
-        Printer.PrintDefault()
+        Printer.NewBarCode()
+
         Dim AnchoTiquete = ANCHO_IMPRESION_ETIQUETA()
-        If descripcion.Length > AnchoTiquete Then
-            Do
-                Dim palabra = descripcion.Substring(0, IIf(descripcion.Length >= AnchoTiquete, AnchoTiquete, descripcion.Length))
-                descripcion = descripcion.Substring(IIf(palabra.Length >= descripcion.Length, 0, palabra.Length), IIf(descripcion.Length >= AnchoTiquete, descripcion.Length - AnchoTiquete, descripcion.Length))
+        'If descripcion.Length > AnchoTiquete Then
+        '    Do
+        '        Dim palabra = descripcion.Substring(0, IIf(descripcion.Length >= AnchoTiquete, AnchoTiquete, descripcion.Length))
+        '        descripcion = descripcion.Substring(IIf(palabra.Length >= descripcion.Length, 0, palabra.Length), IIf(descripcion.Length >= AnchoTiquete, descripcion.Length - AnchoTiquete, descripcion.Length))
 
-                Printer.Print(palabra)
+        '        Printer.Print(palabra)
 
-                If descripcion.Length = palabra.Length Then
-                    Exit Do
-                End If
-            Loop
-        Else
-            Printer.Print(descripcion)
-        End If
+        '        If descripcion.Length = palabra.Length Then
+        '            Exit Do
+        '        End If
+        '    Loop
+        'Else
+        '    Printer.Print(descripcion)
+        'End If
 
         Printer.Print(img)
 

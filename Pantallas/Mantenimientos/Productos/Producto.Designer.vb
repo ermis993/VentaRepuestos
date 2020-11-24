@@ -22,24 +22,30 @@ Partial Class Producto
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Producto))
         Me.Estado = New System.Windows.Forms.GroupBox()
         Me.RB_TODOS = New System.Windows.Forms.RadioButton()
         Me.RB_INACTIVOS = New System.Windows.Forms.RadioButton()
         Me.RB_ACTIVOS = New System.Windows.Forms.RadioButton()
         Me.GRID = New System.Windows.Forms.DataGridView()
-        Me.BTN_BARCODE = New System.Windows.Forms.Button()
+        Me.BTN_OPCIONES = New System.Windows.Forms.Button()
         Me.BTN_REPORTES = New System.Windows.Forms.Button()
         Me.BTN_VERIFICACION = New System.Windows.Forms.Button()
-        Me.BTN_UBICACION = New System.Windows.Forms.Button()
         Me.BTN_AGREGAR = New System.Windows.Forms.Button()
         Me.BTN_MODIFICAR = New System.Windows.Forms.Button()
         Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
-        Me.BTN_IMPRIMIR = New System.Windows.Forms.Button()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cm_importar_cátalogo = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cm_mant_ubicaciones = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cm_generar_barcode = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cm_imprimir_barcode = New System.Windows.Forms.ToolStripMenuItem()
         Me.Filtro = New VentaRepuestos.Filtro()
         Me.Estado.SuspendLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Estado
@@ -105,19 +111,19 @@ Partial Class Producto
         Me.GRID.Size = New System.Drawing.Size(751, 418)
         Me.GRID.TabIndex = 11
         '
-        'BTN_BARCODE
+        'BTN_OPCIONES
         '
-        Me.BTN_BARCODE.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_BARCODE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_BARCODE.Image = Global.VentaRepuestos.My.Resources.Resources.barcode
-        Me.BTN_BARCODE.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_BARCODE.Location = New System.Drawing.Point(101, 45)
-        Me.BTN_BARCODE.Name = "BTN_BARCODE"
-        Me.BTN_BARCODE.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_BARCODE.TabIndex = 7
-        Me.BTN_BARCODE.Text = "Barcode"
-        Me.BTN_BARCODE.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_BARCODE.UseVisualStyleBackColor = False
+        Me.BTN_OPCIONES.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_OPCIONES.Image = Global.VentaRepuestos.My.Resources.Resources.opciones
+        Me.BTN_OPCIONES.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_OPCIONES.Location = New System.Drawing.Point(2, 45)
+        Me.BTN_OPCIONES.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_OPCIONES.Name = "BTN_OPCIONES"
+        Me.BTN_OPCIONES.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_OPCIONES.TabIndex = 12
+        Me.BTN_OPCIONES.Text = "Opciones"
+        Me.BTN_OPCIONES.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_OPCIONES.UseVisualStyleBackColor = False
         '
         'BTN_REPORTES
         '
@@ -146,20 +152,6 @@ Partial Class Producto
         Me.BTN_VERIFICACION.Text = "Verificar"
         Me.BTN_VERIFICACION.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_VERIFICACION.UseVisualStyleBackColor = False
-        '
-        'BTN_UBICACION
-        '
-        Me.BTN_UBICACION.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_UBICACION.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_UBICACION.Image = Global.VentaRepuestos.My.Resources.Resources.ubicacion
-        Me.BTN_UBICACION.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_UBICACION.Location = New System.Drawing.Point(2, 45)
-        Me.BTN_UBICACION.Name = "BTN_UBICACION"
-        Me.BTN_UBICACION.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_UBICACION.TabIndex = 6
-        Me.BTN_UBICACION.Text = "Ubicación"
-        Me.BTN_UBICACION.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_UBICACION.UseVisualStyleBackColor = False
         '
         'BTN_AGREGAR
         '
@@ -217,19 +209,40 @@ Partial Class Producto
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
         '
-        'BTN_IMPRIMIR
+        'ContextMenuStrip1
         '
-        Me.BTN_IMPRIMIR.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_IMPRIMIR.Image = Global.VentaRepuestos.My.Resources.Resources.imprimir1
-        Me.BTN_IMPRIMIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_IMPRIMIR.Location = New System.Drawing.Point(201, 45)
-        Me.BTN_IMPRIMIR.Margin = New System.Windows.Forms.Padding(2)
-        Me.BTN_IMPRIMIR.Name = "BTN_IMPRIMIR"
-        Me.BTN_IMPRIMIR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_IMPRIMIR.TabIndex = 8
-        Me.BTN_IMPRIMIR.Text = "Imprimir"
-        Me.BTN_IMPRIMIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_IMPRIMIR.UseVisualStyleBackColor = False
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cm_importar_cátalogo, Me.ToolStripMenuItem1, Me.cm_mant_ubicaciones, Me.cm_generar_barcode, Me.cm_imprimir_barcode})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(223, 98)
+        '
+        'cm_importar_cátalogo
+        '
+        Me.cm_importar_cátalogo.Name = "cm_importar_cátalogo"
+        Me.cm_importar_cátalogo.Size = New System.Drawing.Size(222, 22)
+        Me.cm_importar_cátalogo.Text = "Importar Cátalogo CABYS"
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(219, 6)
+        '
+        'cm_mant_ubicaciones
+        '
+        Me.cm_mant_ubicaciones.Name = "cm_mant_ubicaciones"
+        Me.cm_mant_ubicaciones.Size = New System.Drawing.Size(222, 22)
+        Me.cm_mant_ubicaciones.Text = "Mantenimiento ubicaciones"
+        '
+        'cm_generar_barcode
+        '
+        Me.cm_generar_barcode.Name = "cm_generar_barcode"
+        Me.cm_generar_barcode.Size = New System.Drawing.Size(222, 22)
+        Me.cm_generar_barcode.Text = "Generar código de barras"
+        '
+        'cm_imprimir_barcode
+        '
+        Me.cm_imprimir_barcode.Name = "cm_imprimir_barcode"
+        Me.cm_imprimir_barcode.Size = New System.Drawing.Size(222, 22)
+        Me.cm_imprimir_barcode.Text = "Imprimir código de barras"
         '
         'Filtro
         '
@@ -245,11 +258,9 @@ Partial Class Producto
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(753, 548)
         Me.ControlBox = False
-        Me.Controls.Add(Me.BTN_IMPRIMIR)
-        Me.Controls.Add(Me.BTN_BARCODE)
+        Me.Controls.Add(Me.BTN_OPCIONES)
         Me.Controls.Add(Me.BTN_REPORTES)
         Me.Controls.Add(Me.BTN_VERIFICACION)
-        Me.Controls.Add(Me.BTN_UBICACION)
         Me.Controls.Add(Me.Filtro)
         Me.Controls.Add(Me.GRID)
         Me.Controls.Add(Me.Estado)
@@ -266,6 +277,7 @@ Partial Class Producto
         Me.Estado.ResumeLayout(False)
         Me.Estado.PerformLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -280,9 +292,13 @@ Partial Class Producto
     Friend WithEvents BTN_SALIR As Button
     Friend WithEvents GRID As DataGridView
     Friend WithEvents Filtro As Filtro
-    Friend WithEvents BTN_UBICACION As Button
     Friend WithEvents BTN_VERIFICACION As Button
     Friend WithEvents BTN_REPORTES As Button
-    Friend WithEvents BTN_BARCODE As Button
-    Friend WithEvents BTN_IMPRIMIR As Button
+    Friend WithEvents BTN_OPCIONES As Button
+    Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
+    Friend WithEvents cm_importar_cátalogo As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem1 As ToolStripSeparator
+    Friend WithEvents cm_mant_ubicaciones As ToolStripMenuItem
+    Friend WithEvents cm_generar_barcode As ToolStripMenuItem
+    Friend WithEvents cm_imprimir_barcode As ToolStripMenuItem
 End Class

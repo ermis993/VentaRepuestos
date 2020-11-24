@@ -218,6 +218,20 @@ Public Class Printer
         AddHandler prn.PrintPage, AddressOf Document_PrintPage
     End Sub
 
+    Public Shared Sub NewBarCode()
+        Dim Direccion As String = DIRECCION_ETIQUETA()
+        PrintDatalist = New PrintDatalist
+        _myfont = New Font("Calibri", 10, FontStyle.Regular, GraphicsUnit.Point) 'Default
+        prn = New PrintDocument
+
+        If Direccion <> "" Then
+            prn.PrinterSettings.PrinterName = Direccion
+        End If
+
+        row = 0
+        AddHandler prn.PrintPage, AddressOf Document_PrintPage
+    End Sub
+
     Public Shared Sub NewPrintTiquet()
         Dim Direccion As String = DIRECCION_ETIQUETA()
         PrintDatalist = New PrintDatalist

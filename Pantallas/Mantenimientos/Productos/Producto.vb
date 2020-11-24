@@ -2,6 +2,8 @@
 Imports System.IO
 Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Globales
+Imports DevExpress.BarCodes
+Imports System.Drawing.Printing
 
 Public Class Producto
 
@@ -143,18 +145,6 @@ Public Class Producto
         End If
     End Sub
 
-    Private Sub BTN_UBICACION_Click(sender As Object, e As EventArgs) Handles BTN_UBICACION.Click
-        Try
-            If Me.GRID.Rows.Count > 0 Then
-                Leer_indice()
-                Dim PANTALLA As New ProductoUbicacionMant(COD_PROD, DESCRIPCION)
-                PANTALLA.ShowDialog()
-            End If
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-        End Try
-    End Sub
-
     Private Sub BTN_VERIFICACION_Click_1(sender As Object, e As EventArgs) Handles BTN_VERIFICACION.Click
         Try
             Dim PANTALLA As New ProductoVerificacion()
@@ -173,16 +163,7 @@ Public Class Producto
         End Try
     End Sub
 
-    Private Sub BTN_BARCODE_Click(sender As Object, e As EventArgs) Handles BTN_BARCODE.Click
-        Try
-            Dim PANTALLA As New ProductoBarcode()
-            PANTALLA.ShowDialog()
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-        End Try
-    End Sub
-
-    Private Sub BTN_IMPRIMIR_Click(sender As Object, e As EventArgs) Handles BTN_IMPRIMIR.Click
+    Private Sub ImprimirBarcode()
         Try
             If Me.GRID.Rows.Count > 0 Then
                 Leer_indice()
@@ -213,6 +194,56 @@ Public Class Producto
                     MessageBox.Show(Me, "El producto no tiene relacionado una imagen Barcode", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If
             End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_OPCIONES_Click(sender As Object, e As EventArgs) Handles BTN_OPCIONES.Click
+        ContextMenuStrip1.Show(BTN_OPCIONES, 0, BTN_OPCIONES.Height)
+    End Sub
+
+    Private Sub cm_importar_cátalogo_Click(sender As Object, e As EventArgs) Handles cm_importar_cátalogo.Click
+        Try
+            Dim PANTALLA As New ImportadorExcel()
+            AddHandler PANTALLA.FormClosed, AddressOf Importar
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Public Sub Importar(sender As Object, e As EventArgs)
+        Dim DT As DataSet = sender.ObtieneDataSet()
+        If Not IsNothing(DT) Then
+
+        End If
+    End Sub
+
+    Private Sub cm_mant_ubicaciones_Click(sender As Object, e As EventArgs) Handles cm_mant_ubicaciones.Click
+        Try
+            If Me.GRID.Rows.Count > 0 Then
+                Leer_indice()
+                Dim PANTALLA As New ProductoUbicacionMant(COD_PROD, DESCRIPCION)
+                PANTALLA.ShowDialog()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub cm_generar_barcode_Click(sender As Object, e As EventArgs) Handles cm_generar_barcode.Click
+        Try
+            Dim PANTALLA As New ProductoBarcode()
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub cm_imprimir_barcode_Click(sender As Object, e As EventArgs) Handles cm_imprimir_barcode.Click
+        Try
+            ImprimirBarcode()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

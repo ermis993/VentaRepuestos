@@ -120,6 +120,12 @@
     <Compile Include="Controles\Filtro.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controles\ImportadorExcel.Designer.vb">
+      <DependentUpon>ImportadorExcel.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\ImportadorExcel.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Globales\Actualizaciones.vb" />
     <Compile Include="Controles\Buscador.Designer.vb">
       <DependentUpon>Buscador.vb</DependentUpon>
@@ -505,6 +511,9 @@
     <EmbeddedResource Include="Controles\Filtro.resx">
       <DependentUpon>Filtro.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controles\ImportadorExcel.resx">
+      <DependentUpon>ImportadorExcel.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\CambioContrasena.resx">
       <DependentUpon>CambioContrasena.vb</DependentUpon>
     </EmbeddedResource>
@@ -809,6 +818,7 @@
     <None Include="Resources\generar1.png" />
     <None Include="Resources\barcode.png" />
     <None Include="Resources\proforma.png" />
+    <None Include="Resources\opciones.png" />
     <Content Include="Resources\quitar.png" />
     <None Include="Resources\Right.png" />
     <None Include="Resources\reportes.png" />

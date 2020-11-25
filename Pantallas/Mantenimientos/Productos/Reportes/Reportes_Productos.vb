@@ -21,6 +21,7 @@ Public Class Reportes_Productos
         Try
             Dim rootNode = TV_REPORTES.Nodes.Add("Reportes")
             rootNode.Nodes.Add("RINVEN", "01. Reporte de inventario por familia")
+            rootNode.Nodes.Add("RINVXLS", "02. Reporte de inventario (excel)")
             TV_REPORTES.ExpandAll()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -34,6 +35,8 @@ Public Class Reportes_Productos
 
             If Nodo_Seleccionado.Name = "RINVEN" Then
                 ActivarDesactivarControles(False, False, True)
+            ElseIf Nodo_Seleccionado.Name = "RINVXLS" Then
+                ActivarDesactivarControles(False, False, False)
             End If
 
         Catch ex As Exception
@@ -55,6 +58,8 @@ Public Class Reportes_Productos
                             Genera_RPT_INVENTARIO_POR_FAMILIA(CMB_FAMILIA.SelectedValue, Nodo_Seleccionado.Text, Ruta)
                             MessageBox.Show(Me, "Reporte generado correctamente", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         End If
+                    Case "RINVXLS"
+                        GenerarXLSInventario()
                 End Select
                 Cursor.Current = Cursors.Default
             Else
@@ -106,5 +111,33 @@ Public Class Reportes_Productos
 
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         Me.Close()
+    End Sub
+
+    Private Sub GenerarXLSInventario()
+        Try
+            PB_CARGA.Increment(5)
+            Dim SQL = "	SELECT COD_PROD AS Código, DESCRIPCION AS Descripción, ISNULL(COD_CABYS, '') AS CABYS, COSTO AS Costo					"
+            SQL &= Chr(13) & "	, PRECIO AS 'Precio 1', PRECIO_2 AS 'Precio 2', PRECIO_3 as 'Precio 3'							"
+            SQL &= Chr(13) & "	FROM PRODUCTO	"
+            SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            PB_CARGA.Increment(10)
+            If DS.Tables(0).Rows.Count > 0 Then
+                If EXPORTAR_EXCEL(DS, "Reporte_Inventario_" & COD_CIA, PB_CARGA) Then
+                    MessageBox.Show(Me, "Reporte generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    PB_CARGA.Value = 0
+                End If
+            Else
+                PB_CARGA.Value = 0
+                MessageBox.Show(Me, "Sin registros para generar el reporte", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 End Class

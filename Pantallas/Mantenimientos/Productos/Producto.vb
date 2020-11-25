@@ -2,8 +2,6 @@
 Imports System.IO
 Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Globales
-Imports DevExpress.BarCodes
-Imports System.Drawing.Printing
 
 Public Class Producto
 
@@ -215,8 +213,8 @@ Public Class Producto
 
     Public Sub Importar(sender As Object, e As EventArgs)
         Dim DT As DataSet = sender.ObtieneDataSet()
-        If Not IsNothing(DT) Then
-
+        If Not IsNothing(DT) And DT.Tables.Count > 0 Then
+            Importar_CABYS(DT)
         End If
     End Sub
 
@@ -248,4 +246,47 @@ Public Class Producto
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
+    Private Sub Importar_CABYS(ByVal DS As DataSet)
+        Try
+            If DS.Tables(0).Columns.Count = 3 Then
+                Dim DS_RESPUESTA As New DataTable
+                Dim Resultado As DataTable = DS.Tables(0)
+
+                Dim COMANDO As New SqlCommand()
+                COMANDO.CommandType = CommandType.StoredProcedure
+                Dim DT As New SqlParameter("@DT_DOCUMENTOS", SqlDbType.Structured)
+                DT.Value = Resultado
+                Dim COMPANIA As New SqlParameter("@COD_CIA", SqlDbType.VarChar)
+                COMPANIA.Value = COD_CIA
+                Dim SUCURSAL As New SqlParameter("@COD_SUCUR", SqlDbType.VarChar)
+                SUCURSAL.Value = COD_SUCUR
+
+                COMANDO.CommandText = "USP_IMPORTA_PRODUCTO_CABYS"
+                COMANDO.Parameters.Add(DT)
+                COMANDO.Parameters.Add(COMPANIA)
+                COMANDO.Parameters.Add(SUCURSAL)
+
+                CONX.Coneccion_Abrir()
+                COMANDO.Connection = CONX.Connection
+                Dim AR = COMANDO.ExecuteReader()
+                DS_RESPUESTA.Load(AR)
+                AR.Close()
+                CONX.Coneccion_Cerrar()
+
+                If DS_RESPUESTA.Rows.Count > 0 Then
+
+                End If
+
+
+
+            Else
+                MessageBox.Show(Me, "El importador de código CABYS utiliza 3 columnas, el formato importado posee [" & DS.Tables(0).Columns.Count & "] columnas, no es posible procesar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            End If
+        Catch ex As Exception
+            CONX.Coneccion_Cerrar()
+            MessageBox.Show(Me, ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End Try
+    End Sub
+
 End Class

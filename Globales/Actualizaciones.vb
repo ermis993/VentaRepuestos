@@ -20,7 +20,7 @@ Public Class Actualizaciones
         RUTA_ADJUNTOS = "C:\ENVIOS"
         RUTA_BACKUP = "C:\BACKUPS"
 
-        Dim Cantidad_Procesos As Integer = 60
+        Dim Cantidad_Procesos As Integer = 62
         Dim Cantidad_Actual As Integer = 0
         ProgressBar.Value = 0
 
@@ -71,6 +71,11 @@ Public Class Actualizaciones
         Cantidad_Actual += 1
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
+        'TIPOS
+        Call TP_PRODUCTO_CABYS()
+        Cantidad_Actual += 1
+        ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
+
         'TRIGGERS
         Call TG_INGRESA_INVENTARIO_APARTADO_ENC()
         Call TG_INGRESA_INVENTARIO_APARTADO_DET()
@@ -108,8 +113,9 @@ Public Class Actualizaciones
         Call USP_IMPRIME_PROFORMA()
         Call USP_PROFORMA_A_FACTURA()
         Call USP_ImprimeFElectronica_V_4_3()
+        Call USP_IMPORTA_PRODUCTO_CABYS()
 
-        Cantidad_Actual += 24
+        Cantidad_Actual += 25
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
     End Sub
 
@@ -3887,6 +3893,78 @@ Public Class Actualizaciones
         End Try
     End Sub
 
+    Private Sub USP_IMPORTA_PRODUCTO_CABYS()
+        Try
+            If Not EXISTE_PROCEDIMIENTO("USP_IMPORTA_PRODUCTO_CABYS", "2020-11-25") Then
+                ELIMINA_PROCEDIMIENTO("USP_IMPORTA_PRODUCTO_CABYS")
+
+                Dim SQL = "	CREATE PROCEDURE [dbo].[USP_IMPORTA_PRODUCTO_CABYS]																									"
+                SQL &= Chr(13) & "	@DT_DOCUMENTOS AS TP_PRODUCTO_CABYS READONLY,																									"
+                SQL &= Chr(13) & "	@COD_CIA VARCHAR(3),																									"
+                SQL &= Chr(13) & "	@COD_SUCUR VARCHAR(3)																									"
+                SQL &= Chr(13) & "	AS																									"
+                SQL &= Chr(13) & "		BEGIN																								"
+                SQL &= Chr(13) & "		BEGIN TRY 																								"
+                SQL &= Chr(13) & "		BEGIN TRAN																								"
+                SQL &= Chr(13) & "		                			                			               		                																"
+                SQL &= Chr(13) & "			CREATE TABLE #TP_PRODUCTO_CABYS(																							"
+                SQL &= Chr(13) & "			[COD_CIA] [varchar](3) NOT NULL,																							"
+                SQL &= Chr(13) & "			[COD_SUCUR] [varchar](3) NOT NULL, 																							"
+                SQL &= Chr(13) & "			[COD_PROD] [varchar](20) NOT NULL,																							"
+                SQL &= Chr(13) & "			[COD_CABYS] [varchar](13) NOT NULL)         			                			               		                															"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "			INSERT INTO  #TP_PRODUCTO_CABYS																							"
+                SQL &= Chr(13) & "			SELECT @COD_CIA, @COD_SUCUR, COD_PROD, COD_CABYS 																							"
+                SQL &= Chr(13) & "			FROM @DT_DOCUMENTOS																							"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "			/*VALIDACIONES*/																							"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "			IF EXISTS(SELECT C.*																							"
+                SQL &= Chr(13) & "					  FROM PRODUCTO AS P																					"
+                SQL &= Chr(13) & "					  LEFT JOIN #TP_PRODUCTO_CABYS AS C																					"
+                SQL &= Chr(13) & "						ON C.COD_CIA = P.COD_CIA																				"
+                SQL &= Chr(13) & "						AND C.COD_SUCUR = P.COD_SUCUR																				"
+                SQL &= Chr(13) & "						AND C.COD_PROD = P.COD_PROD																				"
+                SQL &= Chr(13) & "					   WHERE C.COD_CIA IS NULL)																					"
+                SQL &= Chr(13) & "			BEGIN 																							"
+                SQL &= Chr(13) & "				RAISERROR('Se ingresaron productos inexistentes en el archivo a importar', 17, 1)																						"
+                SQL &= Chr(13) & "			END																							"
+                SQL &= Chr(13) & "			ELSE 																							"
+                SQL &= Chr(13) & "			BEGIN																							"
+                SQL &= Chr(13) & "				UPDATE PRODUCTO																						"
+                SQL &= Chr(13) & "				SET COD_CABYS = T1.COD_CABYS																						"
+                SQL &= Chr(13) & "				FROM (																						"
+                SQL &= Chr(13) & "					SELECT C.COD_CIA, C.COD_SUCUR, C.COD_PROD, C.COD_CABYS																					"
+                SQL &= Chr(13) & "					FROM PRODUCTO AS P																					"
+                SQL &= Chr(13) & "					INNER JOIN #TP_PRODUCTO_CABYS AS C																					"
+                SQL &= Chr(13) & "						ON C.COD_CIA = P.COD_CIA																				"
+                SQL &= Chr(13) & "						AND C.COD_SUCUR = P.COD_SUCUR																				"
+                SQL &= Chr(13) & "						AND C.COD_PROD = P.COD_PROD																				"
+                SQL &= Chr(13) & "				) AS T1																						"
+                SQL &= Chr(13) & "				WHERE T1.COD_CIA = PRODUCTO.COD_CIA																						"
+                SQL &= Chr(13) & "				AND T1.COD_SUCUR = PRODUCTO.COD_SUCUR																						"
+                SQL &= Chr(13) & "				AND T1.COD_PROD = PRODUCTO.COD_PROD																						"
+                SQL &= Chr(13) & "			END																							"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "	COMMIT TRAN																									"
+                SQL &= Chr(13) & "	END TRY																									"
+                SQL &= Chr(13) & "	BEGIN CATCH																									"
+                SQL &= Chr(13) & "		ROLLBACK TRAN																								"
+                SQL &= Chr(13) & "		DECLARE @MENSAJE VARCHAR(500)																								"
+                SQL &= Chr(13) & "		SET @MENSAJE =( SELECT ERROR_MESSAGE())																								"
+                SQL &= Chr(13) & "		RAISERROR( @MENSAJE, 16, 1);																								"
+                SQL &= Chr(13) & "	END CATCH																									"
+                SQL &= Chr(13) & "	END				"
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
 #End Region
 
 #Region "Alters campos"
@@ -3896,6 +3974,28 @@ Public Class Actualizaciones
             If Not EXISTE_CAMPO_TIPO("CONTRASENA", "SMTP_CONFIG", "VARCHAR", 100) Then
                 Dim SQL = "	ALTER TABLE SMTP_CONFIG	"
                 SQL &= Chr(13) & "	ALTER COLUMN CONTRASENA VARCHAR(100) NOT NULL "
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+#End Region
+
+#Region "Tipos"
+    Private Sub TP_PRODUCTO_CABYS()
+        Try
+            If Not EXISTE_TIPO("TP_PRODUCTO_CABYS") Then
+
+                Dim SQL = "	CREATE TYPE [dbo].[TP_PRODUCTO_CABYS] AS TABLE(						"
+                SQL &= Chr(13) & "		[COD_PROD] [varchar](20) NOT NULL,							"
+                SQL &= Chr(13) & "		[DESCRIPCION] [varchar](150) NOT NULL,						"
+                SQL &= Chr(13) & "		[COD_CABYS] [varchar](13) NOT NULL								"
+                SQL &= Chr(13) & "	)										"
+
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()

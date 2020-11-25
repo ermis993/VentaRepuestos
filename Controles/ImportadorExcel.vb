@@ -2,7 +2,7 @@
 Imports System.Windows
 
 Public Class ImportadorExcel
-    Dim DatosExcel As DataTable
+    Dim DatosExcel As New DataTable()
     Public Shared DT_R = New DataSet()
 
     Public Shared Property ObtieneDataSet() As DataSet
@@ -45,7 +45,6 @@ Public Class ImportadorExcel
             Dim connExcel As New OleDbConnection(conStr)
             Dim cmdExcel As New OleDbCommand()
             Dim oda As New OleDbDataAdapter()
-            Dim dt As New DataTable()
 
             cmdExcel.Connection = connExcel
             connExcel.Open()
@@ -58,12 +57,13 @@ Public Class ImportadorExcel
             connExcel.Open()
             cmdExcel.CommandText = "SELECT * From [" & SheetName & "]"
             oda.SelectCommand = cmdExcel
-            oda.Fill(dt)
+            oda.Fill(DatosExcel)
             connExcel.Close()
 
-            DT_R.Tables.Add(dt)
+            DT_R.Tables.Clear()
+            DT_R.Tables.Add(DatosExcel)
 
-            GRID.DataSource = dt
+            GRID.DataSource = DatosExcel
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -71,6 +71,7 @@ Public Class ImportadorExcel
 
     Private Sub BTN_ELIMINAR_Click(sender As Object, e As EventArgs) Handles BTN_ELIMINAR.Click
         Try
+            DT_R.Tables.Clear()
             DatosExcel.Clear()
             GRID.DataSource = DatosExcel
         Catch ex As Exception

@@ -35,6 +35,7 @@ Partial Class Reportes_Productos
         Me.TV_REPORTES = New System.Windows.Forms.TreeView()
         Me.BTN_GENERAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
+        Me.PB_CARGA = New System.Windows.Forms.ProgressBar()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -167,12 +168,20 @@ Partial Class Reportes_Productos
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
         '
+        'PB_CARGA
+        '
+        Me.PB_CARGA.Location = New System.Drawing.Point(228, 22)
+        Me.PB_CARGA.Name = "PB_CARGA"
+        Me.PB_CARGA.Size = New System.Drawing.Size(261, 23)
+        Me.PB_CARGA.TabIndex = 22
+        '
         'Reportes_Productos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(491, 375)
         Me.ControlBox = False
+        Me.Controls.Add(Me.PB_CARGA)
         Me.Controls.Add(Me.LBL_REPORTE_SELECCIONADO)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.BTN_GENERAR)
@@ -202,4 +211,5 @@ Partial Class Reportes_Productos
     Friend WithEvents BTN_SALIR As Button
     Friend WithEvents Label3 As Label
     Friend WithEvents CMB_FAMILIA As ComboBox
+    Friend WithEvents PB_CARGA As ProgressBar
 End Class

@@ -642,7 +642,7 @@ Public Class DocumentoElectronicoImp
             ROW("CONSECUTIVO") = CONSECUTIVO
             ROW("CEDULA") = CEDULA_EMISOR
             ROW("TIPO_MOV") = TIPO_MOV
-            ROW("FECHA") = DMA(FECHA)
+            ROW("FECHA") = YMD(FECHA)
             ROW("PLAZO") = PLAZO
             ROW("COD_MONEDA") = COD_MONEDA
             ROW("TOTAL_VENTA") = TOTAL_VENTA

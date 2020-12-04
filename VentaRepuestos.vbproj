@@ -120,6 +120,12 @@
     <Compile Include="Controles\Filtro.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controles\Generica_Error.Designer.vb">
+      <DependentUpon>Generica_Error.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Generica_Error.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Controles\ImportadorExcel.Designer.vb">
       <DependentUpon>ImportadorExcel.vb</DependentUpon>
     </Compile>
@@ -511,6 +517,9 @@
     <EmbeddedResource Include="Controles\Filtro.resx">
       <DependentUpon>Filtro.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controles\Generica_Error.resx">
+      <DependentUpon>Generica_Error.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controles\ImportadorExcel.resx">
       <DependentUpon>ImportadorExcel.vb</DependentUpon>
     </EmbeddedResource>
@@ -819,6 +828,7 @@
     <None Include="Resources\barcode.png" />
     <None Include="Resources\proforma.png" />
     <None Include="Resources\opciones.png" />
+    <None Include="Resources\excel.png" />
     <Content Include="Resources\quitar.png" />
     <None Include="Resources\Right.png" />
     <None Include="Resources\reportes.png" />

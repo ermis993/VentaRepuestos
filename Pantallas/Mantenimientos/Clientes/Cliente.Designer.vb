@@ -52,7 +52,7 @@ Partial Class Cliente
         Me.GRID.RowHeadersVisible = False
         Me.GRID.RowHeadersWidth = 51
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRID.Size = New System.Drawing.Size(711, 372)
+        Me.GRID.Size = New System.Drawing.Size(1018, 372)
         Me.GRID.TabIndex = 33
         '
         'BTN_AGREGAR
@@ -116,7 +116,7 @@ Partial Class Cliente
         Me.Estado.Controls.Add(Me.RB_TODOS)
         Me.Estado.Controls.Add(Me.RB_INACTIVOS)
         Me.Estado.Controls.Add(Me.RB_ACTIVOS)
-        Me.Estado.Location = New System.Drawing.Point(567, 0)
+        Me.Estado.Location = New System.Drawing.Point(874, 4)
         Me.Estado.Name = "Estado"
         Me.Estado.Size = New System.Drawing.Size(146, 51)
         Me.Estado.TabIndex = 34
@@ -168,7 +168,7 @@ Partial Class Cliente
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(715, 461)
+        Me.ClientSize = New System.Drawing.Size(1023, 461)
         Me.ControlBox = False
         Me.Controls.Add(Me.Filtro)
         Me.Controls.Add(Me.Estado)

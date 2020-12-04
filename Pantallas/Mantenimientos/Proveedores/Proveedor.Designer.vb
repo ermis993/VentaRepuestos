@@ -52,7 +52,7 @@ Partial Class Proveedor
         Me.GRID.RowHeadersVisible = False
         Me.GRID.RowHeadersWidth = 51
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRID.Size = New System.Drawing.Size(711, 365)
+        Me.GRID.Size = New System.Drawing.Size(1057, 365)
         Me.GRID.TabIndex = 34
         '
         'RB_ACTIVOS
@@ -93,7 +93,7 @@ Partial Class Proveedor
         Me.Estado.Controls.Add(Me.RB_TODOS)
         Me.Estado.Controls.Add(Me.RB_INACTIVOS)
         Me.Estado.Controls.Add(Me.RB_ACTIVOS)
-        Me.Estado.Location = New System.Drawing.Point(568, 3)
+        Me.Estado.Location = New System.Drawing.Point(914, 3)
         Me.Estado.Name = "Estado"
         Me.Estado.Size = New System.Drawing.Size(146, 51)
         Me.Estado.TabIndex = 35
@@ -168,7 +168,7 @@ Partial Class Proveedor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(717, 461)
+        Me.ClientSize = New System.Drawing.Size(1062, 461)
         Me.ControlBox = False
         Me.Controls.Add(Me.Filtro)
         Me.Controls.Add(Me.Estado)

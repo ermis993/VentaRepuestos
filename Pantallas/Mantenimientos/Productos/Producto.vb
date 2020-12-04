@@ -275,11 +275,11 @@ Public Class Producto
                 CONX.Coneccion_Cerrar()
 
                 If DS_RESPUESTA.Rows.Count > 0 Then
-
+                    Dim PANTALLA As New Generica_Error(DS_RESPUESTA, "Importacion CABYS")
+                    PANTALLA.ShowDialog()
+                Else
+                    MessageBox.Show("¡Códigos CABYS importados satisfactoriamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
-
-
-
             Else
                 MessageBox.Show(Me, "El importador de código CABYS utiliza 3 columnas, el formato importado posee [" & DS.Tables(0).Columns.Count & "] columnas, no es posible procesar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If

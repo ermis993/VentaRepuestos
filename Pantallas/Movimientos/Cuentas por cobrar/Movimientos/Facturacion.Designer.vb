@@ -54,18 +54,26 @@ Partial Class Facturacion
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_FACTURAR = New System.Windows.Forms.Button()
         Me.Filtro = New VentaRepuestos.Filtro()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Panel3 = New System.Windows.Forms.Panel()
         Me.GroupBox1.SuspendLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.CMS_OPCIONES.SuspendLayout()
         Me.Estado.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.CMB_TIPO_FACT)
-        Me.GroupBox1.Location = New System.Drawing.Point(2, 522)
+        Me.GroupBox1.Location = New System.Drawing.Point(2, 537)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(116, 43)
         Me.GroupBox1.TabIndex = 12
@@ -76,7 +84,7 @@ Partial Class Facturacion
         '
         Me.CMB_TIPO_FACT.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CMB_TIPO_FACT.FormattingEnabled = True
-        Me.CMB_TIPO_FACT.Items.AddRange(New Object() {"Documentos", "Pre-facturas"})
+        Me.CMB_TIPO_FACT.Items.AddRange(New Object() {"Documentos", "Temporales"})
         Me.CMB_TIPO_FACT.Location = New System.Drawing.Point(6, 16)
         Me.CMB_TIPO_FACT.Name = "CMB_TIPO_FACT"
         Me.CMB_TIPO_FACT.Size = New System.Drawing.Size(103, 21)
@@ -99,7 +107,7 @@ Partial Class Facturacion
         Me.GRID.RowHeadersVisible = False
         Me.GRID.RowHeadersWidth = 51
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRID.Size = New System.Drawing.Size(860, 390)
+        Me.GRID.Size = New System.Drawing.Size(1143, 390)
         Me.GRID.TabIndex = 11
         '
         'CMS_OPCIONES
@@ -132,7 +140,7 @@ Partial Class Facturacion
         Me.Estado.Controls.Add(Me.RB_TODOS)
         Me.Estado.Controls.Add(Me.RB_INACTIVOS)
         Me.Estado.Controls.Add(Me.RB_ACTIVOS)
-        Me.Estado.Location = New System.Drawing.Point(713, 61)
+        Me.Estado.Location = New System.Drawing.Point(996, 66)
         Me.Estado.Name = "Estado"
         Me.Estado.Size = New System.Drawing.Size(149, 54)
         Me.Estado.TabIndex = 9
@@ -178,7 +186,7 @@ Partial Class Facturacion
         Me.GroupBox2.Controls.Add(Me.DTPINICIO)
         Me.GroupBox2.Controls.Add(Me.Label2)
         Me.GroupBox2.Controls.Add(Me.Label1)
-        Me.GroupBox2.Location = New System.Drawing.Point(713, 2)
+        Me.GroupBox2.Location = New System.Drawing.Point(996, 7)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(149, 58)
         Me.GroupBox2.TabIndex = 8
@@ -223,7 +231,7 @@ Partial Class Facturacion
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(124, 531)
+        Me.Label3.Location = New System.Drawing.Point(122, 548)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(160, 24)
         Me.Label3.TabIndex = 13
@@ -233,7 +241,7 @@ Partial Class Facturacion
         '
         Me.LBL_TOTAL_FACTURADO.AutoSize = True
         Me.LBL_TOTAL_FACTURADO.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LBL_TOTAL_FACTURADO.Location = New System.Drawing.Point(284, 531)
+        Me.LBL_TOTAL_FACTURADO.Location = New System.Drawing.Point(282, 548)
         Me.LBL_TOTAL_FACTURADO.Name = "LBL_TOTAL_FACTURADO"
         Me.LBL_TOTAL_FACTURADO.Size = New System.Drawing.Size(49, 24)
         Me.LBL_TOTAL_FACTURADO.TabIndex = 14
@@ -242,19 +250,19 @@ Partial Class Facturacion
         'GroupBox3
         '
         Me.GroupBox3.Controls.Add(Me.CMB_VER)
-        Me.GroupBox3.Location = New System.Drawing.Point(503, 2)
+        Me.GroupBox3.Location = New System.Drawing.Point(786, 7)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(204, 48)
+        Me.GroupBox3.Size = New System.Drawing.Size(204, 58)
         Me.GroupBox3.TabIndex = 7
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Filtar por"
+        Me.GroupBox3.Text = "Mostrar los documentos del tipo"
         '
         'CMB_VER
         '
         Me.CMB_VER.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CMB_VER.FormattingEnabled = True
-        Me.CMB_VER.Items.AddRange(New Object() {"Facturas", "Apartados", "Proformas"})
-        Me.CMB_VER.Location = New System.Drawing.Point(6, 18)
+        Me.CMB_VER.Items.AddRange(New Object() {"Facturas", "Recibos", "Notas de crédito", "Apartados", "Proformas"})
+        Me.CMB_VER.Location = New System.Drawing.Point(6, 22)
         Me.CMB_VER.Name = "CMB_VER"
         Me.CMB_VER.Size = New System.Drawing.Size(192, 21)
         Me.CMB_VER.TabIndex = 0
@@ -362,7 +370,7 @@ Partial Class Facturacion
         Me.BTN_SALIR.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(760, 522)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(1046, 537)
         Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
@@ -394,13 +402,80 @@ Partial Class Facturacion
         Me.Filtro.TabIndex = 10
         Me.Filtro.VALOR = ""
         '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.Label6)
+        Me.GroupBox4.Controls.Add(Me.Panel3)
+        Me.GroupBox4.Controls.Add(Me.Label5)
+        Me.GroupBox4.Controls.Add(Me.Panel2)
+        Me.GroupBox4.Controls.Add(Me.Label4)
+        Me.GroupBox4.Controls.Add(Me.Panel1)
+        Me.GroupBox4.Location = New System.Drawing.Point(692, 522)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(339, 58)
+        Me.GroupBox4.TabIndex = 17
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Significado colores"
+        '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.Color.Red
+        Me.Panel1.Location = New System.Drawing.Point(6, 15)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(19, 16)
+        Me.Panel1.TabIndex = 18
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(31, 17)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(125, 13)
+        Me.Label4.TabIndex = 19
+        Me.Label4.Text = "Documentos rechazados"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(182, 16)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(120, 13)
+        Me.Label5.TabIndex = 21
+        Me.Label5.Text = "Documentos aceptados"
+        '
+        'Panel2
+        '
+        Me.Panel2.BackColor = System.Drawing.Color.DarkGreen
+        Me.Panel2.Location = New System.Drawing.Point(157, 15)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(19, 16)
+        Me.Panel2.TabIndex = 20
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(31, 35)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(243, 13)
+        Me.Label6.TabIndex = 23
+        Me.Label6.Text = "Documentos pendientes o con problemas (revisar)"
+        '
+        'Panel3
+        '
+        Me.Panel3.BackColor = System.Drawing.Color.OrangeRed
+        Me.Panel3.Location = New System.Drawing.Point(6, 35)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(19, 16)
+        Me.Panel3.TabIndex = 22
+        '
         'Facturacion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ClientSize = New System.Drawing.Size(864, 567)
+        Me.ClientSize = New System.Drawing.Size(1147, 583)
         Me.ControlBox = False
+        Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.BTN_PROFORMAS)
         Me.Controls.Add(Me.BTN_ANULAR)
         Me.Controls.Add(Me.GroupBox3)
@@ -432,6 +507,8 @@ Partial Class Facturacion
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -467,4 +544,11 @@ Partial Class Facturacion
     Friend WithEvents CMB_VER As ComboBox
     Friend WithEvents BTN_ANULAR As Button
     Friend WithEvents BTN_PROFORMAS As Button
+    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Panel3 As Panel
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Panel1 As Panel
 End Class

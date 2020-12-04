@@ -170,9 +170,11 @@ Public Class Facturacion
                 GRID.DataSource = Nothing
                 Dim SQL As String = ""
 
-                If CMB_VER.SelectedIndex = 0 Then
+                Dim SELECCIONADO = CMB_VER.SelectedItem.ToString.Substring(0, 1)
+
+                If SELECCIONADO = "F" Or SELECCIONADO = "R" Or SELECCIONADO = "N" Then
                     TABLA = "DOCUMENTO_ENC"
-                ElseIf CMB_VER.SelectedIndex = 1 Then
+                ElseIf SELECCIONADO = "A" Then
                     TABLA = "APARTADO_ENC"
                 Else
                     TABLA = "PROFORMA_ENC"
@@ -183,6 +185,9 @@ Public Class Facturacion
                     SQL &= Chr(13) & "	,ENC.COD_USUARIO AS Usuario, COD_MONEDA AS Moneda, MONTO AS Subtotal, IMPUESTO AS Impuesto, (MONTO + IMPUESTO) as Total, ENC.SALDO AS Saldo, ISNULL(DE.RESPUESTA_DGTD, 'P') AS Respuesta "
                     If IND_ENCOMIENDA = "S" Then
                         SQL &= Chr(13) & "	,ISNULL(DG.NUMERO_GUIA, '0') AS Guia"
+                    End If
+                    If SELECCIONADO = "P" Then
+                        SQL &= Chr(13) & "	,ISNULL(ENC.NUM_FACTURA, '') AS Factura"
                     End If
                     SQL &= Chr(13) & "	FROM " & TABLA & " AS ENC	"
                     SQL &= Chr(13) & "	INNER JOIN CLIENTE As C	"
@@ -207,17 +212,24 @@ Public Class Facturacion
                     ElseIf RB_INACTIVOS.Checked = True Then
                         SQL &= Chr(13) & "	AND ENC.ESTADO ='I'"
                     End If
+                    If SELECCIONADO = "F" Then
+                        SQL &= Chr(13) & "	AND ENC.TIPO_MOV IN ('FA', 'FC')"
+                    ElseIf SELECCIONADO = "R" Then
+                        SQL &= Chr(13) & "	AND ENC.TIPO_MOV = 'RB'"
+                    ElseIf SELECCIONADO = "N" Then
+                        SQL &= Chr(13) & "	AND ENC.TIPO_MOV = 'NC'"
+                    End If
                     SQL &= Chr(13) & " AND ENC.FECHA BETWEEN " & SCM(YMD(DTPINICIO.Value)) & " AND " & SCM(YMD(DTPFINAL.Value))
                     SQL &= Chr(13) & CONSULTA_FILTRO
                     SQL &= Chr(13) & " ORDER BY ENC.TIPO_MOV DESC, ENC.FECHA_INC DESC"
                 Else
                     SQL &= Chr(13) & "	SELECT ENC.CODIGO AS Documento, ENC.TIPO_MOV as Tipo, C.CEDULA AS Cédula, C.NOMBRE AS Nombre, ENC.DESCRIPCION AS Descripción, CONVERT(VARCHAR(10), ENC.FECHA, 105) AS Fecha	"
                     SQL &= Chr(13) & "	,COD_USUARIO AS Usuario, COD_MONEDA AS Moneda, SUM(DET.SUBTOTAL) AS Subtotal, SUM(DET.IMPUESTO) AS Impuesto, SUM(DET.TOTAL) as Total, SUM(DET.TOTAL) as Saldo, 'P' AS Respuesta 	"
-                    SQL &= Chr(13) & "	FROM " & IIf(CMB_VER.SelectedIndex = 0, "DOCUMENTO_ENC_TMP", "APARTADO_ENC_TMP") & " AS ENC	"
+                    SQL &= Chr(13) & "	FROM " & IIf(SELECCIONADO = "A", "APARTADO_ENC_TMP", "DOCUMENTO_ENC_TMP") & " AS ENC	"
                     SQL &= Chr(13) & "	INNER JOIN CLIENTE AS C		"
                     SQL &= Chr(13) & "		ON C.COD_CIA = ENC.COD_CIA	"
                     SQL &= Chr(13) & "		AND C.CEDULA = ENC.CEDULA "
-                    SQL &= Chr(13) & "	INNER JOIN " & IIf(CMB_VER.SelectedIndex = 0, "DOCUMENTO_DET_TMP", "APARTADO_DET_TMP") & " AS DET	 "
+                    SQL &= Chr(13) & "	INNER JOIN " & IIf(SELECCIONADO = "A", "APARTADO_DET_TMP", "DOCUMENTO_DET_TMP") & " AS DET	 "
                     SQL &= Chr(13) & "		ON DET.COD_CIA = ENC.COD_CIA "
                     SQL &= Chr(13) & "		AND DET.COD_SUCUR = ENC.COD_SUCUR "
                     SQL &= Chr(13) & "		AND DET.CODIGO = ENC.CODIGO "
@@ -240,25 +252,30 @@ Public Class Facturacion
                         If IND_ENCOMIENDA = "S" And CMB_TIPO_FACT.SelectedIndex = 0 Then
                             row = New String() {ITEM("Documento"), ITEM("Guia"), ITEM("Tipo"), ITEM("Cédula"), ITEM("Nombre"), ITEM("Descripción"), ITEM("Fecha"), ITEM("Usuario"), ITEM("Moneda"), ITEM("Subtotal"), ITEM("Impuesto"), ITEM("Total"), ITEM("Saldo"), ITEM("Respuesta")}
                         Else
-                            row = New String() {ITEM("Documento"), ITEM("Tipo"), ITEM("Cédula"), ITEM("Nombre"), ITEM("Descripción"), ITEM("Fecha"), ITEM("Usuario"), ITEM("Moneda"), ITEM("Subtotal"), ITEM("Impuesto"), ITEM("Total"), ITEM("Saldo"), ITEM("Respuesta")}
+                            If SELECCIONADO = "P" Then
+                                row = New String() {ITEM("Documento"), ITEM("Tipo"), ITEM("Cédula"), ITEM("Nombre"), ITEM("Descripción"), ITEM("Fecha"), ITEM("Usuario"), ITEM("Moneda"), ITEM("Subtotal"), ITEM("Impuesto"), ITEM("Total"), ITEM("Saldo"), ITEM("Factura")}
+                            ElseIf SELECCIONADO = "R" Or SELECCIONADO = "A" Then
+                                row = New String() {ITEM("Documento"), ITEM("Tipo"), ITEM("Cédula"), ITEM("Nombre"), ITEM("Descripción"), ITEM("Fecha"), ITEM("Usuario"), ITEM("Moneda"), ITEM("Subtotal"), ITEM("Impuesto"), ITEM("Total"), ITEM("Saldo"), "N/A"}
+                            Else
+                                row = New String() {ITEM("Documento"), ITEM("Tipo"), ITEM("Cédula"), ITEM("Nombre"), ITEM("Descripción"), ITEM("Fecha"), ITEM("Usuario"), ITEM("Moneda"), ITEM("Subtotal"), ITEM("Impuesto"), ITEM("Total"), ITEM("Saldo"), ITEM("Respuesta")}
+                            End If
+
                         End If
 
                         GRID.Rows.Add(row)
-
-                        If ITEM("Tipo") = "RB" Then
-                            Total_Facturado += FMC(ITEM("Total"))
-                        ElseIf ITEM("Tipo") = "AA" Or ITEM("Tipo") = "AC" Then
-                            Total_Facturado += FMC(ITEM("Total"))
-                        End If
                     Next
                 End If
 
-                LBL_TOTAL_FACTURADO.Text = FMCP(Total_Facturado)
+                If SELECCIONADO = "P" Then
+                    GRID.Columns(12).HeaderText = "Factura #"
+                    GRID.Columns(12).Name = " ISNULL(ENC.NUM_FACTURA, '') "
+                End If
 
-                If CMB_TIPO_FACT.SelectedIndex = 0 And CMB_VER.SelectedIndex <> 2 Then
+                If CMB_TIPO_FACT.SelectedIndex = 0 And (SELECCIONADO = "F" Or SELECCIONADO = "N") And IND_FE = "S" Then
                     PintarEstados()
                 End If
 
+                LBL_TOTAL_FACTURADO.Text = FMCP(ObtieneTotalFacturado())
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -305,6 +322,30 @@ Public Class Facturacion
         End Try
     End Sub
 
+    Private Function ObtieneTotalFacturado() As Decimal
+        Try
+            Dim SQL = " SELECT SUM(MONTO) AS MONTO"
+            SQL &= Chr(13) & " FROM DOCUMENTO_ENC "
+            SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & "  AND COD_SUCUR = " & SCM(COD_SUCUR)
+            SQL &= Chr(13) & "  AND CONVERT(VARCHAR(10), FECHA, 111) BETWEEN " & SCM(YMD(DTPINICIO.Value)) & " AND " & SCM(YMD(DTPFINAL.Value))
+            SQL &= Chr(13) & "  AND TIPO_MOV = 'RB' "
+            SQL &= Chr(13) & "  AND ESTADO = 'A' "
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                ObtieneTotalFacturado = FMC(DS.Tables(0).Rows(0).Item(0))
+            Else
+                ObtieneTotalFacturado = 0
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Function
+
     Private Sub CMB_TIPO_FACT_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_TIPO_FACT.SelectedIndexChanged
         FORMATO_GRID()
         RELLENAR_GRID()
@@ -326,15 +367,16 @@ Public Class Facturacion
     Public Sub Modificar()
         Try
             Leer_indice()
-            If CMB_VER.SelectedIndex = 0 Then
+            Dim SELECCIONADO = CMB_VER.SelectedItem.ToString.Substring(0, 1)
+            If SELECCIONADO = "F" Or SELECCIONADO = "N" Then
                 If Tipo_Mov = "FA" Or Tipo_Mov = "FC" Then
                     Dim PANTALLA As New Factura(CRF_Modos.Modificar, Me, Numero_Doc, Codigo, Tipo_Mov)
                     PANTALLA.ShowDialog()
                 Else
-                    Dim PANTALLA As New NotaCredito(Me, IIf(CMB_VER.SelectedIndex = 0, "F", "A"), CRF_Modos.Seleccionar, Tipo_Mov, Numero_Doc)
+                    Dim PANTALLA As New NotaCredito(Me, IIf(SELECCIONADO = "A", "A", "F"), CRF_Modos.Seleccionar, Tipo_Mov, Numero_Doc)
                     PANTALLA.ShowDialog()
                 End If
-            ElseIf CMB_VER.SelectedIndex = 1 Then
+            ElseIf SELECCIONADO = "A" Then
                 Dim PANTALLA As New Apartado(CRF_Modos.Modificar, Me, Numero_Doc, Codigo, Tipo_Mov)
                 PANTALLA.ShowDialog()
             Else
@@ -374,7 +416,8 @@ Public Class Facturacion
 
     Private Sub BTN_RECIBO_Click(sender As Object, e As EventArgs) Handles BTN_RECIBO.Click
         Try
-            Dim PANTALLA As New NotaCredito(Me, IIf(CMB_VER.SelectedIndex = 0, "F", "A"), CRF_Modos.Insertar)
+            Dim SELECCIONADO = CMB_VER.SelectedItem.ToString.Substring(0, 1)
+            Dim PANTALLA As New NotaCredito(Me, IIf(SELECCIONADO = "A", "A", "F"), CRF_Modos.Insertar)
             PANTALLA.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -384,11 +427,12 @@ Public Class Facturacion
     Private Sub BTN_IMPRIMIR_Click(sender As Object, e As EventArgs) Handles BTN_IMPRIMIR.Click
         Try
             Leer_indice()
+            Dim SELECCIONADO = CMB_VER.SelectedItem.ToString.Substring(0, 1)
             If Tipo_Mov = "FC" Or Tipo_Mov = "FA" Then
-                If CMB_VER.SelectedIndex = 0 Then
+                If SELECCIONADO = "F" Then
                     Dim imp As New Impresion()
                     imp.Imprimir(COD_CIA, COD_SUCUR, Numero_Doc, Tipo_Mov)
-                ElseIf CMB_VER.SelectedIndex = 2 Then
+                ElseIf SELECCIONADO = "P" Then
                     Dim f As FolderBrowserDialog = New FolderBrowserDialog
                     If f.ShowDialog() = DialogResult.OK Then
                         Dim Ruta = f.SelectedPath

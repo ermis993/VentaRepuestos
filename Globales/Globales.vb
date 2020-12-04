@@ -16,6 +16,7 @@ Public Class Globales
     Public Shared COD_SUCUR As String
     Public Shared COD_USUARIO As String
     Public Shared IND_ENCOMIENDA As String
+    Public Shared IND_FE As String
     Public Shared IND_VENTAS_NEGATIVAS As String
     Public Shared IND_MIN_STOCK As String
     Public Shared IND_RECIBO_AUTOMATICO As String
@@ -437,6 +438,24 @@ Public Class Globales
         End Try
     End Sub
 
+    Public Shared Sub INDICADORES_COMPANIA(ByVal COD_CIA As String)
+        Try
+            Dim SQL = "	SELECT ISNULL(FE, 'N') AS FE FROM COMPANIA WHERE COD_CIA = " & SCM(COD_CIA)
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+            If DS.Tables(0).Rows.Count > 0 Then
+                For Each ITEM In DS.Tables(0).Rows
+                    IND_FE = ITEM("FE")
+                    Exit For
+                Next
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
     Public Shared Function FECHA_HOY() As String
         Try
             Dim FECHA As String = DateTime.Now.ToString
@@ -734,6 +753,71 @@ Public Class Globales
             Return bandera
         Catch ex As Exception
             ProgressBar.Value = 0
+            Throw New Exception(ex.Message)
+        End Try
+    End Function
+
+    Public Shared Function EXPORTAR_EXCEL(ByVal Datos As DataSet, ByVal Nombre_Reporte As String) As Boolean
+        Dim f As FolderBrowserDialog = New FolderBrowserDialog
+        Dim bandera As Boolean = False
+
+        Try
+            If f.ShowDialog() = DialogResult.OK Then
+                Threading.Thread.CurrentThread.CurrentCulture = Globalization.CultureInfo.CreateSpecificCulture("en-US")
+                Dim oExcel As Application
+                Dim oBook As Workbook
+                Dim oSheet As Worksheet
+                oExcel = CreateObject("Excel.Application")
+                oBook = oExcel.Workbooks.Add(Type.Missing)
+                oSheet = oBook.Worksheets(1)
+
+                Dim dc As DataColumn
+                Dim dr As DataRow
+                Dim colIndex As Integer = 0
+                Dim rowIndex As Integer = 0
+
+                'Se exportan las columnas
+                For Each dc In Datos.Tables(0).Columns
+                    colIndex += 1
+                    oSheet.Cells(1, colIndex) = dc.ColumnName
+                Next
+
+                'Se exportan las filas
+                For Each dr In Datos.Tables(0).Rows
+                    rowIndex += 1
+                    colIndex = 0
+                    For Each dc In Datos.Tables(0).Columns
+                        colIndex += 1
+                        If Tipo_Doc(dr(dc.ColumnName), "Fecha") Then
+                            oSheet.Cells(rowIndex + 1, colIndex).NumberFormat = "dd/mm/yyyy"
+                        ElseIf Tipo_Doc(dr(dc.ColumnName), "String") Then
+                            oSheet.Cells(rowIndex + 1, colIndex).NumberFormat = "@"
+                        End If
+                        oSheet.Cells(rowIndex + 1, colIndex) = dr(dc.ColumnName)
+                    Next
+                Next
+                'Ruta donde se va a guardar
+                Dim fileName As String = "\" + Nombre_Reporte + ".xls"
+                Dim finalPath = f.SelectedPath + fileName
+                oSheet.Columns.AutoFit()
+
+                oBook.SaveAs(finalPath, XlFileFormat.xlWorkbookNormal, Type.Missing,
+                Type.Missing, Type.Missing, Type.Missing, XlSaveAsAccessMode.xlExclusive,
+                Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing)
+
+                ReleaseObject(oSheet)
+                oBook.Close(False, Type.Missing, Type.Missing)
+                ReleaseObject(oBook)
+                oExcel.Quit()
+                ReleaseObject(oExcel)
+
+                'Limpiar la memoria
+                GC.Collect()
+
+                bandera = True
+            End If
+            Return bandera
+        Catch ex As Exception
             Throw New Exception(ex.Message)
         End Try
     End Function

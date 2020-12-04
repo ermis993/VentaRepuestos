@@ -2364,7 +2364,7 @@ Public Class Actualizaciones
 
     Private Sub USP_DATOS_FACTURA_IMPRESION()
         Try
-            If Not EXISTE_PROCEDIMIENTO("USP_DATOS_FACTURA_IMPRESION", "2020-10-29") Then
+            If Not EXISTE_PROCEDIMIENTO("USP_DATOS_FACTURA_IMPRESION", "2020-12-03") Then
                 ELIMINA_PROCEDIMIENTO("USP_DATOS_FACTURA_IMPRESION")
 
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_DATOS_FACTURA_IMPRESION] 																						"
@@ -2419,8 +2419,8 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "			AND DET.NUMERO_DOC = @NUMERO_DOC																				"
                 SQL &= Chr(13) & "																							"
                 SQL &= Chr(13) & "																							"
-                SQL &= Chr(13) & "			SELECT COUNT(*) AS LINEAS, SUM(CASE WHEN IMPUESTO > 0 THEN SUBTOTAL ELSE 0 END) AS GRAVADO, SUM(CASE WHEN IMPUESTO = 0 THEN SUBTOTAL ELSE 0 END) AS EXENTO,																				"
-                SQL &= Chr(13) & "			0.00 AS EXONERADO, SUM(DESCUENTO) AS DESCUENTO, SUM(SUBTOTAL) AS SUBTOTAL, SUM(IMPUESTO) AS IMPUESTO, SUM(TOTAL) AS TOTAL																				"
+                SQL &= Chr(13) & "			SELECT COUNT(*) AS LINEAS, SUM(CASE WHEN IMPUESTO > 0 OR (POR_IMPUESTO > 0 AND IMPUESTO = 0) THEN SUBTOTAL ELSE 0 END) AS GRAVADO, SUM(CASE WHEN IMPUESTO = 0 AND POR_IMPUESTO = 0 THEN SUBTOTAL ELSE 0 END) AS EXENTO,																				"
+                SQL &= Chr(13) & "			SUM(EXONERACION) AS EXONERADO, SUM(DESCUENTO) AS DESCUENTO, SUM(SUBTOTAL) AS SUBTOTAL, SUM(IMPUESTO) AS IMPUESTO, SUM(TOTAL) AS TOTAL																				"
                 SQL &= Chr(13) & "			FROM DOCUMENTO_DET																				"
                 SQL &= Chr(13) & "			WHERE COD_CIA = @COD_CIA																				"
                 SQL &= Chr(13) & "			AND COD_SUCUR = @COD_SUCUR																				"
@@ -3485,7 +3485,7 @@ Public Class Actualizaciones
 
     Private Sub USP_ImprimeFElectronica_V_4_3()
         Try
-            If Not EXISTE_PROCEDIMIENTO("USP_ImprimeFElectronica_V_4_3", "2020-11-21") Then
+            If Not EXISTE_PROCEDIMIENTO("USP_ImprimeFElectronica_V_4_3", "2020-12-03") Then
                 ELIMINA_PROCEDIMIENTO("USP_ImprimeFElectronica_V_4_3")
 
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_ImprimeFElectronica_V_4_3](																																"
@@ -3694,6 +3694,7 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "									,'N' AS IND_OTROS_CARGOS																								"
                 SQL &= Chr(13) & "									,'' AS PartidaArancelaria																								"
                 SQL &= Chr(13) & "								 	,'01' as TipoCodigo																								"
+                SQL &= Chr(13) & "                                  ,PRO.COD_CABYS as CodigoProdDGTD                    "
                 SQL &= Chr(13) & "								 	,PRO.COD_PROD  as CodigoComercial																								"
                 SQL &= Chr(13) & "								 	,CANTIDAD as Cantidad																								"
                 SQL &= Chr(13) & "								 	,DET.COD_UNIDAD as UnidadMedida																								"
@@ -3762,6 +3763,7 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "		                                ,'N' AS IND_OTROS_CARGOS																															"
                 SQL &= Chr(13) & "		                                ,'' AS PartidaArancelaria																															"
                 SQL &= Chr(13) & "		                                ,'04' as TipoCodigo																															"
+                SQL &= Chr(13) & "                                      ,PROD.COD_CABYS as CodigoProdDGTD                    "
                 SQL &= Chr(13) & "		                                ,PROD.COD_PROD  as CodigoComercial																															"
                 SQL &= Chr(13) & "		                                ,DET.CANTIDAD as Cantidad																															"
                 SQL &= Chr(13) & "		                                ,PROD.COD_UNIDAD as UnidadMedida																															"
@@ -3810,7 +3812,8 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "									,'N' AS IND_OTROS_CARGOS																								"
                 SQL &= Chr(13) & "									,'' AS PartidaArancelaria																								"
                 SQL &= Chr(13) & "									,'04' AS TipoCodigo																								"
-                SQL &= Chr(13) & "									,'ND' AS CodigoComercial																								"
+                SQL &= Chr(13) & "									,PROD.COD_CABYS as CodigoProdDGTD "
+                SQL &= Chr(13) & "									,PROD.COD_PROD  as CodigoComercial																								"
                 SQL &= Chr(13) & "									, 1 AS Cantidad																								"
                 SQL &= Chr(13) & "									,'Unid' AS UnidadMedida																								"
                 SQL &= Chr(13) & "									,'ND' AS Detalle																								"
@@ -3895,7 +3898,7 @@ Public Class Actualizaciones
 
     Private Sub USP_IMPORTA_PRODUCTO_CABYS()
         Try
-            If Not EXISTE_PROCEDIMIENTO("USP_IMPORTA_PRODUCTO_CABYS", "2020-11-25") Then
+            If Not EXISTE_PROCEDIMIENTO("USP_IMPORTA_PRODUCTO_CABYS", "2020-12-01") Then
                 ELIMINA_PROCEDIMIENTO("USP_IMPORTA_PRODUCTO_CABYS")
 
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_IMPORTA_PRODUCTO_CABYS]																									"
@@ -3919,16 +3922,22 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "																										"
                 SQL &= Chr(13) & "			/*VALIDACIONES*/																							"
                 SQL &= Chr(13) & "																										"
-                SQL &= Chr(13) & "			IF EXISTS(SELECT C.*																							"
-                SQL &= Chr(13) & "					  FROM PRODUCTO AS P																					"
-                SQL &= Chr(13) & "					  LEFT JOIN #TP_PRODUCTO_CABYS AS C																					"
-                SQL &= Chr(13) & "						ON C.COD_CIA = P.COD_CIA																				"
-                SQL &= Chr(13) & "						AND C.COD_SUCUR = P.COD_SUCUR																				"
-                SQL &= Chr(13) & "						AND C.COD_PROD = P.COD_PROD																				"
-                SQL &= Chr(13) & "					   WHERE C.COD_CIA IS NULL)																					"
-                SQL &= Chr(13) & "			BEGIN 																							"
-                SQL &= Chr(13) & "				RAISERROR('Se ingresaron productos inexistentes en el archivo a importar', 17, 1)																						"
-                SQL &= Chr(13) & "			END																							"
+                SQL &= Chr(13) & "	        IF EXISTS(SELECT C.*																									"
+                SQL &= Chr(13) & "						FROM #TP_PRODUCTO_CABYS	 AS C																				"
+                SQL &= Chr(13) & "						LEFT JOIN PRODUCTO AS P																				"
+                SQL &= Chr(13) & "							ON C.COD_CIA = P.COD_CIA COLLATE Latin1_General_CI_AS 																			"
+                SQL &= Chr(13) & "							AND C.COD_SUCUR = P.COD_SUCUR COLLATE Latin1_General_CI_AS 																			"
+                SQL &= Chr(13) & "							AND C.COD_PROD = P.COD_PROD	COLLATE Latin1_General_CI_AS 																		"
+                SQL &= Chr(13) & "						WHERE P.COD_PROD IS NULL	)																			"
+                SQL &= Chr(13) & "				BEGIN 																						"
+                SQL &= Chr(13) & "					SELECT C.*																					"
+                SQL &= Chr(13) & "					FROM #TP_PRODUCTO_CABYS	 AS C																					"
+                SQL &= Chr(13) & "					LEFT JOIN PRODUCTO AS P																					"
+                SQL &= Chr(13) & "						ON C.COD_CIA = P.COD_CIA COLLATE Latin1_General_CI_AS 																				"
+                SQL &= Chr(13) & "						AND C.COD_SUCUR = P.COD_SUCUR COLLATE Latin1_General_CI_AS 																				"
+                SQL &= Chr(13) & "						AND C.COD_PROD = P.COD_PROD	COLLATE Latin1_General_CI_AS 																			"
+                SQL &= Chr(13) & "					WHERE P.COD_PROD IS NULL																					"
+                SQL &= Chr(13) & "			    END																							"
                 SQL &= Chr(13) & "			ELSE 																							"
                 SQL &= Chr(13) & "			BEGIN																							"
                 SQL &= Chr(13) & "				UPDATE PRODUCTO																						"
@@ -3937,13 +3946,13 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "					SELECT C.COD_CIA, C.COD_SUCUR, C.COD_PROD, C.COD_CABYS																					"
                 SQL &= Chr(13) & "					FROM PRODUCTO AS P																					"
                 SQL &= Chr(13) & "					INNER JOIN #TP_PRODUCTO_CABYS AS C																					"
-                SQL &= Chr(13) & "						ON C.COD_CIA = P.COD_CIA																				"
-                SQL &= Chr(13) & "						AND C.COD_SUCUR = P.COD_SUCUR																				"
-                SQL &= Chr(13) & "						AND C.COD_PROD = P.COD_PROD																				"
+                SQL &= Chr(13) & "						ON C.COD_CIA = P.COD_CIA	COLLATE Latin1_General_CI_AS 																			"
+                SQL &= Chr(13) & "						AND C.COD_SUCUR = P.COD_SUCUR COLLATE Latin1_General_CI_AS 																				"
+                SQL &= Chr(13) & "						AND C.COD_PROD = P.COD_PROD	 COLLATE Latin1_General_CI_AS 																			"
                 SQL &= Chr(13) & "				) AS T1																						"
-                SQL &= Chr(13) & "				WHERE T1.COD_CIA = PRODUCTO.COD_CIA																						"
-                SQL &= Chr(13) & "				AND T1.COD_SUCUR = PRODUCTO.COD_SUCUR																						"
-                SQL &= Chr(13) & "				AND T1.COD_PROD = PRODUCTO.COD_PROD																						"
+                SQL &= Chr(13) & "				WHERE T1.COD_CIA = PRODUCTO.COD_CIA	COLLATE Latin1_General_CI_AS																					"
+                SQL &= Chr(13) & "				AND T1.COD_SUCUR = PRODUCTO.COD_SUCUR COLLATE Latin1_General_CI_AS																						"
+                SQL &= Chr(13) & "				AND T1.COD_PROD = PRODUCTO.COD_PROD COLLATE Latin1_General_CI_AS																						"
                 SQL &= Chr(13) & "			END																							"
                 SQL &= Chr(13) & "																										"
                 SQL &= Chr(13) & "	COMMIT TRAN																									"

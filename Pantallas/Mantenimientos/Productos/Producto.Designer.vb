@@ -53,7 +53,7 @@ Partial Class Producto
         Me.Estado.Controls.Add(Me.RB_TODOS)
         Me.Estado.Controls.Add(Me.RB_INACTIVOS)
         Me.Estado.Controls.Add(Me.RB_ACTIVOS)
-        Me.Estado.Location = New System.Drawing.Point(605, 2)
+        Me.Estado.Location = New System.Drawing.Point(706, 2)
         Me.Estado.Name = "Estado"
         Me.Estado.Size = New System.Drawing.Size(146, 51)
         Me.Estado.TabIndex = 9
@@ -108,7 +108,7 @@ Partial Class Producto
         Me.GRID.RowHeadersVisible = False
         Me.GRID.RowHeadersWidth = 51
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRID.Size = New System.Drawing.Size(751, 418)
+        Me.GRID.Size = New System.Drawing.Size(852, 418)
         Me.GRID.TabIndex = 11
         '
         'BTN_OPCIONES
@@ -256,7 +256,7 @@ Partial Class Producto
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(753, 548)
+        Me.ClientSize = New System.Drawing.Size(854, 548)
         Me.ControlBox = False
         Me.Controls.Add(Me.BTN_OPCIONES)
         Me.Controls.Add(Me.BTN_REPORTES)

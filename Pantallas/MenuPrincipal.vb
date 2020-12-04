@@ -159,10 +159,11 @@ Public Class MenuPrincipal
     End Sub
     Private Sub CMB_SUCURSAL_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CMB_SUCURSAL.SelectedIndexChanged
         Try
-            If Not CMB_SUCURSAL.DataSource Is Nothing Then
+            If CMB_SUCURSAL.DataSource IsNot Nothing Then
                 If Bandera_Sucursal = True Then
                     COD_SUCUR = CMB_SUCURSAL.SelectedItem().ToString.Substring(1, 3)
                     INDICADORES_SUCURSAL(COD_CIA, COD_SUCUR)
+                    INDICADORES_COMPANIA(COD_CIA)
                 End If
             End If
         Catch ex As Exception

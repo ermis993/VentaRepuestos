@@ -829,6 +829,7 @@
     <None Include="Resources\proforma.png" />
     <None Include="Resources\opciones.png" />
     <None Include="Resources\excel.png" />
+    <None Include="Resources\inventario.png" />
     <Content Include="Resources\quitar.png" />
     <None Include="Resources\Right.png" />
     <None Include="Resources\reportes.png" />
@@ -882,6 +883,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pantallas\Movimientos\Cuentas por pagar\Mantenimientos\" />
+    <Folder Include="Pantallas\Movimientos\Inventario\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />

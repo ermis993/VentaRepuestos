@@ -30,6 +30,9 @@ Partial Class MenuPrincipal
         Me.TXT_COMPRA = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.LBL_SALUDO = New System.Windows.Forms.Label()
+        Me.BTN_INVENTARIO = New System.Windows.Forms.Button()
+        Me.PB_IMAGEN = New System.Windows.Forms.PictureBox()
         Me.BTN_BACKUP = New System.Windows.Forms.Button()
         Me.BTN_COMPRAS = New System.Windows.Forms.Button()
         Me.BTN_ENCOMIENDA = New System.Windows.Forms.Button()
@@ -45,8 +48,6 @@ Partial Class MenuPrincipal
         Me.BTN_USUARIO = New System.Windows.Forms.Button()
         Me.BTN_SUCURSAL = New System.Windows.Forms.Button()
         Me.BTN_COMPANIA = New System.Windows.Forms.Button()
-        Me.LBL_SALUDO = New System.Windows.Forms.Label()
-        Me.PB_IMAGEN = New System.Windows.Forms.PictureBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.PB_IMAGEN, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -128,11 +129,43 @@ Partial Class MenuPrincipal
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Compra :"
         '
+        'LBL_SALUDO
+        '
+        Me.LBL_SALUDO.AutoSize = True
+        Me.LBL_SALUDO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LBL_SALUDO.Location = New System.Drawing.Point(2, 70)
+        Me.LBL_SALUDO.Name = "LBL_SALUDO"
+        Me.LBL_SALUDO.Size = New System.Drawing.Size(51, 18)
+        Me.LBL_SALUDO.TabIndex = 18
+        Me.LBL_SALUDO.Text = "Label3"
+        '
+        'BTN_INVENTARIO
+        '
+        Me.BTN_INVENTARIO.Image = Global.VentaRepuestos.My.Resources.Resources.inventario
+        Me.BTN_INVENTARIO.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.BTN_INVENTARIO.Location = New System.Drawing.Point(133, 399)
+        Me.BTN_INVENTARIO.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_INVENTARIO.Name = "BTN_INVENTARIO"
+        Me.BTN_INVENTARIO.Size = New System.Drawing.Size(64, 55)
+        Me.BTN_INVENTARIO.TabIndex = 20
+        Me.BTN_INVENTARIO.Text = "Inventario"
+        Me.BTN_INVENTARIO.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.BTN_INVENTARIO.UseVisualStyleBackColor = True
+        '
+        'PB_IMAGEN
+        '
+        Me.PB_IMAGEN.Location = New System.Drawing.Point(302, 128)
+        Me.PB_IMAGEN.Name = "PB_IMAGEN"
+        Me.PB_IMAGEN.Size = New System.Drawing.Size(295, 211)
+        Me.PB_IMAGEN.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PB_IMAGEN.TabIndex = 19
+        Me.PB_IMAGEN.TabStop = False
+        '
         'BTN_BACKUP
         '
         Me.BTN_BACKUP.Image = Global.VentaRepuestos.My.Resources.Resources.backup
         Me.BTN_BACKUP.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_BACKUP.Location = New System.Drawing.Point(704, 2)
+        Me.BTN_BACKUP.Location = New System.Drawing.Point(712, 2)
         Me.BTN_BACKUP.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_BACKUP.Name = "BTN_BACKUP"
         Me.BTN_BACKUP.Size = New System.Drawing.Size(64, 55)
@@ -158,12 +191,12 @@ Partial Class MenuPrincipal
         '
         Me.BTN_ENCOMIENDA.Image = Global.VentaRepuestos.My.Resources.Resources.encomienda
         Me.BTN_ENCOMIENDA.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_ENCOMIENDA.Location = New System.Drawing.Point(772, 61)
+        Me.BTN_ENCOMIENDA.Location = New System.Drawing.Point(840, 56)
         Me.BTN_ENCOMIENDA.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_ENCOMIENDA.Name = "BTN_ENCOMIENDA"
-        Me.BTN_ENCOMIENDA.Size = New System.Drawing.Size(79, 55)
+        Me.BTN_ENCOMIENDA.Size = New System.Drawing.Size(64, 55)
         Me.BTN_ENCOMIENDA.TabIndex = 15
-        Me.BTN_ENCOMIENDA.Text = "Encomienda"
+        Me.BTN_ENCOMIENDA.Text = "Envios"
         Me.BTN_ENCOMIENDA.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.BTN_ENCOMIENDA.UseVisualStyleBackColor = True
         '
@@ -184,7 +217,7 @@ Partial Class MenuPrincipal
         '
         Me.BTN_XML.Image = Global.VentaRepuestos.My.Resources.Resources.importar_xml
         Me.BTN_XML.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_XML.Location = New System.Drawing.Point(73, 399)
+        Me.BTN_XML.Location = New System.Drawing.Point(69, 399)
         Me.BTN_XML.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_XML.Name = "BTN_XML"
         Me.BTN_XML.Size = New System.Drawing.Size(64, 55)
@@ -197,7 +230,7 @@ Partial Class MenuPrincipal
         '
         Me.BTN_REPORTES.Image = Global.VentaRepuestos.My.Resources.Resources.reportes
         Me.BTN_REPORTES.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_REPORTES.Location = New System.Drawing.Point(772, 2)
+        Me.BTN_REPORTES.Location = New System.Drawing.Point(776, 2)
         Me.BTN_REPORTES.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_REPORTES.Name = "BTN_REPORTES"
         Me.BTN_REPORTES.Size = New System.Drawing.Size(64, 55)
@@ -324,25 +357,6 @@ Partial Class MenuPrincipal
         Me.BTN_COMPANIA.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.BTN_COMPANIA.UseVisualStyleBackColor = True
         '
-        'LBL_SALUDO
-        '
-        Me.LBL_SALUDO.AutoSize = True
-        Me.LBL_SALUDO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LBL_SALUDO.Location = New System.Drawing.Point(2, 70)
-        Me.LBL_SALUDO.Name = "LBL_SALUDO"
-        Me.LBL_SALUDO.Size = New System.Drawing.Size(51, 18)
-        Me.LBL_SALUDO.TabIndex = 18
-        Me.LBL_SALUDO.Text = "Label3"
-        '
-        'PB_IMAGEN
-        '
-        Me.PB_IMAGEN.Location = New System.Drawing.Point(302, 128)
-        Me.PB_IMAGEN.Name = "PB_IMAGEN"
-        Me.PB_IMAGEN.Size = New System.Drawing.Size(295, 211)
-        Me.PB_IMAGEN.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PB_IMAGEN.TabIndex = 19
-        Me.PB_IMAGEN.TabStop = False
-        '
         'MenuPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -350,6 +364,7 @@ Partial Class MenuPrincipal
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(906, 528)
         Me.ControlBox = False
+        Me.Controls.Add(Me.BTN_INVENTARIO)
         Me.Controls.Add(Me.PB_IMAGEN)
         Me.Controls.Add(Me.LBL_SALUDO)
         Me.Controls.Add(Me.BTN_BACKUP)
@@ -409,4 +424,5 @@ Partial Class MenuPrincipal
     Friend WithEvents BTN_BACKUP As Button
     Friend WithEvents LBL_SALUDO As Label
     Friend WithEvents PB_IMAGEN As PictureBox
+    Friend WithEvents BTN_INVENTARIO As Button
 End Class

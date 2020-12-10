@@ -170,14 +170,6 @@ Public Class MenuPrincipal
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-    'Private Sub BTN_CLIENTE_Click(sender As Object, e As EventArgs) Handles BTN_CLIENTE.Click
-    '    Try
-    '        Dim PANTALLA As New Cliente()
-    '        PANTALLA.ShowDialog()
-    '    Catch ex As Exception
-    '        MessageBox.Show(ex.Message)
-    '    End Try
-    'End Sub
     Private Sub BTN_FE_Click(sender As Object, e As EventArgs) Handles BTN_FE.Click
         Try
             Dim PANTALLA As New Facturacion()
@@ -281,20 +273,6 @@ Public Class MenuPrincipal
 
     Private Sub BTN_BACKUP_Click(sender As Object, e As EventArgs) Handles BTN_BACKUP.Click
         Try
-            'Dim Ruta As New SaveFileDialog With {
-            '    .FileName = "BackUp_" + DMA(FECHA_HOY()).Replace("/", "-"),
-            '    .Filter = "SQL Server database backup files |*.bak"
-            '}
-
-            'If Ruta.ShowDialog() = DialogResult.OK Then
-            '    Dim SQL As String = "BACKUP DATABASE VR TO disk=" & SCM(Ruta.FileName)
-            '    CONX.Coneccion_Abrir()
-            '    CONX.EJECUTE(SQL)
-            '    CONX.Coneccion_Cerrar()
-
-            '    MessageBox.Show("BackUp generado correctamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-            'End If
-
             Dim SQL As String = "BACKUP DATABASE VR TO disk=" & SCM(RUTA_BACKUP & "\" & "BackUp_" + DMA(FECHA_HOY()).Replace("/", "-"))
             CONX.Coneccion_Abrir()
             CONX.EJECUTE(SQL)
@@ -305,5 +283,9 @@ Public Class MenuPrincipal
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
+    End Sub
+
+    Private Sub BTN_INVENTARIO_Click(sender As Object, e As EventArgs) Handles BTN_INVENTARIO.Click
+        MessageBox.Show("Próximamente disponible", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 End Class

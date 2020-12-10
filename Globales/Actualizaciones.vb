@@ -20,7 +20,7 @@ Public Class Actualizaciones
         RUTA_ADJUNTOS = "C:\ENVIOS"
         RUTA_BACKUP = "C:\BACKUPS"
 
-        Dim Cantidad_Procesos As Integer = 62
+        Dim Cantidad_Procesos As Integer = 63
         Dim Cantidad_Actual As Integer = 0
         ProgressBar.Value = 0
 
@@ -114,8 +114,9 @@ Public Class Actualizaciones
         Call USP_PROFORMA_A_FACTURA()
         Call USP_ImprimeFElectronica_V_4_3()
         Call USP_IMPORTA_PRODUCTO_CABYS()
+        Call USP_DATOS_APARTADO_IMPRESION()
 
-        Cantidad_Actual += 25
+        Cantidad_Actual += 26
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
     End Sub
 
@@ -3964,6 +3965,99 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "		RAISERROR( @MENSAJE, 16, 1);																								"
                 SQL &= Chr(13) & "	END CATCH																									"
                 SQL &= Chr(13) & "	END				"
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub USP_DATOS_APARTADO_IMPRESION()
+        Try
+            If Not EXISTE_PROCEDIMIENTO("USP_DATOS_APARTADO_IMPRESION", "2020-12-09") Then
+                ELIMINA_PROCEDIMIENTO("USP_DATOS_APARTADO_IMPRESION")
+
+                Dim SQL = "	CREATE PROCEDURE [dbo].[USP_DATOS_APARTADO_IMPRESION] 																									"
+                SQL &= Chr(13) & "			 @COD_CIA VARCHAR(3)																							"
+                SQL &= Chr(13) & "			,@COD_SUCUR VARCHAR(3)																							"
+                SQL &= Chr(13) & "			,@NUMERO_DOC INT																							"
+                SQL &= Chr(13) & "			,@TIPO_MOV VARCHAR(2)																							"
+                SQL &= Chr(13) & "		AS																								"
+                SQL &= Chr(13) & "		BEGIN																								"
+                SQL &= Chr(13) & "			SET NOCOUNT ON;																							"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "				SELECT CIA.NOMBRE AS Compania, SUC.NOMBRE AS Sucursal, CIA.CEDULA AS Cedula, SUC.TELEFONO + CASE WHEN ISNULL(SUC.TELEFONO_2, '') = '' THEN '' ELSE '/' + TELEFONO_2 END AS Telefono, CIA.PROVINCIA AS Provincia,																						"
+                SQL &= Chr(13) & "				CIA.CANTON AS Canton, CIA.DISTRITO AS Distrito, SUC.DIRECCION AS Direccion, CIA.CORREO as Correo, 'N' AS FE																						"
+                SQL &= Chr(13) & "				FROM COMPANIA AS CIA																						"
+                SQL &= Chr(13) & "				INNER JOIN SUCURSAL AS SUC																						"
+                SQL &= Chr(13) & "					ON SUC.COD_CIA = CIA.COD_CIA																					"
+                SQL &= Chr(13) & "				WHERE CIA.COD_CIA = @COD_CIA																						"
+                SQL &= Chr(13) & "				AND SUC.COD_SUCUR = @COD_SUCUR																						"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "		SELECT CASE DE.TIPO_COMPROBANTE WHEN '01' THEN 'FACTURA ELECTRONICA' WHEN '04' THEN 'TIQUETE ELECTRONICO' ELSE 'FACTURA' END AS TIPO, DE.CONSECUTIVO AS Consec,																								"
+                SQL &= Chr(13) & "					ENC.NUMERO_DOC AS Numero, 'CLAVE NUMERICA' AS CLAVE_S, DE.CLAVE AS Clave, ENC.FECHA, CASE WHEN ENC.TIPO_MOV = 'FC' THEN 'CONTADO' ELSE 'CREDITO' END AS VENTA,																					"
+                SQL &= Chr(13) & "					(CLI.NOMBRE + ' ' + CLI.APELLIDO1 + ' ' + CLI.APELLIDO2) AS Nombre, U.NOMBRE AS Usuario, CASE WHEN ENC.COD_MONEDA = 'L' THEN 'COLONES' ELSE 'DOLARES' END AS MONEDA,																					"
+                SQL &= Chr(13) & "					ENC.DESCRIPCION AS DETALLE																					"
+                SQL &= Chr(13) & "					FROM APARTADO_ENC AS ENC																					"
+                SQL &= Chr(13) & "					LEFT JOIN DOCUMENTO_ELECTRONICO AS DE																					"
+                SQL &= Chr(13) & "						ON ENC.COD_CIA = DE.COD_CIA																				"
+                SQL &= Chr(13) & "						AND ENC.COD_SUCUR = DE.COD_SUCUR																				"
+                SQL &= Chr(13) & "						AND ENC.TIPO_MOV = DE.TIPO_MOV 																				"
+                SQL &= Chr(13) & "						AND ENC.NUMERO_DOC = DE.NUMERO_DOC																				"
+                SQL &= Chr(13) & "					INNER JOIN CLIENTE AS CLI																					"
+                SQL &= Chr(13) & "						ON CLI.COD_CIA = ENC.COD_CIA																				"
+                SQL &= Chr(13) & "						AND CLI.CEDULA = ENC.CEDULA																				"
+                SQL &= Chr(13) & "					INNER JOIN USUARIO AS U																					"
+                SQL &= Chr(13) & "						ON U.COD_USUARIO = ENC.COD_USUARIO																				"
+                SQL &= Chr(13) & "					WHERE ENC.COD_CIA = @COD_CIA																					"
+                SQL &= Chr(13) & "					AND ENC.COD_SUCUR = @COD_SUCUR																					"
+                SQL &= Chr(13) & "					AND ENC.TIPO_MOV = @TIPO_MOV																					"
+                SQL &= Chr(13) & "					AND ENC.NUMERO_DOC = @NUMERO_DOC																					"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "				SELECT DET.LINEA, P.COD_PROD,  P.DESCRIPCION, DET.PRECIO, DET.CANTIDAD, DET.IMPUESTO, DET.DESCUENTO, DET.SUBTOTAL, DET.TOTAL																						"
+                SQL &= Chr(13) & "				FROM APARTADO_DET AS DET																						"
+                SQL &= Chr(13) & "				INNER JOIN PRODUCTO AS P																						"
+                SQL &= Chr(13) & "					ON P.COD_CIA = DET.COD_CIA																					"
+                SQL &= Chr(13) & "					AND P.COD_SUCUR = DET.COD_SUCUR																					"
+                SQL &= Chr(13) & "					AND P.COD_PROD = DET.COD_PROD																					"
+                SQL &= Chr(13) & "				WHERE DET.COD_CIA = @COD_CIA																						"
+                SQL &= Chr(13) & "				AND DET.COD_SUCUR = @COD_SUCUR																						"
+                SQL &= Chr(13) & "				AND DET.TIPO_MOV = @TIPO_MOV																						"
+                SQL &= Chr(13) & "				AND DET.NUMERO_DOC = @NUMERO_DOC																						"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "				SELECT COUNT(*) AS LINEAS, SUM(CASE WHEN IMPUESTO > 0 OR (POR_IMPUESTO > 0 AND IMPUESTO = 0) THEN SUBTOTAL ELSE 0 END) AS GRAVADO, SUM(CASE WHEN IMPUESTO = 0 AND POR_IMPUESTO = 0 THEN SUBTOTAL ELSE 0 END) AS EXENTO,																						"
+                SQL &= Chr(13) & "				0.00 AS EXONERADO, SUM(DESCUENTO) AS DESCUENTO, SUM(SUBTOTAL) AS SUBTOTAL, SUM(IMPUESTO) AS IMPUESTO, SUM(TOTAL) AS TOTAL																						"
+                SQL &= Chr(13) & "				FROM APARTADO_DET																						"
+                SQL &= Chr(13) & "				WHERE COD_CIA = @COD_CIA																						"
+                SQL &= Chr(13) & "				AND COD_SUCUR = @COD_SUCUR																						"
+                SQL &= Chr(13) & "				AND TIPO_MOV = @TIPO_MOV																						"
+                SQL &= Chr(13) & "				AND NUMERO_DOC = @NUMERO_DOC																						"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "				SELECT GUIA.NUMERO_GUIA, GUIA.ENVIA, GUIA.RETIRA, GUIA.DESCRIPCION AS DETALLE_GUIA, GUIA.VALOR_ENCOMIENDA AS VALOR																						"
+                SQL &= Chr(13) & "				,substring(convert(char(8),ENC.FECHA_INC,114), 1, 8) AS HORA_INGRESO																						"
+                SQL &= Chr(13) & "				, CASE WHEN convert(char(5), ENC.FECHA_INC, 108) <= '10:00' THEN '10:00' 																						"
+                SQL &= Chr(13) & "				       WHEN convert(char(5), ENC.FECHA_INC, 108) > '10:00' AND  convert(char(5), ENC.FECHA_INC, 108) <= '14:30'  THEN '14:30'																						"
+                SQL &= Chr(13) & "					   WHEN convert(char(5), ENC.FECHA_INC, 108) >= '14:30' AND convert(char(5), ENC.FECHA_INC, 108) <= '17:30' THEN '17:30' 																					"
+                SQL &= Chr(13) & "					   ELSE '10:00' 																					"
+                SQL &= Chr(13) & "					   END AS HORA_ENVIO																					"
+                SQL &= Chr(13) & "				FROM DOCUMENTO_GUIA AS GUIA																						"
+                SQL &= Chr(13) & "				INNER JOIN APARTADO_ENC AS ENC																						"
+                SQL &= Chr(13) & "					ON ENC.COD_CIA = GUIA.COD_CIA																					"
+                SQL &= Chr(13) & "					AND ENC.COD_SUCUR = GUIA.COD_SUCUR																					"
+                SQL &= Chr(13) & "					AND ENC.TIPO_MOV = GUIA.TIPO_MOV																					"
+                SQL &= Chr(13) & "					AND ENC.NUMERO_DOC = GUIA.NUMERO_DOC																					"
+                SQL &= Chr(13) & "				WHERE GUIA.COD_CIA = @COD_CIA																						"
+                SQL &= Chr(13) & "				AND GUIA.COD_SUCUR = @COD_SUCUR																						"
+                SQL &= Chr(13) & "				AND GUIA.TIPO_MOV = @TIPO_MOV																						"
+                SQL &= Chr(13) & "				AND GUIA.NUMERO_DOC = @NUMERO_DOC																						"
+                SQL &= Chr(13) & "		END																								"
 
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)

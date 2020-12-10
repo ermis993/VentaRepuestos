@@ -322,17 +322,19 @@ Public Class Printer
         Do While row < PrintDatalist.Count
             data = PrintDatalist.Item(row)
 
-            If Not data.img Is Nothing Then
+            If data.img IsNot Nothing Then
                 If data.Width = Nothing Then
                     e.Graphics.DrawImage(data.img, data.iLeft, curY)
-                    curY = curY + data.img.Height
+                    curY += data.img.Height
                 Else
                     e.Graphics.DrawImage(data.img, data.iLeft, curY, data.Width, data.Height)
-                    curY = curY + data.Height
+                    curY += data.Height
                 End If
             ElseIf data.ColumnWidth Is Nothing Then
                 cFormat = c.MidLeft
-                If Not data.CAlign Is Nothing Then cFormat = data.CAlign(0)
+                If data.CAlign IsNot Nothing Then
+                    cFormat = data.CAlign(0)
+                End If
                 If data.iLeft > 0 Then
                     curY = c.PrintCellText(data.StringValue, data.iLeft, curY, e.PageBounds.Width, e, data.Fnt, cFormat, False) - 8
                 Else
@@ -354,12 +356,12 @@ Public Class Printer
                     iMore = c.PrintCellText(word, x, y, iWidth, e, data.Fnt, cFormat, False) - 8
 
                     If iMore > curY Then curY = iMore
-                    iCol = iCol + 1
-                    iFormat = iFormat + 1
-                    x = x + iWidth
+                    iCol += 1
+                    iFormat += 1
+                    x += iWidth
                 Next
             End If
-            row = row + 1
+            row += 1
             If curY >= 0.99 * e.PageBounds.Height Then
                 e.HasMorePages = True
                 Return

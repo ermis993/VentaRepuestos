@@ -450,6 +450,9 @@ Public Class Facturacion
                     Genera_RPT_NC(Tipo_Mov, Numero_Doc, "Nota_De_Credito_" & Numero_Doc, Ruta)
                     MessageBox.Show(Me, "Reporte generado correctamente", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
+            ElseIf Tipo_Mov = "AC" Or Tipo_Mov = "AA" Then
+                Dim imp As New Impresion()
+                imp.ImprimirApartado(COD_CIA, COD_SUCUR, Numero_Doc, Tipo_Mov)
             Else
                 MessageBox.Show(Me, "Solamente se pueden imprimir facturas", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If

@@ -50,15 +50,15 @@ Public Class SeleccionCompania
         Try
             COD_CIA = CMB_COMPANIA.SelectedValue
             If COD_CIA <> "" And IsNothing(COD_CIA) = False Then
+                Actualizaciones()
+                IND_ENCOMIENDA = CARGAR_INDICADORES(COD_CIA)
                 Dim FECHA = DateTime.Now.ToString
-                IND_ENCOMIENDA = ES_ENCOMIENDA(COD_CIA)
                 If EXISTE_TC_CIA(FECHA) = False Then
                     If EXISTE_TC(FECHA) = False Then
                         TIPO_CAMBIO_INDICADORES_ECONOMICOS(FECHA)
                     End If
                     GUARDAR_TIPO_CAMBIO(FECHA)
                 End If
-                Actualizaciones()
                 Me.Close()
                 Dim PANTALLA As New MenuPrincipal()
                 PANTALLA.ShowDialog()

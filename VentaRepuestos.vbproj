@@ -352,6 +352,18 @@
     <Compile Include="Pantallas\Movimientos\Encomiendas\RutaMant.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pantallas\Movimientos\Inventario\Ajuste.Designer.vb">
+      <DependentUpon>Ajuste.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Inventario\Ajuste.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Inventario\Inventario.Designer.vb">
+      <DependentUpon>Inventario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Inventario\Inventario.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pantallas\OlvidoContrasena.Designer.vb">
       <DependentUpon>OlvidoContrasena.vb</DependentUpon>
     </Compile>
@@ -622,6 +634,12 @@
     <EmbeddedResource Include="Pantallas\Movimientos\Encomiendas\RutaMant.resx">
       <DependentUpon>RutaMant.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Inventario\Ajuste.resx">
+      <DependentUpon>Ajuste.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Inventario\Inventario.resx">
+      <DependentUpon>Inventario.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\OlvidoContrasena.resx">
       <DependentUpon>OlvidoContrasena.vb</DependentUpon>
     </EmbeddedResource>
@@ -793,6 +811,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\tracking.png" />
     <None Include="Resources\sistema_off.png" />
     <None Include="Resources\apartado.png" />
     <None Include="Resources\anular.png" />
@@ -830,6 +849,7 @@
     <None Include="Resources\opciones.png" />
     <None Include="Resources\excel.png" />
     <None Include="Resources\inventario.png" />
+    <None Include="Resources\ajuste_inventario.png" />
     <Content Include="Resources\quitar.png" />
     <None Include="Resources\Right.png" />
     <None Include="Resources\reportes.png" />
@@ -883,7 +903,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pantallas\Movimientos\Cuentas por pagar\Mantenimientos\" />
-    <Folder Include="Pantallas\Movimientos\Inventario\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />

@@ -216,25 +216,30 @@ Public Class NotaCredito
     Private Sub RellenaProductos()
         Try
             GRIDPRODS.DataSource = Nothing
-            Dim SQL = "	SELECT DET.NUMERO_DOC AS Número, DET.TIPO_MOV as Tipo, DET.LINEA as Linea, DET.COD_PROD as Código, DET.PRECIO AS 'P/U', DET.POR_DESCUENTO AS Descuento, DET.POR_IMPUESTO AS Impuesto, (DET.CANTIDAD - ISNULL(PROD.CANTIDAD,0)) as Cantidad	"
-            SQL &= Chr(13) & "	, DET.ESTANTE AS Estante, DET.FILA AS Fila, DET.COLUMNA AS Columna"
-            SQL &= Chr(13) & "	FROM DOCUMENTO_AFEC_DET_TMP AS TMP		"
-            SQL &= Chr(13) & "	INNER JOIN DOCUMENTO_DET AS DET		"
-            SQL &= Chr(13) & "		ON DET.COD_CIA = " & SCM(COD_CIA)
-            SQL &= Chr(13) & "      AND DET.COD_SUCUR =" & SCM(COD_SUCUR)
-            SQL &= Chr(13) & "		AND DET.NUMERO_DOC = TMP.NUMERO_DOC	"
-            SQL &= Chr(13) & "		AND DET.TIPO_MOV = TMP.TIPO_MOV"
-            SQL &= Chr(13) & "	LEFT JOIN DOCUMENTO_AFEC_DET_PRODUCTOS AS PROD	"
-            SQL &= Chr(13) & "		ON PROD.NUMERO_DOC_AFEC = DET.NUMERO_DOC	"
-            SQL &= Chr(13) & "		AND PROD.TIPO_MOV_AFEC = DET.TIPO_MOV	"
-            SQL &= Chr(13) & "      AND PROD.COD_PROD = DET.COD_PROD"
-            SQL &= Chr(13) & "	LEFT JOIN DOCUMENTO_AFEC_DET_PRODUCTOS_TMP AS AFEC	"
-            SQL &= Chr(13) & "		ON  AFEC.NUMERO_DOC = DET.NUMERO_DOC	"
-            SQL &= Chr(13) & "		AND AFEC.TIPO_MOV = DET.TIPO_MOV	"
-            SQL &= Chr(13) & "		AND AFEC.COD_PROD = DET.COD_PROD"
-            SQL &= Chr(13) & "	WHERE AFEC.COD_PROD IS NULL			"
-            SQL &= Chr(13) & " AND (DET.CANTIDAD - ISNULL(PROD.CANTIDAD,0)) > 0"
-
+            Dim SQL = "	SELECT DET.NUMERO_DOC AS Número, DET.TIPO_MOV as Tipo, DET.LINEA as Linea, DET.COD_PROD as Código, DET.PRECIO AS 'P/U', DET.POR_DESCUENTO AS Descuento, DET.POR_IMPUESTO AS Impuesto, (DET.CANTIDAD - ISNULL(PROD.CANTIDAD,0)) as Cantidad																									"
+            SQL &= Chr(13) & "	, DET.ESTANTE AS Estante, DET.FILA AS Fila, DET.COLUMNA AS Columna																									"
+            SQL &= Chr(13) & "	FROM DOCUMENTO_AFEC_DET_TMP AS TMP																									"
+            SQL &= Chr(13) & "	INNER JOIN DOCUMENTO_DET AS DET																									"
+            SQL &= Chr(13) & "		ON DET.NUMERO_DOC = TMP.NUMERO_DOC																								"
+            SQL &= Chr(13) & "		AND DET.TIPO_MOV = TMP.TIPO_MOV																								"
+            SQL &= Chr(13) & "		AND DET.COD_CIA = TMP.COD_CIA																								"
+            SQL &= Chr(13) & "		AND DET.COD_SUCUR = TMP.COD_SUCUR																								"
+            SQL &= Chr(13) & "	LEFT JOIN DOCUMENTO_AFEC_DET_PRODUCTOS AS PROD																									"
+            SQL &= Chr(13) & "		ON PROD.NUMERO_DOC_AFEC = DET.NUMERO_DOC																								"
+            SQL &= Chr(13) & "		AND PROD.TIPO_MOV_AFEC = DET.TIPO_MOV																								"
+            SQL &= Chr(13) & "		AND PROD.COD_PROD = DET.COD_PROD																								"
+            SQL &= Chr(13) & "		AND PROD.COD_CIA = DET.COD_CIA																								"
+            SQL &= Chr(13) & "		AND PROD.COD_SUCUR = DET.COD_SUCUR																								"
+            SQL &= Chr(13) & "	LEFT JOIN DOCUMENTO_AFEC_DET_PRODUCTOS_TMP AS AFEC																									"
+            SQL &= Chr(13) & "		ON  AFEC.NUMERO_DOC = DET.NUMERO_DOC																								"
+            SQL &= Chr(13) & "		AND AFEC.TIPO_MOV = DET.TIPO_MOV																								"
+            SQL &= Chr(13) & "		AND AFEC.COD_PROD = DET.COD_PROD																								"
+            SQL &= Chr(13) & "		AND AFEC.COD_CIA = DET.COD_CIA																								"
+            SQL &= Chr(13) & "		AND AFEC.COD_SUCUR = DET.COD_SUCUR																								"
+            SQL &= Chr(13) & "	WHERE AFEC.COD_PROD IS NULL																									"
+            SQL &= Chr(13) & "	AND (DET.CANTIDAD - ISNULL(PROD.CANTIDAD,0)) > 0																									"
+            SQL &= Chr(13) & "	AND TMP.COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & "	AND TMP.COD_SUCUR = " & SCM(COD_SUCUR)
 
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)

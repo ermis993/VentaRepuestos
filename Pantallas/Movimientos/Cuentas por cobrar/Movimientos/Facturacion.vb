@@ -431,7 +431,7 @@ Public Class Facturacion
             If Tipo_Mov = "FC" Or Tipo_Mov = "FA" Then
                 If SELECCIONADO = "F" Then
                     Dim imp As New Impresion()
-                    imp.Imprimir(COD_CIA, COD_SUCUR, Numero_Doc, Tipo_Mov)
+                    imp.Imprimir(COD_CIA, COD_SUCUR, Numero_Doc, Tipo_Mov, IMG_COMPANIA)
                 ElseIf SELECCIONADO = "P" Then
                     Dim f As FolderBrowserDialog = New FolderBrowserDialog
                     If f.ShowDialog() = DialogResult.OK Then
@@ -452,7 +452,7 @@ Public Class Facturacion
                 End If
             ElseIf Tipo_Mov = "AC" Or Tipo_Mov = "AA" Then
                 Dim imp As New Impresion()
-                imp.ImprimirApartado(COD_CIA, COD_SUCUR, Numero_Doc, Tipo_Mov)
+                imp.ImprimirApartado(COD_CIA, COD_SUCUR, Numero_Doc, Tipo_Mov, IMG_COMPANIA)
             Else
                 MessageBox.Show(Me, "Solamente se pueden imprimir facturas", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If

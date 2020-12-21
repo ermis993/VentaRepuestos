@@ -55,6 +55,7 @@ Public Class MenuPrincipal
             BTN_ENCOMIENDA.Enabled = TieneDerecho("DENC")
             BTN_CONSULTA.Enabled = TieneDerecho("DCONS")
             BTN_XML.Enabled = TieneDerecho("DXML")
+            BTN_INVENTARIO.Enabled = TieneDerecho("DINV")
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -286,6 +287,11 @@ Public Class MenuPrincipal
     End Sub
 
     Private Sub BTN_INVENTARIO_Click(sender As Object, e As EventArgs) Handles BTN_INVENTARIO.Click
-        MessageBox.Show("Próximamente disponible", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Try
+            Dim PANTALLA As New Inventario()
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 End Class

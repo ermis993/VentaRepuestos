@@ -83,6 +83,16 @@ Namespace My.Resources
         '''<summary>
         '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property ajuste_inventario() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ajuste_inventario", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property ajustes() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("ajustes", resourceCulture)
@@ -646,6 +656,16 @@ Namespace My.Resources
         Friend ReadOnly Property sucursal() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("sucursal", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property tracking() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("tracking", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

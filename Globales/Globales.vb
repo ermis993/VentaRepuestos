@@ -16,11 +16,13 @@ Public Class Globales
     Public Shared COD_SUCUR As String
     Public Shared COD_USUARIO As String
     Public Shared IND_ENCOMIENDA As String
+    Public Shared IND_IMPRIMIR_IMAGEN As String
     Public Shared IND_FE As String
     Public Shared IND_VENTAS_NEGATIVAS As String
     Public Shared IND_MIN_STOCK As String
     Public Shared IND_RECIBO_AUTOMATICO As String
     Public Shared IND_MENSAJE_FACTURA As String
+    Public Shared IMG_COMPANIA As Image
 
     Public Shared TC_COMPRA As Decimal
     Public Shared TC_VENTA As Decimal
@@ -393,16 +395,17 @@ Public Class Globales
     End Sub
 
 
-    Public Shared Function ES_ENCOMIENDA(ByVal COD_CIA As String) As String
+    Public Shared Function CARGAR_INDICADORES(ByVal COD_CIA As String) As String
         Try
             Dim ENCOMIENDA As String = "N"
-            Dim SQL = "	SELECT ISNULL(IND_ENCOMIENDA, 'N') AS IND_ENCOMIENDA FROM COMPANIA WHERE COD_CIA = " & SCM(COD_CIA)
+            Dim SQL = "	SELECT ISNULL(IND_ENCOMIENDA, 'N') AS IND_ENCOMIENDA, ISNULL(IND_IMAGEN_TIQUETE, 'N') AS IND_IMAGEN_TIQUETE FROM COMPANIA WHERE COD_CIA = " & SCM(COD_CIA)
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)
             CONX.Coneccion_Cerrar()
             If DS.Tables(0).Rows.Count > 0 Then
                 For Each ITEM In DS.Tables(0).Rows
                     ENCOMIENDA = ITEM("IND_ENCOMIENDA")
+                    IND_IMPRIMIR_IMAGEN = ITEM("IND_IMAGEN_TIQUETE")
                     Exit For
                 Next
             End If
@@ -877,7 +880,7 @@ Public Class Globales
                     ds.Tables(0).Rows(c - 1)("LOGO")
                 Dim stmBLOBData As New MemoryStream(bytBLOBData)
                 Panel.Image = Image.FromStream(stmBLOBData)
-
+                IMG_COMPANIA = Image.FromStream(stmBLOBData)
             End If
             CONX.Coneccion_Cerrar()
 

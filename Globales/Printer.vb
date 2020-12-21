@@ -221,7 +221,7 @@ Public Class Printer
     Public Shared Sub NewBarCode()
         Dim Direccion As String = DIRECCION_ETIQUETA()
         PrintDatalist = New PrintDatalist
-        _myfont = New Font("Calibri", 10, FontStyle.Regular, GraphicsUnit.Point) 'Default
+        _myfont = New Font("Courier New", 10, FontStyle.Bold, GraphicsUnit.Point) 'Default
         prn = New PrintDocument
 
         If Direccion <> "" Then
@@ -259,7 +259,7 @@ Public Class Printer
     Public Shared Sub NewPrint()
         Dim Direccion As String = DIRECCION_IMPRESION()
         PrintDatalist = New PrintDatalist
-        _myfont = New Font("Courier New", 8, FontStyle.Regular, GraphicsUnit.Point) 'Default
+        _myfont = New Font("Courier New", 8, FontStyle.Bold, GraphicsUnit.Point) 'Default
         prn = New PrintDocument
 
         If Direccion <> "" Then

@@ -8,10 +8,14 @@ Public Class Impresion
     Private Shared _myfont As Font
     Private Shared prn As New Printer
 
-    Private Shared Sub Print(ByVal text As String)
+    Private Shared Sub Print(ByVal text As String, ByVal img As Image)
 
         Printer.NewPrint()
         Dim linesarray() = text.Split(New String() {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
+
+        If IND_IMPRIMIR_IMAGEN = "S" Then
+            Printer.Print(img, 240 + ANCHO_IMPRESION_ETIQUETA(), 100)
+        End If
 
         For Each line As String In linesarray
             Printer.Print(line)
@@ -57,7 +61,7 @@ Public Class Impresion
             Printer.Print(descripcion)
         End If
 
-        Printer.Print(img)
+        Printer.Print(img, 240 + ANCHO_IMPRESION_ETIQUETA(), 100)
 
         Printer.DoPrint()
     End Sub
@@ -71,7 +75,7 @@ Public Class Impresion
     End Sub
 
 
-    Public Shared Sub Imprimir(ByVal COD_CIA As String, ByVal COD_SUCUR As String, ByVal NUMERO_DOC As Integer, ByVal TIPO_MOV As String)
+    Public Shared Sub Imprimir(ByVal COD_CIA As String, ByVal COD_SUCUR As String, ByVal NUMERO_DOC As Integer, ByVal TIPO_MOV As String, ByVal img As Image)
         Try
             Dim strPrint As String
             Dim Ancho_Tiquete As Integer = ANCHO_IMPRESION()
@@ -113,10 +117,13 @@ Public Class Impresion
                 strPrint = strPrint & RELLENOCENTRO("[DETALLE]", Ancho_Tiquete) & vbCrLf
                 strPrint = strPrint & RELLENO("", Ancho_Tiquete, "") & vbCrLf
                 For Each ITEM In DS.Tables(2).Rows
-                    strPrint = strPrint & RELLENOIZQUIERDA("Lin:" & RELLENOIZQUIERDA(ITEM("LINEA"), 3) & RELLENOIZQUIERDA("Cod:", 6) & RELLENODERECHA(ITEM("COD_PROD"), 20) & RELLENOIZQUIERDA("Cant:", 6) & RELLENOIZQUIERDA(FMCP(ITEM("CANTIDAD"), 2), 9), Ancho_Tiquete) & vbCrLf
                     strPrint = strPrint & ITEM("DESCRIPCION") & vbCrLf
-                    strPrint = strPrint & RELLENOIZQUIERDA("P/U:" & RELLENOIZQUIERDA(FMCP(ITEM("PRECIO"), 2), 11) & RELLENOIZQUIERDA("Desc:", 6) & RELLENOIZQUIERDA(FMCP(ITEM("DESCUENTO"), 2), 11) & RELLENOIZQUIERDA("Imp:", 5) & RELLENOIZQUIERDA(FMCP(ITEM("IMPUESTO"), 2), 11), Ancho_Tiquete) & vbCrLf
-                    strPrint = strPrint & RELLENOIZQUIERDA("Total:" & RELLENOIZQUIERDA(FMCP(ITEM("TOTAL"), 2), 11), Ancho_Tiquete) & vbCrLf
+                    strPrint = strPrint & RELLENO("", Ancho_Tiquete, "") & vbCrLf
+                    strPrint = strPrint & "Lin:" & RELLENOIZQUIERDA(ITEM("LINEA"), 3) & RELLENOIZQUIERDA("Cantidad:", 22) & RELLENOIZQUIERDA(FMCP(ITEM("CANTIDAD"), 2), 11) & vbCrLf
+                    'strPrint = strPrint & RELLENOIZQUIERDA("Li:" & RELLENOIZQUIERDA(ITEM("LINEA"), 3) & RELLENOIZQUIERDA("Co:", 4) & RELLENODERECHA(ITEM("COD_PROD"), 20) & RELLENOIZQUIERDA("Ca:", 3) & RELLENOIZQUIERDA(FMCP(ITEM("CANTIDAD"), 2), 9), Ancho_Tiquete) & vbCrLf
+                    strPrint = strPrint & "P/U:" & RELLENOIZQUIERDA(FMCP(ITEM("PRECIO"), 2), 11) & RELLENOIZQUIERDA("Descuento:", 14) & RELLENOIZQUIERDA(FMCP(ITEM("DESCUENTO"), 2), 11) & vbCrLf
+                    strPrint = strPrint & "Imp:" & RELLENOIZQUIERDA(FMCP(ITEM("IMPUESTO"), 2), 11) & RELLENOIZQUIERDA("Total:", 14) & RELLENOIZQUIERDA(FMCP(ITEM("TOTAL"), 2), 11) & vbCrLf
+                    'strPrint = strPrint & RELLENOIZQUIERDA("Total:" & RELLENOIZQUIERDA(FMCP(ITEM("TOTAL"), 2), 11), Ancho_Tiquete) & vbCrLf
                     strPrint = strPrint & RELLENO("", Ancho_Tiquete, "") & vbCrLf
                 Next
                 strPrint = strPrint & RELLENOCENTRO("[FIN DETALLE]", Ancho_Tiquete) & vbCrLf
@@ -161,9 +168,8 @@ Public Class Impresion
                     strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-")
                 End If
 
-                Print(strPrint)
-
-                End If
+                Print(strPrint, img)
+            End If
 
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -225,7 +231,7 @@ Public Class Impresion
                 strPrint = strPrint & RELLENOIZQUIERDA(SR, Ancho_Tiquete) & vbCrLf
 
                 strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-") & vbCrLf
-                Print(strPrint)
+                Print(strPrint, Nothing)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -278,7 +284,7 @@ Public Class Impresion
                 strPrint &= RELLENOCENTRO("[ FIN DETALLE VENTAS REALIZADAS ]", Ancho_Tiquete) & vbCrLf
                 strPrint &= RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
                 strPrint &= RELLENO("", Ancho_Tiquete, "-")
-                Print(strPrint)
+                Print(strPrint, Nothing)
 
             End If
 
@@ -325,7 +331,7 @@ Public Class Impresion
                 strPrint = strPrint & RELLENOCENTRO("FIRMA Y CEDULA", Ancho_Tiquete) & vbCrLf
                 strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete)
                 strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-")
-                Print(strPrint)
+                Print(strPrint, Nothing)
 
             End If
 
@@ -376,7 +382,7 @@ Public Class Impresion
     End Sub
 
 
-    Public Shared Sub ImprimirApartado(ByVal COD_CIA As String, ByVal COD_SUCUR As String, ByVal NUMERO_DOC As Integer, ByVal TIPO_MOV As String)
+    Public Shared Sub ImprimirApartado(ByVal COD_CIA As String, ByVal COD_SUCUR As String, ByVal NUMERO_DOC As Integer, ByVal TIPO_MOV As String, ByVal img As Image)
         Try
             Dim strPrint As String
             Dim Ancho_Tiquete As Integer = ANCHO_IMPRESION()
@@ -466,7 +472,7 @@ Public Class Impresion
                     strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-")
                 End If
 
-                Print(strPrint)
+                Print(strPrint, img)
 
             End If
 

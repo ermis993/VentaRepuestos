@@ -75,6 +75,9 @@ Partial Class LBL_CANTON
         Me.TXT_USUARIO_ATV = New System.Windows.Forms.TextBox()
         Me.TAB_SMTP = New System.Windows.Forms.TabPage()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.LBL_RESULTADO = New System.Windows.Forms.Label()
+        Me.BTN_PROBAR = New System.Windows.Forms.Button()
         Me.lbl_mensaje = New System.Windows.Forms.Label()
         Me.TXT_PUERTO = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
@@ -87,9 +90,7 @@ Partial Class LBL_CANTON
         Me.OPD_Llave = New System.Windows.Forms.OpenFileDialog()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
-        Me.BTN_PROBAR = New System.Windows.Forms.Button()
-        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
-        Me.LBL_RESULTADO = New System.Windows.Forms.Label()
+        Me.CHK_IMAGEN = New System.Windows.Forms.CheckBox()
         Me.TAB_COMPANIA.SuspendLayout()
         Me.TAB_INFO.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -265,6 +266,7 @@ Partial Class LBL_CANTON
         '
         'TAB_INFO
         '
+        Me.TAB_INFO.Controls.Add(Me.CHK_IMAGEN)
         Me.TAB_INFO.Controls.Add(Me.GroupBox5)
         Me.TAB_INFO.Controls.Add(Me.CHK_ENCOMIENDA)
         Me.TAB_INFO.Controls.Add(Me.TXT_DIRECCION)
@@ -734,6 +736,37 @@ Partial Class LBL_CANTON
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "[ SMTP ]"
         '
+        'GroupBox7
+        '
+        Me.GroupBox7.Controls.Add(Me.LBL_RESULTADO)
+        Me.GroupBox7.Location = New System.Drawing.Point(299, 13)
+        Me.GroupBox7.Name = "GroupBox7"
+        Me.GroupBox7.Size = New System.Drawing.Size(240, 112)
+        Me.GroupBox7.TabIndex = 10
+        Me.GroupBox7.TabStop = False
+        Me.GroupBox7.Text = "[ Resultado ]"
+        '
+        'LBL_RESULTADO
+        '
+        Me.LBL_RESULTADO.Location = New System.Drawing.Point(6, 16)
+        Me.LBL_RESULTADO.Name = "LBL_RESULTADO"
+        Me.LBL_RESULTADO.Size = New System.Drawing.Size(228, 93)
+        Me.LBL_RESULTADO.TabIndex = 0
+        '
+        'BTN_PROBAR
+        '
+        Me.BTN_PROBAR.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_PROBAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_PROBAR.Image = CType(resources.GetObject("BTN_PROBAR.Image"), System.Drawing.Image)
+        Me.BTN_PROBAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_PROBAR.Location = New System.Drawing.Point(440, 131)
+        Me.BTN_PROBAR.Name = "BTN_PROBAR"
+        Me.BTN_PROBAR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_PROBAR.TabIndex = 9
+        Me.BTN_PROBAR.Text = "Probar"
+        Me.BTN_PROBAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_PROBAR.UseVisualStyleBackColor = False
+        '
         'lbl_mensaje
         '
         Me.lbl_mensaje.AutoSize = True
@@ -848,36 +881,16 @@ Partial Class LBL_CANTON
         Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
         '
-        'BTN_PROBAR
+        'CHK_IMAGEN
         '
-        Me.BTN_PROBAR.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_PROBAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_PROBAR.Image = CType(resources.GetObject("BTN_PROBAR.Image"), System.Drawing.Image)
-        Me.BTN_PROBAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_PROBAR.Location = New System.Drawing.Point(440, 131)
-        Me.BTN_PROBAR.Name = "BTN_PROBAR"
-        Me.BTN_PROBAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_PROBAR.TabIndex = 9
-        Me.BTN_PROBAR.Text = "Probar"
-        Me.BTN_PROBAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_PROBAR.UseVisualStyleBackColor = False
-        '
-        'GroupBox7
-        '
-        Me.GroupBox7.Controls.Add(Me.LBL_RESULTADO)
-        Me.GroupBox7.Location = New System.Drawing.Point(299, 13)
-        Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(240, 112)
-        Me.GroupBox7.TabIndex = 10
-        Me.GroupBox7.TabStop = False
-        Me.GroupBox7.Text = "[ Resultado ]"
-        '
-        'LBL_RESULTADO
-        '
-        Me.LBL_RESULTADO.Location = New System.Drawing.Point(6, 16)
-        Me.LBL_RESULTADO.Name = "LBL_RESULTADO"
-        Me.LBL_RESULTADO.Size = New System.Drawing.Size(228, 93)
-        Me.LBL_RESULTADO.TabIndex = 0
+        Me.CHK_IMAGEN.AutoSize = True
+        Me.CHK_IMAGEN.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CHK_IMAGEN.Location = New System.Drawing.Point(99, 343)
+        Me.CHK_IMAGEN.Name = "CHK_IMAGEN"
+        Me.CHK_IMAGEN.Size = New System.Drawing.Size(190, 20)
+        Me.CHK_IMAGEN.TabIndex = 22
+        Me.CHK_IMAGEN.Text = "Imprimir imagen en tiquetes"
+        Me.CHK_IMAGEN.UseVisualStyleBackColor = True
         '
         'LBL_CANTON
         '
@@ -986,4 +999,5 @@ Partial Class LBL_CANTON
     Friend WithEvents BTN_PROBAR As Button
     Friend WithEvents GroupBox7 As GroupBox
     Friend WithEvents LBL_RESULTADO As Label
+    Friend WithEvents CHK_IMAGEN As CheckBox
 End Class

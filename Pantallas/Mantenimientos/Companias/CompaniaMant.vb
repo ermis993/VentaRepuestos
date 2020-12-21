@@ -272,7 +272,7 @@ Public Class LBL_CANTON
             If MODO = CRF_Modos.Insertar Or MODO = CRF_Modos.Modificar Then
                 If VALIDAR() = True Then
                     EJECUTAR()
-
+                    IND_IMPRIMIR_IMAGEN = IIf(CHK_IMAGEN.Checked, "S", "N")
                     If IsNothing(CERTIFICADO) = False And TXT_PIN.Text <> "" Then
                         GUARDAR_CERTIFICADO()
                     End If
@@ -380,6 +380,7 @@ Public Class LBL_CANTON
 
                     Dim FE As String = ITEM("FE")
                     Dim ENCOMIENDA As String = ITEM("IND_ENCOMIENDA")
+                    Dim TIQUETE As String = ITEM("IND_IMAGEN_TIQUETE")
 
                     If Trim(FE).Equals("S") Then
                         CHK_FE.Checked = True
@@ -392,6 +393,12 @@ Public Class LBL_CANTON
                         CHK_ENCOMIENDA.Checked = True
                     Else
                         CHK_ENCOMIENDA.Checked = False
+                    End If
+
+                    If Trim(TIQUETE).Equals("S") Then
+                        CHK_IMAGEN.Checked = True
+                    Else
+                        CHK_IMAGEN.Checked = False
                     End If
 
                     If ITEM("IND_TIPO_DGTD") = "R" Then
@@ -482,6 +489,8 @@ Public Class LBL_CANTON
             ElseIf RB_PRUEBAS.Checked = True Then
                 SQL &= Chr(13) & ",@IND_TIPO_DGTD = " & SCM("P")
             End If
+            SQL &= Chr(13) & ",@IND_ENCOMIENDA = " & SCM(IIf(CHK_ENCOMIENDA.Checked, "S", "N"))
+            SQL &= Chr(13) & ",@IND_IMAGEN_TIQUETE = " & SCM(IIf(CHK_IMAGEN.Checked, "S", "N"))
 
             CONX.Coneccion_Abrir()
             CONX.EJECUTE(SQL)

@@ -923,14 +923,14 @@ Public Class Factura
                 If IND_ENCOMIENDA = "S" Then
                     imp.ImprimirEncomienda(COD_CIA, COD_SUCUR, DS.Tables(0).Rows(0).Item(0), CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
                     imp.ImprimirEtiquetas(COD_CIA, COD_SUCUR, DS.Tables(0).Rows(0).Item(0), CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
-                    imp.Imprimir(COD_CIA, COD_SUCUR, DS.Tables(0).Rows(0).Item(0), CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
+                    imp.Imprimir(COD_CIA, COD_SUCUR, DS.Tables(0).Rows(0).Item(0), CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2), IMG_COMPANIA)
 
                     Me.Close()
                     Padre.Refrescar()
                 Else
                     Dim pregunta = MessageBox.Show(Me, "Documento ingresado correctamente, ¿desea imprimir el documento?", Me.Text, vbYesNo, MessageBoxIcon.Question)
                     If pregunta = DialogResult.Yes Then
-                        imp.Imprimir(COD_CIA, COD_SUCUR, DS.Tables(0).Rows(0).Item(0), CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
+                        imp.Imprimir(COD_CIA, COD_SUCUR, DS.Tables(0).Rows(0).Item(0), CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2), IMG_COMPANIA)
                         Me.Close()
                         Padre.Refrescar()
                     Else

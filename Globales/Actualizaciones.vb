@@ -20,7 +20,7 @@ Public Class Actualizaciones
         RUTA_ADJUNTOS = "C:\ENVIOS"
         RUTA_BACKUP = "C:\BACKUPS"
 
-        Dim Cantidad_Procesos As Integer = 63
+        Dim Cantidad_Procesos As Integer = 72
         Dim Cantidad_Actual As Integer = 0
         ProgressBar.Value = 0
 
@@ -38,8 +38,12 @@ Public Class Actualizaciones
         Call PROFORMA_DET_TMP()
         Call PROFORMA_ENC()
         Call PROFORMA_DET()
+        Call INVENTARIO_ENC_TMP()
+        Call INVENTARIO_ENC()
+        Call INVENTARIO_DET_TMP()
+        Call INVENTARIO_DET()
 
-        Cantidad_Actual += 13
+        Cantidad_Actual += 17
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
         'CAMPOS EN TABLAS
@@ -56,8 +60,9 @@ Public Class Actualizaciones
         Call SUCURSAL_INDICADORES_CAMPOS()
         Call CLIENTE_PRECIO_DEFECTO()
         Call PRODUCTO_IMG_BARRA()
+        Call IND_IMAGEN_TIQUETE()
 
-        Cantidad_Actual += 13
+        Cantidad_Actual += 14
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
         'CONSTRAINTS
@@ -84,8 +89,10 @@ Public Class Actualizaciones
         Call TG_INGRESA_INVENTARIO_MOV_ENC()
         Call TG_INGRESA_INVENTARIO_MOV_DET()
         Call TG_INGRESA_DOCUMENTO_AFEC_DET_PRODUCTOS()
+        Call TG_INGRESA_INVENTARIO_MOV_ENC_INV()
+        Call TG_INGRESA_INVENTARIO_MOV_DET_INV()
 
-        Cantidad_Actual += 7
+        Cantidad_Actual += 9
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
         'PROCEDIMIENTOS
@@ -115,8 +122,10 @@ Public Class Actualizaciones
         Call USP_ImprimeFElectronica_V_4_3()
         Call USP_IMPORTA_PRODUCTO_CABYS()
         Call USP_DATOS_APARTADO_IMPRESION()
+        Call USP_INVENTARIO_TMP_A_REAL()
+        Call USP_COMPANIA_MANT()
 
-        Cantidad_Actual += 26
+        Cantidad_Actual += 28
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
     End Sub
 
@@ -686,6 +695,185 @@ Public Class Actualizaciones
         End Try
     End Sub
 
+    Private Sub INVENTARIO_ENC_TMP()
+        Try
+            If Not EXISTE_TABLA("INVENTARIO_ENC_TMP") Then
+
+                Dim SQL = "	CREATE TABLE [dbo].[INVENTARIO_ENC_TMP](																									"
+                SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,																								"
+                SQL &= Chr(13) & "		[COD_SUCUR] [varchar](3) NOT NULL,																								"
+                SQL &= Chr(13) & "		[CODIGO] [varchar](20) NOT NULL,																								"
+                SQL &= Chr(13) & "		[TIPO_MOV] [char](2) NOT NULL,																								"
+                SQL &= Chr(13) & "		[CEDULA] [varchar](25) NOT NULL,																								"
+                SQL &= Chr(13) & "		[FECHA] [datetime] NOT NULL,																								"
+                SQL &= Chr(13) & "		[FECHA_INC] [datetime] NOT NULL,																								"
+                SQL &= Chr(13) & "		[COD_USUARIO] [varchar](8) NOT NULL,																								"
+                SQL &= Chr(13) & "		[DESCRIPCION] [varchar](250) NOT NULL,																								"
+                SQL &= Chr(13) & "		[COD_MOV] [varchar](3) NOT NULL,																								"
+                SQL &= Chr(13) & "	 CONSTRAINT [PK_INVENTARIO_ENC_TMP] PRIMARY KEY CLUSTERED 																									"
+                SQL &= Chr(13) & "	(																									"
+                SQL &= Chr(13) & "		[COD_CIA] ASC,																								"
+                SQL &= Chr(13) & "		[COD_SUCUR] ASC,																								"
+                SQL &= Chr(13) & "		[CODIGO] ASC,																								"
+                SQL &= Chr(13) & "		[TIPO_MOV] ASC																								"
+                SQL &= Chr(13) & "	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]																									"
+                SQL &= Chr(13) & "	) ON [PRIMARY]																									"
+
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub INVENTARIO_ENC()
+        Try
+            If Not EXISTE_TABLA("INVENTARIO_ENC") Then
+
+                Dim SQL = "	CREATE TABLE [dbo].[INVENTARIO_ENC](																									"
+                SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,																								"
+                SQL &= Chr(13) & "		[COD_SUCUR] [varchar](3) NOT NULL,																								"
+                SQL &= Chr(13) & "		[NUMERO_DOC] [int] NOT NULL,																								"
+                SQL &= Chr(13) & "		[TIPO_MOV] [char](2) NOT NULL,																								"
+                SQL &= Chr(13) & "		[CEDULA] [varchar](25) NOT NULL,																								"
+                SQL &= Chr(13) & "		[FECHA] [datetime] NOT NULL,																								"
+                SQL &= Chr(13) & "		[FECHA_INC] [datetime] NOT NULL,																								"
+                SQL &= Chr(13) & "		[COD_USUARIO] [varchar](8) NOT NULL,																								"
+                SQL &= Chr(13) & "		[DESCRIPCION] [varchar](250) NOT NULL,																								"
+                SQL &= Chr(13) & "		[COD_MOV] [varchar](3) NOT NULL,																								"
+                SQL &= Chr(13) & "	 CONSTRAINT [PK_INVENTARIO_ENC] PRIMARY KEY CLUSTERED 																									"
+                SQL &= Chr(13) & "	(																									"
+                SQL &= Chr(13) & "		[COD_CIA] ASC,																								"
+                SQL &= Chr(13) & "		[COD_SUCUR] ASC,																								"
+                SQL &= Chr(13) & "		[NUMERO_DOC] ASC,																								"
+                SQL &= Chr(13) & "		[TIPO_MOV] ASC																								"
+                SQL &= Chr(13) & "	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]																									"
+                SQL &= Chr(13) & "	) ON [PRIMARY]																									"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[INVENTARIO_ENC]  WITH CHECK ADD  CONSTRAINT [FK_INVENTARIO_ENC_COMPANIA1] FOREIGN KEY([COD_CIA])																									"
+                SQL &= Chr(13) & "	REFERENCES [dbo].[COMPANIA] ([COD_CIA])																									"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[INVENTARIO_ENC] CHECK CONSTRAINT [FK_INVENTARIO_ENC_COMPANIA1]																									"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[INVENTARIO_ENC]  WITH CHECK ADD  CONSTRAINT [FK_INVENTARIO_ENC_SUCURSAL1] FOREIGN KEY([COD_CIA], [COD_SUCUR])																									"
+                SQL &= Chr(13) & "	REFERENCES [dbo].[SUCURSAL] ([COD_CIA], [COD_SUCUR])																									"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[INVENTARIO_ENC] CHECK CONSTRAINT [FK_INVENTARIO_ENC_SUCURSAL1]																									"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[INVENTARIO_ENC]  WITH CHECK ADD  CONSTRAINT [FK_INVENTARIO_ENC_USUARIO1] FOREIGN KEY([COD_USUARIO])																									"
+                SQL &= Chr(13) & "	REFERENCES [dbo].[USUARIO] ([COD_USUARIO])																									"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[INVENTARIO_ENC] CHECK CONSTRAINT [FK_INVENTARIO_ENC_USUARIO1]							"
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+
+                SQL = "	INSERT INTO INVENTARIO_COD_MOV "
+                SQL &= Chr(13) & "	SELECT 'EPA', 'Entrada por ajuste' "
+                SQL &= Chr(13) & "	UNION ALL "
+                SQL &= Chr(13) & "	SELECT 'SPA', 'Salida por ajuste' "
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub INVENTARIO_DET()
+        Try
+            If Not EXISTE_TABLA("INVENTARIO_DET") Then
+
+                Dim SQL = "	CREATE TABLE [dbo].[INVENTARIO_DET](																									"
+                SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,																								"
+                SQL &= Chr(13) & "		[COD_SUCUR] [varchar](3) NOT NULL,																								"
+                SQL &= Chr(13) & "		[NUMERO_DOC] [int] NOT NULL,																								"
+                SQL &= Chr(13) & "		[TIPO_MOV] [char](2) NOT NULL,																								"
+                SQL &= Chr(13) & "		[LINEA] [int] NOT NULL,																								"
+                SQL &= Chr(13) & "		[COD_PROD] [varchar](20) NOT NULL,																								"
+                SQL &= Chr(13) & "		[CANTIDAD] [money] NOT NULL,																								"
+                SQL &= Chr(13) & "		[ESTANTE] [varchar](3) NULL,																								"
+                SQL &= Chr(13) & "		[FILA] [varchar](3) NULL,																								"
+                SQL &= Chr(13) & "		[COLUMNA] [varchar](3) NULL,																								"
+                SQL &= Chr(13) & "	 CONSTRAINT [PK_INVENTARIO_DET] PRIMARY KEY CLUSTERED 																									"
+                SQL &= Chr(13) & "	(																									"
+                SQL &= Chr(13) & "		[COD_CIA] ASC,																								"
+                SQL &= Chr(13) & "		[COD_SUCUR] ASC,																								"
+                SQL &= Chr(13) & "		[NUMERO_DOC] ASC,																								"
+                SQL &= Chr(13) & "		[TIPO_MOV] ASC,																								"
+                SQL &= Chr(13) & "		[LINEA] ASC																								"
+                SQL &= Chr(13) & "	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]																									"
+                SQL &= Chr(13) & "	) ON [PRIMARY]																									"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[INVENTARIO_DET]  WITH CHECK ADD  CONSTRAINT [FK_INVENTARIO_DET_COMPANIA] FOREIGN KEY([COD_CIA])																									"
+                SQL &= Chr(13) & "	REFERENCES [dbo].[COMPANIA] ([COD_CIA])																									"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[INVENTARIO_DET] CHECK CONSTRAINT [FK_INVENTARIO_DET_COMPANIA]																									"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[INVENTARIO_DET]  WITH CHECK ADD  CONSTRAINT [FK_INVENTARIO_DET_DOCUMENTO_ENC] FOREIGN KEY([COD_CIA], [COD_SUCUR], [NUMERO_DOC], [TIPO_MOV])																									"
+                SQL &= Chr(13) & "	REFERENCES [dbo].[INVENTARIO_ENC] ([COD_CIA], [COD_SUCUR], [NUMERO_DOC], [TIPO_MOV])																									"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[INVENTARIO_DET] CHECK CONSTRAINT [FK_INVENTARIO_DET_DOCUMENTO_ENC]																									"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[INVENTARIO_DET]  WITH CHECK ADD  CONSTRAINT [FK_INVENTARIO_DET_PRODUCTO] FOREIGN KEY([COD_CIA], [COD_SUCUR], [COD_PROD])																									"
+                SQL &= Chr(13) & "	REFERENCES [dbo].[PRODUCTO] ([COD_CIA], [COD_SUCUR], [COD_PROD])																									"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[INVENTARIO_DET] CHECK CONSTRAINT [FK_INVENTARIO_DET_PRODUCTO]																									"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[INVENTARIO_DET]  WITH CHECK ADD  CONSTRAINT [FK_INVENTARIO_DET_SUCURSAL] FOREIGN KEY([COD_CIA], [COD_SUCUR])																									"
+                SQL &= Chr(13) & "	REFERENCES [dbo].[SUCURSAL] ([COD_CIA], [COD_SUCUR])																									"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[INVENTARIO_DET] CHECK CONSTRAINT [FK_INVENTARIO_DET_SUCURSAL]					"
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub INVENTARIO_DET_TMP()
+        Try
+            If Not EXISTE_TABLA("INVENTARIO_DET_TMP") Then
+
+                Dim SQL = "	CREATE TABLE [dbo].[INVENTARIO_DET_TMP](																									"
+                SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,																								"
+                SQL &= Chr(13) & "		[COD_SUCUR] [varchar](3) NOT NULL,																								"
+                SQL &= Chr(13) & "		[CODIGO] [varchar](20) NOT NULL,																								"
+                SQL &= Chr(13) & "		[TIPO_MOV] [char](2) NOT NULL,																								"
+                SQL &= Chr(13) & "		[LINEA] [int] NOT NULL,																								"
+                SQL &= Chr(13) & "		[COD_PROD] [varchar](20) NOT NULL,																								"
+                SQL &= Chr(13) & "		[CANTIDAD] [money] NOT NULL,																								"
+                SQL &= Chr(13) & "		[ESTANTE] [varchar](3) NULL,																								"
+                SQL &= Chr(13) & "		[FILA] [varchar](3) NULL,																								"
+                SQL &= Chr(13) & "		[COLUMNA] [varchar](3) NULL,																								"
+                SQL &= Chr(13) & "	 CONSTRAINT [PK_INVENTARIO_DET_TMP] PRIMARY KEY CLUSTERED 																									"
+                SQL &= Chr(13) & "	(																									"
+                SQL &= Chr(13) & "		[COD_CIA] ASC,																								"
+                SQL &= Chr(13) & "		[COD_SUCUR] ASC,																								"
+                SQL &= Chr(13) & "		[CODIGO] ASC,																								"
+                SQL &= Chr(13) & "		[TIPO_MOV] ASC,																								"
+                SQL &= Chr(13) & "		[LINEA] ASC																								"
+                SQL &= Chr(13) & "	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]																									"
+                SQL &= Chr(13) & "	) ON [PRIMARY]																									"
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
 #End Region
 
 #Region "Constraints"
@@ -946,6 +1134,74 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "          AND PROD.COD_SUCUR = I.COD_SUCUR"
                 SQL &= Chr(13) & "			AND PROD.COD_PROD = I.COD_PROD																				"
                 SQL &= Chr(13) & "	END																						"
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub TG_INGRESA_INVENTARIO_MOV_ENC_INV()
+        Try
+            If Not EXISTE_TRIGGER("TG_INGRESA_INVENTARIO_MOV_ENC_INV", "2020-12-20") Then
+                ELIMINA_TRIGGER("TG_INGRESA_INVENTARIO_MOV_ENC_INV")
+
+                Dim SQL = "	CREATE TRIGGER [dbo].[TG_INGRESA_INVENTARIO_MOV_ENC_INV] 																									"
+                SQL &= Chr(13) & "		   ON  [dbo].[INVENTARIO_ENC] 																								"
+                SQL &= Chr(13) & "		   AFTER INSERT																								"
+                SQL &= Chr(13) & "		AS 																								"
+                SQL &= Chr(13) & "		BEGIN																								"
+                SQL &= Chr(13) & "			SET NOCOUNT ON;																							"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "			DECLARE @COD_MOV VARCHAR(3)																							"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "			SELECT  @COD_MOV = COD_MOV																							"
+                SQL &= Chr(13) & "			FROM inserted																							"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "			INSERT INTO INVENTARIO_MOV(COD_CIA,COD_SUCUR,COD_MOV,CEDULA,TIPO_MOV,NUMERO_DOC,COD_USUARIO,FECHA_INC,SISTEMA)																							"
+                SQL &= Chr(13) & "			SELECT COD_CIA, COD_SUCUR, @COD_MOV , CEDULA, TIPO_MOV, NUMERO_DOC, COD_USUARIO, FECHA_INC, 'INV'																							"
+                SQL &= Chr(13) & "			FROM inserted 																							"
+                SQL &= Chr(13) & "			WHERE TIPO_MOV IN ('IN')																							"
+                SQL &= Chr(13) & "		END																								"
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub TG_INGRESA_INVENTARIO_MOV_DET_INV()
+        Try
+            If Not EXISTE_TRIGGER("TG_INGRESA_INVENTARIO_MOV_DET_INV", "2020-12-20") Then
+                ELIMINA_TRIGGER("TG_INGRESA_INVENTARIO_MOV_DET_INV")
+
+                Dim SQL = "	CREATE TRIGGER [dbo].[TG_INGRESA_INVENTARIO_MOV_DET_INV] 																									"
+                SQL &= Chr(13) & "		   ON  [dbo].[INVENTARIO_DET] 																								"
+                SQL &= Chr(13) & "		   AFTER INSERT																								"
+                SQL &= Chr(13) & "		AS 																								"
+                SQL &= Chr(13) & "		BEGIN																								"
+                SQL &= Chr(13) & "			SET NOCOUNT ON;																							"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "			INSERT INTO INVENTARIO_MOV_DET(COD_CIA,COD_SUCUR,NUMERO_MOV,COD_MOV,LINEA,COD_PROD,CANTIDAD,COSTO,COSTO_ANT,ESTANTE,FILA,COLUMNA,SISTEMA)																							"
+                SQL &= Chr(13) & "			SELECT I.COD_CIA, I.COD_SUCUR, MOV.NUMERO_MOV, MOV.COD_MOV, I.LINEA, I.COD_PROD, I.CANTIDAD * CASE SUBSTRING(MOV.COD_MOV,1,1) WHEN  'S' THEN -1 ELSE 1 END, PROD.COSTO, PROD.COSTO, I.ESTANTE, I.FILA, I.COLUMNA,'INV'																							"
+                SQL &= Chr(13) & "			FROM inserted AS I																							"
+                SQL &= Chr(13) & "			INNER JOIN INVENTARIO_MOV AS MOV																							"
+                SQL &= Chr(13) & "				ON MOV.COD_CIA = I.COD_CIA																						"
+                SQL &= Chr(13) & "				AND MOV.COD_SUCUR = I.COD_SUCUR																						"
+                SQL &= Chr(13) & "				AND MOV.NUMERO_DOC = I.NUMERO_DOC																						"
+                SQL &= Chr(13) & "				AND MOV.TIPO_MOV = I.TIPO_MOV																						"
+                SQL &= Chr(13) & "				AND MOV.SISTEMA = 'INV'																						"
+                SQL &= Chr(13) & "			INNER JOIN PRODUCTO AS PROD																							"
+                SQL &= Chr(13) & "				ON PROD.COD_CIA = I.COD_CIA																						"
+                SQL &= Chr(13) & "				AND PROD.COD_SUCUR = I.COD_SUCUR																						"
+                SQL &= Chr(13) & "				AND PROD.COD_PROD = I.COD_PROD																						"
+                SQL &= Chr(13) & "		END																								"
+
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
@@ -1350,6 +1606,23 @@ Public Class Actualizaciones
 
                 Dim SQL = "	ALTER TABLE PRODUCTO "
                 SQL &= Chr(13) & "	ADD IMG_BARRA IMAGE NULL "
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub IND_IMAGEN_TIQUETE()
+        Try
+            If Not EXISTE_CAMPO("IND_IMAGEN_TIQUETE", "COMPANIA") Then
+
+                Dim SQL = "	ALTER TABLE COMPANIA "
+                SQL &= Chr(13) & "	ADD IND_IMAGEN_TIQUETE CHAR(1) "
 
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
@@ -3486,7 +3759,7 @@ Public Class Actualizaciones
 
     Private Sub USP_ImprimeFElectronica_V_4_3()
         Try
-            If Not EXISTE_PROCEDIMIENTO("USP_ImprimeFElectronica_V_4_3", "2020-12-03") Then
+            If Not EXISTE_PROCEDIMIENTO("USP_ImprimeFElectronica_V_4_3", "2020-12-20") Then
                 ELIMINA_PROCEDIMIENTO("USP_ImprimeFElectronica_V_4_3")
 
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_ImprimeFElectronica_V_4_3](																																"
@@ -3738,6 +4011,7 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "									LEFT JOIN CLIENTE_EXONERACION AS EXO 																								"
                 SQL &= Chr(13) & "										ON EXO.COD_CIA = DOC.COD_CIA																							"
                 SQL &= Chr(13) & "										AND EXO.CEDULA = DOC.CEDULA																							"
+                SQL &= Chr(13) & "                                      AND EXO.ESTADO = 'A'"
                 SQL &= Chr(13) & "								 	WHERE DOC.COD_CIA = @COD_CIA																								"
                 SQL &= Chr(13) & "								 	AND DOC.TIPO_MOV = @TIPO_MOV																								"
                 SQL &= Chr(13) & "									AND DOC.COD_SUCUR = @COD_SUCUR																								"
@@ -3803,9 +4077,9 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "								LEFT JOIN IMPUESTO AS IMP																									"
                 SQL &= Chr(13) & "									ON IMP.COD_IMPUESTO=PROD.COD_IMPUESTO_DGTD		  																						"
                 SQL &= Chr(13) & "								WHERE DOC.COD_CIA=@COD_CIA																									"
-                SQL &= Chr(13) & "									AND DOC.COD_SUCUR = @COD_SUCUR																								"
-                SQL &= Chr(13) & "									AND DOC.NUMERO_DOC=@NUMERO_DOC																								"
-                SQL &= Chr(13) & "									AND DOC.TIPO_MOV=@TIPO_MOV																								"
+                SQL &= Chr(13) & "								AND DOC.COD_SUCUR = @COD_SUCUR																								"
+                SQL &= Chr(13) & "								AND DOC.NUMERO_DOC=@NUMERO_DOC																								"
+                SQL &= Chr(13) & "								AND DOC.TIPO_MOV=@TIPO_MOV																								"
                 SQL &= Chr(13) & "								END																									"
                 SQL &= Chr(13) & "								ELSE																									"
                 SQL &= Chr(13) & "								BEGIN																									"
@@ -4057,6 +4331,172 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "				AND GUIA.COD_SUCUR = @COD_SUCUR																						"
                 SQL &= Chr(13) & "				AND GUIA.TIPO_MOV = @TIPO_MOV																						"
                 SQL &= Chr(13) & "				AND GUIA.NUMERO_DOC = @NUMERO_DOC																						"
+                SQL &= Chr(13) & "		END																								"
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub USP_INVENTARIO_TMP_A_REAL()
+        Try
+            If Not EXISTE_PROCEDIMIENTO("USP_INVENTARIO_TMP_A_REAL", "2020-12-20") Then
+                ELIMINA_PROCEDIMIENTO("USP_INVENTARIO_TMP_A_REAL")
+
+                Dim SQL = "	CREATE PROCEDURE [dbo].[USP_INVENTARIO_TMP_A_REAL] 																									"
+                SQL &= Chr(13) & "		 @COD_CIA VARCHAR(3)																								"
+                SQL &= Chr(13) & "		,@COD_SUCUR VARCHAR(3)																								"
+                SQL &= Chr(13) & "		,@TIPO_MOV VARCHAR(2)																								"
+                SQL &= Chr(13) & "		,@CODIGO VARCHAR(20)																								"
+                SQL &= Chr(13) & "		AS																								"
+                SQL &= Chr(13) & "		BEGIN																								"
+                SQL &= Chr(13) & "			SET NOCOUNT ON;																							"
+                SQL &= Chr(13) & "			BEGIN TRY																							"
+                SQL &= Chr(13) & "			BEGIN TRAN TR_INVENTARIO_TMP_A_REAL																							"
+                SQL &= Chr(13) & "			DECLARE @NUMERO_DOC INTEGER																							"
+                SQL &= Chr(13) & "			DECLARE @FECHA_DOC AS DATETIME																							"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "			IF NOT EXISTS(SELECT TMP.*																							"
+                SQL &= Chr(13) & "				FROM INVENTARIO_ENC_TMP AS TMP																						"
+                SQL &= Chr(13) & "				INNER JOIN INVENTARIO_DET_TMP AS DET	 																					"
+                SQL &= Chr(13) & "		            ON DET.COD_CIA = TMP.COD_CIA 																								"
+                SQL &= Chr(13) & "		            AND DET.COD_SUCUR = TMP.COD_SUCUR 																								"
+                SQL &= Chr(13) & "		            AND DET.CODIGO = TMP.CODIGO 																								"
+                SQL &= Chr(13) & "		            AND DET.TIPO_MOV = TMP.TIPO_MOV																								"
+                SQL &= Chr(13) & "				WHERE TMP.COD_CIA = @COD_CIA																						"
+                SQL &= Chr(13) & "				AND TMP.COD_SUCUR = @COD_SUCUR																						"
+                SQL &= Chr(13) & "				AND TMP.TIPO_MOV = 	@TIPO_MOV																					"
+                SQL &= Chr(13) & "				AND TMP.CODIGO = @CODIGO)																						"
+                SQL &= Chr(13) & "				BEGIN																						"
+                SQL &= Chr(13) & "					RAISERROR('El código de inventario no existe en los temporales', 17, 1)																					"
+                SQL &= Chr(13) & "				END																						"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "				SELECT @NUMERO_DOC =  ISNULL(MAX(NUMERO_DOC), 0) + 1 																						"
+                SQL &= Chr(13) & "				FROM INVENTARIO_ENC																						"
+                SQL &= Chr(13) & "				WHERE COD_CIA = @COD_CIA																						"
+                SQL &= Chr(13) & "				AND COD_SUCUR = @COD_SUCUR																						"
+                SQL &= Chr(13) & "				AND TIPO_MOV = @TIPO_MOV																						"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "				IF @TIPO_MOV = 'IN'																						"
+                SQL &= Chr(13) & "				BEGIN																						"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "				/*INGRESA EL ENCABEZADO*/																						"
+                SQL &= Chr(13) & "				INSERT INTO INVENTARIO_ENC(COD_CIA,COD_SUCUR,NUMERO_DOC,TIPO_MOV,CEDULA,FECHA,FECHA_INC,COD_USUARIO,DESCRIPCION,COD_MOV)																						"
+                SQL &= Chr(13) & "				SELECT COD_CIA,COD_SUCUR,@NUMERO_DOC,TIPO_MOV,CEDULA,FECHA,FECHA_INC,COD_USUARIO,DESCRIPCION,COD_MOV																						"
+                SQL &= Chr(13) & "				FROM INVENTARIO_ENC_TMP																						"
+                SQL &= Chr(13) & "				WHERE COD_CIA = @COD_CIA																						"
+                SQL &= Chr(13) & "				AND COD_SUCUR = @COD_SUCUR																						"
+                SQL &= Chr(13) & "				AND TIPO_MOV = 	@TIPO_MOV																					"
+                SQL &= Chr(13) & "				AND CODIGO = @CODIGO																						"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "				/*INGRESA EL DETALLE*/																						"
+                SQL &= Chr(13) & "				INSERT INTO INVENTARIO_DET(COD_CIA,COD_SUCUR,NUMERO_DOC,TIPO_MOV,LINEA,COD_PROD,CANTIDAD,ESTANTE,FILA,COLUMNA)																						"
+                SQL &= Chr(13) & "				SELECT COD_CIA,COD_SUCUR,@NUMERO_DOC,TIPO_MOV,LINEA,COD_PROD,CANTIDAD,ESTANTE,FILA,COLUMNA																						"
+                SQL &= Chr(13) & "				FROM INVENTARIO_DET_TMP																						"
+                SQL &= Chr(13) & "				WHERE COD_CIA = @COD_CIA																						"
+                SQL &= Chr(13) & "				AND COD_SUCUR = @COD_SUCUR																						"
+                SQL &= Chr(13) & "				AND TIPO_MOV = 	@TIPO_MOV																					"
+                SQL &= Chr(13) & "				AND CODIGO = @CODIGO																						"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "				DELETE FROM INVENTARIO_ENC_TMP WHERE CODIGO = @CODIGO																						"
+                SQL &= Chr(13) & "		        DELETE FROM INVENTARIO_DET_TMP WHERE CODIGO = @CODIGO																								"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "				SELECT @NUMERO_DOC AS Documento 																						"
+                SQL &= Chr(13) & "				END																						"
+                SQL &= Chr(13) & "			COMMIT TRAN TR_INVENTARIO_TMP_A_REAL																							"
+                SQL &= Chr(13) & "			END TRY																							"
+                SQL &= Chr(13) & "			BEGIN CATCH 																							"
+                SQL &= Chr(13) & "		 		ROLLBACK TRAN																						"
+                SQL &= Chr(13) & "		 		DECLARE @MENSAJE VARCHAR(500)																						"
+                SQL &= Chr(13) & "		 		SET @MENSAJE =( SELECT ERROR_MESSAGE())																						"
+                SQL &= Chr(13) & "		 		RAISERROR( @MENSAJE, 16, 1)																						"
+                SQL &= Chr(13) & "			END CATCH																							"
+                SQL &= Chr(13) & "		END																								"
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub USP_COMPANIA_MANT()
+        Try
+            If Not EXISTE_PROCEDIMIENTO("USP_COMPANIA_MANT", "2020-12-20") Then
+                ELIMINA_PROCEDIMIENTO("USP_COMPANIA_MANT")
+
+                Dim SQL = "	CREATE PROCEDURE [dbo].[USP_COMPANIA_MANT] 																									"
+                SQL &= Chr(13) & "		    @COD_CIA VARCHAR(3),																								"
+                SQL &= Chr(13) & "			@MODO INTEGER,																							"
+                SQL &= Chr(13) & "			@NOMBRE VARCHAR(100) = NULL,																							"
+                SQL &= Chr(13) & "			@CEDULA VARCHAR(25) = NULL,																							"
+                SQL &= Chr(13) & "			@TIPO_CEDULA CHAR(2) = NULL,																							"
+                SQL &= Chr(13) & "			@CORREO VARCHAR(150) = NULL,																							"
+                SQL &= Chr(13) & "			@PROVINCIA VARCHAR(100) = NULL,																							"
+                SQL &= Chr(13) & "			@CANTON VARCHAR(100) = NULL,																							"
+                SQL &= Chr(13) & "			@DISTRITO VARCHAR(100) = NULL,																							"
+                SQL &= Chr(13) & "			@ESTADO CHAR(1) = NULL,																							"
+                SQL &= Chr(13) & "			@COD_PROVINCIA VARCHAR(10) = NULL,																							"
+                SQL &= Chr(13) & "			@COD_DISTRITO VARCHAR(10) = NULL,																							"
+                SQL &= Chr(13) & "			@COD_CANTON VARCHAR(10) = NULL,																							"
+                SQL &= Chr(13) & "			@FE CHAR(1) = NULL,																							"
+                SQL &= Chr(13) & "			@USUARIO_ATV VARCHAR(100) = NULL,																							"
+                SQL &= Chr(13) & "			@CLAVE_ATV VARCHAR(100) = NULL,																							"
+                SQL &= Chr(13) & "			@DIRECCION VARCHAR(255) = NULL,																							"
+                SQL &= Chr(13) & "			@LINK_FT VARCHAR(255) = NULL,																							"
+                SQL &= Chr(13) & "			@LINK_CONSULTAS VARCHAR(255) = NULL,																							"
+                SQL &= Chr(13) & "			@IND_TIPO_DGTD CHAR(1) = NULL,																							"
+                SQL &= Chr(13) & "			@IND_ENCOMIENDA CHAR(1) = NULL,																							"
+                SQL &= Chr(13) & "			@IND_IMAGEN_TIQUETE CHAR(1) = NULL																							"
+                SQL &= Chr(13) & "		AS   																								"
+                SQL &= Chr(13) & "		BEGIN																								"
+                SQL &= Chr(13) & "			IF @MODO = 1																							"
+                SQL &= Chr(13) & "			BEGIN																							"
+                SQL &= Chr(13) & "				INSERT INTO COMPANIA(COD_CIA,NOMBRE,CEDULA,TIPO_CEDULA,CORREO,DIRECCION,COD_PROVINCIA,PROVINCIA,COD_CANTON,CANTON,COD_DISTRITO,DISTRITO,ESTADO,FECHA_INC,FE,USUARIO_ATV,CLAVE_ATV,LINK_FT,LINK_CONSULTAS,IND_TIPO_DGTD,IND_ENCOMIENDA,IND_IMAGEN_TIQUETE) VALUES																						"
+                SQL &= Chr(13) & "				(@COD_CIA,@NOMBRE,@CEDULA,@TIPO_CEDULA,@CORREO,@DIRECCION,@COD_PROVINCIA,@PROVINCIA,@COD_CANTON,@CANTON,@COD_DISTRITO,@DISTRITO,@ESTADO,GETDATE(),@FE,@USUARIO_ATV,@CLAVE_ATV,@LINK_FT,@LINK_CONSULTAS,@IND_TIPO_DGTD,@IND_ENCOMIENDA,@IND_IMAGEN_TIQUETE)																						"
+                SQL &= Chr(13) & "			END																							"
+                SQL &= Chr(13) & "			IF @MODO = 3																							"
+                SQL &= Chr(13) & "			BEGIN																							"
+                SQL &= Chr(13) & "				UPDATE COMPANIA SET																						"
+                SQL &= Chr(13) & "					NOMBRE = @NOMBRE,																					"
+                SQL &= Chr(13) & "					CEDULA = @CEDULA,																					"
+                SQL &= Chr(13) & "					TIPO_CEDULA = @TIPO_CEDULA,																					"
+                SQL &= Chr(13) & "					CORREO = @CORREO,																					"
+                SQL &= Chr(13) & "					COD_PROVINCIA = @COD_PROVINCIA,																					"
+                SQL &= Chr(13) & "					PROVINCIA = @PROVINCIA,																					"
+                SQL &= Chr(13) & "					COD_CANTON = @COD_CANTON,																					"
+                SQL &= Chr(13) & "					CANTON = @CANTON,																					"
+                SQL &= Chr(13) & "					COD_DISTRITO = @COD_DISTRITO,																					"
+                SQL &= Chr(13) & "					DISTRITO = @DISTRITO,																					"
+                SQL &= Chr(13) & "					ESTADO = @ESTADO,																					"
+                SQL &= Chr(13) & "					USUARIO_ATV = @USUARIO_ATV,																					"
+                SQL &= Chr(13) & "					CLAVE_ATV = @CLAVE_ATV,																					"
+                SQL &= Chr(13) & "					DIRECCION = @DIRECCION,																					"
+                SQL &= Chr(13) & "					LINK_FT = @LINK_FT,																					"
+                SQL &= Chr(13) & "					LINK_CONSULTAS = @LINK_CONSULTAS,																					"
+                SQL &= Chr(13) & "					IND_TIPO_DGTD = @IND_TIPO_DGTD,																					"
+                SQL &= Chr(13) & "					IND_ENCOMIENDA = @IND_ENCOMIENDA,																					"
+                SQL &= Chr(13) & "					IND_IMAGEN_TIQUETE = @IND_IMAGEN_TIQUETE																					"
+                SQL &= Chr(13) & "				WHERE COD_CIA = @COD_CIA																						"
+                SQL &= Chr(13) & "			END																							"
+                SQL &= Chr(13) & "			IF @MODO = 5																							"
+                SQL &= Chr(13) & "			BEGIN																							"
+                SQL &= Chr(13) & "				SELECT COD_CIA,NOMBRE,CEDULA,TIPO_CEDULA,CORREO,ISNULL(DIRECCION,'') AS DIRECCION,COD_PROVINCIA,PROVINCIA,COD_CANTON,CANTON,COD_DISTRITO,DISTRITO,ESTADO,FE,																						"
+                SQL &= Chr(13) & "				ISNULL(PIN,'') AS PIN,																						"
+                SQL &= Chr(13) & "				ISNULL(USUARIO_ATV,'') AS USUARIO_ATV,																						"
+                SQL &= Chr(13) & "				ISNULL(CLAVE_ATV,'') AS CLAVE_ATV,																						"
+                SQL &= Chr(13) & "				ISNULL(IND_TIPO_DGTD,'') AS IND_TIPO_DGTD,																						"
+                SQL &= Chr(13) & "				ISNULL(IND_ENCOMIENDA,'') AS IND_ENCOMIENDA,																						"
+                SQL &= Chr(13) & "				ISNULL(IND_IMAGEN_TIQUETE,'') AS IND_IMAGEN_TIQUETE																						"
+                SQL &= Chr(13) & "				FROM COMPANIA																						"
+                SQL &= Chr(13) & "				WHERE COD_CIA = @COD_CIA																						"
+                SQL &= Chr(13) & "			END																							"
                 SQL &= Chr(13) & "		END																								"
 
                 CONX.Coneccion_Abrir()

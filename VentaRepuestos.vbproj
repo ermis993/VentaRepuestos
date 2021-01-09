@@ -364,6 +364,12 @@
     <Compile Include="Pantallas\Movimientos\Inventario\Inventario.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pantallas\Movimientos\Inventario\Tracking.Designer.vb">
+      <DependentUpon>Tracking.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Inventario\Tracking.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pantallas\OlvidoContrasena.Designer.vb">
       <DependentUpon>OlvidoContrasena.vb</DependentUpon>
     </Compile>
@@ -639,6 +645,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Movimientos\Inventario\Inventario.resx">
       <DependentUpon>Inventario.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Inventario\Tracking.resx">
+      <DependentUpon>Tracking.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\OlvidoContrasena.resx">
       <DependentUpon>OlvidoContrasena.vb</DependentUpon>

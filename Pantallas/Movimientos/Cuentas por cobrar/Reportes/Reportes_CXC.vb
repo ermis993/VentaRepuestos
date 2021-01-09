@@ -24,6 +24,7 @@ Public Class Reportes_CXC
         Try
             Dim rootNode = TV_REPORTES.Nodes.Add("Reportes")
             rootNode.Nodes.Add("VDIA", "01. Reporte de ventas (impresión tiquete)")
+            rootNode.Nodes.Add("DSAL", "02. Reporte de facturas de crédito con saldo")
             TV_REPORTES.ExpandAll()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -49,6 +50,8 @@ Public Class Reportes_CXC
                     Case "VDIA"
                         Dim imp As New Impresion()
                         imp.ImprimirVenta(COD_CIA, COD_SUCUR, DTP_INICIO.Value, DTP_FINAL.Value)
+                    Case "DSAL"
+
                 End Select
                 Cursor.Current = Cursors.Default
             Else

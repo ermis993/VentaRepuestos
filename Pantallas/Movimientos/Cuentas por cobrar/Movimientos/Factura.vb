@@ -77,7 +77,6 @@ Public Class Factura
             CMB_FORMAPAGO.SelectedIndex = 0
             CMB_MONEDA.SelectedIndex = 0
         ElseIf Me.Modo = CRF_Modos.Modificar Then
-
             Me.Codigo = CODIGO
             Me.Numero_Doc = Val(NUMERO_DOC)
             BloqueaControles()

@@ -762,6 +762,8 @@ Public Class NotaCredito
                 TabProducto = TabControl1.TabPages(3)
                 EscondeTab(TabProducto, False)
 
+                LBL_ACTUALIZAR_FP.Visible = IIf(MODO_USAR = CRF_Modos.Seleccionar And TieneDerecho("DACTFP") And TIPO_MOV_P = "RB", True, False)
+
                 TXT_NUMERO.Text = NUMERO_DOC_P
                 RELLENA_DATOS()
                 RellenaFacturasAfec()
@@ -770,6 +772,32 @@ Public Class NotaCredito
             End If
 
             BloqueaControles()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub LBL_ACTUALIZAR_FP_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LBL_ACTUALIZAR_FP.LinkClicked
+        Try
+            Dim mensaje As String = ""
+            mensaje &= "¿Seguro que desea modificar la forma de pago del documento # " & Val(TXT_NUMERO.Text) & " ?" & vbNewLine
+            mensaje &= "Si realiza este proceso, la nueva forma de pago seria: " & CMB_FORMAPAGO.Text
+
+            Dim valor = MessageBox.Show(Me, mensaje, "Actualizar Forma de pago", vbYesNo, MessageBoxIcon.Question)
+            If valor = DialogResult.Yes Then
+                Dim Sql = " UPDATE DOCUMENTO_ENC"
+                Sql &= Chr(13) & " SET FORMA_PAGO = " & SCM(CMB_FORMAPAGO.SelectedItem.ToString.Substring(0, 2))
+                Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+                Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+                Sql &= Chr(13) & "	AND NUMERO_DOC = " & Val(TXT_NUMERO.Text)
+                Sql &= Chr(13) & "	AND TIPO_MOV = " & SCM(CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(Sql)
+                CONX.Coneccion_Cerrar()
+
+                MessageBox.Show(Me, "Forma de pago actualizada correctamente", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

@@ -368,7 +368,7 @@ Public Class Facturacion
         Try
             Leer_indice()
             Dim SELECCIONADO = CMB_VER.SelectedItem.ToString.Substring(0, 1)
-            If SELECCIONADO = "F" Or SELECCIONADO = "N" Then
+            If SELECCIONADO = "F" Or SELECCIONADO = "N" Or SELECCIONADO = "R" Then
                 If Tipo_Mov = "FA" Or Tipo_Mov = "FC" Then
                     Dim PANTALLA As New Factura(CRF_Modos.Modificar, Me, Numero_Doc, Codigo, Tipo_Mov)
                     PANTALLA.ShowDialog()

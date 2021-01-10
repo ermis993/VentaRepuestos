@@ -82,7 +82,8 @@ Public Class Inventario
 
     Private Sub BTN_TRACKING_Click(sender As Object, e As EventArgs) Handles BTN_TRACKING.Click
         Try
-            MessageBox.Show("Próximamente disponible", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Dim PANTALLA As New Tracking()
+            PANTALLA.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

@@ -495,7 +495,7 @@ Public Class CXP_Factura
         End Try
     End Sub
 
-    Private Sub Busca_Producto()
+    Private Sub Busca_Producto(ByVal Producto_Unico As Boolean)
         Try
             LVResultados.Clear()
             LVResultados.Columns.Add("", 318)
@@ -509,7 +509,11 @@ Public Class CXP_Factura
                 Sql &= Chr(13) & " 	    AND REL.COD_PROD_PADRE = PROD.COD_PROD"
                 Sql &= Chr(13) & "	WHERE PROD.COD_CIA = " & SCM(COD_CIA)
                 Sql &= Chr(13) & "	AND PROD.COD_SUCUR = " & SCM(COD_SUCUR)
-                Sql &= Chr(13) & "	AND (DESCRIPCION LIKE " & SCM("%" + TXT_CODIGO.Text + "%") & " Or COD_PROD = " & SCM(TXT_CODIGO.Text) & " Or COD_BARRA = " & SCM(TXT_CODIGO.Text) & " Or REL.COD_PROD_HIJO = " & SCM(TXT_CODIGO.Text) & ")"
+                If Producto_Unico Then
+                    Sql &= Chr(13) & " AND COD_PROD = " & SCM(TXT_CODIGO.Text)
+                Else
+                    Sql &= Chr(13) & " AND (DESCRIPCION Like " & SCM("%" + TXT_CODIGO.Text + "%") & " Or COD_PROD = " & SCM(TXT_CODIGO.Text) & " Or COD_BARRA = " & SCM(TXT_CODIGO.Text) & " Or REL.COD_PROD_HIJO = " & SCM(TXT_CODIGO.Text) & ")"
+                End If
                 Sql &= Chr(13) & "	AND PROD.CEDULA = " & SCM(Cliente.VALOR)
                 Sql &= Chr(13) & "	AND PROD.ESTADO = 'A'"
                 Sql &= Chr(13) & "  GROUP BY COD_PROD, DESCRIPCION "
@@ -561,7 +565,7 @@ Public Class CXP_Factura
     Private Sub Proceso(ByVal codigo As String, ByVal estante As String, ByVal fila As String, ByVal columna As String)
         TXT_CODIGO.Text = codigo
         RellenaProducto(estante, fila, columna)
-        Busca_Producto()
+        Busca_Producto(True)
         TXT_CANTIDAD.Focus()
     End Sub
 
@@ -721,7 +725,7 @@ Public Class CXP_Factura
 
     Private Sub TXT_CODIGO_KeyDown(sender As Object, e As KeyEventArgs) Handles TXT_CODIGO.KeyDown
         If e.KeyCode = Keys.Enter Then
-            Busca_Producto()
+            Busca_Producto(False)
             e.Handled = True
             e.SuppressKeyPress = True
         End If

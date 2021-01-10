@@ -49,8 +49,6 @@ Public Class Reportes_Productos
     Private Sub BTN_GENERAR_Click(sender As Object, e As EventArgs) Handles BTN_GENERAR.Click
         Try
             Dim Nodo_Seleccionado As TreeNode = TV_REPORTES.SelectedNode
-            PB_CARGA.Visible = True
-
             If Nodo_Seleccionado IsNot Nothing Then
                 Cursor.Current = Cursors.WaitCursor
                 Select Case Nodo_Seleccionado.Name
@@ -72,9 +70,6 @@ Public Class Reportes_Productos
             Else
                 MessageBox.Show(Me, "Se debe seleccionar el reporte a generar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
-
-            PB_CARGA.Visible = False
-
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

@@ -688,6 +688,13 @@ Public Class Globales
 
     Public Shared Function EXPORTAR_EXCEL(ByVal Datos As DataSet, ByVal Nombre_Reporte As String, ByRef ProgressBar As ProgressBar) As Boolean
 
+        Nombre_Reporte = Nombre_Reporte.Replace("(", "")
+        Nombre_Reporte = Nombre_Reporte.Replace(")", "")
+        Nombre_Reporte = Nombre_Reporte.Replace(" ", "_")
+        Nombre_Reporte = Nombre_Reporte.Replace("/", "")
+        Nombre_Reporte = Nombre_Reporte.Replace("\", "")
+        Nombre_Reporte = Nombre_Reporte.Replace("-", "")
+
         ProgressBar.Value = 15
 
         Dim f As FolderBrowserDialog = New FolderBrowserDialog

@@ -86,6 +86,9 @@ Public Class SucursalMant
                 SQL &= Chr(13) & ",@IND_AVISO_MIN_STOCK=" & SCM(IIf(CHK_AVISO_STOCK.Checked, "S", "N"))
                 SQL &= Chr(13) & ",@IND_RECIBO_AUTOMATICO=" & SCM(IIf(CHK_RECIBO.Checked, "S", "N"))
                 SQL &= Chr(13) & ",@IND_MENSAJE_FACTURACION=" & SCM(IIf(CHK_MENSAJE_FACTURA.Checked, "S", "N"))
+                SQL &= Chr(13) & ",@IND_AUTOCOMPLETAR_CLIENTE=" & SCM(IIf(CHK_COMPLETAR_CLIENTE.Checked, "S", "N"))
+                SQL &= Chr(13) & ",@IND_INGRESO_AUTO=" & SCM(IIf(CHK_INGRESO_AUTO.Checked, "S", "N"))
+                SQL &= Chr(13) & ",@IND_SUMAR_CANTIDADES=" & SCM(IIf(CHK_SUMAR_CANTIDADES.Checked, "S", "N"))
                 SQL &= Chr(13) & ",@MODO=" & Val(Me.MODO)
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
@@ -162,6 +165,9 @@ Public Class SucursalMant
                     CHK_AVISO_STOCK.Checked = IIf(ITEM("IND_AVISO_MIN_STOCK") = "S", True, False)
                     CHK_MENSAJE_FACTURA.Checked = IIf(ITEM("IND_MENSAJE_FACTURACION") = "S", True, False)
                     CHK_RECIBO.Checked = IIf(ITEM("IND_RECIBO_AUTOMATICO") = "S", True, False)
+                    CHK_COMPLETAR_CLIENTE.Checked = IIf(ITEM("IND_AUTOCOMPLETAR_CLIENTE") = "S", True, False)
+                    CHK_INGRESO_AUTO.Checked = IIf(ITEM("IND_INGRESO_AUTO") = "S", True, False)
+                    CHK_SUMAR_CANTIDADES.Checked = IIf(ITEM("IND_SUMAR_CANTIDADES") = "S", True, False)
                 Next
             End If
         Catch ex As Exception

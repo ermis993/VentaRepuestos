@@ -378,6 +378,7 @@ Public Class Factura
                     SQL &= Chr(13) & "	,@ESTANTE = " & SCM(TXT_ESTANTE.Text)
                     SQL &= Chr(13) & "	,@FILA = " & SCM(TXT_FILA.Text)
                     SQL &= Chr(13) & "	,@COLUMNA = " & SCM(TXT_COLUMNA.Text)
+                    SQL &= Chr(13) & "	,@IND_SUMAR_CANTIDAD = " & SCM(IND_SUMAR_CANTIDADES)
                     SQL &= Chr(13) & "	,@MODO =" & Val(Modo)
 
                     CONX.Coneccion_Abrir()
@@ -584,7 +585,7 @@ Public Class Factura
         Cerrar()
     End Sub
 
-    Private Sub Busca_Producto()
+    Private Sub Busca_Producto(ByVal presiono_enter As Boolean)
         Try
             LVResultados.Clear()
             LVResultados.Columns.Add("", 318)
@@ -615,6 +616,15 @@ Public Class Factura
                         }
                         LVResultados.Items.Add(LVI)
                     Next
+
+                    If LVResultados.Items.Count = 1 And presiono_enter And IND_INGRESO_AUTO = "S" Then
+                        DobleClickList()
+                        TXT_CANTIDAD.Text = "1"
+                        CalculoTotales()
+                        IngresarDetalle()
+                        TXT_CODIGO.Select()
+                    End If
+
                 End If
             End If
         Catch ex As Exception
@@ -626,6 +636,29 @@ Public Class Factura
         Try
             Dim Codigo = LVResultados.SelectedItems(0).Name
             Dim Descripcion = LVResultados.SelectedItems(0).Text
+
+            If Not IsNothing(Codigo) Then
+
+                TXT_ESTANTE.Text = ""
+                TXT_FILA.Text = ""
+                TXT_COLUMNA.Text = ""
+
+                If ProductoMasUbicaciones(Codigo) Then
+                    Dim PANTALLA As New ProductoUbicacionMant(Codigo, Descripcion, CRF_Modos.Seleccionar, Me)
+                    PANTALLA.ShowDialog()
+                    TXT_CANTIDAD.Focus()
+                Else
+                    Proceso(Codigo, "", "", "")
+                End If
+            End If
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub DobleClickList()
+        Try
+            Dim Codigo = LVResultados.Items(0).Name
+            Dim Descripcion = LVResultados.Items(0).Text
 
             If Not IsNothing(Codigo) Then
 
@@ -659,7 +692,7 @@ Public Class Factura
 
             RellenaProducto(estante, fila, columna)
             RellenaExoneracion()
-            Busca_Producto()
+            Busca_Producto(False)
             TXT_CANTIDAD.Focus()
         Else
             MessageBox.Show(Me, "La sucursal no permite ventas con inventario negativo, el saldo actual del producto es: " & FMC(Saldo_Producto), "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -1032,7 +1065,7 @@ Public Class Factura
 
     Private Sub TXT_CODIGO_KeyDown(sender As Object, e As KeyEventArgs) Handles TXT_CODIGO.KeyDown
         If e.KeyCode = Keys.Enter Then
-            Busca_Producto()
+            Busca_Producto(True)
             e.Handled = True
             e.SuppressKeyPress = True
         End If

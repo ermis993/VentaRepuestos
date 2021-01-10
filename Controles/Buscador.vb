@@ -49,24 +49,27 @@ Public Class Buscador
                 End If
             End If
             SQL &= Chr(13) & " ORDER BY " & DESCRIPCION & " ASC"
-                CONX.Coneccion_Abrir()
-                Dim DS = CONX.EJECUTE_DS(SQL)
-                CONX.Coneccion_Cerrar()
-                If DS.Tables(0).Rows.Count > 0 Then
-                    Dim LISTA_REF As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
-                    CMB.DataSource = Nothing
-                    LISTA_REF.Add(New KeyValuePair(Of String, String)("", ""))
-                    For Each ITEM In DS.Tables(0).Rows
-                        LISTA_REF.Add(New KeyValuePair(Of String, String)(ITEM("Codigo").ToString, ITEM("Descripcion").ToString.ToUpper))
-                    Next
-                    CMB.DataSource = LISTA_REF
-                    CMB.ValueMember = "Key"
-                    CMB.DisplayMember = "Value"
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+            If DS.Tables(0).Rows.Count > 0 Then
+                Dim LISTA_REF As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
+                CMB.DataSource = Nothing
+                LISTA_REF.Add(New KeyValuePair(Of String, String)("", ""))
+                For Each ITEM In DS.Tables(0).Rows
+                    LISTA_REF.Add(New KeyValuePair(Of String, String)(ITEM("Codigo").ToString, ITEM("Descripcion").ToString.ToUpper))
+                Next
+                CMB.DataSource = LISTA_REF
+                CMB.ValueMember = "Key"
+                CMB.DisplayMember = "Value"
+
+                If IND_AUTOCOMPLETAR_CLIENTE = "S" Then
+                    CMB.SelectedIndex = 1
+                Else
                     CMB.SelectedIndex = 0
-                    TXT_BUSCADOR.Text = ""
                 End If
             End If
-
+        End If
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs)

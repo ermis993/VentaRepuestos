@@ -22,6 +22,9 @@ Public Class Globales
     Public Shared IND_MIN_STOCK As String
     Public Shared IND_RECIBO_AUTOMATICO As String
     Public Shared IND_MENSAJE_FACTURA As String
+    Public Shared IND_AUTOCOMPLETAR_CLIENTE As String
+    Public Shared IND_INGRESO_AUTO As String
+    Public Shared IND_SUMAR_CANTIDADES As String
     Public Shared IMG_COMPANIA As Image
 
     Public Shared TC_COMPRA As Decimal
@@ -420,6 +423,8 @@ Public Class Globales
         Try
             Dim SQL = "	SELECT ISNULL(IND_PERMITE_VENTAS_NEGATIVO, 'N') AS IND_VENTAS, ISNULL(IND_AVISO_MIN_STOCK, 'N') AS IND_AVISO_MIN_STOCK "
             SQL &= Chr(13) & " ,ISNULL(IND_RECIBO_AUTOMATICO, 'N') AS IND_RECIBO_AUTOMATICO, ISNULL(IND_MENSAJE_FACTURACION, 'N') AS IND_MENSAJE_FACTURACION"
+            SQL &= Chr(13) & " ,ISNULL(IND_AUTOCOMPLETAR_CLIENTE, 'N') AS IND_AUTOCOMPLETAR_CLIENTE, ISNULL(IND_INGRESO_AUTO, 'N') AS IND_INGRESO_AUTO "
+            SQL &= Chr(13) & " ,ISNULL(IND_SUMAR_CANTIDADES, 'N') AS IND_SUMAR_CANTIDADES"
             SQL &= Chr(13) & " FROM SUCURSAL_INDICADORES "
             SQL &= Chr(13) & " WHERE COD_CIA = " & SCM(COD_CIA)
             SQL &= Chr(13) & " AND COD_SUCUR = " & SCM(COD_SUCUR)
@@ -433,6 +438,9 @@ Public Class Globales
                     IND_MIN_STOCK = ITEM("IND_AVISO_MIN_STOCK")
                     IND_RECIBO_AUTOMATICO = ITEM("IND_RECIBO_AUTOMATICO")
                     IND_MENSAJE_FACTURA = ITEM("IND_MENSAJE_FACTURACION")
+                    IND_AUTOCOMPLETAR_CLIENTE = ITEM("IND_AUTOCOMPLETAR_CLIENTE")
+                    IND_INGRESO_AUTO = ITEM("IND_INGRESO_AUTO")
+                    IND_SUMAR_CANTIDADES = ITEM("IND_SUMAR_CANTIDADES")
                     Exit For
                 Next
             End If

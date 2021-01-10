@@ -55,10 +55,13 @@ Partial Class SucursalMant
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.CHK_COMPLETAR_CLIENTE = New System.Windows.Forms.CheckBox()
+        Me.CHK_MENSAJE_FACTURA = New System.Windows.Forms.CheckBox()
+        Me.CHK_RECIBO = New System.Windows.Forms.CheckBox()
         Me.CHK_AVISO_STOCK = New System.Windows.Forms.CheckBox()
         Me.CHK_VENTAS_NEGATIVAS = New System.Windows.Forms.CheckBox()
-        Me.CHK_RECIBO = New System.Windows.Forms.CheckBox()
-        Me.CHK_MENSAJE_FACTURA = New System.Windows.Forms.CheckBox()
+        Me.CHK_INGRESO_AUTO = New System.Windows.Forms.CheckBox()
+        Me.CHK_SUMAR_CANTIDADES = New System.Windows.Forms.CheckBox()
         Me.GroupBox2.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -417,6 +420,9 @@ Partial Class SucursalMant
         'Panel1
         '
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.CHK_SUMAR_CANTIDADES)
+        Me.Panel1.Controls.Add(Me.CHK_INGRESO_AUTO)
+        Me.Panel1.Controls.Add(Me.CHK_COMPLETAR_CLIENTE)
         Me.Panel1.Controls.Add(Me.CHK_MENSAJE_FACTURA)
         Me.Panel1.Controls.Add(Me.CHK_RECIBO)
         Me.Panel1.Controls.Add(Me.CHK_AVISO_STOCK)
@@ -425,6 +431,39 @@ Partial Class SucursalMant
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(462, 265)
         Me.Panel1.TabIndex = 1
+        '
+        'CHK_COMPLETAR_CLIENTE
+        '
+        Me.CHK_COMPLETAR_CLIENTE.AutoSize = True
+        Me.CHK_COMPLETAR_CLIENTE.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CHK_COMPLETAR_CLIENTE.Location = New System.Drawing.Point(6, 104)
+        Me.CHK_COMPLETAR_CLIENTE.Name = "CHK_COMPLETAR_CLIENTE"
+        Me.CHK_COMPLETAR_CLIENTE.Size = New System.Drawing.Size(292, 17)
+        Me.CHK_COMPLETAR_CLIENTE.TabIndex = 4
+        Me.CHK_COMPLETAR_CLIENTE.Text = "Rellenar automáticamente el cliente a la hora de facturar"
+        Me.CHK_COMPLETAR_CLIENTE.UseVisualStyleBackColor = True
+        '
+        'CHK_MENSAJE_FACTURA
+        '
+        Me.CHK_MENSAJE_FACTURA.AutoSize = True
+        Me.CHK_MENSAJE_FACTURA.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CHK_MENSAJE_FACTURA.Location = New System.Drawing.Point(6, 81)
+        Me.CHK_MENSAJE_FACTURA.Name = "CHK_MENSAJE_FACTURA"
+        Me.CHK_MENSAJE_FACTURA.Size = New System.Drawing.Size(300, 17)
+        Me.CHK_MENSAJE_FACTURA.TabIndex = 3
+        Me.CHK_MENSAJE_FACTURA.Text = "Mostrar mensaje de confirmación para facturar documento"
+        Me.CHK_MENSAJE_FACTURA.UseVisualStyleBackColor = True
+        '
+        'CHK_RECIBO
+        '
+        Me.CHK_RECIBO.AutoSize = True
+        Me.CHK_RECIBO.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CHK_RECIBO.Location = New System.Drawing.Point(6, 58)
+        Me.CHK_RECIBO.Name = "CHK_RECIBO"
+        Me.CHK_RECIBO.Size = New System.Drawing.Size(333, 17)
+        Me.CHK_RECIBO.TabIndex = 2
+        Me.CHK_RECIBO.Text = "Ingresar recibo de dinero una vez realizada la factura de contado"
+        Me.CHK_RECIBO.UseVisualStyleBackColor = True
         '
         'CHK_AVISO_STOCK
         '
@@ -448,27 +487,29 @@ Partial Class SucursalMant
         Me.CHK_VENTAS_NEGATIVAS.Text = "Permitir realizar ventas de productos sin inventario"
         Me.CHK_VENTAS_NEGATIVAS.UseVisualStyleBackColor = True
         '
-        'CHK_RECIBO
+        'CHK_INGRESO_AUTO
         '
-        Me.CHK_RECIBO.AutoSize = True
-        Me.CHK_RECIBO.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CHK_RECIBO.Location = New System.Drawing.Point(6, 58)
-        Me.CHK_RECIBO.Name = "CHK_RECIBO"
-        Me.CHK_RECIBO.Size = New System.Drawing.Size(333, 17)
-        Me.CHK_RECIBO.TabIndex = 2
-        Me.CHK_RECIBO.Text = "Ingresar recibo de dinero una vez realizada la factura de contado"
-        Me.CHK_RECIBO.UseVisualStyleBackColor = True
+        Me.CHK_INGRESO_AUTO.AutoSize = True
+        Me.CHK_INGRESO_AUTO.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CHK_INGRESO_AUTO.Location = New System.Drawing.Point(6, 127)
+        Me.CHK_INGRESO_AUTO.Name = "CHK_INGRESO_AUTO"
+        Me.CHK_INGRESO_AUTO.Size = New System.Drawing.Size(357, 30)
+        Me.CHK_INGRESO_AUTO.TabIndex = 5
+        Me.CHK_INGRESO_AUTO.Text = "Al existir una única coincidencia ingresar automáticamente el producto" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "en el pro" &
+    "ceso de facturación"
+        Me.CHK_INGRESO_AUTO.UseVisualStyleBackColor = True
         '
-        'CHK_MENSAJE_FACTURA
+        'CHK_SUMAR_CANTIDADES
         '
-        Me.CHK_MENSAJE_FACTURA.AutoSize = True
-        Me.CHK_MENSAJE_FACTURA.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CHK_MENSAJE_FACTURA.Location = New System.Drawing.Point(6, 81)
-        Me.CHK_MENSAJE_FACTURA.Name = "CHK_MENSAJE_FACTURA"
-        Me.CHK_MENSAJE_FACTURA.Size = New System.Drawing.Size(300, 17)
-        Me.CHK_MENSAJE_FACTURA.TabIndex = 3
-        Me.CHK_MENSAJE_FACTURA.Text = "Mostrar mensaje de confirmación para facturar documento"
-        Me.CHK_MENSAJE_FACTURA.UseVisualStyleBackColor = True
+        Me.CHK_SUMAR_CANTIDADES.AutoSize = True
+        Me.CHK_SUMAR_CANTIDADES.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CHK_SUMAR_CANTIDADES.Location = New System.Drawing.Point(6, 163)
+        Me.CHK_SUMAR_CANTIDADES.Name = "CHK_SUMAR_CANTIDADES"
+        Me.CHK_SUMAR_CANTIDADES.Size = New System.Drawing.Size(374, 30)
+        Me.CHK_SUMAR_CANTIDADES.TabIndex = 6
+        Me.CHK_SUMAR_CANTIDADES.Text = "Al ingresar un producto y este ya esté ingresado en el detalle de la factura" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "sum" &
+    "ar el monto ingresado al monto existente"
+        Me.CHK_SUMAR_CANTIDADES.UseVisualStyleBackColor = True
         '
         'SucursalMant
         '
@@ -539,4 +580,7 @@ Partial Class SucursalMant
     Friend WithEvents CHK_AVISO_STOCK As CheckBox
     Friend WithEvents CHK_RECIBO As CheckBox
     Friend WithEvents CHK_MENSAJE_FACTURA As CheckBox
+    Friend WithEvents CHK_COMPLETAR_CLIENTE As CheckBox
+    Friend WithEvents CHK_SUMAR_CANTIDADES As CheckBox
+    Friend WithEvents CHK_INGRESO_AUTO As CheckBox
 End Class

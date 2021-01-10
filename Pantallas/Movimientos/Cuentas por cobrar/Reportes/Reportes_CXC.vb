@@ -1,5 +1,6 @@
-﻿Imports FUN_CRFUSION.FUNCIONES_GENERALES
-Imports VentaRepuestos.Globales
+﻿Imports VentaRepuestos.Globales
+Imports VentaRepuestos.ReportesProcesos
+Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Public Class Reportes_CXC
 
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
@@ -51,7 +52,12 @@ Public Class Reportes_CXC
                         Dim imp As New Impresion()
                         imp.ImprimirVenta(COD_CIA, COD_SUCUR, DTP_INICIO.Value, DTP_FINAL.Value)
                     Case "DSAL"
-
+                        Dim f As FolderBrowserDialog = New FolderBrowserDialog
+                        If f.ShowDialog() = DialogResult.OK Then
+                            Dim Ruta = f.SelectedPath
+                            Genera_RPT_Documentos_Por_Rango_Fechas("FA", YMD(DTP_INICIO.Value), YMD(DTP_FINAL.Value), "Facturas_credito_con_saldo", Ruta)
+                            MessageBox.Show(Me, "Reporte generado correctamente", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        End If
                 End Select
                 Cursor.Current = Cursors.Default
             Else

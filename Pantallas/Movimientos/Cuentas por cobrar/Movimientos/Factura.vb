@@ -623,7 +623,7 @@ Public Class Factura
 
                     If LVResultados.Items.Count = 1 And presiono_enter And IND_INGRESO_AUTO = "S" Then
                         DobleClickList()
-                        TXT_CANTIDAD.Text = "1"
+                        TXT_CANTIDAD.Text = Min_Venta(TXT_CODIGO.Text)
                         CalculoTotales()
                         IngresarDetalle()
                         TXT_CODIGO.Select()
@@ -736,6 +736,31 @@ Public Class Factura
         Dim Resultado As Decimal = 0.0
         Try
             Dim Sql = "	SELECT ISNULL(MINIMO, 0) AS MIN  "
+            Sql &= Chr(13) & "	FROM PRODUCTO"
+            Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+            Sql &= Chr(13) & "	AND COD_PROD = " & SCM(COD_PROD)
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(Sql)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                Resultado = FMC(DS.Tables(0).Rows(0).Item("MIN"))
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+
+        Return Resultado
+
+    End Function
+
+    Private Function Min_Venta(ByVal COD_PROD As String) As Decimal
+        Dim Resultado As Decimal = 0.0
+        Try
+            Dim Sql = "	SELECT ISNULL(MIN_VENTA, 0) AS MIN  "
             Sql &= Chr(13) & "	FROM PRODUCTO"
             Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
             Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)

@@ -79,6 +79,7 @@ Public Class ProductoMant
                     TXT_MINIMO.Text = ITEM("MINIMO")
                     TXT_PRECIO_2.Text = ITEM("PRECIO_2")
                     TXT_PRECIO_3.Text = ITEM("PRECIO_3")
+                    TXT_MINIMO_VENTA.Text = FMC(ITEM("MIN_VENTA"), 1)
 
                     If Trim(ITEM("ESTADO")).Equals("A") Then
                         RB_ACTIVO.Checked = True
@@ -145,6 +146,9 @@ Public Class ProductoMant
             ElseIf String.IsNullOrEmpty(TXT_MINIMO.Text) Then
                 MessageBox.Show("¡Debe digitar la cantidad minima en stock del producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_MINIMO.Select()
+            ElseIf String.IsNullOrEmpty(TXT_MINIMO_VENTA.Text) Or FMC(TXT_MINIMO_VENTA.Text) <= 0 Then
+                MessageBox.Show("¡Debe digitar la cantidad minima de venta del producto producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                TXT_MINIMO_VENTA.Select()
             Else
 
                 Me.MODO = IIf(Me.MODO = CRF_Modos.Formula, CRF_Modos.Insertar, Me.MODO)
@@ -173,6 +177,7 @@ Public Class ProductoMant
                 Sql &= Chr(13) & "	,@OBSERVACION = " & SCM(TXT_OBSERVACION.Text)
                 Sql &= Chr(13) & "	,@IND_PRECIO_MODIFICABLE = " & SCM(IIf(CHK_MODIFICABLE.Checked, "S", "N"))
                 Sql &= Chr(13) & "  ,@COD_CABYS = " & SCM(TXT_COD_CABYS.Text)
+                Sql &= Chr(13) & "  ,@MIN_VENTA = " & FMC(TXT_MINIMO_VENTA.Text)
                 Sql &= Chr(13) & "	,@MODO = " & Val(Me.MODO)
 
                 CONX.Coneccion_Abrir()

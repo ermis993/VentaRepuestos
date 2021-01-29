@@ -21,6 +21,9 @@ Public Class Login
             'VEGA SIQUIRRES
             'CONX.Inicializar_cadena_conexion("DESKTOP-3SQLS3O,1433", "sa", "1234", "VR")
             'CONX_SIC.ConexionSTR("DESKTOP-3SQLS3O,1433", "sa", "1234", "INFORMACION_SIC")
+            'VEGA TURRIALBA
+            'CONX.Inicializar_cadena_conexion("DESKTOP-KN02T18,1433", "sa", "1234", "VR")
+            'CONX_SIC.ConexionSTR("DESKTOP-KN02T18,1433", "sa", "1234", "INFORMACION_SIC")
 
         Catch ex As Exception
         End Try
@@ -45,11 +48,15 @@ Public Class Login
                     Next
                 End If
                 If COINCIDENCIA = True Then
+                    'If ValidaFormatoPC() Then
                     TXT_USUARIO.Text = ""
                     TXT_CONTRASENA.Text = ""
                     Me.Visible = False
                     Dim PANTALLA As New SeleccionCompania()
                     PANTALLA.Show()
+                    'Else
+                    '    MessageBox.Show("¡El formato de fecha leído es incorrecto para el sistema, intente cerrar y volver a abrir el sistema!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    'End If
                 Else
                     MessageBox.Show("¡Usuario no encontrado!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If
@@ -58,6 +65,18 @@ Public Class Login
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
+    Private Function ValidaFormatoPC() As Boolean
+        Try
+            Dim FECHA_SYSTEMA As String
+            FECHA_SYSTEMA = SCM(YMD(FECHA_HOY))
+
+
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Function
 
     Private Sub INGRESAR(sender As Object, e As EventArgs) Handles BTN_INGRESAR.Click
         Ingreso()

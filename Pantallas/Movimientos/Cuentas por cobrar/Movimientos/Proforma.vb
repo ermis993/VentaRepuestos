@@ -637,19 +637,19 @@ Public Class Proforma
         Dim Saldo_Producto As Decimal = Saldo_Actual(codigo)
         Dim Minimo_Stock As Decimal = Min_Stock(codigo)
 
-        If ((IND_VENTAS_NEGATIVAS = "S" And Saldo_Producto <= 0.0) Or Saldo_Producto > 0.0) Then
+        'If ((IND_VENTAS_NEGATIVAS = "S" And Saldo_Producto <= 0.0) Or Saldo_Producto > 0.0) Then
 
-            If IND_MIN_STOCK = "S" And (Saldo_Producto <= Minimo_Stock) Then
-                MessageBox.Show(Me, "El producto está llegando a su mínimo actualmente el saldo es: " & FMC(Saldo_Producto), "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-            End If
-
-            RellenaProducto(estante, fila, columna)
-            RellenaExoneracion()
-            Busca_Producto(True)
-            TXT_CANTIDAD.Focus()
-        Else
-            MessageBox.Show(Me, "La sucursal no permite ventas con inventario negativo, el saldo actual del producto es: " & FMC(Saldo_Producto), "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        If IND_MIN_STOCK = "S" And (Saldo_Producto <= Minimo_Stock) Then
+            MessageBox.Show(Me, "El producto está llegando a su mínimo actualmente el saldo es: " & FMC(Saldo_Producto), "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If
+
+        RellenaProducto(estante, fila, columna)
+        RellenaExoneracion()
+        Busca_Producto(True)
+        TXT_CANTIDAD.Focus()
+        'Else
+        'MessageBox.Show(Me, "La sucursal no permite ventas con inventario negativo, el saldo actual del producto es: " & FMC(Saldo_Producto), "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        'End If
     End Sub
 
     Private Function Saldo_Actual(ByVal COD_PROD As String) As Decimal
@@ -770,7 +770,7 @@ Public Class Proforma
                 End If
             End If
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
+            MessageBox.Show(Me, ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 

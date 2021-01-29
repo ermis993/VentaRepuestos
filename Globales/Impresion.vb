@@ -112,7 +112,17 @@ Public Class Impresion
                 strPrint = strPrint & RELLENODERECHA("Venta", 8) & ":" & DS.Tables(1).Rows(0).Item("VENTA").ToString & vbCrLf
                 strPrint = strPrint & RELLENODERECHA("Cliente", 8) & ":" & DS.Tables(1).Rows(0).Item("Nombre").ToString & vbCrLf
                 strPrint = strPrint & RELLENODERECHA("Vendedor", 8) & ":" & DS.Tables(1).Rows(0).Item("Usuario").ToString & vbCrLf
-                strPrint = strPrint & RELLENODERECHA("Descripcion", 8) & ":" & DS.Tables(1).Rows(0).Item("DETALLE").ToString & vbCrLf
+                'strPrint = strPrint & RELLENODERECHA("Descripcion", 8) & ":" & DS.Tables(1).Rows(0).Item("DETALLE").ToString & vbCrLf
+                Dim DETALLE = DS.Tables(1).Rows(0).Item("DETALLE").ToString
+                If DETALLE.Length > Ancho_Tiquete Then
+                    Dim palabra = DETALLE.Substring(0, IIf(DETALLE.Length >= Ancho_Tiquete, Ancho_Tiquete - 8, DETALLE.Length - 8))
+                    strPrint = strPrint & RELLENODERECHA("Desc", 7) & ":" & palabra & vbCrLf
+                    'seteo del nuevo detalle
+                    DETALLE = DETALLE.Substring(IIf(palabra.Length >= DETALLE.Length, 0, palabra.Length))
+                    DetalleDividido(DETALLE, Ancho_Tiquete, strPrint)
+                Else
+                    strPrint = strPrint & RELLENODERECHA("Descripcion", 8) & ":" & DS.Tables(1).Rows(0).Item("DETALLE").ToString & vbCrLf
+                End If
                 strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-") & vbCrLf
                 strPrint = strPrint & RELLENOCENTRO("[DETALLE]", Ancho_Tiquete) & vbCrLf
                 strPrint = strPrint & RELLENO("", Ancho_Tiquete, "") & vbCrLf
@@ -121,8 +131,8 @@ Public Class Impresion
                     strPrint = strPrint & RELLENO("", Ancho_Tiquete, "") & vbCrLf
                     strPrint = strPrint & "Lin:" & RELLENOIZQUIERDA(ITEM("LINEA"), 3) & RELLENOIZQUIERDA("Cantidad:", 22) & RELLENOIZQUIERDA(FMCP(ITEM("CANTIDAD"), 2), 11) & vbCrLf
                     'strPrint = strPrint & RELLENOIZQUIERDA("Li:" & RELLENOIZQUIERDA(ITEM("LINEA"), 3) & RELLENOIZQUIERDA("Co:", 4) & RELLENODERECHA(ITEM("COD_PROD"), 20) & RELLENOIZQUIERDA("Ca:", 3) & RELLENOIZQUIERDA(FMCP(ITEM("CANTIDAD"), 2), 9), Ancho_Tiquete) & vbCrLf
-                    strPrint = strPrint & "P/U:" & RELLENOIZQUIERDA(FMCP(ITEM("PRECIO"), 2), 11) & RELLENOIZQUIERDA("Descuento:", 14) & RELLENOIZQUIERDA(FMCP(ITEM("DESCUENTO"), 2), 11) & vbCrLf
-                    strPrint = strPrint & "Imp:" & RELLENOIZQUIERDA(FMCP(ITEM("IMPUESTO"), 2), 11) & RELLENOIZQUIERDA("Total:", 14) & RELLENOIZQUIERDA(FMCP(ITEM("TOTAL"), 2), 11) & vbCrLf
+                    strPrint = strPrint & "P/U:" & RELLENOIZQUIERDA(FMCP(ITEM("PRECIO"), 2), 11) & RELLENOIZQUIERDA("Descuento:", 12) & RELLENOIZQUIERDA(FMCP(ITEM("DESCUENTO"), 2), 11) & vbCrLf
+                    strPrint = strPrint & "Imp:" & RELLENOIZQUIERDA(FMCP(ITEM("IMPUESTO"), 2), 11) & RELLENOIZQUIERDA("Total:", 12) & RELLENOIZQUIERDA(FMCP(ITEM("TOTAL"), 2), 11) & vbCrLf
                     'strPrint = strPrint & RELLENOIZQUIERDA("Total:" & RELLENOIZQUIERDA(FMCP(ITEM("TOTAL"), 2), 11), Ancho_Tiquete) & vbCrLf
                     strPrint = strPrint & RELLENO("", Ancho_Tiquete, "") & vbCrLf
                 Next
@@ -206,7 +216,19 @@ Public Class Impresion
                 strPrint = strPrint & RELLENODERECHA("Venta", 8) & ":" & DS.Tables(1).Rows(0).Item("VENTA").ToString & vbCrLf
                 strPrint = strPrint & RELLENODERECHA("Cliente", 8) & ":" & DS.Tables(1).Rows(0).Item("Nombre").ToString & vbCrLf
                 strPrint = strPrint & RELLENODERECHA("Vendedor", 8) & ":" & DS.Tables(1).Rows(0).Item("Usuario").ToString & vbCrLf
-                strPrint = strPrint & RELLENODERECHA("Descripcion", 8) & ":" & DS.Tables(1).Rows(0).Item("DETALLE").ToString & vbCrLf
+
+                'strPrint = strPrint & RELLENODERECHA("Descripcion", 8) & ":" & DS.Tables(1).Rows(0).Item("DETALLE").ToString & vbCrLf
+                Dim DETALLE = DS.Tables(1).Rows(0).Item("DETALLE").ToString
+                If DETALLE.Length > Ancho_Tiquete Then
+                    Dim palabra = DETALLE.Substring(0, IIf(DETALLE.Length >= Ancho_Tiquete, Ancho_Tiquete - 8, DETALLE.Length - 8))
+                    strPrint = strPrint & RELLENODERECHA("Desc", 7) & ":" & palabra & vbCrLf
+                    'seteo del nuevo detalle
+                    DETALLE = DETALLE.Substring(IIf(palabra.Length >= DETALLE.Length, 0, palabra.Length))
+                    DetalleDividido(DETALLE, Ancho_Tiquete, strPrint)
+                Else
+                    strPrint = strPrint & RELLENODERECHA("Descripcion", 8) & ":" & DS.Tables(1).Rows(0).Item("DETALLE").ToString & vbCrLf
+                End If
+
                 strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-") & vbCrLf
                 strPrint = strPrint & RELLENOCENTRO("[ DOCUMENTOS AFECTADOS ]", Ancho_Tiquete) & vbCrLf
                 strPrint = strPrint & RELLENO("", Ancho_Tiquete, "") & vbCrLf
@@ -419,17 +441,42 @@ Public Class Impresion
                 strPrint = strPrint & RELLENODERECHA("Venta", 8) & ":" & DS.Tables(1).Rows(0).Item("VENTA").ToString & vbCrLf
                 strPrint = strPrint & RELLENODERECHA("Cliente", 8) & ":" & DS.Tables(1).Rows(0).Item("Nombre").ToString & vbCrLf
                 strPrint = strPrint & RELLENODERECHA("Vendedor", 8) & ":" & DS.Tables(1).Rows(0).Item("Usuario").ToString & vbCrLf
-                strPrint = strPrint & RELLENODERECHA("Descripcion", 8) & ":" & DS.Tables(1).Rows(0).Item("DETALLE").ToString & vbCrLf
+
+                Dim DETALLE = DS.Tables(1).Rows(0).Item("DETALLE").ToString
+
+                If DETALLE.Length > Ancho_Tiquete Then
+                    Dim palabra = DETALLE.Substring(0, IIf(DETALLE.Length >= Ancho_Tiquete, Ancho_Tiquete - 8, DETALLE.Length - 8))
+                    strPrint = strPrint & RELLENODERECHA("Desc", 7) & ":" & palabra & vbCrLf
+                    'seteo del nuevo detalle
+                    DETALLE = DETALLE.Substring(IIf(palabra.Length >= DETALLE.Length, 0, palabra.Length))
+                    DetalleDividido(DETALLE, Ancho_Tiquete, strPrint)
+                Else
+                    strPrint = strPrint & RELLENODERECHA("Descripcion", 8) & ":" & DS.Tables(1).Rows(0).Item("DETALLE").ToString & vbCrLf
+                End If
+
                 strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-") & vbCrLf
                 strPrint = strPrint & RELLENOCENTRO("[DETALLE]", Ancho_Tiquete) & vbCrLf
                 strPrint = strPrint & RELLENO("", Ancho_Tiquete, "") & vbCrLf
+
+                'For Each ITEM In DS.Tables(2).Rows
+                '    strPrint = strPrint & RELLENOIZQUIERDA("Lin:" & RELLENOIZQUIERDA(ITEM("LINEA"), 3) & RELLENOIZQUIERDA("Cod:", 6) & RELLENODERECHA(ITEM("COD_PROD"), 20) & RELLENOIZQUIERDA("Cant:", 6) & RELLENOIZQUIERDA(FMCP(ITEM("CANTIDAD"), 2), 9), Ancho_Tiquete) & vbCrLf
+                '    strPrint = strPrint & ITEM("DESCRIPCION") & vbCrLf
+                '    strPrint = strPrint & RELLENOIZQUIERDA("P/U:" & RELLENOIZQUIERDA(FMCP(ITEM("PRECIO"), 2), 11) & RELLENOIZQUIERDA("Desc:", 6) & RELLENOIZQUIERDA(FMCP(ITEM("DESCUENTO"), 2), 11) & RELLENOIZQUIERDA("Imp:", 5) & RELLENOIZQUIERDA(FMCP(ITEM("IMPUESTO"), 2), 11), Ancho_Tiquete) & vbCrLf
+                '    strPrint = strPrint & RELLENOIZQUIERDA("Total:" & RELLENOIZQUIERDA(FMCP(ITEM("TOTAL"), 2), 11), Ancho_Tiquete) & vbCrLf
+                '    strPrint = strPrint & RELLENO("", Ancho_Tiquete, "") & vbCrLf
+                'Next
+
                 For Each ITEM In DS.Tables(2).Rows
-                    strPrint = strPrint & RELLENOIZQUIERDA("Lin:" & RELLENOIZQUIERDA(ITEM("LINEA"), 3) & RELLENOIZQUIERDA("Cod:", 6) & RELLENODERECHA(ITEM("COD_PROD"), 20) & RELLENOIZQUIERDA("Cant:", 6) & RELLENOIZQUIERDA(FMCP(ITEM("CANTIDAD"), 2), 9), Ancho_Tiquete) & vbCrLf
                     strPrint = strPrint & ITEM("DESCRIPCION") & vbCrLf
-                    strPrint = strPrint & RELLENOIZQUIERDA("P/U:" & RELLENOIZQUIERDA(FMCP(ITEM("PRECIO"), 2), 11) & RELLENOIZQUIERDA("Desc:", 6) & RELLENOIZQUIERDA(FMCP(ITEM("DESCUENTO"), 2), 11) & RELLENOIZQUIERDA("Imp:", 5) & RELLENOIZQUIERDA(FMCP(ITEM("IMPUESTO"), 2), 11), Ancho_Tiquete) & vbCrLf
-                    strPrint = strPrint & RELLENOIZQUIERDA("Total:" & RELLENOIZQUIERDA(FMCP(ITEM("TOTAL"), 2), 11), Ancho_Tiquete) & vbCrLf
+                    strPrint = strPrint & RELLENO("", Ancho_Tiquete, "") & vbCrLf
+                    strPrint = strPrint & "Lin:" & RELLENOIZQUIERDA(ITEM("LINEA"), 3) & RELLENOIZQUIERDA("Cantidad:", 22) & RELLENOIZQUIERDA(FMCP(ITEM("CANTIDAD"), 2), 11) & vbCrLf
+                    'strPrint = strPrint & RELLENOIZQUIERDA("Li:" & RELLENOIZQUIERDA(ITEM("LINEA"), 3) & RELLENOIZQUIERDA("Co:", 4) & RELLENODERECHA(ITEM("COD_PROD"), 20) & RELLENOIZQUIERDA("Ca:", 3) & RELLENOIZQUIERDA(FMCP(ITEM("CANTIDAD"), 2), 9), Ancho_Tiquete) & vbCrLf
+                    strPrint = strPrint & "P/U:" & RELLENOIZQUIERDA(FMCP(ITEM("PRECIO"), 2), 11) & RELLENOIZQUIERDA("Descuento:", 12) & RELLENOIZQUIERDA(FMCP(ITEM("DESCUENTO"), 2), 11) & vbCrLf
+                    strPrint = strPrint & "Imp:" & RELLENOIZQUIERDA(FMCP(ITEM("IMPUESTO"), 2), 11) & RELLENOIZQUIERDA("Total:", 12) & RELLENOIZQUIERDA(FMCP(ITEM("TOTAL"), 2), 11) & vbCrLf
+                    'strPrint = strPrint & RELLENOIZQUIERDA("Total:" & RELLENOIZQUIERDA(FMCP(ITEM("TOTAL"), 2), 11), Ancho_Tiquete) & vbCrLf
                     strPrint = strPrint & RELLENO("", Ancho_Tiquete, "") & vbCrLf
                 Next
+
                 strPrint = strPrint & RELLENOCENTRO("[FIN DETALLE]", Ancho_Tiquete) & vbCrLf
                 strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-") & vbCrLf
 

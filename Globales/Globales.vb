@@ -1022,4 +1022,24 @@ Public Class Globales
         Public SSL As String
     End Structure
 
+    Public Shared Function DetalleDividido(ByVal detalle As String, ByVal largo As Integer, ByRef string_concatenar As String)
+        Try
+            Do
+                Dim palabra = detalle.Substring(0, IIf(detalle.Length >= largo, largo, detalle.Length))
+
+                detalle = detalle.Substring(IIf(palabra.Length >= detalle.Length, 0, palabra.Length), IIf(detalle.Length >= largo, detalle.Length - largo, detalle.Length))
+
+                string_concatenar = string_concatenar & palabra & vbCrLf
+
+                If detalle.Length = palabra.Length Then
+                    Exit Do
+                End If
+            Loop
+
+            Return string_concatenar
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Function
+
 End Class

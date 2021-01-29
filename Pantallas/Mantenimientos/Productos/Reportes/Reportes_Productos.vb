@@ -154,15 +154,15 @@ Public Class Reportes_Productos
             If detallatado = "S" Then
                 SQL = "	SELECT T1.COD_PROD, T1.DESCRIPCION, T1.CANTIDAD, T1.COSTO, SUM(T1.TOTAL) AS TOTAL																									"
                 SQL &= Chr(13) & "	FROM(																									"
-                SQL &= Chr(13) & "	SELECT DET.COD_CIA, DET.COD_SUCUR, DET.COD_PROD, PROD.DESCRIPCION, SUM(DET.COSTO*CANTIDAD) AS TOTAL, DET.COSTO, CANTIDAD																									"
+                SQL &= Chr(13) & "	SELECT DET.COD_CIA, DET.COD_SUCUR, DET.COD_PROD, PROD.DESCRIPCION, DET.COSTO, SUM(CANTIDAD) AS CANTIDAD, SUM(DET.COSTO*CANTIDAD) AS TOTAL																									"
                 SQL &= Chr(13) & "	FROM INVENTARIO_MOV_DET AS DET																									"
                 SQL &= Chr(13) & "	INNER JOIN PRODUCTO AS PROD																									"
                 SQL &= Chr(13) & "		ON PROD.COD_CIA = DET.COD_CIA																								"
                 SQL &= Chr(13) & "		AND PROD.COD_SUCUR = DET.COD_SUCUR																								"
                 SQL &= Chr(13) & "		AND PROD.COD_PROD = DET.COD_PROD																								"
                 SQL &= Chr(13) & "	WHERE PROD.ESTADO = 'A'																									"
-                SQL &= Chr(13) & "	GROUP BY DET.COD_CIA, DET.COD_SUCUR, DET.COD_PROD, PROD.DESCRIPCION, DET.COSTO, CANTIDAD																									"
-                SQL &= Chr(13) & "	HAVING SUM(CANTIDAD) > 0																									"
+                SQL &= Chr(13) & "	GROUP BY DET.COD_CIA, DET.COD_SUCUR, DET.COD_PROD, PROD.DESCRIPCION, DET.COSTO																										"
+                SQL &= Chr(13) & "	HAVING SUM(DET.COSTO*CANTIDAD) <> 0																									"
                 SQL &= Chr(13) & "	) AS T1																									"
                 SQL &= Chr(13) & "	WHERE T1.COD_CIA = " & SCM(COD_CIA)
                 SQL &= Chr(13) & "	AND T1.COD_SUCUR = " & SCM(COD_SUCUR)
@@ -170,15 +170,15 @@ Public Class Reportes_Productos
             Else
                 SQL = "	SELECT ISNULL(SUM(T1.TOTAL), 0) AS TOTAL																									"
                 SQL &= Chr(13) & "	FROM(																									"
-                SQL &= Chr(13) & "	SELECT DET.COD_CIA, DET.COD_SUCUR, DET.COD_PROD, SUM(DET.COSTO*CANTIDAD) AS TOTAL, DET.COSTO, CANTIDAD																									"
+                SQL &= Chr(13) & "	SELECT DET.COD_CIA, DET.COD_SUCUR, DET.COD_PROD, PROD.DESCRIPCION, DET.COSTO, SUM(CANTIDAD) AS CANTIDAD, SUM(DET.COSTO*CANTIDAD) AS TOTAL																									"
                 SQL &= Chr(13) & "	FROM INVENTARIO_MOV_DET AS DET																									"
                 SQL &= Chr(13) & "	INNER JOIN PRODUCTO AS PROD																									"
                 SQL &= Chr(13) & "		ON PROD.COD_CIA = DET.COD_CIA																								"
                 SQL &= Chr(13) & "		AND PROD.COD_SUCUR = DET.COD_SUCUR																								"
                 SQL &= Chr(13) & "		AND PROD.COD_PROD = DET.COD_PROD																								"
                 SQL &= Chr(13) & "	WHERE PROD.ESTADO = 'A'																									"
-                SQL &= Chr(13) & "	GROUP BY DET.COD_CIA, DET.COD_SUCUR, DET.COD_PROD, DET.COSTO, CANTIDAD																									"
-                SQL &= Chr(13) & "	HAVING SUM(CANTIDAD) > 0																									"
+                SQL &= Chr(13) & "	GROUP BY DET.COD_CIA, DET.COD_SUCUR, DET.COD_PROD, PROD.DESCRIPCION, DET.COSTO																									"
+                SQL &= Chr(13) & "	HAVING SUM(CANTIDAD) <> 0																									"
                 SQL &= Chr(13) & "	) AS T1																									"
                 SQL &= Chr(13) & "	WHERE T1.COD_CIA = " & SCM(COD_CIA)
                 SQL &= Chr(13) & "	AND T1.COD_SUCUR = " & SCM(COD_SUCUR)

@@ -43,6 +43,7 @@ Public Class ConsultaSaldos
                 Sql &= Chr(13) & "	WHERE P.COD_CIA = " & SCM(COD_CIA)
                 Sql &= Chr(13) & "	AND P.COD_SUCUR = " & SCM(COD_SUCUR)
                 Sql &= Chr(13) & "	AND (P.DESCRIPCION LIKE " & SCM("%" + TXT_BUSCADOR.Text + "%") & " Or P.COD_PROD = " & SCM(TXT_BUSCADOR.Text) & " Or P.COD_BARRA = " & SCM(TXT_BUSCADOR.Text) & ")"
+                Sql &= Chr(13) & "	AND P.ESTADO = 'A'"
                 Sql &= Chr(13) & "  GROUP BY P.COD_PROD, P.DESCRIPCION, (PRECIO + ((PRECIO*POR_IMPUESTO) / 100))"
                 Sql &= Chr(13) & "  ORDER BY DESCRIPCION ASC"
 
@@ -58,7 +59,7 @@ Public Class ConsultaSaldos
                     GRID.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
                     GRID.AutoResizeColumns()
                 Else
-                    Dim row As String() = New String() {"Sin resultados", "Sin resultados", "Sin resultados"}
+                    Dim row As String() = New String() {"Sin resultados", "Sin resultados", "Sin resultados", "Sin resultados"}
                     GRID.Rows.Add(row)
                 End If
             End If

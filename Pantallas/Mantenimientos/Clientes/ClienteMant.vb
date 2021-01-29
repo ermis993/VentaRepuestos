@@ -21,9 +21,9 @@ Public Class ClienteMant
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 1 Then 'Jurídica
                 TXT_CEDULA.Mask = "##########"
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 2 Then 'Nite
-                TXT_CEDULA.Mask = "############"
-            ElseIf CMB_TIPO_CEDULA.SelectedIndex = 3 Then 'Dimex
                 TXT_CEDULA.Mask = "##########"
+            ElseIf CMB_TIPO_CEDULA.SelectedIndex = 3 Then 'Dimex
+                TXT_CEDULA.Mask = "############"
             End If
             TXT_CEDULA.PromptChar = "#"
         Catch ex As Exception
@@ -40,12 +40,12 @@ Public Class ClienteMant
             ElseIf CMB_TIPO_CEDULA.SelectedIndex = 1 And TXT_CEDULA.Text.Length < 10 Then 'J
                 MessageBox.Show("¡Cédula incorrecta, una cédula de tipo Jurídica contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CEDULA.Select()
-            ElseIf CMB_TIPO_CEDULA.SelectedIndex = 2 And TXT_CEDULA.Text.Length < 11 Then 'N
-                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo NITE contiene mínimo 11 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            ElseIf CMB_TIPO_CEDULA.SelectedIndex = 2 And TXT_CEDULA.Text.Length < 10 Then 'N
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo NITE contiene mínimo 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CEDULA.Select()
-            ElseIf CMB_TIPO_CEDULA.SelectedIndex = 3 And TXT_CEDULA.Text.Length < 10 Then 'D
+            ElseIf CMB_TIPO_CEDULA.SelectedIndex = 3 And TXT_CEDULA.Text.Length < 12 Then 'D
                 TXT_CEDULA.Select()
-                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo DIMEX contiene 10 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                MessageBox.Show("¡Cédula incorrecta, una cédula de tipo DIMEX contiene 12 dígitos!" & vbNewLine & "La cédula ingresada contiene " & TXT_CEDULA.Text.Length & " dígitos.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf MODO = CRF_Modos.Insertar And EXISTE_CEDULA() = True Then
                 MessageBox.Show("¡Ya existe un cliente con la cédula : " & TXT_CEDULA.Text & "!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_CEDULA.Select()

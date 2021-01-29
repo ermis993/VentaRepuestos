@@ -24,6 +24,8 @@ Partial Class ProductoMant
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ProductoMant))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.TXT_COD_CABYS = New System.Windows.Forms.TextBox()
+        Me.Label21 = New System.Windows.Forms.Label()
         Me.CHK_MODIFICABLE = New System.Windows.Forms.CheckBox()
         Me.TXT_OBSERVACION = New System.Windows.Forms.TextBox()
         Me.Label20 = New System.Windows.Forms.Label()
@@ -68,8 +70,8 @@ Partial Class ProductoMant
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
-        Me.TXT_COD_CABYS = New System.Windows.Forms.TextBox()
-        Me.Label21 = New System.Windows.Forms.Label()
+        Me.TXT_MINIMO_VENTA = New System.Windows.Forms.TextBox()
+        Me.Label22 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -78,6 +80,8 @@ Partial Class ProductoMant
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.TXT_MINIMO_VENTA)
+        Me.GroupBox1.Controls.Add(Me.Label22)
         Me.GroupBox1.Controls.Add(Me.TXT_COD_CABYS)
         Me.GroupBox1.Controls.Add(Me.Label21)
         Me.GroupBox1.Controls.Add(Me.CHK_MODIFICABLE)
@@ -130,6 +134,27 @@ Partial Class ProductoMant
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Información general ]"
         '
+        'TXT_COD_CABYS
+        '
+        Me.TXT_COD_CABYS.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_COD_CABYS.Location = New System.Drawing.Point(120, 87)
+        Me.TXT_COD_CABYS.Margin = New System.Windows.Forms.Padding(2)
+        Me.TXT_COD_CABYS.MaxLength = 13
+        Me.TXT_COD_CABYS.Name = "TXT_COD_CABYS"
+        Me.TXT_COD_CABYS.Size = New System.Drawing.Size(222, 24)
+        Me.TXT_COD_CABYS.TabIndex = 6
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label21.Location = New System.Drawing.Point(2, 90)
+        Me.Label21.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(113, 18)
+        Me.Label21.TabIndex = 5
+        Me.Label21.Text = "Código CABYS:"
+        '
         'CHK_MODIFICABLE
         '
         Me.CHK_MODIFICABLE.AutoSize = True
@@ -150,7 +175,7 @@ Partial Class ProductoMant
         Me.TXT_OBSERVACION.Multiline = True
         Me.TXT_OBSERVACION.Name = "TXT_OBSERVACION"
         Me.TXT_OBSERVACION.Size = New System.Drawing.Size(443, 48)
-        Me.TXT_OBSERVACION.TabIndex = 41
+        Me.TXT_OBSERVACION.TabIndex = 43
         '
         'Label20
         '
@@ -160,7 +185,7 @@ Partial Class ProductoMant
         Me.Label20.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(96, 18)
-        Me.Label20.TabIndex = 40
+        Me.Label20.TabIndex = 42
         Me.Label20.Text = "Observación:"
         '
         'Panel1
@@ -170,7 +195,7 @@ Partial Class ProductoMant
         Me.Panel1.Location = New System.Drawing.Point(120, 347)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(153, 23)
-        Me.Panel1.TabIndex = 39
+        Me.Panel1.TabIndex = 41
         '
         'RB_ACTIVO
         '
@@ -203,7 +228,7 @@ Partial Class ProductoMant
         Me.Label19.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(63, 18)
-        Me.Label19.TabIndex = 38
+        Me.Label19.TabIndex = 40
         Me.Label19.Text = "Estado :"
         '
         'Buscador_Familia
@@ -218,7 +243,7 @@ Partial Class ProductoMant
         Me.Buscador_Familia.OTROS_CAMP0S = ""
         Me.Buscador_Familia.PANTALLA = Nothing
         Me.Buscador_Familia.Size = New System.Drawing.Size(451, 32)
-        Me.Buscador_Familia.TabIndex = 8
+        Me.Buscador_Familia.TabIndex = 10
         Me.Buscador_Familia.TABLA_BUSCAR = "FAMILIA"
         Me.Buscador_Familia.VALOR = ""
         Me.Buscador_Familia.VALOR_DESCRIPCION = Nothing
@@ -231,7 +256,7 @@ Partial Class ProductoMant
         Me.Label18.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(59, 18)
-        Me.Label18.TabIndex = 7
+        Me.Label18.TabIndex = 9
         Me.Label18.Text = "Familia:"
         '
         'TXT_PRECIO_3
@@ -242,7 +267,7 @@ Partial Class ProductoMant
         Me.TXT_PRECIO_3.MaxLength = 18
         Me.TXT_PRECIO_3.Name = "TXT_PRECIO_3"
         Me.TXT_PRECIO_3.Size = New System.Drawing.Size(87, 24)
-        Me.TXT_PRECIO_3.TabIndex = 29
+        Me.TXT_PRECIO_3.TabIndex = 31
         Me.TXT_PRECIO_3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label17
@@ -253,7 +278,7 @@ Partial Class ProductoMant
         Me.Label17.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(67, 18)
-        Me.Label17.TabIndex = 28
+        Me.Label17.TabIndex = 30
         Me.Label17.Text = "Precio 3:"
         '
         'TXT_PRECIO_2
@@ -264,7 +289,7 @@ Partial Class ProductoMant
         Me.TXT_PRECIO_2.MaxLength = 18
         Me.TXT_PRECIO_2.Name = "TXT_PRECIO_2"
         Me.TXT_PRECIO_2.Size = New System.Drawing.Size(87, 24)
-        Me.TXT_PRECIO_2.TabIndex = 27
+        Me.TXT_PRECIO_2.TabIndex = 29
         Me.TXT_PRECIO_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label16
@@ -275,7 +300,7 @@ Partial Class ProductoMant
         Me.Label16.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(67, 18)
-        Me.Label16.TabIndex = 26
+        Me.Label16.TabIndex = 28
         Me.Label16.Text = "Precio 2:"
         '
         'TXT_MINIMO
@@ -286,7 +311,7 @@ Partial Class ProductoMant
         Me.TXT_MINIMO.MaxLength = 18
         Me.TXT_MINIMO.Name = "TXT_MINIMO"
         Me.TXT_MINIMO.Size = New System.Drawing.Size(153, 24)
-        Me.TXT_MINIMO.TabIndex = 37
+        Me.TXT_MINIMO.TabIndex = 39
         '
         'Label15
         '
@@ -296,7 +321,7 @@ Partial Class ProductoMant
         Me.Label15.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(102, 18)
-        Me.Label15.TabIndex = 36
+        Me.Label15.TabIndex = 38
         Me.Label15.Text = "Minimo stock:"
         '
         'Buscador
@@ -311,7 +336,7 @@ Partial Class ProductoMant
         Me.Buscador.OTROS_CAMP0S = ""
         Me.Buscador.PANTALLA = Nothing
         Me.Buscador.Size = New System.Drawing.Size(451, 32)
-        Me.Buscador.TabIndex = 10
+        Me.Buscador.TabIndex = 12
         Me.Buscador.TABLA_BUSCAR = Nothing
         Me.Buscador.VALOR = ""
         Me.Buscador.VALOR_DESCRIPCION = Nothing
@@ -324,7 +349,7 @@ Partial Class ProductoMant
         Me.TXT_FILA.MaxLength = 3
         Me.TXT_FILA.Name = "TXT_FILA"
         Me.TXT_FILA.Size = New System.Drawing.Size(44, 24)
-        Me.TXT_FILA.TabIndex = 33
+        Me.TXT_FILA.TabIndex = 35
         Me.TXT_FILA.Text = "1"
         '
         'Label14
@@ -335,7 +360,7 @@ Partial Class ProductoMant
         Me.Label14.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(76, 18)
-        Me.Label14.TabIndex = 34
+        Me.Label14.TabIndex = 36
         Me.Label14.Text = "Columna :"
         '
         'TXT_ESTANTE
@@ -346,7 +371,7 @@ Partial Class ProductoMant
         Me.TXT_ESTANTE.MaxLength = 3
         Me.TXT_ESTANTE.Name = "TXT_ESTANTE"
         Me.TXT_ESTANTE.Size = New System.Drawing.Size(44, 24)
-        Me.TXT_ESTANTE.TabIndex = 31
+        Me.TXT_ESTANTE.TabIndex = 33
         Me.TXT_ESTANTE.Text = "1"
         '
         'Label13
@@ -357,7 +382,7 @@ Partial Class ProductoMant
         Me.Label13.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(39, 18)
-        Me.Label13.TabIndex = 32
+        Me.Label13.TabIndex = 34
         Me.Label13.Text = "Fila :"
         '
         'TXT_COLUMNA
@@ -368,7 +393,7 @@ Partial Class ProductoMant
         Me.TXT_COLUMNA.MaxLength = 3
         Me.TXT_COLUMNA.Name = "TXT_COLUMNA"
         Me.TXT_COLUMNA.Size = New System.Drawing.Size(44, 24)
-        Me.TXT_COLUMNA.TabIndex = 35
+        Me.TXT_COLUMNA.TabIndex = 37
         Me.TXT_COLUMNA.Text = "1"
         '
         'Label12
@@ -379,7 +404,7 @@ Partial Class ProductoMant
         Me.Label12.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(62, 18)
-        Me.Label12.TabIndex = 30
+        Me.Label12.TabIndex = 32
         Me.Label12.Text = "Estante:"
         '
         'TXT_PRECIO
@@ -390,7 +415,7 @@ Partial Class ProductoMant
         Me.TXT_PRECIO.MaxLength = 18
         Me.TXT_PRECIO.Name = "TXT_PRECIO"
         Me.TXT_PRECIO.Size = New System.Drawing.Size(87, 24)
-        Me.TXT_PRECIO.TabIndex = 25
+        Me.TXT_PRECIO.TabIndex = 27
         Me.TXT_PRECIO.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'TXT_COSTO
@@ -401,7 +426,7 @@ Partial Class ProductoMant
         Me.TXT_COSTO.MaxLength = 18
         Me.TXT_COSTO.Name = "TXT_COSTO"
         Me.TXT_COSTO.Size = New System.Drawing.Size(152, 24)
-        Me.TXT_COSTO.TabIndex = 23
+        Me.TXT_COSTO.TabIndex = 25
         Me.TXT_COSTO.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label11
@@ -412,7 +437,7 @@ Partial Class ProductoMant
         Me.Label11.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(67, 18)
-        Me.Label11.TabIndex = 24
+        Me.Label11.TabIndex = 26
         Me.Label11.Text = "Precio 1:"
         '
         'Label10
@@ -423,7 +448,7 @@ Partial Class ProductoMant
         Me.Label10.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(97, 18)
-        Me.Label10.TabIndex = 22
+        Me.Label10.TabIndex = 24
         Me.Label10.Text = "Precio costo:"
         '
         'Label9
@@ -434,7 +459,7 @@ Partial Class ProductoMant
         Me.Label9.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(21, 18)
-        Me.Label9.TabIndex = 17
+        Me.Label9.TabIndex = 19
         Me.Label9.Text = "%"
         '
         'TXT_EXENTO
@@ -445,7 +470,7 @@ Partial Class ProductoMant
         Me.TXT_EXENTO.Name = "TXT_EXENTO"
         Me.TXT_EXENTO.ReadOnly = True
         Me.TXT_EXENTO.Size = New System.Drawing.Size(42, 24)
-        Me.TXT_EXENTO.TabIndex = 19
+        Me.TXT_EXENTO.TabIndex = 21
         Me.TXT_EXENTO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label8
@@ -456,7 +481,7 @@ Partial Class ProductoMant
         Me.Label8.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(62, 18)
-        Me.Label8.TabIndex = 18
+        Me.Label8.TabIndex = 20
         Me.Label8.Text = "Exento :"
         '
         'TXT_IMPUESTO
@@ -467,7 +492,7 @@ Partial Class ProductoMant
         Me.TXT_IMPUESTO.Name = "TXT_IMPUESTO"
         Me.TXT_IMPUESTO.ReadOnly = True
         Me.TXT_IMPUESTO.Size = New System.Drawing.Size(68, 24)
-        Me.TXT_IMPUESTO.TabIndex = 16
+        Me.TXT_IMPUESTO.TabIndex = 18
         Me.TXT_IMPUESTO.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label7
@@ -478,7 +503,7 @@ Partial Class ProductoMant
         Me.Label7.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(77, 18)
-        Me.Label7.TabIndex = 15
+        Me.Label7.TabIndex = 17
         Me.Label7.Text = "Impuesto :"
         '
         'CMB_IMPUESTO_DGTD
@@ -490,7 +515,7 @@ Partial Class ProductoMant
         Me.CMB_IMPUESTO_DGTD.Margin = New System.Windows.Forms.Padding(2)
         Me.CMB_IMPUESTO_DGTD.Name = "CMB_IMPUESTO_DGTD"
         Me.CMB_IMPUESTO_DGTD.Size = New System.Drawing.Size(442, 23)
-        Me.CMB_IMPUESTO_DGTD.TabIndex = 21
+        Me.CMB_IMPUESTO_DGTD.TabIndex = 23
         '
         'Label6
         '
@@ -500,7 +525,7 @@ Partial Class ProductoMant
         Me.Label6.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(107, 18)
-        Me.Label6.TabIndex = 20
+        Me.Label6.TabIndex = 22
         Me.Label6.Text = "Código DGTD:"
         '
         'CMB_UNIDADES
@@ -512,7 +537,7 @@ Partial Class ProductoMant
         Me.CMB_UNIDADES.Margin = New System.Windows.Forms.Padding(2)
         Me.CMB_UNIDADES.Name = "CMB_UNIDADES"
         Me.CMB_UNIDADES.Size = New System.Drawing.Size(153, 23)
-        Me.CMB_UNIDADES.TabIndex = 14
+        Me.CMB_UNIDADES.TabIndex = 16
         '
         'Label5
         '
@@ -522,7 +547,7 @@ Partial Class ProductoMant
         Me.Label5.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(110, 18)
-        Me.Label5.TabIndex = 13
+        Me.Label5.TabIndex = 15
         Me.Label5.Text = "Unidad Medida:"
         '
         'Label4
@@ -533,7 +558,7 @@ Partial Class ProductoMant
         Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(81, 18)
-        Me.Label4.TabIndex = 9
+        Me.Label4.TabIndex = 11
         Me.Label4.Text = "Proveedor:"
         '
         'TXT_DESC
@@ -544,7 +569,7 @@ Partial Class ProductoMant
         Me.TXT_DESC.MaxLength = 150
         Me.TXT_DESC.Name = "TXT_DESC"
         Me.TXT_DESC.Size = New System.Drawing.Size(442, 24)
-        Me.TXT_DESC.TabIndex = 12
+        Me.TXT_DESC.TabIndex = 14
         '
         'Label3
         '
@@ -554,7 +579,7 @@ Partial Class ProductoMant
         Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(91, 18)
-        Me.Label3.TabIndex = 11
+        Me.Label3.TabIndex = 13
         Me.Label3.Text = "Descripción:"
         '
         'TXT_COD_BARRA
@@ -627,26 +652,27 @@ Partial Class ProductoMant
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
         '
-        'TXT_COD_CABYS
+        'TXT_MINIMO_VENTA
         '
-        Me.TXT_COD_CABYS.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_COD_CABYS.Location = New System.Drawing.Point(120, 87)
-        Me.TXT_COD_CABYS.Margin = New System.Windows.Forms.Padding(2)
-        Me.TXT_COD_CABYS.MaxLength = 13
-        Me.TXT_COD_CABYS.Name = "TXT_COD_CABYS"
-        Me.TXT_COD_CABYS.Size = New System.Drawing.Size(222, 24)
-        Me.TXT_COD_CABYS.TabIndex = 6
+        Me.TXT_MINIMO_VENTA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_MINIMO_VENTA.Location = New System.Drawing.Point(497, 87)
+        Me.TXT_MINIMO_VENTA.Margin = New System.Windows.Forms.Padding(2)
+        Me.TXT_MINIMO_VENTA.MaxLength = 3
+        Me.TXT_MINIMO_VENTA.Name = "TXT_MINIMO_VENTA"
+        Me.TXT_MINIMO_VENTA.Size = New System.Drawing.Size(65, 24)
+        Me.TXT_MINIMO_VENTA.TabIndex = 8
+        Me.TXT_MINIMO_VENTA.Text = "1"
         '
-        'Label21
+        'Label22
         '
-        Me.Label21.AutoSize = True
-        Me.Label21.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label21.Location = New System.Drawing.Point(2, 90)
-        Me.Label21.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(113, 18)
-        Me.Label21.TabIndex = 5
-        Me.Label21.Text = "Código CABYS:"
+        Me.Label22.AutoSize = True
+        Me.Label22.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label22.Location = New System.Drawing.Point(393, 90)
+        Me.Label22.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(100, 18)
+        Me.Label22.TabIndex = 7
+        Me.Label22.Text = "Minimo venta:"
         '
         'ProductoMant
         '
@@ -719,4 +745,6 @@ Partial Class ProductoMant
     Friend WithEvents CHK_MODIFICABLE As CheckBox
     Friend WithEvents TXT_COD_CABYS As TextBox
     Friend WithEvents Label21 As Label
+    Friend WithEvents TXT_MINIMO_VENTA As TextBox
+    Friend WithEvents Label22 As Label
 End Class

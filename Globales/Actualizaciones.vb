@@ -20,7 +20,7 @@ Public Class Actualizaciones
         RUTA_ADJUNTOS = "C:\ENVIOS"
         RUTA_BACKUP = "C:\BACKUPS"
 
-        Dim Cantidad_Procesos As Integer = 76
+        Dim Cantidad_Procesos As Integer = 77
         Dim Cantidad_Actual As Integer = 0
         ProgressBar.Value = 0
 
@@ -62,8 +62,9 @@ Public Class Actualizaciones
         Call PRODUCTO_IMG_BARRA()
         Call IND_IMAGEN_TIQUETE()
         Call IND_AUTOCOMPLETAR_CLIENTE()
+        Call MIN_VENTA()
 
-        Cantidad_Actual += 15
+        Cantidad_Actual += 16
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
         'CONSTRAINTS
@@ -1675,6 +1676,23 @@ Public Class Actualizaciones
         End Try
     End Sub
 
+    Private Sub MIN_VENTA()
+        Try
+            If Not EXISTE_CAMPO("MIN_VENTA", "PRODUCTO") Then
+
+                Dim SQL = "	ALTER TABLE PRODUCTO "
+                SQL &= Chr(13) & "	ADD MIN_VENTA MONEY NOT NULL DEFAULT(1) "
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
 #End Region
 
 #Region "Procedimientos"
@@ -2447,7 +2465,7 @@ Public Class Actualizaciones
 
     Private Sub USP_MANT_PRODUCTO()
         Try
-            If Not EXISTE_PROCEDIMIENTO("USP_MANT_PRODUCTO", "2020-10-23") Then
+            If Not EXISTE_PROCEDIMIENTO("USP_MANT_PRODUCTO", "2021-01-28") Then
                 ELIMINA_PROCEDIMIENTO("USP_MANT_PRODUCTO")
 
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_MANT_PRODUCTO] 																						"
@@ -2474,6 +2492,7 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "		,@OBSERVACION VARCHAR(150) = ''																					"
                 SQL &= Chr(13) & "      ,@IND_PRECIO_MODIFICABLE CHAR(1) = 'N'"
                 SQL &= Chr(13) & "      ,@COD_CABYS VARCHAR(13) = ''"
+                SQL &= Chr(13) & "      ,@MIN_VENTA MONEY = 1"
                 SQL &= Chr(13) & "		,@MODO INT																					"
                 SQL &= Chr(13) & "		AS																					"
                 SQL &= Chr(13) & "		BEGIN																					"
@@ -2489,8 +2508,8 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "					END																		"
                 SQL &= Chr(13) & "				ELSE 																			"
                 SQL &= Chr(13) & "					BEGIN																		"
-                SQL &= Chr(13) & "						INSERT INTO PRODUCTO(COD_CIA,COD_SUCUR,COD_PROD,CEDULA,DESCRIPCION,COD_UNIDAD,COSTO,POR_IMPUESTO,COD_IMPUESTO_DGTD,PRECIO, PRECIO_2, PRECIO_3,EXENTO,ESTADO,MINIMO,COD_BARRA,FECHA_INC,COD_FAMILIA,OBSERVACION,IND_PRECIO_MODIFICABLE,COD_CABYS)																	"
-                SQL &= Chr(13) & "						SELECT @COD_CIA, @COD_SUCUR, @COD_PROD, @CEDULA, @DESCRIPCION, @COD_UNIDAD, @COSTO, @POR_IMPUESTO, @COD_IMPUESTO, @PRECIO, @PRECIO_2, @PRECIO_3, @EXENTO, @ESTADO, @MINIMO, @COD_BARRA, GETDATE(), @COD_FAMILIA, @OBSERVACION, @IND_PRECIO_MODIFICABLE, @COD_CABYS																	"
+                SQL &= Chr(13) & "						INSERT INTO PRODUCTO(COD_CIA,COD_SUCUR,COD_PROD,CEDULA,DESCRIPCION,COD_UNIDAD,COSTO,POR_IMPUESTO,COD_IMPUESTO_DGTD,PRECIO, PRECIO_2, PRECIO_3,EXENTO,ESTADO,MINIMO,COD_BARRA,FECHA_INC,COD_FAMILIA,OBSERVACION,IND_PRECIO_MODIFICABLE,COD_CABYS,MIN_VENTA)																	"
+                SQL &= Chr(13) & "						SELECT @COD_CIA, @COD_SUCUR, @COD_PROD, @CEDULA, @DESCRIPCION, @COD_UNIDAD, @COSTO, @POR_IMPUESTO, @COD_IMPUESTO, @PRECIO, @PRECIO_2, @PRECIO_3, @EXENTO, @ESTADO, @MINIMO, @COD_BARRA, GETDATE(), @COD_FAMILIA, @OBSERVACION, @IND_PRECIO_MODIFICABLE, @COD_CABYS,@MIN_VENTA																	"
                 SQL &= Chr(13) & "																							"
                 SQL &= Chr(13) & "						EXECUTE USP_PRODUCTO_UBICACIONES_MANT @COD_CIA, @COD_SUCUR,	@COD_PROD, @ESTANTE, @FILA, @COLUMNA, 'A'																"
                 SQL &= Chr(13) & "					END																		"
@@ -2515,6 +2534,7 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "				,OBSERVACION = @OBSERVACION																			"
                 SQL &= Chr(13) & "              ,IND_PRECIO_MODIFICABLE = @IND_PRECIO_MODIFICABLE   "
                 SQL &= Chr(13) & "              ,COD_CABYS = @COD_CABYS   "
+                SQL &= Chr(13) & "              ,MIN_VENTA = @MIN_VENTA   "
                 SQL &= Chr(13) & "				WHERE COD_CIA = @COD_CIA																			"
                 SQL &= Chr(13) & "				And COD_SUCUR = @COD_SUCUR																			"
                 SQL &= Chr(13) & "				AND COD_PROD = @COD_PROD																			"
@@ -2547,7 +2567,7 @@ Public Class Actualizaciones
 
     Private Sub USP_DATOS_RECIBO_IMPRESION()
         Try
-            If Not EXISTE_PROCEDIMIENTO("USP_DATOS_RECIBO_IMPRESION", "2020-12-21") Then
+            If Not EXISTE_PROCEDIMIENTO("USP_DATOS_RECIBO_IMPRESION", "2021-01-12") Then
                 ELIMINA_PROCEDIMIENTO("USP_DATOS_RECIBO_IMPRESION")
 
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_DATOS_RECIBO_IMPRESION] 																									"
@@ -2611,7 +2631,36 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "				AND AFEC.TIPO_MOV = @TIPO_MOV																						"
                 SQL &= Chr(13) & "				AND AFEC.NUMERO_DOC = @NUMERO_DOC																						"
                 SQL &= Chr(13) & "				GROUP BY AFEC.NUMERO_DOC_AFEC, TIPO_MOV_AFEC, ENC.FECHA, MONTO_AFEC, ENC.MONTO, ENC.IMPUESTO																						"
-                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "	            UNION ALL 																									"
+                SQL &= Chr(13) & "				SELECT AFEC.NUMERO_DOC_AFEC, TIPO_MOV_AFEC, CONVERT(VARCHAR(10), ENC.FECHA, 103) AS FECHA, ((ENC.MONTO + ENC.IMPUESTO) - SUM(ISNULL(T1.MONTO, 0))) AS SALDO_ANTERIOR, MONTO_AFEC																					"
+                SQL &= Chr(13) & "				, ((ENC.MONTO + ENC.IMPUESTO) - SUM(ISNULL(T1.MONTO, 0))) - MONTO_AFEC AS NUEVO_SALDO																					"
+                SQL &= Chr(13) & "				FROM DOCUMENTO_AFEC AS AFEC																					"
+                SQL &= Chr(13) & "				INNER JOIN APARTADO_ENC AS ENC																					"
+                SQL &= Chr(13) & "					ON ENC.COD_CIA = AFEC.COD_CIA																				"
+                SQL &= Chr(13) & "					AND ENC.COD_SUCUR = AFEC.COD_SUCUR																				"
+                SQL &= Chr(13) & "					AND ENC.TIPO_MOV = AFEC.TIPO_MOV_AFEC																				"
+                SQL &= Chr(13) & "					AND ENC.NUMERO_DOC = AFEC.NUMERO_DOC_AFEC																				"
+                SQL &= Chr(13) & "				LEFT JOIN(																					"
+                SQL &= Chr(13) & "					SELECT AFEC.COD_CIA, AFEC.COD_SUCUR, AFEC.NUMERO_DOC, NUMERO_DOC_AFEC, AFEC.TIPO_MOV, SUM(MONTO_AFEC) AS MONTO, AFEC.FECHA																				"
+                SQL &= Chr(13) & "					FROM DOCUMENTO_AFEC	AS AFEC																			"
+                SQL &= Chr(13) & "					INNER JOIN APARTADO_ENC AS ENC_REC																				"
+                SQL &= Chr(13) & "						ON ENC_REC.COD_CIA = AFEC.COD_CIA																			"
+                SQL &= Chr(13) & "						AND ENC_REC.COD_SUCUR = AFEC.COD_SUCUR																			"
+                SQL &= Chr(13) & "						AND ENC_REC.TIPO_MOV = AFEC.TIPO_MOV																			"
+                SQL &= Chr(13) & "						AND ENC_REC.NUMERO_DOC = AFEC.NUMERO_DOC																			"
+                SQL &= Chr(13) & "					WHERE ENC_REC.ESTADO = 'A'																				"
+                SQL &= Chr(13) & "					GROUP BY AFEC.COD_CIA, AFEC.COD_SUCUR, AFEC.NUMERO_DOC, NUMERO_DOC_AFEC, AFEC.TIPO_MOV, AFEC.FECHA																				"
+                SQL &= Chr(13) & "					) AS T1																				"
+                SQL &= Chr(13) & "					ON T1.COD_CIA = AFEC.COD_CIA																				"
+                SQL &= Chr(13) & "					AND T1.COD_SUCUR = AFEC.COD_SUCUR																				"
+                SQL &= Chr(13) & "					AND T1.TIPO_MOV = AFEC.TIPO_MOV																				"
+                SQL &= Chr(13) & "					AND T1.NUMERO_DOC_AFEC = AFEC.NUMERO_DOC_AFEC																				"
+                SQL &= Chr(13) & "					AND T1.NUMERO_DOC < AFEC.NUMERO_DOC																				"
+                SQL &= Chr(13) & "				WHERE AFEC.COD_CIA = @COD_CIA																					"
+                SQL &= Chr(13) & "				AND AFEC.COD_SUCUR = @COD_SUCUR																					"
+                SQL &= Chr(13) & "				AND AFEC.TIPO_MOV = @TIPO_MOV																					"
+                SQL &= Chr(13) & "				AND AFEC.NUMERO_DOC = @NUMERO_DOC																					"
+                SQL &= Chr(13) & "				GROUP BY AFEC.NUMERO_DOC_AFEC, TIPO_MOV_AFEC, ENC.FECHA, MONTO_AFEC, ENC.MONTO, ENC.IMPUESTO																					"
                 SQL &= Chr(13) & "																										"
                 SQL &= Chr(13) & "				SELECT COUNT(AFEC.NUMERO_DOC_AFEC) AS DOCS_AFEC, (ENC.MONTO + ENC.IMPUESTO) AS MR, SUM(AFEC.MONTO_AFEC) AS MU, ENC.SALDO AS SR																						"
                 SQL &= Chr(13) & "				FROM DOCUMENTO_AFEC AS AFEC																						"
@@ -3711,7 +3760,7 @@ Public Class Actualizaciones
 
     Private Sub USP_PROFORMA_A_FACTURA()
         Try
-            If Not EXISTE_PROCEDIMIENTO("USP_PROFORMA_A_FACTURA", "2020-11-12") Then
+            If Not EXISTE_PROCEDIMIENTO("USP_PROFORMA_A_FACTURA", "2021-01-28") Then
                 ELIMINA_PROCEDIMIENTO("USP_PROFORMA_A_FACTURA")
 
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_PROFORMA_A_FACTURA] 																									"
@@ -3727,9 +3776,58 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "			DECLARE @NUMERO_DOC INTEGER																							"
                 SQL &= Chr(13) & "			DECLARE @CEDULA VARCHAR(25)																							"
                 SQL &= Chr(13) & "			DECLARE @FECHA_DOC AS DATETIME																							"
+                SQL &= Chr(13) & "			DECLARE @VENTA_NEGATIVA CHAR(1)																							"
+                SQL &= Chr(13) & "			DECLARE @MFINAL VARCHAR(255)																							"
                 SQL &= Chr(13) & "																										"
                 SQL &= Chr(13) & "			IF @TIPO_MOV = 'FA' OR @TIPO_MOV = 'FC'																							"
                 SQL &= Chr(13) & "				BEGIN																						"
+                SQL &= Chr(13) & "				SET @VENTA_NEGATIVA = (SELECT ISNULL(IND_PERMITE_VENTAS_NEGATIVO, 'N') FROM SUCURSAL_INDICADORES WHERE COD_CIA = @COD_CIA AND COD_SUCUR = @COD_SUCUR)																						"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "				IF @VENTA_NEGATIVA = 'N' AND EXISTS(																						"
+                SQL &= Chr(13) & "											SELECT T1.DESCRIPCION															"
+                SQL &= Chr(13) & "											FROM PROFORMA_DET AS DET															"
+                SQL &= Chr(13) & "											INNER JOIN (															"
+                SQL &= Chr(13) & "											SELECT P.COD_CIA, P.COD_SUCUR, P.COD_PROD, P.DESCRIPCION, ISNULL(SUM(DET.CANTIDAD), 0) AS CANTIDAD  															"
+                SQL &= Chr(13) & "											FROM PRODUCTO AS P															"
+                SQL &= Chr(13) & "											LEFT JOIN INVENTARIO_MOV_DET AS DET															"
+                SQL &= Chr(13) & "												ON DET.COD_CIA = P.COD_CIA														"
+                SQL &= Chr(13) & "												AND DET.COD_SUCUR = P.COD_SUCUR														"
+                SQL &= Chr(13) & "												AND DET.COD_PROD = P.COD_PROD														"
+                SQL &= Chr(13) & "											GROUP BY P.COD_CIA, P.COD_SUCUR, P.COD_PROD, P.DESCRIPCION															"
+                SQL &= Chr(13) & "											)AS T1															"
+                SQL &= Chr(13) & "											ON T1.COD_CIA = DET.COD_CIA															"
+                SQL &= Chr(13) & "											AND T1.COD_SUCUR = DET.COD_SUCUR															"
+                SQL &= Chr(13) & "											AND T1.COD_PROD = DET.COD_PROD															"
+                SQL &= Chr(13) & "											WHERE DET.COD_CIA = @COD_CIA															"
+                SQL &= Chr(13) & "											AND DET.COD_SUCUR = @COD_SUCUR															"
+                SQL &= Chr(13) & "											AND NUMERO_DOC = @NUMERO_DOC_PROF															"
+                SQL &= Chr(13) & "											AND DET.CANTIDAD > T1.CANTIDAD															"
+                SQL &= Chr(13) & "				)																						"
+                SQL &= Chr(13) & "				BEGIN																						"
+                SQL &= Chr(13) & "					SET @MFINAL = (SELECT 'El producto: ' + T1.DESCRIPCION + ' no posee suficiente inventario para ser facturado'																					"
+                SQL &= Chr(13) & "					FROM PROFORMA_DET AS DET																					"
+                SQL &= Chr(13) & "					INNER JOIN (																					"
+                SQL &= Chr(13) & "					SELECT P.COD_CIA, P.COD_SUCUR, P.COD_PROD, P.DESCRIPCION, ISNULL(SUM(DET.CANTIDAD), 0) AS CANTIDAD  																					"
+                SQL &= Chr(13) & "					FROM PRODUCTO AS P																					"
+                SQL &= Chr(13) & "					LEFT JOIN INVENTARIO_MOV_DET AS DET																					"
+                SQL &= Chr(13) & "						ON DET.COD_CIA = P.COD_CIA																				"
+                SQL &= Chr(13) & "						AND DET.COD_SUCUR = P.COD_SUCUR																				"
+                SQL &= Chr(13) & "						AND DET.COD_PROD = P.COD_PROD																				"
+                SQL &= Chr(13) & "					GROUP BY P.COD_CIA, P.COD_SUCUR, P.COD_PROD, P.DESCRIPCION																					"
+                SQL &= Chr(13) & "					)AS T1																					"
+                SQL &= Chr(13) & "					ON T1.COD_CIA = DET.COD_CIA																					"
+                SQL &= Chr(13) & "					AND T1.COD_SUCUR = DET.COD_SUCUR																					"
+                SQL &= Chr(13) & "					AND T1.COD_PROD = DET.COD_PROD																					"
+                SQL &= Chr(13) & "					WHERE DET.COD_CIA = @COD_CIA																					"
+                SQL &= Chr(13) & "					AND DET.COD_SUCUR = @COD_SUCUR																					"
+                SQL &= Chr(13) & "					AND NUMERO_DOC = @NUMERO_DOC_PROF																					"
+                SQL &= Chr(13) & "					AND DET.CANTIDAD > T1.CANTIDAD																					"
+                SQL &= Chr(13) & "					)																					"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "					RAISERROR(@MFINAL, 17, 1)																					"
+                SQL &= Chr(13) & "				END																						"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "																										"
                 SQL &= Chr(13) & "					SELECT @NUMERO_DOC =  ISNULL(MAX(NUMERO_DOC), 0) + 1 																					"
                 SQL &= Chr(13) & "					FROM DOCUMENTO_ENC																					"
                 SQL &= Chr(13) & "					WHERE COD_CIA = @COD_CIA																					"
@@ -3798,7 +3896,7 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "		 		DECLARE @MENSAJE VARCHAR(500)																						"
                 SQL &= Chr(13) & "		 		SET @MENSAJE =( SELECT ERROR_MESSAGE())																						"
                 SQL &= Chr(13) & "		 		RAISERROR( @MENSAJE, 16, 1)																						"
-                SQL &= Chr(13) & "			END CATCH		 																					"
+                SQL &= Chr(13) & "			END CATCH																							"
                 SQL &= Chr(13) & "		END																								"
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)

@@ -608,8 +608,22 @@ Public Class Facturacion
                     RELLENAR_GRID()
                     MessageBox.Show(Me, "Recibo anulado correctamente", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
+            ElseIf Numero_Doc > 0 And (Tipo_Mov = "FC" Or Tipo_Mov = "FA") And CMB_VER.SelectedItem.ToString.Substring(0, 1) = "P" Then
+
+                Dim Sql = "	UPDATE PROFORMA_ENC	"
+                Sql &= Chr(13) & "	Set SALDO = 0, DESCRIPCION = " & SCM("Proforma anulada por: " & COD_USUARIO) & ", ESTADO = 'I'"
+                Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+                Sql &= Chr(13) & "  AND COD_SUCUR =" & SCM(COD_SUCUR)
+                Sql &= Chr(13) & "  AND NUMERO_DOC = " & Val(Numero_Doc)
+                Sql &= Chr(13) & "  AND TIPO_MOV = " & SCM(Tipo_Mov)
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(Sql)
+                CONX.Coneccion_Cerrar()
+                CONSULTA_FILTRO = ""
+                RELLENAR_GRID()
+                MessageBox.Show(Me, "Proforma anulada correctamente", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Else
-                MessageBox.Show(Me, "Solamente se pueden anular Apartados y Recibos de Dinero", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                MessageBox.Show(Me, "Solamente se pueden anular Apartados, Proformas y Recibos de Dinero", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

@@ -623,7 +623,7 @@ Public Class Factura
 
                     If LVResultados.Items.Count = 1 And presiono_enter And IND_INGRESO_AUTO = "S" Then
                         DobleClickList()
-                        TXT_CANTIDAD.Text = Min_Venta(TXT_CODIGO.Text)
+                        TXT_CANTIDAD.Text = IIf(String.IsNullOrEmpty(TXT_CANTIDAD.Text), Min_Venta(TXT_CODIGO.Text), FMC(TXT_CANTIDAD.Text))
                         CalculoTotales()
                         IngresarDetalle()
                         TXT_CODIGO.Select()

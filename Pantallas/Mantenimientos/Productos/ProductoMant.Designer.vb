@@ -24,6 +24,8 @@ Partial Class ProductoMant
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ProductoMant))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.TXT_MINIMO_VENTA = New System.Windows.Forms.TextBox()
+        Me.Label22 = New System.Windows.Forms.Label()
         Me.TXT_COD_CABYS = New System.Windows.Forms.TextBox()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.CHK_MODIFICABLE = New System.Windows.Forms.CheckBox()
@@ -70,8 +72,6 @@ Partial Class ProductoMant
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
-        Me.TXT_MINIMO_VENTA = New System.Windows.Forms.TextBox()
-        Me.Label22 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -133,6 +133,28 @@ Partial Class ProductoMant
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Información general ]"
+        '
+        'TXT_MINIMO_VENTA
+        '
+        Me.TXT_MINIMO_VENTA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_MINIMO_VENTA.Location = New System.Drawing.Point(497, 87)
+        Me.TXT_MINIMO_VENTA.Margin = New System.Windows.Forms.Padding(2)
+        Me.TXT_MINIMO_VENTA.MaxLength = 4
+        Me.TXT_MINIMO_VENTA.Name = "TXT_MINIMO_VENTA"
+        Me.TXT_MINIMO_VENTA.Size = New System.Drawing.Size(65, 24)
+        Me.TXT_MINIMO_VENTA.TabIndex = 8
+        Me.TXT_MINIMO_VENTA.Text = "1"
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label22.Location = New System.Drawing.Point(393, 90)
+        Me.Label22.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(100, 18)
+        Me.Label22.TabIndex = 7
+        Me.Label22.Text = "Minimo venta:"
         '
         'TXT_COD_CABYS
         '
@@ -651,28 +673,6 @@ Partial Class ProductoMant
         Me.BTN_SALIR.Text = "Salir"
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
-        '
-        'TXT_MINIMO_VENTA
-        '
-        Me.TXT_MINIMO_VENTA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_MINIMO_VENTA.Location = New System.Drawing.Point(497, 87)
-        Me.TXT_MINIMO_VENTA.Margin = New System.Windows.Forms.Padding(2)
-        Me.TXT_MINIMO_VENTA.MaxLength = 3
-        Me.TXT_MINIMO_VENTA.Name = "TXT_MINIMO_VENTA"
-        Me.TXT_MINIMO_VENTA.Size = New System.Drawing.Size(65, 24)
-        Me.TXT_MINIMO_VENTA.TabIndex = 8
-        Me.TXT_MINIMO_VENTA.Text = "1"
-        '
-        'Label22
-        '
-        Me.Label22.AutoSize = True
-        Me.Label22.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label22.Location = New System.Drawing.Point(393, 90)
-        Me.Label22.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(100, 18)
-        Me.Label22.TabIndex = 7
-        Me.Label22.Text = "Minimo venta:"
         '
         'ProductoMant
         '

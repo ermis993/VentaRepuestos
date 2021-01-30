@@ -79,7 +79,7 @@ Public Class ProductoMant
                     TXT_MINIMO.Text = ITEM("MINIMO")
                     TXT_PRECIO_2.Text = ITEM("PRECIO_2")
                     TXT_PRECIO_3.Text = ITEM("PRECIO_3")
-                    TXT_MINIMO_VENTA.Text = FMC(ITEM("MIN_VENTA"), 1)
+                    TXT_MINIMO_VENTA.Text = FMC(ITEM("MIN_VENTA"), 2)
 
                     If Trim(ITEM("ESTADO")).Equals("A") Then
                         RB_ACTIVO.Checked = True

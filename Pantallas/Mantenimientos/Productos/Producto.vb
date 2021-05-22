@@ -186,8 +186,13 @@ Public Class Producto
                 CONX.Coneccion_Cerrar()
 
                 If Imagen IsNot Nothing Then
-                    Dim imp As New Impresion()
-                    imp.ImprimirBarcode(Imagen, DESCRIPCION)
+                    Dim Cantidad As Integer = Val(InputBox("Ingrese la cantidad de copias que desea imprimir", "Copias a realizar", 1))
+                    If Cantidad > 0 Then
+                        Dim imp As New Impresion()
+                        For index = 1 To Cantidad
+                            imp.ImprimirBarcode(Imagen, DESCRIPCION)
+                        Next
+                    End If
                 Else
                     MessageBox.Show(Me, "El producto no tiene relacionado una imagen Barcode", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If

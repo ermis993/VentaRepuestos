@@ -70,6 +70,7 @@ Partial Class Tracking
         '
         'BTN_GENERAR
         '
+        Me.BTN_GENERAR.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.BTN_GENERAR.Image = Global.VentaRepuestos.My.Resources.Resources.generar
         Me.BTN_GENERAR.ImageAlign = System.Drawing.ContentAlignment.TopCenter
         Me.BTN_GENERAR.Location = New System.Drawing.Point(468, 10)
@@ -79,7 +80,7 @@ Partial Class Tracking
         Me.BTN_GENERAR.TabIndex = 10
         Me.BTN_GENERAR.Text = "Generar"
         Me.BTN_GENERAR.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.BTN_GENERAR.UseVisualStyleBackColor = True
+        Me.BTN_GENERAR.UseVisualStyleBackColor = False
         '
         'Label11
         '

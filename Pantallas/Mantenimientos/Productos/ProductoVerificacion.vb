@@ -67,14 +67,20 @@ Public Class ProductoVerificacion
                 sql &= Chr(13) & "		ON REL.COD_CIA = PROD_E.COD_CIA"
                 sql &= Chr(13) & "		AND REL.COD_SUCUR = PROD_E.COD_SUCUR"
                 sql &= Chr(13) & "      AND REL.COD_PROD_HIJO =  PROD_E.CODIGO"
-                sql &= Chr(13) & "	WHERE TARIFA IS NOT NULL"
+                sql &= Chr(13) & "	LEFT JOIN PRODUCTO_DESECHADO AS DES	"
+                sql &= Chr(13) & "		ON DES.COD_CIA = PROD_E.COD_CIA"
+                sql &= Chr(13) & "		AND DES.COD_SUCUR = PROD_E.COD_SUCUR"
+                sql &= Chr(13) & "      AND DES.COD_PROD =  PROD_E.CODIGO"
+                sql &= Chr(13) & "	WHERE PROD_E.COD_CIA = " & SCM(COD_CIA)
+                sql &= Chr(13) & "	AND PROD_E.COD_SUCUR = " & SCM(COD_SUCUR)
+                sql &= Chr(13) & "	AND TARIFA IS NOT NULL"
                 sql &= Chr(13) & "	AND (PROD.COD_PROD IS NULL AND REL.COD_PROD_PADRE IS NULL)	"
                 sql &= Chr(13) & "	AND DETALLE NOT LIKE '%TRANSPORTE%'	"
                 sql &= Chr(13) & "	AND PROD_E.CODIGO IS NOT NULL"
+                sql &= Chr(13) & "	AND DES.COD_PROD IS NULL"
                 sql &= Chr(13) & CONSULTA_FILTRO
                 sql &= Chr(13) & "	GROUP BY PROD_E.CODIGO, UPPER(PROD_E.DETALLE), PROD_E.TARIFA, ENC.CEDULA"
                 sql &= Chr(13) & "	ORDER BY DETALLE ASC	"
-
 
                 CONX.Coneccion_Abrir()
                 Dim DS = CONX.EJECUTE_DS(sql)
@@ -123,10 +129,17 @@ Public Class ProductoVerificacion
             SQL &= Chr(13) & "		ON REL.COD_CIA = PROD_E.COD_CIA"
             SQL &= Chr(13) & "		AND REL.COD_SUCUR = PROD_E.COD_SUCUR"
             SQL &= Chr(13) & "      AND REL.COD_PROD_HIJO =  PROD_E.CODIGO"
-            SQL &= Chr(13) & "	WHERE TARIFA IS NOT NULL"
+            SQL &= Chr(13) & "	LEFT JOIN PRODUCTO_DESECHADO AS DES	"
+            SQL &= Chr(13) & "		ON DES.COD_CIA = PROD_E.COD_CIA"
+            SQL &= Chr(13) & "		AND DES.COD_SUCUR = PROD_E.COD_SUCUR"
+            SQL &= Chr(13) & "      AND DES.COD_PROD =  PROD_E.CODIGO"
+            SQL &= Chr(13) & "	WHERE PROD_E.COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & "	AND PROD_E.COD_SUCUR = " & SCM(COD_SUCUR)
+            SQL &= Chr(13) & "	AND TARIFA IS NOT NULL"
             SQL &= Chr(13) & "	AND (PROD.COD_PROD IS NULL AND REL.COD_PROD_PADRE IS NULL)	"
             SQL &= Chr(13) & "	AND DETALLE NOT LIKE '%TRANSPORTE%'	"
             SQL &= Chr(13) & "	AND PROD_E.CODIGO IS NOT NULL"
+            SQL &= Chr(13) & "	AND DES.COD_PROD IS NULL"
             SQL &= Chr(13) & "	GROUP BY PROD_E.CODIGO, UPPER(PROD_E.DETALLE), PROD_E.TARIFA, ENC.CEDULA"
             SQL &= Chr(13) & "	) AS T1	"
             CONX.Coneccion_Abrir()
@@ -205,5 +218,24 @@ Public Class ProductoVerificacion
             RELLENAR_GRID()
             CONSULTA_FILTRO = ""
         End If
+    End Sub
+
+    Private Sub DesecharProductoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DesecharProductoToolStripMenuItem.Click
+        Try
+            Leer_indice()
+            Dim valor = MessageBox.Show(Me, "¿Está seguro que desea desechar el producto " & DESC_PROD & " ?", "Aviso", vbYesNo, MessageBoxIcon.Question)
+            If valor = DialogResult.Yes Then
+                Dim SQL = "	INSERT INTO PRODUCTO_DESECHADO	"
+                SQL &= Chr(13) & "	SELECT " & SCM(COD_CIA) & "," & SCM(COD_SUCUR) & "," & SCM(COD_PROD)
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+
+                RELLENAR_GRID()
+                MessageBox.Show(Me, "Producto desechado correctamente, ya no aparecerá pendiente por ingresar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 End Class

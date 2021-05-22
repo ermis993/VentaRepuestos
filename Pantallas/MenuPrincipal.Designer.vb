@@ -31,6 +31,7 @@ Partial Class MenuPrincipal
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.LBL_SALUDO = New System.Windows.Forms.Label()
+        Me.BTN_BITACORAS = New System.Windows.Forms.Button()
         Me.BTN_INVENTARIO = New System.Windows.Forms.Button()
         Me.PB_IMAGEN = New System.Windows.Forms.PictureBox()
         Me.BTN_BACKUP = New System.Windows.Forms.Button()
@@ -138,6 +139,19 @@ Partial Class MenuPrincipal
         Me.LBL_SALUDO.Size = New System.Drawing.Size(51, 18)
         Me.LBL_SALUDO.TabIndex = 18
         Me.LBL_SALUDO.Text = "Label3"
+        '
+        'BTN_BITACORAS
+        '
+        Me.BTN_BITACORAS.Image = Global.VentaRepuestos.My.Resources.Resources.bitacora
+        Me.BTN_BITACORAS.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.BTN_BITACORAS.Location = New System.Drawing.Point(197, 399)
+        Me.BTN_BITACORAS.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_BITACORAS.Name = "BTN_BITACORAS"
+        Me.BTN_BITACORAS.Size = New System.Drawing.Size(64, 55)
+        Me.BTN_BITACORAS.TabIndex = 21
+        Me.BTN_BITACORAS.Text = "Bitacoras"
+        Me.BTN_BITACORAS.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.BTN_BITACORAS.UseVisualStyleBackColor = True
         '
         'BTN_INVENTARIO
         '
@@ -364,6 +378,7 @@ Partial Class MenuPrincipal
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(906, 528)
         Me.ControlBox = False
+        Me.Controls.Add(Me.BTN_BITACORAS)
         Me.Controls.Add(Me.BTN_INVENTARIO)
         Me.Controls.Add(Me.PB_IMAGEN)
         Me.Controls.Add(Me.LBL_SALUDO)
@@ -425,4 +440,5 @@ Partial Class MenuPrincipal
     Friend WithEvents LBL_SALUDO As Label
     Friend WithEvents PB_IMAGEN As PictureBox
     Friend WithEvents BTN_INVENTARIO As Button
+    Friend WithEvents BTN_BITACORAS As Button
 End Class

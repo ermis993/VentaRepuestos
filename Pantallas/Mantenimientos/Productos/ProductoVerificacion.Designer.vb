@@ -22,6 +22,7 @@ Partial Class ProductoVerificacion
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ProductoVerificacion))
         Me.BTN_VERIFICAR = New System.Windows.Forms.Button()
         Me.PB_CARGA = New System.Windows.Forms.ProgressBar()
@@ -42,8 +43,11 @@ Partial Class ProductoVerificacion
         Me.TXT_CODIGO = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Filtro = New VentaRepuestos.Filtro()
+        Me.MNU_DESECHAR = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.DesecharProductoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
+        Me.MNU_DESECHAR.SuspendLayout()
         Me.SuspendLayout()
         '
         'BTN_VERIFICAR
@@ -92,6 +96,7 @@ Partial Class ProductoVerificacion
         Me.GRID.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.GRID.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
         Me.GRID.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.GRID.ContextMenuStrip = Me.MNU_DESECHAR
         Me.GRID.Location = New System.Drawing.Point(2, 136)
         Me.GRID.MultiSelect = False
         Me.GRID.Name = "GRID"
@@ -248,6 +253,18 @@ Partial Class ProductoVerificacion
         Me.Filtro.TabIndex = 17
         Me.Filtro.VALOR = ""
         '
+        'MNU_DESECHAR
+        '
+        Me.MNU_DESECHAR.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DesecharProductoToolStripMenuItem})
+        Me.MNU_DESECHAR.Name = "MNU_DESECHAR"
+        Me.MNU_DESECHAR.Size = New System.Drawing.Size(181, 48)
+        '
+        'DesecharProductoToolStripMenuItem
+        '
+        Me.DesecharProductoToolStripMenuItem.Name = "DesecharProductoToolStripMenuItem"
+        Me.DesecharProductoToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.DesecharProductoToolStripMenuItem.Text = "Desechar producto"
+        '
         'ProductoVerificacion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -270,6 +287,7 @@ Partial Class ProductoVerificacion
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.MNU_DESECHAR.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -294,4 +312,6 @@ Partial Class ProductoVerificacion
     Friend WithEvents TXT_CEDULA As TextBox
     Friend WithEvents Label6 As Label
     Friend WithEvents Filtro As Filtro
+    Friend WithEvents MNU_DESECHAR As ContextMenuStrip
+    Friend WithEvents DesecharProductoToolStripMenuItem As ToolStripMenuItem
 End Class

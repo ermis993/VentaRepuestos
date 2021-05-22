@@ -51,12 +51,14 @@ Public Class Reportes_CXC
                     Case "VDIA"
                         Dim imp As New Impresion()
                         imp.ImprimirVenta(COD_CIA, COD_SUCUR, DTP_INICIO.Value, DTP_FINAL.Value)
+                        IngresaBitacoraImpresion(COD_USUARIO, "Reporte de ventas")
                     Case "DSAL"
                         Dim f As FolderBrowserDialog = New FolderBrowserDialog
                         If f.ShowDialog() = DialogResult.OK Then
                             Dim Ruta = f.SelectedPath
                             Genera_RPT_Documentos_Por_Rango_Fechas("FA", YMD(DTP_INICIO.Value), YMD(DTP_FINAL.Value), "Facturas_credito_con_saldo", Ruta)
                             MessageBox.Show(Me, "Reporte generado correctamente", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            IngresaBitacoraImpresion(COD_USUARIO, "Facturas de crédito con saldo")
                         End If
                 End Select
                 Cursor.Current = Cursors.Default

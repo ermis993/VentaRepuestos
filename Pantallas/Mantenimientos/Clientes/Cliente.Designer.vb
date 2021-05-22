@@ -33,6 +33,7 @@ Partial Class Cliente
         Me.RB_INACTIVOS = New System.Windows.Forms.RadioButton()
         Me.RB_ACTIVOS = New System.Windows.Forms.RadioButton()
         Me.Filtro = New VentaRepuestos.Filtro()
+        Me.BTN_ENVIOS = New System.Windows.Forms.Button()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Estado.SuspendLayout()
         Me.SuspendLayout()
@@ -103,7 +104,7 @@ Partial Class Cliente
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(296, 4)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(394, 4)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 28
@@ -164,12 +165,27 @@ Partial Class Cliente
         Me.Filtro.TabIndex = 35
         Me.Filtro.VALOR = ""
         '
+        'BTN_ENVIOS
+        '
+        Me.BTN_ENVIOS.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_ENVIOS.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_ENVIOS.Image = Global.VentaRepuestos.My.Resources.Resources.encomienda
+        Me.BTN_ENVIOS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_ENVIOS.Location = New System.Drawing.Point(296, 4)
+        Me.BTN_ENVIOS.Name = "BTN_ENVIOS"
+        Me.BTN_ENVIOS.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_ENVIOS.TabIndex = 36
+        Me.BTN_ENVIOS.Text = "Envios"
+        Me.BTN_ENVIOS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_ENVIOS.UseVisualStyleBackColor = False
+        '
         'Cliente
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1023, 461)
         Me.ControlBox = False
+        Me.Controls.Add(Me.BTN_ENVIOS)
         Me.Controls.Add(Me.Filtro)
         Me.Controls.Add(Me.Estado)
         Me.Controls.Add(Me.GRID)
@@ -199,4 +215,5 @@ Partial Class Cliente
     Friend WithEvents RB_INACTIVOS As RadioButton
     Friend WithEvents RB_ACTIVOS As RadioButton
     Friend WithEvents Filtro As Filtro
+    Friend WithEvents BTN_ENVIOS As Button
 End Class

@@ -269,7 +269,8 @@ Public Class Printer
         row = 0
         Dim PS1 As New PageSettings
         With PS1
-            .PaperSize = (From s As PaperSize In prn.PrinterSettings.PaperSizes.Cast(Of PaperSize)()).FirstOrDefault
+            '.PaperSize = (From s As PaperSize In prn.PrinterSettings.PaperSizes.Cast(Of PaperSize)()).FirstOrDefault
+            .PaperSize = New PaperSize("Custom", 1500, 850)
             .Margins.Left = 0
             .Margins.Right = 0
             .Margins.Top = 0

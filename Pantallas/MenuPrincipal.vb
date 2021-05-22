@@ -56,6 +56,7 @@ Public Class MenuPrincipal
             BTN_CONSULTA.Enabled = TieneDerecho("DCONS")
             BTN_XML.Enabled = TieneDerecho("DXML")
             BTN_INVENTARIO.Enabled = TieneDerecho("DINV")
+            BTN_BITACORAS.Enabled = TieneDerecho("DBITA")
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -289,6 +290,15 @@ Public Class MenuPrincipal
     Private Sub BTN_INVENTARIO_Click(sender As Object, e As EventArgs) Handles BTN_INVENTARIO.Click
         Try
             Dim PANTALLA As New Inventario()
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_BITACORAS_Click(sender As Object, e As EventArgs) Handles BTN_BITACORAS.Click
+        Try
+            Dim PANTALLA As New ConsultaBitacoras()
             PANTALLA.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)

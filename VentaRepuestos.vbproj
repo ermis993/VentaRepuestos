@@ -162,6 +162,12 @@
     <Compile Include="Pantallas\Generador reportes\Reportes.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Pantallas\Mantenimientos\Clientes\ClienteEncomiendas.Designer.vb">
+      <DependentUpon>ClienteEncomiendas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Mantenimientos\Clientes\ClienteEncomiendas.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pantallas\Mantenimientos\Productos\ProductoBarcode.Designer.vb">
       <DependentUpon>ProductoBarcode.vb</DependentUpon>
     </Compile>
@@ -197,6 +203,12 @@
       <DependentUpon>DerechosSucursal.vb</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Mantenimientos\Sucursales\DerechosSucursal.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\ConsultaBitacoras.Designer.vb">
+      <DependentUpon>ConsultaBitacoras.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\ConsultaBitacoras.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\Apartado.Designer.vb">
@@ -246,6 +258,12 @@
       <DependentUpon>CXP_Pagos.vb</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\CXP_Pagos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\DocumentoElectronicoCorreo.Designer.vb">
+      <DependentUpon>DocumentoElectronicoCorreo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\DocumentoElectronicoCorreo.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\Movimientos\Cuentas por pagar\Reportes\CXP_Proceso.vb" />
@@ -559,6 +577,9 @@
     <EmbeddedResource Include="Pantallas\Generador reportes\Reportes.resx">
       <DependentUpon>Reportes.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Mantenimientos\Clientes\ClienteEncomiendas.resx">
+      <DependentUpon>ClienteEncomiendas.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Mantenimientos\Productos\ProductoBarcode.resx">
       <DependentUpon>ProductoBarcode.vb</DependentUpon>
     </EmbeddedResource>
@@ -576,6 +597,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Mantenimientos\Sucursales\DerechosSucursal.resx">
       <DependentUpon>DerechosSucursal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\ConsultaBitacoras.resx">
+      <DependentUpon>ConsultaBitacoras.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por cobrar\Movimientos\Apartado.resx">
       <DependentUpon>Apartado.vb</DependentUpon>
@@ -600,6 +624,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\CXP_Pagos.resx">
       <DependentUpon>CXP_Pagos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\DocumentoElectronicoCorreo.resx">
+      <DependentUpon>DocumentoElectronicoCorreo.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Movimientos\Cuentas por pagar\Movimientos\DocumentoElectronicoImp.resx">
       <DependentUpon>DocumentoElectronicoImp.vb</DependentUpon>
@@ -879,6 +906,7 @@
     <None Include="Resources\excel.png" />
     <None Include="Resources\inventario.png" />
     <None Include="Resources\ajuste_inventario.png" />
+    <None Include="Resources\bitacora.png" />
     <Content Include="Resources\quitar.png" />
     <None Include="Resources\Right.png" />
     <None Include="Resources\reportes.png" />

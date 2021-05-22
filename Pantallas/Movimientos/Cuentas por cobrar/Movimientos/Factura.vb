@@ -401,8 +401,37 @@ Public Class Factura
     End Sub
 
     Private Sub BTN_INGRESAR_Click(sender As Object, e As EventArgs) Handles BTN_INGRESAR.Click
-        IngresarDetalle()
+        If ExisteProducto() Then
+            IngresarDetalle()
+        Else
+            TXT_CODIGO.Select()
+            MessageBox.Show(Me, "El código de producto ingresado no ha sido ingresado a la base de datos", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End If
     End Sub
+
+    Private Function ExisteProducto() As Boolean
+        Try
+            Dim bandera As Boolean = False
+
+            Dim Sql = "	SELECT *"
+            Sql &= Chr(13) & "	FROM PRODUCTO"
+            Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            Sql &= Chr(13) & "  AND COD_SUCUR = " & SCM(COD_SUCUR)
+            Sql &= Chr(13) & "	AND COD_PROD = " & SCM(TXT_CODIGO.Text)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(Sql)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                bandera = True
+            End If
+
+            Return bandera
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            Return False
+        End Try
+    End Function
 
     Private Sub LimpiarControles()
         TXT_CANTIDAD.Text = ""

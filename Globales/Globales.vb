@@ -1004,6 +1004,20 @@ Public Class Globales
         End Try
     End Sub
 
+
+    Public Shared Sub IngresaBitacoraImpresion(ByVal COD_USUARIO As String, ByVal REPORTE As String)
+        Try
+            Dim Sql = "	INSERT INTO BITACORA_IMPRESIONES(COD_CIA,COD_SUCUR,FECHA_IMP,COD_USUARIO,REPORTE)	"
+            Sql &= Chr(13) & "	SELECT " & SCM(COD_CIA) & "," & SCM(COD_SUCUR) & ", GETDATE()," & SCM(COD_USUARIO) & "," & SCM(REPORTE)
+
+            CONX.Coneccion_Abrir()
+            CONX.EJECUTE(Sql)
+            CONX.Coneccion_Cerrar()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
     Structure SMTP_CONFIG
         Public SERVIDOR_SMTP As String
         Public USUARIO As String

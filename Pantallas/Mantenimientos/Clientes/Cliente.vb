@@ -10,6 +10,7 @@ Public Class Cliente
         FORMATO_GRID()
         Me.MODO = MODO
         Me.BS = Bus
+        Me.BTN_ENVIOS.Enabled = (IND_ENCOMIENDA = "S")
     End Sub
     Private Sub Cliente_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         RELLENAR_GRID()
@@ -137,4 +138,8 @@ Public Class Cliente
         End If
     End Sub
 
+    Private Sub BTN_ENVIOS_Click(sender As Object, e As EventArgs) Handles BTN_ENVIOS.Click
+        Dim PANTALLA As New ClienteEncomiendas()
+        PANTALLA.ShowDialog()
+    End Sub
 End Class

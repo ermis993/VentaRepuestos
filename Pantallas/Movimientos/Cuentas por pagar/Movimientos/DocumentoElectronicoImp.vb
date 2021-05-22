@@ -11,6 +11,7 @@ Public Class DocumentoElectronicoImp
         Construir_DS()
         Construir_DS_DET()
         CARGAR_ACTIVIDADES()
+        CARGAR_TIPO_INGRESO()
         LIMPIAR()
         CARGAR_CEDULA_CIA()
     End Sub
@@ -24,6 +25,7 @@ Public Class DocumentoElectronicoImp
 
     Dim IND_ESTADO As String = ""
     Dim COD_ACT_ECO As String = ""
+    Dim TIPO_INGRESO As String = ""
     Dim CONDICION_IVA As String = ""
     Dim POR_IMPUESTO As Decimal = 0.0
     Dim IMPUESTO_ACREDITAR As Decimal = 0.0
@@ -298,10 +300,14 @@ Public Class DocumentoElectronicoImp
 
     Private Sub LEER_INFORMACION_DETALLE(ByVal NODO_DETALLE As XmlNode)
         Try
+            Dim BANDERA_CODIGO_COMERCIAL = False
+
             If IsNothing(NODO_DETALLE) = False Then
 
                 Dim CANTIDAD As Integer = 1
                 For Each NODOS As XmlNode In NODO_DETALLE
+
+                    BANDERA_CODIGO_COMERCIAL = False
 
                     If (NODOS.Name.ToString.Equals("LineaDetalle")) Then
                         Dim ROW As DataRow = DS_DET.NewRow
@@ -318,8 +324,9 @@ Public Class DocumentoElectronicoImp
                                     ROW("TIPO") = NODO_DET.Item("Tipo").InnerXml
                                 End If
 
-                                If CheckElement(NODO_DET, "Codigo") Then
+                                If CheckElement(NODO_DET, "Codigo") And NODO_DET.Item("Codigo").InnerXml <> "00000000000000" And BANDERA_CODIGO_COMERCIAL = False Then
                                     ROW("CODIGO") = NODO_DET.Item("Codigo").InnerXml
+                                    BANDERA_CODIGO_COMERCIAL = True
                                 End If
 
                             ElseIf (NODO_DET.Name.ToString.Equals("Cantidad")) Then
@@ -456,6 +463,7 @@ Public Class DocumentoElectronicoImp
         DS_ENC.Columns.Add("TIPO_CAMBIO", GetType(Decimal))
         DS_ENC.Columns.Add("IND_ESTADO", GetType(String))
         DS_ENC.Columns.Add("COD_ACT_ECO", GetType(String))
+        DS_ENC.Columns.Add("TIPO_INGRESO", GetType(String))
         DS_ENC.Columns.Add("CONDICION_IVA", GetType(String))
         DS_ENC.Columns.Add("POR_IMPUESTO", GetType(Integer))
         DS_ENC.Columns.Add("IMPUESTO_ACREDITAR", GetType(Decimal))
@@ -522,6 +530,17 @@ Public Class DocumentoElectronicoImp
     'LISTA_REF.Add(New KeyValuePair(Of String, String)("04", "Gasto corriente, no genera crédito"))
     'LISTA_REF.Add(New KeyValuePair(Of String, String)("05", "Proporcionalidad"))
 
+    Private Sub CARGAR_TIPO_INGRESO()
+        Dim LISTA_REF As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
+        LISTA_REF.Add(New KeyValuePair(Of String, String)("01", "Gasto"))
+        LISTA_REF.Add(New KeyValuePair(Of String, String)("02", "Compra"))
+
+        CMB_TIPO_INGRESO.DataSource = LISTA_REF
+        CMB_TIPO_INGRESO.ValueMember = "Key"
+        CMB_TIPO_INGRESO.DisplayMember = "Value"
+        CMB_TIPO_INGRESO.SelectedIndex = 0
+    End Sub
+
     Private Sub CARGAR_ACTIVIDADES()
         Try
             CMB_ACTIVIDAD.DataSource = Nothing
@@ -559,6 +578,7 @@ Public Class DocumentoElectronicoImp
                 Else
                     COD_ACT_ECO = CMB_ACTIVIDAD.SelectedValue.ToString
                     CONDICION_IVA = "01"
+                    TIPO_INGRESO = CMB_TIPO_INGRESO.SelectedValue.ToString
                     POR_IMPUESTO = 13
                     IMPUESTO_ACREDITAR = IMPUESTO
                     GASTO_APLICABLE = 0.0
@@ -653,6 +673,7 @@ Public Class DocumentoElectronicoImp
             ROW("TIPO_CAMBIO") = TIPO_CAMBIO
             ROW("IND_ESTADO") = IND_ESTADO
             ROW("COD_ACT_ECO") = COD_ACT_ECO
+            ROW("TIPO_INGRESO") = TIPO_INGRESO
             ROW("CONDICION_IVA") = CONDICION_IVA
             ROW("POR_IMPUESTO") = POR_IMPUESTO
             ROW("IMPUESTO_ACREDITAR") = IMPUESTO_ACREDITAR

@@ -90,11 +90,12 @@ Public Class Reportes
                                 SQL &= Chr(13) & "	CASE WHEN CXP.TIPO_MOV = 'NC' THEN CXP.TOTAL_VENTA * -1 ELSE CXP.TOTAL_VENTA END AS 'Subtotal', 	"
                                 SQL &= Chr(13) & "  CASE WHEN CXP.TIPO_MOV = 'NC' THEN CXP.DESCUENTO * -1 ELSE CXP.DESCUENTO END AS 'Descuento',"
                                 SQL &= Chr(13) & "  CASE WHEN CXP.TIPO_MOV = 'NC' THEN CXP.IMPUESTO * -1  ELSE CXP.IMPUESTO END AS 'Impuesto',"
-                                SQL &= Chr(13) & "  CASE WHEN CXP.TIPO_MOV = 'NC' THEN CXP.TOTAL * -1 ELSE CXP.TOTAL END AS 'Total'"
+                                SQL &= Chr(13) & "  CASE WHEN CXP.TIPO_MOV = 'NC' THEN CXP.TOTAL * -1 ELSE CXP.TOTAL END AS 'Total',"
+                                SQL &= Chr(13) & "  CASE WHEN CXP.TIPO_INGRESO = '01' THEN 'Gasto' ELSE 'Compra' END AS 'Tipo ingreso'"
                                 SQL &= Chr(13) & "	FROM CXP_DOCUMENTOS_ELECTRONICOS AS CXP	"
                                 SQL &= Chr(13) & "	INNER JOIN PROVEEDOR AS PROV"
                                 SQL &= Chr(13) & "		ON PROV.COD_CIA = CXP.COD_CIA"
-                                SQL &= Chr(13) & " And PROV.COD_SUCUR = CXP.COD_SUCUR"
+                                SQL &= Chr(13) & "      AND PROV.COD_SUCUR = CXP.COD_SUCUR"
                                 SQL &= Chr(13) & "		AND PROV.CEDULA = CXP.CEDULA"
                                 SQL &= Chr(13) & "	WHERE CXP.COD_CIA = " & SCM(COD_CIA)
                                 SQL &= Chr(13) & "	AND CXP.FECHA BETWEEN " & SCM(YMD(DTP_INICIO.Value)) & " AND " & SCM(YMD(DTP_FINAL.Value))

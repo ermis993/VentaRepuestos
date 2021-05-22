@@ -27,13 +27,14 @@ Partial Class ConsultaSaldos
         Me.BTN_BUSCAR = New System.Windows.Forms.Button()
         Me.GRID = New System.Windows.Forms.DataGridView()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
+        Me.Label1 = New System.Windows.Forms.Label()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TXT_BUSCADOR
         '
         Me.TXT_BUSCADOR.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_BUSCADOR.Location = New System.Drawing.Point(175, 7)
+        Me.TXT_BUSCADOR.Location = New System.Drawing.Point(4, 21)
         Me.TXT_BUSCADOR.Name = "TXT_BUSCADOR"
         Me.TXT_BUSCADOR.Size = New System.Drawing.Size(414, 24)
         Me.TXT_BUSCADOR.TabIndex = 0
@@ -41,25 +42,25 @@ Partial Class ConsultaSaldos
         'BTN_BUSCAR
         '
         Me.BTN_BUSCAR.Image = Global.VentaRepuestos.My.Resources.Resources.filtrar
-        Me.BTN_BUSCAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_BUSCAR.Location = New System.Drawing.Point(595, 3)
+        Me.BTN_BUSCAR.Location = New System.Drawing.Point(427, 19)
         Me.BTN_BUSCAR.Name = "BTN_BUSCAR"
-        Me.BTN_BUSCAR.Size = New System.Drawing.Size(75, 33)
+        Me.BTN_BUSCAR.Size = New System.Drawing.Size(26, 28)
         Me.BTN_BUSCAR.TabIndex = 1
-        Me.BTN_BUSCAR.Text = "Buscar"
-        Me.BTN_BUSCAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_BUSCAR.UseVisualStyleBackColor = True
         '
         'GRID
         '
+        Me.GRID.AllowUserToAddRows = False
+        Me.GRID.AllowUserToDeleteRows = False
         Me.GRID.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight
         Me.GRID.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.GRID.Location = New System.Drawing.Point(2, 42)
+        Me.GRID.Location = New System.Drawing.Point(2, 51)
         Me.GRID.MultiSelect = False
         Me.GRID.Name = "GRID"
+        Me.GRID.ReadOnly = True
         Me.GRID.RowHeadersVisible = False
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRID.Size = New System.Drawing.Size(808, 341)
+        Me.GRID.Size = New System.Drawing.Size(808, 332)
         Me.GRID.TabIndex = 2
         '
         'BTN_SALIR
@@ -76,6 +77,15 @@ Partial Class ConsultaSaldos
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(4, 5)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(245, 13)
+        Me.Label1.TabIndex = 14
+        Me.Label1.Text = "[ Digite el código o nombre del producto a buscar ]"
+        '
         'ConsultaSaldos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -83,6 +93,7 @@ Partial Class ConsultaSaldos
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(813, 437)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.GRID)
         Me.Controls.Add(Me.BTN_BUSCAR)
@@ -102,4 +113,5 @@ Partial Class ConsultaSaldos
     Friend WithEvents BTN_BUSCAR As Button
     Friend WithEvents GRID As DataGridView
     Friend WithEvents BTN_SALIR As Button
+    Friend WithEvents Label1 As Label
 End Class

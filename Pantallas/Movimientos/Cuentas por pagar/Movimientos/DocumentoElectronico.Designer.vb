@@ -22,7 +22,7 @@ Partial Class DocumentoElectronico
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DocumentoElectronico))
         Me.BTN_IMPORTAR = New System.Windows.Forms.Button()
         Me.GRID = New System.Windows.Forms.DataGridView()
@@ -34,6 +34,7 @@ Partial Class DocumentoElectronico
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
         Me.Filtro = New VentaRepuestos.Filtro()
+        Me.BTN_BUSQUEDA = New System.Windows.Forms.Button()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -59,14 +60,14 @@ Partial Class DocumentoElectronico
         Me.GRID.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.GRID.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
         Me.GRID.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.GRID.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.GRID.DefaultCellStyle = DataGridViewCellStyle1
         Me.GRID.Location = New System.Drawing.Point(3, 106)
         Me.GRID.MultiSelect = False
         Me.GRID.Name = "GRID"
@@ -160,12 +161,27 @@ Partial Class DocumentoElectronico
         Me.Filtro.TabIndex = 37
         Me.Filtro.VALOR = ""
         '
+        'BTN_BUSQUEDA
+        '
+        Me.BTN_BUSQUEDA.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_BUSQUEDA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_BUSQUEDA.Image = Global.VentaRepuestos.My.Resources.Resources.ajustes
+        Me.BTN_BUSQUEDA.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_BUSQUEDA.Location = New System.Drawing.Point(102, 9)
+        Me.BTN_BUSQUEDA.Name = "BTN_BUSQUEDA"
+        Me.BTN_BUSQUEDA.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_BUSQUEDA.TabIndex = 42
+        Me.BTN_BUSQUEDA.Text = "Correo"
+        Me.BTN_BUSQUEDA.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_BUSQUEDA.UseVisualStyleBackColor = False
+        '
         'DocumentoElectronico
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.ControlBox = False
+        Me.Controls.Add(Me.BTN_BUSQUEDA)
         Me.Controls.Add(Me.BTN_REFRESCAR)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.BTN_SALIR)
@@ -194,4 +210,5 @@ Partial Class DocumentoElectronico
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents BTN_REFRESCAR As Button
+    Friend WithEvents BTN_BUSQUEDA As Button
 End Class

@@ -129,7 +129,7 @@ Public Class Impresion
                 For Each ITEM In DS.Tables(2).Rows
                     strPrint = strPrint & ITEM("DESCRIPCION") & vbCrLf
                     strPrint = strPrint & RELLENO("", Ancho_Tiquete, "") & vbCrLf
-                    strPrint = strPrint & "Lin:" & RELLENOIZQUIERDA(ITEM("LINEA"), 3) & RELLENOIZQUIERDA("Cantidad:", 22) & RELLENOIZQUIERDA(FMCP(ITEM("CANTIDAD"), 2), 11) & vbCrLf
+                    strPrint = strPrint & "Lin:" & RELLENOIZQUIERDA(ITEM("LINEA"), 3) & RELLENOIZQUIERDA("Cantidad:", 20) & RELLENOIZQUIERDA(FMCP(ITEM("CANTIDAD"), 2), 11) & vbCrLf
                     'strPrint = strPrint & RELLENOIZQUIERDA("Li:" & RELLENOIZQUIERDA(ITEM("LINEA"), 3) & RELLENOIZQUIERDA("Co:", 4) & RELLENODERECHA(ITEM("COD_PROD"), 20) & RELLENOIZQUIERDA("Ca:", 3) & RELLENOIZQUIERDA(FMCP(ITEM("CANTIDAD"), 2), 9), Ancho_Tiquete) & vbCrLf
                     strPrint = strPrint & "P/U:" & RELLENOIZQUIERDA(FMCP(ITEM("PRECIO"), 2), 11) & RELLENOIZQUIERDA("Descuento:", 12) & RELLENOIZQUIERDA(FMCP(ITEM("DESCUENTO"), 2), 11) & vbCrLf
                     strPrint = strPrint & "Imp:" & RELLENOIZQUIERDA(FMCP(ITEM("IMPUESTO"), 2), 11) & RELLENOIZQUIERDA("Total:", 12) & RELLENOIZQUIERDA(FMCP(ITEM("TOTAL"), 2), 11) & vbCrLf

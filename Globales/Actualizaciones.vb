@@ -20,7 +20,7 @@ Public Class Actualizaciones
         RUTA_ADJUNTOS = "C:\ENVIOS"
         RUTA_BACKUP = "C:\BACKUPS"
 
-        Dim Cantidad_Procesos As Integer = 77
+        Dim Cantidad_Procesos As Integer = 81
         Dim Cantidad_Actual As Integer = 0
         ProgressBar.Value = 0
 
@@ -42,8 +42,10 @@ Public Class Actualizaciones
         Call INVENTARIO_ENC()
         Call INVENTARIO_DET_TMP()
         Call INVENTARIO_DET()
+        Call BITACORA_IMPRESIONES()
+        Call PRODUCTO_DESECHADO()
 
-        Cantidad_Actual += 17
+        Cantidad_Actual += 19
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
         'CAMPOS EN TABLAS
@@ -63,8 +65,9 @@ Public Class Actualizaciones
         Call IND_IMAGEN_TIQUETE()
         Call IND_AUTOCOMPLETAR_CLIENTE()
         Call MIN_VENTA()
+        Call TIPO_INGRESO()
 
-        Cantidad_Actual += 16
+        Cantidad_Actual += 17
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
         'CONSTRAINTS
@@ -131,6 +134,12 @@ Public Class Actualizaciones
         Call USP_MANT_FACTURACION_TMP()
 
         Cantidad_Actual += 31
+        ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
+
+        'PROCESOS ESPECIALES ANIDADOS
+        Call PROC_ESPECIAL_USP_PROCESA_DOCUMENTOS_XML()
+
+        Cantidad_Actual += 1
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
     End Sub
 
@@ -869,6 +878,60 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "		[LINEA] ASC																								"
                 SQL &= Chr(13) & "	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]																									"
                 SQL &= Chr(13) & "	) ON [PRIMARY]																									"
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BITACORA_IMPRESIONES()
+        Try
+            If Not EXISTE_TABLA("BITACORA_IMPRESIONES") Then
+
+                Dim SQL = "	CREATE TABLE [dbo].[BITACORA_IMPRESIONES](																									"
+                SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,																								"
+                SQL &= Chr(13) & "		[COD_SUCUR] [varchar](3) NOT NULL,																								"
+                SQL &= Chr(13) & "		[FECHA_IMP] [datetime] NOT NULL,																								"
+                SQL &= Chr(13) & "		[COD_USUARIO] [varchar](8) NOT NULL,																								"
+                SQL &= Chr(13) & "		[REPORTE] [varchar](200) NOT NULL,																								"
+                SQL &= Chr(13) & "	 CONSTRAINT [PK_BITACORA_IMPRESIONES] PRIMARY KEY CLUSTERED 																									"
+                SQL &= Chr(13) & "	(																									"
+                SQL &= Chr(13) & "		[COD_CIA] ASC,																								"
+                SQL &= Chr(13) & "		[COD_SUCUR] ASC,																								"
+                SQL &= Chr(13) & "		[FECHA_IMP] ASC,																								"
+                SQL &= Chr(13) & "		[COD_USUARIO] ASC,																								"
+                SQL &= Chr(13) & "		[REPORTE] ASC																								"
+                SQL &= Chr(13) & "	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]																									"
+                SQL &= Chr(13) & "	) ON [PRIMARY]"
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub PRODUCTO_DESECHADO()
+        Try
+            If Not EXISTE_TABLA("PRODUCTO_DESECHADO") Then
+
+                Dim SQL = "	CREATE TABLE [dbo].[PRODUCTO_DESECHADO](																									"
+                SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,																								"
+                SQL &= Chr(13) & "		[COD_SUCUR] [varchar](3) NOT NULL,																								"
+                SQL &= Chr(13) & "		[COD_PROD] [varchar](20) NOT NULL,																								"
+                SQL &= Chr(13) & "	 CONSTRAINT [PRODUCTO_DESECHADO_PK] PRIMARY KEY CLUSTERED 																									"
+                SQL &= Chr(13) & "	(																									"
+                SQL &= Chr(13) & "		[COD_CIA] ASC,																								"
+                SQL &= Chr(13) & "		[COD_SUCUR] ASC,																								"
+                SQL &= Chr(13) & "		[COD_PROD] ASC																								"
+                SQL &= Chr(13) & "	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]																									"
+                SQL &= Chr(13) & "	) ON [PRIMARY]				"
 
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
@@ -1682,6 +1745,23 @@ Public Class Actualizaciones
 
                 Dim SQL = "	ALTER TABLE PRODUCTO "
                 SQL &= Chr(13) & "	ADD MIN_VENTA MONEY NOT NULL DEFAULT(1) "
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub TIPO_INGRESO()
+        Try
+            If Not EXISTE_CAMPO("TIPO_INGRESO", "CXP_DOCUMENTOS_ELECTRONICOS") Then
+
+                Dim SQL = "	ALTER TABLE CXP_DOCUMENTOS_ELECTRONICOS "
+                SQL &= Chr(13) & "	ADD TIPO_INGRESO VARCHAR(2) NULL "
 
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
@@ -2739,7 +2819,7 @@ Public Class Actualizaciones
 
     Private Sub USP_DATOS_FACTURA_IMPRESION()
         Try
-            If Not EXISTE_PROCEDIMIENTO("USP_DATOS_FACTURA_IMPRESION", "2020-12-03") Then
+            If Not EXISTE_PROCEDIMIENTO("USP_DATOS_FACTURA_IMPRESION", "2021-02-22") Then
                 ELIMINA_PROCEDIMIENTO("USP_DATOS_FACTURA_IMPRESION")
 
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_DATOS_FACTURA_IMPRESION] 																						"
@@ -2805,8 +2885,8 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "			SELECT GUIA.NUMERO_GUIA, GUIA.ENVIA, GUIA.RETIRA, GUIA.DESCRIPCION AS DETALLE_GUIA, GUIA.VALOR_ENCOMIENDA AS VALOR																				"
                 SQL &= Chr(13) & "			,substring(convert(char(8),ENC.FECHA_INC,114), 1, 8) AS HORA_INGRESO																				"
                 SQL &= Chr(13) & "			, CASE WHEN convert(char(5), ENC.FECHA_INC, 108) <= '10:00' THEN '10:00' 																				"
-                SQL &= Chr(13) & "			       WHEN convert(char(5), ENC.FECHA_INC, 108) > '10:00' AND  convert(char(5), ENC.FECHA_INC, 108) <= '14:30'  THEN '14:30'																				"
-                SQL &= Chr(13) & "				   WHEN convert(char(5), ENC.FECHA_INC, 108) >= '14:30' AND convert(char(5), ENC.FECHA_INC, 108) <= '17:30' THEN '17:30' 																			"
+                SQL &= Chr(13) & "			       WHEN convert(char(5), ENC.FECHA_INC, 108) > '10:00' AND  convert(char(5), ENC.FECHA_INC, 108) <= '14:00'  THEN '14:00'																				"
+                SQL &= Chr(13) & "				   WHEN convert(char(5), ENC.FECHA_INC, 108) >= '14:00' AND convert(char(5), ENC.FECHA_INC, 108) <= '17:30' THEN '17:30' 																			"
                 SQL &= Chr(13) & "				   ELSE '10:00' 																			"
                 SQL &= Chr(13) & "				   END AS HORA_ENVIO																			"
                 SQL &= Chr(13) & "			FROM DOCUMENTO_GUIA AS GUIA																				"
@@ -4924,6 +5004,189 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "	)										"
 
                 CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+#End Region
+
+#Region "Procesos especiales anidados"
+
+    Private Sub PROC_ESPECIAL_USP_PROCESA_DOCUMENTOS_XML()
+        Try
+            If Not EXISTE_PROCEDIMIENTO("USP_PROCESA_DOCUMENTOS_XML", "2021-05-22") Then
+                ELIMINA_PROCEDIMIENTO("USP_PROCESA_DOCUMENTOS_XML")
+
+                CONX.Coneccion_Abrir()
+
+                Dim SQL = "	DROP TYPE [dbo].[TP_CXP_DOCUMENTOS_ELECTRONICOS]"
+                CONX.EJECUTE(SQL)
+
+                SQL = "	CREATE TYPE [dbo].[TP_CXP_DOCUMENTOS_ELECTRONICOS] AS TABLE(																									"
+                SQL &= Chr(13) & "		[CLAVE] [varchar](50) NOT NULL,																								"
+                SQL &= Chr(13) & "		[CONSECUTIVO_P] [varchar](20) NOT NULL,																								"
+                SQL &= Chr(13) & "		[CEDULA] [varchar](25) NOT NULL,																								"
+                SQL &= Chr(13) & "		[TIPO_MOV] [varchar](2) NOT NULL,																								"
+                SQL &= Chr(13) & "		[FECHA] [datetime] NOT NULL,																								"
+                SQL &= Chr(13) & "		[PLAZO] [int] NOT NULL,																								"
+                SQL &= Chr(13) & "		[COD_MONEDA] [char](1) NOT NULL,																								"
+                SQL &= Chr(13) & "		[TOTAL_VENTA] [money] NOT NULL,																								"
+                SQL &= Chr(13) & "		[DESCUENTO] [money] NOT NULL,																								"
+                SQL &= Chr(13) & "		[OTROS_CARGOS] [money] NOT NULL,																								"
+                SQL &= Chr(13) & "		[IMPUESTO] [money] NOT NULL,																								"
+                SQL &= Chr(13) & "		[TOTAL] [money] NOT NULL,																								"
+                SQL &= Chr(13) & "		[TIPO_CAMBIO] [money] NULL,																								"
+                SQL &= Chr(13) & "		[IND_ESTADO] [char](1) NOT NULL,																								"
+                SQL &= Chr(13) & "		[COD_ACT_ECO] [varchar](6) NULL,																								"
+                SQL &= Chr(13) & "		[TIPO_INGRESO] [varchar](2) NULL,																								"
+                SQL &= Chr(13) & "		[CONDICION_IVA] [varchar](2) NOT NULL,																								"
+                SQL &= Chr(13) & "		[POR_IMPUESTO] [int] NULL,																								"
+                SQL &= Chr(13) & "		[IMP_ACREDITAR] [money] NOT NULL,																								"
+                SQL &= Chr(13) & "		[GASTO_APLICABLE] [money] NOT NULL,																								"
+                SQL &= Chr(13) & "		[DETALLE_MENSAJE] [varchar](160) NULL,																								"
+                SQL &= Chr(13) & "		[XML] [varchar](max) NOT NULL																								"
+                SQL &= Chr(13) & "	)																									"
+                CONX.EJECUTE(SQL)
+
+
+                SQL = "	CREATE PROCEDURE [dbo].[USP_PROCESA_DOCUMENTOS_XML]																																																																	"
+                SQL &= Chr(13) & "			@DT_DOCUMENTOS AS TP_CXP_DOCUMENTOS_ELECTRONICOS READONLY,																																																															"
+                SQL &= Chr(13) & "			@DT_DOCUMENTOS_DET AS TP_CXP_DOCUMENTOS_ELECTRONICOS_DET READONLY,																																																															"
+                SQL &= Chr(13) & "			@COD_CIA VARCHAR(3),																																																															"
+                SQL &= Chr(13) & "			@COD_SUCUR VARCHAR(3),																																																															"
+                SQL &= Chr(13) & "			@USUARIO VARCHAR(20)																																																															"
+                SQL &= Chr(13) & "			AS																																																															"
+                SQL &= Chr(13) & "			    BEGIN																																																															"
+                SQL &= Chr(13) & "			    BEGIN TRY 																																																															"
+                SQL &= Chr(13) & "			    BEGIN TRAN																																																															"
+                SQL &= Chr(13) & "		                			                			               		                																																																								"
+                SQL &= Chr(13) & "					CREATE TABLE #TP_CXP_DOCUMENTOS_ELECTRONICOS(																																																													"
+                SQL &= Chr(13) & "					[CLAVE] [varchar](50) NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[CONSECUTIVO_P] [varchar](20) NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[CEDULA] [varchar](25) NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[TIPO_MOV] [varchar](2) NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[FECHA] [datetime] NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[PLAZO] [int] NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[COD_MONEDA] [char](1) NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[TOTAL_VENTA] [money] NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[DESCUENTO] [money] NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[OTROS_CARGOS] [money] NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[IMPUESTO] [money] NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[TOTAL] [money] NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[TIPO_CAMBIO] [money] NULL,																																																													"
+                SQL &= Chr(13) & "					[IND_ESTADO] [char](1) NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[COD_ACT_ECO] [varchar](6) NULL,																																																													"
+                SQL &= Chr(13) & "					[TIPO_INGRESO] [varchar](2) NULL,																																																													"
+                SQL &= Chr(13) & "					[CONDICION_IVA] [varchar](2) NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[POR_IMPUESTO] [int] NULL,																																																													"
+                SQL &= Chr(13) & "					[IMP_ACREDITAR] [money] NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[GASTO_APLICABLE] [money] NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[DETALLE_MENSAJE] [varchar](160) NULL,																																																													"
+                SQL &= Chr(13) & "					[XML] [varchar](max) NOT NULL)																																																													"
+                SQL &= Chr(13) & "																																																																		"
+                SQL &= Chr(13) & "					CREATE TABLE #TP_CXP_DOCUMENTOS_ELECTRONICOS_DET(																																																													"
+                SQL &= Chr(13) & "					[CLAVE] [varchar](50) NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[CEDULA] [varchar](25) NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[TIPO_MOV] [varchar](2) NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[LINEA] [integer] NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[TIPO] [varchar](2) NULL,																																																													"
+                SQL &= Chr(13) & "					[CODIGO] [varchar](20) NULL,																																																													"
+                SQL &= Chr(13) & "					[CANTIDAD] [decimal](16,3) NULL,																																																													"
+                SQL &= Chr(13) & "					[DETALLE] [varchar](200) NULL,																																																													"
+                SQL &= Chr(13) & "					[PRECIO_UNITARIO] [decimal](18,5) NULL,																																																													"
+                SQL &= Chr(13) & "					[MONTO_SINIV] [decimal](18,5) NULL,																																																													"
+                SQL &= Chr(13) & "					[MONTO_DESCUENTO] [decimal](18,5) NULL,																																																													"
+                SQL &= Chr(13) & "					[CODIGO_IMP] [varchar](2) NULL,																																																													"
+                SQL &= Chr(13) & "					[TARIFA] [decimal](4,2) NULL,																																																													"
+                SQL &= Chr(13) & "					[MONTO_IMP] [decimal](18,5)  NULL,																																																													"
+                SQL &= Chr(13) & "					[NETO_IMP] [decimal](18,5)  NULL,																																																													"
+                SQL &= Chr(13) & "					[TIPO_EXO] [varchar](2) NULL,																																																													"
+                SQL &= Chr(13) & "					[NUMERO_EXO] [varchar](40) NULL,																																																													"
+                SQL &= Chr(13) & "					[PORCENTAJE_EXO] [int] NULL,																																																													"
+                SQL &= Chr(13) & "					[MONTO_EXO] [decimal](18,5) NULL,																																																													"
+                SQL &= Chr(13) & "					[MONTO_TOTAL_LINEA] [decimal](18,5) NULL)																																																													"
+                SQL &= Chr(13) & "			                			                			                			               		                																																																				"
+                SQL &= Chr(13) & "																																																																		"
+                SQL &= Chr(13) & "			        INSERT INTO  #TP_CXP_DOCUMENTOS_ELECTRONICOS																																																															"
+                SQL &= Chr(13) & "					SELECT * FROM @DT_DOCUMENTOS																																																													"
+                SQL &= Chr(13) & "			                			                																																																												"
+                SQL &= Chr(13) & "					INSERT INTO  #TP_CXP_DOCUMENTOS_ELECTRONICOS_DET																																																													"
+                SQL &= Chr(13) & "					SELECT * FROM @DT_DOCUMENTOS_DET  																																																													"
+                SQL &= Chr(13) & "																																																																		"
+                SQL &= Chr(13) & "					DECLARE @CONSEC VARCHAR(20)																																																													"
+                SQL &= Chr(13) & "					DECLARE @CONSEC_FE AS INTEGER																																																													"
+                SQL &= Chr(13) & "																																																																		"
+                SQL &= Chr(13) & "					SET @CONSEC = @COD_SUCUR --CASA MATRIZ																																																													"
+                SQL &= Chr(13) & "					SET @CONSEC += '00001' --TERMINAL 																																																													"
+                SQL &= Chr(13) & "					SET @CONSEC += (SELECT CASE WHEN DOC.IND_ESTADO ='A' THEN '05' WHEN DOC.IND_ESTADO ='R' THEN '07' WHEN DOC.IND_ESTADO ='P' THEN '06' END --ESTADO DEL DOCUMENTO																																																													"
+                SQL &= Chr(13) & "					FROM @DT_DOCUMENTOS AS DOC)																																																													"
+                SQL &= Chr(13) & "					SET @CONSEC_FE = (SELECT ISNULL(MAX(CONSECUTIVO_FE)+1,1) FROM CXP_DOCUMENTOS_ELECTRONICOS WHERE COD_CIA=@COD_CIA AND COD_SUCUR = @COD_SUCUR)--ULTIMO CONSECUTIVO																																																													"
+                SQL &= Chr(13) & "					SET @CONSEC += RIGHT('0000000000'+convert(varchar,@CONSEC_FE),10) --AGREGANDO 0 A LA IZQUIERDA																																																													"
+                SQL &= Chr(13) & "																																																																		"
+                SQL &= Chr(13) & "					IF NOT EXISTS (																																																													"
+                SQL &= Chr(13) & "					SELECT  * 																																																													"
+                SQL &= Chr(13) & "					FROM @DT_DOCUMENTOS AS DOC																																																													"
+                SQL &= Chr(13) & "					INNER JOIN CXP_DOCUMENTOS_ELECTRONICOS AS ELEC																																																													"
+                SQL &= Chr(13) & "						ON ELEC.COD_CIA = @COD_CIA																																																												"
+                SQL &= Chr(13) & "						AND ELEC.CLAVE = DOC.CLAVE																																																												"
+                SQL &= Chr(13) & "						AND ELEC.TIPO_MOV = DOC.TIPO_MOV																																																												"
+                SQL &= Chr(13) & "						AND ELEC.CEDULA = DOC.CEDULA)																																																												"
+                SQL &= Chr(13) & "						BEGIN																																																												"
+                SQL &= Chr(13) & "																																																																		"
+                SQL &= Chr(13) & "							INSERT INTO CXP_DOCUMENTOS_ELECTRONICOS(COD_CIA,COD_SUCUR,CLAVE,CONSECUTIVO,CONSECUTIVO_FE,CONSECUTIVO_P,CEDULA,TIPO_MOV,FECHA,FECHA_INC,PLAZO,COD_MONEDA,TOTAL_VENTA,DESCUENTO,OTROS_CARGOS,IMPUESTO,TOTAL,TIPO_CAMBIO,IND_ESTADO,COD_ACT_ECO,CONDICION_IVA,POR_IMPUESTO,IMP_ACREDITAR,GASTO_APLICABLE,DETALLE_MENSAJE,COD_USUARIO,XML,TIPO_INGRESO)																																																											"
+                SQL &= Chr(13) & "							SELECT @COD_CIA,@COD_SUCUR,DOC.CLAVE,@CONSEC,@CONSEC_FE,DOC.CONSECUTIVO_P,DOC.CEDULA,DOC.TIPO_MOV,DOC.FECHA,GETDATE(),DOC.PLAZO,DOC.COD_MONEDA,DOC.TOTAL_VENTA,DOC.DESCUENTO,DOC.OTROS_CARGOS,DOC.IMPUESTO,DOC.TOTAL,DOC.TIPO_CAMBIO,DOC.IND_ESTADO,DOC.COD_ACT_ECO,DOC.CONDICION_IVA,DOC.POR_IMPUESTO,DOC.IMP_ACREDITAR,DOC.TOTAL - ISNULL(DOC.IMP_ACREDITAR,0),DOC.DETALLE_MENSAJE,@USUARIO,DOC.XML,DOC.TIPO_INGRESO																																																											"
+                SQL &= Chr(13) & "							FROM @DT_DOCUMENTOS AS DOC																																																											"
+                SQL &= Chr(13) & "																																																																		"
+                SQL &= Chr(13) & "							INSERT INTO CXP_DOCUMENTOS_ELECTRONICOS_DET(COD_CIA,COD_SUCUR,CEDULA,CLAVE,TIPO_MOV,LINEA,TIPO,CODIGO,CANTIDAD,DETALLE,PRECIO_UNITARIO,MONTO_SINIV,MONTO_DESCUENTO,CODIGO_IMP,TARIFA,MONTO_IMP,NETO_IMP,TIPO_EXO,NUMERO_EXO,PORCENTAJE_EXO,MONTO_EXO,MONTO_TOTAL_LINEA)																																																											"
+                SQL &= Chr(13) & "							SELECT @COD_CIA,@COD_SUCUR,DET.CEDULA,DET.CLAVE,DET.TIPO_MOV,DET.LINEA,DET.TIPO,DET.CODIGO,DET.CANTIDAD,DET.DETALLE,DET.PRECIO_UNITARIO,DET.MONTO_SINIV,DET.MONTO_DESCUENTO,DET.CODIGO_IMP,DET.TARIFA,DET.MONTO_IMP,DET.NETO_IMP,DET.TIPO_EXO,DET.NUMERO_EXO,DET.PORCENTAJE_EXO,DET.MONTO_EXO,DET.MONTO_TOTAL_LINEA																																																											"
+                SQL &= Chr(13) & "							FROM @DT_DOCUMENTOS_DET AS DET																																																											"
+                SQL &= Chr(13) & "																																																																		"
+                SQL &= Chr(13) & "						END	   																																																											"
+                SQL &= Chr(13) & "					ELSE																																																													"
+                SQL &= Chr(13) & "						BEGIN																																																												"
+                SQL &= Chr(13) & "																																																																		"
+                SQL &= Chr(13) & "							DECLARE @CLAVE AS VARCHAR(50)																																																											"
+                SQL &= Chr(13) & "							DECLARE @TIPO_MOV AS VARCHAR(50)																																																											"
+                SQL &= Chr(13) & "							DECLARE @CEDULA AS VARCHAR(25)																																																											"
+                SQL &= Chr(13) & "							SELECT @CEDULA = CEDULA,@TIPO_MOV =TIPO_MOV,@CLAVE = CLAVE																																																											"
+                SQL &= Chr(13) & "							FROM CXP_DOCUMENTOS_ELECTRONICOS																																																											"
+                SQL &= Chr(13) & "																																																																		"
+                SQL &= Chr(13) & "							DELETE FROM CXP_DOCUMENTOS_ELECTRONICOS_DET																																																											"
+                SQL &= Chr(13) & "							WHERE COD_CIA = @COD_CIA																																																											"
+                SQL &= Chr(13) & "							AND CLAVE = @CLAVE																																																											"
+                SQL &= Chr(13) & "							AND TIPO_MOV = @TIPO_MOV																																																											"
+                SQL &= Chr(13) & "							AND CEDULA = @CEDULA																																																											"
+                SQL &= Chr(13) & "																																																																		"
+                SQL &= Chr(13) & "							DELETE FROM CXP_DOCUMENTOS_ELECTRONICOS																																																											"
+                SQL &= Chr(13) & "							WHERE COD_CIA = @COD_CIA																																																											"
+                SQL &= Chr(13) & "							AND CLAVE = @CLAVE																																																											"
+                SQL &= Chr(13) & "							AND TIPO_MOV = @TIPO_MOV																																																											"
+                SQL &= Chr(13) & "							AND CEDULA = @CEDULA																																																											"
+                SQL &= Chr(13) & "																																																																		"
+                SQL &= Chr(13) & "																																																																		"
+                SQL &= Chr(13) & "							INSERT INTO CXP_DOCUMENTOS_ELECTRONICOS(COD_CIA,COD_SUCUR,CLAVE,CONSECUTIVO,CONSECUTIVO_FE,CONSECUTIVO_P,CEDULA,TIPO_MOV,FECHA,FECHA_INC,PLAZO,COD_MONEDA,TOTAL_VENTA,DESCUENTO,OTROS_CARGOS,IMPUESTO,TOTAL,TIPO_CAMBIO,IND_ESTADO,COD_ACT_ECO,CONDICION_IVA,POR_IMPUESTO,IMP_ACREDITAR,GASTO_APLICABLE,DETALLE_MENSAJE,COD_USUARIO,XML,TIPO_INGRESO)																																																											"
+                SQL &= Chr(13) & "							SELECT @COD_CIA,@COD_SUCUR,DOC.CLAVE,@CONSEC,@CONSEC_FE,DOC.CONSECUTIVO_P,DOC.CEDULA,DOC.TIPO_MOV,DOC.FECHA,GETDATE(),DOC.PLAZO,DOC.COD_MONEDA,DOC.TOTAL_VENTA,DOC.DESCUENTO,DOC.OTROS_CARGOS,DOC.IMPUESTO,DOC.TOTAL,DOC.TIPO_CAMBIO,DOC.IND_ESTADO,DOC.COD_ACT_ECO,DOC.CONDICION_IVA,DOC.POR_IMPUESTO,DOC.IMP_ACREDITAR,DOC.GASTO_APLICABLE,DOC.DETALLE_MENSAJE,@USUARIO,DOC.XML,DOC.TIPO_INGRESO																																																											"
+                SQL &= Chr(13) & "							FROM @DT_DOCUMENTOS AS DOC																																																											"
+                SQL &= Chr(13) & "																																																																		"
+                SQL &= Chr(13) & "							INSERT INTO CXP_DOCUMENTOS_ELECTRONICOS_DET(COD_CIA,COD_SUCUR,CEDULA,CLAVE,TIPO_MOV,LINEA,TIPO,CODIGO,CANTIDAD,DETALLE,PRECIO_UNITARIO,MONTO_SINIV,MONTO_DESCUENTO,CODIGO_IMP,TARIFA,MONTO_IMP,NETO_IMP,TIPO_EXO,NUMERO_EXO,PORCENTAJE_EXO,MONTO_EXO,MONTO_TOTAL_LINEA)																																																											"
+                SQL &= Chr(13) & "							SELECT @COD_CIA,@COD_SUCUR,DET.CEDULA,DET.CLAVE,DET.TIPO_MOV,DET.LINEA,DET.TIPO,DET.CODIGO,DET.CANTIDAD,DET.DETALLE,DET.PRECIO_UNITARIO,DET.MONTO_SINIV,DET.MONTO_DESCUENTO,DET.CODIGO_IMP,DET.TARIFA,DET.MONTO_IMP,DET.NETO_IMP,DET.TIPO_EXO,DET.NUMERO_EXO,DET.PORCENTAJE_EXO,DET.MONTO_EXO,DET.MONTO_TOTAL_LINEA																																																											"
+                SQL &= Chr(13) & "							FROM @DT_DOCUMENTOS_DET AS DET																																																											"
+                SQL &= Chr(13) & "																																																																		"
+                SQL &= Chr(13) & "						END																																																												"
+                SQL &= Chr(13) & "																																																																		"
+                SQL &= Chr(13) & "			COMMIT TRAN																																																															"
+                SQL &= Chr(13) & "			END TRY																																																															"
+                SQL &= Chr(13) & "			BEGIN CATCH																																																															"
+                SQL &= Chr(13) & "			    ROLLBACK TRAN																																																															"
+                SQL &= Chr(13) & "			    DECLARE @MENSAJE VARCHAR(500)																																																															"
+                SQL &= Chr(13) & "			    SET @MENSAJE =( SELECT ERROR_MESSAGE())																																																															"
+                SQL &= Chr(13) & "			    RAISERROR( @MENSAJE, 16, 1);																																																															"
+                SQL &= Chr(13) & "			END CATCH																																																															"
+                SQL &= Chr(13) & "			END																																																															"
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
             End If

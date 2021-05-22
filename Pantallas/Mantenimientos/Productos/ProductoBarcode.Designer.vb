@@ -72,9 +72,10 @@ Partial Class ProductoBarcode
         '
         'PB_BARCODE
         '
-        Me.PB_BARCODE.Location = New System.Drawing.Point(49, 12)
+        Me.PB_BARCODE.Location = New System.Drawing.Point(46, 12)
         Me.PB_BARCODE.Name = "PB_BARCODE"
-        Me.PB_BARCODE.Size = New System.Drawing.Size(179, 89)
+        Me.PB_BARCODE.Size = New System.Drawing.Size(184, 89)
+        Me.PB_BARCODE.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PB_BARCODE.TabIndex = 0
         Me.PB_BARCODE.TabStop = False
         '

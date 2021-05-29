@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class DocumentoElectronico
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,38 +20,24 @@ Partial Class DocumentoElectronico
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DocumentoElectronico))
-        Me.BTN_IMPORTAR = New System.Windows.Forms.Button()
         Me.GRID = New System.Windows.Forms.DataGridView()
-        Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.DTPFINAL = New System.Windows.Forms.DateTimePicker()
         Me.DTPINICIO = New System.Windows.Forms.DateTimePicker()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
         Me.Filtro = New VentaRepuestos.Filtro()
         Me.BTN_BUSQUEDA = New System.Windows.Forms.Button()
+        Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
+        Me.BTN_SALIR = New System.Windows.Forms.Button()
+        Me.BTN_IMPORTAR = New System.Windows.Forms.Button()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'BTN_IMPORTAR
-        '
-        Me.BTN_IMPORTAR.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_IMPORTAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_IMPORTAR.Image = Global.VentaRepuestos.My.Resources.Resources.import
-        Me.BTN_IMPORTAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_IMPORTAR.Location = New System.Drawing.Point(3, 9)
-        Me.BTN_IMPORTAR.Name = "BTN_IMPORTAR"
-        Me.BTN_IMPORTAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_IMPORTAR.TabIndex = 34
-        Me.BTN_IMPORTAR.Text = "Importar"
-        Me.BTN_IMPORTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_IMPORTAR.UseVisualStyleBackColor = False
         '
         'GRID
         '
@@ -77,20 +63,6 @@ Partial Class DocumentoElectronico
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.GRID.Size = New System.Drawing.Size(794, 293)
         Me.GRID.TabIndex = 38
-        '
-        'BTN_SALIR
-        '
-        Me.BTN_SALIR.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
-        Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(698, 405)
-        Me.BTN_SALIR.Name = "BTN_SALIR"
-        Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_SALIR.TabIndex = 39
-        Me.BTN_SALIR.Text = "Salir"
-        Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_SALIR.UseVisualStyleBackColor = False
         '
         'GroupBox2
         '
@@ -139,6 +111,28 @@ Partial Class DocumentoElectronico
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Del :"
         '
+        'Filtro
+        '
+        Me.Filtro.Location = New System.Drawing.Point(3, 71)
+        Me.Filtro.Name = "Filtro"
+        Me.Filtro.Size = New System.Drawing.Size(306, 29)
+        Me.Filtro.TabIndex = 37
+        Me.Filtro.VALOR = ""
+        '
+        'BTN_BUSQUEDA
+        '
+        Me.BTN_BUSQUEDA.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_BUSQUEDA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_BUSQUEDA.Image = Global.VentaRepuestos.My.Resources.Resources.correo
+        Me.BTN_BUSQUEDA.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_BUSQUEDA.Location = New System.Drawing.Point(102, 9)
+        Me.BTN_BUSQUEDA.Name = "BTN_BUSQUEDA"
+        Me.BTN_BUSQUEDA.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_BUSQUEDA.TabIndex = 42
+        Me.BTN_BUSQUEDA.Text = "Lectura"
+        Me.BTN_BUSQUEDA.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_BUSQUEDA.UseVisualStyleBackColor = False
+        '
         'BTN_REFRESCAR
         '
         Me.BTN_REFRESCAR.BackColor = System.Drawing.SystemColors.ButtonFace
@@ -153,27 +147,33 @@ Partial Class DocumentoElectronico
         Me.BTN_REFRESCAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_REFRESCAR.UseVisualStyleBackColor = False
         '
-        'Filtro
+        'BTN_SALIR
         '
-        Me.Filtro.Location = New System.Drawing.Point(3, 71)
-        Me.Filtro.Name = "Filtro"
-        Me.Filtro.Size = New System.Drawing.Size(306, 29)
-        Me.Filtro.TabIndex = 37
-        Me.Filtro.VALOR = ""
+        Me.BTN_SALIR.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
+        Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_SALIR.Location = New System.Drawing.Point(698, 405)
+        Me.BTN_SALIR.Name = "BTN_SALIR"
+        Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_SALIR.TabIndex = 39
+        Me.BTN_SALIR.Text = "Salir"
+        Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_SALIR.UseVisualStyleBackColor = False
         '
-        'BTN_BUSQUEDA
+        'BTN_IMPORTAR
         '
-        Me.BTN_BUSQUEDA.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_BUSQUEDA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_BUSQUEDA.Image = Global.VentaRepuestos.My.Resources.Resources.ajustes
-        Me.BTN_BUSQUEDA.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_BUSQUEDA.Location = New System.Drawing.Point(102, 9)
-        Me.BTN_BUSQUEDA.Name = "BTN_BUSQUEDA"
-        Me.BTN_BUSQUEDA.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_BUSQUEDA.TabIndex = 42
-        Me.BTN_BUSQUEDA.Text = "Correo"
-        Me.BTN_BUSQUEDA.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_BUSQUEDA.UseVisualStyleBackColor = False
+        Me.BTN_IMPORTAR.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_IMPORTAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_IMPORTAR.Image = Global.VentaRepuestos.My.Resources.Resources.import
+        Me.BTN_IMPORTAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_IMPORTAR.Location = New System.Drawing.Point(3, 9)
+        Me.BTN_IMPORTAR.Name = "BTN_IMPORTAR"
+        Me.BTN_IMPORTAR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_IMPORTAR.TabIndex = 34
+        Me.BTN_IMPORTAR.Text = "Importar"
+        Me.BTN_IMPORTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_IMPORTAR.UseVisualStyleBackColor = False
         '
         'DocumentoElectronico
         '

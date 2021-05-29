@@ -4,8 +4,16 @@ Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Globales
 
 Public Class DocumentoElectronicoImp
-  Dim XML_CARGADO As Boolean = False
+    Dim XML_CARGADO As Boolean = False
+    Dim LEER_XML As Boolean = False
     Dim CEDULA_CIA As String
+    Dim CLAVE_USAR As String, XML_USAR As String
+
+    Sub New(ByVal Optional LecturaXML As Boolean = False, ByVal Optional Clave_Usar As String = "")
+        InitializeComponent()
+        Me.LEER_XML = LecturaXML
+        Me.CLAVE_USAR = Clave_Usar
+    End Sub
 
     Private Sub DocumentosElectronicos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Construir_DS()
@@ -14,6 +22,10 @@ Public Class DocumentoElectronicoImp
         CARGAR_TIPO_INGRESO()
         LIMPIAR()
         CARGAR_CEDULA_CIA()
+
+        If LEER_XML Then
+            RellenoDirecto()
+        End If
     End Sub
 
 #Region "Generales"
@@ -58,6 +70,87 @@ Public Class DocumentoElectronicoImp
     Dim TOTAL_COMPROBANTE As Decimal = 0.0
     Dim TIPO_CAMBIO As Decimal = 0.0
 #End Region
+
+    Private Sub RellenoDirecto()
+        Try
+            LIMPIAR()
+
+            Dim SQL = "	SELECT XML																									"
+            SQL &= Chr(13) & "	FROM CXP_DOCUMENTOS_ELECTRONICOS_CORREO "
+            SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & "	AND CLAVE =	" & SCM(CLAVE_USAR)
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                XML_USAR = DS.Tables(0).Rows(0).Item("XML")
+            End If
+
+            If Not String.IsNullOrEmpty(XML_USAR) Then
+                Dim XML As New XmlDocument
+                Dim XMLE As XmlElement
+                Dim XMLD As XmlNodeList
+                Dim NODO_RECEPTOR As XmlNode
+
+                XML.LoadXml(XML_USAR)
+
+                XMLE = XML.DocumentElement
+                XMLD = XMLE.GetElementsByTagName("Detalle")
+                NODO_RECEPTOR = XML.GetElementsByTagName("Receptor").Item(0)
+
+                LEER_INFORMACION_GENERAL(XML)
+                LEER_INFORMACION_EMISOR(XML.GetElementsByTagName("Emisor").Item(0))
+                LEER_INFORMACION_RESUMEN(XML.GetElementsByTagName("ResumenFactura").Item(0))
+
+                If Mid(CONSECUTIVO, 9, 2) = "01" Or Mid(CONSECUTIVO, 9, 2) = "04" Then
+                    Select Case XML.GetElementsByTagName("CondicionVenta").Item(0).InnerXml
+                        Case "01"
+                            TIPO_MOV = "FC"
+                        Case "02"
+                            TIPO_MOV = "FA"
+                            PLAZO = Val(XML.GetElementsByTagName("PlazoCredito").Item(0).InnerXml)
+                        Case Else
+                            TIPO_MOV = "FC"
+                    End Select
+                ElseIf Mid(CONSECUTIVO, 9, 2) = "02" Then
+                    TIPO_MOV = "ND"
+                ElseIf Mid(CONSECUTIVO, 9, 2) = "03" Then
+                    TIPO_MOV = "NC"
+                End If
+
+                XML_R = XML.InnerXml
+                LEER_INFORMACION_DETALLE(XML.GetElementsByTagName("DetalleServicio").Item(0))
+
+                If IsNothing(NODO_RECEPTOR) Then
+                    CEDULA_RECEPTOR = "00-0000-0000"
+                Else
+                    If IsNothing(NODO_RECEPTOR.Item("Identificacion")) Then
+                        If IsNothing(NODO_RECEPTOR.Item("IdentificacionExtranjero")) Then
+                            CEDULA_RECEPTOR = "00-0000-0000"
+                        Else
+                            CEDULA_RECEPTOR = NODO_RECEPTOR.Item("IdentificacionExtranjero").InnerXml
+                        End If
+                    Else
+                        CEDULA_RECEPTOR = NODO_RECEPTOR.Item("Identificacion").Item("Numero").InnerXml
+                    End If
+                End If
+
+                GroupBox1.Enabled = True
+                RB_ACEPTADO.Checked = True
+                XML_CARGADO = True
+
+                VALIDAR()
+            End If
+        Catch ex As Exception
+            If ex.Message.Contains("Object reference Not set") Or ex.Message.Contains("Referencia a objeto no establecida") Then
+                MessageBox.Show("¡Parece ser que el documento que está tratando de importar no corresponde a un archivo XML!" & vbNewLine & "El error es :  " & ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Else
+                MessageBox.Show(ex.Message)
+            End If
+        End Try
+    End Sub
 
     Private Sub BTN_EXAMINAR_Click(sender As Object, e As EventArgs) Handles BTN_EXAMINAR.Click
         Try

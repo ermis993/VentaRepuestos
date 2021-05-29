@@ -140,11 +140,9 @@ Public Class DocumentoElectronico
 
     Private Sub BTN_BUSQUEDA_Click(sender As Object, e As EventArgs) Handles BTN_BUSQUEDA.Click
         Try
-            MessageBox.Show("Opción en desarrollo, pronto estará disponible", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
-
-            'Dim PANTALLA As New DocumentoElectronicoImp()
-            'AddHandler PANTALLA.FormClosed, AddressOf Pantalla_Cerrada
-            'PANTALLA.ShowDialog()
+            Dim PANTALLA As New DocumentoElectronicoCorreo()
+            AddHandler PANTALLA.FormClosed, AddressOf Pantalla_Cerrada
+            PANTALLA.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

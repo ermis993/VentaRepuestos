@@ -4,6 +4,9 @@ Imports System.Security.Cryptography.X509Certificates
 Imports CRF_CONEXIONES.CONEXIONES
 Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Globales
+Imports Limilabs.Client.IMAP
+Imports Limilabs.Mail
+Imports Limilabs.Mail.MIME
 Public Class LBL_CANTON
     Dim COD_C As String = ""
     Dim Respuesta As New DialogResult
@@ -50,6 +53,7 @@ Public Class LBL_CANTON
             TXT_CEDULA.Enabled = False
             LEER()
             LEER_SMTP()
+            LEER_IMAP()
             REFRESCAR_ACTIVIDADES()
             RellenaImagen(PictureBox1)
         End If
@@ -461,6 +465,27 @@ Public Class LBL_CANTON
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
+    Private Sub LEER_IMAP()
+        Try
+            Dim SQL = "	SELECT *	"
+            SQL &= Chr(13) & "	FROM IMAP_CONFIG "
+            SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                TXT_PUERTO_IMAP.Text = Val(DS.Tables(0).Rows(0).Item("PUERTO"))
+                TXT_SERVIDOR_IMAP.Text = DS.Tables(0).Rows(0).Item("SERVIDOR")
+                TXT_USUARIO_IMAP.Text = DS.Tables(0).Rows(0).Item("USUARIO")
+                TXT_CONTRASENA_IMAP.Text = DS.Tables(0).Rows(0).Item("CONTRASENA")
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
     Private Sub EJECUTAR()
         Try
             Dim SQL As String = "EXEC USP_COMPANIA_MANT"
@@ -688,7 +713,6 @@ Public Class LBL_CANTON
         End Try
     End Sub
 
-
     Private Sub RealizarPruebaSMTP(Destinatario As String)
         Try
 
@@ -749,4 +773,56 @@ Public Class LBL_CANTON
         End Try
     End Sub
 
+    Private Sub BTN_PROBAR_IMAP_Click(sender As Object, e As EventArgs) Handles BTN_PROBAR_IMAP.Click
+        Try
+            LBL_RESULTADO_IMAP.Text = ""
+
+            If String.IsNullOrEmpty(TXT_SERVIDOR_IMAP.Text) Then
+                MessageBox.Show("¡Se debe ingresar la información del servidor IMAP!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                TXT_SERVIDOR_IMAP.Select()
+            ElseIf String.IsNullOrEmpty(TXT_USUARIO_IMAP.Text) Then
+                MessageBox.Show("¡Se debe ingresar el correo a configurar!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                TXT_USUARIO_IMAP.Select()
+            ElseIf String.IsNullOrEmpty(TXT_CONTRASENA_IMAP.Text) Then
+                MessageBox.Show("¡Se debe ingresar la contraseña del correo ingresado!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                TXT_CONTRASENA_IMAP.Select()
+            ElseIf String.IsNullOrEmpty(TXT_PUERTO_IMAP.Text) Or Val(TXT_PUERTO_IMAP.Text) <= 0 Then
+                MessageBox.Show("¡El puerto recomendado 993!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                TXT_PUERTO_IMAP.Select()
+            Else
+                Dim ImapUsuario As Imap = Nothing
+                Try
+                    ImapUsuario = MetodosImap.ConectarIMAP(TXT_SERVIDOR_IMAP.Text, TXT_USUARIO_IMAP.Text, TXT_CONTRASENA_IMAP.Text, Val(TXT_PUERTO_IMAP.Text), True)
+                    If Not IsNothing(ImapUsuario) Then
+                        MetodosImap.DesconectarImap(ImapUsuario)
+
+                        Dim respuesta = MessageBox.Show(Me, "La configuración IMAP se realizó correctamente, ¿Desea ingresar los datos?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                        If respuesta = DialogResult.Yes Then
+
+                            CONX.Coneccion_Abrir()
+                            Dim SQL = "	DELETE FROM IMAP_CONFIG WHERE COD_CIA = " & SCM(COD_CIA)
+                            CONX.EJECUTE(SQL)
+
+                            SQL &= Chr(13) & "	INSERT INTO IMAP_CONFIG(COD_CIA,SERVIDOR,USUARIO,CONTRASENA,PUERTO)			"
+                            SQL &= Chr(13) & "	SELECT " & SCM(COD_CIA) & "," & SCM(TXT_SERVIDOR_IMAP.Text.Trim) & "," & SCM(TXT_USUARIO_IMAP.Text.Trim)
+                            SQL &= Chr(13) & "," & SCM(TXT_CONTRASENA_IMAP.Text.Trim) & "," & Val(TXT_PUERTO_IMAP.Text)
+                            CONX.EJECUTE(SQL)
+                            CONX.Coneccion_Cerrar()
+
+                            MessageBox.Show("¡IMAP configurado correctamente!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        End If
+                    Else
+                        MetodosImap.DesconectarImap(ImapUsuario)
+                        MessageBox.Show("¡No se logró realizar la conexión IMAP, verifique la activación del IMAP en el correo!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    End If
+                Catch ex As Exception
+                    MetodosImap.DesconectarImap(ImapUsuario)
+                    LBL_RESULTADO.Text = ex.Message
+                    LBL_RESULTADO.ForeColor = Color.Red
+                End Try
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 End Class

@@ -69,6 +69,9 @@
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="Mail">
+      <HintPath>..\..\LIBRERIAS_GENERALES\Mail.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -141,6 +144,7 @@
     </Compile>
     <Compile Include="Globales\EnvioCorreo.vb" />
     <Compile Include="Globales\Globales.vb" />
+    <Compile Include="Globales\MetodosImap.vb" />
     <Compile Include="Globales\Impresion.vb" />
     <Compile Include="Globales\Printer.vb" />
     <Compile Include="Globales\PrintFormat.vb" />
@@ -907,6 +911,7 @@
     <None Include="Resources\inventario.png" />
     <None Include="Resources\ajuste_inventario.png" />
     <None Include="Resources\bitacora.png" />
+    <None Include="Resources\correo.png" />
     <Content Include="Resources\quitar.png" />
     <None Include="Resources\Right.png" />
     <None Include="Resources\reportes.png" />

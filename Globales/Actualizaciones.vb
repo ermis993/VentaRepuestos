@@ -1,5 +1,4 @@
 ﻿Imports System.IO
-Imports FUN_CRFUSION.FUNCIONES_GENERALES
 Imports VentaRepuestos.Globales
 Public Class Actualizaciones
     Public Sub ACTUALIZACIONES(ByRef ProgressBar As ProgressBar)
@@ -20,7 +19,7 @@ Public Class Actualizaciones
         RUTA_ADJUNTOS = "C:\ENVIOS"
         RUTA_BACKUP = "C:\BACKUPS"
 
-        Dim Cantidad_Procesos As Integer = 81
+        Dim Cantidad_Procesos As Integer = 84
         Dim Cantidad_Actual As Integer = 0
         ProgressBar.Value = 0
 
@@ -44,8 +43,10 @@ Public Class Actualizaciones
         Call INVENTARIO_DET()
         Call BITACORA_IMPRESIONES()
         Call PRODUCTO_DESECHADO()
+        Call CXP_DOCUMENTOS_ELECTRONICOS_CORREO()
+        Call IMAP_CONFIG()
 
-        Cantidad_Actual += 19
+        Cantidad_Actual += 21
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
         'CAMPOS EN TABLAS
@@ -132,8 +133,9 @@ Public Class Actualizaciones
         Call USP_DOCUMENTOS_CON_SALDO_A_FECHA()
         Call USP_DATOS_CXP_ANTIGUEDAD_SALDOS()
         Call USP_MANT_FACTURACION_TMP()
+        Call USP_INGRESA_DOCUMENTO_XML_CORREO()
 
-        Cantidad_Actual += 31
+        Cantidad_Actual += 32
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
         'PROCESOS ESPECIALES ANIDADOS
@@ -932,6 +934,65 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "		[COD_PROD] ASC																								"
                 SQL &= Chr(13) & "	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]																									"
                 SQL &= Chr(13) & "	) ON [PRIMARY]				"
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+
+    Private Sub CXP_DOCUMENTOS_ELECTRONICOS_CORREO()
+        Try
+            If Not EXISTE_TABLA("CXP_DOCUMENTOS_ELECTRONICOS_CORREO") Then
+
+                Dim SQL = "	CREATE TABLE CXP_DOCUMENTOS_ELECTRONICOS_CORREO(																									"
+                SQL &= Chr(13) & "	[COD_CIA] [varchar](3) NOT NULL,																									"
+                SQL &= Chr(13) & "	[CLAVE] [varchar](50) NOT NULL,																									"
+                SQL &= Chr(13) & "	[CONSECUTIVO] [varchar](20) NOT NULL,																									"
+                SQL &= Chr(13) & "	[CEDULA] [varchar](25) NOT NULL,																									"
+                SQL &= Chr(13) & "	[NOMBRE] [varchar](100) NOT NULL,																									"
+                SQL &= Chr(13) & "	[XML] [varchar](max) NOT NULL,																									"
+                SQL &= Chr(13) & "	CONSTRAINT [PK_CXP_DOCUMENTOS_ELECTRONICOS_CORREO] PRIMARY KEY CLUSTERED 																									"
+                SQL &= Chr(13) & "	(																									"
+                SQL &= Chr(13) & "		[COD_CIA] ASC,																								"
+                SQL &= Chr(13) & "		[CLAVE] ASC																								"
+                SQL &= Chr(13) & "	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]																									"
+                SQL &= Chr(13) & "	) ON [PRIMARY]																									"
+
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub IMAP_CONFIG()
+        Try
+            If Not EXISTE_TABLA("IMAP_CONFIG") Then
+
+                Dim SQL = "	CREATE TABLE [dbo].[IMAP_CONFIG](																									"
+                SQL &= Chr(13) & "		[COD_CIA] [varchar](3) NOT NULL,																								"
+                SQL &= Chr(13) & "		[SERVIDOR] [varchar](100) NOT NULL,																								"
+                SQL &= Chr(13) & "		[USUARIO] [varchar](100) NOT NULL,																								"
+                SQL &= Chr(13) & "		[CONTRASENA] [varchar](100) NOT NULL,																								"
+                SQL &= Chr(13) & "		[PUERTO] [int] NOT NULL,																								"
+                SQL &= Chr(13) & "	 CONSTRAINT [PK_IMAP_CONFIG] PRIMARY KEY CLUSTERED 																									"
+                SQL &= Chr(13) & "	(																									"
+                SQL &= Chr(13) & "		[COD_CIA] ASC																								"
+                SQL &= Chr(13) & "	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]																									"
+                SQL &= Chr(13) & "	) ON [PRIMARY]																									"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[IMAP_CONFIG]  WITH CHECK ADD  CONSTRAINT [FK_IMAP_CONFIG_COMPANIA] FOREIGN KEY([COD_CIA])																									"
+                SQL &= Chr(13) & "	REFERENCES [dbo].[COMPANIA] ([COD_CIA])																									"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "	ALTER TABLE [dbo].[IMAP_CONFIG] CHECK CONSTRAINT [FK_IMAP_CONFIG_COMPANIA]																									"
 
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
@@ -4962,6 +5023,55 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "	                	 		RAISERROR( @MENSAJE, 16, 1)																						"
                 SQL &= Chr(13) & "	                		END CATCH																							"
                 SQL &= Chr(13) & "	                	END																								"
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub USP_INGRESA_DOCUMENTO_XML_CORREO()
+        Try
+            If Not EXISTE_PROCEDIMIENTO("USP_INGRESA_DOCUMENTO_XML_CORREO", "2021-05-28") Then
+                ELIMINA_PROCEDIMIENTO("USP_INGRESA_DOCUMENTO_XML_CORREO")
+
+                Dim SQL = "	CREATE PROCEDURE [dbo].[USP_INGRESA_DOCUMENTO_XML_CORREO] 																									"
+                SQL &= Chr(13) & "	@COD_CIA VARCHAR(3)																									"
+                SQL &= Chr(13) & "	,@CLAVE VARCHAR(50)																									"
+                SQL &= Chr(13) & "	,@CONSECUTIVO VARCHAR(20)																									"
+                SQL &= Chr(13) & "	,@CEDULA VARCHAR(25) = ''																									"
+                SQL &= Chr(13) & "	,@NOMBRE VARCHAR(100) = ''																									"
+                SQL &= Chr(13) & "	,@XML VARCHAR(MAX)																									"
+                SQL &= Chr(13) & "	AS																									"
+                SQL &= Chr(13) & "	BEGIN																									"
+                SQL &= Chr(13) & "	SET NOCOUNT ON;																									"
+                SQL &= Chr(13) & "	BEGIN TRY																									"
+                SQL &= Chr(13) & "	BEGIN TRAN TSN_XML_CORREO																									"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "		IF NOT EXISTS(																								"
+                SQL &= Chr(13) & "			SELECT *																							"
+                SQL &= Chr(13) & "			FROM CXP_DOCUMENTOS_ELECTRONICOS_CORREO																							"
+                SQL &= Chr(13) & "			WHERE COD_CIA = @COD_CIA																							"
+                SQL &= Chr(13) & "			AND CLAVE = @CLAVE 																							"
+                SQL &= Chr(13) & "			AND CEDULA = @CEDULA																							"
+                SQL &= Chr(13) & "		)																								"
+                SQL &= Chr(13) & "		BEGIN																								"
+                SQL &= Chr(13) & "			INSERT INTO CXP_DOCUMENTOS_ELECTRONICOS_CORREO(COD_CIA,CLAVE,CONSECUTIVO,CEDULA,NOMBRE,XML)																							"
+                SQL &= Chr(13) & "			SELECT @COD_CIA, @CLAVE, @CONSECUTIVO, @CEDULA, @NOMBRE, @XML																							"
+                SQL &= Chr(13) & "		END																								"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "	COMMIT TRAN TSN_XML_CORREO 																									"
+                SQL &= Chr(13) & "	END TRY																									"
+                SQL &= Chr(13) & "	BEGIN CATCH 																									"
+                SQL &= Chr(13) & "		ROLLBACK TRAN																								"
+                SQL &= Chr(13) & "		DECLARE @MENSAJE VARCHAR(500)																								"
+                SQL &= Chr(13) & "		SET @MENSAJE =( SELECT ERROR_MESSAGE())																								"
+                SQL &= Chr(13) & "		RAISERROR( @MENSAJE, 16, 1)																								"
+                SQL &= Chr(13) & "	END CATCH																									"
+                SQL &= Chr(13) & "	END																									"
 
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)

@@ -48,15 +48,15 @@ Public Class Login
                     Next
                 End If
                 If COINCIDENCIA = True Then
-                    'If ValidaFormatoPC() Then
-                    TXT_USUARIO.Text = ""
-                    TXT_CONTRASENA.Text = ""
-                    Me.Visible = False
-                    Dim PANTALLA As New SeleccionCompania()
-                    PANTALLA.Show()
-                    'Else
-                    '    MessageBox.Show("¡El formato de fecha leído es incorrecto para el sistema, intente cerrar y volver a abrir el sistema!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                    'End If
+                    If ValidaFormatoPC() Then
+                        TXT_USUARIO.Text = ""
+                        TXT_CONTRASENA.Text = ""
+                        Me.Visible = False
+                        Dim PANTALLA As New SeleccionCompania()
+                        PANTALLA.Show()
+                    Else
+                        MessageBox.Show("¡El formato de fecha leído es incorrecto para el sistema, intente cerrar y volver a abrir el sistema!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    End If
                 Else
                     MessageBox.Show("¡Usuario no encontrado!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If
@@ -69,12 +69,11 @@ Public Class Login
     Private Function ValidaFormatoPC() As Boolean
         Try
             Dim FECHA_SYSTEMA As String
-            FECHA_SYSTEMA = SCM(YMD(FECHA_HOY))
-
-
-
+            FECHA_SYSTEMA = YMD(FECHA_HOY)
+            Return True
         Catch ex As Exception
             MessageBox.Show(ex.Message)
+            Return False
         End Try
     End Function
 

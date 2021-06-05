@@ -29,11 +29,12 @@ Partial Class Inventario
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GRID = New System.Windows.Forms.DataGridView()
-        Me.Filtro = New VentaRepuestos.Filtro()
         Me.BTN_TRACKING = New System.Windows.Forms.Button()
         Me.BTN_AJUSTE = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.BTN_REFRESCAR = New System.Windows.Forms.Button()
+        Me.Filtro = New VentaRepuestos.Filtro()
+        Me.BTN_CONSULTA_SALDOS = New System.Windows.Forms.Button()
         Me.GroupBox2.SuspendLayout()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -104,15 +105,6 @@ Partial Class Inventario
         Me.GRID.Size = New System.Drawing.Size(796, 390)
         Me.GRID.TabIndex = 18
         '
-        'Filtro
-        '
-        Me.Filtro.Location = New System.Drawing.Point(3, 57)
-        Me.Filtro.Margin = New System.Windows.Forms.Padding(4)
-        Me.Filtro.Name = "Filtro"
-        Me.Filtro.Size = New System.Drawing.Size(306, 29)
-        Me.Filtro.TabIndex = 19
-        Me.Filtro.VALOR = ""
-        '
         'BTN_TRACKING
         '
         Me.BTN_TRACKING.BackColor = System.Drawing.SystemColors.ButtonFace
@@ -161,7 +153,7 @@ Partial Class Inventario
         Me.BTN_REFRESCAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_REFRESCAR.Image = Global.VentaRepuestos.My.Resources.Resources.refrescar
         Me.BTN_REFRESCAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_REFRESCAR.Location = New System.Drawing.Point(201, 3)
+        Me.BTN_REFRESCAR.Location = New System.Drawing.Point(300, 3)
         Me.BTN_REFRESCAR.Name = "BTN_REFRESCAR"
         Me.BTN_REFRESCAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_REFRESCAR.TabIndex = 22
@@ -169,12 +161,36 @@ Partial Class Inventario
         Me.BTN_REFRESCAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_REFRESCAR.UseVisualStyleBackColor = False
         '
+        'Filtro
+        '
+        Me.Filtro.Location = New System.Drawing.Point(3, 57)
+        Me.Filtro.Margin = New System.Windows.Forms.Padding(4)
+        Me.Filtro.Name = "Filtro"
+        Me.Filtro.Size = New System.Drawing.Size(306, 29)
+        Me.Filtro.TabIndex = 19
+        Me.Filtro.VALOR = ""
+        '
+        'BTN_CONSULTA_SALDOS
+        '
+        Me.BTN_CONSULTA_SALDOS.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_CONSULTA_SALDOS.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_CONSULTA_SALDOS.Image = Global.VentaRepuestos.My.Resources.Resources.consultas
+        Me.BTN_CONSULTA_SALDOS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_CONSULTA_SALDOS.Location = New System.Drawing.Point(201, 3)
+        Me.BTN_CONSULTA_SALDOS.Name = "BTN_CONSULTA_SALDOS"
+        Me.BTN_CONSULTA_SALDOS.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_CONSULTA_SALDOS.TabIndex = 23
+        Me.BTN_CONSULTA_SALDOS.Text = "Saldos"
+        Me.BTN_CONSULTA_SALDOS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_CONSULTA_SALDOS.UseVisualStyleBackColor = False
+        '
         'Inventario
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(802, 539)
         Me.ControlBox = False
+        Me.Controls.Add(Me.BTN_CONSULTA_SALDOS)
         Me.Controls.Add(Me.BTN_REFRESCAR)
         Me.Controls.Add(Me.BTN_TRACKING)
         Me.Controls.Add(Me.BTN_AJUSTE)
@@ -207,4 +223,5 @@ Partial Class Inventario
     Friend WithEvents BTN_AJUSTE As Button
     Friend WithEvents BTN_TRACKING As Button
     Friend WithEvents BTN_REFRESCAR As Button
+    Friend WithEvents BTN_CONSULTA_SALDOS As Button
 End Class

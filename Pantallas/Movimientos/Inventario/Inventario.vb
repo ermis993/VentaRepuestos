@@ -3,6 +3,7 @@ Imports VentaRepuestos.Globales
 
 Public Class Inventario
     Dim CONSULTA_FILTRO As String = ""
+    Dim NUMERO_AJUSTE As Integer = 0
 
     Sub New()
         InitializeComponent()
@@ -73,7 +74,7 @@ Public Class Inventario
 
     Private Sub BTN_AJUSTE_Click(sender As Object, e As EventArgs) Handles BTN_AJUSTE.Click
         Try
-            Dim PANTALLA As New Ajuste(Me)
+            Dim PANTALLA As New Ajuste(Me, CRF_Modos.Insertar, 0)
             PANTALLA.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -114,5 +115,39 @@ Public Class Inventario
 
         BTN_AJUSTE.Enabled = TieneDerecho("DINVAJ")
         BTN_TRACKING.Enabled = TieneDerecho("DINVTR")
+        BTN_CONSULTA_SALDOS.Enabled = TieneDerecho("DCONS")
+    End Sub
+
+    Private Sub GRID_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GRID.CellDoubleClick
+        Try
+            Leer_indice()
+            If NUMERO_AJUSTE > 0 Then
+                Dim PANTALLA As New Ajuste(Me, CRF_Modos.Modificar, NUMERO_AJUSTE)
+                PANTALLA.ShowDialog()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+
+    Private Sub Leer_indice()
+        Try
+            If Me.GRID.Rows.Count > 0 Then
+                Dim seleccionado = GRID.Rows(GRID.SelectedRows(0).Index)
+                NUMERO_AJUSTE = Val(seleccionado.Cells(0).Value.ToString)
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_CONSULTA_SALDOS_Click(sender As Object, e As EventArgs) Handles BTN_CONSULTA_SALDOS.Click
+        Try
+            Dim PANTALLA As New ConsultaSaldos()
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 End Class

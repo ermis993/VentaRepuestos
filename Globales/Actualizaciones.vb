@@ -19,7 +19,7 @@ Public Class Actualizaciones
         RUTA_ADJUNTOS = "C:\ENVIOS"
         RUTA_BACKUP = "C:\BACKUPS"
 
-        Dim Cantidad_Procesos As Integer = 84
+        Dim Cantidad_Procesos As Integer = 86
         Dim Cantidad_Actual As Integer = 0
         ProgressBar.Value = 0
 
@@ -79,7 +79,8 @@ Public Class Actualizaciones
 
         'ALTERS CAMPOS
         Call ALTER_SMTP_CONFIG_CONTRASENA()
-        Cantidad_Actual += 1
+        Call ALTER_COMPANIA_CERTIFICADO()
+        Cantidad_Actual += 2
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
         'TIPOS
@@ -134,8 +135,9 @@ Public Class Actualizaciones
         Call USP_DATOS_CXP_ANTIGUEDAD_SALDOS()
         Call USP_MANT_FACTURACION_TMP()
         Call USP_INGRESA_DOCUMENTO_XML_CORREO()
+        Call USP_GUARDAR_CERTIFICADO()
 
-        Cantidad_Actual += 32
+        Cantidad_Actual += 33
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
         'PROCESOS ESPECIALES ANIDADOS
@@ -5082,6 +5084,33 @@ Public Class Actualizaciones
         End Try
     End Sub
 
+    Private Sub USP_GUARDAR_CERTIFICADO()
+        Try
+            If Not EXISTE_PROCEDIMIENTO("USP_GUARDAR_CERTIFICADO", "2021-06-06") Then
+
+                ELIMINA_PROCEDIMIENTO("GUARDAR_CERTIFICADO")
+                ELIMINA_PROCEDIMIENTO("USP_GUARDAR_CERTIFICADO")
+
+                Dim SQL = "	CREATE PROCEDURE [dbo].[USP_GUARDAR_CERTIFICADO] 																									"
+                SQL &= Chr(13) & "		    @CERTIFICADO VARCHAR(MAX),   																								"
+                SQL &= Chr(13) & "		    @PIN VARCHAR(50),   																								"
+                SQL &= Chr(13) & "			@COD_CIA VARCHAR(3)  																							"
+                SQL &= Chr(13) & "		AS   																								"
+                SQL &= Chr(13) & "		BEGIN																								"
+                SQL &= Chr(13) & "		    SET NOCOUNT ON;  																								"
+                SQL &= Chr(13) & "			UPDATE COMPANIA SET CERTIFICADO = @CERTIFICADO,PIN = @PIN,SUBJECT_CERT = NULL,HUELLA = NULL, FECHA_INSTALACION = NULL, PIN_ERRONEO = NULL																							"
+                SQL &= Chr(13) & "			WHERE COD_CIA = @COD_CIA																							"
+                SQL &= Chr(13) & "		END																								"
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
 #End Region
 
 #Region "Alters campos"
@@ -5091,6 +5120,20 @@ Public Class Actualizaciones
             If Not EXISTE_CAMPO_TIPO("CONTRASENA", "SMTP_CONFIG", "VARCHAR", 100) Then
                 Dim SQL = "	ALTER TABLE SMTP_CONFIG	"
                 SQL &= Chr(13) & "	ALTER COLUMN CONTRASENA VARCHAR(100) NOT NULL "
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub ALTER_COMPANIA_CERTIFICADO()
+        Try
+            If EXISTE_CAMPO_TIPO("CERTIFICADO", "COMPANIA", "VARBINARY") Then
+                Dim SQL = "	ALTER TABLE COMPANIA	"
+                SQL &= Chr(13) & "	ALTER COLUMN CERTIFICADO VARCHAR(MAX) NULL "
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()

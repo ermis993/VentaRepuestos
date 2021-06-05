@@ -49,9 +49,14 @@ Partial Class MenuPrincipal
         Me.BTN_USUARIO = New System.Windows.Forms.Button()
         Me.BTN_SUCURSAL = New System.Windows.Forms.Button()
         Me.BTN_COMPANIA = New System.Windows.Forms.Button()
+        Me.LBL_AVISO = New System.Windows.Forms.Label()
+        Me.LBL_AVISO_MENSAJE = New System.Windows.Forms.Label()
+        Me.BTN_ACTUALIZAR_LLAVE = New System.Windows.Forms.Button()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.PB_IMAGEN, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox3.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -168,7 +173,7 @@ Partial Class MenuPrincipal
         '
         'PB_IMAGEN
         '
-        Me.PB_IMAGEN.Location = New System.Drawing.Point(302, 128)
+        Me.PB_IMAGEN.Location = New System.Drawing.Point(609, 315)
         Me.PB_IMAGEN.Name = "PB_IMAGEN"
         Me.PB_IMAGEN.Size = New System.Drawing.Size(295, 211)
         Me.PB_IMAGEN.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -371,6 +376,52 @@ Partial Class MenuPrincipal
         Me.BTN_COMPANIA.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.BTN_COMPANIA.UseVisualStyleBackColor = True
         '
+        'LBL_AVISO
+        '
+        Me.LBL_AVISO.AutoSize = True
+        Me.LBL_AVISO.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LBL_AVISO.ForeColor = System.Drawing.Color.Red
+        Me.LBL_AVISO.Location = New System.Drawing.Point(152, 16)
+        Me.LBL_AVISO.Name = "LBL_AVISO"
+        Me.LBL_AVISO.Size = New System.Drawing.Size(84, 25)
+        Me.LBL_AVISO.TabIndex = 22
+        Me.LBL_AVISO.Text = "¡Aviso!"
+        '
+        'LBL_AVISO_MENSAJE
+        '
+        Me.LBL_AVISO_MENSAJE.AutoSize = True
+        Me.LBL_AVISO_MENSAJE.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LBL_AVISO_MENSAJE.ForeColor = System.Drawing.Color.Red
+        Me.LBL_AVISO_MENSAJE.Location = New System.Drawing.Point(9, 44)
+        Me.LBL_AVISO_MENSAJE.Name = "LBL_AVISO_MENSAJE"
+        Me.LBL_AVISO_MENSAJE.Size = New System.Drawing.Size(371, 100)
+        Me.LBL_AVISO_MENSAJE.TabIndex = 23
+        Me.LBL_AVISO_MENSAJE.Text = resources.GetString("LBL_AVISO_MENSAJE.Text")
+        '
+        'BTN_ACTUALIZAR_LLAVE
+        '
+        Me.BTN_ACTUALIZAR_LLAVE.Image = Global.VentaRepuestos.My.Resources.Resources.refrescar
+        Me.BTN_ACTUALIZAR_LLAVE.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.BTN_ACTUALIZAR_LLAVE.Location = New System.Drawing.Point(162, 147)
+        Me.BTN_ACTUALIZAR_LLAVE.Name = "BTN_ACTUALIZAR_LLAVE"
+        Me.BTN_ACTUALIZAR_LLAVE.Size = New System.Drawing.Size(64, 55)
+        Me.BTN_ACTUALIZAR_LLAVE.TabIndex = 24
+        Me.BTN_ACTUALIZAR_LLAVE.Text = "Actualizar"
+        Me.BTN_ACTUALIZAR_LLAVE.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.BTN_ACTUALIZAR_LLAVE.UseVisualStyleBackColor = True
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.LBL_AVISO)
+        Me.GroupBox3.Controls.Add(Me.BTN_ACTUALIZAR_LLAVE)
+        Me.GroupBox3.Controls.Add(Me.LBL_AVISO_MENSAJE)
+        Me.GroupBox3.Location = New System.Drawing.Point(5, 134)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(385, 209)
+        Me.GroupBox3.TabIndex = 25
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "[ Información relacionada a la DGTD]"
+        '
         'MenuPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -378,6 +429,7 @@ Partial Class MenuPrincipal
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(906, 528)
         Me.ControlBox = False
+        Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.BTN_BITACORAS)
         Me.Controls.Add(Me.BTN_INVENTARIO)
         Me.Controls.Add(Me.PB_IMAGEN)
@@ -405,11 +457,13 @@ Partial Class MenuPrincipal
         Me.MinimumSize = New System.Drawing.Size(908, 530)
         Me.Name = "MenuPrincipal"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Menú Principal"
+        Me.Text = "Menú principal"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.PB_IMAGEN, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -441,4 +495,8 @@ Partial Class MenuPrincipal
     Friend WithEvents PB_IMAGEN As PictureBox
     Friend WithEvents BTN_INVENTARIO As Button
     Friend WithEvents BTN_BITACORAS As Button
+    Friend WithEvents LBL_AVISO As Label
+    Friend WithEvents LBL_AVISO_MENSAJE As Label
+    Friend WithEvents BTN_ACTUALIZAR_LLAVE As Button
+    Friend WithEvents GroupBox3 As GroupBox
 End Class

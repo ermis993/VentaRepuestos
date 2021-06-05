@@ -11,7 +11,7 @@ Public Class LBL_CANTON
     Dim COD_C As String = ""
     Dim Respuesta As New DialogResult
     Dim RUTA As String = ""
-    Dim CERTIFICADO As Byte()
+    Dim CERTIFICADO As String
     Dim MODO As New CRF_Modos
     Dim PADRE As New Compania
     Dim COD_ACT As String = ""
@@ -56,6 +56,10 @@ Public Class LBL_CANTON
             LEER_IMAP()
             REFRESCAR_ACTIVIDADES()
             RellenaImagen(PictureBox1)
+
+            If PADRE Is Nothing Then
+                TAB_COMPANIA.SelectedTab = TAB_FE
+            End If
         End If
     End Sub
     Private Sub CARGAR_PROVINCIAS()
@@ -171,7 +175,7 @@ Public Class LBL_CANTON
     End Sub
     Private Sub BTN_SELECCIONAR_Click(sender As Object, e As EventArgs) Handles BTN_SELECCIONAR.Click
         Try
-            Dim CERT As Byte() = Nothing
+            Dim CERT As String = ""
 
             Dim SQL = "	SELECT ISNULL(CERTIFICADO,0) AS CERTIFICADO "
             SQL &= Chr(13) & "	FROM COMPANIA"
@@ -185,7 +189,8 @@ Public Class LBL_CANTON
                     CERT = ITEM("CERTIFICADO")
                 Next
             End If
-            If CERT IsNot Nothing AndAlso CERT.Length > 4 Then
+
+            If Not String.IsNullOrEmpty(CERT) Then
                 Respuesta = MessageBox.Show(Me, "¡Actualmente existe un certificado importado!" & vbNewLine & "¿Desea importar uno nuevo y eliminar el actual?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
             Else
                 Respuesta = MessageBox.Show(Me, "¿Desea abrir el explorador de archivos?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
@@ -196,9 +201,6 @@ Public Class LBL_CANTON
                 OPD_Llave.ShowDialog()
                 If File.Exists(RUTA) Then
                     CERTIFICADO = Bytes(RUTA)
-                    If IsNothing(CERTIFICADO) = False Then
-
-                    End If
                 End If
             End If
         Catch ex As Exception
@@ -219,44 +221,35 @@ Public Class LBL_CANTON
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-    Private Function Bytes(ByVal PATH As String) As Byte()
+    Private Function Bytes(ByVal PATH As String) As String
         Try
-            'Dim cert As New X509Certificate2(PATH, TXT_PIN.Text, X509KeyStorageFlags.PersistKeySet)
-            'Dim stringOfCertWithPrivateKey = Convert.ToBase64String(cert.Export(X509ContentType.Cert))
+            Dim cert = New X509Certificate2(PATH, TXT_PIN.Text, X509KeyStorageFlags.Exportable)
+            Dim CertificadoConPin = Convert.ToBase64String(cert.Export(X509ContentType.Pkcs12))
 
-            'Return stringOfCertWithPrivateKey
-
-            'Dim FS As FileStream = File.Open(PATH, FileMode.Open, FileAccess.Read)
-            'Dim Archivo(FS.Length) As Byte
-            'If FS.Length > 0 Then
-            '    FS.Read(Archivo, 0, FS.Length - 1)
-            '    FS.Close()
-            'End If
-            'Return Archivo
-
-            Dim cert = New X509Certificate2(PATH, TXT_PIN.Text, X509KeyStorageFlags.PersistKeySet)
-            Dim Data = cert.RawData
-
-            Return Data
-
+            Return CertificadoConPin
         Catch ex As Exception
+            If ex.Message.Contains("La contraseña de red especificada no es válida") Then
+                MessageBox.Show("El pin ingresado para la llave criptográfica seleccionada es incorrecto", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Else
+                MessageBox.Show(ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            End If
+
             Return Nothing
-            MessageBox.Show(ex.Message)
         End Try
     End Function
     Private Sub GUARDAR_CERTIFICADO()
         Try
-            If (CERTIFICADO IsNot Nothing AndAlso CERTIFICADO.Length > 4) And TXT_PIN.Text <> "" Then
+            If (Not String.IsNullOrEmpty(CERTIFICADO)) And TXT_PIN.Text <> "" Then
                 Dim COMANDO As New SqlCommand()
                 COMANDO.CommandType = CommandType.StoredProcedure
                 Dim PIN As New SqlParameter("@PIN", SqlDbType.VarChar)
                 PIN.Value = TXT_PIN.Text
-                Dim CERT As New SqlParameter("@CERTIFICADO", SqlDbType.VarBinary)
+                Dim CERT As New SqlParameter("@CERTIFICADO", SqlDbType.VarChar)
                 CERT.Value = CERTIFICADO
                 Dim COD_CIA As New SqlParameter("@COD_CIA", SqlDbType.VarChar)
                 COD_CIA.Value = TXT_CODIGO.Text
 
-                COMANDO.CommandText = "GUARDAR_CERTIFICADO"
+                COMANDO.CommandText = "USP_GUARDAR_CERTIFICADO"
                 COMANDO.Parameters.Add(CERT)
                 COMANDO.Parameters.Add(PIN)
                 COMANDO.Parameters.Add(COD_CIA)
@@ -277,7 +270,7 @@ Public Class LBL_CANTON
                 If VALIDAR() = True Then
                     EJECUTAR()
                     IND_IMPRIMIR_IMAGEN = IIf(CHK_IMAGEN.Checked, "S", "N")
-                    If IsNothing(CERTIFICADO) = False And TXT_PIN.Text <> "" Then
+                    If Not String.IsNullOrEmpty(CERTIFICADO) And TXT_PIN.Text <> "" Then
                         GUARDAR_CERTIFICADO()
                     End If
                 End If
@@ -562,8 +555,10 @@ Public Class LBL_CANTON
     End Sub
 
     Private Sub Cerrar()
+        If PADRE IsNot Nothing Then
+            PADRE.Refrescar()
+        End If
         Me.Close()
-        PADRE.Refrescar()
     End Sub
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         Cerrar()

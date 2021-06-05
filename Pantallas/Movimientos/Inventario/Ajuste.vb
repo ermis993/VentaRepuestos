@@ -4,16 +4,53 @@ Imports VentaRepuestos.Globales
 Public Class Ajuste
     Dim Codigo As String
     Dim Padre As Object
+    Dim Modo_Uso As CRF_Modos
+    Dim Numero As Integer
 
-    Sub New(ByVal Padrecito As Object)
+    Sub New(ByVal Padrecito As Object, ByVal Modo As CRF_Modos, ByVal Numero_Ajuste As Integer)
         InitializeComponent()
 
         Padre = Padrecito
+        Modo_Uso = Modo
+        Numero = Numero_Ajuste
     End Sub
 
     Private Sub Ajuste_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        CMB_TIPO.SelectedIndex = 0
-        Codigo = GenerarCodigo()
+        If Modo_Uso = CRF_Modos.Insertar Then
+            CMB_TIPO.SelectedIndex = 0
+            Codigo = GenerarCodigo()
+        Else
+            RELLENA_INFORMACION()
+        End If
+    End Sub
+
+    Private Sub RELLENA_INFORMACION()
+        Try
+            Dim SQL = "	SELECT NUMERO_DOC, FECHA, DESCRIPCION, COD_MOV		"
+            SQL &= Chr(13) & "	FROM INVENTARIO_ENC	 "
+            SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+            SQL &= Chr(13) & "	AND NUMERO_DOC = " & Val(Numero)
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                TXT_NUMERO.Text = Val(DS.Tables(0).Rows(0).Item(0))
+                TXT_DESCRIPCION.Text = DS.Tables(0).Rows(0).Item(2)
+                DTPFECHA.Value = DMA(DS.Tables(0).Rows(0).Item(1))
+                CMB_TIPO.SelectedIndex = IIf(DS.Tables(0).Rows(0).Item(3) = "EPA", 0, 1)
+            End If
+
+            GroupBox1.Enabled = False
+            GroupBox2.Enabled = False
+            BTN_ACEPTAR.Enabled = False
+
+            RELLENAR_GRID(1)
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 
     Private Sub BTN_INGRESAR_ENC_Click(sender As Object, e As EventArgs) Handles BTN_INGRESAR_ENC.Click
@@ -230,6 +267,7 @@ Public Class Ajuste
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
+            Return False
         End Try
     End Function
 
@@ -338,17 +376,16 @@ Public Class Ajuste
                     btn.ImageLayout = DataGridViewImageCellLayout.Normal
                 End If
             Else
-                Dim SQL = "	Select TMP.LINEA , PROD.COD_PROD , PROD.DESCRIPCION , TMP.CANTIDAD, TMP.PRECIO "
-                SQL &= Chr(13) & "	, TMP.POR_DESCUENTO , TMP.IMPUESTO, TMP.TOTAL, TMP.ESTANTE, TMP.FILA, TMP.COLUMNA"
-                SQL &= Chr(13) & "	FROM DOCUMENTO_DET AS TMP	"
+                Dim SQL = "	Select TMP.LINEA , PROD.COD_PROD , PROD.DESCRIPCION , TMP.CANTIDAD "
+                SQL &= Chr(13) & "	,TMP.ESTANTE, TMP.FILA, TMP.COLUMNA"
+                SQL &= Chr(13) & "	FROM INVENTARIO_DET AS TMP	"
                 SQL &= Chr(13) & "	INNER JOIN PRODUCTO AS PROD		"
                 SQL &= Chr(13) & "		ON PROD.COD_CIA = TMP.COD_CIA	"
-                SQL &= Chr(13) & " And PROD.COD_SUCUR = TMP.COD_SUCUR "
+                SQL &= Chr(13) & "      AND PROD.COD_SUCUR = TMP.COD_SUCUR "
                 SQL &= Chr(13) & "		AND PROD.COD_PROD = TMP.COD_PROD	"
                 SQL &= Chr(13) & "	WHERE TMP.COD_CIA = " & SCM(COD_CIA)
                 SQL &= Chr(13) & "	AND TMP.COD_SUCUR = " & SCM(COD_SUCUR)
-                SQL &= Chr(13) & " And TMP.NUMERO_DOC =  " & Val(TXT_NUMERO.Text)
-                SQL &= Chr(13) & " AND TMP.TIPO_MOV = 'IN'"
+                SQL &= Chr(13) & " And TMP.NUMERO_DOC =  " & Val(Numero)
 
                 CONX.Coneccion_Abrir()
                 Dim DS = CONX.EJECUTE_DS(SQL)
@@ -410,7 +447,7 @@ Public Class Ajuste
     End Sub
     Private Sub Modificar()
         Try
-            If Me.GRID.Rows.Count > 0 Then
+            If Me.GRID.Rows.Count > 0 And Modo_Uso = CRF_Modos.Insertar Then
                 Leer_indice()
             End If
         Catch ex As Exception

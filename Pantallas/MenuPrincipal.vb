@@ -8,7 +8,9 @@ Public Class MenuPrincipal
 
     Private Sub BTN_COMPANIA_Click(sender As Object, e As EventArgs) Handles BTN_COMPANIA.Click
         Try
-            Compania.ShowDialog()
+            Dim PANTALLA As New Compania()
+            AddHandler PANTALLA.FormClosed, AddressOf Proceso_Certificado
+            PANTALLA.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -36,6 +38,7 @@ Public Class MenuPrincipal
         CARGAR_SUCURSALES()
         CARGAR_TIPO_CAMBIO()
         CARGAR_SALUDO()
+        Mostrar_Mensaje_Certificado()
         RellenaImagen(PB_IMAGEN)
     End Sub
 
@@ -57,6 +60,35 @@ Public Class MenuPrincipal
             BTN_XML.Enabled = TieneDerecho("DXML")
             BTN_INVENTARIO.Enabled = TieneDerecho("DINV")
             BTN_BITACORAS.Enabled = TieneDerecho("DBITA")
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+
+    Private Sub Mostrar_Mensaje_Certificado()
+        Try
+            Dim SQL = "	SELECT DATEDIFF(DAY, GETDATE(), ISNULL(FECHA_EXPIRA, GETDATE())) AS DIAS_EXPIRA																									"
+            SQL &= Chr(13) & "	FROM COMPANIA "
+            SQL &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            SQL &= Chr(13) & "	AND DATEDIFF(DAY, GETDATE(), ISNULL(FECHA_EXPIRA, GETDATE())) <= 30	"
+            SQL &= Chr(13) & "	AND FE = 'S'	"
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+            If DS.Tables(0).Rows.Count > 0 Then
+
+                Dim mensaje = "La Llave criptográfica utilizada para la compañía" & vbNewLine
+                mensaje &= "está próxima a vencer, la cantidad de días" & vbNewLine
+                mensaje &= "restantes es de " & Val(DS.Tables(0).Rows(0).Item(0)) & " día(s)." & vbNewLine
+                mensaje &= "Por favor proceda a actualizar la llave criptográfica" & vbNewLine
+                mensaje &= "y pin, en la configuración de la compañía."
+
+                LBL_AVISO_MENSAJE.Text = mensaje
+                GroupBox3.Visible = True
+            Else
+                GroupBox3.Visible = False
+            End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
@@ -210,6 +242,10 @@ Public Class MenuPrincipal
         Habilita_Botones()
     End Sub
 
+    Private Sub Proceso_Certificado(ByVal sender As Object, ByVal e As FormClosedEventArgs)
+        Mostrar_Mensaje_Certificado()
+    End Sub
+
     Private Sub BTN_CONSULTA_Click(sender As Object, e As EventArgs) Handles BTN_CONSULTA.Click
         Try
             Dim PANTALLA As New ConsultaSaldos()
@@ -299,6 +335,15 @@ Public Class MenuPrincipal
     Private Sub BTN_BITACORAS_Click(sender As Object, e As EventArgs) Handles BTN_BITACORAS.Click
         Try
             Dim PANTALLA As New ConsultaBitacoras()
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_ACTUALIZAR_LLAVE_Click(sender As Object, e As EventArgs) Handles BTN_ACTUALIZAR_LLAVE.Click
+        Try
+            Dim PANTALLA As New LBL_CANTON(CRF_Modos.Modificar, Nothing, COD_CIA)
             PANTALLA.ShowDialog()
         Catch ex As Exception
             MessageBox.Show(ex.Message)

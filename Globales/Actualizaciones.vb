@@ -19,7 +19,7 @@ Public Class Actualizaciones
         RUTA_ADJUNTOS = "C:\ENVIOS"
         RUTA_BACKUP = "C:\BACKUPS"
 
-        Dim Cantidad_Procesos As Integer = 86
+        Dim Cantidad_Procesos As Integer = 90
         Dim Cantidad_Actual As Integer = 0
         ProgressBar.Value = 0
 
@@ -67,20 +67,23 @@ Public Class Actualizaciones
         Call IND_AUTOCOMPLETAR_CLIENTE()
         Call MIN_VENTA()
         Call TIPO_INGRESO()
+        Call IND_TIPO()
 
-        Cantidad_Actual += 17
+        Cantidad_Actual += 18
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
         'CONSTRAINTS
         Call CONSTRAINT_FK_CXP_DOCUMENTO_DET_CXP_DOCUMENTO_ENC()
         Call CONSTRAINT_FK_PROFORMA_DET_DOCUMENTO_ENC()
-        Cantidad_Actual += 2
+        Call CONSTRAINT_PK_GUIA_UBICACION()
+        Cantidad_Actual += 3
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
         'ALTERS CAMPOS
         Call ALTER_SMTP_CONFIG_CONTRASENA()
         Call ALTER_COMPANIA_CERTIFICADO()
-        Cantidad_Actual += 2
+        Call ALTER_GUIA_UBICACION()
+        Cantidad_Actual += 3
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
         'TIPOS
@@ -136,8 +139,9 @@ Public Class Actualizaciones
         Call USP_MANT_FACTURACION_TMP()
         Call USP_INGRESA_DOCUMENTO_XML_CORREO()
         Call USP_GUARDAR_CERTIFICADO()
+        Call USP_RUTA_MANT()
 
-        Cantidad_Actual += 33
+        Cantidad_Actual += 34
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
         'PROCESOS ESPECIALES ANIDADOS
@@ -1062,6 +1066,54 @@ Public Class Actualizaciones
         End Try
     End Sub
 
+    Private Sub CONSTRAINT_PK_GUIA_UBICACION()
+        Try
+            If EXISTE_CONSTRAINT("PK_GUIA_UBICACION") Then
+                If EXISTE_CAMPO_TIPO("COD_SUCUR", "GUIA_UBICACION", "VARCHAR") Then
+
+                    CONX.Coneccion_Abrir()
+
+                    Dim SQL = "	ALTER TABLE DOCUMENTO_GUIA_UBICACION				"
+                    SQL &= Chr(13) & "	DROP CONSTRAINT FK_DOCUMENTO_GUIA_UBICACION_GUIA_UBICACION1		"
+                    CONX.EJECUTE(SQL)
+
+                    SQL = "	ALTER TABLE GUIA_UBICACION		"
+                    SQL &= Chr(13) & "	DROP CONSTRAINT FK_GUIA_UBICACION_SUCURSAL1	"
+                    CONX.EJECUTE(SQL)
+
+                    SQL = "	ALTER TABLE GUIA_UBICACION		"
+                    SQL &= Chr(13) & "	DROP CONSTRAINT PK_GUIA_UBICACION	"
+                    CONX.EJECUTE(SQL)
+
+                    CONX.Coneccion_Cerrar()
+                End If
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub CONSTRAINT_PK_GUIA_UBICACION_CREAR()
+        Try
+            If Not EXISTE_CONSTRAINT("PK_GUIA_UBICACION") Then
+                CONX.Coneccion_Abrir()
+
+                Dim SQL = "	ALTER TABLE GUIA_UBICACION																						"
+                SQL &= Chr(13) & "	ADD CONSTRAINT PK_GUIA_UBICACION PRIMARY KEY (COD_CIA, COD_UBICACION) "
+                CONX.EJECUTE(SQL)
+
+                SQL = "	ALTER TABLE DOCUMENTO_GUIA_UBICACION				"
+                SQL &= Chr(13) & "	ADD CONSTRAINT FK_DOCUMENTO_GUIA_UBICACION_GUIA_UBICACION1		"
+                SQL &= Chr(13) & "  FOREIGN KEY (COD_CIA, COD_UBICACION) REFERENCES GUIA_UBICACION(COD_CIA, COD_UBICACION)"
+                CONX.EJECUTE(SQL)
+
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
 #End Region
 
 #Region "Triggers"
@@ -1825,6 +1877,23 @@ Public Class Actualizaciones
 
                 Dim SQL = "	ALTER TABLE CXP_DOCUMENTOS_ELECTRONICOS "
                 SQL &= Chr(13) & "	ADD TIPO_INGRESO VARCHAR(2) NULL "
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub IND_TIPO()
+        Try
+            If Not EXISTE_CAMPO("IND_TIPO", "GUIA_UBICACION") Then
+
+                Dim SQL = "	ALTER TABLE GUIA_UBICACION "
+                SQL &= Chr(13) & "	ADD IND_TIPO CHAR(1) NULL "
 
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
@@ -4721,7 +4790,7 @@ Public Class Actualizaciones
 
     Private Sub USP_COMPANIA_MANT()
         Try
-            If Not EXISTE_PROCEDIMIENTO("USP_COMPANIA_MANT", "2020-12-20") Then
+            If Not EXISTE_PROCEDIMIENTO("USP_COMPANIA_MANT", "2021-06-05") Then
                 ELIMINA_PROCEDIMIENTO("USP_COMPANIA_MANT")
 
                 Dim SQL = "	CREATE PROCEDURE [dbo].[USP_COMPANIA_MANT] 																									"
@@ -4786,7 +4855,8 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "				ISNULL(CLAVE_ATV,'') AS CLAVE_ATV,																						"
                 SQL &= Chr(13) & "				ISNULL(IND_TIPO_DGTD,'') AS IND_TIPO_DGTD,																						"
                 SQL &= Chr(13) & "				ISNULL(IND_ENCOMIENDA,'') AS IND_ENCOMIENDA,																						"
-                SQL &= Chr(13) & "				ISNULL(IND_IMAGEN_TIQUETE,'') AS IND_IMAGEN_TIQUETE																						"
+                SQL &= Chr(13) & "				ISNULL(IND_IMAGEN_TIQUETE,'') AS IND_IMAGEN_TIQUETE,																					"
+                SQL &= Chr(13) & "				CASE WHEN FECHA_INSTALACION IS NULL THEN 'Pendiente' ELSE 'Instalado' END AS ESTADO_CERT																						"
                 SQL &= Chr(13) & "				FROM COMPANIA																						"
                 SQL &= Chr(13) & "				WHERE COD_CIA = @COD_CIA																						"
                 SQL &= Chr(13) & "			END																							"
@@ -5111,6 +5181,70 @@ Public Class Actualizaciones
         End Try
     End Sub
 
+    Private Sub USP_RUTA_MANT()
+        Try
+            If Not EXISTE_PROCEDIMIENTO("USP_RUTA_MANT", "2021-06-05") Then
+
+                ELIMINA_PROCEDIMIENTO("USP_RUTA_MANT")
+
+                Dim SQL = "	CREATE PROCEDURE [dbo].[USP_RUTA_MANT] 																									"
+                SQL &= Chr(13) & "			@COD_CIA VARCHAR(3),																							"
+                SQL &= Chr(13) & "		    @CODIGO VARCHAR(3),																								"
+                SQL &= Chr(13) & "			@DESCRIPCION VARCHAR(200) = NULL,																							"
+                SQL &= Chr(13) & "			@ESTADO CHAR(1) = 'A',																							"
+                SQL &= Chr(13) & "			@COD_USUARIO VARCHAR(8) = NULL,																							"
+                SQL &= Chr(13) & "			@TIPO CHAR(1) = NULL,																							"
+                SQL &= Chr(13) & "			@MODO AS INTEGER																							"
+                SQL &= Chr(13) & "		AS   																								"
+                SQL &= Chr(13) & "		BEGIN																								"
+                SQL &= Chr(13) & "			BEGIN TRY																							"
+                SQL &= Chr(13) & "			BEGIN TRAN TSN_RUTA_MANT																							"
+                SQL &= Chr(13) & "			IF @MODO = 1																							"
+                SQL &= Chr(13) & "			BEGIN																							"
+                SQL &= Chr(13) & "				IF NOT EXISTS(SELECT * FROM GUIA_UBICACION WHERE COD_UBICACION = @CODIGO)																						"
+                SQL &= Chr(13) & "				BEGIN																						"
+                SQL &= Chr(13) & "					INSERT INTO GUIA_UBICACION(COD_CIA,COD_UBICACION,DESC_UBICACION,ESTADO,COD_USUARIO,FECHA_INC,IND_TIPO) VALUES																					"
+                SQL &= Chr(13) & "					(@COD_CIA,@CODIGO,@DESCRIPCION,@ESTADO,@COD_USUARIO,GETDATE(),@TIPO)																					"
+                SQL &= Chr(13) & "				END																						"
+                SQL &= Chr(13) & "				ELSE																						"
+                SQL &= Chr(13) & "				BEGIN																						"
+                SQL &= Chr(13) & "					RAISERROR('El codigo ingresado ya existe en la base de datos', 17, 1)																					"
+                SQL &= Chr(13) & "				END																						"
+                SQL &= Chr(13) & "			END																							"
+                SQL &= Chr(13) & "			IF @MODO = 3																							"
+                SQL &= Chr(13) & "			BEGIN																							"
+                SQL &= Chr(13) & "				UPDATE GUIA_UBICACION SET																						"
+                SQL &= Chr(13) & "					DESC_UBICACION = @DESCRIPCION,																					"
+                SQL &= Chr(13) & "					ESTADO = @ESTADO,																					"
+                SQL &= Chr(13) & "					COD_USUARIO = @COD_USUARIO,																					"
+                SQL &= Chr(13) & "					IND_TIPO = @TIPO																					"
+                SQL &= Chr(13) & "				WHERE COD_UBICACION = @CODIGO																						"
+                SQL &= Chr(13) & "			END																							"
+                SQL &= Chr(13) & "			IF @MODO = 5																							"
+                SQL &= Chr(13) & "			BEGIN																							"
+                SQL &= Chr(13) & "				SELECT *																						"
+                SQL &= Chr(13) & "				FROM GUIA_UBICACION																						"
+                SQL &= Chr(13) & "				WHERE COD_UBICACION = @CODIGO																						"
+                SQL &= Chr(13) & "			END																							"
+                SQL &= Chr(13) & "		COMMIT TRAN TSN_RUTA_MANT 																								"
+                SQL &= Chr(13) & "		END TRY																								"
+                SQL &= Chr(13) & "		BEGIN CATCH 																								"
+                SQL &= Chr(13) & "		 	ROLLBACK TRAN																							"
+                SQL &= Chr(13) & "		 	DECLARE @MENSAJE VARCHAR(500)																							"
+                SQL &= Chr(13) & "		 	SET @MENSAJE =( SELECT ERROR_MESSAGE())																							"
+                SQL &= Chr(13) & "		 	RAISERROR( @MENSAJE, 16, 1)																							"
+                SQL &= Chr(13) & "		END CATCH																								"
+                SQL &= Chr(13) & "		END																								"
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
 #End Region
 
 #Region "Alters campos"
@@ -5137,6 +5271,22 @@ Public Class Actualizaciones
                 CONX.Coneccion_Abrir()
                 CONX.EJECUTE(SQL)
                 CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub ALTER_GUIA_UBICACION()
+        Try
+            If EXISTE_CAMPO_TIPO("COD_SUCUR", "GUIA_UBICACION", "VARCHAR") Then
+                Dim SQL = "	ALTER TABLE GUIA_UBICACION	"
+                SQL &= Chr(13) & "	DROP COLUMN COD_SUCUR "
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+
+                CONSTRAINT_PK_GUIA_UBICACION_CREAR()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

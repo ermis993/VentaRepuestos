@@ -38,22 +38,22 @@ Partial Class OlvidoContrasena
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.TXT_DESTINATARIO)
         Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
         Me.GroupBox1.Location = New System.Drawing.Point(9, 10)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox1.Size = New System.Drawing.Size(582, 222)
+        Me.GroupBox1.Size = New System.Drawing.Size(582, 144)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "[ Información usuario ]"
+        Me.GroupBox1.Text = "[ Validación de correo electrónico ]"
         '
         'BTN_ENVIAR
         '
         Me.BTN_ENVIAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!)
         Me.BTN_ENVIAR.Image = Global.VentaRepuestos.My.Resources.Resources.enviar
         Me.BTN_ENVIAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_ENVIAR.Location = New System.Drawing.Point(236, 78)
+        Me.BTN_ENVIAR.Location = New System.Drawing.Point(239, 50)
         Me.BTN_ENVIAR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_ENVIAR.Name = "BTN_ENVIAR"
         Me.BTN_ENVIAR.Size = New System.Drawing.Size(99, 43)
@@ -65,7 +65,8 @@ Partial Class OlvidoContrasena
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(17, 170)
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label2.Location = New System.Drawing.Point(17, 95)
         Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(524, 36)
@@ -75,7 +76,8 @@ Partial Class OlvidoContrasena
         '
         'TXT_DESTINATARIO
         '
-        Me.TXT_DESTINATARIO.Location = New System.Drawing.Point(20, 87)
+        Me.TXT_DESTINATARIO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_DESTINATARIO.Location = New System.Drawing.Point(20, 58)
         Me.TXT_DESTINATARIO.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_DESTINATARIO.Name = "TXT_DESTINATARIO"
         Me.TXT_DESTINATARIO.Size = New System.Drawing.Size(196, 24)
@@ -84,7 +86,8 @@ Partial Class OlvidoContrasena
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(17, 37)
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label1.Location = New System.Drawing.Point(17, 20)
         Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(552, 36)
@@ -96,7 +99,7 @@ Partial Class OlvidoContrasena
         '
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(492, 313)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(492, 158)
         Me.BTN_SALIR.Margin = New System.Windows.Forms.Padding(2)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
@@ -110,7 +113,7 @@ Partial Class OlvidoContrasena
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ClientSize = New System.Drawing.Size(600, 366)
+        Me.ClientSize = New System.Drawing.Size(600, 205)
         Me.ControlBox = False
         Me.Controls.Add(Me.BTN_SALIR)
         Me.Controls.Add(Me.GroupBox1)

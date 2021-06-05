@@ -338,8 +338,8 @@ Public Class Globales
         Try
             Dim EXISTE As Boolean = False
             Dim SQL = "	SELECT *  "
-            SQL &= Chr(13) & " FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS "
-            SQL &= Chr(13) & " WHERE CONSTRAINT_NAME =" & SCM(CONSTRAINT)
+            SQL &= Chr(13) & " FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS "
+            SQL &= Chr(13) & " WHERE CONSTRAINT_NAME = " & SCM(CONSTRAINT)
 
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)

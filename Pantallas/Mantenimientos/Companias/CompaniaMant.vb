@@ -1,12 +1,10 @@
 ﻿Imports System.Data.SqlClient
 Imports System.IO
 Imports System.Security.Cryptography.X509Certificates
-Imports CRF_CONEXIONES.CONEXIONES
 Imports FUN_CRFUSION.FUNCIONES_GENERALES
-Imports VentaRepuestos.Globales
 Imports Limilabs.Client.IMAP
-Imports Limilabs.Mail
-Imports Limilabs.Mail.MIME
+Imports VentaRepuestos.Globales
+
 Public Class LBL_CANTON
     Dim COD_C As String = ""
     Dim Respuesta As New DialogResult
@@ -201,6 +199,8 @@ Public Class LBL_CANTON
                 OPD_Llave.ShowDialog()
                 If File.Exists(RUTA) Then
                     CERTIFICADO = Bytes(RUTA)
+                    LBL_ESTADO.Text = "Pendiente"
+                    LBL_ESTADO.ForeColor = Color.Red
                 End If
             End If
         Catch ex As Exception
@@ -364,6 +364,8 @@ Public Class LBL_CANTON
 
                     TXT_USUARIO_ATV.Text = ITEM("USUARIO_ATV")
                     TXT_CLAVE_ATV.Text = ITEM("CLAVE_ATV")
+                    LBL_ESTADO.Text = ITEM("ESTADO_CERT")
+                    LBL_ESTADO.ForeColor = IIf(ITEM("ESTADO_CERT") = "Instalado", Color.Blue, Color.Red)
 
                     If ITEM("PIN") <> "0" Then
                         TXT_PIN.Text = ITEM("PIN")

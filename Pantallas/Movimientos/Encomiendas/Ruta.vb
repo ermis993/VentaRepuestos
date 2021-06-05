@@ -43,7 +43,6 @@ Public Class Ruta
                 ElseIf RB_INACTIVOS.Checked = True Then
                     SQL &= Chr(13) & "	WHERE ESTADO ='I'"
                 End If
-                'SQL &= Chr(13) & "AND IND_TIPO = 'P'"
                 SQL &= Chr(13) & CONSULTA_FILTRO
 
                 CONX.Coneccion_Abrir()

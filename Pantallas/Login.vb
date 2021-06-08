@@ -18,7 +18,7 @@ Public Class Login
             'VEFESA
             'CONX.Inicializar_cadena_conexion("DESKTOP-4JGE226,1433", "sa", "1234", "VR")
             'CONX_SIC.ConexionSTR("DESKTOP-4JGE226,1433", "sa", "1234", "INFORMACION_SIC")
-            'VEGA SIQUIRRES
+            ''VEGA SIQUIRRES
             'CONX.Inicializar_cadena_conexion("DESKTOP-3SQLS3O,1433", "sa", "1234", "VR")
             'CONX_SIC.ConexionSTR("DESKTOP-3SQLS3O,1433", "sa", "1234", "INFORMACION_SIC")
             'VEGA TURRIALBA

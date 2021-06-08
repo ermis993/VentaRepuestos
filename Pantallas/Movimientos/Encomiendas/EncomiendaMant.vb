@@ -60,7 +60,7 @@ Public Class EncomiendaMant
             SQL &= Chr(13) & "		AND DESTINO.COD_UBICACION = GUIA.DESTINO"
             SQL &= Chr(13) & "	WHERE GUIA.COD_CIA = " & SCM(COD_CIA)
             SQL &= Chr(13) & "	AND GUIA.COD_DERECHO = " & SCM(COD_SUCUR)
-            SQL &= Chr(13) & "  AND Guia.NUMERO_GUIA = " & SCM(Guia)
+            SQL &= Chr(13) & "  AND GUIA.NUMERO_GUIA = " & SCM(Guia)
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)
             CONX.Coneccion_Cerrar()
@@ -90,7 +90,7 @@ Public Class EncomiendaMant
             SQL &= Chr(13) & "		ON DOC.COD_CIA = UBI.COD_CIA"
             SQL &= Chr(13) & "		AND DOC.COD_UBICACION = UBI.COD_UBICACION"
             SQL &= Chr(13) & "	WHERE DOC.COD_CIA = " & SCM(COD_CIA)
-            SQL &= Chr(13) & "  AND DOC.NUMERO_GUIA =  " & Val(Guia)
+            SQL &= Chr(13) & "  AND DOC.NUMERO_GUIA =  " & SCM(Guia)
             SQL &= Chr(13) & "  ORDER BY DOC.FECHA_INC ASC"
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(SQL)
@@ -120,8 +120,8 @@ Public Class EncomiendaMant
             SQL &= Chr(13) & "			SELECT COD_CIA, COD_SUCUR, COD_UBICACION"
             SQL &= Chr(13) & "			FROM DOCUMENTO_GUIA_UBICACION"
             SQL &= Chr(13) & "			WHERE COD_CIA =" & SCM(COD_CIA)
-            SQL &= Chr(13) & "          And COD_SUCUR = " & SCM(Cod_SUCUR)
-            SQL &= Chr(13) & "          And NUMERO_GUIA = " & Val(Guia)
+            SQL &= Chr(13) & "          AND COD_SUCUR = " & SCM(COD_SUCUR)
+            SQL &= Chr(13) & "          AND NUMERO_GUIA = " & SCM(Guia)
             SQL &= Chr(13) & "	) AS DOC	"
             SQL &= Chr(13) & "		ON DOC.COD_CIA = UBI.COD_CIA"
             SQL &= Chr(13) & "      AND DOC.COD_UBICACION = UBI.COD_UBICACION"
@@ -198,7 +198,7 @@ Public Class EncomiendaMant
             Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(Cod_SUCUR_DERECHO)
             Sql &= Chr(13) & "	AND NUMERO_DOC = " & Val(Numero_Doc)
             Sql &= Chr(13) & "	AND TIPO_MOV = " & SCM(Tipo_Mov)
-            Sql &= Chr(13) & "	AND NUMERO_GUIA = " & Val(Guia)
+            Sql &= Chr(13) & "	AND NUMERO_GUIA = " & SCM(Guia)
 
             CONX.Coneccion_Abrir()
             CONX.EJECUTE(Sql)

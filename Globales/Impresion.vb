@@ -46,6 +46,7 @@ Public Class Impresion
         Printer.NewBarCode()
 
         Dim AnchoTiquete = ANCHO_IMPRESION_ETIQUETA()
+
         If descripcion.Length > AnchoTiquete Then
             Do
                 Dim palabra = descripcion.Substring(0, IIf(descripcion.Length >= AnchoTiquete, AnchoTiquete, descripcion.Length))
@@ -61,7 +62,7 @@ Public Class Impresion
             Printer.Print(descripcion)
         End If
 
-        Printer.Print(img, 240 + ANCHO_IMPRESION_ETIQUETA(), 100)
+        Printer.Print(img, 250, 60)
 
         Printer.DoPrint()
     End Sub
@@ -354,7 +355,6 @@ Public Class Impresion
                 strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete)
                 strPrint = strPrint & RELLENO("", Ancho_Tiquete, "-")
                 Print(strPrint, Nothing)
-
             End If
 
         Catch ex As Exception
@@ -392,7 +392,6 @@ Public Class Impresion
                     'strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
                     strPrint = strPrint & "                               " & ITEM("LETRA").ToString.ToUpper.Substring(0, 1) & vbCrLf
                     strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
-
 
                     PrintTiquet(strPrint)
                 Next
@@ -520,7 +519,6 @@ Public Class Impresion
                 End If
 
                 Print(strPrint, img)
-
             End If
 
         Catch ex As Exception

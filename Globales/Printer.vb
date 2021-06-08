@@ -325,7 +325,7 @@ Public Class Printer
 
             If data.img IsNot Nothing Then
                 If data.Width = Nothing Then
-                    e.Graphics.DrawImage(data.img, data.iLeft, curY)
+                    e.Graphics.DrawImage(data.img, 0, curY)
                     curY += data.img.Height
                 Else
                     e.Graphics.DrawImage(data.img, data.iLeft, curY, data.Width, data.Height)

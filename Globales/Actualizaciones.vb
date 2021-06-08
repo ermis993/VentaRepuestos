@@ -19,7 +19,7 @@ Public Class Actualizaciones
         RUTA_ADJUNTOS = "C:\ENVIOS"
         RUTA_BACKUP = "C:\BACKUPS"
 
-        Dim Cantidad_Procesos As Integer = 90
+        Dim Cantidad_Procesos As Integer = 94
         Dim Cantidad_Actual As Integer = 0
         ProgressBar.Value = 0
 
@@ -76,14 +76,17 @@ Public Class Actualizaciones
         Call CONSTRAINT_FK_CXP_DOCUMENTO_DET_CXP_DOCUMENTO_ENC()
         Call CONSTRAINT_FK_PROFORMA_DET_DOCUMENTO_ENC()
         Call CONSTRAINT_PK_GUIA_UBICACION()
-        Cantidad_Actual += 3
+        Call CONSTRAINT_PK_DOCUMENTO_GUIA_UBICACION()
+        Cantidad_Actual += 4
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
         'ALTERS CAMPOS
         Call ALTER_SMTP_CONFIG_CONTRASENA()
         Call ALTER_COMPANIA_CERTIFICADO()
         Call ALTER_GUIA_UBICACION()
-        Cantidad_Actual += 3
+        Call ALTER_DOCUMENTO_GUIA_NUMERO_GUIA()
+        Call ALTER_DOCUMENTO_GUIA_UBICACION_NUMERO_GUIA()
+        Cantidad_Actual += 5
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
         'TIPOS
@@ -140,8 +143,9 @@ Public Class Actualizaciones
         Call USP_INGRESA_DOCUMENTO_XML_CORREO()
         Call USP_GUARDAR_CERTIFICADO()
         Call USP_RUTA_MANT()
+        Call USP_DATOS_FACTURA_ETIQUETA()
 
-        Cantidad_Actual += 34
+        Cantidad_Actual += 35
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
         'PROCESOS ESPECIALES ANIDADOS
@@ -1085,6 +1089,22 @@ Public Class Actualizaciones
                     SQL &= Chr(13) & "	DROP CONSTRAINT PK_GUIA_UBICACION	"
                     CONX.EJECUTE(SQL)
 
+                    CONX.Coneccion_Cerrar()
+                End If
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub CONSTRAINT_PK_DOCUMENTO_GUIA_UBICACION()
+        Try
+            If EXISTE_CONSTRAINT("PK_DOCUMENTO_GUIA_UBICACION") Then
+                If Not EXISTE_CAMPO_TIPO("NUMERO_GUIA", "DOCUMENTO_GUIA_UBICACION", "VARCHAR", 13) Then
+                    Dim SQL = "	ALTER TABLE DOCUMENTO_GUIA_UBICACION				"
+                    SQL &= Chr(13) & "	DROP CONSTRAINT PK_DOCUMENTO_GUIA_UBICACION		"
+                    CONX.Coneccion_Abrir()
+                    CONX.EJECUTE(SQL)
                     CONX.Coneccion_Cerrar()
                 End If
             End If
@@ -5245,6 +5265,75 @@ Public Class Actualizaciones
         End Try
     End Sub
 
+    Private Sub USP_DATOS_FACTURA_ETIQUETA()
+        Try
+            If Not EXISTE_PROCEDIMIENTO("USP_DATOS_FACTURA_ETIQUETA", "2021-06-07") Then
+
+                ELIMINA_PROCEDIMIENTO("USP_DATOS_FACTURA_ETIQUETA")
+
+                Dim SQL = "	CREATE PROCEDURE [dbo].[USP_DATOS_FACTURA_ETIQUETA] 																									"
+                SQL &= Chr(13) & "		 @COD_CIA VARCHAR(3)																								"
+                SQL &= Chr(13) & "		,@COD_SUCUR VARCHAR(3)																								"
+                SQL &= Chr(13) & "		,@NUMERO_DOC INT																								"
+                SQL &= Chr(13) & "		,@TIPO_MOV VARCHAR(2)																								"
+                SQL &= Chr(13) & "	AS																									"
+                SQL &= Chr(13) & "	BEGIN																									"
+                SQL &= Chr(13) & "		SET NOCOUNT ON																								"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "			DECLARE @cnt INT = 1																							"
+                SQL &= Chr(13) & "			DECLARE @BULTOS INT = 0																							"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "			SET @BULTOS = (SELECT CANT_BULTOS																							"
+                SQL &= Chr(13) & "							FROM DOCUMENTO_GUIA																			"
+                SQL &= Chr(13) & "							WHERE COD_CIA = @COD_CIA																			"
+                SQL &= Chr(13) & "							AND COD_SUCUR = @COD_SUCUR																			"
+                SQL &= Chr(13) & "							AND NUMERO_DOC = @NUMERO_DOC																			"
+                SQL &= Chr(13) & "							AND TIPO_MOV = @TIPO_MOV)																			"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "			CREATE TABLE #TEMPORAL(																							"
+                SQL &= Chr(13) & "			NUMERO_GUIA VARCHAR(13), 																							"
+                SQL &= Chr(13) & "			RETIRA VARCHAR(300),																							"
+                SQL &= Chr(13) & "			ENVIA VARCHAR(300),																							"
+                SQL &= Chr(13) & "			TELEFONO VARCHAR(10), 																							"
+                SQL &= Chr(13) & "			CANT_BULTOS INT, 																							"
+                SQL &= Chr(13) & "			CONTADOR INT,																							"
+                SQL &= Chr(13) & "			DESC_UBICACION VARCHAR(300),																							"
+                SQL &= Chr(13) & "			LETRA VARCHAR(300)																							"
+                SQL &= Chr(13) & "			)																							"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "			WHILE @cnt <= @BULTOS																							"
+                SQL &= Chr(13) & "			BEGIN																							"
+                SQL &= Chr(13) & "				INSERT INTO #TEMPORAL																						"
+                SQL &= Chr(13) & "				SELECT NUMERO_GUIA , RETIRA AS RETIRA																						"
+                SQL &= Chr(13) & "				,ENVIA AS ENVIA, TELEFONO_RETIRA AS TELEFONO, GUIA.CANT_BULTOS																						"
+                SQL &= Chr(13) & "				,@cnt AS CONTADOR, UBI.DESC_UBICACION																						"
+                SQL &= Chr(13) & "				,CASE WHEN CHARINDEX(' ', RETIRA) > 0 THEN CASE WHEN CHARINDEX('REP', RETIRA) > 0 THEN SUBSTRING(RETIRA,CHARINDEX(' ', RETIRA) + 1, LEN(RETIRA)) ELSE SUBSTRING(RETIRA, CHARINDEX(' ', RETIRA) + 1 , CHARINDEX(' ', RETIRA)) END ELSE RETIRA END AS LETRA																						"
+                SQL &= Chr(13) & "				FROM DOCUMENTO_GUIA AS GUIA																						"
+                SQL &= Chr(13) & "				INNER JOIN GUIA_UBICACION AS UBI																						"
+                SQL &= Chr(13) & "					ON UBI.COD_CIA = GUIA.COD_CIA																					"
+                SQL &= Chr(13) & "					AND UBI.COD_UBICACION = GUIA.DESTINO																					"
+                SQL &= Chr(13) & "				WHERE GUIA.COD_CIA = @COD_CIA																						"
+                SQL &= Chr(13) & "				AND GUIA.COD_SUCUR = @COD_SUCUR																						"
+                SQL &= Chr(13) & "				AND GUIA.NUMERO_DOC = @NUMERO_DOC																						"
+                SQL &= Chr(13) & "				AND GUIA.TIPO_MOV = @TIPO_MOV																						"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "			   SET @cnt = @cnt + 1;																							"
+                SQL &= Chr(13) & "			END																							"
+                SQL &= Chr(13) & "																										"
+                SQL &= Chr(13) & "			SELECT *																							"
+                SQL &= Chr(13) & "			FROM #TEMPORAL																							"
+                SQL &= Chr(13) & "	END																									"
+
+
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
 #End Region
 
 #Region "Alters campos"
@@ -5287,6 +5376,40 @@ Public Class Actualizaciones
                 CONX.Coneccion_Cerrar()
 
                 CONSTRAINT_PK_GUIA_UBICACION_CREAR()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub ALTER_DOCUMENTO_GUIA_NUMERO_GUIA()
+        Try
+            If Not EXISTE_CAMPO_TIPO("NUMERO_GUIA", "DOCUMENTO_GUIA", "VARCHAR", 13) Then
+                Dim SQL = "	ALTER TABLE DOCUMENTO_GUIA	"
+                SQL &= Chr(13) & "	ALTER COLUMN NUMERO_GUIA VARCHAR(13) NOT NULL "
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub ALTER_DOCUMENTO_GUIA_UBICACION_NUMERO_GUIA()
+        Try
+            If Not EXISTE_CAMPO_TIPO("NUMERO_GUIA", "DOCUMENTO_GUIA_UBICACION", "VARCHAR", 13) Then
+                CONX.Coneccion_Abrir()
+
+                Dim SQL = "	ALTER TABLE DOCUMENTO_GUIA_UBICACION	"
+                SQL &= Chr(13) & "	ALTER COLUMN NUMERO_GUIA VARCHAR(13) NOT NULL "
+                CONX.EJECUTE(SQL)
+
+                SQL = "	ALTER TABLE DOCUMENTO_GUIA_UBICACION																						"
+                SQL &= Chr(13) & "	ADD CONSTRAINT PK_DOCUMENTO_GUIA_UBICACION PRIMARY KEY (COD_CIA, COD_SUCUR, NUMERO_DOC, TIPO_MOV, NUMERO_GUIA, COD_UBICACION)																						"
+                CONX.EJECUTE(SQL)
+
+                CONX.Coneccion_Cerrar()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

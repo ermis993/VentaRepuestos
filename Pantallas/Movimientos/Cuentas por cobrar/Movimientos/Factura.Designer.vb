@@ -78,6 +78,7 @@ Partial Class Factura
         Me.TAB_LINEAS = New System.Windows.Forms.TabPage()
         Me.GRID = New System.Windows.Forms.DataGridView()
         Me.TAB_ENCOMIENDA = New System.Windows.Forms.TabPage()
+        Me.BTN_MANIFIESTO = New System.Windows.Forms.Button()
         Me.BTN_IMPRIMIR = New System.Windows.Forms.Button()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.Label40 = New System.Windows.Forms.Label()
@@ -794,6 +795,7 @@ Partial Class Factura
         '
         'TAB_ENCOMIENDA
         '
+        Me.TAB_ENCOMIENDA.Controls.Add(Me.BTN_MANIFIESTO)
         Me.TAB_ENCOMIENDA.Controls.Add(Me.BTN_IMPRIMIR)
         Me.TAB_ENCOMIENDA.Controls.Add(Me.GroupBox4)
         Me.TAB_ENCOMIENDA.Controls.Add(Me.TXT_DETALLE_ENVIO)
@@ -818,6 +820,19 @@ Partial Class Factura
         Me.TAB_ENCOMIENDA.Text = "[ Encomienda ]"
         Me.TAB_ENCOMIENDA.UseVisualStyleBackColor = True
         '
+        'BTN_MANIFIESTO
+        '
+        Me.BTN_MANIFIESTO.Image = Global.VentaRepuestos.My.Resources.Resources.imprimir1
+        Me.BTN_MANIFIESTO.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_MANIFIESTO.Location = New System.Drawing.Point(733, 177)
+        Me.BTN_MANIFIESTO.Margin = New System.Windows.Forms.Padding(2)
+        Me.BTN_MANIFIESTO.Name = "BTN_MANIFIESTO"
+        Me.BTN_MANIFIESTO.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_MANIFIESTO.TabIndex = 42
+        Me.BTN_MANIFIESTO.Text = "Manifiesto"
+        Me.BTN_MANIFIESTO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_MANIFIESTO.UseVisualStyleBackColor = True
+        '
         'BTN_IMPRIMIR
         '
         Me.BTN_IMPRIMIR.Image = Global.VentaRepuestos.My.Resources.Resources.imprimir1
@@ -827,7 +842,7 @@ Partial Class Factura
         Me.BTN_IMPRIMIR.Name = "BTN_IMPRIMIR"
         Me.BTN_IMPRIMIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_IMPRIMIR.TabIndex = 41
-        Me.BTN_IMPRIMIR.Text = "Imprimir"
+        Me.BTN_IMPRIMIR.Text = "Etiqueta"
         Me.BTN_IMPRIMIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_IMPRIMIR.UseVisualStyleBackColor = True
         '
@@ -1443,4 +1458,5 @@ Partial Class Factura
     Friend WithEvents Label40 As Label
     Friend WithEvents BTN_IMPRIMIR As Button
     Friend WithEvents Label41 As Label
+    Friend WithEvents BTN_MANIFIESTO As Button
 End Class

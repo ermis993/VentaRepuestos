@@ -1310,10 +1310,21 @@ Public Class Factura
     Private Sub Factura_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If IND_ENCOMIENDA = "S" Then
             BTN_IMPRIMIR.Enabled = (Me.Modo = CRF_Modos.Modificar And TieneDerecho("DRIMPETI"))
+            BTN_MANIFIESTO.Enabled = (Me.Modo = CRF_Modos.Modificar And TieneDerecho("DRIMPETI"))
         End If
     End Sub
 
     Private Sub TXT_PRECIO_Leave(sender As Object, e As EventArgs) Handles TXT_PRECIO.Leave
         CalculoTotales()
+    End Sub
+
+    Private Sub BTN_MANIFIESTO_Click(sender As Object, e As EventArgs) Handles BTN_MANIFIESTO.Click
+        Try
+            Dim imp As New Impresion()
+            imp.ImprimirEncomienda(COD_CIA, COD_SUCUR, Val(TXT_NUMERO.Text), CMB_DOCUMENTO.SelectedItem.ToString.Substring(0, 2))
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+
     End Sub
 End Class

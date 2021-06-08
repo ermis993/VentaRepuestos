@@ -378,7 +378,8 @@ Public Class Impresion
             If DS.Tables(0).Rows.Count > 0 Then
                 For Each ITEM In DS.Tables(0).Rows
                     strPrint = ""
-                    strPrint = strPrint & RELLENODERECHA("GUIA", 8) & ": " & ITEM("NUMERO_GUIA") & vbCrLf
+                    'strPrint = strPrint & RELLENODERECHA("GUIA", 8) & ": " & ITEM("NUMERO_GUIA") & vbCrLf
+                    strPrint = strPrint & ITEM("NUMERO_GUIA") & vbCrLf
                     'strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf
                     strPrint = strPrint & RELLENODERECHA("ENVIA", 8) & ": " & ITEM("ENVIA").ToString.ToUpper & vbCrLf
                     'strPrint = strPrint & RELLENOCENTRO("", Ancho_Tiquete) & vbCrLf

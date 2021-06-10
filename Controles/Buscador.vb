@@ -111,8 +111,8 @@ Public Class Buscador
             Dim ENCONTRADO As Boolean = False
             If TXT_BUSCADOR.Text <> "" Then
                 For x = 0 To CMB.Items.Count - 1
-                    If TXT_BUSCADOR.Text.ToString.Equals(CMB.Items(x).Key.ToString) Then
-                        CMB.SelectedValue = TXT_BUSCADOR.Text
+                    If CMB.Items(x).Key.ToString.Equals(TXT_BUSCADOR.Text.ToUpper) Or CMB.Items(x).Value.ToString.Contains(TXT_BUSCADOR.Text.ToUpper) Then
+                        CMB.SelectedValue = CMB.Items(x).Key.ToString
                         ENCONTRADO = True
                         Exit For
                     End If

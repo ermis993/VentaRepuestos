@@ -38,14 +38,14 @@ Partial Class SeleccionCompania
         Me.CMB_COMPANIA.FormattingEnabled = True
         Me.CMB_COMPANIA.Location = New System.Drawing.Point(5, 32)
         Me.CMB_COMPANIA.Name = "CMB_COMPANIA"
-        Me.CMB_COMPANIA.Size = New System.Drawing.Size(283, 26)
+        Me.CMB_COMPANIA.Size = New System.Drawing.Size(380, 26)
         Me.CMB_COMPANIA.TabIndex = 1
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(75, 9)
+        Me.Label1.Location = New System.Drawing.Point(124, 9)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(142, 18)
         Me.Label1.TabIndex = 0
@@ -55,7 +55,7 @@ Partial Class SeleccionCompania
         '
         Me.PG_ACTUALIZACIONES.Location = New System.Drawing.Point(5, 83)
         Me.PG_ACTUALIZACIONES.Name = "PG_ACTUALIZACIONES"
-        Me.PG_ACTUALIZACIONES.Size = New System.Drawing.Size(283, 23)
+        Me.PG_ACTUALIZACIONES.Size = New System.Drawing.Size(380, 23)
         Me.PG_ACTUALIZACIONES.Style = System.Windows.Forms.ProgressBarStyle.Continuous
         Me.PG_ACTUALIZACIONES.TabIndex = 3
         Me.PG_ACTUALIZACIONES.Visible = False
@@ -66,7 +66,7 @@ Partial Class SeleccionCompania
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(191, 112)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(286, 112)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 5
@@ -80,7 +80,7 @@ Partial Class SeleccionCompania
         Me.BTN_ACEPTAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_ACEPTAR.Image = CType(resources.GetObject("BTN_ACEPTAR.Image"), System.Drawing.Image)
         Me.BTN_ACEPTAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(92, 112)
+        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(187, 112)
         Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
         Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_ACEPTAR.TabIndex = 4
@@ -104,7 +104,7 @@ Partial Class SeleccionCompania
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ClientSize = New System.Drawing.Size(293, 156)
+        Me.ClientSize = New System.Drawing.Size(390, 156)
         Me.ControlBox = False
         Me.Controls.Add(Me.LBL_MENSAJE)
         Me.Controls.Add(Me.PG_ACTUALIZACIONES)

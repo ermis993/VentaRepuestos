@@ -29,6 +29,8 @@ Partial Class Buscador
         '
         'CMB
         '
+        Me.CMB.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CMB.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.CMB.FormattingEnabled = True

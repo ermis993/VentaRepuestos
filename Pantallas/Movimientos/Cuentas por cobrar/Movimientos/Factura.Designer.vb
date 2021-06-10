@@ -26,7 +26,6 @@ Partial Class Factura
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TAB_ENC = New System.Windows.Forms.TabPage()
         Me.Label41 = New System.Windows.Forms.Label()
-        Me.Cliente = New VentaRepuestos.Buscador()
         Me.TXT_DESCRIPCION = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -122,6 +121,7 @@ Partial Class Factura
         Me.Label25 = New System.Windows.Forms.Label()
         Me.TXT_E = New System.Windows.Forms.TextBox()
         Me.Label36 = New System.Windows.Forms.Label()
+        Me.Cliente = New VentaRepuestos.Buscador()
         Me.TabControl1.SuspendLayout()
         Me.TAB_ENC.SuspendLayout()
         Me.TAB_DET.SuspendLayout()
@@ -180,23 +180,6 @@ Partial Class Factura
         Me.Label41.Size = New System.Drawing.Size(264, 52)
         Me.Label41.TabIndex = 11
         Me.Label41.Text = resources.GetString("Label41.Text")
-        '
-        'Cliente
-        '
-        Me.Cliente.CAMPO_FILTRAR = Nothing
-        Me.Cliente.CODIGO = Nothing
-        Me.Cliente.DESCRIPCION = Nothing
-        Me.Cliente.FILTRAR_POR_COMPANIA = True
-        Me.Cliente.Location = New System.Drawing.Point(111, 10)
-        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cliente.Name = "Cliente"
-        Me.Cliente.OTROS_CAMP0S = Nothing
-        Me.Cliente.PANTALLA = Nothing
-        Me.Cliente.Size = New System.Drawing.Size(451, 32)
-        Me.Cliente.TabIndex = 1
-        Me.Cliente.TABLA_BUSCAR = "CLIENTE"
-        Me.Cliente.VALOR = ""
-        Me.Cliente.VALOR_DESCRIPCION = Nothing
         '
         'TXT_DESCRIPCION
         '
@@ -1309,6 +1292,23 @@ Partial Class Factura
         Me.Label36.Size = New System.Drawing.Size(99, 18)
         Me.Label36.TabIndex = 6
         Me.Label36.Text = "Exoneración :"
+        '
+        'Cliente
+        '
+        Me.Cliente.CAMPO_FILTRAR = Nothing
+        Me.Cliente.CODIGO = Nothing
+        Me.Cliente.DESCRIPCION = Nothing
+        Me.Cliente.FILTRAR_POR_COMPANIA = True
+        Me.Cliente.Location = New System.Drawing.Point(111, 10)
+        Me.Cliente.Margin = New System.Windows.Forms.Padding(2)
+        Me.Cliente.Name = "Cliente"
+        Me.Cliente.OTROS_CAMP0S = Nothing
+        Me.Cliente.PANTALLA = Nothing
+        Me.Cliente.Size = New System.Drawing.Size(541, 32)
+        Me.Cliente.TabIndex = 1
+        Me.Cliente.TABLA_BUSCAR = "CLIENTE"
+        Me.Cliente.VALOR = ""
+        Me.Cliente.VALOR_DESCRIPCION = Nothing
         '
         'Factura
         '

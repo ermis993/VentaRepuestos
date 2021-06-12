@@ -95,13 +95,14 @@ Partial Class Tracking
         '
         'LVResultados
         '
+        Me.LVResultados.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None
         Me.LVResultados.HideSelection = False
         Me.LVResultados.Location = New System.Drawing.Point(4, 87)
         Me.LVResultados.Name = "LVResultados"
         Me.LVResultados.Size = New System.Drawing.Size(528, 73)
         Me.LVResultados.TabIndex = 9
         Me.LVResultados.UseCompatibleStateImageBehavior = False
-        Me.LVResultados.View = System.Windows.Forms.View.List
+        Me.LVResultados.View = System.Windows.Forms.View.Details
         '
         'Label19
         '

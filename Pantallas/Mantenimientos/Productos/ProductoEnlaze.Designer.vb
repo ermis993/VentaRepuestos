@@ -70,13 +70,14 @@ Partial Class ProductoEnlaze
         '
         'LVResultados
         '
+        Me.LVResultados.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None
         Me.LVResultados.HideSelection = False
         Me.LVResultados.Location = New System.Drawing.Point(126, 37)
         Me.LVResultados.Name = "LVResultados"
         Me.LVResultados.Size = New System.Drawing.Size(378, 73)
         Me.LVResultados.TabIndex = 8
         Me.LVResultados.UseCompatibleStateImageBehavior = False
-        Me.LVResultados.View = System.Windows.Forms.View.List
+        Me.LVResultados.View = System.Windows.Forms.View.Details
         '
         'Label19
         '

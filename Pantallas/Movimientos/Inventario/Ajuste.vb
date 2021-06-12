@@ -129,7 +129,7 @@ Public Class Ajuste
     Private Sub Busca_Producto()
         Try
             LVResultados.Clear()
-            LVResultados.Columns.Add("", 318)
+            LVResultados.Columns.Add("", 370)
 
             If Not String.IsNullOrEmpty(TXT_CODIGO.Text) Then
                 Dim Sql = "	SELECT COD_PROD,  DESCRIPCION "
@@ -152,7 +152,7 @@ Public Class Ajuste
                 If DS.Tables(0).Rows.Count > 0 Then
                     For Each ITEM In DS.Tables(0).Rows
                         Dim LVI As New ListViewItem With {
-                            .Text = ITEM("DESCRIPCION"),
+                            .Text = "(" & ITEM("COD_PROD") & ") " & ITEM("DESCRIPCION"),
                             .Name = ITEM("COD_PROD")
                         }
                         LVResultados.Items.Add(LVI)

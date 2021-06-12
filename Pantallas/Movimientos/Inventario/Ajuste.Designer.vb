@@ -24,14 +24,16 @@ Partial Class Ajuste
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Ajuste))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label41 = New System.Windows.Forms.Label()
+        Me.BTN_INGRESAR_ENC = New System.Windows.Forms.Button()
+        Me.CMB_TIPO = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.TXT_DESCRIPCION = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.DTPFECHA = New System.Windows.Forms.DateTimePicker()
         Me.TXT_NUMERO = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.CMB_TIPO = New System.Windows.Forms.ComboBox()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.LVResultados = New System.Windows.Forms.ListView()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.TXT_CODIGO = New System.Windows.Forms.TextBox()
@@ -39,19 +41,17 @@ Partial Class Ajuste
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.BTN_INGRESAR_DET = New System.Windows.Forms.Button()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.BTN_SALIR = New System.Windows.Forms.Button()
-        Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
-        Me.BTN_INGRESAR_ENC = New System.Windows.Forms.Button()
-        Me.GRID = New System.Windows.Forms.DataGridView()
-        Me.Label41 = New System.Windows.Forms.Label()
         Me.TXT_FILA = New System.Windows.Forms.TextBox()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.TXT_ESTANTE = New System.Windows.Forms.TextBox()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.TXT_COLUMNA = New System.Windows.Forms.TextBox()
         Me.Label29 = New System.Windows.Forms.Label()
+        Me.BTN_INGRESAR_DET = New System.Windows.Forms.Button()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.GRID = New System.Windows.Forms.DataGridView()
+        Me.BTN_SALIR = New System.Windows.Forms.Button()
+        Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -78,6 +78,56 @@ Partial Class Ajuste
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Información ]"
+        '
+        'Label41
+        '
+        Me.Label41.AutoSize = True
+        Me.Label41.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label41.ForeColor = System.Drawing.Color.Navy
+        Me.Label41.Location = New System.Drawing.Point(2, 177)
+        Me.Label41.Name = "Label41"
+        Me.Label41.Size = New System.Drawing.Size(358, 39)
+        Me.Label41.TabIndex = 19
+        Me.Label41.Text = "Importante: Las ENTRADAS de inventario realizaran una SUMATORIA en" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "la cantidad e" &
+    "xistente, las SALIDAS de inventario realizarán una RESTA en" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "la cantidad existen" &
+    "te."
+        '
+        'BTN_INGRESAR_ENC
+        '
+        Me.BTN_INGRESAR_ENC.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_INGRESAR_ENC.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_INGRESAR_ENC.Image = Global.VentaRepuestos.My.Resources.Resources.agregar
+        Me.BTN_INGRESAR_ENC.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_INGRESAR_ENC.Location = New System.Drawing.Point(364, 173)
+        Me.BTN_INGRESAR_ENC.Name = "BTN_INGRESAR_ENC"
+        Me.BTN_INGRESAR_ENC.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_INGRESAR_ENC.TabIndex = 18
+        Me.BTN_INGRESAR_ENC.Text = "Ingresar"
+        Me.BTN_INGRESAR_ENC.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_INGRESAR_ENC.UseVisualStyleBackColor = False
+        '
+        'CMB_TIPO
+        '
+        Me.CMB_TIPO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CMB_TIPO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.CMB_TIPO.FormattingEnabled = True
+        Me.CMB_TIPO.Items.AddRange(New Object() {"EPA - Entrada por ajuste", "SPA - Salida por ajuste"})
+        Me.CMB_TIPO.Location = New System.Drawing.Point(99, 128)
+        Me.CMB_TIPO.Margin = New System.Windows.Forms.Padding(2)
+        Me.CMB_TIPO.Name = "CMB_TIPO"
+        Me.CMB_TIPO.Size = New System.Drawing.Size(203, 26)
+        Me.CMB_TIPO.TabIndex = 9
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label2.Location = New System.Drawing.Point(52, 131)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(45, 18)
+        Me.Label2.TabIndex = 8
+        Me.Label2.Text = "Tipo :"
         '
         'TXT_DESCRIPCION
         '
@@ -144,38 +194,16 @@ Partial Class Ajuste
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Número :"
         '
-        'CMB_TIPO
-        '
-        Me.CMB_TIPO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CMB_TIPO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.CMB_TIPO.FormattingEnabled = True
-        Me.CMB_TIPO.Items.AddRange(New Object() {"EPA - Entrada por ajuste", "SPA - Salida por ajuste"})
-        Me.CMB_TIPO.Location = New System.Drawing.Point(99, 128)
-        Me.CMB_TIPO.Margin = New System.Windows.Forms.Padding(2)
-        Me.CMB_TIPO.Name = "CMB_TIPO"
-        Me.CMB_TIPO.Size = New System.Drawing.Size(203, 26)
-        Me.CMB_TIPO.TabIndex = 9
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label2.Location = New System.Drawing.Point(52, 131)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(45, 18)
-        Me.Label2.TabIndex = 8
-        Me.Label2.Text = "Tipo :"
-        '
         'LVResultados
         '
+        Me.LVResultados.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None
         Me.LVResultados.HideSelection = False
         Me.LVResultados.Location = New System.Drawing.Point(4, 87)
         Me.LVResultados.Name = "LVResultados"
         Me.LVResultados.Size = New System.Drawing.Size(378, 73)
         Me.LVResultados.TabIndex = 9
         Me.LVResultados.UseCompatibleStateImageBehavior = False
-        Me.LVResultados.View = System.Windows.Forms.View.List
+        Me.LVResultados.View = System.Windows.Forms.View.Details
         '
         'Label19
         '
@@ -251,106 +279,6 @@ Partial Class Ajuste
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "[ Producto ]"
         '
-        'BTN_INGRESAR_DET
-        '
-        Me.BTN_INGRESAR_DET.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_INGRESAR_DET.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_INGRESAR_DET.Image = Global.VentaRepuestos.My.Resources.Resources.agregar
-        Me.BTN_INGRESAR_DET.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_INGRESAR_DET.Location = New System.Drawing.Point(286, 173)
-        Me.BTN_INGRESAR_DET.Name = "BTN_INGRESAR_DET"
-        Me.BTN_INGRESAR_DET.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_INGRESAR_DET.TabIndex = 17
-        Me.BTN_INGRESAR_DET.Text = "Ingresar"
-        Me.BTN_INGRESAR_DET.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_INGRESAR_DET.UseVisualStyleBackColor = False
-        '
-        'GroupBox3
-        '
-        Me.GroupBox3.Controls.Add(Me.GRID)
-        Me.GroupBox3.Location = New System.Drawing.Point(4, 230)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(859, 240)
-        Me.GroupBox3.TabIndex = 13
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "[ Lineas detalle ]"
-        '
-        'BTN_SALIR
-        '
-        Me.BTN_SALIR.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
-        Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(764, 476)
-        Me.BTN_SALIR.Name = "BTN_SALIR"
-        Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_SALIR.TabIndex = 15
-        Me.BTN_SALIR.Text = "Salir"
-        Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_SALIR.UseVisualStyleBackColor = False
-        '
-        'BTN_ACEPTAR
-        '
-        Me.BTN_ACEPTAR.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_ACEPTAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_ACEPTAR.Image = CType(resources.GetObject("BTN_ACEPTAR.Image"), System.Drawing.Image)
-        Me.BTN_ACEPTAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(665, 476)
-        Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
-        Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_ACEPTAR.TabIndex = 16
-        Me.BTN_ACEPTAR.Text = "Aceptar"
-        Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
-        '
-        'BTN_INGRESAR_ENC
-        '
-        Me.BTN_INGRESAR_ENC.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BTN_INGRESAR_ENC.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_INGRESAR_ENC.Image = Global.VentaRepuestos.My.Resources.Resources.agregar
-        Me.BTN_INGRESAR_ENC.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_INGRESAR_ENC.Location = New System.Drawing.Point(364, 173)
-        Me.BTN_INGRESAR_ENC.Name = "BTN_INGRESAR_ENC"
-        Me.BTN_INGRESAR_ENC.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_INGRESAR_ENC.TabIndex = 18
-        Me.BTN_INGRESAR_ENC.Text = "Ingresar"
-        Me.BTN_INGRESAR_ENC.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_INGRESAR_ENC.UseVisualStyleBackColor = False
-        '
-        'GRID
-        '
-        Me.GRID.AllowUserToAddRows = False
-        Me.GRID.AllowUserToDeleteRows = False
-        Me.GRID.AllowUserToOrderColumns = True
-        Me.GRID.AllowUserToResizeColumns = False
-        Me.GRID.AllowUserToResizeRows = False
-        Me.GRID.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
-        Me.GRID.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.GRID.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.GRID.Location = New System.Drawing.Point(5, 18)
-        Me.GRID.Margin = New System.Windows.Forms.Padding(2)
-        Me.GRID.MultiSelect = False
-        Me.GRID.Name = "GRID"
-        Me.GRID.RowHeadersVisible = False
-        Me.GRID.RowHeadersWidth = 51
-        Me.GRID.RowTemplate.Height = 24
-        Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRID.Size = New System.Drawing.Size(849, 217)
-        Me.GRID.TabIndex = 1
-        '
-        'Label41
-        '
-        Me.Label41.AutoSize = True
-        Me.Label41.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label41.ForeColor = System.Drawing.Color.Navy
-        Me.Label41.Location = New System.Drawing.Point(2, 177)
-        Me.Label41.Name = "Label41"
-        Me.Label41.Size = New System.Drawing.Size(358, 39)
-        Me.Label41.TabIndex = 19
-        Me.Label41.Text = "Importante: Las ENTRADAS de inventario realizaran una SUMATORIA en" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "la cantidad e" &
-    "xistente, las SALIDAS de inventario realizarán una RESTA en" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "la cantidad existen" &
-    "te."
-        '
         'TXT_FILA
         '
         Me.TXT_FILA.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
@@ -416,6 +344,79 @@ Partial Class Ajuste
         Me.Label29.Size = New System.Drawing.Size(26, 18)
         Me.Label29.TabIndex = 37
         Me.Label29.Text = "E :"
+        '
+        'BTN_INGRESAR_DET
+        '
+        Me.BTN_INGRESAR_DET.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_INGRESAR_DET.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_INGRESAR_DET.Image = Global.VentaRepuestos.My.Resources.Resources.agregar
+        Me.BTN_INGRESAR_DET.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_INGRESAR_DET.Location = New System.Drawing.Point(286, 173)
+        Me.BTN_INGRESAR_DET.Name = "BTN_INGRESAR_DET"
+        Me.BTN_INGRESAR_DET.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_INGRESAR_DET.TabIndex = 17
+        Me.BTN_INGRESAR_DET.Text = "Ingresar"
+        Me.BTN_INGRESAR_DET.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_INGRESAR_DET.UseVisualStyleBackColor = False
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.GRID)
+        Me.GroupBox3.Location = New System.Drawing.Point(4, 230)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(859, 240)
+        Me.GroupBox3.TabIndex = 13
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "[ Lineas detalle ]"
+        '
+        'GRID
+        '
+        Me.GRID.AllowUserToAddRows = False
+        Me.GRID.AllowUserToDeleteRows = False
+        Me.GRID.AllowUserToOrderColumns = True
+        Me.GRID.AllowUserToResizeColumns = False
+        Me.GRID.AllowUserToResizeRows = False
+        Me.GRID.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.GRID.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.GRID.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.GRID.Location = New System.Drawing.Point(5, 18)
+        Me.GRID.Margin = New System.Windows.Forms.Padding(2)
+        Me.GRID.MultiSelect = False
+        Me.GRID.Name = "GRID"
+        Me.GRID.RowHeadersVisible = False
+        Me.GRID.RowHeadersWidth = 51
+        Me.GRID.RowTemplate.Height = 24
+        Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.GRID.Size = New System.Drawing.Size(849, 217)
+        Me.GRID.TabIndex = 1
+        '
+        'BTN_SALIR
+        '
+        Me.BTN_SALIR.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
+        Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_SALIR.Location = New System.Drawing.Point(764, 476)
+        Me.BTN_SALIR.Name = "BTN_SALIR"
+        Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_SALIR.TabIndex = 15
+        Me.BTN_SALIR.Text = "Salir"
+        Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_SALIR.UseVisualStyleBackColor = False
+        '
+        'BTN_ACEPTAR
+        '
+        Me.BTN_ACEPTAR.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BTN_ACEPTAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_ACEPTAR.Image = CType(resources.GetObject("BTN_ACEPTAR.Image"), System.Drawing.Image)
+        Me.BTN_ACEPTAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(665, 476)
+        Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
+        Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
+        Me.BTN_ACEPTAR.TabIndex = 16
+        Me.BTN_ACEPTAR.Text = "Aceptar"
+        Me.BTN_ACEPTAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_ACEPTAR.UseVisualStyleBackColor = False
         '
         'Ajuste
         '

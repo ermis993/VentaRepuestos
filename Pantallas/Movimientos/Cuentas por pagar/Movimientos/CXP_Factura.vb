@@ -32,6 +32,8 @@ Public Class CXP_Factura
     Sub New(ByVal Modo As CRF_Modos, ByVal Padre As CXP_Facturacion, Optional ByVal NUMERO_DOC As Integer = 0, Optional ByVal CODIGO As String = "", Optional ByVal TIPO_MOV As String = "")
 
         InitializeComponent()
+        TabControl1.DrawMode = TabDrawMode.OwnerDrawFixed
+
         Me.Modo = Modo
         Me.Padre = Padre
         Me.Tipo_Mov = TIPO_MOV
@@ -528,7 +530,7 @@ Public Class CXP_Factura
     Private Sub Busca_Producto(ByVal Producto_Unico As Boolean)
         Try
             LVResultados.Clear()
-            LVResultados.Columns.Add("", 318)
+            LVResultados.Columns.Add("", 370)
 
             If Not String.IsNullOrEmpty(TXT_CODIGO.Text) Then
                 Dim Sql = "	SELECT COD_PROD,  DESCRIPCION "
@@ -556,7 +558,7 @@ Public Class CXP_Factura
                 If DS.Tables(0).Rows.Count > 0 Then
                     For Each ITEM In DS.Tables(0).Rows
                         Dim LVI As New ListViewItem With {
-                            .Text = ITEM("DESCRIPCION"),
+                            .Text = "(" & ITEM("COD_PROD") & ") " & ITEM("DESCRIPCION"),
                             .Name = ITEM("COD_PROD")
                         }
                         LVResultados.Items.Add(LVI)
@@ -799,5 +801,26 @@ Public Class CXP_Factura
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
+    End Sub
+
+    Private Sub TabControl_DrawItem(sender As Object, e As DrawItemEventArgs) Handles TabControl1.DrawItem
+        Dim SelectedTab As TabPage = TabControl1.TabPages(e.Index)
+
+        Dim HeaderRect As Rectangle = TabControl1.GetTabRect(e.Index)
+
+        Dim TextBrush As New SolidBrush(Color.Black)
+
+        Dim sf As New StringFormat()
+        sf.Alignment = StringAlignment.Center
+        sf.LineAlignment = StringAlignment.Center
+
+        If Convert.ToBoolean(e.State And DrawItemState.Selected) Then
+            Dim BoldFont As New Font(TabControl1.Font.Name, TabControl1.Font.Size, FontStyle.Bold)
+            e.Graphics.DrawString(SelectedTab.Text, BoldFont, TextBrush, HeaderRect, sf)
+        Else
+            e.Graphics.DrawString(SelectedTab.Text, e.Font, TextBrush, HeaderRect, sf)
+        End If
+
+        TextBrush.Dispose()
     End Sub
 End Class

@@ -557,13 +557,14 @@ Partial Class CXP_Factura
         '
         'LVResultados
         '
+        Me.LVResultados.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None
         Me.LVResultados.HideSelection = False
         Me.LVResultados.Location = New System.Drawing.Point(132, 44)
         Me.LVResultados.Name = "LVResultados"
         Me.LVResultados.Size = New System.Drawing.Size(378, 73)
         Me.LVResultados.TabIndex = 3
         Me.LVResultados.UseCompatibleStateImageBehavior = False
-        Me.LVResultados.View = System.Windows.Forms.View.List
+        Me.LVResultados.View = System.Windows.Forms.View.Details
         '
         'Label19
         '

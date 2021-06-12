@@ -21,6 +21,7 @@ Public Class NotaCredito
 
     Sub New(ByVal PADRE As Facturacion, ByVal Tipo_Proceso As String, ByVal Modo As CRF_Modos, Optional ByVal TIPO_MOV_E As String = "", Optional ByVal NUMERO_DOC_E As Integer = 0)
         InitializeComponent()
+        TabControl1.DrawMode = TabDrawMode.OwnerDrawFixed
 
         Me.Tipo = Tipo_Proceso
         Me.Padre = PADRE
@@ -801,5 +802,26 @@ Public Class NotaCredito
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
+    End Sub
+
+    Private Sub TabControl_DrawItem(sender As Object, e As DrawItemEventArgs) Handles TabControl1.DrawItem
+        Dim SelectedTab As TabPage = TabControl1.TabPages(e.Index)
+
+        Dim HeaderRect As Rectangle = TabControl1.GetTabRect(e.Index)
+
+        Dim TextBrush As New SolidBrush(Color.Black)
+
+        Dim sf As New StringFormat()
+        sf.Alignment = StringAlignment.Center
+        sf.LineAlignment = StringAlignment.Center
+
+        If Convert.ToBoolean(e.State And DrawItemState.Selected) Then
+            Dim BoldFont As New Font(TabControl1.Font.Name, TabControl1.Font.Size, FontStyle.Bold)
+            e.Graphics.DrawString(SelectedTab.Text, BoldFont, TextBrush, HeaderRect, sf)
+        Else
+            e.Graphics.DrawString(SelectedTab.Text, e.Font, TextBrush, HeaderRect, sf)
+        End If
+
+        TextBrush.Dispose()
     End Sub
 End Class

@@ -8,7 +8,7 @@ Public Class Login
     Private Sub CONFIGURACION()
         Try
             'PRUEBAS
-            CONX.Inicializar_cadena_conexion("DESKTOP-42HEF7C,1433", "sa", "1234", "VR_REPLUNA")
+            CONX.Inicializar_cadena_conexion("DESKTOP-42HEF7C,1433", "sa", "1234", "VR_AU")
             'AUTORESPUESTOS LA UNION
             'CONX.Inicializar_cadena_conexion("DESKTOP-OG4U60G\SQLEXPRESS,1433", "sa", "union1234", "VR")
             'CONX_SIC.ConexionSTR("DESKTOP-OG4U60G\SQLEXPRESS,1433", "sa", "union1234", "INFORMACION_SIC")

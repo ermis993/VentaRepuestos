@@ -67,6 +67,33 @@ Public Class Impresion
         Printer.DoPrint()
     End Sub
 
+    Private Shared Sub PrintProducInfo(ByVal COD_PROD As String, ByVal DESCRIPCION As String, ByVal PRECIO As String)
+        Printer.PrintDefault()
+
+        Dim AnchoTiquete = ANCHO_IMPRESION_ETIQUETA()
+
+        Printer.Print(COD_PROD)
+
+        If DESCRIPCION.Length > AnchoTiquete Then
+            Do
+                Dim palabra = DESCRIPCION.Substring(0, IIf(DESCRIPCION.Length >= AnchoTiquete, AnchoTiquete, DESCRIPCION.Length))
+                DESCRIPCION = DESCRIPCION.Substring(IIf(palabra.Length >= DESCRIPCION.Length, 0, palabra.Length), IIf(DESCRIPCION.Length >= AnchoTiquete, DESCRIPCION.Length - AnchoTiquete, DESCRIPCION.Length))
+
+                Printer.Print(palabra)
+
+                If DESCRIPCION.Length = palabra.Length Then
+                    Exit Do
+                End If
+            Loop
+        Else
+            Printer.Print(DESCRIPCION)
+        End If
+
+        Printer.Print(PRECIO)
+
+        Printer.DoPrint()
+    End Sub
+
     Public Shared Sub ImprimirBarcode(ByVal img As Image, ByVal descripcion As String)
         Try
             PrintBarCode(img, descripcion)
@@ -75,6 +102,13 @@ Public Class Impresion
         End Try
     End Sub
 
+    Public Shared Sub ImprimirEtiquetaProducto(ByVal COD_PROD As String, ByVal DESCRIPCION As String, ByVal PRECIO As String)
+        Try
+            PrintProducInfo(COD_PROD, DESCRIPCION, PRECIO)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 
     Public Shared Sub Imprimir(ByVal COD_CIA As String, ByVal COD_SUCUR As String, ByVal NUMERO_DOC As Integer, ByVal TIPO_MOV As String, ByVal img As Image)
         Try

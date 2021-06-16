@@ -294,4 +294,43 @@ Public Class Producto
         End Try
     End Sub
 
+    Private Sub cm_etiqueta_producto_Click(sender As Object, e As EventArgs) Handles cm_etiqueta_producto.Click
+        Try
+            ImprimirEtiqueta()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub ImprimirEtiqueta()
+        Try
+            If Me.GRID.Rows.Count > 0 Then
+                Leer_indice()
+
+                Dim Sql = "	SELECT COD_PROD, DESCRIPCION, ((PRECIO * POR_IMPUESTO) / 100) AS PRECIO "
+                Sql &= Chr(13) & "	FROM PRODUCTO "
+                Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+                Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+                Sql &= Chr(13) & "	AND COD_PROD = " & SCM(COD_PROD)
+
+                CONX.Coneccion_Abrir()
+                Dim DS = CONX.EJECUTE_DS(Sql)
+                CONX.Coneccion_Cerrar()
+
+                If DS.Tables(0).Rows.Count > 0 Then
+                    Dim Cantidad As Integer = Val(InputBox("Ingrese la cantidad de copias que desea imprimir", "Copias a realizar", 1))
+                    If Cantidad > 0 Then
+                        Dim imp As New Impresion()
+                        For index = 1 To Cantidad
+                            imp.ImprimirEtiquetaProducto(DS.Tables(0).Rows(0).Item(0), DS.Tables(0).Rows(0).Item(1), DS.Tables(0).Rows(0).Item(2))
+                        Next
+                    End If
+                Else
+                    MessageBox.Show(Me, "Sin datos para generar la impresión", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                End If
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 End Class

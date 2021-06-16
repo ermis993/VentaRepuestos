@@ -24,15 +24,15 @@ Public Class Actualizaciones
         ProgressBar.Value = 0
 
         'TABLAS
-        Call APARTADO_ENC()
-        Call APARTADO_DET()
         Call APARTADO_ENC_TMP()
         Call APARTADO_DET_TMP()
-        Call SUCURSAL_INDICADORES()
-        Call PRODUCTO_RELACION()
+        Call APARTADO_ENC()
+        Call APARTADO_DET()
+        Call COMPANIA_CODIGOS_BARRAS()
         Call CXP_DOCUMENTO_AFEC()
         Call CXP_DOCUMENTO_AFEC_DET_TMP()
-        Call COMPANIA_CODIGOS_BARRAS()
+        Call SUCURSAL_INDICADORES()
+        Call PRODUCTO_RELACION()
         Call PROFORMA_ENC_TMP()
         Call PROFORMA_DET_TMP()
         Call PROFORMA_ENC()
@@ -954,7 +954,6 @@ Public Class Actualizaciones
         End Try
     End Sub
 
-
     Private Sub CXP_DOCUMENTOS_ELECTRONICOS_CORREO()
         Try
             If Not EXISTE_TABLA("CXP_DOCUMENTOS_ELECTRONICOS_CORREO") Then
@@ -1012,7 +1011,6 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-
 #End Region
 
 #Region "Constraints"

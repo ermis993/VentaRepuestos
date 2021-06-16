@@ -172,35 +172,40 @@ Public Class Globales
                     CODIGO_VENTA = ITEM("CODIGO_VENTA")
                 Next
             End If
-            Try
-                Dim TIPO_CAMBIO = New WS_CENTRAL.wsindicadoreseconomicos
-                Dim COMPRA = TIPO_CAMBIO.ObtenerIndicadoresEconomicos(CODIGO_COMPRA, DMA(FECHA), DMA(FECHA), "VR_TIPO_CAMBIO", "N", EMAIL, TOKEN)
-                If COMPRA.Tables(0).Rows.Count > 0 Then
-                    For Each ITEM In COMPRA.Tables(0).Rows
-                        TC_COMPRA = FMCP(ITEM("NUM_VALOR"), 2)
-                    Next
-                End If
 
-                Dim VENTA = TIPO_CAMBIO.ObtenerIndicadoresEconomicos(CODIGO_VENTA, DMA(FECHA), DMA(FECHA), "VR_TIPO_CAMBIO", "N", EMAIL, TOKEN)
-                If VENTA.Tables(0).Rows.Count > 0 Then
-                    For Each ITEM In VENTA.Tables(0).Rows
-                        TC_VENTA = FMCP(ITEM("NUM_VALOR"), 2)
-                    Next
-                End If
-            Catch ex As Exception
-                MessageBox.Show(ex.Message)
-            End Try
+            If Not String.IsNullOrEmpty(TOKEN) Then
+                Try
+                    Dim TIPO_CAMBIO = New WS_CENTRAL.wsindicadoreseconomicos
+                    Dim COMPRA = TIPO_CAMBIO.ObtenerIndicadoresEconomicos(CODIGO_COMPRA, DMA(FECHA), DMA(FECHA), "VR_TIPO_CAMBIO", "N", EMAIL, TOKEN)
+                    If COMPRA.Tables(0).Rows.Count > 0 Then
+                        For Each ITEM In COMPRA.Tables(0).Rows
+                            TC_COMPRA = FMCP(ITEM("NUM_VALOR"), 2)
+                        Next
+                    End If
 
-            If TC_VENTA > 0 And TC_COMPRA > 0 Then
-                SQL = "DELETE FROM TIPO_CAMBIO_GENERAL"
-                SQL &= Chr(13) & ""
-                SQL &= Chr(13) & "INSERT INTO TIPO_CAMBIO_GENERAL(BANCO,COMPRA,VENTA,FECHA)"
-                SQL &= Chr(13) & "VALUES(" & SCM("Banco Central de Costa Rica") & "," & FMC(TC_COMPRA, 2) & "," & FMC(TC_VENTA, 2) & "," & SCM(YMD(FECHA)) & ")"
-                CONX.Coneccion_Abrir()
-                CONX.EJECUTE(SQL)
-                CONX.Coneccion_Cerrar()
+                    Dim VENTA = TIPO_CAMBIO.ObtenerIndicadoresEconomicos(CODIGO_VENTA, DMA(FECHA), DMA(FECHA), "VR_TIPO_CAMBIO", "N", EMAIL, TOKEN)
+                    If VENTA.Tables(0).Rows.Count > 0 Then
+                        For Each ITEM In VENTA.Tables(0).Rows
+                            TC_VENTA = FMCP(ITEM("NUM_VALOR"), 2)
+                        Next
+                    End If
+                Catch ex As Exception
+                    MessageBox.Show(ex.Message)
+                End Try
+
+                If TC_VENTA > 0 And TC_COMPRA > 0 Then
+                    SQL = "DELETE FROM TIPO_CAMBIO_GENERAL"
+                    SQL &= Chr(13) & ""
+                    SQL &= Chr(13) & "INSERT INTO TIPO_CAMBIO_GENERAL(BANCO,COMPRA,VENTA,FECHA)"
+                    SQL &= Chr(13) & "VALUES(" & SCM("Banco Central de Costa Rica") & "," & FMC(TC_COMPRA, 2) & "," & FMC(TC_VENTA, 2) & "," & SCM(YMD(FECHA)) & ")"
+                    CONX.Coneccion_Abrir()
+                    CONX.EJECUTE(SQL)
+                    CONX.Coneccion_Cerrar()
+                Else
+                    MessageBox.Show("¡No es posible ingresar el tipo de cambio!")
+                End If
             Else
-                MessageBox.Show("¡No es posible ingresar el tipo de cambio!")
+                MessageBox.Show("Para utilizar la función del tipo de cambio el BCCR es necesario configurar la información general", "Mensaje tipo cambio", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

@@ -46,6 +46,7 @@ Public Class SeleccionCompania
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
     Private Sub BTN_ACEPTAR_Click(sender As Object, e As EventArgs) Handles BTN_ACEPTAR.Click
         Try
             COD_CIA = CMB_COMPANIA.SelectedValue

@@ -342,6 +342,8 @@ Public Class Proforma
                 MessageBox.Show(Me, "La ubicación del producto es inválida, vuelva a seleccionar el producto", "Mensaje ubicación", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf String.IsNullOrEmpty(Cliente.VALOR) Then
                 MessageBox.Show(Me, "El cliente no ha sido seleccionado", "Mensaje cliente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            ElseIf (Descuento_Maximo(TXT_CODIGO.Text) < Val(TXT_DESCUENTO.Text)) Then
+                MessageBox.Show(Me, "El descuento máximo permitido al producto es de : " & Descuento_Maximo(TXT_CODIGO.Text) & "% y actualmente está aplicando un: " & Val(TXT_DESCUENTO.Text) & "%", "Mensaje descuento máximo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
                 If FMC(TXT_TOTAL.Text) > 0 Then
                     Dim SQL = "	EXECUTE USP_MANT_PROFORMA_TMP "
@@ -388,8 +390,32 @@ Public Class Proforma
         End Try
     End Sub
 
+    Private Function Descuento_Maximo(ByVal COD_PROD As String) As Integer
+        Dim Resultado As Integer = 0
+        Try
+            Dim Sql = "	SELECT ISNULL(DESCUENTO, 0) AS DESCUENTO  "
+            Sql &= Chr(13) & "	FROM PRODUCTO "
+            Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+            Sql &= Chr(13) & "	AND COD_PROD = " & SCM(COD_PROD)
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(Sql)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                Resultado = FMC(DS.Tables(0).Rows(0).Item("DESCUENTO"))
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+
+        Return Resultado
+
+    End Function
+
     Private Sub BTN_INGRESAR_Click(sender As Object, e As EventArgs) Handles BTN_INGRESAR.Click
-        'IngresarDetalle()
         If ExisteProducto() Then
             IngresarDetalle()
         Else

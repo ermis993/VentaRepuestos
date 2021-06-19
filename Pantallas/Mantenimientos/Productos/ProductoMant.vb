@@ -80,6 +80,7 @@ Public Class ProductoMant
                     TXT_PRECIO_2.Text = ITEM("PRECIO_2")
                     TXT_PRECIO_3.Text = ITEM("PRECIO_3")
                     TXT_MINIMO_VENTA.Text = FMC(ITEM("MIN_VENTA"), 2)
+                    TXT_DESCUENTO.Text = Val(VALNULL(ITEM("DESCUENTO")))
 
                     If Trim(ITEM("ESTADO")).Equals("A") Then
                         RB_ACTIVO.Checked = True
@@ -149,6 +150,9 @@ Public Class ProductoMant
             ElseIf String.IsNullOrEmpty(TXT_MINIMO_VENTA.Text) Or FMC(TXT_MINIMO_VENTA.Text) <= 0 Then
                 MessageBox.Show("¡Debe digitar la cantidad minima de venta del producto producto!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TXT_MINIMO_VENTA.Select()
+            ElseIf String.IsNullOrEmpty(TXT_DESCUENTO.Text) Or FMC(TXT_DESCUENTO.Text) <= 0 Then
+                MessageBox.Show("¡Debe digitar el descuento máximo al aplicar en una factura!", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                TXT_DESCUENTO.Select()
             Else
 
                 Me.MODO = IIf(Me.MODO = CRF_Modos.Formula, CRF_Modos.Insertar, Me.MODO)
@@ -178,6 +182,7 @@ Public Class ProductoMant
                 Sql &= Chr(13) & "	,@IND_PRECIO_MODIFICABLE = " & SCM(IIf(CHK_MODIFICABLE.Checked, "S", "N"))
                 Sql &= Chr(13) & "  ,@COD_CABYS = " & SCM(TXT_COD_CABYS.Text)
                 Sql &= Chr(13) & "  ,@MIN_VENTA = " & FMC(TXT_MINIMO_VENTA.Text)
+                Sql &= Chr(13) & "  ,@MAX_DESCUENTO = " & Val(TXT_DESCUENTO.Text)
                 Sql &= Chr(13) & "	,@MODO = " & Val(Me.MODO)
 
                 CONX.Coneccion_Abrir()
@@ -310,6 +315,7 @@ Public Class ProductoMant
         TXT_PRECIO_3.Text = ""
         TXT_DESC.Text = ""
         TXT_MINIMO.Text = ""
+        TXT_DESCUENTO.Text = ""
         RB_ACTIVO.Checked = True
     End Sub
 

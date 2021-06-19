@@ -35,7 +35,6 @@ Partial Class ProductoMant
         Me.RB_ACTIVO = New System.Windows.Forms.RadioButton()
         Me.RB_INACTIVO = New System.Windows.Forms.RadioButton()
         Me.Label19 = New System.Windows.Forms.Label()
-        Me.Buscador_Familia = New VentaRepuestos.Buscador()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.TXT_PRECIO_3 = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
@@ -43,7 +42,6 @@ Partial Class ProductoMant
         Me.Label16 = New System.Windows.Forms.Label()
         Me.TXT_MINIMO = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.Buscador = New VentaRepuestos.Buscador()
         Me.TXT_FILA = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.TXT_ESTANTE = New System.Windows.Forms.TextBox()
@@ -72,6 +70,11 @@ Partial Class ProductoMant
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BTN_ACEPTAR = New System.Windows.Forms.Button()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
+        Me.TXT_DESCUENTO = New System.Windows.Forms.TextBox()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.Buscador_Familia = New VentaRepuestos.Buscador()
+        Me.Buscador = New VentaRepuestos.Buscador()
         Me.GroupBox1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -80,6 +83,9 @@ Partial Class ProductoMant
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.Label24)
+        Me.GroupBox1.Controls.Add(Me.TXT_DESCUENTO)
+        Me.GroupBox1.Controls.Add(Me.Label23)
         Me.GroupBox1.Controls.Add(Me.TXT_MINIMO_VENTA)
         Me.GroupBox1.Controls.Add(Me.Label22)
         Me.GroupBox1.Controls.Add(Me.TXT_COD_CABYS)
@@ -129,7 +135,7 @@ Partial Class ProductoMant
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox1.Size = New System.Drawing.Size(572, 428)
+        Me.GroupBox1.Size = New System.Drawing.Size(572, 465)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Información general ]"
@@ -191,23 +197,23 @@ Partial Class ProductoMant
         'TXT_OBSERVACION
         '
         Me.TXT_OBSERVACION.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.TXT_OBSERVACION.Location = New System.Drawing.Point(119, 376)
+        Me.TXT_OBSERVACION.Location = New System.Drawing.Point(119, 413)
         Me.TXT_OBSERVACION.Margin = New System.Windows.Forms.Padding(2)
         Me.TXT_OBSERVACION.MaxLength = 150
         Me.TXT_OBSERVACION.Multiline = True
         Me.TXT_OBSERVACION.Name = "TXT_OBSERVACION"
         Me.TXT_OBSERVACION.Size = New System.Drawing.Size(443, 48)
-        Me.TXT_OBSERVACION.TabIndex = 43
+        Me.TXT_OBSERVACION.TabIndex = 46
         '
         'Label20
         '
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
-        Me.Label20.Location = New System.Drawing.Point(19, 376)
+        Me.Label20.Location = New System.Drawing.Point(19, 413)
         Me.Label20.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(96, 18)
-        Me.Label20.TabIndex = 42
+        Me.Label20.TabIndex = 45
         Me.Label20.Text = "Observación:"
         '
         'Panel1
@@ -252,23 +258,6 @@ Partial Class ProductoMant
         Me.Label19.Size = New System.Drawing.Size(63, 18)
         Me.Label19.TabIndex = 40
         Me.Label19.Text = "Estado :"
-        '
-        'Buscador_Familia
-        '
-        Me.Buscador_Familia.CAMPO_FILTRAR = "CODIGO"
-        Me.Buscador_Familia.CODIGO = Nothing
-        Me.Buscador_Familia.DESCRIPCION = Nothing
-        Me.Buscador_Familia.FILTRAR_POR_COMPANIA = True
-        Me.Buscador_Familia.Location = New System.Drawing.Point(120, 117)
-        Me.Buscador_Familia.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Buscador_Familia.Name = "Buscador_Familia"
-        Me.Buscador_Familia.OTROS_CAMP0S = ""
-        Me.Buscador_Familia.PANTALLA = Nothing
-        Me.Buscador_Familia.Size = New System.Drawing.Size(451, 32)
-        Me.Buscador_Familia.TabIndex = 10
-        Me.Buscador_Familia.TABLA_BUSCAR = "FAMILIA"
-        Me.Buscador_Familia.VALOR = ""
-        Me.Buscador_Familia.VALOR_DESCRIPCION = Nothing
         '
         'Label18
         '
@@ -345,23 +334,6 @@ Partial Class ProductoMant
         Me.Label15.Size = New System.Drawing.Size(102, 18)
         Me.Label15.TabIndex = 38
         Me.Label15.Text = "Minimo stock:"
-        '
-        'Buscador
-        '
-        Me.Buscador.CAMPO_FILTRAR = "COD_SUCUR"
-        Me.Buscador.CODIGO = Nothing
-        Me.Buscador.DESCRIPCION = Nothing
-        Me.Buscador.FILTRAR_POR_COMPANIA = True
-        Me.Buscador.Location = New System.Drawing.Point(120, 149)
-        Me.Buscador.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Buscador.Name = "Buscador"
-        Me.Buscador.OTROS_CAMP0S = ""
-        Me.Buscador.PANTALLA = Nothing
-        Me.Buscador.Size = New System.Drawing.Size(451, 32)
-        Me.Buscador.TabIndex = 12
-        Me.Buscador.TABLA_BUSCAR = Nothing
-        Me.Buscador.VALOR = ""
-        Me.Buscador.VALOR_DESCRIPCION = Nothing
         '
         'TXT_FILA
         '
@@ -652,7 +624,7 @@ Partial Class ProductoMant
         Me.BTN_ACEPTAR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_ACEPTAR.Image = CType(resources.GetObject("BTN_ACEPTAR.Image"), System.Drawing.Image)
         Me.BTN_ACEPTAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(381, 435)
+        Me.BTN_ACEPTAR.Location = New System.Drawing.Point(381, 472)
         Me.BTN_ACEPTAR.Name = "BTN_ACEPTAR"
         Me.BTN_ACEPTAR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_ACEPTAR.TabIndex = 1
@@ -666,7 +638,7 @@ Partial Class ProductoMant
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(480, 435)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(480, 472)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 2
@@ -674,12 +646,78 @@ Partial Class ProductoMant
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
         '
+        'TXT_DESCUENTO
+        '
+        Me.TXT_DESCUENTO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.TXT_DESCUENTO.Location = New System.Drawing.Point(119, 381)
+        Me.TXT_DESCUENTO.Margin = New System.Windows.Forms.Padding(2)
+        Me.TXT_DESCUENTO.MaxLength = 2
+        Me.TXT_DESCUENTO.Name = "TXT_DESCUENTO"
+        Me.TXT_DESCUENTO.Size = New System.Drawing.Size(67, 24)
+        Me.TXT_DESCUENTO.TabIndex = 43
+        Me.TXT_DESCUENTO.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
+        Me.Label23.Location = New System.Drawing.Point(27, 384)
+        Me.Label23.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(88, 18)
+        Me.Label23.TabIndex = 42
+        Me.Label23.Text = "Descuento :" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label24.Location = New System.Drawing.Point(191, 387)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(250, 13)
+        Me.Label24.TabIndex = 44
+        Me.Label24.Text = "este será el porcentaje descuento máximo permitido"
+        '
+        'Buscador_Familia
+        '
+        Me.Buscador_Familia.CAMPO_FILTRAR = "CODIGO"
+        Me.Buscador_Familia.CODIGO = Nothing
+        Me.Buscador_Familia.DESCRIPCION = Nothing
+        Me.Buscador_Familia.FILTRAR_POR_COMPANIA = True
+        Me.Buscador_Familia.Location = New System.Drawing.Point(120, 117)
+        Me.Buscador_Familia.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Buscador_Familia.Name = "Buscador_Familia"
+        Me.Buscador_Familia.OTROS_CAMP0S = ""
+        Me.Buscador_Familia.PANTALLA = Nothing
+        Me.Buscador_Familia.Size = New System.Drawing.Size(442, 32)
+        Me.Buscador_Familia.TabIndex = 10
+        Me.Buscador_Familia.TABLA_BUSCAR = "FAMILIA"
+        Me.Buscador_Familia.VALOR = ""
+        Me.Buscador_Familia.VALOR_DESCRIPCION = Nothing
+        '
+        'Buscador
+        '
+        Me.Buscador.CAMPO_FILTRAR = "COD_SUCUR"
+        Me.Buscador.CODIGO = Nothing
+        Me.Buscador.DESCRIPCION = Nothing
+        Me.Buscador.FILTRAR_POR_COMPANIA = True
+        Me.Buscador.Location = New System.Drawing.Point(120, 149)
+        Me.Buscador.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Buscador.Name = "Buscador"
+        Me.Buscador.OTROS_CAMP0S = ""
+        Me.Buscador.PANTALLA = Nothing
+        Me.Buscador.Size = New System.Drawing.Size(442, 32)
+        Me.Buscador.TabIndex = 12
+        Me.Buscador.TABLA_BUSCAR = Nothing
+        Me.Buscador.VALOR = ""
+        Me.Buscador.VALOR_DESCRIPCION = Nothing
+        '
         'ProductoMant
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ClientSize = New System.Drawing.Size(584, 490)
+        Me.ClientSize = New System.Drawing.Size(584, 527)
         Me.ControlBox = False
         Me.Controls.Add(Me.BTN_ACEPTAR)
         Me.Controls.Add(Me.BTN_SALIR)
@@ -747,4 +785,7 @@ Partial Class ProductoMant
     Friend WithEvents Label21 As Label
     Friend WithEvents TXT_MINIMO_VENTA As TextBox
     Friend WithEvents Label22 As Label
+    Friend WithEvents TXT_DESCUENTO As TextBox
+    Friend WithEvents Label23 As Label
+    Friend WithEvents Label24 As Label
 End Class

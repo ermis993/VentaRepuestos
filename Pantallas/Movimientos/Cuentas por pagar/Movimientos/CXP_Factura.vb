@@ -582,13 +582,13 @@ Public Class CXP_Factura
                 TXT_COLUMNA.Text = ""
                 Proceso(Codigo, "", "", "")
 
-                'If ProductoMasUbicaciones(Codigo) Then
-                '    Dim PANTALLA As New ProductoUbicacionMant(Codigo, Descripcion, CRF_Modos.Seleccionar, Me)
-                '    PANTALLA.ShowDialog()
-                '    TXT_CANTIDAD.Focus()
-                'Else
-                '    Proceso(Codigo, "", "", "")
-                'End If
+                If ProductoMasUbicaciones(Codigo) Then
+                    Dim PANTALLA As New ProductoUbicacionMant(Codigo, Descripcion, CRF_Modos.Seleccionar, Me)
+                    PANTALLA.ShowDialog()
+                    TXT_CANTIDAD.Focus()
+                Else
+                    Proceso(Codigo, "", "", "")
+                End If
             End If
         Catch ex As Exception
         End Try
@@ -727,19 +727,19 @@ Public Class CXP_Factura
     Private Function ProductoMasUbicaciones(ByVal COD_PROD As String) As Boolean
         Try
             Dim bandera As Boolean = False
-            Dim Sql = "	SELECT COD_PROD, ESTANTE, FILA, COLUMNA	"
-            Sql &= Chr(13) & "	FROM INVENTARIO_MOV_DET	"
+            Dim Sql = "	SELECT COD_PROD"
+            Sql &= Chr(13) & "	FROM PRODUCTO_UBICACION	"
             Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
             Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
             Sql &= Chr(13) & "	AND COD_PROD = " & SCM(COD_PROD)
-            Sql &= Chr(13) & "	GROUP BY COD_PROD, ESTANTE, FILA, COLUMNA"
-            Sql &= Chr(13) & "	HAVING SUM(CANTIDAD) > 0 "
+            Sql &= Chr(13) & "	GROUP BY COD_PROD"
+            Sql &= Chr(13) & "	HAVING COUNT(*) > 1  "
 
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(Sql)
             CONX.Coneccion_Cerrar()
 
-            If DS.Tables(0).Rows.Count > 1 Then
+            If DS.Tables(0).Rows.Count > 0 Then
                 bandera = True
             End If
 

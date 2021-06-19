@@ -60,7 +60,7 @@ Partial Class ConsultaSaldos
         Me.GRID.ReadOnly = True
         Me.GRID.RowHeadersVisible = False
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GRID.Size = New System.Drawing.Size(808, 332)
+        Me.GRID.Size = New System.Drawing.Size(1020, 332)
         Me.GRID.TabIndex = 2
         '
         'BTN_SALIR
@@ -69,7 +69,7 @@ Partial Class ConsultaSaldos
         Me.BTN_SALIR.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_SALIR.Image = Global.VentaRepuestos.My.Resources.Resources.salir
         Me.BTN_SALIR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SALIR.Location = New System.Drawing.Point(711, 389)
+        Me.BTN_SALIR.Location = New System.Drawing.Point(923, 389)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
         Me.BTN_SALIR.TabIndex = 13
@@ -91,7 +91,7 @@ Partial Class ConsultaSaldos
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ClientSize = New System.Drawing.Size(813, 437)
+        Me.ClientSize = New System.Drawing.Size(1025, 437)
         Me.ControlBox = False
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.BTN_SALIR)

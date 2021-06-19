@@ -348,8 +348,10 @@ Public Class Factura
                 MessageBox.Show(Me, "La ubicación del producto es inválida, vuelva a seleccionar el producto", "Mensaje ubicación", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             ElseIf String.IsNullOrEmpty(Cliente.VALOR) Then
                 MessageBox.Show(Me, "El cliente no ha sido seleccionado", "Mensaje cliente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-            ElseIf ((Saldo_Actual(TXT_CODIGO.Text) - FMC(TXT_CANTIDAD.Text)) < 0) And IND_VENTAS_NEGATIVAS = "N" Then
-                MessageBox.Show(Me, "La sucursal está configurada para no realizar ventas en negativo, actualmente el inventario quedaría en: " & FMCP((Saldo_Actual(TXT_CODIGO.Text) - FMC(TXT_CANTIDAD.Text))), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            ElseIf ((Saldo_Actual(TXT_CODIGO.Text, TXT_ESTANTE.Text, TXT_FILA.Text, TXT_COLUMNA.Text) - FMC(TXT_CANTIDAD.Text)) < 0) And IND_VENTAS_NEGATIVAS = "N" Then
+                MessageBox.Show(Me, "La sucursal está configurada para no realizar ventas en negativo, actualmente el inventario quedaría en: " & FMCP((Saldo_Actual(TXT_CODIGO.Text, TXT_ESTANTE.Text, TXT_FILA.Text, TXT_COLUMNA.Text) - FMC(TXT_CANTIDAD.Text))), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            ElseIf (Descuento_Maximo(TXT_CODIGO.Text) < Val(TXT_DESCUENTO.Text)) Then
+                MessageBox.Show(Me, "El descuento máximo permitido al producto es de : " & Descuento_Maximo(TXT_CODIGO.Text) & "% y actualmente está aplicando un: " & Val(TXT_DESCUENTO.Text) & "%", "Mensaje descuento máximo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
                 If FMC(TXT_TOTAL.Text) > 0 Then
                     Dim SQL = "	EXECUTE USP_MANT_FACTURACION_TMP "
@@ -716,7 +718,7 @@ Public Class Factura
     Private Sub Proceso(ByVal codigo As String, ByVal estante As String, ByVal fila As String, ByVal columna As String)
         TXT_CODIGO.Text = codigo
 
-        Dim Saldo_Producto As Decimal = Saldo_Actual(codigo)
+        Dim Saldo_Producto As Decimal = Saldo_Actual(codigo, estante, fila, columna)
         Dim Minimo_Stock As Decimal = Min_Stock(codigo)
 
         If ((IND_VENTAS_NEGATIVAS = "S" And Saldo_Producto <= 0.0) Or Saldo_Producto > 0.0) Then
@@ -730,22 +732,32 @@ Public Class Factura
             Busca_Producto(False, True)
             TXT_CANTIDAD.Focus()
         Else
-            MessageBox.Show(Me, "La sucursal no permite ventas con inventario negativo, el saldo actual del producto es: " & FMC(Saldo_Producto), "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            MessageBox.Show(Me, "La sucursal no permite ventas con inventario negativo, el saldo actual del producto en la ubicación seleccionada es: " & FMC(Saldo_Producto), "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If
     End Sub
 
-    Private Function Saldo_Actual(ByVal COD_PROD As String) As Decimal
+    Private Function Saldo_Actual(ByVal COD_PROD As String, ByVal ESTANTE As String, ByVal FILA As String, ByVal COLUMNA As String) As Decimal
         Dim Resultado As Decimal = 0.0
         Try
             Dim Sql = "	SELECT ISNULL(SUM(DET.CANTIDAD), 0) AS CANTIDAD  "
             Sql &= Chr(13) & "	FROM PRODUCTO AS P	"
+            Sql &= Chr(13) & "	LEFT JOIN PRODUCTO_UBICACION AS UBI	"
+            Sql &= Chr(13) & "	    ON UBI.COD_CIA = P.COD_CIA	"
+            Sql &= Chr(13) & "	    AND UBI.COD_SUCUR = P.COD_SUCUR	"
+            Sql &= Chr(13) & "	    AND UBI.COD_PROD = P.COD_PROD	"
             Sql &= Chr(13) & "	LEFT JOIN INVENTARIO_MOV_DET AS DET	"
-            Sql &= Chr(13) & "	    ON DET.COD_CIA = P.COD_CIA	"
-            Sql &= Chr(13) & "	    AND DET.COD_SUCUR = P.COD_SUCUR	"
-            Sql &= Chr(13) & "	    AND DET.COD_PROD = P.COD_PROD	"
+            Sql &= Chr(13) & "	    ON DET.COD_CIA = UBI.COD_CIA	"
+            Sql &= Chr(13) & "	    AND DET.COD_SUCUR = UBI.COD_SUCUR	"
+            Sql &= Chr(13) & "	    AND DET.COD_PROD = UBI.COD_PROD	"
+            Sql &= Chr(13) & "	    AND DET.ESTANTE = UBI.ESTANTE	"
+            Sql &= Chr(13) & "	    AND DET.FILA = UBI.FILA	"
+            Sql &= Chr(13) & "	    AND DET.COLUMNA = UBI.COLUMNA	"
             Sql &= Chr(13) & "	WHERE P.COD_CIA = " & SCM(COD_CIA)
             Sql &= Chr(13) & "	AND P.COD_SUCUR = " & SCM(COD_SUCUR)
             Sql &= Chr(13) & "	AND P.COD_PROD = " & SCM(COD_PROD)
+            Sql &= Chr(13) & "	AND DET.ESTANTE = " & SCM(ESTANTE)
+            Sql &= Chr(13) & "	AND DET.FILA = " & SCM(FILA)
+            Sql &= Chr(13) & "	AND DET.COLUMNA = " & SCM(COLUMNA)
 
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(Sql)
@@ -753,6 +765,31 @@ Public Class Factura
 
             If DS.Tables(0).Rows.Count > 0 Then
                 Resultado = FMC(DS.Tables(0).Rows(0).Item("CANTIDAD"))
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+
+        Return Resultado
+
+    End Function
+
+    Private Function Descuento_Maximo(ByVal COD_PROD As String) As Integer
+        Dim Resultado As Integer = 0
+        Try
+            Dim Sql = "	SELECT ISNULL(DESCUENTO, 0) AS DESCUENTO  "
+            Sql &= Chr(13) & "	FROM PRODUCTO "
+            Sql &= Chr(13) & "	WHERE COD_CIA = " & SCM(COD_CIA)
+            Sql &= Chr(13) & "	AND COD_SUCUR = " & SCM(COD_SUCUR)
+            Sql &= Chr(13) & "	AND COD_PROD = " & SCM(COD_PROD)
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(Sql)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                Resultado = FMC(DS.Tables(0).Rows(0).Item("DESCUENTO"))
             End If
 
         Catch ex As Exception

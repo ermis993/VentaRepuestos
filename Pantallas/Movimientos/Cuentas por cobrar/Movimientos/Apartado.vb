@@ -626,7 +626,8 @@ Public Class Apartado
     Private Sub Proceso(ByVal codigo As String, ByVal estante As String, ByVal fila As String, ByVal columna As String)
         TXT_CODIGO.Text = codigo
 
-        Dim Saldo_Producto As Decimal = Saldo_Actual(codigo, estante, fila, columna)
+        RellenaProducto(estante, fila, columna)
+        Dim Saldo_Producto As Decimal = Saldo_Actual(codigo, TXT_ESTANTE.Text, TXT_FILA.Text, TXT_COLUMNA.Text)
         Dim Minimo_Stock As Decimal = Min_Stock(codigo)
 
         If ((IND_VENTAS_NEGATIVAS = "S" And Saldo_Producto <= 0.0) Or Saldo_Producto > 0.0) Then
@@ -635,7 +636,6 @@ Public Class Apartado
                 MessageBox.Show(Me, "El producto está llegando a su mínimo actualmente el saldo es: " & FMC(Saldo_Producto), "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
 
-            RellenaProducto(estante, fila, columna)
             Busca_Producto(True)
             TXT_CANTIDAD.Focus()
         Else
@@ -925,5 +925,33 @@ Public Class Apartado
         End If
 
         TextBrush.Dispose()
+    End Sub
+
+    Private Sub BTN_BUSCAR_Click(sender As Object, e As EventArgs) Handles BTN_BUSCAR.Click
+        Try
+            Dim PANTALLA As New ConsultaSaldos(Me)
+            AddHandler PANTALLA.FormClosed, AddressOf Pantalla_Cerrada
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Public Sub EnvioCodigoConsultaSaldos(ByVal codigo As String)
+        Try
+            TXT_CODIGO.Text = codigo
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub Pantalla_Cerrada(sender As Object, e As FormClosedEventArgs)
+        If Not String.IsNullOrEmpty(TXT_CODIGO.Text) Then
+            Busca_Producto(False)
+        End If
+    End Sub
+
+    Private Sub Apartado_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        BTN_FACTURAR.Enabled = TieneDerecho("DRFACDOC")
     End Sub
 End Class

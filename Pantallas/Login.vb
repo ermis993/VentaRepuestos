@@ -24,7 +24,9 @@ Public Class Login
             'VEGA TURRIALBA
             'CONX.Inicializar_cadena_conexion("DESKTOP-KN02T18,1433", "sa", "1234", "VR")
             'CONX_SIC.ConexionSTR("DESKTOP-KN02T18,1433", "sa", "1234", "INFORMACION_SIC")
-
+            'REPUESTOS LUNA
+            'CONX.ConexionSTR("DESKTOP-QT8JTJF,1433", "sa", "union1234", "VR_REPLUNA")
+            'CONX_SIC.ConexionSTR("DESKTOP-QT8JTJF,1433", "sa", "union1234", "INFORMACION_SIC")
         Catch ex As Exception
         End Try
     End Sub

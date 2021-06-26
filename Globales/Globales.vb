@@ -359,6 +359,39 @@ Public Class Globales
         End Try
     End Function
 
+    Public Shared Function EXISTE_DERECHO(ByVal COD_DERECHO As String) As Boolean
+        Try
+            Dim EXISTE As Boolean = False
+            Dim SQL = "	SELECT *  "
+            SQL &= Chr(13) & " FROM SEGU_DERECHO "
+            SQL &= Chr(13) & " WHERE COD_DERECHO = " & SCM(COD_DERECHO)
+
+            CONX.Coneccion_Abrir()
+            Dim DS = CONX.EJECUTE_DS(SQL)
+            CONX.Coneccion_Cerrar()
+
+            If DS.Tables(0).Rows.Count > 0 Then
+                EXISTE = True
+            End If
+            Return EXISTE
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            Return False
+        End Try
+    End Function
+
+    Public Shared Sub CREAR_DERECHO(ByVal COD_DERECHO As String, ByVal DESCRIPCION As String)
+        Try
+            Dim SQL = "	INSERT INTO SEGU_DERECHO(COD_DERECHO,DESCRIPCION,ESTADO)"
+            SQL &= Chr(13) & " SELECT " & SCM(COD_DERECHO) & "," & SCM(DESCRIPCION) & ", 'A'"
+            CONX.Coneccion_Abrir()
+            CONX.EJECUTE(SQL)
+            CONX.Coneccion_Cerrar()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
     Public Shared Sub ELIMINA_PROCEDIMIENTO(ByVal PROCEDIMIENTO As String)
         Try
             Dim SQL = "DROP PROCEDURE IF EXISTS " & PROCEDIMIENTO
@@ -1061,4 +1094,18 @@ Public Class Globales
         End Try
     End Function
 
+
+    Public Shared Function BuscadorProducto(ByVal texto As String) As String
+        Try
+            Dim retorno As String = ""
+            Dim strArr() As String
+            strArr = texto.Split(" ")
+            For count = 0 To strArr.Length - 1
+                retorno &= Chr(13) & "	AND (P.DESCRIPCION LIKE " & SCM("%" + strArr(count) + "%") & " Or P.COD_PROD = " & SCM(strArr(count)) & " Or P.COD_BARRA = " & SCM(strArr(count)) & ")"
+            Next
+            Return retorno
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
 End Class

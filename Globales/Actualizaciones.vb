@@ -19,7 +19,7 @@ Public Class Actualizaciones
         RUTA_ADJUNTOS = "C:\ENVIOS"
         RUTA_BACKUP = "C:\BACKUPS"
 
-        Dim Cantidad_Procesos As Integer = 95
+        Dim Cantidad_Procesos As Integer = 97
         Dim Cantidad_Actual As Integer = 0
         ProgressBar.Value = 0
 
@@ -88,7 +88,8 @@ Public Class Actualizaciones
         Call ALTER_GUIA_UBICACION()
         Call ALTER_DOCUMENTO_GUIA_NUMERO_GUIA()
         Call ALTER_DOCUMENTO_GUIA_UBICACION_NUMERO_GUIA()
-        Cantidad_Actual += 5
+        Call CXP_DOCUMENTOS_ELECTRONICOS_DET_CABYS()
+        Cantidad_Actual += 6
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
 
         'TIPOS
@@ -155,6 +156,12 @@ Public Class Actualizaciones
 
         Cantidad_Actual += 1
         ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
+
+        'DERECHOS
+        Call PROCESAR_DERECHOS()
+
+        Cantidad_Actual += 1
+        ActualizaProgressBar(ProgressBar, Cantidad_Actual, Cantidad_Procesos)
     End Sub
 
 #Region "Metodos"
@@ -168,6 +175,8 @@ Public Class Actualizaciones
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
+#End Region
 
 #Region "Tablas"
     Private Sub APARTADO_ENC_TMP()
@@ -5488,6 +5497,20 @@ Public Class Actualizaciones
         End Try
     End Sub
 
+    Private Sub CXP_DOCUMENTOS_ELECTRONICOS_DET_CABYS()
+        Try
+            If Not EXISTE_CAMPO_TIPO("CABYS", "CXP_DOCUMENTOS_ELECTRONICOS_DET", "VARCHAR", 13) Then
+                Dim SQL = "	ALTER TABLE CXP_DOCUMENTOS_ELECTRONICOS_DET	"
+                SQL &= Chr(13) & "	ADD CABYS VARCHAR(13) NULL "
+                CONX.Coneccion_Abrir()
+                CONX.EJECUTE(SQL)
+                CONX.Coneccion_Cerrar()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
 #End Region
 
 #Region "Tipos"
@@ -5516,7 +5539,7 @@ Public Class Actualizaciones
 
     Private Sub PROC_ESPECIAL_USP_PROCESA_DOCUMENTOS_XML()
         Try
-            If Not EXISTE_PROCEDIMIENTO("USP_PROCESA_DOCUMENTOS_XML", "2021-05-22") Then
+            If Not EXISTE_PROCEDIMIENTO("USP_PROCESA_DOCUMENTOS_XML", "2021-06-25") Then
                 ELIMINA_PROCEDIMIENTO("USP_PROCESA_DOCUMENTOS_XML")
 
                 CONX.Coneccion_Abrir()
@@ -5551,46 +5574,74 @@ Public Class Actualizaciones
                 CONX.EJECUTE(SQL)
 
 
+                SQL = "	DROP TYPE [dbo].[TP_CXP_DOCUMENTOS_ELECTRONICOS_DET]"
+                CONX.EJECUTE(SQL)
+
+                SQL = " CREATE TYPE [dbo].[TP_CXP_DOCUMENTOS_ELECTRONICOS_DET] As TABLE(																									"
+                SQL &= Chr(13) & "		[CLAVE] [varchar](50) Not NULL,																								"
+                SQL &= Chr(13) & "		[CEDULA] [varchar](25) Not NULL,																								"
+                SQL &= Chr(13) & "		[TIPO_MOV] [varchar](2) Not NULL,																								"
+                SQL &= Chr(13) & "		[LINEA] [int] Not NULL,																								"
+                SQL &= Chr(13) & "		[TIPO] [varchar](2) NULL,																								"
+                SQL &= Chr(13) & "		[CODIGO] [varchar](20) NULL,																								"
+                SQL &= Chr(13) & "		[CANTIDAD] [decimal](16, 3) NULL,																								"
+                SQL &= Chr(13) & "		[DETALLE] [varchar](200) NULL,																								"
+                SQL &= Chr(13) & "		[PRECIO_UNITARIO] [decimal](18, 5) NULL,																								"
+                SQL &= Chr(13) & "		[MONTO_SINIV] [decimal](18, 5) NULL,																								"
+                SQL &= Chr(13) & "		[MONTO_DESCUENTO] [decimal](18, 5) NULL,																								"
+                SQL &= Chr(13) & "		[CODIGO_IMP] [varchar](2) NULL,																								"
+                SQL &= Chr(13) & "		[TARIFA] [decimal](4, 2) NULL,																								"
+                SQL &= Chr(13) & "		[MONTO_IMP] [decimal](18, 5) NULL,																								"
+                SQL &= Chr(13) & "		[NETO_IMP] [decimal](18, 5) NULL,																								"
+                SQL &= Chr(13) & "		[TIPO_EXO] [varchar](2) NULL,																								"
+                SQL &= Chr(13) & "		[NUMERO_EXO] [varchar](40) NULL,																								"
+                SQL &= Chr(13) & "		[PORCENTAJE_EXO] [int] NULL,																								"
+                SQL &= Chr(13) & "		[MONTO_EXO] [decimal](18, 5) NULL,																								"
+                SQL &= Chr(13) & "		[MONTO_TOTAL_LINEA] [decimal](18, 5) NULL,																								"
+                SQL &= Chr(13) & "		[CABYS] [varchar] (13) NULL																								"
+                SQL &= Chr(13) & "	)																									"
+                CONX.EJECUTE(SQL)
+
                 SQL = "	CREATE PROCEDURE [dbo].[USP_PROCESA_DOCUMENTOS_XML]																																																																	"
-                SQL &= Chr(13) & "			@DT_DOCUMENTOS AS TP_CXP_DOCUMENTOS_ELECTRONICOS READONLY,																																																															"
-                SQL &= Chr(13) & "			@DT_DOCUMENTOS_DET AS TP_CXP_DOCUMENTOS_ELECTRONICOS_DET READONLY,																																																															"
+                SQL &= Chr(13) & "			@DT_DOCUMENTOS As TP_CXP_DOCUMENTOS_ELECTRONICOS ReadOnly,																																																															"
+                SQL &= Chr(13) & "			@DT_DOCUMENTOS_DET As TP_CXP_DOCUMENTOS_ELECTRONICOS_DET ReadOnly,																																																															"
                 SQL &= Chr(13) & "			@COD_CIA VARCHAR(3),																																																															"
                 SQL &= Chr(13) & "			@COD_SUCUR VARCHAR(3),																																																															"
                 SQL &= Chr(13) & "			@USUARIO VARCHAR(20)																																																															"
-                SQL &= Chr(13) & "			AS																																																															"
+                SQL &= Chr(13) & "			As																																																															"
                 SQL &= Chr(13) & "			    BEGIN																																																															"
-                SQL &= Chr(13) & "			    BEGIN TRY 																																																															"
+                SQL &= Chr(13) & "			    BEGIN Try 																																																															"
                 SQL &= Chr(13) & "			    BEGIN TRAN																																																															"
                 SQL &= Chr(13) & "		                			                			               		                																																																								"
                 SQL &= Chr(13) & "					CREATE TABLE #TP_CXP_DOCUMENTOS_ELECTRONICOS(																																																													"
-                SQL &= Chr(13) & "					[CLAVE] [varchar](50) NOT NULL,																																																													"
-                SQL &= Chr(13) & "					[CONSECUTIVO_P] [varchar](20) NOT NULL,																																																													"
-                SQL &= Chr(13) & "					[CEDULA] [varchar](25) NOT NULL,																																																													"
-                SQL &= Chr(13) & "					[TIPO_MOV] [varchar](2) NOT NULL,																																																													"
-                SQL &= Chr(13) & "					[FECHA] [datetime] NOT NULL,																																																													"
-                SQL &= Chr(13) & "					[PLAZO] [int] NOT NULL,																																																													"
-                SQL &= Chr(13) & "					[COD_MONEDA] [char](1) NOT NULL,																																																													"
-                SQL &= Chr(13) & "					[TOTAL_VENTA] [money] NOT NULL,																																																													"
-                SQL &= Chr(13) & "					[DESCUENTO] [money] NOT NULL,																																																													"
-                SQL &= Chr(13) & "					[OTROS_CARGOS] [money] NOT NULL,																																																													"
-                SQL &= Chr(13) & "					[IMPUESTO] [money] NOT NULL,																																																													"
-                SQL &= Chr(13) & "					[TOTAL] [money] NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[CLAVE] [varchar](50) Not NULL,																																																													"
+                SQL &= Chr(13) & "					[CONSECUTIVO_P] [varchar](20) Not NULL,																																																													"
+                SQL &= Chr(13) & "					[CEDULA] [varchar](25) Not NULL,																																																													"
+                SQL &= Chr(13) & "					[TIPO_MOV] [varchar](2) Not NULL,																																																													"
+                SQL &= Chr(13) & "					[FECHA] [datetime] Not NULL,																																																													"
+                SQL &= Chr(13) & "					[PLAZO] [int] Not NULL,																																																													"
+                SQL &= Chr(13) & "					[COD_MONEDA] [char](1) Not NULL,																																																													"
+                SQL &= Chr(13) & "					[TOTAL_VENTA] [money] Not NULL,																																																													"
+                SQL &= Chr(13) & "					[DESCUENTO] [money] Not NULL,																																																													"
+                SQL &= Chr(13) & "					[OTROS_CARGOS] [money] Not NULL,																																																													"
+                SQL &= Chr(13) & "					[IMPUESTO] [money] Not NULL,																																																													"
+                SQL &= Chr(13) & "					[TOTAL] [money] Not NULL,																																																													"
                 SQL &= Chr(13) & "					[TIPO_CAMBIO] [money] NULL,																																																													"
-                SQL &= Chr(13) & "					[IND_ESTADO] [char](1) NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[IND_ESTADO] [char](1) Not NULL,																																																													"
                 SQL &= Chr(13) & "					[COD_ACT_ECO] [varchar](6) NULL,																																																													"
                 SQL &= Chr(13) & "					[TIPO_INGRESO] [varchar](2) NULL,																																																													"
-                SQL &= Chr(13) & "					[CONDICION_IVA] [varchar](2) NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[CONDICION_IVA] [varchar](2) Not NULL,																																																													"
                 SQL &= Chr(13) & "					[POR_IMPUESTO] [int] NULL,																																																													"
-                SQL &= Chr(13) & "					[IMP_ACREDITAR] [money] NOT NULL,																																																													"
-                SQL &= Chr(13) & "					[GASTO_APLICABLE] [money] NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[IMP_ACREDITAR] [money] Not NULL,																																																													"
+                SQL &= Chr(13) & "					[GASTO_APLICABLE] [money] Not NULL,																																																													"
                 SQL &= Chr(13) & "					[DETALLE_MENSAJE] [varchar](160) NULL,																																																													"
-                SQL &= Chr(13) & "					[XML] [varchar](max) NOT NULL)																																																													"
+                SQL &= Chr(13) & "					[XML] [varchar](max) Not NULL)																																																													"
                 SQL &= Chr(13) & "																																																																		"
                 SQL &= Chr(13) & "					CREATE TABLE #TP_CXP_DOCUMENTOS_ELECTRONICOS_DET(																																																													"
-                SQL &= Chr(13) & "					[CLAVE] [varchar](50) NOT NULL,																																																													"
-                SQL &= Chr(13) & "					[CEDULA] [varchar](25) NOT NULL,																																																													"
-                SQL &= Chr(13) & "					[TIPO_MOV] [varchar](2) NOT NULL,																																																													"
-                SQL &= Chr(13) & "					[LINEA] [integer] NOT NULL,																																																													"
+                SQL &= Chr(13) & "					[CLAVE] [varchar](50) Not NULL,																																																													"
+                SQL &= Chr(13) & "					[CEDULA] [varchar](25) Not NULL,																																																													"
+                SQL &= Chr(13) & "					[TIPO_MOV] [varchar](2) Not NULL,																																																													"
+                SQL &= Chr(13) & "					[LINEA] [integer] Not NULL,																																																													"
                 SQL &= Chr(13) & "					[TIPO] [varchar](2) NULL,																																																													"
                 SQL &= Chr(13) & "					[CODIGO] [varchar](20) NULL,																																																													"
                 SQL &= Chr(13) & "					[CANTIDAD] [decimal](16,3) NULL,																																																													"
@@ -5606,20 +5657,22 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "					[NUMERO_EXO] [varchar](40) NULL,																																																													"
                 SQL &= Chr(13) & "					[PORCENTAJE_EXO] [int] NULL,																																																													"
                 SQL &= Chr(13) & "					[MONTO_EXO] [decimal](18,5) NULL,																																																													"
-                SQL &= Chr(13) & "					[MONTO_TOTAL_LINEA] [decimal](18,5) NULL)																																																													"
+                SQL &= Chr(13) & "					[MONTO_TOTAL_LINEA] [decimal](18,5) NULL,																																																												"
+                SQL &= Chr(13) & "		            [CABYS] [varchar] (13) NULL																								"
+                SQL &= Chr(13) & "	                )																									"
                 SQL &= Chr(13) & "			                			                			                			               		                																																																				"
                 SQL &= Chr(13) & "																																																																		"
                 SQL &= Chr(13) & "			        INSERT INTO  #TP_CXP_DOCUMENTOS_ELECTRONICOS																																																															"
-                SQL &= Chr(13) & "					SELECT * FROM @DT_DOCUMENTOS																																																													"
+                SQL &= Chr(13) & "					Select * FROM @DT_DOCUMENTOS																																																													"
                 SQL &= Chr(13) & "			                			                																																																												"
                 SQL &= Chr(13) & "					INSERT INTO  #TP_CXP_DOCUMENTOS_ELECTRONICOS_DET																																																													"
-                SQL &= Chr(13) & "					SELECT * FROM @DT_DOCUMENTOS_DET  																																																													"
+                SQL &= Chr(13) & "					Select * FROM @DT_DOCUMENTOS_DET  																																																													"
                 SQL &= Chr(13) & "																																																																		"
-                SQL &= Chr(13) & "					DECLARE @CONSEC VARCHAR(20)																																																													"
-                SQL &= Chr(13) & "					DECLARE @CONSEC_FE AS INTEGER																																																													"
+                SQL &= Chr(13) & "					Declare @CONSEC VARCHAR(20)																																																													"
+                SQL &= Chr(13) & "					Declare @CONSEC_FE As Integer																																																													"
                 SQL &= Chr(13) & "																																																																		"
-                SQL &= Chr(13) & "					SET @CONSEC = @COD_SUCUR --CASA MATRIZ																																																													"
-                SQL &= Chr(13) & "					SET @CONSEC += '00001' --TERMINAL 																																																													"
+                SQL &= Chr(13) & "					Set @CONSEC = @COD_SUCUR --CASA MATRIZ																																																													"
+                SQL &= Chr(13) & "					Set @CONSEC += '00001' --TERMINAL 																																																													"
                 SQL &= Chr(13) & "					SET @CONSEC += (SELECT CASE WHEN DOC.IND_ESTADO ='A' THEN '05' WHEN DOC.IND_ESTADO ='R' THEN '07' WHEN DOC.IND_ESTADO ='P' THEN '06' END --ESTADO DEL DOCUMENTO																																																													"
                 SQL &= Chr(13) & "					FROM @DT_DOCUMENTOS AS DOC)																																																													"
                 SQL &= Chr(13) & "					SET @CONSEC_FE = (SELECT ISNULL(MAX(CONSECUTIVO_FE)+1,1) FROM CXP_DOCUMENTOS_ELECTRONICOS WHERE COD_CIA=@COD_CIA AND COD_SUCUR = @COD_SUCUR)--ULTIMO CONSECUTIVO																																																													"
@@ -5639,8 +5692,8 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "							SELECT @COD_CIA,@COD_SUCUR,DOC.CLAVE,@CONSEC,@CONSEC_FE,DOC.CONSECUTIVO_P,DOC.CEDULA,DOC.TIPO_MOV,DOC.FECHA,GETDATE(),DOC.PLAZO,DOC.COD_MONEDA,DOC.TOTAL_VENTA,DOC.DESCUENTO,DOC.OTROS_CARGOS,DOC.IMPUESTO,DOC.TOTAL,DOC.TIPO_CAMBIO,DOC.IND_ESTADO,DOC.COD_ACT_ECO,DOC.CONDICION_IVA,DOC.POR_IMPUESTO,DOC.IMP_ACREDITAR,DOC.TOTAL - ISNULL(DOC.IMP_ACREDITAR,0),DOC.DETALLE_MENSAJE,@USUARIO,DOC.XML,DOC.TIPO_INGRESO																																																											"
                 SQL &= Chr(13) & "							FROM @DT_DOCUMENTOS AS DOC																																																											"
                 SQL &= Chr(13) & "																																																																		"
-                SQL &= Chr(13) & "							INSERT INTO CXP_DOCUMENTOS_ELECTRONICOS_DET(COD_CIA,COD_SUCUR,CEDULA,CLAVE,TIPO_MOV,LINEA,TIPO,CODIGO,CANTIDAD,DETALLE,PRECIO_UNITARIO,MONTO_SINIV,MONTO_DESCUENTO,CODIGO_IMP,TARIFA,MONTO_IMP,NETO_IMP,TIPO_EXO,NUMERO_EXO,PORCENTAJE_EXO,MONTO_EXO,MONTO_TOTAL_LINEA)																																																											"
-                SQL &= Chr(13) & "							SELECT @COD_CIA,@COD_SUCUR,DET.CEDULA,DET.CLAVE,DET.TIPO_MOV,DET.LINEA,DET.TIPO,DET.CODIGO,DET.CANTIDAD,DET.DETALLE,DET.PRECIO_UNITARIO,DET.MONTO_SINIV,DET.MONTO_DESCUENTO,DET.CODIGO_IMP,DET.TARIFA,DET.MONTO_IMP,DET.NETO_IMP,DET.TIPO_EXO,DET.NUMERO_EXO,DET.PORCENTAJE_EXO,DET.MONTO_EXO,DET.MONTO_TOTAL_LINEA																																																											"
+                SQL &= Chr(13) & "							INSERT INTO CXP_DOCUMENTOS_ELECTRONICOS_DET(COD_CIA,COD_SUCUR,CEDULA,CLAVE,TIPO_MOV,LINEA,TIPO,CODIGO,CANTIDAD,DETALLE,PRECIO_UNITARIO,MONTO_SINIV,MONTO_DESCUENTO,CODIGO_IMP,TARIFA,MONTO_IMP,NETO_IMP,TIPO_EXO,NUMERO_EXO,PORCENTAJE_EXO,MONTO_EXO,MONTO_TOTAL_LINEA,CABYS)																																																											"
+                SQL &= Chr(13) & "							SELECT @COD_CIA,@COD_SUCUR,DET.CEDULA,DET.CLAVE,DET.TIPO_MOV,DET.LINEA,DET.TIPO,DET.CODIGO,DET.CANTIDAD,DET.DETALLE,DET.PRECIO_UNITARIO,DET.MONTO_SINIV,DET.MONTO_DESCUENTO,DET.CODIGO_IMP,DET.TARIFA,DET.MONTO_IMP,DET.NETO_IMP,DET.TIPO_EXO,DET.NUMERO_EXO,DET.PORCENTAJE_EXO,DET.MONTO_EXO,DET.MONTO_TOTAL_LINEA,DET.CABYS																																																											"
                 SQL &= Chr(13) & "							FROM @DT_DOCUMENTOS_DET AS DET																																																											"
                 SQL &= Chr(13) & "																																																																		"
                 SQL &= Chr(13) & "						END	   																																																											"
@@ -5670,8 +5723,8 @@ Public Class Actualizaciones
                 SQL &= Chr(13) & "							SELECT @COD_CIA,@COD_SUCUR,DOC.CLAVE,@CONSEC,@CONSEC_FE,DOC.CONSECUTIVO_P,DOC.CEDULA,DOC.TIPO_MOV,DOC.FECHA,GETDATE(),DOC.PLAZO,DOC.COD_MONEDA,DOC.TOTAL_VENTA,DOC.DESCUENTO,DOC.OTROS_CARGOS,DOC.IMPUESTO,DOC.TOTAL,DOC.TIPO_CAMBIO,DOC.IND_ESTADO,DOC.COD_ACT_ECO,DOC.CONDICION_IVA,DOC.POR_IMPUESTO,DOC.IMP_ACREDITAR,DOC.GASTO_APLICABLE,DOC.DETALLE_MENSAJE,@USUARIO,DOC.XML,DOC.TIPO_INGRESO																																																											"
                 SQL &= Chr(13) & "							FROM @DT_DOCUMENTOS AS DOC																																																											"
                 SQL &= Chr(13) & "																																																																		"
-                SQL &= Chr(13) & "							INSERT INTO CXP_DOCUMENTOS_ELECTRONICOS_DET(COD_CIA,COD_SUCUR,CEDULA,CLAVE,TIPO_MOV,LINEA,TIPO,CODIGO,CANTIDAD,DETALLE,PRECIO_UNITARIO,MONTO_SINIV,MONTO_DESCUENTO,CODIGO_IMP,TARIFA,MONTO_IMP,NETO_IMP,TIPO_EXO,NUMERO_EXO,PORCENTAJE_EXO,MONTO_EXO,MONTO_TOTAL_LINEA)																																																											"
-                SQL &= Chr(13) & "							SELECT @COD_CIA,@COD_SUCUR,DET.CEDULA,DET.CLAVE,DET.TIPO_MOV,DET.LINEA,DET.TIPO,DET.CODIGO,DET.CANTIDAD,DET.DETALLE,DET.PRECIO_UNITARIO,DET.MONTO_SINIV,DET.MONTO_DESCUENTO,DET.CODIGO_IMP,DET.TARIFA,DET.MONTO_IMP,DET.NETO_IMP,DET.TIPO_EXO,DET.NUMERO_EXO,DET.PORCENTAJE_EXO,DET.MONTO_EXO,DET.MONTO_TOTAL_LINEA																																																											"
+                SQL &= Chr(13) & "							INSERT INTO CXP_DOCUMENTOS_ELECTRONICOS_DET(COD_CIA,COD_SUCUR,CEDULA,CLAVE,TIPO_MOV,LINEA,TIPO,CODIGO,CANTIDAD,DETALLE,PRECIO_UNITARIO,MONTO_SINIV,MONTO_DESCUENTO,CODIGO_IMP,TARIFA,MONTO_IMP,NETO_IMP,TIPO_EXO,NUMERO_EXO,PORCENTAJE_EXO,MONTO_EXO,MONTO_TOTAL_LINEA,CABYS)																																																											"
+                SQL &= Chr(13) & "							SELECT @COD_CIA,@COD_SUCUR,DET.CEDULA,DET.CLAVE,DET.TIPO_MOV,DET.LINEA,DET.TIPO,DET.CODIGO,DET.CANTIDAD,DET.DETALLE,DET.PRECIO_UNITARIO,DET.MONTO_SINIV,DET.MONTO_DESCUENTO,DET.CODIGO_IMP,DET.TARIFA,DET.MONTO_IMP,DET.NETO_IMP,DET.TIPO_EXO,DET.NUMERO_EXO,DET.PORCENTAJE_EXO,DET.MONTO_EXO,DET.MONTO_TOTAL_LINEA,DET.CABYS																																																											"
                 SQL &= Chr(13) & "							FROM @DT_DOCUMENTOS_DET AS DET																																																											"
                 SQL &= Chr(13) & "																																																																		"
                 SQL &= Chr(13) & "						END																																																												"
@@ -5695,5 +5748,94 @@ Public Class Actualizaciones
 
 #End Region
 
+#Region "Derechos"
+    Private Sub PROCESAR_DERECHOS()
+        Try
+            If Not EXISTE_DERECHO("DRFACDOC") Then
+                CREAR_DERECHO("DRFACDOC", "Derecho a facturar documento por cobrar")
+                If Not EXISTE_DERECHO("VREB") Then
+                    CREAR_DERECHO("VREB", "Derecho a realizar recibos y notas de crédito")
+                    If Not EXISTE_DERECHO("VFACTS") Then
+                        CREAR_DERECHO("VFACTS", "Derecho a realizar facturas y notas de débito")
+                        If Not EXISTE_DERECHO("FECREP") Then
+                            CREAR_DERECHO("FECREP", "Derecho a modificar las fechas de los reportes")
+                            If Not EXISTE_DERECHO("DRIMPETI") Then
+                                CREAR_DERECHO("DRIMPETI", "Derecho a reimprimir etiquetas de encomiendas")
+                                If Not EXISTE_DERECHO("DPROFOR") Then
+                                    CREAR_DERECHO("DPROFOR", "Derecho a realizar proformas")
+                                    If Not EXISTE_DERECHO("DINVTR") Then
+                                        CREAR_DERECHO("DINVTR", "Derecho a revisar el tracking de inventario para un producto")
+                                        If Not EXISTE_DERECHO("DINVAJ") Then
+                                            CREAR_DERECHO("DINVAJ", "Derecho a realizar ajustes de inventario")
+                                            If Not EXISTE_DERECHO("DINRUTA") Then
+                                                CREAR_DERECHO("DINRUTA", "Derecho al mantenimiento de rutas de encomienda")
+                                                If Not EXISTE_DERECHO("DAPAR") Then
+                                                    CREAR_DERECHO("DAPAR", "Derecho a realizar apartados")
+                                                    If Not EXISTE_DERECHO("APART") Then
+                                                        CREAR_DERECHO("APART", "Derecho a anular documentos")
+                                                        If Not EXISTE_DERECHO("DBITA") Then
+                                                            CREAR_DERECHO("DBITA", "Derecho a realizar consultas de bitácoras")
+                                                            If Not EXISTE_DERECHO("DINV") Then
+                                                                CREAR_DERECHO("DINV", "Derecho a la pantalla de inventario")
+                                                                If Not EXISTE_DERECHO("DXML") Then
+                                                                    CREAR_DERECHO("DXML", "Derecho a importar XMLs")
+                                                                    If Not EXISTE_DERECHO("DCONS") Then
+                                                                        CREAR_DERECHO("DCONS", "Derecho a realizar consultas de productos")
+                                                                        If Not EXISTE_DERECHO("DENC") Then
+                                                                            CREAR_DERECHO("DENC", "Derecho al mantenimiento de encomiendas")
+                                                                            If Not EXISTE_DERECHO("DREPT") Then
+                                                                                CREAR_DERECHO("DREPT", "Derecho a realizar reportes")
+                                                                                If Not EXISTE_DERECHO("DBACK") Then
+                                                                                    CREAR_DERECHO("DBACK", "Derecho a realizar Backups")
+                                                                                    If Not EXISTE_DERECHO("DCOMP") Then
+                                                                                        CREAR_DERECHO("DCOMP", "Derecho a realizar compras")
+                                                                                        If Not EXISTE_DERECHO("DVEN") Then
+                                                                                            CREAR_DERECHO("DVEN", "Derecho a realizar ventas")
+                                                                                            If Not EXISTE_DERECHO("DPROD") Then
+                                                                                                CREAR_DERECHO("DPROD", "Derecho al mantenimiento de productos")
+                                                                                                If Not EXISTE_DERECHO("DFAM") Then
+                                                                                                    CREAR_DERECHO("DFAM", "Derecho al mantenimiento de familias")
+                                                                                                    If Not EXISTE_DERECHO("DPROV") Then
+                                                                                                        CREAR_DERECHO("DPROV", "Derecho al mantenimiento de proveedores")
+                                                                                                        If Not EXISTE_DERECHO("DCLI") Then
+                                                                                                            CREAR_DERECHO("DCLI", "Derecho al mantenimiento de clientes")
+                                                                                                            If Not EXISTE_DERECHO("DUSU") Then
+                                                                                                                CREAR_DERECHO("DUSU", "Derecho al mantenimiento de usuarios")
+                                                                                                                If Not EXISTE_DERECHO("DSUC") Then
+                                                                                                                    CREAR_DERECHO("DSUC", "Derecho al mantenimiento de sucursales")
+                                                                                                                    If Not EXISTE_DERECHO("DCIA") Then
+                                                                                                                        CREAR_DERECHO("DCIA", "Derecho al mantenimiento de compañías")
+                                                                                                                    End If
+                                                                                                                End If
+                                                                                                            End If
+                                                                                                        End If
+                                                                                                    End If
+                                                                                                End If
+                                                                                            End If
+                                                                                        End If
+                                                                                    End If
+                                                                                End If
+                                                                            End If
+                                                                        End If
+                                                                    End If
+                                                                End If
+                                                            End If
+                                                        End If
+                                                    End If
+                                                End If
+                                            End If
+                                        End If
+                                    End If
+                                End If
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 #End Region
+
 End Class

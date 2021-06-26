@@ -412,7 +412,6 @@ Public Class Proforma
         End Try
 
         Return Resultado
-
     End Function
 
     Private Sub BTN_INGRESAR_Click(sender As Object, e As EventArgs) Handles BTN_INGRESAR.Click
@@ -692,7 +691,8 @@ Public Class Proforma
     Private Sub Proceso(ByVal codigo As String, ByVal estante As String, ByVal fila As String, ByVal columna As String)
         TXT_CODIGO.Text = codigo
 
-        Dim Saldo_Producto As Decimal = Saldo_Actual(codigo)
+        RellenaProducto(estante, fila, columna)
+        Dim Saldo_Producto As Decimal = Saldo_Actual(codigo, TXT_ESTANTE.Text, TXT_FILA.Text, TXT_COLUMNA.Text)
         Dim Minimo_Stock As Decimal = Min_Stock(codigo)
 
         'If ((IND_VENTAS_NEGATIVAS = "S" And Saldo_Producto <= 0.0) Or Saldo_Producto > 0.0) Then
@@ -701,7 +701,6 @@ Public Class Proforma
             MessageBox.Show(Me, "El producto está llegando a su mínimo actualmente el saldo es: " & FMC(Saldo_Producto), "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If
 
-        RellenaProducto(estante, fila, columna)
         RellenaExoneracion()
         Busca_Producto(True)
         TXT_CANTIDAD.Focus()
@@ -710,18 +709,28 @@ Public Class Proforma
         'End If
     End Sub
 
-    Private Function Saldo_Actual(ByVal COD_PROD As String) As Decimal
+    Private Function Saldo_Actual(ByVal COD_PROD As String, ByVal ESTANTE As String, ByVal FILA As String, ByVal COLUMNA As String) As Decimal
         Dim Resultado As Decimal = 0.0
         Try
             Dim Sql = "	SELECT ISNULL(SUM(DET.CANTIDAD), 0) AS CANTIDAD  "
             Sql &= Chr(13) & "	FROM PRODUCTO AS P	"
+            Sql &= Chr(13) & "	LEFT JOIN PRODUCTO_UBICACION AS UBI	"
+            Sql &= Chr(13) & "	    ON UBI.COD_CIA = P.COD_CIA	"
+            Sql &= Chr(13) & "	    AND UBI.COD_SUCUR = P.COD_SUCUR	"
+            Sql &= Chr(13) & "	    AND UBI.COD_PROD = P.COD_PROD	"
             Sql &= Chr(13) & "	LEFT JOIN INVENTARIO_MOV_DET AS DET	"
-            Sql &= Chr(13) & "	    ON DET.COD_CIA = P.COD_CIA	"
-            Sql &= Chr(13) & "	    AND DET.COD_SUCUR = P.COD_SUCUR	"
-            Sql &= Chr(13) & "	    AND DET.COD_PROD = P.COD_PROD	"
+            Sql &= Chr(13) & "	    ON DET.COD_CIA = UBI.COD_CIA	"
+            Sql &= Chr(13) & "	    AND DET.COD_SUCUR = UBI.COD_SUCUR	"
+            Sql &= Chr(13) & "	    AND DET.COD_PROD = UBI.COD_PROD	"
+            Sql &= Chr(13) & "	    AND DET.ESTANTE = UBI.ESTANTE	"
+            Sql &= Chr(13) & "	    AND DET.FILA = UBI.FILA	"
+            Sql &= Chr(13) & "	    AND DET.COLUMNA = UBI.COLUMNA	"
             Sql &= Chr(13) & "	WHERE P.COD_CIA = " & SCM(COD_CIA)
             Sql &= Chr(13) & "	AND P.COD_SUCUR = " & SCM(COD_SUCUR)
             Sql &= Chr(13) & "	AND P.COD_PROD = " & SCM(COD_PROD)
+            Sql &= Chr(13) & "	AND DET.ESTANTE = " & SCM(ESTANTE)
+            Sql &= Chr(13) & "	AND DET.FILA = " & SCM(FILA)
+            Sql &= Chr(13) & "	AND DET.COLUMNA = " & SCM(COLUMNA)
 
             CONX.Coneccion_Abrir()
             Dim DS = CONX.EJECUTE_DS(Sql)
@@ -1070,4 +1079,31 @@ Public Class Proforma
         TextBrush.Dispose()
     End Sub
 
+    Private Sub BTN_BUSCAR_Click(sender As Object, e As EventArgs) Handles BTN_BUSCAR.Click
+        Try
+            Dim PANTALLA As New ConsultaSaldos(Me)
+            AddHandler PANTALLA.FormClosed, AddressOf Pantalla_Cerrada
+            PANTALLA.ShowDialog()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Public Sub EnvioCodigoConsultaSaldos(ByVal codigo As String)
+        Try
+            TXT_CODIGO.Text = codigo
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub Pantalla_Cerrada(sender As Object, e As FormClosedEventArgs)
+        If Not String.IsNullOrEmpty(TXT_CODIGO.Text) Then
+            Busca_Producto(False)
+        End If
+    End Sub
+
+    Private Sub Proforma_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        BTN_FACTURAR.Enabled = TieneDerecho("DRFACDOC")
+    End Sub
 End Class

@@ -5,6 +5,7 @@ Public Class ProductoVerificacion
     Dim COD_PROD As String
     Dim DESC_PROD As String
     Dim CEDULA As String
+    Dim CABYS As String
     Dim TARIFA As Integer
     Dim PC As Decimal
     Dim CONSULTA_FILTRO As String = ""
@@ -15,7 +16,7 @@ Public Class ProductoVerificacion
     End Sub
 
     Private Sub FORMATO_GRID()
-        GRID.ColumnCount = 5
+        GRID.ColumnCount = 6
         GRID.Columns(0).HeaderText = "Código"
         GRID.Columns(0).Name = "CODIGO"
         GRID.Columns(1).HeaderText = "Descripción"
@@ -26,6 +27,8 @@ Public Class ProductoVerificacion
         GRID.Columns(3).Name = "TARIFA"
         GRID.Columns(4).HeaderText = "Proveedor"
         GRID.Columns(4).Name = "CEDULA"
+        GRID.Columns(5).HeaderText = "Código CABYS"
+        GRID.Columns(5).Name = "CABYS"
         Filtro.FILTRO_CARGAR_COMBO(GRID)
     End Sub
     Private Sub Leer_indice()
@@ -37,6 +40,7 @@ Public Class ProductoVerificacion
                 PC = FMC(seleccionado.Cells(2).Value.ToString, 4)
                 TARIFA = Val(seleccionado.Cells(3).Value.ToString)
                 CEDULA = seleccionado.Cells(4).Value.ToString
+                CABYS = seleccionado.Cells(5).Value.ToString
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -53,7 +57,7 @@ Public Class ProductoVerificacion
                 GRID.Rows.Clear()
                 GRID.DataSource = Nothing
                 Dim sql = "	SELECT PROD_E.CODIGO, REPLACE(UPPER(PROD_E.DETALLE), '*', '') AS DETALLE, PROD_E.TARIFA, MAX((PROD_E.MONTO_SINIV - ISNULL(PROD_E.MONTO_DESCUENTO, 0)) / PROD_E.CANTIDAD) AS PRECIO_COSTO	"
-                sql &= Chr(13) & "  ,ENC.CEDULA"
+                sql &= Chr(13) & "  ,ENC.CEDULA, ISNULL(PROD_E.CABYS, '') AS CABYS"
                 sql &= Chr(13) & "	FROM CXP_DOCUMENTOS_ELECTRONICOS_DET AS PROD_E	"
                 sql &= Chr(13) & "	INNER JOIN CXP_DOCUMENTOS_ELECTRONICOS AS ENC	"
                 sql &= Chr(13) & "		ON ENC.COD_CIA = PROD_E.COD_CIA	"
@@ -79,7 +83,7 @@ Public Class ProductoVerificacion
                 sql &= Chr(13) & "	AND PROD_E.CODIGO IS NOT NULL"
                 sql &= Chr(13) & "	AND DES.COD_PROD IS NULL"
                 sql &= Chr(13) & CONSULTA_FILTRO
-                sql &= Chr(13) & "	GROUP BY PROD_E.CODIGO, UPPER(PROD_E.DETALLE), PROD_E.TARIFA, ENC.CEDULA"
+                sql &= Chr(13) & "	GROUP BY PROD_E.CODIGO, UPPER(PROD_E.DETALLE), PROD_E.TARIFA, ENC.CEDULA, PROD_E.CABYS"
                 sql &= Chr(13) & "	ORDER BY DETALLE ASC	"
 
                 CONX.Coneccion_Abrir()
@@ -93,7 +97,7 @@ Public Class ProductoVerificacion
 
                         PB_CARGA.Increment(Calculo)
 
-                        Dim row As String() = New String() {ITEM("CODIGO"), ITEM("DETALLE"), FMCP(ITEM("PRECIO_COSTO"), 4), Val(ITEM("TARIFA")), ITEM("CEDULA")}
+                        Dim row As String() = New String() {ITEM("CODIGO"), ITEM("DETALLE"), FMCP(ITEM("PRECIO_COSTO"), 4), Val(ITEM("TARIFA")), ITEM("CEDULA"), ITEM("CABYS")}
                         GRID.Rows.Add(row)
                     Next
                     LBL_PROD_VERIFICADOS.Text = Cantidad_Registros
@@ -187,6 +191,7 @@ Public Class ProductoVerificacion
                 TXT_PU.Text = FMCP(PC)
                 TXT_TARIFA.Text = TARIFA
                 TXT_CEDULA.Text = CEDULA
+                TXT_CABYS.Text = CABYS
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -203,7 +208,7 @@ Public Class ProductoVerificacion
                     Dim PANTALLA As New ProductoEnlaze(TXT_CODIGO.Text, TXT_DESCRIPCION.Text, Me)
                     PANTALLA.ShowDialog()
                 Else
-                    Dim PANTALLA As New ProductoMant(CRF_Modos.Formula, Me, COD_PROD, TXT_DESCRIPCION.Text, Val(TXT_TARIFA.Text), FMC(TXT_PU.Text), TXT_CEDULA.Text)
+                    Dim PANTALLA As New ProductoMant(CRF_Modos.Formula, Me, COD_PROD, TXT_DESCRIPCION.Text, Val(TXT_TARIFA.Text), FMC(TXT_PU.Text), TXT_CEDULA.Text, TXT_CABYS.Text)
                     PANTALLA.ShowDialog()
                 End If
             End If

@@ -57,6 +57,7 @@ Partial Class Apartado
         Me.CMB_FORMAPAGO = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.TAB_DET = New System.Windows.Forms.TabPage()
+        Me.BTN_BUSCAR = New System.Windows.Forms.Button()
         Me.TXT_FILA = New System.Windows.Forms.TextBox()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.TXT_ESTANTE = New System.Windows.Forms.TextBox()
@@ -492,6 +493,7 @@ Partial Class Apartado
         '
         'TAB_DET
         '
+        Me.TAB_DET.Controls.Add(Me.BTN_BUSCAR)
         Me.TAB_DET.Controls.Add(Me.TXT_FILA)
         Me.TAB_DET.Controls.Add(Me.Label27)
         Me.TAB_DET.Controls.Add(Me.TXT_ESTANTE)
@@ -525,6 +527,15 @@ Partial Class Apartado
         Me.TAB_DET.TabIndex = 1
         Me.TAB_DET.Text = "[ Detalle ]"
         Me.TAB_DET.UseVisualStyleBackColor = True
+        '
+        'BTN_BUSCAR
+        '
+        Me.BTN_BUSCAR.Image = Global.VentaRepuestos.My.Resources.Resources.filtrar
+        Me.BTN_BUSCAR.Location = New System.Drawing.Point(484, 12)
+        Me.BTN_BUSCAR.Name = "BTN_BUSCAR"
+        Me.BTN_BUSCAR.Size = New System.Drawing.Size(26, 28)
+        Me.BTN_BUSCAR.TabIndex = 40
+        Me.BTN_BUSCAR.UseVisualStyleBackColor = True
         '
         'TXT_FILA
         '
@@ -744,7 +755,7 @@ Partial Class Apartado
         Me.TXT_CODIGO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.TXT_CODIGO.Location = New System.Drawing.Point(132, 13)
         Me.TXT_CODIGO.Name = "TXT_CODIGO"
-        Me.TXT_CODIGO.Size = New System.Drawing.Size(378, 24)
+        Me.TXT_CODIGO.Size = New System.Drawing.Size(348, 24)
         Me.TXT_CODIGO.TabIndex = 1
         '
         'TXT_IMPUESTO
@@ -1033,4 +1044,5 @@ Partial Class Apartado
     Friend WithEvents BTN_CALCULAR As Button
     Friend WithEvents TAB_LINEAS As TabPage
     Friend WithEvents GRID As DataGridView
+    Friend WithEvents BTN_BUSCAR As Button
 End Class

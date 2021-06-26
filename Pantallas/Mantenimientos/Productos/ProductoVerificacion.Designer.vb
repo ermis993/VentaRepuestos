@@ -29,6 +29,8 @@ Partial Class ProductoVerificacion
         Me.Label1 = New System.Windows.Forms.Label()
         Me.LBL_PROD_VERIFICADOS = New System.Windows.Forms.Label()
         Me.GRID = New System.Windows.Forms.DataGridView()
+        Me.MNU_DESECHAR = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.DesecharProductoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_SALIR = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.TXT_CEDULA = New System.Windows.Forms.TextBox()
@@ -43,11 +45,11 @@ Partial Class ProductoVerificacion
         Me.TXT_CODIGO = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Filtro = New VentaRepuestos.Filtro()
-        Me.MNU_DESECHAR = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.DesecharProductoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TXT_CABYS = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox1.SuspendLayout()
         Me.MNU_DESECHAR.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'BTN_VERIFICAR
@@ -67,7 +69,7 @@ Partial Class ProductoVerificacion
         Me.PB_CARGA.Location = New System.Drawing.Point(31, 72)
         Me.PB_CARGA.Name = "PB_CARGA"
         Me.PB_CARGA.Size = New System.Drawing.Size(354, 23)
-        Me.PB_CARGA.TabIndex = 8
+        Me.PB_CARGA.TabIndex = 1
         '
         'Label1
         '
@@ -75,7 +77,7 @@ Partial Class ProductoVerificacion
         Me.Label1.Location = New System.Drawing.Point(-1, 120)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(141, 13)
-        Me.Label1.TabIndex = 9
+        Me.Label1.TabIndex = 2
         Me.Label1.Text = "Total productos verificados :"
         '
         'LBL_PROD_VERIFICADOS
@@ -85,7 +87,7 @@ Partial Class ProductoVerificacion
         Me.LBL_PROD_VERIFICADOS.Location = New System.Drawing.Point(146, 120)
         Me.LBL_PROD_VERIFICADOS.Name = "LBL_PROD_VERIFICADOS"
         Me.LBL_PROD_VERIFICADOS.Size = New System.Drawing.Size(14, 13)
-        Me.LBL_PROD_VERIFICADOS.TabIndex = 10
+        Me.LBL_PROD_VERIFICADOS.TabIndex = 3
         Me.LBL_PROD_VERIFICADOS.Text = "0"
         '
         'GRID
@@ -105,7 +107,19 @@ Partial Class ProductoVerificacion
         Me.GRID.RowHeadersWidth = 51
         Me.GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.GRID.Size = New System.Drawing.Size(857, 216)
-        Me.GRID.TabIndex = 11
+        Me.GRID.TabIndex = 4
+        '
+        'MNU_DESECHAR
+        '
+        Me.MNU_DESECHAR.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DesecharProductoToolStripMenuItem})
+        Me.MNU_DESECHAR.Name = "MNU_DESECHAR"
+        Me.MNU_DESECHAR.Size = New System.Drawing.Size(175, 26)
+        '
+        'DesecharProductoToolStripMenuItem
+        '
+        Me.DesecharProductoToolStripMenuItem.Name = "DesecharProductoToolStripMenuItem"
+        Me.DesecharProductoToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.DesecharProductoToolStripMenuItem.Text = "Desechar producto"
         '
         'BTN_SALIR
         '
@@ -116,13 +130,15 @@ Partial Class ProductoVerificacion
         Me.BTN_SALIR.Location = New System.Drawing.Point(760, 356)
         Me.BTN_SALIR.Name = "BTN_SALIR"
         Me.BTN_SALIR.Size = New System.Drawing.Size(99, 43)
-        Me.BTN_SALIR.TabIndex = 15
+        Me.BTN_SALIR.TabIndex = 7
         Me.BTN_SALIR.Text = "Salir"
         Me.BTN_SALIR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_SALIR.UseVisualStyleBackColor = False
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.TXT_CABYS)
+        Me.GroupBox1.Controls.Add(Me.Label7)
         Me.GroupBox1.Controls.Add(Me.TXT_CEDULA)
         Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.BTN_INGRESAR)
@@ -137,26 +153,26 @@ Partial Class ProductoVerificacion
         Me.GroupBox1.Location = New System.Drawing.Point(429, 12)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(430, 118)
-        Me.GroupBox1.TabIndex = 16
+        Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "[ Información producto ]"
         '
         'TXT_CEDULA
         '
-        Me.TXT_CEDULA.Location = New System.Drawing.Point(81, 73)
+        Me.TXT_CEDULA.Location = New System.Drawing.Point(81, 70)
         Me.TXT_CEDULA.Name = "TXT_CEDULA"
         Me.TXT_CEDULA.ReadOnly = True
         Me.TXT_CEDULA.Size = New System.Drawing.Size(100, 20)
-        Me.TXT_CEDULA.TabIndex = 19
+        Me.TXT_CEDULA.TabIndex = 9
         '
         'Label6
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(29, 77)
+        Me.Label6.Location = New System.Drawing.Point(29, 74)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(54, 13)
-        Me.Label6.TabIndex = 18
+        Me.Label6.TabIndex = 8
         Me.Label6.Text = "Cédula :"
         '
         'BTN_INGRESAR
@@ -168,7 +184,7 @@ Partial Class ProductoVerificacion
         Me.BTN_INGRESAR.Location = New System.Drawing.Point(325, 69)
         Me.BTN_INGRESAR.Name = "BTN_INGRESAR"
         Me.BTN_INGRESAR.Size = New System.Drawing.Size(99, 45)
-        Me.BTN_INGRESAR.TabIndex = 17
+        Me.BTN_INGRESAR.TabIndex = 12
         Me.BTN_INGRESAR.Text = "Ingresar"
         Me.BTN_INGRESAR.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_INGRESAR.UseVisualStyleBackColor = False
@@ -179,7 +195,7 @@ Partial Class ProductoVerificacion
         Me.TXT_PU.Name = "TXT_PU"
         Me.TXT_PU.ReadOnly = True
         Me.TXT_PU.Size = New System.Drawing.Size(114, 20)
-        Me.TXT_PU.TabIndex = 7
+        Me.TXT_PU.TabIndex = 5
         '
         'Label5
         '
@@ -188,7 +204,7 @@ Partial Class ProductoVerificacion
         Me.Label5.Location = New System.Drawing.Point(272, 25)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(37, 13)
-        Me.Label5.TabIndex = 6
+        Me.Label5.TabIndex = 4
         Me.Label5.Text = "P/C :"
         '
         'TXT_TARIFA
@@ -197,7 +213,7 @@ Partial Class ProductoVerificacion
         Me.TXT_TARIFA.Name = "TXT_TARIFA"
         Me.TXT_TARIFA.ReadOnly = True
         Me.TXT_TARIFA.Size = New System.Drawing.Size(32, 20)
-        Me.TXT_TARIFA.TabIndex = 5
+        Me.TXT_TARIFA.TabIndex = 3
         '
         'Label4
         '
@@ -206,25 +222,25 @@ Partial Class ProductoVerificacion
         Me.Label4.Location = New System.Drawing.Point(186, 25)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(48, 13)
-        Me.Label4.TabIndex = 4
+        Me.Label4.TabIndex = 2
         Me.Label4.Text = "Tarifa :"
         '
         'TXT_DESCRIPCION
         '
-        Me.TXT_DESCRIPCION.Location = New System.Drawing.Point(81, 47)
+        Me.TXT_DESCRIPCION.Location = New System.Drawing.Point(81, 46)
         Me.TXT_DESCRIPCION.Name = "TXT_DESCRIPCION"
         Me.TXT_DESCRIPCION.ReadOnly = True
         Me.TXT_DESCRIPCION.Size = New System.Drawing.Size(343, 20)
-        Me.TXT_DESCRIPCION.TabIndex = 3
+        Me.TXT_DESCRIPCION.TabIndex = 7
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(2, 51)
+        Me.Label3.Location = New System.Drawing.Point(1, 50)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(82, 13)
-        Me.Label3.TabIndex = 2
+        Me.Label3.TabIndex = 6
         Me.Label3.Text = "Descripción :"
         '
         'TXT_CODIGO
@@ -250,20 +266,26 @@ Partial Class ProductoVerificacion
         Me.Filtro.Location = New System.Drawing.Point(2, 360)
         Me.Filtro.Name = "Filtro"
         Me.Filtro.Size = New System.Drawing.Size(306, 29)
-        Me.Filtro.TabIndex = 17
+        Me.Filtro.TabIndex = 5
         Me.Filtro.VALOR = ""
         '
-        'MNU_DESECHAR
+        'TXT_CABYS
         '
-        Me.MNU_DESECHAR.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DesecharProductoToolStripMenuItem})
-        Me.MNU_DESECHAR.Name = "MNU_DESECHAR"
-        Me.MNU_DESECHAR.Size = New System.Drawing.Size(181, 48)
+        Me.TXT_CABYS.Location = New System.Drawing.Point(81, 92)
+        Me.TXT_CABYS.Name = "TXT_CABYS"
+        Me.TXT_CABYS.ReadOnly = True
+        Me.TXT_CABYS.Size = New System.Drawing.Size(238, 20)
+        Me.TXT_CABYS.TabIndex = 11
         '
-        'DesecharProductoToolStripMenuItem
+        'Label7
         '
-        Me.DesecharProductoToolStripMenuItem.Name = "DesecharProductoToolStripMenuItem"
-        Me.DesecharProductoToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.DesecharProductoToolStripMenuItem.Text = "Desechar producto"
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(28, 96)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(55, 13)
+        Me.Label7.TabIndex = 10
+        Me.Label7.Text = "CABYS :"
         '
         'ProductoVerificacion
         '
@@ -285,9 +307,9 @@ Partial Class ProductoVerificacion
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Producto verificación"
         CType(Me.GRID, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MNU_DESECHAR.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        Me.MNU_DESECHAR.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -314,4 +336,6 @@ Partial Class ProductoVerificacion
     Friend WithEvents Filtro As Filtro
     Friend WithEvents MNU_DESECHAR As ContextMenuStrip
     Friend WithEvents DesecharProductoToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TXT_CABYS As TextBox
+    Friend WithEvents Label7 As Label
 End Class

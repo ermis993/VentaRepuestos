@@ -122,6 +122,7 @@ Partial Class Factura
         Me.Label25 = New System.Windows.Forms.Label()
         Me.TXT_E = New System.Windows.Forms.TextBox()
         Me.Label36 = New System.Windows.Forms.Label()
+        Me.BTN_BUSCAR = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.TAB_ENC.SuspendLayout()
         Me.TAB_DET.SuspendLayout()
@@ -312,6 +313,7 @@ Partial Class Factura
         '
         'TAB_DET
         '
+        Me.TAB_DET.Controls.Add(Me.BTN_BUSCAR)
         Me.TAB_DET.Controls.Add(Me.TXT_EXONERACION)
         Me.TAB_DET.Controls.Add(Me.Label34)
         Me.TAB_DET.Controls.Add(Me.TXT_FILA)
@@ -613,7 +615,7 @@ Partial Class Factura
         Me.TXT_CODIGO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!)
         Me.TXT_CODIGO.Location = New System.Drawing.Point(132, 13)
         Me.TXT_CODIGO.Name = "TXT_CODIGO"
-        Me.TXT_CODIGO.Size = New System.Drawing.Size(378, 24)
+        Me.TXT_CODIGO.Size = New System.Drawing.Size(346, 24)
         Me.TXT_CODIGO.TabIndex = 1
         '
         'TXT_IMPUESTO
@@ -1311,6 +1313,15 @@ Partial Class Factura
         Me.Label36.TabIndex = 6
         Me.Label36.Text = "Exoneración :"
         '
+        'BTN_BUSCAR
+        '
+        Me.BTN_BUSCAR.Image = Global.VentaRepuestos.My.Resources.Resources.filtrar
+        Me.BTN_BUSCAR.Location = New System.Drawing.Point(484, 12)
+        Me.BTN_BUSCAR.Name = "BTN_BUSCAR"
+        Me.BTN_BUSCAR.Size = New System.Drawing.Size(26, 28)
+        Me.BTN_BUSCAR.TabIndex = 39
+        Me.BTN_BUSCAR.UseVisualStyleBackColor = True
+        '
         'Factura
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1460,4 +1471,5 @@ Partial Class Factura
     Friend WithEvents BTN_IMPRIMIR As Button
     Friend WithEvents Label41 As Label
     Friend WithEvents BTN_MANIFIESTO As Button
+    Friend WithEvents BTN_BUSCAR As Button
 End Class

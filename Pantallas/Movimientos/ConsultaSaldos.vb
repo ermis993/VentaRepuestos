@@ -2,6 +2,14 @@
 Imports VentaRepuestos.Globales
 Public Class ConsultaSaldos
 
+    Dim padre As Object
+    Dim codigo As String
+
+    Sub New(Optional padre As Object = Nothing)
+        InitializeComponent()
+        Me.padre = padre
+    End Sub
+
     Private Sub BTN_SALIR_Click(sender As Object, e As EventArgs) Handles BTN_SALIR.Click
         Me.Close()
     End Sub
@@ -54,7 +62,7 @@ Public Class ConsultaSaldos
                 Sql &= Chr(13) & "	    AND DET.COLUMNA = UBI.COLUMNA	"
                 Sql &= Chr(13) & "	WHERE P.COD_CIA = " & SCM(COD_CIA)
                 Sql &= Chr(13) & "	AND P.COD_SUCUR = " & SCM(COD_SUCUR)
-                Sql &= Chr(13) & "	AND (P.DESCRIPCION LIKE " & SCM("%" + TXT_BUSCADOR.Text + "%") & " Or P.COD_PROD = " & SCM(TXT_BUSCADOR.Text) & " Or P.COD_BARRA = " & SCM(TXT_BUSCADOR.Text) & ")"
+                Sql &= Chr(13) & BuscadorProducto(TXT_BUSCADOR.Text)
                 Sql &= Chr(13) & "	AND P.ESTADO = 'A'"
                 Sql &= Chr(13) & "  GROUP BY P.COD_PROD, P.DESCRIPCION, (PRECIO + ((PRECIO*POR_IMPUESTO) / 100)), (PRECIO_2 + ((PRECIO_2*POR_IMPUESTO) / 100)), (PRECIO_3 + ((PRECIO_3*POR_IMPUESTO) / 100))"
                 Sql &= Chr(13) & " ,ISNULL('E: ' + UBI.ESTANTE + ' F: ' + UBI.FILA + ' C: ' + UBI.COLUMNA, 'E: 1 F: 1 C: 1')"
@@ -81,4 +89,22 @@ Public Class ConsultaSaldos
         End Try
     End Sub
 
+    Private Sub GRID_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GRID.CellDoubleClick
+        If Not IsNothing(padre) Then
+            Leer_indice()
+            padre.EnvioCodigoConsultaSaldos(codigo)
+            Me.Close()
+        End If
+    End Sub
+
+    Private Sub Leer_indice()
+        Try
+            If Me.GRID.Rows.Count > 0 Then
+                Dim seleccionado = GRID.Rows(GRID.SelectedRows(0).Index)
+                Codigo = seleccionado.Cells(0).Value.ToString
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
 End Class

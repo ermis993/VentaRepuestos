@@ -411,6 +411,10 @@ Public Class DocumentoElectronicoImp
 
                         For Each NODO_DET As XmlNode In NODOS
 
+                            If NODO_DET.Name.ToString.Equals("Codigo") Then
+                                ROW("CABYS") = NODOS.Item("Codigo").InnerXml
+                            End If
+
                             If (NODO_DET.Name.ToString.Equals("CodigoComercial")) Then
 
                                 If CheckElement(NODO_DET, "Tipo") Then
@@ -591,6 +595,7 @@ Public Class DocumentoElectronicoImp
         DS_DET.Columns.Add("PORCENTAJE_EXO", GetType(Integer))
         DS_DET.Columns.Add("MONTO_EXO", GetType(Decimal))
         DS_DET.Columns.Add("MONTO_TOTAL_LINEA", GetType(Decimal))
+        DS_DET.Columns.Add("CABYS", GetType(String))
 
         Dim primaryKey(1) As DataColumn
         primaryKey(0) = DS_DET.Columns("CLAVE")

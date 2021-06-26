@@ -7,7 +7,7 @@ Public Class ProductoMant
     Dim PADRE As Object
     Dim COD_PROD As String
 
-    Sub New(ByVal MODO As CRF_Modos, ByVal PADRE As Object, Optional COD_PROD As String = "", Optional DESCRIPCION As String = "", Optional TARIFA As Integer = 0, Optional PRECIO_COSTO As Decimal = 0.0, Optional CEDULA As String = "")
+    Sub New(ByVal MODO As CRF_Modos, ByVal PADRE As Object, Optional COD_PROD As String = "", Optional DESCRIPCION As String = "", Optional TARIFA As Integer = 0, Optional PRECIO_COSTO As Decimal = 0.0, Optional CEDULA As String = "", Optional CABYS As String = "")
         InitializeComponent()
 
         Me.MODO = MODO
@@ -40,6 +40,7 @@ Public Class ProductoMant
         ElseIf Me.MODO = CRF_Modos.Insertar Then
             TXT_CODIGO.Select()
         Else
+            TXT_COD_CABYS.Text = CABYS
             TXT_CODIGO.Text = COD_PROD
             TXT_DESC.Text = DESCRIPCION
             CMB_UNIDADES.SelectedValue = "Unid"

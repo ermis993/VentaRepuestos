@@ -18,15 +18,15 @@ Public Class ProductoVerificacion
     Private Sub FORMATO_GRID()
         GRID.ColumnCount = 6
         GRID.Columns(0).HeaderText = "Código"
-        GRID.Columns(0).Name = "CODIGO"
+        GRID.Columns(0).Name = "PROD_E.CODIGO"
         GRID.Columns(1).HeaderText = "Descripción"
         GRID.Columns(1).Name = "DETALLE"
         GRID.Columns(2).HeaderText = "Costo"
         GRID.Columns(2).Name = "PRECIO_COSTO"
         GRID.Columns(3).HeaderText = "Tarifa"
-        GRID.Columns(3).Name = "TARIFA"
+        GRID.Columns(3).Name = "PROD_E.TARIFA"
         GRID.Columns(4).HeaderText = "Proveedor"
-        GRID.Columns(4).Name = "CEDULA"
+        GRID.Columns(4).Name = "ENC.CEDULA"
         GRID.Columns(5).HeaderText = "Código CABYS"
         GRID.Columns(5).Name = "CABYS"
         Filtro.FILTRO_CARGAR_COMBO(GRID)

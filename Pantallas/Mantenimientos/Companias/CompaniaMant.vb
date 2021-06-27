@@ -198,9 +198,11 @@ Public Class LBL_CANTON
                 OPD_Llave.InitialDirectory = "C:\"
                 OPD_Llave.ShowDialog()
                 If File.Exists(RUTA) Then
-                    CERTIFICADO = Bytes(RUTA)
-                    LBL_ESTADO.Text = "Pendiente"
-                    LBL_ESTADO.ForeColor = Color.Red
+                    'CERTIFICADO = Bytes(RUTA)
+                    If Bytes(RUTA) Then
+                        LBL_ESTADO.Text = "Pendiente"
+                        LBL_ESTADO.ForeColor = Color.Red
+                    End If
                 End If
             End If
         Catch ex As Exception
@@ -221,12 +223,35 @@ Public Class LBL_CANTON
             MessageBox.Show(ex.Message)
         End Try
     End Sub
-    Private Function Bytes(ByVal PATH As String) As String
+    Private Function Bytes(ByVal PATH As String) As Boolean
         Try
-            Dim cert = New X509Certificate2(PATH, TXT_PIN.Text, X509KeyStorageFlags.Exportable)
-            Dim CertificadoConPin = Convert.ToBase64String(cert.Export(X509ContentType.Pkcs12))
+            'Dim cert = New X509Certificate2(PATH, TXT_PIN.Text, X509KeyStorageFlags.Exportable)
+            'Dim CertificadoConPin = Convert.ToBase64String(cert.Export(X509ContentType.Pkcs12))
 
-            Return CertificadoConPin
+            'Return CertificadoConPin
+            Dim CERT As X509Certificate2
+            Dim STORE As X509Store
+
+            CERT = New X509Certificate2(PATH, TXT_PIN.Text, X509KeyStorageFlags.PersistKeySet)
+
+            STORE = New X509Store(StoreName.My, StoreLocation.LocalMachine)
+            STORE.Open(OpenFlags.MaxAllowed)
+            For Each CERT_INSTA As X509Certificate2 In STORE.Certificates
+                If CERT_INSTA.Thumbprint = CERT.Thumbprint Then
+                    STORE.Remove(CERT_INSTA)
+                End If
+            Next
+
+            STORE.Add(CERT)
+            STORE.Close()
+
+            Dim SQL_UPDATE = "UPDATE COMPANIA SET SUBJECT_CERT = " & SCM(CERT.Subject) & ", FECHA_INSTALACION = GETDATE(), PIN_ERRONEO = 'N', HUELLA = " & SCM(CERT.Thumbprint) & ", FECHA_EXPIRA = " & SCM(YMD(CERT.GetExpirationDateString)) & " WHERE COD_CIA = " & SCM(COD_CIA)
+            CONX.Coneccion_Abrir()
+            CONX.EJECUTE(SQL_UPDATE)
+            CONX.Coneccion_Cerrar()
+
+            Return True
+
         Catch ex As Exception
             If ex.Message.Contains("La contraseña de red especificada no es válida") Then
                 MessageBox.Show("El pin ingresado para la llave criptográfica seleccionada es incorrecto", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -234,7 +259,7 @@ Public Class LBL_CANTON
                 MessageBox.Show(ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
 
-            Return Nothing
+            Return False
         End Try
     End Function
     Private Sub GUARDAR_CERTIFICADO()

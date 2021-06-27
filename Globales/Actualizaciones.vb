@@ -5751,86 +5751,113 @@ Public Class Actualizaciones
 #Region "Derechos"
     Private Sub PROCESAR_DERECHOS()
         Try
+            If Not EXISTE_DERECHO("DCIA") Then
+                CREAR_DERECHO("DCIA", "Derecho al mantenimiento de compañías")
+            End If
+
+            If Not EXISTE_DERECHO("DSUC") Then
+                CREAR_DERECHO("DSUC", "Derecho al mantenimiento de sucursales")
+            End If
+
+            If Not EXISTE_DERECHO("DUSU") Then
+                CREAR_DERECHO("DUSU", "Derecho al mantenimiento de usuarios")
+            End If
+
+            If Not EXISTE_DERECHO("DCLI") Then
+                CREAR_DERECHO("DCLI", "Derecho al mantenimiento de clientes")
+            End If
+
+            If Not EXISTE_DERECHO("DPROV") Then
+                CREAR_DERECHO("DPROV", "Derecho al mantenimiento de proveedores")
+            End If
+
+            If Not EXISTE_DERECHO("DFAM") Then
+                CREAR_DERECHO("DFAM", "Derecho al mantenimiento de familias")
+            End If
+
+            If Not EXISTE_DERECHO("DPROD") Then
+                CREAR_DERECHO("DPROD", "Derecho al mantenimiento de productos")
+            End If
+
+            If Not EXISTE_DERECHO("DVEN") Then
+                CREAR_DERECHO("DVEN", "Derecho a realizar ventas")
+
+            End If
+
+            If Not EXISTE_DERECHO("DCOMP") Then
+                CREAR_DERECHO("DCOMP", "Derecho a realizar compras")
+            End If
+
+            If Not EXISTE_DERECHO("DBACK") Then
+                CREAR_DERECHO("DBACK", "Derecho a realizar Backups")
+            End If
+
+            If Not EXISTE_DERECHO("DREPT") Then
+                CREAR_DERECHO("DREPT", "Derecho a realizar reportes")
+            End If
+
+            If Not EXISTE_DERECHO("DENC") Then
+                CREAR_DERECHO("DENC", "Derecho al mantenimiento de encomiendas")
+            End If
+
+            If Not EXISTE_DERECHO("DCONS") Then
+                CREAR_DERECHO("DCONS", "Derecho a realizar consultas de productos")
+            End If
+
+            If Not EXISTE_DERECHO("DXML") Then
+                CREAR_DERECHO("DXML", "Derecho a importar XMLs")
+            End If
+
+            If Not EXISTE_DERECHO("DINV") Then
+                CREAR_DERECHO("DINV", "Derecho a la pantalla de inventario")
+            End If
+
+            If Not EXISTE_DERECHO("DBITA") Then
+                CREAR_DERECHO("DBITA", "Derecho a realizar consultas de bitácoras")
+            End If
+
+            If Not EXISTE_DERECHO("APART") Then
+                CREAR_DERECHO("APART", "Derecho a anular documentos")
+            End If
+
+            If Not EXISTE_DERECHO("DAPAR") Then
+                CREAR_DERECHO("DAPAR", "Derecho a realizar apartados")
+            End If
+
+            If Not EXISTE_DERECHO("DINRUTA") Then
+                CREAR_DERECHO("DINRUTA", "Derecho al mantenimiento de rutas de encomienda")
+            End If
+
+            If Not EXISTE_DERECHO("DINVAJ") Then
+                CREAR_DERECHO("DINVAJ", "Derecho a realizar ajustes de inventario")
+            End If
+
+            If Not EXISTE_DERECHO("DINVTR") Then
+                CREAR_DERECHO("DINVTR", "Derecho a revisar el tracking de inventario para un producto")
+            End If
+
+            If Not EXISTE_DERECHO("DPROFOR") Then
+                CREAR_DERECHO("DPROFOR", "Derecho a realizar proformas")
+            End If
+
+            If Not EXISTE_DERECHO("DRIMPETI") Then
+                CREAR_DERECHO("DRIMPETI", "Derecho a reimprimir etiquetas de encomiendas")
+            End If
+
+            If Not EXISTE_DERECHO("FECREP") Then
+                CREAR_DERECHO("FECREP", "Derecho a modificar las fechas de los reportes")
+            End If
+
+            If Not EXISTE_DERECHO("VFACTS") Then
+                CREAR_DERECHO("VFACTS", "Derecho a realizar facturas y notas de débito")
+            End If
+
+            If Not EXISTE_DERECHO("VREB") Then
+                CREAR_DERECHO("VREB", "Derecho a realizar recibos y notas de crédito")
+            End If
+
             If Not EXISTE_DERECHO("DRFACDOC") Then
                 CREAR_DERECHO("DRFACDOC", "Derecho a facturar documento por cobrar")
-                If Not EXISTE_DERECHO("VREB") Then
-                    CREAR_DERECHO("VREB", "Derecho a realizar recibos y notas de crédito")
-                    If Not EXISTE_DERECHO("VFACTS") Then
-                        CREAR_DERECHO("VFACTS", "Derecho a realizar facturas y notas de débito")
-                        If Not EXISTE_DERECHO("FECREP") Then
-                            CREAR_DERECHO("FECREP", "Derecho a modificar las fechas de los reportes")
-                            If Not EXISTE_DERECHO("DRIMPETI") Then
-                                CREAR_DERECHO("DRIMPETI", "Derecho a reimprimir etiquetas de encomiendas")
-                                If Not EXISTE_DERECHO("DPROFOR") Then
-                                    CREAR_DERECHO("DPROFOR", "Derecho a realizar proformas")
-                                    If Not EXISTE_DERECHO("DINVTR") Then
-                                        CREAR_DERECHO("DINVTR", "Derecho a revisar el tracking de inventario para un producto")
-                                        If Not EXISTE_DERECHO("DINVAJ") Then
-                                            CREAR_DERECHO("DINVAJ", "Derecho a realizar ajustes de inventario")
-                                            If Not EXISTE_DERECHO("DINRUTA") Then
-                                                CREAR_DERECHO("DINRUTA", "Derecho al mantenimiento de rutas de encomienda")
-                                                If Not EXISTE_DERECHO("DAPAR") Then
-                                                    CREAR_DERECHO("DAPAR", "Derecho a realizar apartados")
-                                                    If Not EXISTE_DERECHO("APART") Then
-                                                        CREAR_DERECHO("APART", "Derecho a anular documentos")
-                                                        If Not EXISTE_DERECHO("DBITA") Then
-                                                            CREAR_DERECHO("DBITA", "Derecho a realizar consultas de bitácoras")
-                                                            If Not EXISTE_DERECHO("DINV") Then
-                                                                CREAR_DERECHO("DINV", "Derecho a la pantalla de inventario")
-                                                                If Not EXISTE_DERECHO("DXML") Then
-                                                                    CREAR_DERECHO("DXML", "Derecho a importar XMLs")
-                                                                    If Not EXISTE_DERECHO("DCONS") Then
-                                                                        CREAR_DERECHO("DCONS", "Derecho a realizar consultas de productos")
-                                                                        If Not EXISTE_DERECHO("DENC") Then
-                                                                            CREAR_DERECHO("DENC", "Derecho al mantenimiento de encomiendas")
-                                                                            If Not EXISTE_DERECHO("DREPT") Then
-                                                                                CREAR_DERECHO("DREPT", "Derecho a realizar reportes")
-                                                                                If Not EXISTE_DERECHO("DBACK") Then
-                                                                                    CREAR_DERECHO("DBACK", "Derecho a realizar Backups")
-                                                                                    If Not EXISTE_DERECHO("DCOMP") Then
-                                                                                        CREAR_DERECHO("DCOMP", "Derecho a realizar compras")
-                                                                                        If Not EXISTE_DERECHO("DVEN") Then
-                                                                                            CREAR_DERECHO("DVEN", "Derecho a realizar ventas")
-                                                                                            If Not EXISTE_DERECHO("DPROD") Then
-                                                                                                CREAR_DERECHO("DPROD", "Derecho al mantenimiento de productos")
-                                                                                                If Not EXISTE_DERECHO("DFAM") Then
-                                                                                                    CREAR_DERECHO("DFAM", "Derecho al mantenimiento de familias")
-                                                                                                    If Not EXISTE_DERECHO("DPROV") Then
-                                                                                                        CREAR_DERECHO("DPROV", "Derecho al mantenimiento de proveedores")
-                                                                                                        If Not EXISTE_DERECHO("DCLI") Then
-                                                                                                            CREAR_DERECHO("DCLI", "Derecho al mantenimiento de clientes")
-                                                                                                            If Not EXISTE_DERECHO("DUSU") Then
-                                                                                                                CREAR_DERECHO("DUSU", "Derecho al mantenimiento de usuarios")
-                                                                                                                If Not EXISTE_DERECHO("DSUC") Then
-                                                                                                                    CREAR_DERECHO("DSUC", "Derecho al mantenimiento de sucursales")
-                                                                                                                    If Not EXISTE_DERECHO("DCIA") Then
-                                                                                                                        CREAR_DERECHO("DCIA", "Derecho al mantenimiento de compañías")
-                                                                                                                    End If
-                                                                                                                End If
-                                                                                                            End If
-                                                                                                        End If
-                                                                                                    End If
-                                                                                                End If
-                                                                                            End If
-                                                                                        End If
-                                                                                    End If
-                                                                                End If
-                                                                            End If
-                                                                        End If
-                                                                    End If
-                                                                End If
-                                                            End If
-                                                        End If
-                                                    End If
-                                                End If
-                                            End If
-                                        End If
-                                    End If
-                                End If
-                            End If
-                        End If
-                    End If
-                End If
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)

@@ -301,7 +301,7 @@ Public Class DocumentoElectronicoCorreo
                 Dim valor = MessageBox.Show(Me, mensaje, "Lectura correo", vbYesNo, MessageBoxIcon.Question)
                 If valor = DialogResult.Yes Then
 
-                    Dim PANTALLA As New DocumentoElectronicoImp(True, CLAVE_USAR)
+                    Dim PANTALLA As New DocumentoElectronicoImp(True, CLAVE_USAR, True)
                     AddHandler PANTALLA.FormClosed, AddressOf Pantalla_Cerrada
                     PANTALLA.ShowDialog()
 

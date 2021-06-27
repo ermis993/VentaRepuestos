@@ -5,14 +5,16 @@ Imports VentaRepuestos.Globales
 
 Public Class DocumentoElectronicoImp
     Dim XML_CARGADO As Boolean = False
+    Dim CERRAR_PANTALLA As Boolean = False
     Dim LEER_XML As Boolean = False
     Dim CEDULA_CIA As String
     Dim CLAVE_USAR As String, XML_USAR As String
 
-    Sub New(ByVal Optional LecturaXML As Boolean = False, ByVal Optional Clave_Usar As String = "")
+    Sub New(ByVal Optional LecturaXML As Boolean = False, ByVal Optional Clave_Usar As String = "", ByVal Optional Cerrar_Pantallas As Boolean = False)
         InitializeComponent()
         Me.LEER_XML = LecturaXML
         Me.CLAVE_USAR = Clave_Usar
+        Me.CERRAR_PANTALLA = Cerrar_Pantallas
     End Sub
 
     Private Sub DocumentosElectronicos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -451,7 +453,8 @@ Public Class DocumentoElectronicoImp
                                 End If
 
                                 If CheckElement(NODO_DET, "Tarifa") Then
-                                    ROW("TARIFA") = Mid(NODO_DET.Item("Tarifa").InnerXml, 1, 2)
+                                    ' ROW("TARIFA") = Mid(NODO_DET.Item("Tarifa").InnerXml, 1, 2)
+                                    ROW("TARIFA") = Val(NODO_DET.Item("Tarifa").InnerXml)
                                 End If
 
                                 If CheckElement(NODO_DET, "Monto") Then
@@ -723,6 +726,10 @@ Public Class DocumentoElectronicoImp
                             PROCESO_MOVIMIENTO_DE_INVENTARIO()
                         Else
                             LIMPIAR()
+                        End If
+
+                        If CERRAR_PANTALLA Then
+                            Me.Close()
                         End If
                     End If
                 End If
